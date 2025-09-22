@@ -1,0 +1,12 @@
+{
+  "": {
+    "swift-dependencies": "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/FlirrtShare.build/master.swiftdeps"
+  },
+  "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/FlirrtShare/ShareViewController.swift": {
+    "dependencies": "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/FlirrtShare.build/ShareViewController.d",
+    "object": "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/FlirrtShare.build/ShareViewController.swift.o",
+    "swiftmodule": "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/FlirrtShare.build/ShareViewController~partial.swiftmodule",
+    "swift-dependencies": "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/FlirrtShare.build/ShareViewController.swiftdeps",
+    "diagnostics": "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/FlirrtShare.build/ShareViewController.dia"
+  }
+}

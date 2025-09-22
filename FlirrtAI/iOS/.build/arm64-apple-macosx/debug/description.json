@@ -1,0 +1,2009 @@
+{
+  "builtTestProducts" : [
+
+  ],
+  "copyCommands" : {
+    "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire_Alamofire.bundle/PrivacyInfo.xcprivacy" : {
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/PrivacyInfo.xcprivacy"
+        }
+      ],
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire_Alamofire.bundle/PrivacyInfo.xcprivacy"
+        }
+      ]
+    }
+  },
+  "explicitTargetDependencyImportCheckingMode" : {
+    "none" : {
+
+    }
+  },
+  "generatedSourceTargetSet" : [
+
+  ],
+  "pluginDescriptions" : [
+
+  ],
+  "swiftCommands" : {
+    "C.Alamofire-arm64-apple-macosx26.0-debug.module" : {
+      "executable" : "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "fileList" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/sources",
+      "importPath" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Alamofire.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Core/AFError.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Core/DataRequest.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Core/DataStreamRequest.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Core/DownloadRequest.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Core/HTTPHeaders.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Core/HTTPMethod.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Core/Notifications.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Core/ParameterEncoder.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Core/ParameterEncoding.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Core/Protected.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Core/Request.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Core/RequestTaskMap.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Core/Response.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Core/Session.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Core/SessionDelegate.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Core/URLConvertible+URLRequestConvertible.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Core/UploadRequest.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Core/WebSocketRequest.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Extensions/DispatchQueue+Alamofire.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Extensions/OperationQueue+Alamofire.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Extensions/Result+Alamofire.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Extensions/StringEncoding+Alamofire.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Extensions/URLRequest+Alamofire.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Extensions/URLSessionConfiguration+Alamofire.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Features/AlamofireExtended.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Features/AuthenticationInterceptor.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Features/CachedResponseHandler.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Features/Combine.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Features/Concurrency.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Features/EventMonitor.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Features/MultipartFormData.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Features/MultipartUpload.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Features/NetworkReachabilityManager.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Features/RedirectHandler.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Features/RequestCompression.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Features/RequestInterceptor.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Features/ResponseSerialization.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Features/RetryPolicy.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Features/ServerTrustEvaluation.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Features/URLEncodedFormEncoder.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Features/Validation.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/DerivedSources/resource_bundle_accessor.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt"
+        },
+        {
+          "kind" : "virtual",
+          "name" : "<Alamofire-arm64-apple-macosx26.0-debug.module-resources>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/sources"
+        }
+      ],
+      "isLibrary" : true,
+      "moduleName" : "Alamofire",
+      "moduleOutputPath" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Modules/Alamofire.swiftmodule",
+      "objects" : [
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/Alamofire.swift.o",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/AFError.swift.o",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/DataRequest.swift.o",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/DataStreamRequest.swift.o",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/DownloadRequest.swift.o",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/HTTPHeaders.swift.o",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/HTTPMethod.swift.o",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/Notifications.swift.o",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/ParameterEncoder.swift.o",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/ParameterEncoding.swift.o",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/Protected.swift.o",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/Request.swift.o",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/RequestTaskMap.swift.o",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/Response.swift.o",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/Session.swift.o",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/SessionDelegate.swift.o",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/URLConvertible+URLRequestConvertible.swift.o",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/UploadRequest.swift.o",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/WebSocketRequest.swift.o",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/DispatchQueue+Alamofire.swift.o",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/OperationQueue+Alamofire.swift.o",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/Result+Alamofire.swift.o",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/StringEncoding+Alamofire.swift.o",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/URLRequest+Alamofire.swift.o",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/URLSessionConfiguration+Alamofire.swift.o",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/AlamofireExtended.swift.o",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/AuthenticationInterceptor.swift.o",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/CachedResponseHandler.swift.o",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/Combine.swift.o",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/Concurrency.swift.o",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/EventMonitor.swift.o",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/MultipartFormData.swift.o",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/MultipartUpload.swift.o",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/NetworkReachabilityManager.swift.o",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/RedirectHandler.swift.o",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/RequestCompression.swift.o",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/RequestInterceptor.swift.o",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/ResponseSerialization.swift.o",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/RetryPolicy.swift.o",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/ServerTrustEvaluation.swift.o",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/URLEncodedFormEncoder.swift.o",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/Validation.swift.o",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/resource_bundle_accessor.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "arm64-apple-macosx10.13",
+        "-incremental",
+        "-enable-batch-mode",
+        "-serialize-diagnostics",
+        "-index-store-path",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/index/store",
+        "-Onone",
+        "-enable-testing",
+        "-j8",
+        "-DSWIFT_PACKAGE",
+        "-DDEBUG",
+        "-DSWIFT_MODULE_RESOURCE_BUNDLE_AVAILABLE",
+        "-module-cache-path",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/ModuleCache",
+        "-parseable-output",
+        "-parse-as-library",
+        "-emit-objc-header",
+        "-emit-objc-header-path",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/include/Alamofire-Swift.h",
+        "-swift-version",
+        "5",
+        "-enable-upcoming-feature",
+        "ExistentialAny",
+        "-plugin-path",
+        "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+        "-sdk",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.0.sdk",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-I",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-L",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-g",
+        "-Xcc",
+        "-isysroot",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.0.sdk",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-suppress-warnings",
+        "-user-module-version",
+        "5.10.2",
+        "-package-name",
+        "alamofire"
+      ],
+      "outputFileMapPath" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/Alamofire.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/AFError.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/DataRequest.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/DataStreamRequest.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/DownloadRequest.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/HTTPHeaders.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/HTTPMethod.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/Notifications.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/ParameterEncoder.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/ParameterEncoding.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/Protected.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/Request.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/RequestTaskMap.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/Response.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/Session.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/SessionDelegate.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/URLConvertible+URLRequestConvertible.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/UploadRequest.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/WebSocketRequest.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/DispatchQueue+Alamofire.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/OperationQueue+Alamofire.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/Result+Alamofire.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/StringEncoding+Alamofire.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/URLRequest+Alamofire.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/URLSessionConfiguration+Alamofire.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/AlamofireExtended.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/AuthenticationInterceptor.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/CachedResponseHandler.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/Combine.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/Concurrency.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/EventMonitor.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/MultipartFormData.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/MultipartUpload.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/NetworkReachabilityManager.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/RedirectHandler.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/RequestCompression.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/RequestInterceptor.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/ResponseSerialization.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/RetryPolicy.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/ServerTrustEvaluation.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/URLEncodedFormEncoder.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/Validation.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/resource_bundle_accessor.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Modules/Alamofire.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Alamofire.swift",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Core/AFError.swift",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Core/DataRequest.swift",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Core/DataStreamRequest.swift",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Core/DownloadRequest.swift",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Core/HTTPHeaders.swift",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Core/HTTPMethod.swift",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Core/Notifications.swift",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Core/ParameterEncoder.swift",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Core/ParameterEncoding.swift",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Core/Protected.swift",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Core/Request.swift",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Core/RequestTaskMap.swift",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Core/Response.swift",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Core/Session.swift",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Core/SessionDelegate.swift",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Core/URLConvertible+URLRequestConvertible.swift",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Core/UploadRequest.swift",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Core/WebSocketRequest.swift",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Extensions/DispatchQueue+Alamofire.swift",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Extensions/OperationQueue+Alamofire.swift",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Extensions/Result+Alamofire.swift",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Extensions/StringEncoding+Alamofire.swift",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Extensions/URLRequest+Alamofire.swift",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Extensions/URLSessionConfiguration+Alamofire.swift",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Features/AlamofireExtended.swift",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Features/AuthenticationInterceptor.swift",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Features/CachedResponseHandler.swift",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Features/Combine.swift",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Features/Concurrency.swift",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Features/EventMonitor.swift",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Features/MultipartFormData.swift",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Features/MultipartUpload.swift",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Features/NetworkReachabilityManager.swift",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Features/RedirectHandler.swift",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Features/RequestCompression.swift",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Features/RequestInterceptor.swift",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Features/ResponseSerialization.swift",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Features/RetryPolicy.swift",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Features/ServerTrustEvaluation.swift",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Features/URLEncodedFormEncoder.swift",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Features/Validation.swift",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/DerivedSources/resource_bundle_accessor.swift"
+      ],
+      "tempsPath" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build",
+      "wholeModuleOptimization" : false
+    },
+    "C.Flirrt-arm64-apple-macosx26.0-debug.module" : {
+      "executable" : "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "fileList" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Flirrt.build/sources",
+      "importPath" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/Flirrt/App/FlirrtApp.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/Flirrt/Models/VoiceModels.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/Flirrt/Services/APIClient.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/Flirrt/Services/AuthManager.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/Flirrt/Services/SharedDataManager.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/Flirrt/Services/VoiceRecordingManager.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/Flirrt/Views/AppCoordinator.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/Flirrt/Views/ContentView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/Flirrt/Views/LegacyContentView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/Flirrt/Views/LoginView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/Flirrt/Views/MainTabView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/Flirrt/Views/OnboardingView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/Flirrt/Views/PersonalizationQuestionnaireView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/Flirrt/Views/SettingsView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/Flirrt/Views/VoiceRecordingView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Modules/Alamofire.swiftmodule"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Modules/KeychainAccess.swiftmodule"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Flirrt.build/sources"
+        }
+      ],
+      "isLibrary" : true,
+      "moduleName" : "Flirrt",
+      "moduleOutputPath" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Modules/Flirrt.swiftmodule",
+      "objects" : [
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Flirrt.build/FlirrtApp.swift.o",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Flirrt.build/VoiceModels.swift.o",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Flirrt.build/APIClient.swift.o",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Flirrt.build/AuthManager.swift.o",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Flirrt.build/SharedDataManager.swift.o",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Flirrt.build/VoiceRecordingManager.swift.o",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Flirrt.build/AppCoordinator.swift.o",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Flirrt.build/ContentView.swift.o",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Flirrt.build/LegacyContentView.swift.o",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Flirrt.build/LoginView.swift.o",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Flirrt.build/MainTabView.swift.o",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Flirrt.build/OnboardingView.swift.o",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Flirrt.build/PersonalizationQuestionnaireView.swift.o",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Flirrt.build/SettingsView.swift.o",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Flirrt.build/VoiceRecordingView.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "arm64-apple-macosx10.13",
+        "-incremental",
+        "-enable-batch-mode",
+        "-serialize-diagnostics",
+        "-index-store-path",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/index/store",
+        "-Onone",
+        "-enable-testing",
+        "-j8",
+        "-DSWIFT_PACKAGE",
+        "-DDEBUG",
+        "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+        "-module-cache-path",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/ModuleCache",
+        "-parseable-output",
+        "-parse-as-library",
+        "-emit-objc-header",
+        "-emit-objc-header-path",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Flirrt.build/include/Flirrt-Swift.h",
+        "-swift-version",
+        "5",
+        "-plugin-path",
+        "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+        "-sdk",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.0.sdk",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-I",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-L",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-g",
+        "-Xcc",
+        "-isysroot",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.0.sdk",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-package-name",
+        "ios"
+      ],
+      "outputFileMapPath" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Flirrt.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Flirrt.build/FlirrtApp.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Flirrt.build/VoiceModels.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Flirrt.build/APIClient.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Flirrt.build/AuthManager.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Flirrt.build/SharedDataManager.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Flirrt.build/VoiceRecordingManager.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Flirrt.build/AppCoordinator.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Flirrt.build/ContentView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Flirrt.build/LegacyContentView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Flirrt.build/LoginView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Flirrt.build/MainTabView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Flirrt.build/OnboardingView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Flirrt.build/PersonalizationQuestionnaireView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Flirrt.build/SettingsView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Flirrt.build/VoiceRecordingView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Modules/Flirrt.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/Flirrt/App/FlirrtApp.swift",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/Flirrt/Models/VoiceModels.swift",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/Flirrt/Services/APIClient.swift",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/Flirrt/Services/AuthManager.swift",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/Flirrt/Services/SharedDataManager.swift",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/Flirrt/Services/VoiceRecordingManager.swift",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/Flirrt/Views/AppCoordinator.swift",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/Flirrt/Views/ContentView.swift",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/Flirrt/Views/LegacyContentView.swift",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/Flirrt/Views/LoginView.swift",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/Flirrt/Views/MainTabView.swift",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/Flirrt/Views/OnboardingView.swift",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/Flirrt/Views/PersonalizationQuestionnaireView.swift",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/Flirrt/Views/SettingsView.swift",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/Flirrt/Views/VoiceRecordingView.swift"
+      ],
+      "tempsPath" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Flirrt.build",
+      "wholeModuleOptimization" : false
+    },
+    "C.FlirrtKeyboard-arm64-apple-macosx26.0-debug.module" : {
+      "executable" : "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "fileList" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/FlirrtKeyboard.build/sources",
+      "importPath" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/FlirrtKeyboard/KeyboardViewController.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/FlirrtKeyboard.build/sources"
+        }
+      ],
+      "isLibrary" : true,
+      "moduleName" : "FlirrtKeyboard",
+      "moduleOutputPath" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Modules/FlirrtKeyboard.swiftmodule",
+      "objects" : [
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/FlirrtKeyboard.build/KeyboardViewController.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "arm64-apple-macosx10.13",
+        "-incremental",
+        "-enable-batch-mode",
+        "-serialize-diagnostics",
+        "-index-store-path",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/index/store",
+        "-Onone",
+        "-enable-testing",
+        "-j8",
+        "-DSWIFT_PACKAGE",
+        "-DDEBUG",
+        "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+        "-module-cache-path",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/ModuleCache",
+        "-parseable-output",
+        "-parse-as-library",
+        "-emit-objc-header",
+        "-emit-objc-header-path",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/FlirrtKeyboard.build/include/FlirrtKeyboard-Swift.h",
+        "-swift-version",
+        "5",
+        "-plugin-path",
+        "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+        "-sdk",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.0.sdk",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-I",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-L",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-g",
+        "-Xcc",
+        "-isysroot",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.0.sdk",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-package-name",
+        "ios"
+      ],
+      "outputFileMapPath" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/FlirrtKeyboard.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/FlirrtKeyboard.build/KeyboardViewController.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Modules/FlirrtKeyboard.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/FlirrtKeyboard/KeyboardViewController.swift"
+      ],
+      "tempsPath" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/FlirrtKeyboard.build",
+      "wholeModuleOptimization" : false
+    },
+    "C.FlirrtShare-arm64-apple-macosx26.0-debug.module" : {
+      "executable" : "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "fileList" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/FlirrtShare.build/sources",
+      "importPath" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/FlirrtShare/ShareViewController.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/FlirrtShare.build/sources"
+        }
+      ],
+      "isLibrary" : true,
+      "moduleName" : "FlirrtShare",
+      "moduleOutputPath" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Modules/FlirrtShare.swiftmodule",
+      "objects" : [
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/FlirrtShare.build/ShareViewController.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "arm64-apple-macosx10.13",
+        "-incremental",
+        "-enable-batch-mode",
+        "-serialize-diagnostics",
+        "-index-store-path",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/index/store",
+        "-Onone",
+        "-enable-testing",
+        "-j8",
+        "-DSWIFT_PACKAGE",
+        "-DDEBUG",
+        "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+        "-module-cache-path",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/ModuleCache",
+        "-parseable-output",
+        "-parse-as-library",
+        "-emit-objc-header",
+        "-emit-objc-header-path",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/FlirrtShare.build/include/FlirrtShare-Swift.h",
+        "-swift-version",
+        "5",
+        "-plugin-path",
+        "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+        "-sdk",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.0.sdk",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-I",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-L",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-g",
+        "-Xcc",
+        "-isysroot",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.0.sdk",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-package-name",
+        "ios"
+      ],
+      "outputFileMapPath" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/FlirrtShare.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/FlirrtShare.build/ShareViewController.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Modules/FlirrtShare.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/FlirrtShare/ShareViewController.swift"
+      ],
+      "tempsPath" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/FlirrtShare.build",
+      "wholeModuleOptimization" : false
+    },
+    "C.KeychainAccess-arm64-apple-macosx26.0-debug.module" : {
+      "executable" : "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "fileList" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/KeychainAccess.build/sources",
+      "importPath" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/KeychainAccess/Lib/KeychainAccess/Keychain.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/KeychainAccess.build/sources"
+        }
+      ],
+      "isLibrary" : true,
+      "moduleName" : "KeychainAccess",
+      "moduleOutputPath" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Modules/KeychainAccess.swiftmodule",
+      "objects" : [
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/KeychainAccess.build/Keychain.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "arm64-apple-macosx10.13",
+        "-incremental",
+        "-enable-batch-mode",
+        "-serialize-diagnostics",
+        "-index-store-path",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/index/store",
+        "-Onone",
+        "-enable-testing",
+        "-j8",
+        "-DSWIFT_PACKAGE",
+        "-DDEBUG",
+        "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+        "-module-cache-path",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/ModuleCache",
+        "-parseable-output",
+        "-parse-as-library",
+        "-emit-objc-header",
+        "-emit-objc-header-path",
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/KeychainAccess.build/include/KeychainAccess-Swift.h",
+        "-swift-version",
+        "5",
+        "-plugin-path",
+        "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+        "-sdk",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.0.sdk",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-I",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-L",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-g",
+        "-Xcc",
+        "-isysroot",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.0.sdk",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-suppress-warnings"
+      ],
+      "outputFileMapPath" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/KeychainAccess.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/KeychainAccess.build/Keychain.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Modules/KeychainAccess.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/KeychainAccess/Lib/KeychainAccess/Keychain.swift"
+      ],
+      "tempsPath" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/KeychainAccess.build",
+      "wholeModuleOptimization" : false
+    }
+  },
+  "swiftFrontendCommands" : {
+
+  },
+  "swiftTargetScanArgs" : {
+    "Alamofire" : [
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "-module-name",
+      "Alamofire",
+      "-package-name",
+      "alamofire",
+      "-c",
+      "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Alamofire.swift",
+      "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Core/AFError.swift",
+      "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Core/DataRequest.swift",
+      "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Core/DataStreamRequest.swift",
+      "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Core/DownloadRequest.swift",
+      "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Core/HTTPHeaders.swift",
+      "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Core/HTTPMethod.swift",
+      "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Core/Notifications.swift",
+      "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Core/ParameterEncoder.swift",
+      "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Core/ParameterEncoding.swift",
+      "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Core/Protected.swift",
+      "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Core/Request.swift",
+      "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Core/RequestTaskMap.swift",
+      "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Core/Response.swift",
+      "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Core/Session.swift",
+      "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Core/SessionDelegate.swift",
+      "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Core/URLConvertible+URLRequestConvertible.swift",
+      "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Core/UploadRequest.swift",
+      "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Core/WebSocketRequest.swift",
+      "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Extensions/DispatchQueue+Alamofire.swift",
+      "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Extensions/OperationQueue+Alamofire.swift",
+      "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Extensions/Result+Alamofire.swift",
+      "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Extensions/StringEncoding+Alamofire.swift",
+      "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Extensions/URLRequest+Alamofire.swift",
+      "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Extensions/URLSessionConfiguration+Alamofire.swift",
+      "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Features/AlamofireExtended.swift",
+      "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Features/AuthenticationInterceptor.swift",
+      "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Features/CachedResponseHandler.swift",
+      "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Features/Combine.swift",
+      "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Features/Concurrency.swift",
+      "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Features/EventMonitor.swift",
+      "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Features/MultipartFormData.swift",
+      "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Features/MultipartUpload.swift",
+      "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Features/NetworkReachabilityManager.swift",
+      "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Features/RedirectHandler.swift",
+      "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Features/RequestCompression.swift",
+      "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Features/RequestInterceptor.swift",
+      "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Features/ResponseSerialization.swift",
+      "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Features/RetryPolicy.swift",
+      "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Features/ServerTrustEvaluation.swift",
+      "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Features/URLEncodedFormEncoder.swift",
+      "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Features/Validation.swift",
+      "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/DerivedSources/resource_bundle_accessor.swift",
+      "-I",
+      "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Modules",
+      "-target",
+      "arm64-apple-macosx10.13",
+      "-incremental",
+      "-enable-batch-mode",
+      "-serialize-diagnostics",
+      "-index-store-path",
+      "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/index/store",
+      "-Onone",
+      "-enable-testing",
+      "-j8",
+      "-DSWIFT_PACKAGE",
+      "-DDEBUG",
+      "-DSWIFT_MODULE_RESOURCE_BUNDLE_AVAILABLE",
+      "-module-cache-path",
+      "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/ModuleCache",
+      "-parseable-output",
+      "-parse-as-library",
+      "-emit-objc-header",
+      "-emit-objc-header-path",
+      "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/include/Alamofire-Swift.h",
+      "-swift-version",
+      "5",
+      "-enable-upcoming-feature",
+      "ExistentialAny",
+      "-plugin-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+      "-sdk",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.0.sdk",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-I",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-L",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-g",
+      "-Xcc",
+      "-isysroot",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.0.sdk",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-suppress-warnings",
+      "-user-module-version",
+      "5.10.2",
+      "-package-name",
+      "alamofire",
+      "-driver-use-frontend-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+    ],
+    "Flirrt" : [
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "-module-name",
+      "Flirrt",
+      "-package-name",
+      "ios",
+      "-c",
+      "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/Flirrt/App/FlirrtApp.swift",
+      "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/Flirrt/Models/VoiceModels.swift",
+      "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/Flirrt/Services/APIClient.swift",
+      "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/Flirrt/Services/AuthManager.swift",
+      "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/Flirrt/Services/SharedDataManager.swift",
+      "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/Flirrt/Services/VoiceRecordingManager.swift",
+      "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/Flirrt/Views/AppCoordinator.swift",
+      "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/Flirrt/Views/ContentView.swift",
+      "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/Flirrt/Views/LegacyContentView.swift",
+      "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/Flirrt/Views/LoginView.swift",
+      "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/Flirrt/Views/MainTabView.swift",
+      "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/Flirrt/Views/OnboardingView.swift",
+      "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/Flirrt/Views/PersonalizationQuestionnaireView.swift",
+      "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/Flirrt/Views/SettingsView.swift",
+      "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/Flirrt/Views/VoiceRecordingView.swift",
+      "-I",
+      "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Modules",
+      "-target",
+      "arm64-apple-macosx10.13",
+      "-incremental",
+      "-enable-batch-mode",
+      "-serialize-diagnostics",
+      "-index-store-path",
+      "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/index/store",
+      "-Onone",
+      "-enable-testing",
+      "-j8",
+      "-DSWIFT_PACKAGE",
+      "-DDEBUG",
+      "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+      "-module-cache-path",
+      "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/ModuleCache",
+      "-parseable-output",
+      "-parse-as-library",
+      "-emit-objc-header",
+      "-emit-objc-header-path",
+      "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Flirrt.build/include/Flirrt-Swift.h",
+      "-swift-version",
+      "5",
+      "-plugin-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+      "-sdk",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.0.sdk",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-I",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-L",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-g",
+      "-Xcc",
+      "-isysroot",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.0.sdk",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-package-name",
+      "ios",
+      "-driver-use-frontend-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+    ],
+    "FlirrtKeyboard" : [
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "-module-name",
+      "FlirrtKeyboard",
+      "-package-name",
+      "ios",
+      "-c",
+      "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/FlirrtKeyboard/KeyboardViewController.swift",
+      "-I",
+      "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Modules",
+      "-target",
+      "arm64-apple-macosx10.13",
+      "-incremental",
+      "-enable-batch-mode",
+      "-serialize-diagnostics",
+      "-index-store-path",
+      "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/index/store",
+      "-Onone",
+      "-enable-testing",
+      "-j8",
+      "-DSWIFT_PACKAGE",
+      "-DDEBUG",
+      "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+      "-module-cache-path",
+      "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/ModuleCache",
+      "-parseable-output",
+      "-parse-as-library",
+      "-emit-objc-header",
+      "-emit-objc-header-path",
+      "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/FlirrtKeyboard.build/include/FlirrtKeyboard-Swift.h",
+      "-swift-version",
+      "5",
+      "-plugin-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+      "-sdk",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.0.sdk",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-I",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-L",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-g",
+      "-Xcc",
+      "-isysroot",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.0.sdk",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-package-name",
+      "ios",
+      "-driver-use-frontend-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+    ],
+    "FlirrtShare" : [
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "-module-name",
+      "FlirrtShare",
+      "-package-name",
+      "ios",
+      "-c",
+      "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/FlirrtShare/ShareViewController.swift",
+      "-I",
+      "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Modules",
+      "-target",
+      "arm64-apple-macosx10.13",
+      "-incremental",
+      "-enable-batch-mode",
+      "-serialize-diagnostics",
+      "-index-store-path",
+      "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/index/store",
+      "-Onone",
+      "-enable-testing",
+      "-j8",
+      "-DSWIFT_PACKAGE",
+      "-DDEBUG",
+      "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+      "-module-cache-path",
+      "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/ModuleCache",
+      "-parseable-output",
+      "-parse-as-library",
+      "-emit-objc-header",
+      "-emit-objc-header-path",
+      "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/FlirrtShare.build/include/FlirrtShare-Swift.h",
+      "-swift-version",
+      "5",
+      "-plugin-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+      "-sdk",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.0.sdk",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-I",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-L",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-g",
+      "-Xcc",
+      "-isysroot",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.0.sdk",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-package-name",
+      "ios",
+      "-driver-use-frontend-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+    ],
+    "KeychainAccess" : [
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "-module-name",
+      "KeychainAccess",
+      "-c",
+      "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/KeychainAccess/Lib/KeychainAccess/Keychain.swift",
+      "-I",
+      "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Modules",
+      "-target",
+      "arm64-apple-macosx10.13",
+      "-incremental",
+      "-enable-batch-mode",
+      "-serialize-diagnostics",
+      "-index-store-path",
+      "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/index/store",
+      "-Onone",
+      "-enable-testing",
+      "-j8",
+      "-DSWIFT_PACKAGE",
+      "-DDEBUG",
+      "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+      "-module-cache-path",
+      "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/ModuleCache",
+      "-parseable-output",
+      "-parse-as-library",
+      "-emit-objc-header",
+      "-emit-objc-header-path",
+      "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/KeychainAccess.build/include/KeychainAccess-Swift.h",
+      "-swift-version",
+      "5",
+      "-plugin-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+      "-sdk",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.0.sdk",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-I",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-L",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-g",
+      "-Xcc",
+      "-isysroot",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.0.sdk",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-suppress-warnings",
+      "-driver-use-frontend-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+    ]
+  },
+  "targetDependencyMap" : {
+    "Alamofire" : [
+
+    ],
+    "Flirrt" : [
+      "KeychainAccess",
+      "Alamofire"
+    ],
+    "FlirrtKeyboard" : [
+
+    ],
+    "FlirrtShare" : [
+
+    ],
+    "KeychainAccess" : [
+
+    ]
+  },
+  "testDiscoveryCommands" : {
+
+  },
+  "testEntryPointCommands" : {
+
+  },
+  "traitConfiguration" : {
+    "default" : {
+
+    }
+  },
+  "writeCommands" : {
+    "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Alamofire.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Core/AFError.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Core/DataRequest.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Core/DataStreamRequest.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Core/DownloadRequest.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Core/HTTPHeaders.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Core/HTTPMethod.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Core/Notifications.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Core/ParameterEncoder.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Core/ParameterEncoding.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Core/Protected.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Core/Request.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Core/RequestTaskMap.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Core/Response.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Core/Session.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Core/SessionDelegate.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Core/URLConvertible+URLRequestConvertible.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Core/UploadRequest.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Core/WebSocketRequest.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Extensions/DispatchQueue+Alamofire.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Extensions/OperationQueue+Alamofire.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Extensions/Result+Alamofire.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Extensions/StringEncoding+Alamofire.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Extensions/URLRequest+Alamofire.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Extensions/URLSessionConfiguration+Alamofire.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Features/AlamofireExtended.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Features/AuthenticationInterceptor.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Features/CachedResponseHandler.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Features/Combine.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Features/Concurrency.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Features/EventMonitor.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Features/MultipartFormData.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Features/MultipartUpload.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Features/NetworkReachabilityManager.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Features/RedirectHandler.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Features/RequestCompression.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Features/RequestInterceptor.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Features/ResponseSerialization.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Features/RetryPolicy.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Features/ServerTrustEvaluation.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Features/URLEncodedFormEncoder.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/Alamofire/Source/Features/Validation.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/DerivedSources/resource_bundle_accessor.swift"
+        }
+      ],
+      "outputFilePath" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/sources"
+    },
+    "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/AlamofireDynamic.product/Objects.LinkFileList" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<link-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/AFError.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/Alamofire.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/AlamofireExtended.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/AuthenticationInterceptor.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/CachedResponseHandler.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/Combine.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/Concurrency.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/DataRequest.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/DataStreamRequest.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/DispatchQueue+Alamofire.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/DownloadRequest.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/EventMonitor.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/HTTPHeaders.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/HTTPMethod.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/MultipartFormData.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/MultipartUpload.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/NetworkReachabilityManager.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/Notifications.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/OperationQueue+Alamofire.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/ParameterEncoder.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/ParameterEncoding.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/Protected.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/RedirectHandler.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/Request.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/RequestCompression.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/RequestInterceptor.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/RequestTaskMap.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/Response.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/ResponseSerialization.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/Result+Alamofire.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/RetryPolicy.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/ServerTrustEvaluation.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/Session.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/SessionDelegate.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/StringEncoding+Alamofire.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/URLConvertible+URLRequestConvertible.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/URLEncodedFormEncoder.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/URLRequest+Alamofire.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/URLSessionConfiguration+Alamofire.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/UploadRequest.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/Validation.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/WebSocketRequest.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Alamofire.build/resource_bundle_accessor.swift.o"
+        }
+      ],
+      "outputFilePath" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/AlamofireDynamic.product/Objects.LinkFileList"
+    },
+    "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Flirrt.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/Flirrt/App/FlirrtApp.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/Flirrt/Models/VoiceModels.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/Flirrt/Services/APIClient.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/Flirrt/Services/AuthManager.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/Flirrt/Services/SharedDataManager.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/Flirrt/Services/VoiceRecordingManager.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/Flirrt/Views/AppCoordinator.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/Flirrt/Views/ContentView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/Flirrt/Views/LegacyContentView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/Flirrt/Views/LoginView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/Flirrt/Views/MainTabView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/Flirrt/Views/OnboardingView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/Flirrt/Views/PersonalizationQuestionnaireView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/Flirrt/Views/SettingsView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/Flirrt/Views/VoiceRecordingView.swift"
+        }
+      ],
+      "outputFilePath" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/Flirrt.build/sources"
+    },
+    "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/FlirrtKeyboard.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/FlirrtKeyboard/KeyboardViewController.swift"
+        }
+      ],
+      "outputFilePath" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/FlirrtKeyboard.build/sources"
+    },
+    "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/FlirrtShare.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/FlirrtShare/ShareViewController.swift"
+        }
+      ],
+      "outputFilePath" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/FlirrtShare.build/sources"
+    },
+    "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/KeychainAccess.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/checkouts/KeychainAccess/Lib/KeychainAccess/Keychain.swift"
+        }
+      ],
+      "outputFilePath" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/KeychainAccess.build/sources"
+    },
+    "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt" : {
+      "alwaysOutOfDate" : true,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<swift-get-version>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+        }
+      ],
+      "outputFilePath" : "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt"
+    }
+  }
+}

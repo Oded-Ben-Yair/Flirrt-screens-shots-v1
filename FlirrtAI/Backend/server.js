@@ -1,0 +1,385 @@
+require('dotenv').config();
+
+const express = require('express');
+const cors = require('cors');
+const path = require('path');
+const fs = require('fs');
+const { Pool } = require('pg');
+
+// Import routes
+const authRoutes = require('./routes/auth');
+const analysisRoutes = require('./routes/analysis');
+const flirtRoutes = require('./routes/flirts');
+const voiceRoutes = require('./routes/voice');
+
+// Import middleware
+const { authenticateToken, rateLimit } = require('./middleware/auth');
+
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+// Database connection
+const pool = new Pool({
+    host: process.env.DB_HOST,
+    port: process.env.DB_PORT,
+    database: process.env.DB_NAME,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+});
+
+// Test database connection
+pool.connect()
+    .then(() => console.log('✅ Connected to PostgreSQL database'))
+    .catch(err => console.warn('⚠️  Database connection failed (some features disabled):', err.message));
+
+// Ensure upload directory exists
+const uploadDir = process.env.UPLOAD_DIR || './uploads';
+if (!fs.existsSync(uploadDir)) {
+    fs.mkdirSync(uploadDir, { recursive: true });
+    console.log(`📁 Created upload directory: ${uploadDir}`);
+}
+
+// Middleware
+app.use(cors({
+    origin: [
+        'http://localhost:3000',
+        'http://localhost:3001',
+        'http://localhost:8080',
+        'http://localhost:8081',
+        'https://flirrt.ai',
+        'https://app.flirrt.ai'
+    ],
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
+}));
+
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+
+// Request logging middleware
+app.use((req, res, next) => {
+    const timestamp = new Date().toISOString();
+    const method = req.method;
+    const url = req.url;
+    const ip = req.ip || req.connection.remoteAddress;
+
+    console.log(`[${timestamp}] ${method} ${url} - ${ip}`);
+    next();
+});
+
+// Health check endpoint
+app.get('/health', async (req, res) => {
+    try {
+        // Test database connection
+        await pool.query('SELECT 1');
+
+        res.json({
+            success: true,
+            status: 'healthy',
+            timestamp: new Date().toISOString(),
+            version: '1.0.0',
+            services: {
+                database: 'connected',
+                grok_api: process.env.GROK_API_KEY ? 'configured' : 'not_configured',
+                elevenlabs_api: process.env.ELEVENLABS_API_KEY ? 'configured' : 'not_configured'
+            }
+        });
+    } catch (error) {
+        console.error('Health check failed:', error);
+        res.status(503).json({
+            success: false,
+            status: 'unhealthy',
+            error: error.message,
+            timestamp: new Date().toISOString()
+        });
+    }
+});
+
+// API Routes
+app.use('/api/v1/auth', authRoutes);
+app.use('/api/v1/analysis', analysisRoutes);
+app.use('/api/v1/flirts', flirtRoutes);
+app.use('/api/v1/voice', voiceRoutes);
+
+// GDPR Compliance - User Data Deletion
+app.delete('/api/v1/user/:id/data', authenticateToken, async (req, res) => {
+    try {
+        const { id } = req.params;
+        const requestingUserId = req.user.id;
+
+        // Check if user is deleting their own data or is admin
+        if (requestingUserId !== id) {
+            // Check if requesting user is admin
+            const adminQuery = `
+                SELECT role FROM user_profiles WHERE user_id = $1 AND role IN ('admin', 'super_admin')
+            `;
+            const adminResult = await pool.query(adminQuery, [requestingUserId]);
+
+            if (adminResult.rows.length === 0) {
+                return res.status(403).json({
+                    success: false,
+                    error: 'Access denied. Can only delete your own data.',
+                    code: 'ACCESS_DENIED'
+                });
+            }
+        }
+
+        // Log deletion request
+        await pool.query(
+            `INSERT INTO data_deletion_log (user_id, deletion_requested_at, deletion_status)
+             VALUES ($1, NOW(), 'requested')`,
+            [id]
+        );
+
+        // Start transaction for complete data deletion
+        const client = await pool.connect();
+
+        try {
+            await client.query('BEGIN');
+
+            // Get all file paths that need to be deleted
+            const filePathsQuery = `
+                SELECT voice_file_path FROM voice_messages WHERE user_id = $1
+                UNION
+                SELECT file_path FROM screenshots WHERE user_id = $1
+            `;
+            const filePathsResult = await client.query(filePathsQuery, [id]);
+
+            // Delete database records (foreign key constraints will handle cascade)
+            await client.query('DELETE FROM user_sessions WHERE user_id = $1', [id]);
+            await client.query('DELETE FROM analytics WHERE user_id = $1', [id]);
+            await client.query('DELETE FROM voice_messages WHERE user_id = $1', [id]);
+            await client.query('DELETE FROM flirt_suggestions WHERE user_id = $1', [id]);
+            await client.query('DELETE FROM screenshots WHERE user_id = $1', [id]);
+            await client.query('DELETE FROM users WHERE id = $1', [id]);
+
+            // Update deletion log
+            await client.query(
+                `UPDATE data_deletion_log
+                 SET deletion_completed_at = NOW(), deletion_status = 'completed'
+                 WHERE user_id = $1 AND deletion_status = 'requested'`,
+                [id]
+            );
+
+            await client.query('COMMIT');
+
+            // Delete physical files (outside transaction)
+            for (const row of filePathsResult.rows) {
+                if (row.voice_file_path || row.file_path) {
+                    const filePath = row.voice_file_path || row.file_path;
+                    try {
+                        await require('fs').promises.unlink(filePath);
+                    } catch (fileError) {
+                        console.error('Failed to delete file:', filePath, fileError);
+                    }
+                }
+            }
+
+            res.json({
+                success: true,
+                message: 'User data deleted successfully',
+                deleted_at: new Date().toISOString(),
+                gdpr_compliant: true
+            });
+
+        } catch (error) {
+            await client.query('ROLLBACK');
+            throw error;
+        } finally {
+            client.release();
+        }
+
+    } catch (error) {
+        console.error('GDPR deletion error:', error);
+
+        // Update deletion log with failure
+        await pool.query(
+            `UPDATE data_deletion_log
+             SET deletion_status = 'failed', admin_notes = $2
+             WHERE user_id = $1 AND deletion_status = 'requested'`,
+            [req.params.id, error.message]
+        ).catch(logError => console.error('Failed to update deletion log:', logError));
+
+        res.status(500).json({
+            success: false,
+            error: 'Failed to delete user data',
+            code: 'DELETION_ERROR'
+        });
+    }
+});
+
+// Analytics endpoint
+app.get('/api/v1/analytics/dashboard', authenticateToken, async (req, res) => {
+    try {
+        const { timeRange = '30d' } = req.query;
+
+        let timeFilter = "created_at >= NOW() - INTERVAL '30 days'";
+        if (timeRange === '7d') timeFilter = "created_at >= NOW() - INTERVAL '7 days'";
+        if (timeRange === '1d') timeFilter = "created_at >= NOW() - INTERVAL '1 day'";
+
+        const analyticsQuery = `
+            SELECT
+                COUNT(*) FILTER (WHERE event_type = 'screenshot_analyzed') as screenshots_analyzed,
+                COUNT(*) FILTER (WHERE event_type = 'flirts_generated') as flirts_generated,
+                COUNT(*) FILTER (WHERE event_type = 'voice_synthesized') as voices_created,
+                COUNT(*) FILTER (WHERE event_type = 'suggestion_used') as suggestions_used,
+                AVG(CAST(event_data->>'analysis_confidence' AS FLOAT)) FILTER (WHERE event_type = 'screenshot_analyzed') as avg_confidence
+            FROM analytics
+            WHERE user_id = $1 AND ${timeFilter}
+        `;
+
+        const result = await pool.query(analyticsQuery, [req.user.id]);
+        const stats = result.rows[0];
+
+        res.json({
+            success: true,
+            data: {
+                time_range: timeRange,
+                statistics: {
+                    screenshots_analyzed: parseInt(stats.screenshots_analyzed) || 0,
+                    flirts_generated: parseInt(stats.flirts_generated) || 0,
+                    voices_created: parseInt(stats.voices_created) || 0,
+                    suggestions_used: parseInt(stats.suggestions_used) || 0,
+                    average_confidence: parseFloat(stats.avg_confidence) || 0
+                }
+            }
+        });
+
+    } catch (error) {
+        console.error('Analytics error:', error);
+        res.status(500).json({
+            success: false,
+            error: 'Failed to get analytics data',
+            code: 'ANALYTICS_ERROR'
+        });
+    }
+});
+
+// Static file serving for uploads (with authentication)
+app.get('/uploads/:filename', authenticateToken, async (req, res) => {
+    try {
+        const { filename } = req.params;
+        const filePath = path.join(uploadDir, filename);
+
+        // Verify file belongs to user
+        const fileQuery = `
+            SELECT user_id FROM screenshots WHERE filename = $1
+            UNION
+            SELECT user_id FROM voice_messages WHERE voice_file_path LIKE $2
+        `;
+
+        const fileResult = await pool.query(fileQuery, [filename, `%${filename}`]);
+
+        if (fileResult.rows.length === 0 || fileResult.rows[0].user_id !== req.user.id) {
+            return res.status(404).json({
+                success: false,
+                error: 'File not found',
+                code: 'FILE_NOT_FOUND'
+            });
+        }
+
+        res.sendFile(path.resolve(filePath));
+
+    } catch (error) {
+        console.error('File serving error:', error);
+        res.status(500).json({
+            success: false,
+            error: 'Failed to serve file',
+            code: 'FILE_SERVE_ERROR'
+        });
+    }
+});
+
+// 404 handler
+app.use((req, res) => {
+    res.status(404).json({
+        success: false,
+        error: 'Endpoint not found',
+        code: 'NOT_FOUND',
+        available_endpoints: [
+            'POST /api/v1/auth/register',
+            'POST /api/v1/auth/login',
+            'POST /api/v1/auth/logout',
+            'GET /api/v1/auth/me',
+            'POST /api/v1/analysis/analyze_screenshot',
+            'GET /api/v1/analysis/history',
+            'POST /api/v1/flirts/generate_flirts',
+            'GET /api/v1/flirts/history',
+            'POST /api/v1/voice/synthesize_voice',
+            'GET /api/v1/voice/history',
+            'DELETE /api/v1/user/:id/data',
+            'GET /health'
+        ]
+    });
+});
+
+// Global error handler
+app.use((error, req, res, next) => {
+    console.error('Global error handler:', error);
+
+    // Handle multer errors
+    if (error.code === 'LIMIT_FILE_SIZE') {
+        return res.status(413).json({
+            success: false,
+            error: 'File too large',
+            details: `Maximum file size is ${process.env.MAX_FILE_SIZE || '10MB'}`,
+            code: 'FILE_TOO_LARGE'
+        });
+    }
+
+    if (error.code === 'LIMIT_UNEXPECTED_FILE') {
+        return res.status(400).json({
+            success: false,
+            error: 'Unexpected file field',
+            code: 'UNEXPECTED_FILE'
+        });
+    }
+
+    // Handle JSON parsing errors
+    if (error.type === 'entity.parse.failed') {
+        return res.status(400).json({
+            success: false,
+            error: 'Invalid JSON format',
+            code: 'INVALID_JSON'
+        });
+    }
+
+    // Default error response
+    res.status(500).json({
+        success: false,
+        error: 'Internal server error',
+        code: 'INTERNAL_SERVER_ERROR'
+    });
+});
+
+// Graceful shutdown
+process.on('SIGTERM', async () => {
+    console.log('🔄 SIGTERM received, shutting down gracefully');
+
+    // Close database connections
+    await pool.end();
+
+    process.exit(0);
+});
+
+process.on('SIGINT', async () => {
+    console.log('🔄 SIGINT received, shutting down gracefully');
+
+    // Close database connections
+    await pool.end();
+
+    process.exit(0);
+});
+
+// Start server
+app.listen(PORT, () => {
+    console.log(`🚀 Flirrt.ai Backend Server running on port ${PORT}`);
+    console.log(`📡 Health check: http://localhost:${PORT}/health`);
+    console.log(`🔑 API Base URL: http://localhost:${PORT}/api/v1`);
+    console.log(`📊 Environment: ${process.env.NODE_ENV || 'development'}`);
+    console.log(`🗄️  Database: ${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`);
+    console.log('✅ Server ready to accept connections');
+});
+
+module.exports = app;
