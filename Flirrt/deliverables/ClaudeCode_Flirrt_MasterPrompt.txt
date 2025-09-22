@@ -1,0 +1,943 @@
+# Claude-Code Master Prompt: Flirrt.ai - Personal Wingman App
+
+## Project Overview
+
+You are tasked with designing and implementing Flirrt.ai, a personal wingman iOS application that helps users improve their flirting skills in third-party chat applications (Tinder, Instagram, etc.) through AI-powered text suggestions and optional voice messages.
+
+### Core Product Vision
+- **Name**: Flirrt.ai (double "r" connecting to heart shape in logo)
+- **Goal**: Personal wingman for flirting assistance via suggested texts and voice messages
+- **Platform**: iOS app with keyboard extension
+- **Privacy**: Minimal retention, encryption in transit & at rest, explicit consent
+
+### Key User Flows
+1. **iOS App + Authentication**: Apple/Google sign-in
+2. **Keyboard Extension**: "Full Access" consent with two primary actions:
+   - "Flirrt Fresh": Personalized opener suggestions bank
+   - "Let's Analyze It!": Screenshot analysis → 3 flirt suggestions + refresh option
+3. **Voice Clone** (Optional): Onboarding voice sample recording → ElevenLabs synthesis
+4. **Privacy-First**: Explicit consent, easy deletion, minimal data retention
+
+## MANDATORY COMPLIANCE REQUIREMENTS
+
+**ABSOLUTE PROHIBITION**: You must NOT design, recommend, or implement ANY method to bypass iOS/Android security or App/Play Store review processes. Only compliant approaches are permitted:
+- Explicit "Full Access" consent for keyboard extensions
+- App Groups for shared storage between app and extension
+- User-initiated Share Extensions or in-app upload for screenshots
+- Server-side processing with explicit user consent
+- Official APIs and documented integration patterns only
+
+Any suggestion to circumvent platform security will result in immediate termination of this task.
+
+## Required Deliverables
+
+### A. Executive Summary (1 page)
+Create a comprehensive executive summary covering:
+- Product vision and market opportunity
+- Technical architecture approach
+- Privacy and compliance strategy
+- Go-to-market timeline and milestones
+- Cost estimates and scaling assumptions
+
+### B. Architecture & Component Design
+
+#### Top-Level Architecture
+Provide ASCII or Mermaid diagram showing:
+- iOS App (main container)
+- Keyboard Extension (with Full Access)
+- Share Extension (screenshot upload)
+- Backend API (screenshot analysis, flirt generation)
+- Voice Synthesis Service (ElevenLabs integration)
+- Privacy & Security Layer
+
+#### Component Catalog
+Document each component with:
+- Purpose and responsibilities
+- Technical specifications
+- Integration points
+- Security considerations
+
+### C. MCP (Model Context Protocol) Plan
+
+Design comprehensive MCP integration for Claude including:
+
+#### Tool Inventory
+- **KV Store**: User preferences, conversation history metadata
+- **Vector Store**: Personalization embeddings, flirt template bank
+- **Object Storage**: Screenshot uploads, voice samples
+- **CI/CD Connectors**: Automated testing, deployment pipelines
+
+#### Auth Patterns
+- OAuth 2.0 / OpenID Connect for user authentication
+- API key management for third-party services
+- Service-to-service authentication patterns
+
+#### Schemas
+- User profile schema
+- Screenshot analysis request/response
+- Flirt suggestion metadata
+- Voice synthesis requests
+
+### D. Sub-Agent Prompts (Ready-to-Use)
+
+Create 6 specialized sub-agent prompts, each including:
+- Purpose statement
+- Input schema (JSON)
+- Output schema (JSON)
+- Example I/O pairs
+- At least one few-shot example
+
+#### 1. Screenshot Analyzer Agent
+**Purpose**: Analyze chat screenshots to understand context, conversation dynamics, and provide conversation assessment
+
+**Input Schema**:
+```json
+{
+  "image_base64": "string",
+  "user_context": {
+    "age_range": "18-25|26-35|36-45|45+",
+    "relationship_goal": "casual|serious|hookup|friendship",
+    "user_bio_summary": "string (optional)"
+  },
+  "conversation_history": "string (optional)"
+}
+```
+
+**Output Schema**:
+```json
+{
+  "analysis": {
+    "conversation_stage": "opener|early|building|advanced|stalled",
+    "other_person_interest_level": "high|medium|low|unclear",
+    "conversation_tone": "playful|serious|flirty|friendly|awkward",
+    "key_topics_identified": ["array", "of", "topics"],
+    "personality_indicators": {
+      "humor_appreciation": "high|medium|low",
+      "directness_preference": "direct|subtle|mixed",
+      "intelligence_level": "high|medium|basic"
+    }
+  },
+  "context_summary": "string",
+  "confidence_score": 0.85
+}
+```
+
+**Example I/O**:
+```
+Input: Screenshot showing "Hey! I see you're into hiking too 😊 What's your favorite trail?"
+Output: {
+  "analysis": {
+    "conversation_stage": "opener",
+    "other_person_interest_level": "medium",
+    "conversation_tone": "friendly",
+    "key_topics_identified": ["hiking", "outdoor_activities"],
+    "personality_indicators": {
+      "humor_appreciation": "medium",
+      "directness_preference": "direct",
+      "intelligence_level": "medium"
+    }
+  },
+  "context_summary": "Initial message showing shared interest in hiking, positive emoji usage, asking engaging question",
+  "confidence_score": 0.82
+}
+```
+
+#### 2. Personalization Agent
+**Purpose**: Build and maintain user personality profiles for customized flirt suggestions
+
+**Input Schema**:
+```json
+{
+  "user_id": "string",
+  "interaction_data": {
+    "selected_suggestions": ["array", "of", "chosen", "flirts"],
+    "rejected_suggestions": ["array", "of", "declined", "flirts"],
+    "success_outcomes": ["array", "of", "positive", "responses"],
+    "user_modifications": ["array", "of", "edited", "suggestions"]
+  },
+  "explicit_preferences": {
+    "humor_style": "witty|playful|sarcastic|wholesome",
+    "directness_level": "subtle|medium|bold",
+    "topics_to_avoid": ["array", "of", "topics"]
+  }
+}
+```
+
+**Output Schema**:
+```json
+{
+  "personality_profile": {
+    "humor_style_preference": "witty",
+    "optimal_directness": "medium",
+    "successful_topics": ["travel", "food", "music"],
+    "avoided_topics": ["politics", "religion"],
+    "preferred_tone": "playful_confident",
+    "success_patterns": {
+      "question_types": ["open_ended", "experience_based"],
+      "compliment_style": "specific_observational",
+      "emoji_usage": "moderate"
+    }
+  },
+  "confidence_metrics": {
+    "profile_completeness": 0.78,
+    "prediction_accuracy": 0.84
+  },
+  "recommendations": ["increase_humor", "try_more_questions"]
+}
+```
+
+#### 3. Flirt Generator Agent
+**Purpose**: Generate contextually appropriate, personalized flirt suggestions
+
+**Input Schema**:
+```json
+{
+  "conversation_analysis": "object (from Screenshot Analyzer)",
+  "user_profile": "object (from Personalization Agent)",
+  "tone_preference": "playful|humorous|sincere",
+  "suggestion_count": 3,
+  "constraints": {
+    "max_length": 280,
+    "avoid_topics": ["array"],
+    "include_emoji": boolean,
+    "include_question": boolean
+  }
+}
+```
+
+**Output Schema**:
+```json
+{
+  "suggestions": [
+    {
+      "text": "string",
+      "tone": "playful|humorous|sincere",
+      "reasoning": "string",
+      "confidence": 0.89,
+      "expected_outcome": "string",
+      "backup_if_no_response": "string"
+    }
+  ],
+  "personalization_notes": "string",
+  "conversation_strategy": "string"
+}
+```
+
+**Tone Templates & Examples**:
+
+**Playful Tone**:
+```
+"I see you're into [topic] too! I'm starting to think we might be the same person... except I'm obviously better looking 😉"
+
+"Wait, did you just [reference their interest]? Okay, I'm officially intrigued. Tell me more about this hidden talent of yours!"
+
+"[Observation about their photo/message] - you're clearly someone who knows how to have fun. I respect that 🎉"
+```
+
+**Humorous Tone**:
+```
+"I have to ask - is being this [positive trait] something you practice, or does it just come naturally? Asking for a friend (the friend is me)"
+
+"Your [hobby/interest] game is strong! Mine is... well, let's just say I'm still working on it. Care to be my coach? 😂"
+
+"Not to be dramatic, but your taste in [topic] just made my day. And it's only [time]. You're setting the bar pretty high here!"
+```
+
+**Sincere Tone**:
+```
+"There's something really genuine about [specific observation]. I'd love to hear more about what draws you to [their interest]."
+
+"I noticed you mentioned [topic] - that actually means a lot to me too. It's refreshing to meet someone who values [related value]."
+
+"Your perspective on [topic] is really thoughtful. I'd enjoy continuing this conversation and learning more about how you see things."
+```
+
+#### 4. Voice Synthesis Agent
+**Purpose**: Convert text suggestions to natural voice messages using user's cloned voice
+
+**Input Schema**:
+```json
+{
+  "text": "string",
+  "user_voice_id": "string",
+  "emotion": "confident|playful|warm|casual",
+  "speed": "slow|normal|fast",
+  "user_preferences": {
+    "pause_before_punchline": boolean,
+    "emphasis_style": "subtle|moderate|strong"
+  }
+}
+```
+
+**Output Schema**:
+```json
+{
+  "audio_url": "string",
+  "duration_seconds": 12.5,
+  "file_size_mb": 0.8,
+  "quality_score": 0.92,
+  "transcript_confirmation": "string",
+  "synthesis_notes": "Applied slight pause before humor, emphasized 'intrigued'"
+}
+```
+
+#### 5. Consent & Privacy Agent
+**Purpose**: Manage user consent, data retention, and privacy compliance
+
+**Input Schema**:
+```json
+{
+  "user_id": "string",
+  "action": "grant_consent|revoke_consent|data_deletion|audit_request",
+  "consent_types": ["voice_cloning", "screenshot_analysis", "personalization", "analytics"],
+  "jurisdiction": "US|EU|CA|UK",
+  "user_age": "13-17|18+|unknown"
+}
+```
+
+**Output Schema**:
+```json
+{
+  "consent_status": {
+    "voice_cloning": "granted|denied|pending",
+    "screenshot_analysis": "granted|denied|pending",
+    "personalization": "granted|denied|pending",
+    "analytics": "granted|denied|pending"
+  },
+  "data_retention_policy": "string",
+  "deletion_timeline": "immediate|7_days|30_days",
+  "compliance_notes": "string",
+  "required_actions": ["array", "of", "next", "steps"]
+}
+```
+
+#### 6. Safety Filter Agent
+**Purpose**: Ensure all content complies with safety guidelines and platform policies
+
+**Input Schema**:
+```json
+{
+  "content": "string",
+  "content_type": "flirt_suggestion|voice_message|user_input",
+  "user_age": "13-17|18+",
+  "platform_context": "tinder|instagram|general",
+  "safety_level": "strict|moderate|permissive"
+}
+```
+
+**Output Schema**:
+```json
+{
+  "safety_assessment": {
+    "is_safe": boolean,
+    "risk_level": "low|medium|high",
+    "categories_flagged": ["harassment", "sexual_content", "inappropriate_minor"],
+    "confidence": 0.94
+  },
+  "content_modifications": {
+    "suggested_changes": "string",
+    "alternative_version": "string"
+  },
+  "compliance_notes": "Follows age-appropriate guidelines, no sexual content",
+  "approved_for_platforms": ["tinder", "bumble", "general"]
+}
+```
+
+### E. LLM Pipeline Design
+
+#### OCR/Vision Preprocessing
+Given Grok's confirmed vision capabilities (grok-vision-beta, grok-2-vision-012), use Grok as primary vision model for screenshot analysis. Fallback pipeline:
+1. **Primary**: Grok Vision API for direct screenshot analysis
+2. **Fallback**: Google Vision OCR → text extraction → Grok text analysis
+3. **Cost Optimization**: Use OCR for simple text extraction, Grok vision for complex layout understanding
+
+#### Prompt Templates
+Structure prompts with consistent format:
+```
+ROLE: You are an expert flirt coach analyzing dating app conversations.
+CONTEXT: [Screenshot analysis results]
+USER PROFILE: [Personalization data]
+TASK: Generate 3 flirt suggestions with [tone] tone
+CONSTRAINTS: Max 280 chars, age-appropriate, no controversial topics
+OUTPUT FORMAT: JSON with text, reasoning, confidence score
+```
+
+#### Safety Gates
+- Content moderation before and after generation
+- Age verification and minor protection protocols
+- Platform-specific content filtering
+- User consent validation for each processing step
+
+#### Retry Logic & Fallbacks
+- Token limit handling with graceful degradation
+- API failure fallbacks (Grok → GPT-4 → Claude)
+- Low confidence threshold triggering human review queue
+- Rate limit management with exponential backoff
+
+### F. API Specifications
+
+#### /analyze_screenshot
+```json
+POST /api/v1/analyze_screenshot
+Content-Type: multipart/form-data
+
+Request:
+{
+  "image": "file",
+  "user_id": "string",
+  "context": {
+    "relationship_goal": "casual|serious|hookup|friendship",
+    "user_bio": "string (optional)"
+  }
+}
+
+Response:
+{
+  "analysis_id": "uuid",
+  "conversation_analysis": { /* Screenshot Analyzer output */ },
+  "personalization_data": { /* User profile data */ },
+  "timestamp": "ISO8601",
+  "processing_time_ms": 1250
+}
+```
+
+#### /generate_flirts
+```json
+POST /api/v1/generate_flirts
+
+Request:
+{
+  "analysis_id": "uuid",
+  "tone_preference": "playful|humorous|sincere",
+  "count": 3,
+  "constraints": {
+    "max_length": 280,
+    "include_emoji": true,
+    "avoid_topics": ["politics", "religion"]
+  }
+}
+
+Response:
+{
+  "suggestions": [
+    {
+      "id": "uuid",
+      "text": "string",
+      "tone": "playful",
+      "confidence": 0.89,
+      "reasoning": "string",
+      "voice_available": true
+    }
+  ],
+  "refresh_available": true,
+  "personalization_updated": true
+}
+```
+
+#### /synthesize_voice
+```json
+POST /api/v1/synthesize_voice
+
+Request:
+{
+  "suggestion_id": "uuid",
+  "text": "string",
+  "emotion": "confident|playful|warm|casual"
+}
+
+Response:
+{
+  "audio_url": "string",
+  "duration_seconds": 12.5,
+  "expires_at": "ISO8601",
+  "file_size_mb": 0.8,
+  "download_available": true
+}
+```
+
+#### /delete_user_data
+```json
+DELETE /api/v1/user/{user_id}/data
+
+Request:
+{
+  "deletion_type": "partial|complete",
+  "data_categories": ["voice_samples", "conversation_history", "personalization"]
+}
+
+Response:
+{
+  "deletion_id": "uuid",
+  "status": "initiated|completed",
+  "estimated_completion": "ISO8601",
+  "data_removed": ["array", "of", "categories"],
+  "compliance_confirmation": "string"
+}
+```
+
+### G. Sequence Diagrams (Mermaid)
+
+#### Onboarding + Voice Clone Flow
+```mermaid
+sequenceDiagram
+    participant U as User
+    participant A as iOS App
+    participant K as Keyboard Extension
+    participant B as Backend API
+    participant E as ElevenLabs
+    participant S as Storage
+
+    U->>A: Launch app, sign in
+    A->>U: Request microphone permission
+    U->>A: Grant permission
+    A->>U: Show voice cloning consent
+    U->>A: Consent to voice cloning
+    A->>U: Start voice recording (2-3 minutes)
+    U->>A: Complete voice samples
+    A->>B: Upload voice samples + consent
+    B->>E: Create voice clone
+    E-->>B: Voice clone ID + status
+    B->>S: Store voice ID + user mapping
+    B-->>A: Onboarding complete
+    A->>U: Show keyboard setup instructions
+    U->>A: Enable keyboard in Settings
+    A->>K: Share user profile via App Groups
+    K-->>A: Confirmation received
+    A->>U: Setup complete, ready to flirt!
+```
+
+#### Keyboard "Flirrt Fresh" Flow
+```mermaid
+sequenceDiagram
+    participant U as User
+    participant K as Keyboard Extension
+    participant A as Main App
+    participant B as Backend API
+    participant S as Storage
+
+    U->>K: Tap "Flirrt Fresh" button
+    K->>A: Request opener suggestions (via App Groups)
+    A->>B: GET /api/v1/fresh_openers
+    B->>S: Query user personalization data
+    S-->>B: User profile + preferences
+    B->>B: Generate 5 personalized openers
+    B-->>A: Return opener suggestions
+    A->>K: Share suggestions (via App Groups)
+    K->>U: Display opener bank
+    U->>K: Select opener
+    K->>K: Insert text in active conversation
+    K->>A: Log selection for personalization
+    A->>B: POST /api/v1/interactions (async)
+    B->>S: Update user preferences
+```
+
+#### Screenshot Analysis & Suggestion Flow
+```mermaid
+sequenceDiagram
+    participant U as User
+    participant S as Share Extension
+    participant A as Main App
+    participant B as Backend API
+    participant G as Grok API
+    participant K as Keyboard Extension
+
+    U->>S: Share screenshot from dating app
+    S->>A: Save screenshot to App Groups container
+    S->>A: Notify via Darwin notification
+    A->>B: POST /api/v1/analyze_screenshot
+    B->>G: Send screenshot to Grok Vision
+    G-->>B: Conversation analysis + context
+    B->>B: Apply personalization layer
+    B-->>A: Analysis complete + flirt suggestions
+    A->>K: Share suggestions via App Groups
+    K->>U: Show "3 new flirts ready!" notification
+    U->>K: Open flirt suggestions
+    K->>U: Display 3 suggestions + refresh option
+    U->>K: Select suggestion
+    K->>K: Insert text in conversation
+    U->>K: Optional: "Make voice message"
+    K->>A: Request voice synthesis
+    A->>B: POST /api/v1/synthesize_voice
+    B-->>A: Audio file URL
+    A->>U: Download & play voice message
+```
+
+### H. Privacy & Security Plan
+
+#### Consent UX Copy
+**Voice Cloning Consent**:
+"To create personalized voice messages, Flirrt needs to record a 2-minute voice sample. This helps you sound natural and confident in your flirts. Your voice stays private and secure - only you can use your voice clone, and you can delete it anytime. We use ElevenLabs' secure voice technology with industry-leading encryption."
+
+**Screenshot Analysis Consent**:
+"Flirrt analyzes your conversation screenshots to give you the best flirt suggestions. We only process what you choose to share and never store your private conversations. All analysis happens securely in the cloud and is deleted within 24 hours. You're in complete control of what gets analyzed."
+
+**Full Access Keyboard Consent**:
+"To suggest flirts while you chat, Flirrt's keyboard needs 'Full Access' permission. This lets us securely sync your personalized suggestions across apps. We never store what you type or access other keyboards. This permission only enables Flirrt suggestions - your privacy is completely protected."
+
+#### Retention Policy
+- **Voice Samples**: Retained until user deletion request (immediate processing)
+- **Screenshots**: Analyzed then deleted within 24 hours
+- **Conversation Analysis**: Aggregated insights only, no raw content (30 days)
+- **User Preferences**: Retained for personalization (deletable on request)
+- **Audit Logs**: 90 days for security and compliance
+
+#### Encryption Standards
+- **Data in Transit**: TLS 1.3 for all API communications
+- **Data at Rest**: AES-256 encryption for all stored data
+- **Voice Samples**: Additional application-layer encryption before ElevenLabs storage
+- **App Groups Storage**: iOS Data Protection API with NSFileProtectionComplete
+
+#### KMS Integration
+- **AWS KMS**: Customer-managed keys for voice data and user profiles
+- **Key Rotation**: Automatic 90-day rotation for all encryption keys
+- **Access Control**: IAM policies restricting key access to specific services only
+- **Audit Trail**: CloudTrail logging for all key usage and access
+
+#### PII Redaction Pipeline
+- **Automatic Detection**: AWS Comprehend for PII identification in screenshots
+- **Redaction Categories**: Phone numbers, email addresses, social media handles, real names
+- **Format Preservation**: ###-#### for phones, [email] for addresses, [name] for people
+- **Confidence Threshold**: 0.8+ confidence required for redaction decisions
+
+#### App Store & Play Store Checklist
+**iOS Privacy Requirements**:
+- [ ] Privacy Manifest (PrivacyInfo.xcprivacy) with all data categories
+- [ ] Active Input Modes API declaration for keyboard extension
+- [ ] App Tracking Transparency implementation
+- [ ] Encryption export compliance documentation
+
+**Content Policy Compliance**:
+- [ ] No Apple emoji usage in keyboard extension
+- [ ] Clear privacy policy link in App Store metadata
+- [ ] Age rating: 17+ for mature themes and user-generated content
+- [ ] Content filtering for harassment prevention
+
+### I. Infrastructure & Deployment
+
+#### AWS Architecture Sketch
+```
+Production Environment:
+├── Application Load Balancer (ALB)
+├── ECS Fargate Containers
+│   ├── API Gateway (auth, rate limiting)
+│   ├── Screenshot Analysis Service
+│   ├── Flirt Generation Service
+│   └── Voice Synthesis Orchestrator
+├── RDS PostgreSQL (user data, preferences)
+├── S3 Buckets
+│   ├── Screenshot uploads (24hr lifecycle)
+│   └── Voice sample storage (encrypted)
+├── ElastiCache Redis (session management)
+├── CloudFront CDN (voice message delivery)
+└── CloudWatch (monitoring & alerting)
+```
+
+#### Terraform-Style Resource Names
+```hcl
+# Core Infrastructure
+resource "aws_ecs_cluster" "flirrt_production" {}
+resource "aws_rds_instance" "flirrt_postgres" {}
+resource "aws_s3_bucket" "flirrt_screenshots" {}
+resource "aws_s3_bucket" "flirrt_voice_samples" {}
+
+# Security
+resource "aws_kms_key" "flirrt_encryption" {}
+resource "aws_iam_role" "flirrt_api_execution" {}
+
+# Monitoring
+resource "aws_cloudwatch_dashboard" "flirrt_metrics" {}
+resource "aws_cloudwatch_alarm" "api_error_rate" {}
+```
+
+#### CI/CD Pipeline Outline
+1. **Source**: GitHub repository with branch protection
+2. **Build**: Docker containerization with multi-stage builds
+3. **Test**: Automated unit tests, integration tests, security scans
+4. **Staging**: Deploy to staging environment for QA testing
+5. **Production**: Blue-green deployment with automatic rollback
+6. **Monitoring**: Real-time metrics and alerting on deployment health
+
+### J. Operations Plan
+
+#### Metrics & Monitoring
+**Core KPIs**:
+- API response times (p95 < 2s for screenshot analysis)
+- User engagement (suggestions selected vs. rejected)
+- Voice synthesis success rate (>95%)
+- Privacy compliance metrics (deletion request processing time)
+
+**Technical Metrics**:
+- Request rate and error rates per endpoint
+- Database connection pool utilization
+- Grok API quota and rate limit monitoring
+- ElevenLabs API health and voice generation times
+
+#### Alerting Strategy
+**Critical Alerts** (PagerDuty):
+- API downtime >30 seconds
+- Data breach or unauthorized access
+- Failed privacy deletion requests
+- Voice cloning service failures
+
+**Warning Alerts** (Slack):
+- API response time >1.5s for 5 minutes
+- Error rate >2% for any endpoint
+- Third-party service degradation
+
+#### Cost Controls
+**Budget Allocation**:
+- Grok API: $500/month initial budget (4,000 screenshot analyses)
+- ElevenLabs: $200/month (1,000 voice generations)
+- AWS Infrastructure: $800/month (compute, storage, data transfer)
+- Total Operating Cost: $1,500/month for 1,000 active users
+
+**Cost Optimization**:
+- Implement caching for repeated voice synthesis requests
+- Use AWS Spot Instances for non-critical background processing
+- Set up billing alerts at 80% of monthly budget
+- Automatic scaling down during low-usage periods
+
+#### Quotas & Rate Limiting
+**User Limits**:
+- 50 screenshot analyses per user per day
+- 20 voice messages per user per day
+- 1 voice clone per user account
+
+**API Rate Limits**:
+- 10 requests per minute per user for screenshot analysis
+- 5 requests per minute per user for voice synthesis
+- Global rate limiting: 1,000 requests per minute across all users
+
+### K. Threat Model & Mitigations
+
+#### Security Threats
+**Data Breach Risks**:
+- Unauthorized access to voice samples → KMS encryption + IAM controls
+- Screenshot content exposure → 24-hour deletion + encryption in transit
+- User personal data compromise → Data minimization + regular security audits
+
+**Platform Abuse**:
+- Harassment content generation → Multi-layer safety filtering + human review
+- Underage user access → Age verification + parental controls
+- Spam/automated requests → Rate limiting + bot detection
+
+**Third-Party Service Risks**:
+- ElevenLabs service compromise → Voice data encryption + consent revocation tools
+- Grok API data exposure → Request sanitization + audit logging
+- iOS security vulnerabilities → Regular security updates + App Store review compliance
+
+#### Mitigations
+- **Zero-Trust Architecture**: All service communications require authentication
+- **Regular Security Audits**: Monthly penetration testing and vulnerability scans
+- **Incident Response Plan**: 24-hour breach notification protocol
+- **Data Loss Prevention**: Automated backups with encryption and access controls
+
+### L. Acceptance Criteria & Test Plan
+
+#### Functional Testing
+**Keyboard Extension**:
+- [ ] "Flirrt Fresh" button displays 5 personalized openers within 3 seconds
+- [ ] "Let's Analyze It!" processes screenshots and returns 3 suggestions within 10 seconds
+- [ ] Voice message generation completes within 15 seconds
+- [ ] Full Access permission enables all features without crashes
+
+**Screenshot Analysis**:
+- [ ] Supports major dating apps (Tinder, Bumble, Hinge, Instagram DMs)
+- [ ] Accurately identifies conversation stage and tone in 85% of test cases
+- [ ] Handles multiple image formats (PNG, JPEG, HEIC)
+- [ ] Processes images up to 10MB without failure
+
+**Voice Cloning**:
+- [ ] 2-3 minute voice samples produce high-quality clones
+- [ ] Voice messages match user's natural speech patterns
+- [ ] Audio files are delivered within 10 seconds of generation
+- [ ] Voice deletion removes all associated data within 24 hours
+
+#### Privacy Testing
+**Consent Management**:
+- [ ] Users can granularly control each permission type
+- [ ] Consent withdrawal immediately stops data processing
+- [ ] All consent changes are logged with timestamps
+- [ ] Minors receive age-appropriate consent flows
+
+**Data Deletion**:
+- [ ] Complete account deletion removes all data within 30 days
+- [ ] Partial deletion (voice only) completes within 24 hours
+- [ ] Deletion confirmation emails sent to users
+- [ ] Data recovery impossible after deletion completion
+
+#### Security Testing
+**Penetration Testing**:
+- [ ] API endpoints resist common attack vectors (SQLi, XSS, CSRF)
+- [ ] Authentication cannot be bypassed or escalated
+- [ ] File uploads validated and scanned for malware
+- [ ] Rate limiting prevents abuse and DoS attacks
+
+#### Scalability Testing
+**Load Testing**:
+- [ ] System handles 10,000 concurrent users without degradation
+- [ ] Database performance remains stable under 1M user load
+- [ ] Auto-scaling triggers appropriately during traffic spikes
+- [ ] Third-party API failures don't cascade to system failures
+
+### M. Roadmap & Feature Matrix
+
+#### MVP 1 (Months 1-3): Core Functionality
+**Features**:
+- iOS app with Apple/Google authentication
+- Keyboard extension with "Flirrt Fresh" opener bank
+- Basic screenshot analysis with 3 suggestion outputs
+- Simple text-based flirt generation (no voice)
+- Privacy consent and data deletion
+
+**Success Metrics**:
+- 1,000 app downloads
+- 500 active keyboard users
+- 70% suggestion selection rate
+- <3 second response times
+
+#### MVP 2 (Months 4-6): Voice & Personalization
+**Features**:
+- ElevenLabs voice cloning integration
+- Personalization engine learning from user selections
+- Enhanced screenshot analysis with context understanding
+- Share Extension for easier screenshot upload
+- Advanced safety filtering
+
+**Success Metrics**:
+- 5,000 app downloads
+- 2,000 voice clones created
+- 80% suggestion selection rate
+- 50% users try voice messages
+
+#### MVP 3 (Months 7-12): Scale & Optimization
+**Features**:
+- Android keyboard extension
+- Real-time conversation coaching
+- Advanced AI personalities (confident, humorous, sincere)
+- Group chat analysis and suggestions
+- Premium subscription tier
+
+**Success Metrics**:
+- 25,000 app downloads
+- 10,000 monthly active users
+- $50,000 monthly recurring revenue
+- 90% user retention at 30 days
+
+#### Feature Value vs Complexity Matrix
+```
+High Value, Low Complexity:
+- Basic screenshot analysis
+- Text flirt suggestions
+- Privacy consent flow
+
+High Value, High Complexity:
+- Voice cloning integration
+- Real-time personalization
+- Advanced context understanding
+
+Low Value, Low Complexity:
+- Basic user profiles
+- Simple analytics dashboard
+- Email notifications
+
+Low Value, High Complexity:
+- Video message support
+- Real-time conversation monitoring
+- Advanced AI personalities
+```
+
+### N. Repository Structure & File Manifest
+
+#### ZIP Package Contents
+```
+flirrt-ai-implementation/
+├── prompts/
+│   ├── screenshot_analyzer.txt
+│   ├── personalization_agent.txt
+│   ├── flirt_generator.txt
+│   ├── voice_synthesis.txt
+│   ├── consent_privacy.txt
+│   └── safety_filter.txt
+├── api/
+│   ├── analyze_screenshot.json
+│   ├── generate_flirts.json
+│   ├── synthesize_voice.json
+│   └── delete_user_data.json
+├── diagrams/
+│   ├── onboarding_flow.mmd
+│   ├── keyboard_fresh_flow.mmd
+│   └── screenshot_analysis_flow.mmd
+├── policies/
+│   ├── privacy_policy_template.md
+│   ├── consent_copy.md
+│   ├── data_retention_policy.md
+│   └── security_guidelines.md
+├── infra/
+│   ├── aws_architecture.tf
+│   ├── monitoring_setup.tf
+│   └── security_config.tf
+└── README_IMPLEMENTATION.md
+```
+
+## Cost Estimates & Scaling Assumptions
+
+### Small Scale (1,000 MAU)
+- **Grok API**: $200/month (2,000 screenshot analyses)
+- **ElevenLabs**: $100/month (500 voice generations)
+- **AWS Infrastructure**: $300/month
+- **Total**: $600/month ($0.60 per user)
+
+### Medium Scale (10,000 MAU)
+- **Grok API**: $1,500/month (15,000 screenshot analyses)
+- **ElevenLabs**: $800/month (4,000 voice generations)
+- **AWS Infrastructure**: $1,200/month
+- **Total**: $3,500/month ($0.35 per user)
+
+### Large Scale (100,000 MAU)
+- **Grok API**: $12,000/month (120,000 screenshot analyses)
+- **ElevenLabs**: $6,000/month (30,000 voice generations)
+- **AWS Infrastructure**: $8,000/month
+- **Total**: $26,000/month ($0.26 per user)
+
+**Key Assumptions**:
+- 20% of users analyze screenshots daily
+- 5% of users generate voice messages daily
+- 70% cost reduction through caching and optimization at scale
+- Premium tier (30% of users) covers 80% of operating costs
+
+## Open Questions & Assumptions
+
+### Technical Assumptions
+- Grok Vision API will maintain current pricing and performance levels
+- ElevenLabs voice cloning quality sufficient for dating app use cases
+- iOS App Store approval for keyboard with "Full Access" and screenshot analysis
+- 60MB memory limit adequate for keyboard extension functionality
+
+### Product Assumptions
+- Users willing to grant "Full Access" keyboard permission for flirt suggestions
+- Screenshot analysis provides sufficient context for meaningful suggestions
+- Voice messages enhance flirting effectiveness vs. text-only suggestions
+- Privacy-first approach differentiates from competitors
+
+### Business Questions
+- Optimal freemium vs. premium feature split for sustainable revenue
+- User acquisition cost and lifetime value in dating app adjacent market
+- Competitive response from major dating platforms (Tinder, Bumble)
+- Regulatory changes affecting AI-generated content in dating contexts
+
+### Technical Questions
+- Performance optimization for real-time suggestion generation
+- Offline capability for stored opener suggestions when network unavailable
+- Integration complexity with dating app UI changes and updates
+- Scalability of personalization algorithms with large user bases
+
+## Security & Compliance Statement
+
+This implementation strictly adheres to iOS and App Store security requirements. All data collection occurs with explicit user consent. The keyboard extension requests "Full Access" only for legitimate functionality (App Groups sharing, network requests for suggestions). No circumvention of platform security is implemented or suggested.
+
+Screenshots are processed only when explicitly shared by users through compliant Share Extension or in-app upload mechanisms. No background screen capture or unauthorized data access occurs.
+
+The system implements comprehensive privacy protection including data minimization, encryption in transit and at rest, user-controlled deletion, and compliance with GDPR, CCPA, and other applicable privacy regulations.
+
+All AI-generated content passes through safety filters to prevent harassment, inappropriate content, or harmful suggestions, with special protections for users under 18.

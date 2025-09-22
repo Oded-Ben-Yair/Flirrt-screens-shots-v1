@@ -1,0 +1,179 @@
+You are Replit Agent 3.
+You will first research and then author a final, copy-pasteable Claude-Code master prompt that I will run locally.
+You must not write application code. Your outputs are documents, prompts, diagrams, and JSON samples only.
+
+Context (Product = Flirrt.ai)
+
+Name: Flirrt.ai
+
+Logo concept: the double “r” cleverly connects to a heart shape.
+
+Goal: A personal wingman that helps users flirt in third-party chat apps (Tinder, Instagram, etc.) with suggested texts and (optional) voice messages.
+
+Key flows:
+
+iOS app + sign in (Apple/Google).
+
+iOS keyboard extension (explicit “Full Access” consent).
+
+Two actions on the keyboard: “Flirrt Fresh” (personalized opener bank) and “Let’s Analyze It!” (user screenshots a chat; AI analyzes; returns 3 flirts + refresh; may ask for more context like profile/bio or more of the chat).
+
+Optional voice clone for sending voice notes; onboarding records samples; ElevenLabs used for synthesis.
+
+LLM preference: Grok API for screenshot analysis & reply generation (confirm capabilities for image/vision as of 2025-09-22).
+
+Privacy: Sensitive content. Minimal retention, encryption in transit & at rest, explicit consent, easy deletion.
+
+Absolutely forbidden: Any method, trick, or guidance to bypass iOS/Android security or store review. Only compliant approaches (App Groups, Share Extension, clipboard/paste by user, “Full Access” consent, etc.).
+
+Your Mission
+
+Research Phase (today’s knowledge: 22 Sep 2025):
+Gather practical, recent guidance from official docs, Reddit, reputable blogs, and social posts about:
+
+Replit Agent 3 prompting best practices (planning, file outputs, diff discipline, research & citation patterns).
+
+Claude-Code prompting patterns for code generation projects, MCP (Model Context Protocol) usage with Claude (tools, server connectors, security considerations), and handing off multi-agent plans.
+
+iOS keyboard extension architecture in 2025 (App Groups, Full Access, size/memory constraints, network calls, content access limits).
+
+Confirm allowed data paths for screenshots: Share Extension, in-app upload, user-driven paste (not background scraping).
+
+App Store review notes language for keyboard “Full Access” and privacy.
+
+Screenshot → OCR → LLM pipelines (on-device Vision vs. server OCR like Google Vision/AWS Textract vs. multimodal LLM).
+
+Grok API: availability & pricing, rate limits, vision support (if any), token limits, safety controls. (If Grok lacks vision, specify fallback: OCR first + text LLM, or another vision model with brokered access.)
+
+ElevenLabs cloning consent & API (voice sample length, TOS constraints, safe UX copy).
+
+Safety for flirt content (harassment/sexual content boundaries, age checks, block lists, safety classifiers).
+
+Privacy & compliance: consent logging, data deletion, KMS, PII redaction, audit trails, App Store & Play policies relevant to keyboards, screenshots, and voice cloning.
+
+Research output:
+
+Create /research/notes.md with a bullet summary and inline citations (URL + site + publication date).
+
+Add /research/sources.csv listing title, url, publisher, date, key_takeaways (<=200 chars).
+
+Synthesis Phase → Produce the Claude-Code Master Prompt:
+Generate a single file /deliverables/ClaudeCode_Flirrt_MasterPrompt.txt that I can paste into Claude-Code.
+The prompt must instruct Claude-Code to design and (optionally) implement the system, but not for RA3 to code anything. It must include:
+
+A. Deliverables (Claude-Code must output all):
+
+Executive summary (1 page).
+
+Top-level architecture (ASCII or Mermaid) and component catalog.
+
+MCP plan for Claude: tool inventory, connectors (e.g., KV, vector store, storage, CI/CD), auth patterns, schemas.
+
+Sub-agent prompts (ready-to-use) for: Screenshot Analyzer, Personalization, Flirt Generator, Voice Synthesis, Consent/Privacy, Safety Filter.
+
+Each with: Purpose, Input schema (JSON), Output schema (JSON), Example I/O, and at least one few-shot.
+
+LLM pipeline: OCR/vision preprocessing, prompt templates (playful/humorous/sincere), safety gates, retries, temp/tokens, low-confidence fallbacks.
+
+API specs with example requests/responses for /analyze_screenshot, /generate_flirts, /synthesize_voice, /delete_user_data.
+
+Mermaid sequence diagrams for: onboarding+voice clone, keyboard “Flirrt Fresh”, screenshot analysis & suggestion selection.
+
+Privacy & security plan (consent UX copy, retention policy, encryption, KMS, PII redaction, App Store/Play checklist text).
+
+Infra & deployment sketch (AWS/GCP/Azure options), Terraform-style skeletons (names, not full code), CI/CD outline.
+
+Ops plan (metrics, alerting, cost controls, quotas), threat model & mitigations.
+
+Acceptance criteria & test plan (functional, privacy, security, scalability).
+
+Roadmap (MVP1→MVP3), feature matrix (value vs complexity).
+
+A ZIP manifest list (filenames + descriptions) for repo scaffolding under /prompts, /api, /diagrams, /policies, /infra.
+
+B. Product truths to bake in:
+
+Grok as primary LLM for screenshot analysis & suggestion generation (validate vision support; if absent, specify OCR first + text LLM).
+
+ElevenLabs for voice cloning (opt-in; deletion supported).
+
+iOS keyboard extension with explicit “Full Access” and App Groups for shared storage; suggest Share Extension for screenshot handoff.
+
+Strict refusal & compliant alternatives for any request to bypass OS/security.
+
+C. Quality bars for Claude-Code prompt:
+
+Concrete acceptance criteria and verification commands.
+
+Clear file outputs (paths + contents summaries).
+
+Tone templates (playful/humorous/sincere) with 3 full examples each.
+
+Cost ranges (small/med/large) with assumptions and per-user cost estimate.
+
+Open questions list + assumptions.
+
+Refusal paragraph (why bypassing OS security is disallowed + compliant paths).
+
+Packaging:
+
+Write the final prompt to /deliverables/ClaudeCode_Flirrt_MasterPrompt.txt.
+
+Also output:
+
+/deliverables/SubAgentPrompts/ (each prompt as its own .txt).
+
+/deliverables/Diagrams/*.mmd (Mermaid text).
+
+/deliverables/API/*.json (sample requests/responses).
+
+/deliverables/README_HANDOFF.md (how to run the Claude-Code prompt; checklist).
+
+Execution Rules (follow strictly)
+
+Start by printing a 5-step plan (Research sources → Collect notes → Draft Claude prompt → Validate against checklist → Write files). Then proceed without waiting.
+
+Prefer recent sources; include dates for all citations.
+
+No app code. Documents only.
+
+Use concise bullets, tables, and schemas.
+
+If Grok vision capability is uncertain or contradictory, state it clearly and provide two designs (vision-native vs OCR+LLM) in the Claude prompt.
+
+For any claim about app store/OS constraints, cite a source (link + date).
+
+Include a refusal & compliance block verbatim in the Claude prompt.
+
+End with a summary of produced files and next steps for me.
+
+Suggested Commands & File Layout
+
+Create directories:
+mkdir -p research deliverables/SubAgentPrompts deliverables/Diagrams deliverables/API deliverables/policies deliverables/infra
+
+Write outputs exactly to the paths above.
+
+Acceptance Criteria (for this RA3 run)
+
+/research/notes.md contains at least 10 citations with dates from reputable sources (≥3 from official docs; ≥2 from Reddit).
+
+/deliverables/ClaudeCode_Flirrt_MasterPrompt.txt contains all items in “Synthesis Phase → Deliverables” including the refusal paragraph.
+
+At least 3 tone templates (playful/humorous/sincere) each with a few-shot example in the sub-agent prompts.
+
+3 Mermaid sequences + 4 API JSON samples included.
+
+Cost estimates and scaling assumptions present.
+
+Final message shows a file tree and a short handoff checklist.
+
+Product Safety Note (must include in the Claude prompt)
+
+The system must not design or recommend any method to evade iOS/Android security or App/Play Store review. Only compliant paths are allowed: explicit “Full Access” consent for keyboard extensions, App Groups for shared storage, user-initiated Share Extensions or in-app upload for screenshots, server-side processing with explicit consent, and official APIs where available.
+
+Inputs you can assume (seed examples)
+
+Onboarding example, screenshot analyzer input, and voice clone opt-in samples as JSON (you can create/update these in /deliverables/API/).
+
+Proceed now. Print your 5-step plan and start the research phase, then synthesize the Claude-Code master prompt and write all files

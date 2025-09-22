@@ -1,0 +1,93 @@
+sequenceDiagram
+    participant U as User
+    participant A as iOS App  
+    participant K as Keyboard Extension
+    participant B as Backend API
+    participant E as ElevenLabs
+    participant S as Secure Storage
+    participant AS as App Store
+
+    Note over U,AS: Flirrt.ai Onboarding & Voice Clone Setup Flow
+
+    %% Initial App Installation & Setup
+    U->>AS: Download Flirrt.ai from App Store
+    AS-->>U: App installed successfully
+    U->>A: Launch app for first time
+    A->>U: Welcome screen & value proposition
+
+    %% Authentication Flow
+    A->>U: Choose sign-in method (Apple/Google)
+    U->>A: Select Apple ID sign-in
+    A->>A: Process Apple ID authentication
+    A-->>U: Authentication successful
+
+    %% Age Verification & Consent
+    A->>U: Age verification prompt
+    U->>A: Confirm 18+ years old
+    A->>U: Privacy policy & terms of service
+    U->>A: Accept terms and privacy policy
+
+    %% Voice Cloning Consent & Setup
+    A->>U: Voice cloning feature explanation
+    Note over A,U: "Create personalized voice messages with your own voice clone"
+    U->>A: Consent to voice cloning
+    
+    A->>U: Request microphone permission
+    U->>A: Grant microphone permission
+    
+    A->>U: Voice recording tutorial
+    Note over A,U: "Record 2-3 minutes of natural speech for best results"
+    
+    A->>U: Start voice sample recording
+    U->>A: Complete 2-3 minute voice recording
+    
+    A->>B: Upload voice samples + user consent
+    B->>E: Create voice clone with ElevenLabs
+    Note over B,E: Voice samples encrypted in transit
+    
+    E->>E: Process voice cloning (2-4 hours)
+    E-->>B: Voice clone ID + processing status
+    
+    B->>S: Store encrypted voice ID + user mapping
+    B-->>A: Voice clone creation initiated
+    
+    A->>U: "Voice clone is being created (2-4 hours)"
+
+    %% Keyboard Extension Setup
+    A->>U: Keyboard setup instructions
+    Note over A,U: Step-by-step guide with screenshots
+    
+    U->>U: Navigate to iOS Settings > General > Keyboards
+    U->>U: Add Flirrt keyboard
+    U->>U: Enable "Allow Full Access" 
+    
+    A->>K: Initialize keyboard extension
+    K->>A: Request user profile data (via App Groups)
+    A->>K: Share user preferences & voice clone status
+    K-->>A: Keyboard setup confirmation
+    
+    %% Personalization Setup
+    A->>U: Communication style questionnaire
+    Note over A,U: Humor style, directness, interests, goals
+    U->>A: Complete style preferences
+    
+    A->>B: Save user personalization profile
+    B->>S: Store user preferences securely
+    B-->>A: Profile saved successfully
+
+    %% Tutorial & First Use
+    A->>U: Interactive tutorial
+    Note over A,U: "How to use Flirrt Fresh & Let's Analyze It features"
+    
+    U->>A: Complete tutorial walkthrough
+    A->>U: Setup complete confirmation
+    
+    Note over U,A: User ready to start flirting!
+    
+    %% Background: Voice Clone Completion
+    rect rgb(240, 248, 255)
+        Note over E,A: 2-4 hours later...
+        E->>B: Voice clone processing complete
+        B->>A: Push notification about voice availability
+        A->>U: "Your voice clone is ready! 🎉"
+    end

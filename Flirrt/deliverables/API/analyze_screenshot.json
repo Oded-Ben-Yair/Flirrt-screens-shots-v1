@@ -1,0 +1,214 @@
+{
+  "endpoint": "/api/v1/analyze_screenshot",
+  "method": "POST",
+  "description": "Analyzes conversation screenshots to understand context and provide personalized flirt suggestions",
+  "content_type": "multipart/form-data",
+  "authentication": "Bearer token required",
+  "rate_limits": {
+    "requests_per_minute": 10,
+    "daily_limit": 50
+  },
+  "request": {
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "multipart/form-data"
+    },
+    "body": {
+      "image": {
+        "type": "file",
+        "required": true,
+        "max_size": "10MB",
+        "formats": ["PNG", "JPEG", "HEIC"],
+        "description": "Screenshot of conversation to analyze"
+      },
+      "user_id": {
+        "type": "string",
+        "required": true,
+        "description": "Unique user identifier"
+      },
+      "context": {
+        "type": "object",
+        "required": false,
+        "properties": {
+          "relationship_goal": {
+            "type": "string",
+            "enum": ["casual", "serious", "hookup", "friendship"],
+            "default": "casual"
+          },
+          "user_bio": {
+            "type": "string",
+            "max_length": 500,
+            "description": "Optional user bio for additional context"
+          },
+          "platform": {
+            "type": "string",
+            "enum": ["tinder", "bumble", "hinge", "instagram", "snapchat", "other"],
+            "default": "other"
+          }
+        }
+      },
+      "preferences": {
+        "type": "object",
+        "required": false,
+        "properties": {
+          "tone_preference": {
+            "type": "string",
+            "enum": ["playful", "humorous", "sincere"],
+            "default": "playful"
+          },
+          "directness_level": {
+            "type": "string", 
+            "enum": ["subtle", "medium", "bold"],
+            "default": "medium"
+          }
+        }
+      }
+    }
+  },
+  "response": {
+    "success": {
+      "status_code": 200,
+      "content_type": "application/json",
+      "body": {
+        "analysis_id": {
+          "type": "string",
+          "description": "Unique identifier for this analysis session"
+        },
+        "conversation_analysis": {
+          "type": "object",
+          "properties": {
+            "conversation_stage": {
+              "type": "string",
+              "enum": ["opener", "early", "building", "advanced", "stalled"]
+            },
+            "other_person_interest_level": {
+              "type": "string",
+              "enum": ["high", "medium", "low", "unclear"]
+            },
+            "conversation_tone": {
+              "type": "string",
+              "enum": ["playful", "serious", "flirty", "friendly", "awkward"]
+            },
+            "key_topics_identified": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "personality_indicators": {
+              "type": "object",
+              "properties": {
+                "humor_appreciation": {
+                  "type": "string",
+                  "enum": ["high", "medium", "low", "unclear"]
+                },
+                "directness_preference": {
+                  "type": "string",
+                  "enum": ["direct", "subtle", "mixed", "unclear"]
+                },
+                "intelligence_level": {
+                  "type": "string",
+                  "enum": ["high", "medium", "basic", "unclear"]
+                }
+              }
+            }
+          }
+        },
+        "personalization_data": {
+          "type": "object",
+          "description": "User-specific preferences and patterns"
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "ISO8601"
+        },
+        "processing_time_ms": {
+          "type": "integer"
+        },
+        "confidence_score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        }
+      }
+    },
+    "error": {
+      "status_code": [400, 401, 413, 422, 429, 500],
+      "content_type": "application/json",
+      "body": {
+        "error": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "object"
+        }
+      }
+    }
+  },
+  "example_request": {
+    "curl": "curl -X POST https://api.flirrt.ai/v1/analyze_screenshot \\\n  -H \"Authorization: Bearer your_access_token\" \\\n  -F \"image=@conversation_screenshot.png\" \\\n  -F \"user_id=user_12345\" \\\n  -F 'context={\"relationship_goal\":\"serious\",\"platform\":\"tinder\"}' \\\n  -F 'preferences={\"tone_preference\":\"playful\",\"directness_level\":\"medium\"}'",
+    "javascript": "const formData = new FormData();\nformData.append('image', imageFile);\nformData.append('user_id', 'user_12345');\nformData.append('context', JSON.stringify({\n  relationship_goal: 'serious',\n  platform: 'tinder'\n}));\n\nfetch('https://api.flirrt.ai/v1/analyze_screenshot', {\n  method: 'POST',\n  headers: {\n    'Authorization': 'Bearer your_access_token'\n  },\n  body: formData\n});"
+  },
+  "example_response": {
+    "analysis_id": "analysis_abc123def456",
+    "conversation_analysis": {
+      "conversation_stage": "early",
+      "other_person_interest_level": "high",
+      "conversation_tone": "friendly", 
+      "key_topics_identified": ["hiking", "photography", "travel"],
+      "personality_indicators": {
+        "humor_appreciation": "medium",
+        "directness_preference": "direct",
+        "intelligence_level": "high"
+      }
+    },
+    "personalization_data": {
+      "user_humor_style": "playful",
+      "successful_topics": ["outdoor_activities", "creativity"],
+      "optimal_directness": "medium"
+    },
+    "timestamp": "2025-09-22T14:30:00Z",
+    "processing_time_ms": 1250,
+    "confidence_score": 0.87
+  },
+  "error_responses": {
+    "400_bad_request": {
+      "error": "INVALID_REQUEST",
+      "message": "Missing required field: image",
+      "details": {
+        "missing_fields": ["image"]
+      }
+    },
+    "401_unauthorized": {
+      "error": "UNAUTHORIZED",
+      "message": "Invalid or expired access token"
+    },
+    "413_file_too_large": {
+      "error": "FILE_TOO_LARGE", 
+      "message": "Image file size exceeds 10MB limit",
+      "details": {
+        "file_size_mb": 15.2,
+        "max_size_mb": 10
+      }
+    },
+    "422_processing_error": {
+      "error": "PROCESSING_FAILED",
+      "message": "Unable to extract text from image",
+      "details": {
+        "reason": "low_image_quality",
+        "suggestions": ["Ensure good lighting", "Avoid blurry images", "Check image resolution"]
+      }
+    },
+    "429_rate_limit": {
+      "error": "RATE_LIMIT_EXCEEDED",
+      "message": "Too many requests. Please try again later.",
+      "details": {
+        "retry_after_seconds": 60,
+        "daily_limit_remaining": 0
+      }
+    }
+  }
+}
