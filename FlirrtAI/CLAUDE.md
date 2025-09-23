@@ -1,11 +1,29 @@
 # 🚀 FLIRRT.AI - COMPLETE PROJECT GUIDE FOR CLAUDE
 
+## 🚨 CRITICAL ISSUES - READ FIRST!
+**STATUS**: App installed but KEYBOARD EXTENSION NON-FUNCTIONAL
+**DATE**: 2025-09-23
+**USER TESTING**: Confirmed buttons don't work
+
+### ⚠️ What's Broken:
+1. **Keyboard Fresh/Analyze buttons** - Only call local methods, no API connection
+2. **Screenshot trigger** - Taking screenshots doesn't activate keyboard
+3. **Voice cloning** - Missing script reading interface
+4. **Onboarding flow** - Fresh button doesn't start onboarding
+
+### 📋 Required Actions:
+1. **READ**: `CRITICAL_FIXES.md` - Detailed issues with code snippets
+2. **FOLLOW**: `IMPLEMENTATION_GUIDE.md` - Step-by-step fix instructions
+3. **TEST**: `TEST_SCENARIOS.md` - Validation procedures
+4. **CHECK**: `API_CONTRACTS.md` - Backend endpoints documentation
+
 ## 🎯 IMMEDIATE CONTEXT
 You are working on Flirrt.ai, a production-ready iOS app with real API integrations for AI-powered dating conversation assistance. The app is FULLY BUILT and TESTED with:
 - ✅ iOS app (Swift/SwiftUI) with keyboard and share extensions
 - ✅ Backend server (Node.js/Express) with real Grok & ElevenLabs APIs
 - ✅ 6 AI sub-agents for intelligent processing
 - ✅ Automated testing infrastructure
+- ❌ Keyboard extension API connection (BROKEN - needs fix)
 
 ## 📍 PROJECT LOCATION
 ```bash

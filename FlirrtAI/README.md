@@ -1,5 +1,25 @@
 # 🚀 Flirrt.ai - AI-Powered Dating Assistant
 
+## ⚠️ CRITICAL STATUS - KEYBOARD EXTENSION BROKEN
+**Date**: 2025-09-23
+**Issue**: Keyboard extension buttons (Fresh/Analyze) are NOT connected to backend APIs
+**Impact**: Core functionality non-operational in production
+
+### 🔴 Immediate Action Required
+1. **READ FIRST**: [CRITICAL_FIXES.md](./CRITICAL_FIXES.md) - Exact problems and solutions
+2. **IMPLEMENT**: [IMPLEMENTATION_GUIDE.md](./IMPLEMENTATION_GUIDE.md) - Step-by-step fixes
+3. **VALIDATE**: [TEST_SCENARIOS.md](./TEST_SCENARIOS.md) - Testing procedures
+4. **REFERENCE**: [API_CONTRACTS.md](./API_CONTRACTS.md) - Backend endpoints
+
+### Known Issues (User-Confirmed)
+- ❌ Fresh button does nothing when tapped
+- ❌ Analyze button does nothing when tapped
+- ❌ Screenshots don't trigger keyboard
+- ❌ Voice cloning missing script interface
+- ❌ Onboarding not connected to Fresh button
+
+---
+
 ## Overview
 Flirrt.ai is an intelligent iOS application that helps users craft personalized, engaging messages for dating conversations. It uses advanced AI to analyze conversation screenshots and generate contextually appropriate responses with optional voice synthesis.
 
