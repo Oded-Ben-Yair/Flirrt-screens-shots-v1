@@ -1,0 +1,162 @@
+{
+  "version": "2.0",
+  "auto_recovery": true,
+  "verbose_errors": true,
+  "project_name": "Flirrt.AI",
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [{
+          "type": "command",
+          "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/session-init.sh",
+          "timeout": 5000,
+          "on_error": "log_and_continue",
+          "fallback": "echo 'Session started without full init'"
+        }]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [{
+          "type": "command",
+          "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/pre-prompt.sh",
+          "timeout": 1000,
+          "on_error": "log_and_continue"
+        }]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Write|Edit|MultiEdit",
+        "hooks": [{
+          "type": "command",
+          "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/pre-edit.sh",
+          "timeout": 2000,
+          "on_error": "warn_and_continue",
+          "critical": true
+        }]
+      },
+      {
+        "matcher": "Task",
+        "hooks": [{
+          "type": "command",
+          "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/task-init.sh",
+          "timeout": 3000,
+          "on_error": "retry_once"
+        }]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [{
+          "type": "command",
+          "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/validate-command.sh",
+          "timeout": 500,
+          "on_error": "block_if_dangerous"
+        }]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit|MultiEdit",
+        "hooks": [{
+          "type": "command",
+          "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/post-edit.sh",
+          "timeout": 5000,
+          "on_error": "log_and_queue_retry",
+          "run_in_background": true
+        }]
+      },
+      {
+        "matcher": "Task",
+        "hooks": [{
+          "type": "command",
+          "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/task-complete.sh",
+          "timeout": 2000,
+          "on_error": "log_and_continue"
+        }]
+      },
+      {
+        "matcher": ".*",
+        "hooks": [{
+          "type": "command",
+          "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/update-metrics.sh",
+          "timeout": 500,
+          "on_error": "ignore",
+          "run_in_background": true
+        }]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [{
+          "type": "command",
+          "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/session-save.sh",
+          "timeout": 10000,
+          "on_error": "retry_twice",
+          "critical": true
+        }]
+      }
+    ]
+  },
+  "mcp": {
+    "servers": {
+      "context7": {
+        "command": "npx",
+        "args": ["@upstash/context7"],
+        "on_error": "fallback_to_websearch",
+        "health_check_interval": 60000,
+        "auto_restart": true
+      },
+      "github": {
+        "command": "npx",
+        "args": ["@modelcontextprotocol/server-github"],
+        "env": {
+          "GITHUB_TOKEN": "ghp_MASKED_TOKEN"
+        },
+        "on_error": "fallback_to_bash_git",
+        "auto_restart": true
+      },
+      "postgres": {
+        "command": "npx",
+        "args": ["@modelcontextprotocol/server-postgres"],
+        "env": {
+          "DATABASE_URL": "postgresql://localhost/flirrt"
+        },
+        "on_error": "fallback_to_sql_files",
+        "optional": true
+      },
+      "filesystem": {
+        "command": "npx",
+        "args": ["@modelcontextprotocol/server-filesystem"],
+        "on_error": "use_native_tools",
+        "auto_restart": true
+      }
+    }
+  },
+  "environment": {
+    "MAX_MCP_OUTPUT_TOKENS": "25000",
+    "CLAUDE_CACHE_TTL": "3600",
+    "CLAUDE_MAX_CONCURRENT": "10",
+    "CLAUDE_MEMORY_LIMIT": "4GB",
+    "CLAUDE_PROJECT_DIR": "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI",
+    "CLAUDE_CODE_SHELL_PREFIX": "time",
+    "CLAUDE_DANGEROUSLY_SKIP_PERMISSIONS": "false"
+  },
+  "performance": {
+    "cache_enabled": true,
+    "cache_ttl": 3600,
+    "context_preload": true,
+    "batch_operations": true,
+    "parallel_limit": 4,
+    "memory_monitoring": true,
+    "auto_cleanup_threshold": "25MB"
+  },
+  "error_handling": {
+    "auto_recovery": true,
+    "retry_attempts": 2,
+    "retry_delay": 1000,
+    "fallback_to_native": true,
+    "log_all_errors": true,
+    "error_notification": true
+  }
+}

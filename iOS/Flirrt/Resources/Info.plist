@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <!-- Required for Voice Recording Module -->
+    <key>NSMicrophoneUsageDescription</key>
+    <string>Flirrt needs access to your microphone to record voice samples for creating personalized voice clones. This enables the app to generate flirty messages in your own voice.</string>
+
+    <!-- Background Audio Processing (Optional) -->
+    <key>UIBackgroundModes</key>
+    <array>
+        <string>audio</string>
+    </array>
+
+    <!-- Audio Session Configuration -->
+    <key>AVAudioSessionCategoryOptions</key>
+    <array>
+        <string>AVAudioSessionCategoryOptionDefaultToSpeaker</string>
+        <string>AVAudioSessionCategoryOptionAllowBluetooth</string>
+    </array>
+
+    <!-- App Transport Security for ElevenLabs API -->
+    <key>NSAppTransportSecurity</key>
+    <dict>
+        <key>NSExceptionDomains</key>
+        <dict>
+            <key>api.elevenlabs.io</key>
+            <dict>
+                <key>NSExceptionAllowsInsecureHTTPLoads</key>
+                <false/>
+                <key>NSExceptionMinimumTLSVersion</key>
+                <string>TLSv1.2</string>
+                <key>NSExceptionRequiresForwardSecrecy</key>
+                <true/>
+            </dict>
+        </dict>
+    </dict>
+
+    <!-- Supported File Types for Voice Recordings -->
+    <key>CFBundleDocumentTypes</key>
+    <array>
+        <dict>
+            <key>CFBundleTypeName</key>
+            <string>Audio Recording</string>
+            <key>CFBundleTypeRole</key>
+            <string>Editor</string>
+            <key>LSItemContentTypes</key>
+            <array>
+                <string>public.audio</string>
+                <string>com.apple.m4a-audio</string>
+            </array>
+        </dict>
+    </array>
+</dict>
+</plist>
