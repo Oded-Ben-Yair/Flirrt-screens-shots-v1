@@ -202,10 +202,10 @@ struct HomeView: View {
             VoiceRecordingView()
         }
         .sheet(isPresented: $showingScreenshotAnalysis) {
-            ScreenshotAnalysisView(isPresented: $showingScreenshotAnalysis)
+            PlaceholderView(title: "Screenshot Analysis", subtitle: "Coming Soon!")
         }
         .sheet(isPresented: $showingFlirtGeneration) {
-            FlirtGenerationView(isPresented: $showingFlirtGeneration)
+            PlaceholderView(title: "Flirt Generation", subtitle: "AI-powered conversation starters coming soon!")
         }
     }
 }
@@ -661,51 +661,45 @@ struct RecentActivity: Identifiable {
 
 // MARK: - Placeholder Views
 
-struct ScreenshotAnalysisView: View {
-    @Binding var isPresented: Bool
-
+struct PlaceholderView: View {
+    let title: String
+    let subtitle: String
+    @Environment(\.presentationMode) var presentationMode
+    
     var body: some View {
         NavigationView {
-            VStack {
-                Text("Screenshot Analysis")
+            VStack(spacing: 30) {
+                Image(systemName: "sparkles")
+                    .font(.system(size: 60))
+                    .foregroundColor(.pink)
+                
+                Text(title)
                     .font(.title)
-                Text("Coming Soon")
+                    .fontWeight(.bold)
+                    .foregroundColor(.white)
+                
+                Text(subtitle)
                     .font(.body)
                     .foregroundColor(.gray)
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal)
             }
-            .navigationTitle("Analyze")
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(
+                LinearGradient(
+                    colors: [Color.black, Color.gray.opacity(0.3)],
+                    startPoint: .top,
+                    endPoint: .bottom
+                )
+            )
+            .navigationTitle(title)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button("Done") {
-                        isPresented = false
+                        presentationMode.wrappedValue.dismiss()
                     }
-                }
-            }
-        }
-        .preferredColorScheme(.dark)
-    }
-}
-
-struct FlirtGenerationView: View {
-    @Binding var isPresented: Bool
-
-    var body: some View {
-        NavigationView {
-            VStack {
-                Text("Flirt Generation")
-                    .font(.title)
-                Text("Coming Soon")
-                    .font(.body)
-                    .foregroundColor(.gray)
-            }
-            .navigationTitle("Generate")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("Done") {
-                        isPresented = false
-                    }
+                    .foregroundColor(.white)
                 }
             }
         }

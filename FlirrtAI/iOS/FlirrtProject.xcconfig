@@ -1,0 +1,28 @@
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+// Deployment settings
+IPHONEOS_DEPLOYMENT_TARGET = 16.0
+TARGETED_DEVICE_FAMILY = 1
+
+// Code signing
+CODE_SIGN_STYLE = Automatic
+DEVELOPMENT_TEAM =
+
+// App Groups
+APP_GROUP_IDENTIFIER = group.com.flirrt.ai.shared
+
+// Bundle identifiers
+MAIN_APP_BUNDLE_ID = com.flirrt.ai
+SHARE_EXTENSION_BUNDLE_ID = $(MAIN_APP_BUNDLE_ID).share
+KEYBOARD_EXTENSION_BUNDLE_ID = $(MAIN_APP_BUNDLE_ID).keyboard
+
+// Version info
+CURRENT_PROJECT_VERSION = 1
+MARKETING_VERSION = 1.0
+
+// Swift settings
+SWIFT_VERSION = 5.0
+
+// Other settings
+GENERATE_INFOPLIST_FILE = NO

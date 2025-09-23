@@ -5,22 +5,31 @@ const path = require('path');
 
 const BASE_URL = 'http://localhost:3000/api/v1';
 
-// Test data
+// Test data - use real screenshot for proper testing
+const realTestImagePath = path.join(__dirname, 'real-test-screenshot.png');
 const testImagePath = path.join(__dirname, 'test-screenshot.png');
 
-// Create a simple test image if it doesn't exist
-if (!fs.existsSync(testImagePath)) {
-    // Create a simple 1x1 pixel PNG for testing
-    const testImageBuffer = Buffer.from([
-        0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A, 0x00, 0x00, 0x00, 0x0D,
-        0x49, 0x48, 0x44, 0x52, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x01,
-        0x08, 0x02, 0x00, 0x00, 0x00, 0x90, 0x77, 0x53, 0xDE, 0x00, 0x00, 0x00,
-        0x0C, 0x49, 0x44, 0x41, 0x54, 0x08, 0xD7, 0x63, 0xF8, 0x00, 0x00, 0x00,
-        0x01, 0x00, 0x01, 0x02, 0x16, 0x05, 0x5D, 0x00, 0x00, 0x00, 0x00, 0x49,
-        0x45, 0x4E, 0x44, 0xAE, 0x42, 0x60, 0x82
-    ]);
-    fs.writeFileSync(testImagePath, testImageBuffer);
-    console.log('Created test image:', testImagePath);
+// Check for real screenshot first, fallback to 1x1 pixel if needed
+let actualTestImagePath = realTestImagePath;
+if (!fs.existsSync(realTestImagePath)) {
+    console.log('Real test screenshot not found, checking for basic test image...');
+    actualTestImagePath = testImagePath;
+
+    if (!fs.existsSync(testImagePath)) {
+        // Create a simple 1x1 pixel PNG for testing as fallback
+        const testImageBuffer = Buffer.from([
+            0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A, 0x00, 0x00, 0x00, 0x0D,
+            0x49, 0x48, 0x44, 0x52, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x01,
+            0x08, 0x02, 0x00, 0x00, 0x00, 0x90, 0x77, 0x53, 0xDE, 0x00, 0x00, 0x00,
+            0x0C, 0x49, 0x44, 0x41, 0x54, 0x08, 0xD7, 0x63, 0xF8, 0x00, 0x00, 0x00,
+            0x01, 0x00, 0x01, 0x02, 0x16, 0x05, 0x5D, 0x00, 0x00, 0x00, 0x00, 0x49,
+            0x45, 0x4E, 0x44, 0xAE, 0x42, 0x60, 0x82
+        ]);
+        fs.writeFileSync(testImagePath, testImageBuffer);
+        console.log('Created basic 1x1 test image:', testImagePath);
+    }
+} else {
+    console.log('Using real test screenshot:', realTestImagePath);
 }
 
 // Mock authentication token for testing
@@ -31,7 +40,7 @@ async function testAnalyzeScreenshot() {
 
     try {
         const form = new FormData();
-        form.append('screenshot', fs.createReadStream(testImagePath));
+        form.append('screenshot', fs.createReadStream(actualTestImagePath));
         form.append('context', 'This is a test dating app screenshot');
         form.append('preferences', JSON.stringify({ tone: 'playful' }));
 
@@ -136,6 +145,7 @@ async function testDeleteUserData() {
     console.log('\n=== Testing DELETE /api/v1/user/{id}/data ===');
 
     try {
+        // Use the same user ID that the mock token provides
         const response = await axios.delete(`${BASE_URL}/user/test-user-id/data`, {
             headers: {
                 'Authorization': MOCK_TOKEN

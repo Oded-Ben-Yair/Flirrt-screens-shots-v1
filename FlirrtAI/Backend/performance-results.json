@@ -1,0 +1,33 @@
+{
+  "screenshot_analysis": {
+    "duration_ms": 6725,
+    "duration_seconds": "6.72",
+    "success": true,
+    "screenshot_id": "test-screenshot-1758613413021"
+  },
+  "flirt_generation": {
+    "duration_ms": 5326,
+    "duration_seconds": "5.33",
+    "success": true,
+    "suggestions_count": 5,
+    "suggestion_id": "test-suggestion-1758613425044-5iftaznwv"
+  },
+  "voice_synthesis": {
+    "duration_ms": 1087,
+    "duration_seconds": "1.09",
+    "success": true,
+    "file_size": 57305,
+    "voice_message_id": "test-voice-1758613425061"
+  },
+  "data_deletion": {
+    "duration_ms": 4,
+    "duration_seconds": "0.00",
+    "success": true
+  },
+  "summary": {
+    "total_duration_ms": 13142,
+    "total_duration_seconds": "13.14",
+    "successful_tests": 4,
+    "failed_tests": 0
+  }
+}

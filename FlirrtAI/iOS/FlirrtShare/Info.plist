@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <!-- Bundle Information -->
+    <key>CFBundleDisplayName</key>
+    <string>Flirrt Share</string>
+    <key>CFBundleIdentifier</key>
+    <string>com.flirrt.ai.share</string>
+    <key>CFBundleVersion</key>
+    <string>1.0.0</string>
+    <key>CFBundleShortVersionString</key>
+    <string>1.0</string>
+    <key>CFBundlePackageType</key>
+    <string>XPC!</string>
+
+    <!-- Extension Configuration -->
+    <key>NSExtension</key>
+    <dict>
+        <!-- Extension Point Identifier -->
+        <key>NSExtensionPointIdentifier</key>
+        <string>com.apple.share-services</string>
+
+        <!-- Principal Class -->
+        <key>NSExtensionPrincipalClass</key>
+        <string>ShareViewController</string>
+
+        <!-- Extension Attributes -->
+        <key>NSExtensionAttributes</key>
+        <dict>
+            <!-- Activation Rules for Images -->
+            <key>NSExtensionActivationRule</key>
+            <dict>
+                <!-- Accept images from any app -->
+                <key>NSExtensionActivationSupportsImageWithMaxCount</key>
+                <integer>1</integer>
+
+                <!-- Accept specific image types -->
+                <key>NSExtensionActivationSupportsFileWithMaxCount</key>
+                <integer>1</integer>
+            </dict>
+
+            <!-- Share Sheet Configuration -->
+            <key>NSExtensionActivationSupportsText</key>
+            <false/>
+            <key>NSExtensionActivationSupportsWebURLWithMaxCount</key>
+            <integer>0</integer>
+            <key>NSExtensionActivationSupportsWebPageWithMaxCount</key>
+            <integer>0</integer>
+        </dict>
+    </dict>
+
+    <!-- App Groups for sharing data with main app -->
+    <key>com.apple.security.application-groups</key>
+    <array>
+        <string>group.com.flirrt.ai.shared</string>
+    </array>
+
+    <!-- App Transport Security -->
+    <key>NSAppTransportSecurity</key>
+    <dict>
+        <key>NSAllowsArbitraryLoads</key>
+        <false/>
+        <key>NSExceptionDomains</key>
+        <dict>
+            <!-- Allow API calls to backend -->
+            <key>localhost</key>
+            <dict>
+                <key>NSExceptionAllowsInsecureHTTPLoads</key>
+                <true/>
+                <key>NSExceptionMinimumTLSVersion</key>
+                <string>TLSv1.0</string>
+            </dict>
+        </dict>
+    </dict>
+
+    <!-- Supported File Types -->
+    <key>UTImportedTypeDeclarations</key>
+    <array>
+        <dict>
+            <key>UTTypeConformsTo</key>
+            <array>
+                <string>public.image</string>
+            </array>
+            <key>UTTypeDescription</key>
+            <string>Screenshot Image</string>
+            <key>UTTypeIdentifier</key>
+            <string>public.png</string>
+            <key>UTTypeTagSpecification</key>
+            <dict>
+                <key>public.filename-extension</key>
+                <array>
+                    <string>png</string>
+                </array>
+                <key>public.mime-type</key>
+                <array>
+                    <string>image/png</string>
+                </array>
+            </dict>
+        </dict>
+        <dict>
+            <key>UTTypeConformsTo</key>
+            <array>
+                <string>public.image</string>
+            </array>
+            <key>UTTypeDescription</key>
+            <string>JPEG Image</string>
+            <key>UTTypeIdentifier</key>
+            <string>public.jpeg</string>
+            <key>UTTypeTagSpecification</key>
+            <dict>
+                <key>public.filename-extension</key>
+                <array>
+                    <string>jpg</string>
+                    <string>jpeg</string>
+                </array>
+                <key>public.mime-type</key>
+                <array>
+                    <string>image/jpeg</string>
+                </array>
+            </dict>
+        </dict>
+    </array>
+</dict>
+</plist>

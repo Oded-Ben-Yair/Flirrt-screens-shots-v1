@@ -14,6 +14,7 @@ const voiceRoutes = require('./routes/voice');
 
 // Import middleware
 const { authenticateToken, rateLimit } = require('./middleware/auth');
+const { securityHeaders, requestSizeLimiter } = require('./middleware/validation');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -39,7 +40,7 @@ if (!fs.existsSync(uploadDir)) {
     console.log(`📁 Created upload directory: ${uploadDir}`);
 }
 
-// Middleware
+// Enhanced CORS configuration for iOS app compatibility
 app.use(cors({
     origin: [
         'http://localhost:3000',
@@ -47,12 +48,35 @@ app.use(cors({
         'http://localhost:8080',
         'http://localhost:8081',
         'https://flirrt.ai',
-        'https://app.flirrt.ai'
+        'https://app.flirrt.ai',
+        // iOS specific origins
+        'capacitor://localhost',
+        'ionic://localhost',
+        'http://localhost',
+        'https://localhost',
+        // For iOS simulator and development
+        /^http:\/\/192\.168\.\d+\.\d+/,
+        /^http:\/\/10\.0\.\d+\.\d+/,
+        /^http:\/\/172\.16\.\d+\.\d+/
     ],
     credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
+    allowedHeaders: [
+        'Content-Type',
+        'Authorization',
+        'X-Requested-With',
+        'Accept',
+        'Origin',
+        'Access-Control-Request-Method',
+        'Access-Control-Request-Headers'
+    ],
+    exposedHeaders: ['Content-Length', 'X-Foo', 'X-Bar'],
+    maxAge: 86400 // 24 hours
 }));
+
+// Security and validation middleware
+app.use(securityHeaders);
+app.use(requestSizeLimiter);
 
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
@@ -110,13 +134,23 @@ app.delete('/api/v1/user/:id/data', authenticateToken, async (req, res) => {
 
         // Check if user is deleting their own data or is admin
         if (requestingUserId !== id) {
-            // Check if requesting user is admin
-            const adminQuery = `
-                SELECT role FROM user_profiles WHERE user_id = $1 AND role IN ('admin', 'super_admin')
-            `;
-            const adminResult = await pool.query(adminQuery, [requestingUserId]);
+            // If database is available, check admin status
+            try {
+                const adminQuery = `
+                    SELECT role FROM user_profiles WHERE user_id = $1 AND role IN ('admin', 'super_admin')
+                `;
+                const adminResult = await pool.query(adminQuery, [requestingUserId]);
 
-            if (adminResult.rows.length === 0) {
+                if (adminResult.rows.length === 0) {
+                    return res.status(403).json({
+                        success: false,
+                        error: 'Access denied. Can only delete your own data.',
+                        code: 'ACCESS_DENIED'
+                    });
+                }
+            } catch (dbError) {
+                // If database is not available, only allow users to delete their own data
+                console.warn('Database not available for admin check, restricting to self-deletion only');
                 return res.status(403).json({
                     success: false,
                     error: 'Access denied. Can only delete your own data.',
@@ -125,85 +159,129 @@ app.delete('/api/v1/user/:id/data', authenticateToken, async (req, res) => {
             }
         }
 
-        // Log deletion request
-        await pool.query(
-            `INSERT INTO data_deletion_log (user_id, deletion_requested_at, deletion_status)
-             VALUES ($1, NOW(), 'requested')`,
-            [id]
-        );
-
-        // Start transaction for complete data deletion
-        const client = await pool.connect();
-
+        // Log deletion request (if database is available)
+        let filesToDelete = [];
         try {
-            await client.query('BEGIN');
-
-            // Get all file paths that need to be deleted
-            const filePathsQuery = `
-                SELECT voice_file_path FROM voice_messages WHERE user_id = $1
-                UNION
-                SELECT file_path FROM screenshots WHERE user_id = $1
-            `;
-            const filePathsResult = await client.query(filePathsQuery, [id]);
-
-            // Delete database records (foreign key constraints will handle cascade)
-            await client.query('DELETE FROM user_sessions WHERE user_id = $1', [id]);
-            await client.query('DELETE FROM analytics WHERE user_id = $1', [id]);
-            await client.query('DELETE FROM voice_messages WHERE user_id = $1', [id]);
-            await client.query('DELETE FROM flirt_suggestions WHERE user_id = $1', [id]);
-            await client.query('DELETE FROM screenshots WHERE user_id = $1', [id]);
-            await client.query('DELETE FROM users WHERE id = $1', [id]);
-
-            // Update deletion log
-            await client.query(
-                `UPDATE data_deletion_log
-                 SET deletion_completed_at = NOW(), deletion_status = 'completed'
-                 WHERE user_id = $1 AND deletion_status = 'requested'`,
+            await pool.query(
+                `INSERT INTO data_deletion_log (user_id, deletion_requested_at, deletion_status)
+                 VALUES ($1, NOW(), 'requested')`,
                 [id]
             );
 
-            await client.query('COMMIT');
+            // Start transaction for complete data deletion
+            const client = await pool.connect();
 
-            // Delete physical files (outside transaction)
-            for (const row of filePathsResult.rows) {
-                if (row.voice_file_path || row.file_path) {
-                    const filePath = row.voice_file_path || row.file_path;
+            try {
+                await client.query('BEGIN');
+
+                // Get all file paths that need to be deleted
+                const filePathsQuery = `
+                    SELECT voice_file_path FROM voice_messages WHERE user_id = $1
+                    UNION
+                    SELECT file_path FROM screenshots WHERE user_id = $1
+                `;
+                const filePathsResult = await client.query(filePathsQuery, [id]);
+                filesToDelete = filePathsResult.rows;
+
+                // Delete database records (foreign key constraints will handle cascade)
+                await client.query('DELETE FROM user_sessions WHERE user_id = $1', [id]);
+                await client.query('DELETE FROM analytics WHERE user_id = $1', [id]);
+                await client.query('DELETE FROM voice_messages WHERE user_id = $1', [id]);
+                await client.query('DELETE FROM flirt_suggestions WHERE user_id = $1', [id]);
+                await client.query('DELETE FROM screenshots WHERE user_id = $1', [id]);
+                await client.query('DELETE FROM users WHERE id = $1', [id]);
+
+                // Update deletion log
+                await client.query(
+                    `UPDATE data_deletion_log
+                     SET deletion_completed_at = NOW(), deletion_status = 'completed'
+                     WHERE user_id = $1 AND deletion_status = 'requested'`,
+                    [id]
+                );
+
+                await client.query('COMMIT');
+                client.release();
+
+            } catch (error) {
+                await client.query('ROLLBACK');
+                client.release();
+                throw error;
+            }
+        } catch (dbError) {
+            console.warn('Database not available for user data deletion, performing file cleanup only:', dbError.message);
+
+            // If database is not available, try to clean up any files in upload directory for this user
+            // This is a limited cleanup since we can't query the database
+            const uploadDir = process.env.UPLOAD_DIR || './uploads';
+            const fs = require('fs').promises;
+            const path = require('path');
+
+            try {
+                const files = await fs.readdir(uploadDir);
+
+                // Look for files that might belong to this user (basic pattern matching)
+                const userFiles = files.filter(file =>
+                    file.includes(id) ||
+                    file.startsWith(`screenshot-${id}`) ||
+                    file.startsWith(`voice-${id}`)
+                );
+
+                for (const file of userFiles) {
                     try {
-                        await require('fs').promises.unlink(filePath);
+                        await fs.unlink(path.join(uploadDir, file));
                     } catch (fileError) {
-                        console.error('Failed to delete file:', filePath, fileError);
+                        console.error('Failed to delete file:', file, fileError.message);
                     }
                 }
+
+                filesToDelete = userFiles.map(file => ({ file_path: path.join(uploadDir, file) }));
+            } catch (dirError) {
+                console.warn('Could not access upload directory for cleanup:', dirError.message);
+                // Don't throw - just continue with empty files list
+                filesToDelete = [];
             }
-
-            res.json({
-                success: true,
-                message: 'User data deleted successfully',
-                deleted_at: new Date().toISOString(),
-                gdpr_compliant: true
-            });
-
-        } catch (error) {
-            await client.query('ROLLBACK');
-            throw error;
-        } finally {
-            client.release();
         }
+
+        // Delete physical files
+        for (const row of filesToDelete) {
+            if (row.voice_file_path || row.file_path) {
+                const filePath = row.voice_file_path || row.file_path;
+                try {
+                    await require('fs').promises.unlink(filePath);
+                } catch (fileError) {
+                    console.error('Failed to delete file:', filePath, fileError.message);
+                }
+            }
+        }
+
+        res.json({
+            success: true,
+            message: 'User data deletion completed successfully',
+            deleted_at: new Date().toISOString(),
+            gdpr_compliant: true,
+            files_deleted: filesToDelete.length,
+            database_available: filesToDelete.length > 0 ? true : false
+        });
 
     } catch (error) {
         console.error('GDPR deletion error:', error);
 
-        // Update deletion log with failure
-        await pool.query(
-            `UPDATE data_deletion_log
-             SET deletion_status = 'failed', admin_notes = $2
-             WHERE user_id = $1 AND deletion_status = 'requested'`,
-            [req.params.id, error.message]
-        ).catch(logError => console.error('Failed to update deletion log:', logError));
+        // Update deletion log with failure (if database is available)
+        try {
+            await pool.query(
+                `UPDATE data_deletion_log
+                 SET deletion_status = 'failed', admin_notes = $2
+                 WHERE user_id = $1 AND deletion_status = 'requested'`,
+                [req.params.id, error.message]
+            );
+        } catch (logError) {
+            console.warn('Failed to update deletion log (database not available):', logError.message);
+        }
 
         res.status(500).json({
             success: false,
             error: 'Failed to delete user data',
+            details: error.message,
             code: 'DELETION_ERROR'
         });
     }

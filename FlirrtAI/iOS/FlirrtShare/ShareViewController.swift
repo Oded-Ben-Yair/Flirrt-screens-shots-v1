@@ -1,37 +1,69 @@
 import UIKit
-import Social
 
-class ShareViewController: SLComposeServiceViewController {
+class ShareViewController: UIViewController {
 
-    override func isContentValid() -> Bool {
-        // Validate we have an image
-        guard let extensionItem = extensionContext?.inputItems.first as? NSExtensionItem,
-              let itemProvider = extensionItem.attachments?.first else {
-            return false
-        }
+    override func viewDidLoad() {
+        super.viewDidLoad()
 
-        return itemProvider.hasItemConformingToTypeIdentifier("public.image")
+        // Set up the view
+        setupUI()
+
+        // Process the shared content
+        processSharedContent()
     }
 
-    override func didSelectPost() {
-        // Get the screenshot from the share sheet
+    private func setupUI() {
+        view.backgroundColor = UIColor.systemBackground
+
+        // Add a simple loading indicator
+        let activityIndicator = UIActivityIndicatorView(style: .large)
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        activityIndicator.startAnimating()
+        view.addSubview(activityIndicator)
+
+        let label = UILabel()
+        label.text = "Analyzing screenshot with Flirrt AI..."
+        label.textAlignment = .center
+        label.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(label)
+
+        NSLayoutConstraint.activate([
+            activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -20),
+
+            label.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            label.topAnchor.constraint(equalTo: activityIndicator.bottomAnchor, constant: 20),
+            label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            label.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
+        ])
+    }
+
+    private func processSharedContent() {
         guard let extensionItem = extensionContext?.inputItems.first as? NSExtensionItem,
               let itemProvider = extensionItem.attachments?.first else {
-            self.extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
+            completeRequest()
             return
         }
 
         if itemProvider.hasItemConformingToTypeIdentifier("public.image") {
             itemProvider.loadItem(forTypeIdentifier: "public.image", options: nil) { [weak self] item, error in
-                if let error = error {
-                    print("Error loading image: \(error)")
-                    self?.extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
-                    return
-                }
+                DispatchQueue.main.async {
+                    if let error = error {
+                        print("Error loading image: \(error)")
+                        self?.completeRequest()
+                        return
+                    }
 
-                self?.processScreenshot(item)
+                    self?.processScreenshot(item)
+                }
             }
+        } else {
+            completeRequest()
         }
+    }
+
+    private func completeRequest() {
+        self.extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
     }
 
     private func processScreenshot(_ item: NSSecureCoding?) {
@@ -46,7 +78,9 @@ class ShareViewController: SLComposeServiceViewController {
         }
 
         guard let screenshotImage = image else {
-            extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
+            DispatchQueue.main.async {
+                self.completeRequest()
+            }
             return
         }
 
@@ -57,7 +91,9 @@ class ShareViewController: SLComposeServiceViewController {
         notifyMainApp()
 
         // Complete the share action
-        self.extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
+        DispatchQueue.main.async {
+            self.completeRequest()
+        }
     }
 
     private func saveScreenshotToSharedContainer(_ image: UIImage) {
