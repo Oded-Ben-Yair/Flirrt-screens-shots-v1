@@ -63,6 +63,7 @@ class AuthManager: NSObject, ObservableObject {
                     await MainActor.run {
                         self.isAuthenticated = true
                         self.user = response.user
+                        self.updateSharedAuthenticationState(isAuthenticated: true, userId: response.user?.id)
                     }
                 }
             } catch {
@@ -73,7 +74,7 @@ class AuthManager: NSObject, ObservableObject {
 
     private func saveAgeVerification() {
         UserDefaults.standard.set(true, forKey: "age_verified")
-        if let sharedDefaults = UserDefaults(suiteName: "group.com.flirrt.ai.shared") {
+        if let sharedDefaults = UserDefaults(suiteName: "group.com.flirrt.shared") {
             sharedDefaults.set(true, forKey: "age_verified")
         }
     }
@@ -81,12 +82,23 @@ class AuthManager: NSObject, ObservableObject {
     func logout() {
         try? keychain.remove("jwt_token")
         UserDefaults.standard.removeObject(forKey: "age_verified")
-        if let sharedDefaults = UserDefaults(suiteName: "group.com.flirrt.ai.shared") {
+        if let sharedDefaults = UserDefaults(suiteName: "group.com.flirrt.shared") {
             sharedDefaults.removeObject(forKey: "age_verified")
+            sharedDefaults.removeObject(forKey: "user_authenticated")
+            sharedDefaults.removeObject(forKey: "user_id")
         }
         isAuthenticated = false
         user = nil
         ageVerified = false
+        updateSharedAuthenticationState(isAuthenticated: false, userId: nil)
+    }
+
+    private func updateSharedAuthenticationState(isAuthenticated: Bool, userId: String?) {
+        if let sharedDefaults = UserDefaults(suiteName: "group.com.flirrt.shared") {
+            sharedDefaults.set(isAuthenticated, forKey: "user_authenticated")
+            sharedDefaults.set(userId, forKey: "user_id")
+            sharedDefaults.synchronize()
+        }
     }
 }
 
@@ -107,6 +119,7 @@ extension AuthManager: ASAuthorizationControllerDelegate {
                 await MainActor.run {
                     self.user = response.user
                     self.isAuthenticated = true
+                    self.updateSharedAuthenticationState(isAuthenticated: true, userId: response.user.id)
                 }
             } catch {
                 await MainActor.run {
@@ -123,7 +136,8 @@ extension AuthManager: ASAuthorizationControllerDelegate {
 
 extension AuthManager: ASAuthorizationControllerPresentationContextProviding {
     func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
-        guard let window = UIApplication.shared.windows.first else {
+        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+              let window = windowScene.windows.first else {
             return UIWindow()
         }
         return window

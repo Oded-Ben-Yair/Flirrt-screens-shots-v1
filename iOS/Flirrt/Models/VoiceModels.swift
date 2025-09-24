@@ -5,12 +5,25 @@ import AVFoundation
 struct VoiceClone: Codable, Identifiable {
     let id: String
     let name: String
+    let description: String?
     let status: VoiceCloneStatus
     let createdAt: Date
     let quality: VoiceQuality
     let sampleDuration: TimeInterval
     let fileSize: Int64
     let elevenLabsVoiceId: String?
+
+    init(id: String, name: String, description: String? = nil, status: VoiceCloneStatus = .ready, createdAt: Date = Date(), quality: VoiceQuality = .good, sampleDuration: TimeInterval = 0, fileSize: Int64 = 0, elevenLabsVoiceId: String? = nil) {
+        self.id = id
+        self.name = name
+        self.description = description
+        self.status = status
+        self.createdAt = createdAt
+        self.quality = quality
+        self.sampleDuration = sampleDuration
+        self.fileSize = fileSize
+        self.elevenLabsVoiceId = elevenLabsVoiceId
+    }
 
     var isReady: Bool {
         return status == .ready && elevenLabsVoiceId != nil
@@ -382,6 +395,19 @@ enum ScriptDifficulty: String, Codable, CaseIterable {
         case .advanced:
             return "red"
         }
+    }
+}
+
+// MARK: - Voice Request Model
+struct VoiceRequest: Codable {
+    let text: String
+    let voiceId: String
+    let timestamp: Date
+
+    init(text: String, voiceId: String, timestamp: Date = Date()) {
+        self.text = text
+        self.voiceId = voiceId
+        self.timestamp = timestamp
     }
 }
 

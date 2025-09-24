@@ -1,6 +1,7 @@
 import UIKit
 import os.log
 import Foundation
+import Photos
 
 class KeyboardViewController: UIInputViewController {
 
@@ -48,6 +49,7 @@ class KeyboardViewController: UIInputViewController {
         setupMemoryMonitoring()
         setupUI()
         loadSharedData()
+        setupScreenshotObserver()
 
         os_log("KeyboardViewController loaded", log: logger, type: .info)
     }
@@ -571,7 +573,7 @@ extension KeyboardViewController {
 // Voice synthesis request
 extension KeyboardViewController {
     private func requestVoiceSynthesis(text: String, voiceId: String) {
-        guard let containerURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.com.flirrt.ai.shared") else { return }
+        guard let containerURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.com.flirrt.shared") else { return }
 
         let request = VoiceRequest(text: text, voiceId: voiceId)
         let requestURL = containerURL.appendingPathComponent("voice_request.json")
@@ -591,4 +593,159 @@ extension KeyboardViewController {
 struct VoiceRequest: Codable {
     let text: String
     let voiceId: String
+}
+
+// MARK: - Screenshot Analysis
+extension KeyboardViewController: PHPhotoLibraryChangeObserver {
+
+    private func setupScreenshotObserver() {
+        PHPhotoLibrary.shared().register(self)
+        checkForRecentScreenshot()
+    }
+
+    func photoLibraryDidChange(_ changeInstance: PHChange) {
+        // Check for new screenshots when library changes
+        checkForRecentScreenshot()
+    }
+
+    private func checkForRecentScreenshot() {
+        PHPhotoLibrary.requestAuthorization { [weak self] status in
+            guard status == .authorized else {
+                os_log("Photo library access not authorized", log: self?.logger ?? OSLog.default, type: .info)
+                return
+            }
+
+            let fetchOptions = PHFetchOptions()
+            fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
+            fetchOptions.fetchLimit = 1
+
+            // Only get screenshots
+            fetchOptions.predicate = NSPredicate(
+                format: "mediaType = %d AND mediaSubtype = %d",
+                PHAssetMediaType.image.rawValue,
+                PHAssetMediaSubtype.photoScreenshot.rawValue
+            )
+
+            let screenshots = PHAsset.fetchAssets(with: fetchOptions)
+
+            guard let latestScreenshot = screenshots.firstObject else { return }
+
+            // Check if screenshot is recent (within last 60 seconds)
+            let screenshotDate = latestScreenshot.creationDate ?? Date.distantPast
+            let timeSinceScreenshot = Date().timeIntervalSince(screenshotDate)
+
+            if timeSinceScreenshot < 60 {
+                os_log("Recent screenshot detected, auto-analyzing", log: self?.logger ?? OSLog.default, type: .info)
+                DispatchQueue.main.async {
+                    self?.processScreenshot(latestScreenshot)
+                }
+            }
+        }
+    }
+
+    private func processScreenshot(_ asset: PHAsset) {
+        let manager = PHImageManager.default()
+        let options = PHImageRequestOptions()
+        options.deliveryMode = .highQualityFormat
+        options.isSynchronous = false
+
+        manager.requestImageDataAndOrientation(for: asset, options: options) { [weak self] data, _, _, _ in
+            guard let imageData = data else { return }
+            self?.uploadScreenshotToBackend(imageData)
+        }
+    }
+
+    private func uploadScreenshotToBackend(_ imageData: Data) {
+        // Show loading
+        DispatchQueue.main.async {
+            self.suggestionsView.showLoading()
+        }
+
+        let url = URL(string: "http://localhost:3000/api/v1/analyze_screenshot")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+
+        let boundary = "Boundary-\(UUID().uuidString)"
+        request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+
+        // Add auth token
+        if let sharedDefaults = UserDefaults(suiteName: "group.com.flirrt.shared"),
+           let token = sharedDefaults.string(forKey: "auth_token") {
+            request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        } else {
+            request.setValue("Bearer test-token", forHTTPHeaderField: "Authorization")
+        }
+
+        // Build multipart form data
+        var body = Data()
+
+        // Add image data
+        body.append("--\(boundary)\r\n".data(using: .utf8)!)
+        body.append("Content-Disposition: form-data; name=\"screenshot\"; filename=\"screenshot.jpg\"\r\n".data(using: .utf8)!)
+        body.append("Content-Type: image/jpeg\r\n\r\n".data(using: .utf8)!)
+        body.append(imageData)
+        body.append("\r\n".data(using: .utf8)!)
+
+        // Add context
+        body.append("--\(boundary)\r\n".data(using: .utf8)!)
+        body.append("Content-Disposition: form-data; name=\"context\"\r\n\r\n".data(using: .utf8)!)
+        body.append("dating_app_screenshot".data(using: .utf8)!)
+        body.append("\r\n--\(boundary)--\r\n".data(using: .utf8)!)
+
+        request.httpBody = body
+
+        URLSession.shared.dataTask(with: request) { [weak self] data, response, error in
+            guard let self = self else { return }
+
+            if let data = data,
+               let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+               let screenshotId = json["screenshot_id"] as? String {
+
+                os_log("Screenshot uploaded, ID: %@", log: self.logger, type: .info, screenshotId)
+
+                // Now generate flirts for this screenshot
+                self.generateFlirtsForScreenshot(screenshotId)
+            } else {
+                os_log("Screenshot upload failed", log: self.logger, type: .error)
+                DispatchQueue.main.async {
+                    self.suggestionsView.showError("Analysis failed")
+                }
+            }
+        }.resume()
+    }
+
+    private func generateFlirtsForScreenshot(_ screenshotId: String) {
+        let url = URL(string: "http://localhost:3000/api/v1/flirts/generate_flirts")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+        if let sharedDefaults = UserDefaults(suiteName: "group.com.flirrt.shared"),
+           let token = sharedDefaults.string(forKey: "auth_token") {
+            request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        } else {
+            request.setValue("Bearer test-token", forHTTPHeaderField: "Authorization")
+        }
+
+        let body: [String: Any] = [
+            "screenshot_id": screenshotId,
+            "suggestion_type": "response",
+            "tone": "witty"
+        ]
+
+        request.httpBody = try? JSONSerialization.data(withJSONObject: body)
+
+        URLSession.shared.dataTask(with: request) { [weak self] data, response, error in
+            // Parse suggestions and display them
+            guard let data = data,
+                  let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+                  let suggestions = json["suggestions"] as? [[String: Any]] else {
+                return
+            }
+
+            DispatchQueue.main.async {
+                self?.displaySuggestions(suggestions)
+            }
+        }.resume()
+    }
 }

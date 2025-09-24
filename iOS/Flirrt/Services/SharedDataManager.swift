@@ -6,6 +6,8 @@ class SharedDataManager: ObservableObject {
     @Published var voiceClones: [VoiceClone] = []
     @Published var recentRecordings: [VoiceRecording] = []
     @Published var onboardingRequested: Bool = false
+    @Published var analysisRequested = false
+    @Published var voiceRequest: VoiceRequest? = nil
 
     private let userDefaults = UserDefaults.standard
     private let sharedDefaults = UserDefaults(suiteName: "group.com.flirrt.shared")
@@ -43,18 +45,48 @@ class SharedDataManager: ObservableObject {
     }
 
     private func setupDarwinNotifications() {
-        let notificationName = "com.flirrt.onboarding.request" as CFString
-        let notificationCenter = CFNotificationCenterGetDarwinNotifyCenter()
+        let center = CFNotificationCenterGetDarwinNotifyCenter()
 
+        // Onboarding Request Observer
         CFNotificationCenterAddObserver(
-            notificationCenter,
+            center,
             Unmanaged.passUnretained(self).toOpaque(),
             { (center, observer, name, object, userInfo) in
                 guard let observer = observer else { return }
                 let sharedDataManager = Unmanaged<SharedDataManager>.fromOpaque(observer).takeUnretainedValue()
                 sharedDataManager.handleOnboardingRequest()
             },
-            notificationName,
+            "com.flirrt.onboarding.request" as CFString,
+            nil,
+            .deliverImmediately
+        )
+
+        // Screenshot Analysis Request Observer
+        CFNotificationCenterAddObserver(
+            center,
+            Unmanaged.passUnretained(self).toOpaque(),
+            { (center, observer, name, object, userInfo) in
+                guard let observer = observer else { return }
+                let manager = Unmanaged<SharedDataManager>.fromOpaque(observer).takeUnretainedValue()
+                DispatchQueue.main.async {
+                    manager.analysisRequested = true
+                }
+            },
+            "com.flirrt.analyze.request" as CFString,
+            nil,
+            .deliverImmediately
+        )
+
+        // Voice Synthesis Request Observer
+        CFNotificationCenterAddObserver(
+            center,
+            Unmanaged.passUnretained(self).toOpaque(),
+            { (center, observer, name, object, userInfo) in
+                guard let observer = observer else { return }
+                let manager = Unmanaged<SharedDataManager>.fromOpaque(observer).takeUnretainedValue()
+                manager.handleVoiceRequest()
+            },
+            "com.flirrt.voice.request" as CFString,
             nil,
             .deliverImmediately
         )
@@ -75,6 +107,19 @@ class SharedDataManager: ObservableObject {
     @objc private func handleVoiceCloneCreated(_ notification: Notification) {
         if let voiceClone = notification.object as? VoiceClone {
             addVoiceClone(voiceClone)
+        }
+    }
+
+    private func handleVoiceRequest() {
+        guard let containerURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.com.flirrt.shared") else { return }
+        let requestURL = containerURL.appendingPathComponent("voice_request.json")
+
+        if let data = try? Data(contentsOf: requestURL) {
+            if let request = try? JSONDecoder().decode(VoiceRequest.self, from: data) {
+                DispatchQueue.main.async {
+                    self.voiceRequest = request
+                }
+            }
         }
     }
 

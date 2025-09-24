@@ -205,6 +205,16 @@ class VoiceRecordingManager: NSObject, ObservableObject {
         }
     }
 
+    // MARK: - Audio Processing
+    func applyNoiseSuppression() async {
+        // Apply basic noise suppression using AVAudioEngine
+        // This is a placeholder - in production, you'd use more sophisticated DSP
+        guard let url = recordingURL else { return }
+
+        // For now, just ensure audio quality settings are optimal
+        // Real noise suppression would involve DSP algorithms
+    }
+
     // MARK: - ElevenLabs Integration
     func uploadVoiceClone(userId: String) async throws -> VoiceCloneResponse {
         guard let audioData = getRecordingData() else {

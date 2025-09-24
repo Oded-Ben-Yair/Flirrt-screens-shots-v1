@@ -1,56 +1,63 @@
 import UIKit
+import Social
+import MobileCoreServices
+import UniformTypeIdentifiers
 
-class ShareViewController: UIViewController {
+class ShareViewController: SLComposeServiceViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Set up the view
-        setupUI()
+        // Set the title for the share sheet
+        self.title = "Flirrt AI Analysis"
+        self.placeholder = "Add a comment (optional)"
 
-        // Process the shared content
+        // Validate content type
+        validateContent()
+    }
+
+    override func isContentValid() -> Bool {
+        // Validate that we have an image
+        guard let extensionItem = extensionContext?.inputItems.first as? NSExtensionItem,
+              let _ = extensionItem.attachments?.first(where: { attachment in
+                  attachment.hasItemConformingToTypeIdentifier(UTType.image.identifier)
+              }) else {
+            return false
+        }
+        return true
+    }
+
+    override func didSelectPost() {
+        // Process the shared content when user taps Post
         processSharedContent()
     }
 
-    private func setupUI() {
-        view.backgroundColor = UIColor.systemBackground
+    override func didSelectCancel() {
+        // Clean up any temporary files if needed
+        self.cancel()
+    }
 
-        // Add a simple loading indicator
-        let activityIndicator = UIActivityIndicatorView(style: .large)
-        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
-        activityIndicator.startAnimating()
-        view.addSubview(activityIndicator)
-
-        let label = UILabel()
-        label.text = "Analyzing screenshot with Flirrt AI..."
-        label.textAlignment = .center
-        label.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(label)
-
-        NSLayoutConstraint.activate([
-            activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -20),
-
-            label.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            label.topAnchor.constraint(equalTo: activityIndicator.bottomAnchor, constant: 20),
-            label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            label.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
-        ])
+    private func validateContent() {
+        // Check if we have the right content type
+        guard isContentValid() else {
+            self.cancel()
+            return
+        }
     }
 
     private func processSharedContent() {
         guard let extensionItem = extensionContext?.inputItems.first as? NSExtensionItem,
               let itemProvider = extensionItem.attachments?.first else {
-            completeRequest()
+            self.extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
             return
         }
 
-        if itemProvider.hasItemConformingToTypeIdentifier("public.image") {
-            itemProvider.loadItem(forTypeIdentifier: "public.image", options: nil) { [weak self] item, error in
+        if itemProvider.hasItemConformingToTypeIdentifier(UTType.image.identifier) {
+            itemProvider.loadItem(forTypeIdentifier: UTType.image.identifier, options: nil) { [weak self] item, error in
                 DispatchQueue.main.async {
                     if let error = error {
                         print("Error loading image: \(error)")
-                        self?.completeRequest()
+                        self?.extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
                         return
                     }
 
@@ -58,12 +65,8 @@ class ShareViewController: UIViewController {
                 }
             }
         } else {
-            completeRequest()
+            self.extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
         }
-    }
-
-    private func completeRequest() {
-        self.extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
     }
 
     private func processScreenshot(_ item: NSSecureCoding?) {
@@ -79,7 +82,7 @@ class ShareViewController: UIViewController {
 
         guard let screenshotImage = image else {
             DispatchQueue.main.async {
-                self.completeRequest()
+                self.extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
             }
             return
         }
@@ -90,14 +93,19 @@ class ShareViewController: UIViewController {
         // Notify main app
         notifyMainApp()
 
+        // Add comment if provided
+        if let comment = self.textView?.text, !comment.isEmpty {
+            self.saveComment(comment, for: screenshotImage)
+        }
+
         // Complete the share action
         DispatchQueue.main.async {
-            self.completeRequest()
+            self.extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
         }
     }
 
     private func saveScreenshotToSharedContainer(_ image: UIImage) {
-        guard let containerURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.com.flirrt.ai.shared") else {
+        guard let containerURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.com.flirrt.shared") else {
             print("Failed to get shared container")
             return
         }
@@ -135,7 +143,7 @@ class ShareViewController: UIViewController {
     }
 
     private func saveMetadata(_ metadata: ScreenshotMetadata) {
-        guard let containerURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.com.flirrt.ai.shared") else { return }
+        guard let containerURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.com.flirrt.shared") else { return }
 
         let metadataURL = containerURL.appendingPathComponent("screenshot_metadata.json")
 
@@ -144,7 +152,7 @@ class ShareViewController: UIViewController {
         }
 
         // Also save to UserDefaults for quick access
-        if let sharedDefaults = UserDefaults(suiteName: "group.com.flirrt.ai.shared") {
+        if let sharedDefaults = UserDefaults(suiteName: "group.com.flirrt.shared") {
             sharedDefaults.set(metadata.fileName, forKey: "latest_screenshot")
             sharedDefaults.set(metadata.timestamp.timeIntervalSince1970, forKey: "latest_screenshot_time")
             sharedDefaults.synchronize()
@@ -163,15 +171,21 @@ class ShareViewController: UIViewController {
     }
 
     override func configurationItems() -> [Any]! {
-        // Optional: Add configuration items
         let item = SLComposeSheetConfigurationItem()
         item?.title = "Analysis Type"
         item?.value = "Auto-detect"
-        item?.tapHandler = {
-            // Show options
+        item?.tapHandler = { [weak self] in
+            // Could show a view controller with analysis options
+            // For now, just using auto-detect
         }
 
         return [item as Any]
+    }
+
+    private func saveComment(_ comment: String, for image: UIImage) {
+        guard let sharedDefaults = UserDefaults(suiteName: "group.com.flirrt.shared") else { return }
+        sharedDefaults.set(comment, forKey: "screenshot_comment")
+        sharedDefaults.synchronize()
     }
 }
 
