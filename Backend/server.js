@@ -4,7 +4,27 @@ const express = require('express');
 const cors = require('cors');
 const path = require('path');
 const fs = require('fs');
+const http = require('http');
 const { Pool } = require('pg');
+
+// Import new services
+const { logger } = require('./services/logger');
+const redisService = require('./services/redis');
+const queueService = require('./services/queueService');
+const webSocketService = require('./services/websocketService');
+const circuitBreakerService = require('./services/circuitBreaker');
+const healthCheckService = require('./services/healthCheck');
+
+// Import enhanced middleware
+const {
+    correlationIdMiddleware,
+    errorCorrelationMiddleware,
+    requestLoggerMiddleware,
+    addDbCorrelation,
+    addApiCorrelation,
+    rateLimitLogger
+} = require('./middleware/correlationId');
+const { uploadService } = require('./middleware/optimizedUpload');
 
 // Import routes
 const authRoutes = require('./routes/auth');
@@ -13,10 +33,11 @@ const flirtRoutes = require('./routes/flirts');
 const voiceRoutes = require('./routes/voice');
 
 // Import middleware
-const { authenticateToken, rateLimit } = require('./middleware/auth');
+const { authenticateToken, createRateLimit } = require('./middleware/auth');
 const { securityHeaders, requestSizeLimiter } = require('./middleware/validation');
 
 const app = express();
+const server = http.createServer(app);
 const PORT = process.env.PORT || 3000;
 
 // Database connection
@@ -30,24 +51,32 @@ const pool = new Pool({
 
 // Test database connection
 pool.connect()
-    .then(() => console.log('✅ Connected to PostgreSQL database'))
-    .catch(err => console.warn('⚠️  Database connection failed (some features disabled):', err.message));
+    .then(() => logger.info('Connected to PostgreSQL database'))
+    .catch(err => logger.warn('Database connection failed (some features disabled)', { error: err.message }));
 
-// Ensure upload directory exists
-const uploadDir = process.env.UPLOAD_DIR || './uploads';
-if (!fs.existsSync(uploadDir)) {
-    fs.mkdirSync(uploadDir, { recursive: true });
-    console.log(`📁 Created upload directory: ${uploadDir}`);
+// Initialize services
+logger.info('Initializing Flirrt.ai Backend Server', {
+    version: process.env.APP_VERSION || '1.0.0',
+    environment: process.env.NODE_ENV || 'development',
+    port: PORT
+});
+
+// Initialize WebSocket service
+webSocketService.initialize(server);
+
+// Initialize upload service (creates directories)
+try {
+    // Upload service initialization is handled internally
+    logger.info('Upload service ready');
+} catch (error) {
+    logger.error('Upload service initialization failed', { error: error.message });
 }
 
-// Request logging middleware
-app.use((req, res, next) => {
-    console.log(`📥 ${new Date().toISOString()} - ${req.method} ${req.path}`);
-    if (req.body && Object.keys(req.body).length > 0) {
-        console.log('   Body:', JSON.stringify(req.body, null, 2));
-    }
-    next();
-});
+// Core middleware setup
+app.use(correlationIdMiddleware); // Add correlation IDs first
+app.use(addDbCorrelation); // Add database correlation helpers
+app.use(addApiCorrelation); // Add API correlation helpers
+app.use(rateLimitLogger); // Add rate limit logging
 
 // Enhanced CORS configuration for iOS app compatibility
 app.use(cors({
@@ -90,41 +119,113 @@ app.use(requestSizeLimiter);
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
-// Request logging middleware
-app.use((req, res, next) => {
-    const timestamp = new Date().toISOString();
-    const method = req.method;
-    const url = req.url;
-    const ip = req.ip || req.connection.remoteAddress;
+// Enhanced request logging
+app.use(requestLoggerMiddleware);
 
-    console.log(`[${timestamp}] ${method} ${url} - ${ip}`);
-    next();
-});
+// Global rate limiting
+app.use('/api/', createRateLimit(1000, 15 * 60 * 1000)); // 1000 requests per 15 minutes for API routes
 
-// Health check endpoint
+// Legacy request logging removed - handled by requestLoggerMiddleware
+
+// Enhanced Health Check Endpoints
 app.get('/health', async (req, res) => {
     try {
-        // Test database connection
-        await pool.query('SELECT 1');
+        const health = await healthCheckService.performHealthCheck(false, req.correlationId);
+        const statusCode = health.status === 'healthy' ? 200 : health.status === 'degraded' ? 200 : 503;
+
+        res.status(statusCode).json(health);
+    } catch (error) {
+        req.logger.error('Health check failed', { error: error.message });
+        res.status(503).json({
+            success: false,
+            status: 'error',
+            error: error.message,
+            timestamp: new Date().toISOString(),
+            correlationId: req.correlationId
+        });
+    }
+});
+
+// Detailed health check
+app.get('/health/detailed', async (req, res) => {
+    try {
+        const health = await healthCheckService.performHealthCheck(true, req.correlationId);
+        const statusCode = health.status === 'healthy' ? 200 : health.status === 'degraded' ? 200 : 503;
+
+        res.status(statusCode).json(health);
+    } catch (error) {
+        req.logger.error('Detailed health check failed', { error: error.message });
+        res.status(503).json({
+            success: false,
+            status: 'error',
+            error: error.message,
+            timestamp: new Date().toISOString(),
+            correlationId: req.correlationId
+        });
+    }
+});
+
+// Quick health check for load balancers
+app.get('/health/quick', async (req, res) => {
+    const health = await healthCheckService.quickCheck();
+    const statusCode = health.status === 'healthy' ? 200 : 503;
+    res.status(statusCode).json(health);
+});
+
+// Kubernetes readiness probe
+app.get('/health/ready', async (req, res) => {
+    const health = await healthCheckService.readinessCheck();
+    const statusCode = health.status === 'ready' ? 200 : 503;
+    res.status(statusCode).json(health);
+});
+
+// Kubernetes liveness probe
+app.get('/health/live', async (req, res) => {
+    const health = await healthCheckService.livenessCheck();
+    res.status(200).json(health);
+});
+
+// Health history endpoint
+app.get('/health/history', authenticateToken, async (req, res) => {
+    const limit = Math.min(parseInt(req.query.limit) || 10, 50);
+    const history = healthCheckService.getHealthHistory(limit);
+    const trends = healthCheckService.getHealthTrends();
+
+    res.json({
+        success: true,
+        history,
+        trends,
+        correlationId: req.correlationId
+    });
+});
+
+// System metrics endpoint
+app.get('/metrics', authenticateToken, async (req, res) => {
+    try {
+        const [queueStats, uploadStats, wsHealth, cbHealth] = await Promise.all([
+            queueService.getQueueStats(),
+            uploadService.getUploadStats(),
+            webSocketService.getHealthStatus(),
+            circuitBreakerService.getHealthStatus()
+        ]);
 
         res.json({
             success: true,
-            status: 'healthy',
             timestamp: new Date().toISOString(),
-            version: '1.0.0',
-            services: {
-                database: 'connected',
-                grok_api: process.env.GROK_API_KEY ? 'configured' : 'not_configured',
-                elevenlabs_api: process.env.ELEVENLABS_API_KEY ? 'configured' : 'not_configured'
-            }
+            metrics: {
+                queues: queueStats,
+                uploads: uploadStats,
+                websockets: wsHealth,
+                circuitBreakers: cbHealth
+            },
+            correlationId: req.correlationId
         });
     } catch (error) {
-        console.error('Health check failed:', error);
-        res.status(503).json({
+        req.logger.error('Metrics collection failed', { error: error.message });
+        res.status(500).json({
             success: false,
-            status: 'unhealthy',
-            error: error.message,
-            timestamp: new Date().toISOString()
+            error: 'Failed to collect metrics',
+            correlationId: req.correlationId
         });
     }
 });
@@ -401,9 +502,10 @@ app.use((req, res) => {
     });
 });
 
-// Global error handler
+// Global error handler with correlation support
+app.use(errorCorrelationMiddleware);
 app.use((error, req, res, next) => {
-    console.error('Global error handler:', error);
+    // Error already logged by errorCorrelationMiddleware
 
     // Handle multer errors
     if (error.code === 'LIMIT_FILE_SIZE') {
@@ -436,37 +538,105 @@ app.use((error, req, res, next) => {
     res.status(500).json({
         success: false,
         error: 'Internal server error',
-        code: 'INTERNAL_SERVER_ERROR'
+        code: 'INTERNAL_SERVER_ERROR',
+        correlationId: req.correlationId
     });
 });
 
-// Graceful shutdown
-process.on('SIGTERM', async () => {
-    console.log('🔄 SIGTERM received, shutting down gracefully');
+// Enhanced graceful shutdown
+const gracefulShutdown = async (signal) => {
+    logger.info(`${signal} received, shutting down gracefully`);
 
-    // Close database connections
-    await pool.end();
+    try {
+        // Stop accepting new connections
+        server.close(() => {
+            logger.info('HTTP server closed');
+        });
 
-    process.exit(0);
+        // Shutdown services in order
+        logger.info('Shutting down services...');
+
+        await webSocketService.shutdown();
+        await queueService.shutdown();
+        await redisService.disconnect();
+        await pool.end();
+
+        logger.info('Graceful shutdown completed');
+        process.exit(0);
+
+    } catch (error) {
+        logger.error('Error during graceful shutdown', { error: error.message });
+        process.exit(1);
+    }
+};
+
+process.on('SIGTERM', () => gracefulShutdown('SIGTERM'));
+process.on('SIGINT', () => gracefulShutdown('SIGINT'));
+
+// Handle uncaught exceptions
+process.on('uncaughtException', (error) => {
+    logger.error('Uncaught Exception', {
+        error: error.message,
+        stack: error.stack
+    });
+    gracefulShutdown('UNCAUGHT_EXCEPTION');
 });
 
-process.on('SIGINT', async () => {
-    console.log('🔄 SIGINT received, shutting down gracefully');
-
-    // Close database connections
-    await pool.end();
-
-    process.exit(0);
+process.on('unhandledRejection', (reason, promise) => {
+    logger.error('Unhandled Rejection', {
+        reason: reason instanceof Error ? reason.message : reason,
+        stack: reason instanceof Error ? reason.stack : undefined,
+        promise: promise.toString()
+    });
+    gracefulShutdown('UNHANDLED_REJECTION');
 });
 
 // Start server
-app.listen(PORT, () => {
-    console.log(`🚀 Flirrt.ai Backend Server running on port ${PORT}`);
-    console.log(`📡 Health check: http://localhost:${PORT}/health`);
-    console.log(`🔑 API Base URL: http://localhost:${PORT}/api/v1`);
-    console.log(`📊 Environment: ${process.env.NODE_ENV || 'development'}`);
-    console.log(`🗄️  Database: ${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`);
-    console.log('✅ Server ready to accept connections');
+server.listen(PORT, () => {
+    logger.info('Flirrt.ai Backend Server started successfully', {
+        port: PORT,
+        environment: process.env.NODE_ENV || 'development',
+        version: process.env.APP_VERSION || '1.0.0',
+        database: `${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`,
+        endpoints: {
+            health: `http://localhost:${PORT}/health`,
+            api: `http://localhost:${PORT}/api/v1`,
+            websocket: `ws://localhost:${PORT}/ws`,
+            metrics: `http://localhost:${PORT}/metrics`
+        },
+        features: {
+            redis: redisService.getStatus().connected,
+            queues: queueService.getHealthStatus().initialized || false,
+            websocket: true,
+            circuitBreaker: true,
+            enhancedLogging: true,
+            correlationIds: true
+        }
+    });
+
+    // Cleanup old temp files on startup
+    uploadService.cleanupTempFiles().catch(error => {
+        logger.warn('Initial temp file cleanup failed', { error: error.message });
+    });
+
+    // Schedule regular temp file cleanup (every hour)
+    setInterval(() => {
+        uploadService.cleanupTempFiles().catch(error => {
+            logger.warn('Scheduled temp file cleanup failed', { error: error.message });
+        });
+    }, 60 * 60 * 1000);
+
+    logger.info('Server ready to accept connections');
+});
+
+// Handle server startup errors
+server.on('error', (error) => {
+    if (error.code === 'EADDRINUSE') {
+        logger.error('Port already in use', { port: PORT });
+    } else {
+        logger.error('Server startup error', { error: error.message });
+    }
+    process.exit(1);
 });
 
 module.exports = app;
