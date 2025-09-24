@@ -1,8 +1,12 @@
 const express = require('express');
 const { Pool } = require('pg');
-const axios = require('axios');
-const Redis = require('ioredis');
-const { authenticateToken, rateLimit } = require('../middleware/auth');
+const { authenticateToken, createRateLimit } = require('../middleware/auth');
+const { userActionLogger } = require('../middleware/correlationId');
+const redisService = require('../services/redis');
+const queueService = require('../services/queueService');
+const webSocketService = require('../services/websocketService');
+const circuitBreakerService = require('../services/circuitBreaker');
+const { logger } = require('../services/logger');
 
 const router = express.Router();
 
@@ -15,39 +19,16 @@ const pool = new Pool({
     password: process.env.DB_PASSWORD,
 });
 
-// Redis connection for caching (optional - disabled by default to prevent errors)
-let redis = null;
-// Uncomment below to enable Redis caching when Redis server is running
-/*
-try {
-    redis = new Redis({
-        host: process.env.REDIS_HOST || 'localhost',
-        port: process.env.REDIS_PORT || 6379,
-        password: process.env.REDIS_PASSWORD,
-        retryDelayOnFailover: 100,
-        maxRetriesPerRequest: 1,
-        enableOfflineQueue: false,
-        lazyConnect: true
-    });
-
-    redis.on('error', (err) => {
-        console.warn('Redis connection error (caching disabled):', err.message);
-        redis.disconnect();
-        redis = null;
-    });
-} catch (error) {
-    console.warn('Redis initialization failed (caching disabled):', error.message);
-    redis = null;
-}
-*/
+// Redis is now handled by the Redis service - no direct initialization needed
 
 /**
  * Generate Flirt Suggestions with Real Grok API
  * POST /api/v1/generate_flirts
  */
 router.post('/generate_flirts',
-    // authenticateToken, // Temporarily disabled for testing
-    rateLimit(30, 15 * 60 * 1000), // 30 requests per 15 minutes
+    authenticateToken,
+    userActionLogger('generate_flirts'),
+    createRateLimit(30, 15 * 60 * 1000), // 30 requests per 15 minutes
     async (req, res) => {
         // Extract request parameters first
         const {
@@ -58,17 +39,26 @@ router.post('/generate_flirts',
             user_preferences = {}
         } = req.body;
 
+        const timer = req.logger.timer('generate_flirts');
+
         try {
+            // Notify WebSocket clients that generation started
+            webSocketService.sendFlirtGenerationUpdate(req.user.id, 'queued', {
+                screenshot_id,
+                suggestion_type,
+                tone
+            });
 
             if (!screenshot_id) {
                 return res.status(400).json({
                     success: false,
                     error: 'Screenshot ID is required',
-                    code: 'MISSING_SCREENSHOT_ID'
+                    code: 'MISSING_SCREENSHOT_ID',
+                    correlationId: req.correlationId
                 });
             }
 
-            // Get screenshot analysis (if database is available)
+            // Get screenshot analysis using enhanced database query
             let screenshot = { analysis_result: { test: 'mock_analysis_for_testing' } };
             try {
                 const screenshotQuery = `
@@ -78,10 +68,10 @@ router.post('/generate_flirts',
                     WHERE s.id = $1 AND s.analysis_status = 'completed'
                 `;
 
-                const screenshotResult = await pool.query(screenshotQuery, [screenshot_id]);
+                const screenshotResult = await req.dbQuery(pool, screenshotQuery, [screenshot_id]);
 
                 if (screenshotResult.rows.length === 0) {
-                    console.warn('Screenshot not found in database, using mock data for testing');
+                    req.logger.warn('Screenshot not found in database, using mock data');
                 } else {
                     screenshot = screenshotResult.rows[0];
 
@@ -90,33 +80,44 @@ router.post('/generate_flirts',
                         return res.status(403).json({
                             success: false,
                             error: 'Access denied',
-                            code: 'ACCESS_DENIED'
+                            code: 'ACCESS_DENIED',
+                            correlationId: req.correlationId
                         });
                     }
                 }
             } catch (dbError) {
-                console.warn('Database query failed, using mock data for testing:', dbError.message);
+                req.logger.warn('Database query failed, using mock data', { error: dbError.message });
             }
 
-            // Check cache first (if Redis is available)
+            // Check cache first using Redis service
             let cachedSuggestions = null;
-            if (redis) {
-                try {
-                    const cacheKey = `flirts:${screenshot_id}:${suggestion_type}:${tone}:${JSON.stringify(user_preferences)}`;
-                    cachedSuggestions = await redis.get(cacheKey);
+            const cacheKey = `flirts:${screenshot_id}:${suggestion_type}:${tone}:${JSON.stringify(user_preferences)}`;
 
-                    if (cachedSuggestions) {
-                        console.log('Returning cached flirt suggestions');
-                        return res.json({
-                            success: true,
-                            data: JSON.parse(cachedSuggestions),
-                            cached: true,
-                            message: 'Flirt suggestions generated successfully (cached)'
-                        });
-                    }
-                } catch (cacheError) {
-                    console.warn('Cache retrieval failed:', cacheError.message);
+            try {
+                cachedSuggestions = await redisService.get(cacheKey, req.correlationId);
+
+                if (cachedSuggestions) {
+                    req.logger.info('Returning cached flirt suggestions');
+
+                    // Notify WebSocket that cached result is ready
+                    webSocketService.sendFlirtGenerationUpdate(req.user.id, 'completed', {
+                        screenshot_id,
+                        cached: true,
+                        suggestions_count: cachedSuggestions.suggestions?.length || 0
+                    });
+
+                    timer.finish({ cached: true });
+
+                    return res.json({
+                        success: true,
+                        data: cachedSuggestions,
+                        cached: true,
+                        message: 'Flirt suggestions generated successfully (cached)',
+                        correlationId: req.correlationId
+                    });
                 }
+            } catch (cacheError) {
+                req.logger.warn('Cache retrieval failed', { error: cacheError.message });
             }
 
             // Prepare context for Grok API
@@ -166,12 +167,18 @@ Return ONLY a JSON object with this exact structure:
     }
 }`;
 
-            // Make REAL API call to Grok
-            const grokApiUrl = `${process.env.GROK_API_URL}/chat/completions`;
+            // Notify WebSocket that processing started
+            webSocketService.sendFlirtGenerationUpdate(req.user.id, 'processing', {
+                screenshot_id,
+                suggestion_type,
+                tone
+            });
 
-            console.log('Making request to Grok API for flirt generation...');
-            const grokResponse = await axios.post(grokApiUrl, {
-                model: "grok-4-fast",
+            // Queue Grok API call through circuit breaker and queue service
+            req.logger.info('Queueing Grok API request for flirt generation');
+
+            const grokPayload = {
+                model: "grok-beta",
                 messages: [
                     {
                         role: "system",
@@ -185,35 +192,89 @@ Return ONLY a JSON object with this exact structure:
                 max_tokens: 1500,
                 temperature: 0.8,
                 response_format: { type: "json_object" }
-            }, {
-                headers: {
-                    'Authorization': `Bearer ${process.env.GROK_API_KEY}`,
-                    'Content-Type': 'application/json'
-                },
-                timeout: 30000 // 30 second timeout
+            };
+
+            const grokJob = await queueService.queueGrokFlirtGeneration(grokPayload, req.correlationId, 1);
+
+            // Wait for job completion with timeout
+            const grokResult = await new Promise((resolve, reject) => {
+                const timeout = setTimeout(() => {
+                    reject(new Error('Grok API request timeout'));
+                }, 45000); // 45 second timeout
+
+                if (grokJob && grokJob.finished) {
+                    grokJob.finished().then((result) => {
+                        clearTimeout(timeout);
+                        resolve(result);
+                    }).catch((error) => {
+                        clearTimeout(timeout);
+                        reject(error);
+                    });
+                } else {
+                    // Fallback for immediate execution (when queue is disabled)
+                    clearTimeout(timeout);
+                    resolve(grokJob);
+                }
             });
 
-            if (!grokResponse.data || !grokResponse.data.choices || !grokResponse.data.choices[0]) {
-                throw new Error('Invalid response from Grok API');
-            }
-
-            const responseText = grokResponse.data.choices[0].message.content;
-
-            // Parse JSON response
+            // Handle Grok API response
             let suggestions;
-            try {
-                suggestions = JSON.parse(responseText);
-            } catch (parseError) {
-                console.error('Failed to parse Grok response as JSON:', parseError);
-                throw new Error('Invalid JSON response from Grok API');
+
+            if (grokResult.fallback) {
+                req.logger.warn('Using fallback due to circuit breaker');
+
+                // Use fallback suggestions
+                suggestions = {
+                    suggestions: [
+                        {
+                            text: suggestion_type === 'opener' ? "Hey there! I couldn't help but notice your amazing smile. How's your day going?" : "That's really interesting! Tell me more about that.",
+                            confidence: 0.75,
+                            reasoning: "Fallback suggestion due to API unavailability"
+                        },
+                        {
+                            text: suggestion_type === 'opener' ? "Hi! Your profile caught my eye - you seem like someone with great stories. What's been the highlight of your week?" : "I love your perspective on that! What inspired you to think that way?",
+                            confidence: 0.8,
+                            reasoning: "Fallback suggestion due to API unavailability"
+                        },
+                        {
+                            text: suggestion_type === 'opener' ? "I have to ask - is that photo from an actual adventure or are you just naturally photogenic? Either way, I'm impressed!" : "You know what? I think we're on the same wavelength here. Want to grab coffee and continue this conversation?",
+                            confidence: 0.85,
+                            reasoning: "Fallback suggestion due to API unavailability"
+                        }
+                    ],
+                    metadata: {
+                        suggestion_type,
+                        tone,
+                        generated_at: new Date().toISOString(),
+                        fallback: true
+                    }
+                };
+            } else if (!grokResult.success) {
+                throw new Error('Grok API request failed');
+            } else {
+                const responseData = grokResult.data;
+
+                if (!responseData || !responseData.choices || !responseData.choices[0]) {
+                    throw new Error('Invalid response from Grok API');
+                }
+
+                const responseText = responseData.choices[0].message.content;
+
+                // Parse JSON response
+                try {
+                    suggestions = JSON.parse(responseText);
+                } catch (parseError) {
+                    req.logger.error('Failed to parse Grok response as JSON', { error: parseError.message });
+                    throw new Error('Invalid JSON response from Grok API');
+                }
+
+                // Validate response structure
+                if (!suggestions.suggestions || !Array.isArray(suggestions.suggestions)) {
+                    throw new Error('Invalid suggestions format from Grok API');
+                }
             }
 
-            // Validate response structure
-            if (!suggestions.suggestions || !Array.isArray(suggestions.suggestions)) {
-                throw new Error('Invalid suggestions format from Grok API');
-            }
-
-            // Save suggestions to database (if database is available)
+            // Save suggestions to database using enhanced query
             const savedSuggestions = [];
             for (const suggestion of suggestions.suggestions) {
                 let suggestionId = 'test-suggestion-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9);
@@ -226,7 +287,7 @@ Return ONLY a JSON object with this exact structure:
                         RETURNING id, created_at
                     `;
 
-                    const suggestionResult = await pool.query(insertQuery, [
+                    const suggestionResult = await req.dbQuery(pool, insertQuery, [
                         screenshot_id,
                         req.user.id,
                         suggestion.text,
@@ -236,14 +297,15 @@ Return ONLY a JSON object with this exact structure:
                             tone,
                             reasoning: suggestion.reasoning,
                             user_preferences,
-                            original_context: context
+                            original_context: context,
+                            fallback: suggestions.metadata?.fallback || false
                         })
                     ]);
 
                     suggestionId = suggestionResult.rows[0].id;
                     createdAt = suggestionResult.rows[0].created_at;
                 } catch (dbError) {
-                    console.warn('Database insert failed, using mock ID:', dbError.message);
+                    req.logger.warn('Database insert failed, using mock ID', { error: dbError.message });
                 }
 
                 savedSuggestions.push({
@@ -267,19 +329,16 @@ Return ONLY a JSON object with this exact structure:
                 }
             };
 
-            // Cache results for 1 hour (if Redis is available)
-            if (redis) {
-                try {
-                    const cacheKey = `flirts:${screenshot_id}:${suggestion_type}:${tone}:${JSON.stringify(user_preferences)}`;
-                    await redis.setex(cacheKey, 3600, JSON.stringify(responseData));
-                } catch (cacheError) {
-                    console.warn('Cache storage failed:', cacheError.message);
-                }
+            // Cache results for 1 hour using Redis service
+            try {
+                await redisService.set(cacheKey, responseData, 3600, req.correlationId);
+            } catch (cacheError) {
+                req.logger.warn('Cache storage failed', { error: cacheError.message });
             }
 
-            // Log analytics event (if database is available)
+            // Log analytics event using enhanced query
             try {
-                await pool.query(
+                await req.dbQuery(pool,
                     `INSERT INTO analytics (user_id, event_type, event_data)
                      VALUES ($1, $2, $3)`,
                     [req.user.id, 'flirts_generated', {
@@ -287,30 +346,59 @@ Return ONLY a JSON object with this exact structure:
                         suggestion_type,
                         tone,
                         suggestions_count: savedSuggestions.length,
-                        avg_confidence: savedSuggestions.reduce((acc, s) => acc + s.confidence, 0) / savedSuggestions.length
+                        avg_confidence: savedSuggestions.reduce((acc, s) => acc + s.confidence, 0) / savedSuggestions.length,
+                        fallback: suggestions.metadata?.fallback || false,
+                        correlation_id: req.correlationId
                     }]
                 );
             } catch (dbError) {
-                console.warn('Analytics logging failed:', dbError.message);
+                req.logger.warn('Analytics logging failed', { error: dbError.message });
             }
+
+            // Notify WebSocket clients of completion
+            webSocketService.sendFlirtGenerationUpdate(req.user.id, 'completed', {
+                screenshot_id,
+                suggestions_count: savedSuggestions.length,
+                fallback: suggestions.metadata?.fallback || false
+            });
+
+            timer.finish({
+                success: true,
+                suggestions_count: savedSuggestions.length,
+                fallback: suggestions.metadata?.fallback || false
+            });
 
             res.json({
                 success: true,
                 data: responseData,
                 cached: false,
-                message: 'Flirt suggestions generated successfully'
+                message: 'Flirt suggestions generated successfully',
+                correlationId: req.correlationId
             });
 
         } catch (error) {
-            console.error('Flirt generation error:', error);
+            timer.error(error);
+
+            // Notify WebSocket clients of failure
+            webSocketService.sendFlirtGenerationUpdate(req.user.id, 'failed', {
+                screenshot_id,
+                error: error.message
+            });
+
+            req.logger.error('Flirt generation error', {
+                screenshot_id,
+                suggestion_type,
+                tone,
+                error: error.message
+            });
 
             // Handle specific API errors
             if (error.response) {
                 const apiError = error.response.data;
-                console.error('Grok API Error:', apiError);
+                req.logger.error('Grok API Error', { apiError });
 
                 // Provide fallback suggestions when API fails
-                console.log('Using fallback suggestions due to API error');
+                req.logger.info('Using fallback suggestions due to API error');
                 const fallbackSuggestions = [
                     {
                         id: 'fallback-1',
@@ -345,16 +433,18 @@ Return ONLY a JSON object with this exact structure:
                         generated_at: new Date().toISOString(),
                         fallback: true
                     },
-                    warning: 'Using fallback suggestions due to API limitations'
+                    warning: 'Using fallback suggestions due to API limitations',
+                    correlationId: req.correlationId
                 });
             }
 
             // Handle network/timeout errors
-            if (error.code === 'ECONNABORTED' || error.code === 'ETIMEDOUT') {
+            if (error.code === 'ECONNABORTED' || error.code === 'ETIMEDOUT' || error.message.includes('timeout')) {
                 return res.status(504).json({
                     success: false,
                     error: 'Flirt generation request timed out',
-                    code: 'REQUEST_TIMEOUT'
+                    code: 'REQUEST_TIMEOUT',
+                    correlationId: req.correlationId
                 });
             }
 
@@ -362,7 +452,8 @@ Return ONLY a JSON object with this exact structure:
                 success: false,
                 error: 'Flirt generation failed',
                 details: error.message,
-                code: 'FLIRT_GENERATION_ERROR'
+                code: 'FLIRT_GENERATION_ERROR',
+                correlationId: req.correlationId
             });
         }
     }

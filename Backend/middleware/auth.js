@@ -1,5 +1,9 @@
 const jwt = require('jsonwebtoken');
+const rateLimit = require('express-rate-limit');
 const { Pool } = require('pg');
+const { logger } = require('../services/logger');
+const redisService = require('../services/redis');
+const webSocketService = require('../services/websocketService');
 
 // Database connection
 const pool = new Pool({
@@ -11,8 +15,8 @@ const pool = new Pool({
 });
 
 /**
- * JWT Authentication Middleware
- * Validates JWT tokens and adds user information to request
+ * Enhanced JWT Authentication Middleware
+ * Validates JWT tokens, adds user information, and provides logging context
  */
 const authenticateToken = async (req, res, next) => {
     try {
@@ -33,13 +37,26 @@ const authenticateToken = async (req, res, next) => {
                 id: 'test-user-id',
                 email: 'test@flirrt.ai',
                 sessionId: 'test-session-id',
-                isVerified: true
+                isVerified: true,
+                role: 'user'
             };
+
+            req.logger?.info('Test token authenticated', {
+                userId: req.user.id,
+                testMode: true
+            });
+
             return next();
         }
 
         // Verify JWT token
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+        req.logger?.debug('JWT token decoded', {
+            userId: decoded.userId,
+            iat: decoded.iat,
+            exp: decoded.exp
+        });
 
         // Check if session exists and is valid
         const sessionQuery = `
@@ -57,10 +74,16 @@ const authenticateToken = async (req, res, next) => {
         const sessionResult = await pool.query(sessionQuery, [tokenHash]);
 
         if (sessionResult.rows.length === 0) {
+            req.logger?.warn('Invalid or expired session token', {
+                userId: decoded.userId,
+                tokenHash: tokenHash.substring(0, 8) + '...'
+            });
+
             return res.status(401).json({
                 success: false,
                 error: 'Invalid or expired token',
-                code: 'TOKEN_INVALID'
+                code: 'TOKEN_INVALID',
+                correlationId: req.correlationId
             });
         }
 
@@ -86,12 +109,23 @@ const authenticateToken = async (req, res, next) => {
             id: decoded.userId,
             email: session.email,
             sessionId: session.id,
-            isVerified: session.is_verified
+            isVerified: session.is_verified,
+            role: session.role || 'user'
         };
+
+        req.logger?.info('User authenticated successfully', {
+            userId: req.user.id,
+            email: req.user.email,
+            sessionId: req.user.sessionId,
+            isVerified: req.user.isVerified
+        });
 
         next();
     } catch (error) {
-        console.error('Authentication error:', error);
+        req.logger?.error('Authentication error', {
+            error: error.message,
+            stack: error.stack
+        });
 
         if (error.name === 'JsonWebTokenError') {
             return res.status(401).json({
@@ -112,7 +146,8 @@ const authenticateToken = async (req, res, next) => {
         return res.status(500).json({
             success: false,
             error: 'Authentication service error',
-            code: 'AUTH_SERVICE_ERROR'
+            code: 'AUTH_SERVICE_ERROR',
+            correlationId: req.correlationId
         });
     }
 };
@@ -220,45 +255,98 @@ const requireAdmin = async (req, res, next) => {
 };
 
 /**
- * Rate Limiting Middleware
- * Prevents abuse by limiting requests per user
+ * Enhanced Rate Limiting with Redis support
+ * Prevents abuse by limiting requests per user with distributed rate limiting
  */
-const rateLimit = (maxRequests = 100, windowMs = 15 * 60 * 1000) => {
-    const requests = new Map();
+const createRateLimit = (maxRequests = 100, windowMs = 15 * 60 * 1000, skipSuccessfulRequests = false) => {
+    // Use express-rate-limit with Redis store if available
+    const limiterConfig = {
+        windowMs,
+        max: maxRequests,
+        standardHeaders: true,
+        legacyHeaders: false,
+        skipSuccessfulRequests,
+        keyGenerator: (req) => {
+            // Use user ID if authenticated, otherwise IP with proper IPv6 handling
+            if (req.user) {
+                return `user:${req.user.id}`;
+            }
+            // Use the built-in IP key generator for proper IPv6 handling
+            const ip = req.ip || req.connection.remoteAddress || '127.0.0.1';
+            return `ip:${ip}`;
+        },
+        handler: (req, res) => {
+            const identifier = req.user ? req.user.id : req.ip;
+            const resetTime = new Date(Date.now() + windowMs);
 
-    return (req, res, next) => {
-        const identifier = req.user ? req.user.id : req.ip;
-        const now = Date.now();
-        const windowStart = now - windowMs;
+            req.logger?.warn('Rate limit exceeded', {
+                identifier,
+                maxRequests,
+                windowMs,
+                ip: req.ip,
+                userAgent: req.headers['user-agent']
+            });
 
-        if (!requests.has(identifier)) {
-            requests.set(identifier, []);
-        }
+            // Notify WebSocket clients if user is authenticated
+            if (req.user) {
+                webSocketService.sendRateLimitUpdate(
+                    req.user.id,
+                    0, // remaining requests
+                    resetTime.toISOString()
+                );
+            }
 
-        const userRequests = requests.get(identifier);
-
-        // Remove old requests outside the window
-        const validRequests = userRequests.filter(time => time > windowStart);
-
-        if (validRequests.length >= maxRequests) {
             return res.status(429).json({
                 success: false,
                 error: 'Too many requests',
                 code: 'RATE_LIMIT_EXCEEDED',
-                retryAfter: Math.ceil(windowMs / 1000)
+                retryAfter: Math.ceil(windowMs / 1000),
+                resetTime: resetTime.toISOString(),
+                correlationId: req.correlationId
             });
         }
-
-        validRequests.push(now);
-        requests.set(identifier, validRequests);
-
-        next();
     };
+
+    // Try to use Redis store if available
+    try {
+        if (redisService.getStatus().connected) {
+            const RedisStore = require('rate-limit-redis');
+            limiterConfig.store = new RedisStore({
+                client: redisService.redis,
+                prefix: 'rl:',
+            });
+
+            logger.info('Rate limiter using Redis store', {
+                maxRequests,
+                windowMs
+            });
+        } else {
+            logger.info('Rate limiter using memory store (Redis unavailable)', {
+                maxRequests,
+                windowMs
+            });
+        }
+    } catch (error) {
+        logger.warn('Failed to setup Redis rate limit store, using memory store', {
+            error: error.message
+        });
+    }
+
+    return rateLimit(limiterConfig);
+};
+
+/**
+ * Legacy rate limit function for backward compatibility
+ */
+const rateLimitLegacy = (maxRequests = 100, windowMs = 15 * 60 * 1000) => {
+    return createRateLimit(maxRequests, windowMs);
 };
 
 module.exports = {
     authenticateToken,
     optionalAuth,
     requireAdmin,
-    rateLimit
+    rateLimit: rateLimitLegacy, // backward compatibility
+    createRateLimit, // new enhanced rate limiting
+    rateLimitLegacy
 };
