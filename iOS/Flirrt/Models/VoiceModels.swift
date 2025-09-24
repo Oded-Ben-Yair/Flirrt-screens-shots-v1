@@ -2,7 +2,7 @@ import Foundation
 import AVFoundation
 
 // MARK: - Voice Clone Model
-struct VoiceClone: Codable, Identifiable {
+struct VoiceClone: Codable, Identifiable, Sendable {
     let id: String
     let name: String
     let description: String?
@@ -57,7 +57,7 @@ struct VoiceClone: Codable, Identifiable {
 }
 
 // MARK: - Voice Clone Status
-enum VoiceCloneStatus: String, Codable, CaseIterable {
+enum VoiceCloneStatus: String, Codable, CaseIterable, Sendable {
     case processing = "processing"
     case ready = "ready"
     case failed = "failed"
@@ -65,7 +65,7 @@ enum VoiceCloneStatus: String, Codable, CaseIterable {
 }
 
 // MARK: - Voice Quality
-enum VoiceQuality: String, Codable, CaseIterable {
+enum VoiceQuality: String, Codable, CaseIterable, Sendable {
     case excellent = "excellent"
     case good = "good"
     case fair = "fair"
@@ -99,7 +99,7 @@ enum VoiceQuality: String, Codable, CaseIterable {
 }
 
 // MARK: - Voice Recording Model
-struct VoiceRecording: Codable, Identifiable {
+struct VoiceRecording: Codable, Identifiable, Sendable {
     let id: String
     let fileName: String
     let fileURL: URL
@@ -129,7 +129,7 @@ struct VoiceRecording: Codable, Identifiable {
 }
 
 // MARK: - Voice Synthesis Request
-struct VoiceSynthesisRequest: Codable {
+struct VoiceSynthesisRequest: Codable, Sendable {
     let text: String
     let voiceId: String
     let emotion: VoiceEmotion
@@ -148,7 +148,7 @@ struct VoiceSynthesisRequest: Codable {
 }
 
 // MARK: - Voice Emotion
-enum VoiceEmotion: String, Codable, CaseIterable {
+enum VoiceEmotion: String, Codable, CaseIterable, Sendable {
     case confident = "confident"
     case playful = "playful"
     case seductive = "seductive"
@@ -179,7 +179,7 @@ enum VoiceEmotion: String, Codable, CaseIterable {
 }
 
 // MARK: - Voice Speed
-enum VoiceSpeed: String, Codable, CaseIterable {
+enum VoiceSpeed: String, Codable, CaseIterable, Sendable {
     case slow = "slow"
     case normal = "normal"
     case fast = "fast"
@@ -201,7 +201,7 @@ enum VoiceSpeed: String, Codable, CaseIterable {
 }
 
 // MARK: - Audio Configuration
-struct AudioConfiguration {
+struct AudioConfiguration: Sendable {
     static let defaultSampleRate: Double = 44100
     static let defaultChannels: Int = 1
     static let defaultBitRate: Int = 128000
@@ -221,7 +221,7 @@ struct AudioConfiguration {
 }
 
 // MARK: - Voice Recording Statistics
-struct VoiceRecordingStats: Codable {
+struct VoiceRecordingStats: Codable, Sendable {
     let totalRecordings: Int
     let totalDuration: TimeInterval
     let averageQuality: VoiceQuality
@@ -247,7 +247,7 @@ struct VoiceRecordingStats: Codable {
 }
 
 // MARK: - Voice Clone Creation Request
-struct VoiceCloneCreationRequest {
+struct VoiceCloneCreationRequest: Sendable {
     let audioData: Data
     let name: String
     let description: String?
@@ -262,7 +262,7 @@ struct VoiceCloneCreationRequest {
 }
 
 // MARK: - ElevenLabs Voice Settings
-struct ElevenLabsVoiceSettings: Codable {
+struct ElevenLabsVoiceSettings: Codable, Sendable {
     let stability: Double
     let similarityBoost: Double
     let style: Double?
@@ -281,7 +281,7 @@ struct ElevenLabsVoiceSettings: Codable {
 }
 
 // MARK: - Voice Script Model
-struct VoiceScript: Codable, Identifiable {
+struct VoiceScript: Codable, Identifiable, Sendable {
     let id: String
     let title: String
     let content: String
@@ -312,7 +312,7 @@ struct VoiceScript: Codable, Identifiable {
 }
 
 // MARK: - Script Category
-enum ScriptCategory: String, Codable, CaseIterable {
+enum ScriptCategory: String, Codable, CaseIterable, Sendable {
     case introduction = "introduction"
     case conversation = "conversation"
     case storytelling = "storytelling"
@@ -366,7 +366,7 @@ enum ScriptCategory: String, Codable, CaseIterable {
 }
 
 // MARK: - Script Difficulty
-enum ScriptDifficulty: String, Codable, CaseIterable {
+enum ScriptDifficulty: String, Codable, CaseIterable, Sendable {
     case beginner = "beginner"
     case intermediate = "intermediate"
     case advanced = "advanced"
@@ -399,7 +399,7 @@ enum ScriptDifficulty: String, Codable, CaseIterable {
 }
 
 // MARK: - Voice Request Model
-struct VoiceRequest: Codable {
+struct VoiceRequest: Codable, Sendable {
     let text: String
     let voiceId: String
     let timestamp: Date
@@ -408,6 +408,47 @@ struct VoiceRequest: Codable {
         self.text = text
         self.voiceId = voiceId
         self.timestamp = timestamp
+    }
+}
+
+// MARK: - Concurrent Operations Support
+struct ConcurrentVoiceOperations: Sendable {
+    static func processMultipleVoiceClones(_ clones: [VoiceClone]) async throws -> [VoiceClone] {
+        return try await withThrowingTaskGroup(of: VoiceClone.self) { group in
+            for clone in clones {
+                group.addTask {
+                    // Simulate processing time
+                    try await Task.sleep(nanoseconds: UInt64.random(in: 100_000_000...500_000_000))
+                    return clone
+                }
+            }
+
+            var processedClones: [VoiceClone] = []
+            for try await clone in group {
+                processedClones.append(clone)
+            }
+            return processedClones
+        }
+    }
+
+    static func validateMultipleRecordings(_ recordings: [VoiceRecording]) async -> [VoiceRecording] {
+        return await withTaskGroup(of: VoiceRecording?.self) { group in
+            for recording in recordings {
+                group.addTask {
+                    // Simulate validation
+                    try? await Task.sleep(nanoseconds: 50_000_000)
+                    return recording.duration >= 1.0 ? recording : nil
+                }
+            }
+
+            var validRecordings: [VoiceRecording] = []
+            for await validRecording in group {
+                if let recording = validRecording {
+                    validRecordings.append(recording)
+                }
+            }
+            return validRecordings
+        }
     }
 }
 

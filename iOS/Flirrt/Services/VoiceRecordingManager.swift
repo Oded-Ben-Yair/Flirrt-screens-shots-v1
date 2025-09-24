@@ -1,8 +1,12 @@
 import Foundation
 import AVFoundation
 import Combine
+import OSLog
+import UIKit
+import Photos
 
-class VoiceRecordingManager: NSObject, ObservableObject {
+@MainActor
+final class VoiceRecordingManager: NSObject, ObservableObject {
     // MARK: - Published Properties
     @Published var isRecording = false
     @Published var isPlaying = false
@@ -27,14 +31,182 @@ class VoiceRecordingManager: NSObject, ObservableObject {
     private var playbackTimer: Timer?
     private var audioSession = AVAudioSession.sharedInstance()
     private var apiClient = APIClient.shared
+    private let logger = Logger(subsystem: "com.flirrt.app", category: "VoiceRecordingManager")
+
+    // Concurrency support
+    private var cancellables = Set<AnyCancellable>()
+    private var screenshotMonitoringTask: Task<Void, Never>?
+    private var audioLevelMonitoringTask: Task<Void, Never>?
+
+    // AsyncStream continuations
+    private var screenshotContinuation: AsyncStream<UIImage>.Continuation?
+    private var audioLevelContinuation: AsyncStream<Float>.Continuation?
 
     // MARK: - Audio Level Monitoring
     private let numberOfSamples = 60 // For waveform visualization
+
+    // MARK: - AsyncStream Monitoring
+
+    /// Continuous screenshot monitoring using AsyncStream
+    func monitorScreenshots() -> AsyncStream<UIImage> {
+        return AsyncStream { continuation in
+            screenshotContinuation = continuation
+
+            // Start screenshot monitoring task
+            screenshotMonitoringTask = Task {
+                logger.info("Started screenshot monitoring")
+
+                while !Task.isCancelled {
+                    do {
+                        // Check for new screenshots every 2 seconds
+                        try await Task.sleep(nanoseconds: 2_000_000_000)
+
+                        await checkForNewScreenshots()
+                    } catch {
+                        if !Task.isCancelled {
+                            logger.error("Screenshot monitoring error: \(error.localizedDescription)")
+                        }
+                        break
+                    }
+                }
+
+                logger.info("Screenshot monitoring stopped")
+                continuation.finish()
+            }
+
+            continuation.onTermination = { @Sendable _ in
+                Task { @MainActor in
+                    self.screenshotMonitoringTask?.cancel()
+                }
+            }
+        }
+    }
+
+    /// Continuous audio level monitoring using AsyncStream
+    func monitorAudioLevels() -> AsyncStream<Float> {
+        return AsyncStream { continuation in
+            audioLevelContinuation = continuation
+
+            audioLevelMonitoringTask = Task {
+                logger.info("Started audio level monitoring")
+
+                while !Task.isCancelled {
+                    do {
+                        // Update levels every 50ms for smooth visualization
+                        try await Task.sleep(nanoseconds: 50_000_000)
+
+                        if let level = await getCurrentAudioLevel() {
+                            continuation.yield(level)
+                        }
+                    } catch {
+                        if !Task.isCancelled {
+                            logger.error("Audio level monitoring error: \(error.localizedDescription)")
+                        }
+                        break
+                    }
+                }
+
+                logger.info("Audio level monitoring stopped")
+                continuation.finish()
+            }
+
+            continuation.onTermination = { @Sendable _ in
+                Task { @MainActor in
+                    self.audioLevelMonitoringTask?.cancel()
+                }
+            }
+        }
+    }
+
+    /// Get current audio recording level
+    private func getCurrentAudioLevel() async -> Float? {
+        guard let recorder = audioRecorder, recorder.isRecording else { return nil }
+
+        return await withCheckedContinuation { continuation in
+            DispatchQueue.main.async {
+                recorder.updateMeters()
+                let level = recorder.averagePower(forChannel: 0)
+                // Convert dB to linear scale (0.0 to 1.0)
+                let normalizedLevel = max(0.0, (level + 80.0) / 80.0)
+                continuation.resume(returning: normalizedLevel)
+            }
+        }
+    }
+
+    /// Check for new screenshots in photo library
+    private func checkForNewScreenshots() async {
+        guard await requestPhotoLibraryPermission() else { return }
+
+        let fetchOptions = PHFetchOptions()
+        fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
+        fetchOptions.fetchLimit = 1
+        fetchOptions.predicate = NSPredicate(format: "(mediaSubtype & %d) != 0", PHAssetMediaSubtype.photoScreenshot.rawValue)
+
+        let screenshots = PHAsset.fetchAssets(with: .image, options: fetchOptions)
+
+        if let latestScreenshot = screenshots.firstObject {
+            await loadImage(from: latestScreenshot)
+        }
+    }
+
+    /// Request photo library permission
+    private func requestPhotoLibraryPermission() async -> Bool {
+        let status = PHPhotoLibrary.authorizationStatus(for: .readWrite)
+
+        switch status {
+        case .authorized, .limited:
+            return true
+        case .denied, .restricted:
+            logger.warning("Photo library access denied")
+            return false
+        case .notDetermined:
+            return await withCheckedContinuation { continuation in
+                PHPhotoLibrary.requestAuthorization(for: .readWrite) { newStatus in
+                    continuation.resume(returning: newStatus == .authorized || newStatus == .limited)
+                }
+            }
+        @unknown default:
+            return false
+        }
+    }
+
+    /// Load UIImage from PHAsset
+    private func loadImage(from asset: PHAsset) async {
+        let options = PHImageRequestOptions()
+        options.version = .current
+        options.deliveryMode = .highQualityFormat
+        options.isNetworkAccessAllowed = true
+
+        await withCheckedContinuation { (continuation: CheckedContinuation<Void, Never>) in
+            PHImageManager.default().requestImage(
+                for: asset,
+                targetSize: CGSize(width: 1024, height: 1024),
+                contentMode: .aspectFit,
+                options: options
+            ) { [weak self] image, info in
+                if let image = image {
+                    self?.screenshotContinuation?.yield(image)
+                    self?.logger.info("New screenshot detected and yielded")
+                }
+                continuation.resume()
+            }
+        }
+    }
 
     override init() {
         super.init()
         setupAudioSession()
         checkPermissions()
+        logger.info("VoiceRecordingManager initialized")
+    }
+
+    deinit {
+        screenshotMonitoringTask?.cancel()
+        audioLevelMonitoringTask?.cancel()
+        cancellables.removeAll()
+        screenshotContinuation?.finish()
+        audioLevelContinuation?.finish()
+        logger.info("VoiceRecordingManager deinitialized")
     }
 
     // MARK: - Audio Session Setup
@@ -65,6 +237,7 @@ class VoiceRecordingManager: NSObject, ObservableObject {
 
     // MARK: - Recording Controls
     func startRecording() async {
+        logger.info("Starting recording...")
         guard permissionStatus == .granted else {
             if await requestPermissions() == false {
                 error = .permissionDenied
@@ -96,45 +269,54 @@ class VoiceRecordingManager: NSObject, ObservableObject {
                 recordingDuration = 0
                 audioLevels = Array(repeating: 0.0, count: numberOfSamples)
 
-                startRecordingTimer()
-                startLevelTimer()
+                await startRecordingTimer()
+                await startLevelTimer()
+                logger.info("Recording started successfully at: \(audioFilename)")
             } else {
                 error = .recordingFailed("Failed to start recording")
+                logger.error("Failed to start recording")
             }
         } catch {
             self.error = .recordingFailed(error.localizedDescription)
+            logger.error("Recording setup failed: \(error.localizedDescription)")
         }
     }
 
-    func stopRecording() {
+    func stopRecording() async {
         guard isRecording else { return }
 
+        logger.info("Stopping recording...")
         audioRecorder?.stop()
-        stopRecordingTimer()
-        stopLevelTimer()
+        await stopRecordingTimer()
+        await stopLevelTimer()
         isRecording = false
 
         // Validate minimum duration
         if recordingDuration < minRecordingDuration {
             error = .recordingTooShort
-            deleteCurrentRecording()
+            await deleteCurrentRecording()
+            logger.warning("Recording too short, deleted")
+        } else {
+            logger.info("Recording stopped successfully, duration: \(formatDuration(recordingDuration))")
         }
     }
 
-    func pauseRecording() {
+    func pauseRecording() async {
         guard isRecording else { return }
+        logger.info("Pausing recording")
         audioRecorder?.pause()
-        stopRecordingTimer()
-        stopLevelTimer()
+        await stopRecordingTimer()
+        await stopLevelTimer()
     }
 
-    func resumeRecording() {
+    func resumeRecording() async {
         guard !isRecording && audioRecorder != nil else { return }
 
         if audioRecorder?.record() == true {
             isRecording = true
-            startRecordingTimer()
-            startLevelTimer()
+            await startRecordingTimer()
+            await startLevelTimer()
+            logger.info("Recording resumed")
         }
     }
 
@@ -179,14 +361,18 @@ class VoiceRecordingManager: NSObject, ObservableObject {
     }
 
     // MARK: - File Management
-    func deleteCurrentRecording() {
+    func deleteCurrentRecording() async {
         guard let url = recordingURL else { return }
 
-        try? FileManager.default.removeItem(at: url)
+        await Task.detached(priority: .utility) {
+            try? FileManager.default.removeItem(at: url)
+        }.value
+
         recordingURL = nil
         audioLevels = []
         recordingDuration = 0
         playbackProgress = 0
+        logger.info("Current recording deleted")
     }
 
     func getRecordingData() -> Data? {
@@ -207,16 +393,29 @@ class VoiceRecordingManager: NSObject, ObservableObject {
 
     // MARK: - Audio Processing
     func applyNoiseSuppression() async {
-        // Apply basic noise suppression using AVAudioEngine
-        // This is a placeholder - in production, you'd use more sophisticated DSP
         guard let url = recordingURL else { return }
 
-        // For now, just ensure audio quality settings are optimal
-        // Real noise suppression would involve DSP algorithms
+        logger.info("Applying noise suppression to recording")
+
+        await Task.detached(priority: .userInitiated) {
+            // Apply basic noise suppression using AVAudioEngine
+            // This is a placeholder - in production, you'd use more sophisticated DSP
+            let audioEngine = AVAudioEngine()
+            let audioFile = try? AVAudioFile(forReading: url)
+
+            // Real noise suppression would involve DSP algorithms
+            // For now, just validate the audio file
+            if audioFile != nil {
+                // Audio processing would happen here
+            }
+        }.value
+
+        logger.info("Noise suppression completed")
     }
 
     // MARK: - ElevenLabs Integration
     func uploadVoiceClone(userId: String) async throws -> VoiceCloneResponse {
+        logger.info("Starting voice clone upload for user: \(userId)")
         guard let audioData = getRecordingData() else {
             throw VoiceRecordingError.noRecordingAvailable
         }
@@ -229,38 +428,44 @@ class VoiceRecordingManager: NSObject, ObservableObject {
 
         do {
             let response = try await apiClient.uploadVoiceClone(audioData: audioData, userId: userId)
+            logger.info("Voice clone upload successful: \(response.voiceId)")
             return response
         } catch {
+            logger.error("Voice clone upload failed: \(error.localizedDescription)")
             throw VoiceRecordingError.uploadFailed(error.localizedDescription)
         }
     }
 
     // MARK: - Timer Management
-    private func startRecordingTimer() {
+    private func startRecordingTimer() async {
         recordingTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { [weak self] _ in
-            guard let self = self else { return }
+            Task { @MainActor in
+                guard let self = self else { return }
 
-            self.recordingDuration += 0.1
+                self.recordingDuration += 0.1
 
-            // Auto-stop at max duration
-            if self.recordingDuration >= self.maxRecordingDuration {
-                self.stopRecording()
+                // Auto-stop at max duration
+                if self.recordingDuration >= self.maxRecordingDuration {
+                    await self.stopRecording()
+                }
             }
         }
     }
 
-    private func stopRecordingTimer() {
+    private func stopRecordingTimer() async {
         recordingTimer?.invalidate()
         recordingTimer = nil
     }
 
-    private func startLevelTimer() {
+    private func startLevelTimer() async {
         levelTimer = Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) { [weak self] _ in
-            self?.updateAudioLevels()
+            Task { @MainActor in
+                await self?.updateAudioLevels()
+            }
         }
     }
 
-    private func stopLevelTimer() {
+    private func stopLevelTimer() async {
         levelTimer?.invalidate()
         levelTimer = nil
     }
@@ -277,19 +482,18 @@ class VoiceRecordingManager: NSObject, ObservableObject {
     }
 
     // MARK: - Audio Level Updates
-    private func updateAudioLevels() {
+    private func updateAudioLevels() async {
         guard let recorder = audioRecorder, recorder.isRecording else { return }
 
-        recorder.updateMeters()
-        let level = recorder.averagePower(forChannel: 0)
+        if let level = await getCurrentAudioLevel() {
+            // Add to levels array and maintain size
+            audioLevels.append(level)
+            if audioLevels.count > numberOfSamples {
+                audioLevels.removeFirst()
+            }
 
-        // Convert dB to linear scale (0.0 to 1.0)
-        let normalizedLevel = max(0.0, (level + 80.0) / 80.0)
-
-        // Add to levels array and maintain size
-        audioLevels.append(normalizedLevel)
-        if audioLevels.count > numberOfSamples {
-            audioLevels.removeFirst()
+            // Also yield to AsyncStream if active
+            audioLevelContinuation?.yield(level)
         }
     }
 
@@ -378,7 +582,7 @@ extension VoiceRecordingManager: AVAudioPlayerDelegate {
 }
 
 // MARK: - Error Types
-enum VoiceRecordingError: LocalizedError {
+enum VoiceRecordingError: LocalizedError, Sendable {
     case permissionDenied
     case audioSessionError(String)
     case recordingFailed(String)

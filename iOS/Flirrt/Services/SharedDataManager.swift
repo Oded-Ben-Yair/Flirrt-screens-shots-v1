@@ -1,13 +1,54 @@
 import Foundation
 import Combine
+import OSLog
 
-class SharedDataManager: ObservableObject {
+@globalActor
+actor SharedDataActor {
+    static let shared = SharedDataActor()
+}
+
+@MainActor
+final class SharedDataManager: ObservableObject {
     @Published var currentVoiceId: String?
     @Published var voiceClones: [VoiceClone] = []
     @Published var recentRecordings: [VoiceRecording] = []
     @Published var onboardingRequested: Bool = false
     @Published var analysisRequested = false
     @Published var voiceRequest: VoiceRequest? = nil
+
+    // Concurrency management
+    private var cancellables = Set<AnyCancellable>()
+    private let logger = Logger(subsystem: "com.flirrt.app", category: "SharedDataManager")
+    private actor DataStore {
+        private var _currentVoiceId: String?
+        private var _voiceClones: [VoiceClone] = []
+        private var _recentRecordings: [VoiceRecording] = []
+
+        func getCurrentVoiceId() -> String? { _currentVoiceId }
+        func getVoiceClones() -> [VoiceClone] { _voiceClones }
+        func getRecentRecordings() -> [VoiceRecording] { _recentRecordings }
+
+        func setCurrentVoiceId(_ id: String?) { _currentVoiceId = id }
+        func setVoiceClones(_ clones: [VoiceClone]) { _voiceClones = clones }
+        func setRecentRecordings(_ recordings: [VoiceRecording]) { _recentRecordings = recordings }
+
+        func addVoiceClone(_ clone: VoiceClone) {
+            _voiceClones.append(clone)
+        }
+
+        func addRecording(_ recording: VoiceRecording) {
+            _recentRecordings.insert(recording, at: 0)
+            if _recentRecordings.count > 10 {
+                _recentRecordings = Array(_recentRecordings.prefix(10))
+            }
+        }
+
+        func removeRecording(withId id: String) {
+            _recentRecordings.removeAll { $0.id == id }
+        }
+    }
+
+    private let dataStore = DataStore()
 
     private let userDefaults = UserDefaults.standard
     private let sharedDefaults = UserDefaults(suiteName: "group.com.flirrt.shared")
@@ -19,19 +60,31 @@ class SharedDataManager: ObservableObject {
     }
 
     private func loadStoredData() {
-        // Load current voice ID
-        currentVoiceId = userDefaults.string(forKey: "user_voice_id")
+        Task { @MainActor in
+            do {
+                // Load current voice ID
+                let voiceId = userDefaults.string(forKey: "user_voice_id")
+                await dataStore.setCurrentVoiceId(voiceId)
+                currentVoiceId = voiceId
 
-        // Load voice clones
-        if let data = userDefaults.data(forKey: "voice_clones"),
-           let clones = try? JSONDecoder().decode([VoiceClone].self, from: data) {
-            voiceClones = clones
-        }
+                // Load voice clones
+                if let data = userDefaults.data(forKey: "voice_clones"),
+                   let clones = try JSONDecoder().decode([VoiceClone].self, from: data) {
+                    await dataStore.setVoiceClones(clones)
+                    voiceClones = clones
+                }
 
-        // Load recent recordings
-        if let data = userDefaults.data(forKey: "recent_recordings"),
-           let recordings = try? JSONDecoder().decode([VoiceRecording].self, from: data) {
-            recentRecordings = recordings
+                // Load recent recordings
+                if let data = userDefaults.data(forKey: "recent_recordings"),
+                   let recordings = try JSONDecoder().decode([VoiceRecording].self, from: data) {
+                    await dataStore.setRecentRecordings(recordings)
+                    recentRecordings = recordings
+                }
+
+                logger.info("Successfully loaded stored data with \(voiceClones.count) voice clones and \(recentRecordings.count) recordings")
+            } catch {
+                logger.error("Failed to load stored data: \(error.localizedDescription)")
+            }
         }
     }
 
@@ -93,14 +146,18 @@ class SharedDataManager: ObservableObject {
     }
 
     private func handleOnboardingRequest() {
-        DispatchQueue.main.async { [weak self] in
-            print("Darwin notification received: Onboarding requested from keyboard extension")
-            self?.onboardingRequested = true
+        Task { @MainActor [weak self] in
+            guard let self = self else { return }
+
+            logger.info("Darwin notification received: Onboarding requested from keyboard extension")
+            self.onboardingRequested = true
 
             // Update shared state
-            self?.sharedDefaults?.set(true, forKey: "onboarding_triggered_from_main")
-            self?.sharedDefaults?.set(Date().timeIntervalSince1970, forKey: "onboarding_trigger_time")
-            self?.sharedDefaults?.synchronize()
+            await Task.detached(priority: .userInitiated) {
+                self.sharedDefaults?.set(true, forKey: "onboarding_triggered_from_main")
+                self.sharedDefaults?.set(Date().timeIntervalSince1970, forKey: "onboarding_trigger_time")
+                self.sharedDefaults?.synchronize()
+            }.value
         }
     }
 
@@ -111,99 +168,187 @@ class SharedDataManager: ObservableObject {
     }
 
     private func handleVoiceRequest() {
-        guard let containerURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.com.flirrt.shared") else { return }
-        let requestURL = containerURL.appendingPathComponent("voice_request.json")
+        Task { @MainActor [weak self] in
+            guard let self = self else { return }
 
-        if let data = try? Data(contentsOf: requestURL) {
-            if let request = try? JSONDecoder().decode(VoiceRequest.self, from: data) {
-                DispatchQueue.main.async {
-                    self.voiceRequest = request
+            do {
+                guard let containerURL = FileManager.default.containerURL(
+                    forSecurityApplicationGroupIdentifier: "group.com.flirrt.shared"
+                ) else {
+                    logger.error("Failed to get container URL for app group")
+                    return
                 }
+
+                let requestURL = containerURL.appendingPathComponent("voice_request.json")
+
+                let data = try Data(contentsOf: requestURL)
+                let request = try JSONDecoder().decode(VoiceRequest.self, from: data)
+
+                self.voiceRequest = request
+                logger.info("Successfully loaded voice request for voice ID: \(request.voiceId)")
+            } catch {
+                logger.error("Failed to load voice request: \(error.localizedDescription)")
             }
         }
     }
 
     func setCurrentVoiceId(_ voiceId: String) {
-        currentVoiceId = voiceId
-        userDefaults.set(voiceId, forKey: "user_voice_id")
-        sharedDefaults?.set(voiceId, forKey: "user_voice_id")
+        Task { @MainActor in
+            await dataStore.setCurrentVoiceId(voiceId)
+            currentVoiceId = voiceId
+
+            await Task.detached(priority: .userInitiated) { [weak self] in
+                self?.userDefaults.set(voiceId, forKey: "user_voice_id")
+                self?.sharedDefaults?.set(voiceId, forKey: "user_voice_id")
+                self?.sharedDefaults?.synchronize()
+            }.value
+
+            logger.info("Updated current voice ID to: \(voiceId)")
+        }
     }
 
     func addVoiceClone(_ voiceClone: VoiceClone) {
-        voiceClones.append(voiceClone)
-        saveVoiceClones()
+        Task { @MainActor in
+            await dataStore.addVoiceClone(voiceClone)
+            voiceClones.append(voiceClone)
+            await saveVoiceClones()
 
-        // Set as current voice if it's the first one
-        if currentVoiceId == nil {
-            setCurrentVoiceId(voiceClone.id)
+            // Set as current voice if it's the first one
+            if currentVoiceId == nil {
+                setCurrentVoiceId(voiceClone.id)
+            }
+
+            logger.info("Added voice clone: \(voiceClone.name) (ID: \(voiceClone.id))")
         }
     }
 
     func addRecording(_ recording: VoiceRecording) {
-        recentRecordings.insert(recording, at: 0)
+        Task { @MainActor in
+            await dataStore.addRecording(recording)
+            recentRecordings.insert(recording, at: 0)
 
-        // Keep only the last 10 recordings
-        if recentRecordings.count > 10 {
-            recentRecordings = Array(recentRecordings.prefix(10))
+            // Keep only the last 10 recordings
+            if recentRecordings.count > 10 {
+                recentRecordings = Array(recentRecordings.prefix(10))
+            }
+
+            await saveRecentRecordings()
+            logger.info("Added recording: \(recording.fileName) (Duration: \(recording.formattedDuration))")
         }
-
-        saveRecentRecordings()
     }
 
     func removeRecording(_ recording: VoiceRecording) {
-        recentRecordings.removeAll { $0.id == recording.id }
-        saveRecentRecordings()
+        Task { @MainActor in
+            await dataStore.removeRecording(withId: recording.id)
+            recentRecordings.removeAll { $0.id == recording.id }
+            await saveRecentRecordings()
 
-        // Clean up file if it exists
-        if FileManager.default.fileExists(atPath: recording.fileURL.path) {
-            try? FileManager.default.removeItem(at: recording.fileURL)
+            // Clean up file if it exists
+            await Task.detached(priority: .utility) {
+                if FileManager.default.fileExists(atPath: recording.fileURL.path) {
+                    try? FileManager.default.removeItem(at: recording.fileURL)
+                }
+            }.value
+
+            logger.info("Removed recording: \(recording.fileName)")
         }
     }
 
-    private func saveVoiceClones() {
-        if let data = try? JSONEncoder().encode(voiceClones) {
-            userDefaults.set(data, forKey: "voice_clones")
-        }
+    private func saveVoiceClones() async {
+        await Task.detached(priority: .utility) { [weak self] in
+            guard let self = self else { return }
+
+            do {
+                let clones = await self.dataStore.getVoiceClones()
+                let data = try JSONEncoder().encode(clones)
+                self.userDefaults.set(data, forKey: "voice_clones")
+                self.logger.debug("Successfully saved \(clones.count) voice clones")
+            } catch {
+                self.logger.error("Failed to save voice clones: \(error.localizedDescription)")
+            }
+        }.value
     }
 
-    private func saveRecentRecordings() {
-        if let data = try? JSONEncoder().encode(recentRecordings) {
-            userDefaults.set(data, forKey: "recent_recordings")
-        }
+    private func saveRecentRecordings() async {
+        await Task.detached(priority: .utility) { [weak self] in
+            guard let self = self else { return }
+
+            do {
+                let recordings = await self.dataStore.getRecentRecordings()
+                let data = try JSONEncoder().encode(recordings)
+                self.userDefaults.set(data, forKey: "recent_recordings")
+                self.logger.debug("Successfully saved \(recordings.count) recent recordings")
+            } catch {
+                self.logger.error("Failed to save recent recordings: \(error.localizedDescription)")
+            }
+        }.value
     }
 
     func clearAllData() {
-        currentVoiceId = nil
-        voiceClones = []
-        recentRecordings = []
-        onboardingRequested = false
+        Task { @MainActor in
+            // Clear actor state
+            await dataStore.setCurrentVoiceId(nil)
+            await dataStore.setVoiceClones([])
+            await dataStore.setRecentRecordings([])
 
-        userDefaults.removeObject(forKey: "user_voice_id")
-        userDefaults.removeObject(forKey: "voice_clones")
-        userDefaults.removeObject(forKey: "recent_recordings")
+            // Clear UI state
+            currentVoiceId = nil
+            voiceClones = []
+            recentRecordings = []
+            onboardingRequested = false
 
-        sharedDefaults?.removeObject(forKey: "user_voice_id")
-        sharedDefaults?.removeObject(forKey: "onboarding_triggered_from_main")
-        sharedDefaults?.removeObject(forKey: "onboarding_trigger_time")
+            // Clear persistent storage
+            await Task.detached(priority: .userInitiated) { [weak self] in
+                self?.userDefaults.removeObject(forKey: "user_voice_id")
+                self?.userDefaults.removeObject(forKey: "voice_clones")
+                self?.userDefaults.removeObject(forKey: "recent_recordings")
+
+                self?.sharedDefaults?.removeObject(forKey: "user_voice_id")
+                self?.sharedDefaults?.removeObject(forKey: "onboarding_triggered_from_main")
+                self?.sharedDefaults?.removeObject(forKey: "onboarding_trigger_time")
+                self?.sharedDefaults?.synchronize()
+            }.value
+
+            logger.info("Successfully cleared all data")
+        }
     }
 
     func resetOnboardingRequest() {
-        onboardingRequested = false
-        sharedDefaults?.removeObject(forKey: "onboarding_requested")
-        sharedDefaults?.removeObject(forKey: "onboarding_request_time")
-        sharedDefaults?.synchronize()
+        Task { @MainActor in
+            onboardingRequested = false
+
+            await Task.detached(priority: .userInitiated) { [weak self] in
+                self?.sharedDefaults?.removeObject(forKey: "onboarding_requested")
+                self?.sharedDefaults?.removeObject(forKey: "onboarding_request_time")
+                self?.sharedDefaults?.synchronize()
+            }.value
+
+            logger.info("Reset onboarding request")
+        }
     }
 
     func completeOnboarding() {
-        onboardingRequested = false
-        sharedDefaults?.set(true, forKey: "onboarding_complete")
-        sharedDefaults?.synchronize()
+        Task { @MainActor in
+            onboardingRequested = false
+
+            await Task.detached(priority: .userInitiated) { [weak self] in
+                self?.sharedDefaults?.set(true, forKey: "onboarding_complete")
+                self?.sharedDefaults?.synchronize()
+            }.value
+
+            logger.info("Completed onboarding")
+        }
     }
 
     deinit {
+        // Cancel all tasks and subscriptions
+        cancellables.removeAll()
+
         // Remove Darwin notification observer
         let notificationCenter = CFNotificationCenterGetDarwinNotifyCenter()
         CFNotificationCenterRemoveEveryObserver(notificationCenter, Unmanaged.passUnretained(self).toOpaque())
+
+        logger.info("SharedDataManager deinitialized")
     }
 }
 
