@@ -2,8 +2,10 @@ import UIKit
 import os.log
 import Foundation
 import Photos
+import OSLog
 
-class KeyboardViewController: UIInputViewController {
+@MainActor
+final class KeyboardViewController: UIInputViewController {
 
     // MARK: - Memory Management
     private let logger = OSLog(subsystem: "com.flirrt.keyboard", category: "memory")
