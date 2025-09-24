@@ -196,7 +196,10 @@ class KeyboardViewController: UIInputViewController {
         // Show loading state
         suggestionsView.showLoading()
 
-        // Make API request for analysis
+        // Try to detect recent screenshots first
+        checkForRecentScreenshot()
+
+        // Make API request for response-type suggestions
         makeAnalysisAPIRequest()
     }
 
@@ -350,21 +353,132 @@ protocol SuggestionsViewDelegate: AnyObject {
 class SuggestionsView: UIView {
     weak var delegate: SuggestionsViewDelegate?
 
+    private var stackView: UIStackView!
+    private var loadingIndicator: UIActivityIndicatorView!
+    private var errorLabel: UILabel!
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupUI()
+    }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        setupUI()
+    }
+
+    private func setupUI() {
+        backgroundColor = .systemBackground
+        layer.cornerRadius = 12
+
+        stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.spacing = 8
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(stackView)
+
+        loadingIndicator = UIActivityIndicatorView(style: .medium)
+        loadingIndicator.translatesAutoresizingMaskIntoConstraints = false
+        loadingIndicator.hidesWhenStopped = true
+        addSubview(loadingIndicator)
+
+        errorLabel = UILabel()
+        errorLabel.textColor = .systemRed
+        errorLabel.font = .systemFont(ofSize: 14)
+        errorLabel.textAlignment = .center
+        errorLabel.numberOfLines = 2
+        errorLabel.translatesAutoresizingMaskIntoConstraints = false
+        errorLabel.isHidden = true
+        addSubview(errorLabel)
+
+        NSLayoutConstraint.activate([
+            stackView.topAnchor.constraint(equalTo: topAnchor, constant: 12),
+            stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12),
+            stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12),
+            stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -12),
+
+            loadingIndicator.centerXAnchor.constraint(equalTo: centerXAnchor),
+            loadingIndicator.centerYAnchor.constraint(equalTo: centerYAnchor),
+
+            errorLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12),
+            errorLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12),
+            errorLabel.centerYAnchor.constraint(equalTo: centerYAnchor)
+        ])
+    }
+
     func setSuggestions(_ suggestions: [Suggestion]) {
-        // Implementation
+        let items = suggestions.map { suggestion in
+            SuggestionItem(text: suggestion.text, confidence: suggestion.confidence, tone: suggestion.tone)
+        }
+        updateSuggestions(items)
     }
 
     func updateSuggestions(_ suggestions: [SuggestionItem]) {
-        // Implementation for displaying suggestion items
-        // This would update the UI with the new suggestions
+        // Clear existing suggestions
+        stackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
+        hideLoading()
+        hideError()
+
+        // Add new suggestion buttons
+        for suggestion in suggestions.prefix(3) { // Limit to 3 suggestions to save space
+            let button = createSuggestionButton(for: suggestion)
+            stackView.addArrangedSubview(button)
+        }
+    }
+
+    private func createSuggestionButton(for suggestion: SuggestionItem) -> UIButton {
+        let button = UIButton(type: .system)
+        button.setTitle(suggestion.text, for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 14)
+        button.titleLabel?.numberOfLines = 2
+        button.backgroundColor = .systemBlue.withAlphaComponent(0.1)
+        button.setTitleColor(.systemBlue, for: .normal)
+        button.layer.cornerRadius = 8
+        button.contentInset = UIEdgeInsets(top: 8, left: 12, bottom: 8, right: 12)
+
+        button.addTarget(self, action: #selector(suggestionTapped(_:)), for: .touchUpInside)
+
+        return button
+    }
+
+    @objc private func suggestionTapped(_ sender: UIButton) {
+        guard let text = sender.title(for: .normal) else { return }
+        delegate?.didSelectSuggestion(text)
+
+        // Provide haptic feedback
+        let impact = UIImpactFeedbackGenerator(style: .light)
+        impact.impactOccurred()
     }
 
     func showLoading() {
-        // Show loading state
+        hideError()
+        loadingIndicator.startAnimating()
+        stackView.isHidden = true
+    }
+
+    private func hideLoading() {
+        loadingIndicator.stopAnimating()
+        stackView.isHidden = false
+    }
+
+    func showError(_ message: String) {
+        hideLoading()
+        errorLabel.text = message
+        errorLabel.isHidden = false
+        stackView.isHidden = true
+    }
+
+    private func hideError() {
+        errorLabel.isHidden = true
+        stackView.isHidden = false
     }
 
     func reduceQuality() {
         // Reduce visual quality to save memory
+        stackView.arrangedSubviews.forEach { view in
+            view.layer.shouldRasterize = false
+            view.layer.renderingScale = 1.0
+        }
     }
 }
 
@@ -423,11 +537,28 @@ extension KeyboardViewController {
     private func processAPIResponse(_ data: Data) {
         do {
             let json = try JSONSerialization.jsonObject(with: data) as? [String: Any]
+            os_log("API Response: %@", log: logger, type: .debug, String(data: data, encoding: .utf8) ?? "Unable to parse")
 
-            if let success = json?["success"] as? Bool, success,
-               let responseData = json?["data"] as? [String: Any],
-               let suggestions = responseData["suggestions"] as? [[String: Any]] {
+            // Handle both old and new API response formats
+            var suggestions: [[String: Any]] = []
 
+            if let success = json?["success"] as? Bool, success {
+                // New API format with nested data
+                if let responseData = json?["data"] as? [String: Any],
+                   let dataSuggestions = responseData["suggestions"] as? [[String: Any]] {
+                    suggestions = dataSuggestions
+                }
+                // Fallback format with direct suggestions array
+                else if let directSuggestions = json?["suggestions"] as? [[String: Any]] {
+                    suggestions = directSuggestions
+                }
+            }
+            // Handle direct suggestions format (for fallback responses)
+            else if let directSuggestions = json?["suggestions"] as? [[String: Any]] {
+                suggestions = directSuggestions
+            }
+
+            if !suggestions.isEmpty {
                 DispatchQueue.main.async {
                     self.displaySuggestions(suggestions)
                     self.cacheSuggestions(suggestions)
@@ -435,13 +566,13 @@ extension KeyboardViewController {
                 }
             } else {
                 DispatchQueue.main.async {
-                    self.showError("Failed to generate suggestions")
+                    self.showError("No suggestions received")
                     self.provideHapticFeedback(type: .error)
                 }
             }
         } catch {
             DispatchQueue.main.async {
-                self.showError("Invalid response format")
+                self.showError("Invalid response format: \(error.localizedDescription)")
                 self.provideHapticFeedback(type: .error)
             }
         }
@@ -455,14 +586,17 @@ extension KeyboardViewController {
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
 
+        // Add auth token if available
+        if let sharedDefaults = UserDefaults(suiteName: "group.com.flirrt.shared"),
+           let token = sharedDefaults.string(forKey: "auth_token") {
+            request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        }
+
         let body: [String: Any] = [
             "screenshot_id": "analyze-test-\(Date().timeIntervalSince1970)",
             "tone": "analytical",
             "context": "conversation analysis",
-            "user_profile": [
-                "style": "thoughtful",
-                "age": 25
-            ]
+            "suggestion_type": "response"
         ]
 
         do {
@@ -496,7 +630,7 @@ extension KeyboardViewController {
                 return
             }
 
-            self.handleAPIResponse(data)
+            self.processAPIResponse(data)
         }
 
         task.resume()
@@ -661,6 +795,78 @@ extension KeyboardViewController: PHPhotoLibraryChangeObserver {
             self.suggestionsView.showLoading()
         }
 
+        let url = URL(string: "http://localhost:3000/api/v1/analysis/analyze_screenshot")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+
+        let boundary = "Boundary-\(UUID().uuidString)"
+        request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+        request.timeoutInterval = 10.0
+
+        // Add auth token
+        if let sharedDefaults = UserDefaults(suiteName: "group.com.flirrt.shared"),
+           let token = sharedDefaults.string(forKey: "auth_token") {
+            request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        }
+
+        // Build multipart form data
+        var body = Data()
+
+        // Add image data
+        body.append("--\(boundary)\r\n".data(using: .utf8)!)
+        body.append("Content-Disposition: form-data; name=\"screenshot\"; filename=\"screenshot.jpg\"\r\n".data(using: .utf8)!)
+        body.append("Content-Type: image/jpeg\r\n\r\n".data(using: .utf8)!)
+        body.append(imageData)
+        body.append("\r\n".data(using: .utf8)!)
+
+        // Add context
+        body.append("--\(boundary)\r\n".data(using: .utf8)!)
+        body.append("Content-Disposition: form-data; name=\"context\"\r\n\r\n".data(using: .utf8)!)
+        body.append("dating_app_screenshot".data(using: .utf8)!)
+        body.append("\r\n--\(boundary)--\r\n".data(using: .utf8)!)
+
+        request.httpBody = body
+
+        URLSession.shared.dataTask(with: request) { [weak self] data, response, error in
+            guard let self = self else { return }
+
+            if let error = error {
+                os_log("Screenshot upload error: %@", log: self.logger, type: .error, error.localizedDescription)
+                DispatchQueue.main.async {
+                    self.suggestionsView.showError("Upload failed: \(error.localizedDescription)")
+                    self.provideHapticFeedback(type: .error)
+                }
+                return
+            }
+
+            guard let data = data else {
+                DispatchQueue.main.async {
+                    self.suggestionsView.showError("No response received")
+                    self.provideHapticFeedback(type: .error)
+                }
+                return
+            }
+
+            do {
+                let json = try JSONSerialization.jsonObject(with: data) as? [String: Any]
+                if let screenshotId = json?["screenshot_id"] as? String {
+                    os_log("Screenshot uploaded, ID: %@", log: self.logger, type: .info, screenshotId)
+                    self.generateFlirtsForScreenshot(screenshotId)
+                } else {
+                    throw NSError(domain: "AnalysisError", code: 0, userInfo: [NSLocalizedDescriptionKey: "Invalid response format"])
+                }
+            } catch {
+                os_log("Screenshot analysis parsing error: %@", log: self.logger, type: .error, error.localizedDescription)
+                DispatchQueue.main.async {
+                    self.suggestionsView.showError("Analysis failed")
+                    self.provideHapticFeedback(type: .error)
+                }
+            }
+        }.resume()
+    }
+
+    private func uploadScreenshotToBackendOriginal(_ imageData: Data) {
+        // This is the original implementation that will be used once backend has screenshot endpoint
         let url = URL(string: "http://localhost:3000/api/v1/analyze_screenshot")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -716,36 +922,15 @@ extension KeyboardViewController: PHPhotoLibraryChangeObserver {
 
     private func generateFlirtsForScreenshot(_ screenshotId: String) {
         let url = URL(string: "http://localhost:3000/api/v1/flirts/generate_flirts")!
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-
-        if let sharedDefaults = UserDefaults(suiteName: "group.com.flirrt.shared"),
-           let token = sharedDefaults.string(forKey: "auth_token") {
-            request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-        } else {
-            request.setValue("Bearer test-token", forHTTPHeaderField: "Authorization")
-        }
 
         let body: [String: Any] = [
             "screenshot_id": screenshotId,
             "suggestion_type": "response",
-            "tone": "witty"
+            "tone": "witty",
+            "context": "Analyzed screenshot conversation"
         ]
 
-        request.httpBody = try? JSONSerialization.data(withJSONObject: body)
-
-        URLSession.shared.dataTask(with: request) { [weak self] data, response, error in
-            // Parse suggestions and display them
-            guard let data = data,
-                  let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
-                  let suggestions = json["suggestions"] as? [[String: Any]] else {
-                return
-            }
-
-            DispatchQueue.main.async {
-                self?.displaySuggestions(suggestions)
-            }
-        }.resume()
+        os_log("Generating flirts for screenshot: %@", log: logger, type: .info, screenshotId)
+        makeAPIRequest(url: url, body: body)
     }
 }
