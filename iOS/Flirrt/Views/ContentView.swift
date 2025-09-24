@@ -1,5 +1,6 @@
 import SwiftUI
 
+@MainActor
 struct ContentView: View {
     @EnvironmentObject private var authManager: AuthManager
     @EnvironmentObject private var apiClient: APIClient
@@ -217,6 +218,7 @@ struct ContentView: View {
 
 // MARK: - Supporting Views
 
+@MainActor
 struct FeatureButton: View {
     let icon: String
     let title: String
@@ -266,6 +268,7 @@ struct FeatureButton: View {
     }
 }
 
+@MainActor
 struct FeaturePreview: View {
     let icon: String
     let title: String

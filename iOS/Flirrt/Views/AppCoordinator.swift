@@ -1,5 +1,6 @@
 import SwiftUI
 
+@MainActor
 struct AppCoordinator: View {
     @EnvironmentObject private var authManager: AuthManager
     @EnvironmentObject private var sharedDataManager: SharedDataManager
@@ -71,6 +72,7 @@ struct AppCoordinator: View {
 
 // MARK: - Age Verification Flow
 
+@MainActor
 struct AgeVerificationFlow: View {
     @EnvironmentObject private var authManager: AuthManager
     @State private var birthDate = Date()

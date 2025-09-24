@@ -2,6 +2,7 @@ import SwiftUI
 import UserNotifications
 
 @main
+@MainActor
 struct FlirrtApp: App {
     @StateObject private var authManager = AuthManager()
     @StateObject private var apiClient = APIClient()

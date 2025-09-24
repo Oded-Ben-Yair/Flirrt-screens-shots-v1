@@ -1,6 +1,7 @@
 import SwiftUI
 import AuthenticationServices
 
+@MainActor
 struct LoginView: View {
     @EnvironmentObject private var authManager: AuthManager
     @State private var showingAgeVerification = false
@@ -199,6 +200,7 @@ struct LoginView: View {
 
 // MARK: - Supporting Views
 
+@MainActor
 struct FeatureHighlight: View {
     let icon: String
     let title: String
@@ -232,6 +234,7 @@ struct FeatureHighlight: View {
     }
 }
 
+@MainActor
 struct AgeVerificationView: View {
     @Binding var birthDate: Date
     let onConfirm: () -> Void
@@ -310,6 +313,7 @@ struct AgeVerificationView: View {
     }
 }
 
+@MainActor
 struct TermsAndPrivacyView: View {
     @Binding var showingTerms: Bool
     @Binding var showingPrivacy: Bool

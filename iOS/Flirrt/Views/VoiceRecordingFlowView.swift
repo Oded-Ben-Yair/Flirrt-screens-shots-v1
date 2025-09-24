@@ -1,6 +1,7 @@
 import SwiftUI
 import AVFoundation
 
+@MainActor
 struct VoiceRecordingFlowView: View {
     @StateObject private var recordingManager = VoiceRecordingManager()
     @EnvironmentObject private var apiClient: APIClient
@@ -175,6 +176,7 @@ enum RecordingStep: CaseIterable {
 }
 
 // MARK: - Progress Indicator
+@MainActor
 struct RecordingProgressIndicator: View {
     let currentStep: RecordingStep
 
@@ -229,6 +231,7 @@ struct RecordingProgressIndicator: View {
 }
 
 // MARK: - Step 1: Script Selection
+@MainActor
 struct ScriptSelectionStep: View {
     @Binding var selectedScript: VoiceScript?
     let onNext: () -> Void
@@ -289,6 +292,7 @@ struct ScriptSelectionStep: View {
     }
 }
 
+@MainActor
 struct ScriptSelectionCard: View {
     let script: VoiceScript
     let isSelected: Bool
@@ -343,6 +347,7 @@ struct ScriptSelectionCard: View {
 }
 
 // MARK: - Step 2: Background Noise
+@MainActor
 struct BackgroundNoiseStep: View {
     @Binding var selectedNoise: BackgroundNoise?
     @Binding var volume: Double
@@ -442,6 +447,7 @@ struct BackgroundNoiseStep: View {
     }
 }
 
+@MainActor
 struct NoiseSelectionCard: View {
     let noise: BackgroundNoise?
     let isSelected: Bool
@@ -504,6 +510,7 @@ struct NoiseSelectionCard: View {
 }
 
 // MARK: - Step 3: Recording
+@MainActor
 struct RecordingStepView: View {
     let selectedScript: VoiceScript?
     let selectedNoise: BackgroundNoise?
@@ -597,6 +604,7 @@ struct RecordingStepView: View {
     }
 }
 
+@MainActor
 struct ScriptDisplayCard: View {
     let script: VoiceScript
 
@@ -629,6 +637,7 @@ struct ScriptDisplayCard: View {
 }
 
 // MARK: - Step 4: Processing
+@MainActor
 struct ProcessingStep: View {
     let isUploading: Bool
     let uploadSuccess: Bool

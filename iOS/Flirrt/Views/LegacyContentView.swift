@@ -4,6 +4,7 @@ import SwiftUI
 // This file contains the original ContentView implementation
 // The app now uses AppCoordinator for proper navigation flow
 
+@MainActor
 struct LegacyContentView: View {
     @EnvironmentObject private var authManager: AuthManager
     @EnvironmentObject private var apiClient: APIClient
@@ -221,6 +222,7 @@ struct LegacyContentView: View {
 
 // MARK: - Supporting Views
 
+@MainActor
 struct LegacyFeatureButton: View {
     let icon: String
     let title: String
@@ -270,6 +272,7 @@ struct LegacyFeatureButton: View {
     }
 }
 
+@MainActor
 struct LegacyFeaturePreview: View {
     let icon: String
     let title: String

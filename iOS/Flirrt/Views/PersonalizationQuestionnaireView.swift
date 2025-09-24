@@ -1,5 +1,6 @@
 import SwiftUI
 
+@MainActor
 struct PersonalizationQuestionnaireView: View {
     @Binding var isPresented: Bool
     let onComplete: () -> Void
@@ -133,6 +134,7 @@ struct PersonalizationQuestionnaireView: View {
 
 // MARK: - Supporting Views
 
+@MainActor
 struct ProgressHeader: View {
     let currentStep: Int
     let totalSteps: Int
@@ -165,6 +167,7 @@ struct ProgressHeader: View {
     }
 }
 
+@MainActor
 struct QuestionView: View {
     let question: PersonalizationQuestion
     @Binding var answer: Any?
@@ -246,6 +249,7 @@ struct QuestionView: View {
     }
 }
 
+@MainActor
 struct ChoiceSelector: View {
     let options: [String]
     @Binding var selectedOption: String?
@@ -266,6 +270,7 @@ struct ChoiceSelector: View {
     }
 }
 
+@MainActor
 struct MultiSelectView: View {
     let options: [String]
     @Binding var selectedOptions: [String]
@@ -289,6 +294,7 @@ struct MultiSelectView: View {
     }
 }
 
+@MainActor
 struct ChoiceButton: View {
     let text: String
     let isSelected: Bool
@@ -326,6 +332,7 @@ struct ChoiceButton: View {
     }
 }
 
+@MainActor
 struct SliderSelector: View {
     let range: ClosedRange<Int>
     @Binding var value: Double
@@ -366,6 +373,7 @@ struct SliderSelector: View {
     }
 }
 
+@MainActor
 struct TextInputView: View {
     let placeholder: String
     @Binding var text: String
@@ -414,6 +422,7 @@ struct TextInputView: View {
     }
 }
 
+@MainActor
 struct NavigationButtons: View {
     let currentStep: Int
     let totalSteps: Int

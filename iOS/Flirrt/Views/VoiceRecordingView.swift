@@ -1,6 +1,7 @@
 import SwiftUI
 import AVFoundation
 
+@MainActor
 struct VoiceRecordingView: View {
     @StateObject private var recordingManager = VoiceRecordingManager()
     @EnvironmentObject private var apiClient: APIClient
@@ -436,9 +437,10 @@ struct VoiceRecordingView: View {
 }
 
 // MARK: - Script Selection View
+@MainActor
 struct ScriptSelectionView: View {
     @Binding var selectedScript: Int
-    @Environment(\.presentationMode) var presentationMode
+    @Environment(\.dismiss) private var dismiss
 
     let scripts = [
         (
@@ -468,7 +470,7 @@ struct ScriptSelectionView: View {
             List(scripts.indices, id: \.self) { index in
                 Button(action: {
                     selectedScript = index
-                    presentationMode.wrappedValue.dismiss()
+                    dismiss()
                 }) {
                     VStack(alignment: .leading, spacing: 8) {
                         HStack {
@@ -496,11 +498,13 @@ struct ScriptSelectionView: View {
                 }
             }
             .navigationTitle("Select Reading Script")
-            .navigationBarItems(
-                trailing: Button("Done") {
-                    presentationMode.wrappedValue.dismiss()
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button("Done") {
+                        dismiss()
+                    }
                 }
-            )
+            }
         }
     }
 }
@@ -515,6 +519,7 @@ extension Array {
 
 // MARK: - Supporting Views
 
+@MainActor
 struct WaveformView: View {
     let levels: [Float]
     let isRecording: Bool
@@ -557,6 +562,7 @@ struct WaveformView: View {
     }
 }
 
+@MainActor
 struct WaveformBar: View {
     let level: Float
     let isActive: Bool
@@ -585,6 +591,7 @@ struct WaveformBar: View {
     }
 }
 
+@MainActor
 struct RecordingQualityIndicator: View {
     let levels: [Float]
 
@@ -638,6 +645,7 @@ struct RecordingQualityIndicator: View {
     }
 }
 
+@MainActor
 struct TipRow: View {
     let icon: String
     let text: String

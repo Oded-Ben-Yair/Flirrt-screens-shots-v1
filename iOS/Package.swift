@@ -1,10 +1,10 @@
-// swift-tools-version: 5.10
+// swift-tools-version: 6.2
 import PackageDescription
 
 let package = Package(
     name: "Flirrt",
     platforms: [
-        .iOS(.v17)
+        .iOS(.v18)
     ],
     products: [
         .library(
@@ -28,14 +28,26 @@ let package = Package(
                 "Alamofire",
                 "KeychainAccess"
             ],
-            path: "Flirrt"),
+            path: "Flirrt",
+            swiftSettings: [
+                .enableExperimentalFeature("StrictConcurrency"),
+                .swiftLanguageMode(.v6)
+            ]),
         .target(
             name: "FlirrtKeyboard",
             dependencies: [],
-            path: "FlirrtKeyboard"),
+            path: "FlirrtKeyboard",
+            swiftSettings: [
+                .enableExperimentalFeature("StrictConcurrency"),
+                .swiftLanguageMode(.v6)
+            ]),
         .target(
             name: "FlirrtShare",
             dependencies: [],
-            path: "FlirrtShare"),
+            path: "FlirrtShare",
+            swiftSettings: [
+                .enableExperimentalFeature("StrictConcurrency"),
+                .swiftLanguageMode(.v6)
+            ]),
     ]
 )

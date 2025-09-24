@@ -1,5 +1,6 @@
 import SwiftUI
 
+@MainActor
 struct MainTabView: View {
     @EnvironmentObject private var authManager: AuthManager
     @EnvironmentObject private var apiClient: APIClient
@@ -70,6 +71,7 @@ struct MainTabView: View {
 
 // MARK: - Home View
 
+@MainActor
 struct HomeView: View {
     @EnvironmentObject private var authManager: AuthManager
     @EnvironmentObject private var sharedDataManager: SharedDataManager
@@ -212,6 +214,7 @@ struct HomeView: View {
 
 // MARK: - Supporting Views
 
+@MainActor
 struct StatCard: View {
     let title: String
     let value: String
@@ -243,6 +246,7 @@ struct StatCard: View {
     }
 }
 
+@MainActor
 struct VoiceStatusCard: View {
     let hasVoice: Bool
     let onCreateVoice: () -> Void
@@ -286,6 +290,7 @@ struct VoiceStatusCard: View {
     }
 }
 
+@MainActor
 struct QuickActionCard: View {
     let icon: String
     let title: String
@@ -335,6 +340,7 @@ struct QuickActionCard: View {
     }
 }
 
+@MainActor
 struct SectionHeader: View {
     let title: String
 
@@ -350,6 +356,7 @@ struct SectionHeader: View {
     }
 }
 
+@MainActor
 struct RecentActivityList: View {
     var body: some View {
         VStack(spacing: 12) {
@@ -390,6 +397,7 @@ struct RecentActivityList: View {
     ]
 }
 
+@MainActor
 struct RecentActivityRow: View {
     let activity: RecentActivity
 
@@ -431,6 +439,7 @@ struct RecentActivityRow: View {
 
 // MARK: - History View
 
+@MainActor
 struct HistoryView: View {
     var body: some View {
         NavigationView {
@@ -462,6 +471,7 @@ struct HistoryView: View {
 
 // MARK: - Quick Action View
 
+@MainActor
 struct QuickActionView: View {
     @State private var showingActionSheet = false
     @State private var showingVoiceScripts = false
@@ -525,6 +535,7 @@ struct QuickActionView: View {
 
 // MARK: - Profile View
 
+@MainActor
 struct ProfileView: View {
     @EnvironmentObject private var authManager: AuthManager
 
@@ -600,6 +611,7 @@ struct ProfileView: View {
     }
 }
 
+@MainActor
 struct ProfileStatCard: View {
     let title: String
     let value: String
@@ -622,6 +634,7 @@ struct ProfileStatCard: View {
     }
 }
 
+@MainActor
 struct ProfileActionRow: View {
     let icon: String
     let title: String
@@ -679,10 +692,11 @@ struct RecentActivity: Identifiable {
 
 // MARK: - Placeholder Views
 
+@MainActor
 struct PlaceholderView: View {
     let title: String
     let subtitle: String
-    @Environment(\.presentationMode) var presentationMode
+    @Environment(\.dismiss) private var dismiss
     
     var body: some View {
         NavigationView {
@@ -715,7 +729,7 @@ struct PlaceholderView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button("Done") {
-                        presentationMode.wrappedValue.dismiss()
+                        dismiss()
                     }
                     .foregroundColor(.white)
                 }

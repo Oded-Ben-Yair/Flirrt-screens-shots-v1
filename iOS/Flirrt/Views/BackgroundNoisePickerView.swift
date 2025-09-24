@@ -1,5 +1,6 @@
 import SwiftUI
 
+@MainActor
 struct BackgroundNoisePickerView: View {
     @State private var selectedNoise: BackgroundNoise?
     @State private var isPlaying = false
@@ -93,6 +94,7 @@ struct BackgroundNoisePickerView: View {
     }
 }
 
+@MainActor
 struct VolumeControlSection: View {
     @Binding var volume: Double
     @Binding var isPlaying: Bool
@@ -144,6 +146,7 @@ struct VolumeControlSection: View {
     }
 }
 
+@MainActor
 struct NoiseCard: View {
     let noise: BackgroundNoise?
     let isSelected: Bool
@@ -257,6 +260,7 @@ struct NoiseCard: View {
     }
 }
 
+@MainActor
 struct CustomNoiseCard: View {
     let onSelect: () -> Void
 
@@ -301,6 +305,7 @@ struct CustomNoiseCard: View {
     }
 }
 
+@MainActor
 struct CustomNoiseImportView: View {
     @Environment(\.dismiss) private var dismiss
 

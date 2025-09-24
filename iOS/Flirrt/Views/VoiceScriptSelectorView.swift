@@ -1,5 +1,6 @@
 import SwiftUI
 
+@MainActor
 struct VoiceScriptSelectorView: View {
     @State private var selectedScript: VoiceScript?
     @State private var selectedCategory: ScriptCategory = .introduction
@@ -94,6 +95,7 @@ struct VoiceScriptSelectorView: View {
     }
 }
 
+@MainActor
 struct CategoryChip: View {
     let category: ScriptCategory
     let isSelected: Bool
@@ -126,6 +128,7 @@ struct CategoryChip: View {
     }
 }
 
+@MainActor
 struct ScriptCard: View {
     let script: VoiceScript
     let action: () -> Void
@@ -219,6 +222,7 @@ struct ScriptCard: View {
     }
 }
 
+@MainActor
 struct DifficultyStars: View {
     let difficulty: ScriptDifficulty
 
@@ -233,6 +237,7 @@ struct DifficultyStars: View {
     }
 }
 
+@MainActor
 struct EmotionBadge: View {
     let emotion: VoiceEmotion
 
@@ -271,6 +276,7 @@ struct EmotionBadge: View {
     }
 }
 
+@MainActor
 struct EmptyStateView: View {
     let icon: String
     let title: String
@@ -297,6 +303,7 @@ struct EmptyStateView: View {
     }
 }
 
+@MainActor
 struct ScriptDetailView: View {
     let script: VoiceScript
     @Environment(\.dismiss) private var dismiss

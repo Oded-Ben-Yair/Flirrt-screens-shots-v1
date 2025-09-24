@@ -1,5 +1,6 @@
 import SwiftUI
 
+@MainActor
 struct OnboardingView: View {
     @State private var currentPage = 0
     @State private var showingQuestionnaire = false
@@ -146,6 +147,7 @@ struct OnboardingView: View {
 
 // MARK: - Onboarding Page View
 
+@MainActor
 struct OnboardingPageView: View {
     let page: OnboardingPage
 
@@ -210,6 +212,7 @@ struct OnboardingPageView: View {
 
 // MARK: - Supporting Views
 
+@MainActor
 struct AnimatedElement: View {
     let page: OnboardingPage
     @State private var isAnimating = false
@@ -258,6 +261,7 @@ struct AnimatedElement: View {
     }
 }
 
+@MainActor
 struct FeatureRow: View {
     let text: String
 
