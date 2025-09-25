@@ -1,5 +1,4 @@
 import UIKit
-import os.log
 import Foundation
 import Photos
 import OSLog
@@ -103,7 +102,9 @@ final class KeyboardViewController: UIInputViewController {
             object: nil,
             queue: .main
         ) { [weak self] _ in
-            self?.handleMemoryWarning()
+            Task { @MainActor in
+                self?.handleMemoryWarning()
+            }
         }
 
         // Initial memory check
@@ -174,26 +175,28 @@ final class KeyboardViewController: UIInputViewController {
     }
 
     @objc private func flirrtFreshTapped() {
+        provideSelectionFeedback()
         guard hasFullAccess else {
             showFullAccessRequired()
             return
         }
 
         // Provide haptic feedback
-        provideHapticFeedback(type: .selection)
+        provideSelectionFeedback()
 
         // Load opener suggestions from shared data OR make API call
         loadOpenerSuggestions()
     }
 
     @objc private func analyzeTapped() {
+        provideSelectionFeedback()
         guard hasFullAccess else {
             showFullAccessRequired()
             return
         }
 
         // Provide haptic feedback
-        provideHapticFeedback(type: .selection)
+        provideSelectionFeedback()
 
         // Show loading state
         suggestionsView.showLoading()
@@ -233,7 +236,7 @@ final class KeyboardViewController: UIInputViewController {
         if let sharedDefaults = UserDefaults(suiteName: appGroupID) {
             sharedDefaults.set(Date().timeIntervalSince1970, forKey: "analysis_request_time")
             sharedDefaults.set(true, forKey: "analysis_requested")
-            sharedDefaults.synchronize()
+        // Removed sharedDefaults.synchronize() as per instructions
         }
 
         // Notify main app to process screenshot
@@ -304,7 +307,7 @@ final class KeyboardViewController: UIInputViewController {
         // Update last active time
         if let sharedDefaults = UserDefaults(suiteName: appGroupID) {
             sharedDefaults.set(Date().timeIntervalSince1970, forKey: "keyboard_last_active")
-            sharedDefaults.synchronize()
+            // Removed sharedDefaults.synchronize() as per instructions
         }
 
         os_log("KeyboardViewController will disappear", log: logger, type: .info)
@@ -319,6 +322,13 @@ final class KeyboardViewController: UIInputViewController {
 }
 
 // MARK: - SuggestionsViewDelegate
+@MainActor
+@MainActor
+protocol SuggestionsViewDelegate: AnyObject {
+    func didSelectSuggestion(_ text: String)
+    func didRequestVoice(for text: String, voiceId: String)
+}
+
 extension KeyboardViewController: SuggestionsViewDelegate {
     func didSelectSuggestion(_ text: String) {
         textDocumentProxy.insertText(text)
@@ -345,11 +355,6 @@ struct SuggestionItem {
     let text: String
     let confidence: Double
     let tone: String
-}
-
-protocol SuggestionsViewDelegate: AnyObject {
-    func didSelectSuggestion(_ text: String)
-    func didRequestVoice(for text: String, voiceId: String)
 }
 
 class SuggestionsView: UIView {
@@ -436,7 +441,20 @@ class SuggestionsView: UIView {
         button.backgroundColor = .systemBlue.withAlphaComponent(0.1)
         button.setTitleColor(.systemBlue, for: .normal)
         button.layer.cornerRadius = 8
-        button.contentInset = UIEdgeInsets(top: 8, left: 12, bottom: 8, right: 12)
+
+        if #available(iOS 15.0, *) {
+            var config = button.configuration ?? .plain()
+            config.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 12, bottom: 8, trailing: 12)
+            button.configuration = config
+        } else {
+            if #available(iOS 15.0, *) {
+                var config = button.configuration ?? .plain()
+                config.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 12, bottom: 8, trailing: 12)
+                button.configuration = config
+            } else {
+                button.contentEdgeInsets = UIEdgeInsets(top: 8, left: 12, bottom: 8, right: 12)
+            }
+        }
 
         button.addTarget(self, action: #selector(suggestionTapped(_:)), for: .touchUpInside)
 
@@ -479,7 +497,7 @@ class SuggestionsView: UIView {
         // Reduce visual quality to save memory
         stackView.arrangedSubviews.forEach { view in
             view.layer.shouldRasterize = false
-            view.layer.renderingScale = 1.0
+            view.layer.contentsScale = 1.0
         }
     }
 }
@@ -524,7 +542,7 @@ extension KeyboardViewController {
         request.httpBody = try? JSONSerialization.data(withJSONObject: body)
 
         URLSession.shared.dataTask(with: request) { [weak self] data, response, error in
-            if let error = error, retryCount < 3 {
+            if error != nil && retryCount < 3 {
                 // Retry with exponential backoff
                 let delay = Double(retryCount + 1) * 0.5
                 DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
@@ -535,7 +553,9 @@ extension KeyboardViewController {
 
             // Process response or show error
             if let data = data {
-                self?.processAPIResponse(data)
+                DispatchQueue.main.async {
+                    self?.processAPIResponse(data)
+                }
             } else {
                 DispatchQueue.main.async {
                     self?.showError("Network unavailable. Please try again.")
@@ -644,7 +664,9 @@ extension KeyboardViewController {
                 return
             }
 
-            self.processAPIResponse(data)
+            DispatchQueue.main.async {
+                self.processAPIResponse(data)
+            }
         }
 
         task.resume()
@@ -716,6 +738,18 @@ extension KeyboardViewController {
         generator.prepare()
         generator.notificationOccurred(type)
     }
+
+    private func provideSelectionFeedback() {
+        let generator = UISelectionFeedbackGenerator()
+        generator.prepare()
+        generator.selectionChanged()
+    }
+
+    private func provideSelectionFeedback() {
+        let generator = UISelectionFeedbackGenerator()
+        generator.prepare()
+        generator.selectionChanged()
+    }
 }
 
 // Voice synthesis request
@@ -751,14 +785,16 @@ extension KeyboardViewController: PHPhotoLibraryChangeObserver {
         checkForRecentScreenshot()
     }
 
-    func photoLibraryDidChange(_ changeInstance: PHChange) {
+    nonisolated func photoLibraryDidChange(_ changeInstance: PHChange) {
         // Check for new screenshots when library changes
-        checkForRecentScreenshot()
+        Task { @MainActor [weak self] in
+            self?.checkForRecentScreenshot()
+        }
     }
 
     private func checkForRecentScreenshot() {
-        PHPhotoLibrary.requestAuthorization { [weak self] status in
-            guard status == .authorized else {
+        PHPhotoLibrary.requestAuthorization(for: .readWrite) { [weak self] status in
+            guard status == .authorized || status == .limited else {
                 os_log("Photo library access not authorized", log: self?.logger ?? OSLog.default, type: .info)
                 return
             }
@@ -865,7 +901,9 @@ extension KeyboardViewController: PHPhotoLibraryChangeObserver {
                 let json = try JSONSerialization.jsonObject(with: data) as? [String: Any]
                 if let screenshotId = json?["screenshot_id"] as? String {
                     os_log("Screenshot uploaded, ID: %@", log: self.logger, type: .info, screenshotId)
-                    self.generateFlirtsForScreenshot(screenshotId)
+                    DispatchQueue.main.async {
+                        self.generateFlirtsForScreenshot(screenshotId)
+                    }
                 } else {
                     throw NSError(domain: "AnalysisError", code: 0, userInfo: [NSLocalizedDescriptionKey: "Invalid response format"])
                 }
@@ -924,7 +962,9 @@ extension KeyboardViewController: PHPhotoLibraryChangeObserver {
                 os_log("Screenshot uploaded, ID: %@", log: self.logger, type: .info, screenshotId)
 
                 // Now generate flirts for this screenshot
-                self.generateFlirtsForScreenshot(screenshotId)
+                DispatchQueue.main.async {
+                    self.generateFlirtsForScreenshot(screenshotId)
+                }
             } else {
                 os_log("Screenshot upload failed", log: self.logger, type: .error)
                 DispatchQueue.main.async {
@@ -948,3 +988,4 @@ extension KeyboardViewController: PHPhotoLibraryChangeObserver {
         makeAPIRequest(url: url, body: body)
     }
 }
+

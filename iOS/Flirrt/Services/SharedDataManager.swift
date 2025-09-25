@@ -69,19 +69,19 @@ final class SharedDataManager: ObservableObject {
 
                 // Load voice clones
                 if let data = userDefaults.data(forKey: "voice_clones"),
-                   let clones = try JSONDecoder().decode([VoiceClone].self, from: data) {
+                   let clones = try? JSONDecoder().decode([VoiceClone].self, from: data) {
                     await dataStore.setVoiceClones(clones)
                     voiceClones = clones
                 }
 
                 // Load recent recordings
                 if let data = userDefaults.data(forKey: "recent_recordings"),
-                   let recordings = try JSONDecoder().decode([VoiceRecording].self, from: data) {
+                   let recordings = try? JSONDecoder().decode([VoiceRecording].self, from: data) {
                     await dataStore.setRecentRecordings(recordings)
                     recentRecordings = recordings
                 }
 
-                logger.info("Successfully loaded stored data with \(voiceClones.count) voice clones and \(recentRecordings.count) recordings")
+                logger.info("Successfully loaded stored data with \(self.voiceClones.count) voice clones and \(self.recentRecordings.count) recordings")
             } catch {
                 logger.error("Failed to load stored data: \(error.localizedDescription)")
             }

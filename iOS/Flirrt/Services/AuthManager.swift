@@ -10,13 +10,14 @@ class AuthManager: NSObject, ObservableObject {
     @Published var ageVerified = false
 
     private let keychain = Keychain(service: "com.flirrt.ai")
-    private let apiClient = APIClient()
+    private var apiClient: APIClient!
 
     var currentUser: User? {
         return user
     }
 
-    override init() {
+    @MainActor override init() {
+        self.apiClient = APIClient()
         super.init()
         checkAuthStatus()
         checkAgeVerification()
@@ -144,7 +145,7 @@ extension AuthManager: ASAuthorizationControllerPresentationContextProviding {
     }
 }
 
-struct User: Codable, Identifiable {
+struct User: Codable, Identifiable, Sendable {
     let id: String
     let email: String?
     let fullName: String?

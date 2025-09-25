@@ -595,7 +595,9 @@ struct RecordingStepView: View {
 
     private func handleRecordButtonTap() {
         if recordingManager.isRecording {
-            recordingManager.stopRecording()
+            Task {
+                await recordingManager.stopRecording()
+            }
         } else {
             Task {
                 await recordingManager.startRecording()

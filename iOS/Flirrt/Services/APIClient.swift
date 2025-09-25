@@ -42,7 +42,9 @@ final class APIClient: ObservableObject {
     }
 
     deinit {
-        cancelAllTasks()
+        for task in activeTasks {
+            task.cancel()
+        }
         logger.info("APIClient deinitialized")
     }
 
@@ -605,13 +607,7 @@ enum APIError: Error, Sendable {
     case taskCancelled
 }
 
-// MARK: - User Model
-struct User: Codable, Sendable {
-    let id: String
-    let email: String?
-    let name: String?
-    let createdAt: Date
-}
+// User model is defined in AuthManager.swift
 
 // Helper extension
 extension Data {

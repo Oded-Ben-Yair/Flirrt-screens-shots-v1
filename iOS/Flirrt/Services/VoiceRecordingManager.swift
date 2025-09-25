@@ -297,7 +297,7 @@ final class VoiceRecordingManager: NSObject, ObservableObject {
             await deleteCurrentRecording()
             logger.warning("Recording too short, deleted")
         } else {
-            logger.info("Recording stopped successfully, duration: \(formatDuration(recordingDuration))")
+            logger.info("Recording stopped successfully, duration: \(self.formatDuration(self.recordingDuration))")
         }
     }
 
@@ -472,7 +472,9 @@ final class VoiceRecordingManager: NSObject, ObservableObject {
 
     private func startPlaybackTimer() {
         playbackTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { [weak self] _ in
-            self?.updatePlaybackProgress()
+            Task { @MainActor in
+                self?.updatePlaybackProgress()
+            }
         }
     }
 
@@ -537,32 +539,34 @@ final class VoiceRecordingManager: NSObject, ObservableObject {
 }
 
 // MARK: - AVAudioRecorderDelegate
-extension VoiceRecordingManager: AVAudioRecorderDelegate {
+@MainActor extension VoiceRecordingManager: AVAudioRecorderDelegate {
     func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
         DispatchQueue.main.async {
             self.isRecording = false
-            self.stopRecordingTimer()
-            self.stopLevelTimer()
+            Task {
+                await self.stopRecordingTimer()
+                await self.stopLevelTimer()
 
-            if !flag {
-                self.error = .recordingFailed("Recording finished unsuccessfully")
-                self.deleteCurrentRecording()
+                if !flag {
+                    self.error = .recordingFailed("Recording finished unsuccessfully")
+                    await self.deleteCurrentRecording()
+                }
             }
         }
     }
 
-    func audioRecorderEncodeErrorDidOccur(_ recorder: AVAudioRecorder, error: Error?) {
+    nonisolated func audioRecorderEncodeErrorDidOccur(_ recorder: AVAudioRecorder, error: Error?) {
         DispatchQueue.main.async {
             self.error = .recordingFailed(error?.localizedDescription ?? "Unknown encoding error")
-            self.stopRecording()
+            Task { await self.stopRecording() }
         }
     }
 }
 
 // MARK: - AVAudioPlayerDelegate
 extension VoiceRecordingManager: AVAudioPlayerDelegate {
-    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-        DispatchQueue.main.async {
+    nonisolated func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        Task { @MainActor in
             self.isPlaying = false
             self.playbackProgress = 0
             self.stopPlaybackTimer()
@@ -573,8 +577,8 @@ extension VoiceRecordingManager: AVAudioPlayerDelegate {
         }
     }
 
-    func audioPlayerDecodeErrorDidOccur(_ player: AVAudioPlayer, error: Error?) {
-        DispatchQueue.main.async {
+    nonisolated func audioPlayerDecodeErrorDidOccur(_ player: AVAudioPlayer, error: Error?) {
+        Task { @MainActor in
             self.error = .playbackFailed(error?.localizedDescription ?? "Unknown playback error")
             self.stopPlayback()
         }

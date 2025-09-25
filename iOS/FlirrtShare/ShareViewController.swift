@@ -1,6 +1,5 @@
 import UIKit
 import Social
-import MobileCoreServices
 import UniformTypeIdentifiers
 
 class ShareViewController: SLComposeServiceViewController {
@@ -13,7 +12,7 @@ class ShareViewController: SLComposeServiceViewController {
         self.placeholder = "Add a comment (optional)"
 
         // Validate content type
-        validateContent()
+        validateSharedContent()
     }
 
     override func isContentValid() -> Bool {
@@ -37,7 +36,7 @@ class ShareViewController: SLComposeServiceViewController {
         self.cancel()
     }
 
-    private func validateContent() {
+    private func validateSharedContent() {
         // Check if we have the right content type
         guard isContentValid() else {
             self.cancel()
@@ -155,7 +154,6 @@ class ShareViewController: SLComposeServiceViewController {
         if let sharedDefaults = UserDefaults(suiteName: "group.com.flirrt.shared") {
             sharedDefaults.set(metadata.fileName, forKey: "latest_screenshot")
             sharedDefaults.set(metadata.timestamp.timeIntervalSince1970, forKey: "latest_screenshot_time")
-            sharedDefaults.synchronize()
         }
     }
 
@@ -174,7 +172,8 @@ class ShareViewController: SLComposeServiceViewController {
         let item = SLComposeSheetConfigurationItem()
         item?.title = "Analysis Type"
         item?.value = "Auto-detect"
-        item?.tapHandler = { [weak self] in
+        item?.tapHandler = {
+
             // Could show a view controller with analysis options
             // For now, just using auto-detect
         }
@@ -185,7 +184,6 @@ class ShareViewController: SLComposeServiceViewController {
     private func saveComment(_ comment: String, for image: UIImage) {
         guard let sharedDefaults = UserDefaults(suiteName: "group.com.flirrt.shared") else { return }
         sharedDefaults.set(comment, forKey: "screenshot_comment")
-        sharedDefaults.synchronize()
     }
 }
 

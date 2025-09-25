@@ -199,7 +199,7 @@ struct VoiceRecordingView: View {
                     }
 
                     Button(action: {
-                        recordingManager.deleteCurrentRecording()
+                        Task { await recordingManager.deleteCurrentRecording() }
                     }) {
                         Image(systemName: "trash.circle.fill")
                             .font(.system(size: 40))
@@ -356,7 +356,7 @@ struct VoiceRecordingView: View {
         }
 
         if recordingManager.isRecording {
-            recordingManager.stopRecording()
+            Task { await recordingManager.stopRecording() }
         } else {
             Task {
                 if recordingManager.permissionStatus == .undetermined {
