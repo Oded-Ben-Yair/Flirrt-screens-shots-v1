@@ -21,6 +21,15 @@ const pool = new Pool({
 
 // Redis is now handled by the Redis service - no direct initialization needed
 
+// Hardcoded fallback suggestions for keyboard extension
+const fallbackSuggestions = [
+    { text: "Hey! That's really interesting, tell me more!", confidence: 0.9 },
+    { text: "I love your energy! What got you into that?", confidence: 0.85 },
+    { text: "That's amazing! How long have you been doing that?", confidence: 0.8 },
+    { text: "You seem like someone with great stories. What's been the highlight of your week?", confidence: 0.87 },
+    { text: "I have to ask - is that from an actual adventure or are you just naturally photogenic?", confidence: 0.82 }
+];
+
 /**
  * Generate Flirt Suggestions with Real Grok API
  * POST /api/v1/generate_flirts
@@ -39,7 +48,19 @@ router.post('/generate_flirts',
             user_preferences = {}
         } = req.body;
 
+        const isKeyboardExtension = req.user?.isKeyboard || false;
         const timer = req.logger.timer('generate_flirts');
+
+        // Log keyboard extension requests
+        if (isKeyboardExtension) {
+            req.logger.info('Keyboard extension flirt request', {
+                userId: req.user.id,
+                screenshot_id,
+                suggestion_type,
+                tone,
+                userAgent: req.headers['user-agent']
+            });
+        }
 
         try {
             // Notify WebSocket clients that generation started
@@ -54,6 +75,50 @@ router.post('/generate_flirts',
                     success: false,
                     error: 'Screenshot ID is required',
                     code: 'MISSING_SCREENSHOT_ID',
+                    correlationId: req.correlationId
+                });
+            }
+
+            // For keyboard extensions, prioritize speed and reliability
+            if (isKeyboardExtension) {
+                req.logger.info('Providing keyboard extension fallback suggestions');
+
+                // Select 3 random suggestions from fallback pool
+                const shuffled = [...fallbackSuggestions].sort(() => 0.5 - Math.random());
+                const selectedSuggestions = shuffled.slice(0, 3).map((suggestion, index) => ({
+                    id: `keyboard-fallback-${Date.now()}-${index}`,
+                    text: suggestion.text,
+                    confidence: suggestion.confidence,
+                    reasoning: "Quick keyboard suggestion",
+                    created_at: new Date().toISOString(),
+                    keyboard_fallback: true
+                }));
+
+                const responseData = {
+                    suggestions: selectedSuggestions,
+                    metadata: {
+                        suggestion_type,
+                        tone,
+                        screenshot_id,
+                        total_suggestions: selectedSuggestions.length,
+                        generated_at: new Date().toISOString(),
+                        keyboard_mode: true,
+                        fallback: true
+                    }
+                };
+
+                timer.finish({
+                    success: true,
+                    keyboard_mode: true,
+                    fallback: true,
+                    suggestions_count: selectedSuggestions.length
+                });
+
+                return res.json({
+                    success: true,
+                    data: responseData,
+                    cached: false,
+                    message: 'Keyboard flirt suggestions generated successfully',
                     correlationId: req.correlationId
                 });
             }

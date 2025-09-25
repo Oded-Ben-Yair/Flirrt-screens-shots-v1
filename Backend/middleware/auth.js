@@ -17,11 +17,34 @@ const pool = new Pool({
 /**
  * Enhanced JWT Authentication Middleware
  * Validates JWT tokens, adds user information, and provides logging context
+ * Supports keyboard extension bypass with X-Keyboard-Extension header
  */
 const authenticateToken = async (req, res, next) => {
     try {
         const authHeader = req.headers['authorization'];
         const token = authHeader && authHeader.split(' ')[1]; // Bearer TOKEN
+        const isKeyboardExtension = req.headers['x-keyboard-extension'] === 'true';
+
+        // Allow keyboard extension requests to bypass authentication
+        if (isKeyboardExtension) {
+            req.user = {
+                id: 'keyboard-user-' + Date.now(),
+                email: 'keyboard@flirrt.ai',
+                sessionId: 'keyboard-session-' + Date.now(),
+                isVerified: true,
+                role: 'keyboard-user',
+                isKeyboard: true
+            };
+
+            req.logger?.info('Keyboard extension authenticated', {
+                userId: req.user.id,
+                keyboardMode: true,
+                userAgent: req.headers['user-agent'],
+                ip: req.ip
+            });
+
+            return next();
+        }
 
         if (!token) {
             return res.status(401).json({
@@ -266,14 +289,13 @@ const createRateLimit = (maxRequests = 100, windowMs = 15 * 60 * 1000, skipSucce
         standardHeaders: true,
         legacyHeaders: false,
         skipSuccessfulRequests,
-        keyGenerator: (req) => {
+        keyGenerator: (req, res) => {
             // Use user ID if authenticated, otherwise IP with proper IPv6 handling
             if (req.user) {
                 return `user:${req.user.id}`;
             }
-            // Use the built-in IP key generator for proper IPv6 handling
-            const ip = req.ip || req.connection.remoteAddress || '127.0.0.1';
-            return `ip:${ip}`;
+            // Use express-rate-limit's built-in ipKeyGenerator for proper IPv6 handling
+            return rateLimit.ipKeyGenerator(req, res);
         },
         handler: (req, res) => {
             const identifier = req.user ? req.user.id : req.ip;

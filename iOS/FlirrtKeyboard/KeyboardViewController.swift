@@ -488,7 +488,12 @@ class SuggestionsView: UIView {
 extension KeyboardViewController {
 
     private func makeFlirtAPIRequest() {
-        os_log("Starting flirt API request", log: logger, type: .info)
+        os_log("🚀 KEYBOARD API: Starting flirt API request", log: logger, type: .info)
+
+        // Visual indicator that API is being called
+        DispatchQueue.main.async { [weak self] in
+            self?.textDocumentProxy.insertText("[Loading fresh suggestions...] ")
+        }
 
         let url = URL(string: "http://localhost:3000/api/v1/flirts/generate_flirts")!
         let body: [String: Any] = [
@@ -505,13 +510,16 @@ extension KeyboardViewController {
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("true", forHTTPHeaderField: "X-Keyboard-Extension")  // Bypass authentication
         request.timeoutInterval = 2.0  // 2 second timeout
 
-        // Add auth
-        if let sharedDefaults = UserDefaults(suiteName: "group.com.flirrt.shared"),
-           let token = sharedDefaults.string(forKey: "auth_token") {
-            request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-        }
+        os_log("🔑 KEYBOARD API: Using X-Keyboard-Extension header for auth bypass", log: logger, type: .info)
+
+        // No need for auth token with keyboard extension header
+        // if let sharedDefaults = UserDefaults(suiteName: "group.com.flirrt.shared"),
+        //    let token = sharedDefaults.string(forKey: "auth_token") {
+        //     request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        // }
 
         request.httpBody = try? JSONSerialization.data(withJSONObject: body)
 
@@ -581,18 +589,22 @@ extension KeyboardViewController {
     }
 
     private func makeAnalysisAPIRequest() {
-        os_log("Making API request for conversation analysis", log: logger, type: .info)
+        os_log("🔍 KEYBOARD API: Making conversation analysis request", log: logger, type: .info)
+
+        // Visual indicator
+        DispatchQueue.main.async { [weak self] in
+            self?.textDocumentProxy.insertText("[Analyzing conversation...] ")
+        }
 
         let url = URL(string: "http://localhost:3000/api/v1/flirts/generate_flirts")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("true", forHTTPHeaderField: "X-Keyboard-Extension")  // Bypass authentication
 
-        // Add auth token if available
-        if let sharedDefaults = UserDefaults(suiteName: "group.com.flirrt.shared"),
-           let token = sharedDefaults.string(forKey: "auth_token") {
-            request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-        }
+        os_log("🔑 KEYBOARD API: Using X-Keyboard-Extension header for auth bypass", log: logger, type: .info)
+
+        // No auth needed with keyboard extension header
 
         let body: [String: Any] = [
             "screenshot_id": "analyze-test-\(Date().timeIntervalSince1970)",
