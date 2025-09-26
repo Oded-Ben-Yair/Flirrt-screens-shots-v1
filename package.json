@@ -1,0 +1,16 @@
+{
+  "name": "flirrtai-orchestrator",
+  "version": "1.0.0",
+  "description": "FlirrtAI Parallel Testing Orchestrator",
+  "main": "orchestrator.js",
+  "scripts": {
+    "start": "node orchestrator.js",
+    "monitor": "bash monitor.sh",
+    "dashboard": "open http://localhost:8080"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "ws": "^8.14.2",
+    "axios": "^1.5.1"
+  }
+}

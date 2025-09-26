@@ -63,3 +63,6 @@ DerivedData/
 
 # Temporary
 trees/
+worktrees/
+parallel-tests/
+package-lock.json
