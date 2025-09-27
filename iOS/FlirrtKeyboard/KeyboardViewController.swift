@@ -323,7 +323,6 @@ final class KeyboardViewController: UIInputViewController {
 
 // MARK: - SuggestionsViewDelegate
 @MainActor
-@MainActor
 protocol SuggestionsViewDelegate: AnyObject {
     func didSelectSuggestion(_ text: String)
     func didRequestVoice(for text: String, voiceId: String)
@@ -737,12 +736,6 @@ extension KeyboardViewController {
         let generator = UINotificationFeedbackGenerator()
         generator.prepare()
         generator.notificationOccurred(type)
-    }
-
-    private func provideSelectionFeedback() {
-        let generator = UISelectionFeedbackGenerator()
-        generator.prepare()
-        generator.selectionChanged()
     }
 
     private func provideSelectionFeedback() {
