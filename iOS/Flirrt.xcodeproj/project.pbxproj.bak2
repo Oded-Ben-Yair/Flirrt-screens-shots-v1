@@ -1,0 +1,778 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A0001000000000000001000 /* FlirrtApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0002000000000000002000 /* FlirrtApp.swift */; };
+		A0003000000000000003000 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0004000000000000004000 /* ContentView.swift */; };
+		A0005000000000000005000 /* VoiceModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0006000000000000006000 /* VoiceModels.swift */; };
+		A0007000000000000007000 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0008000000000000008000 /* APIClient.swift */; };
+		A0009000000000000009000 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0010000000000000010000 /* AuthManager.swift */; };
+		A0011000000000000011000 /* NetworkReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0012000000000000012000 /* NetworkReachability.swift */; };
+		A0013000000000000013000 /* SharedDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0014000000000000014000 /* SharedDataManager.swift */; };
+		A0015000000000000015000 /* VoiceRecordingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0016000000000000016000 /* VoiceRecordingManager.swift */; };
+		A0017000000000000017000 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0018000000000000018000 /* AppCoordinator.swift */; };
+		A0019000000000000019000 /* BackgroundNoisePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0020000000000000020000 /* BackgroundNoisePickerView.swift */; };
+		A0021000000000000021000 /* LegacyContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0022000000000000022000 /* LegacyContentView.swift */; };
+		A0023000000000000023000 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0024000000000000024000 /* LoginView.swift */; };
+		A0025000000000000025000 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0026000000000000026000 /* MainTabView.swift */; };
+		A0027000000000000027000 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0028000000000000028000 /* OnboardingView.swift */; };
+		A0029000000000000029000 /* PersonalizationQuestionnaireView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0030000000000000030000 /* PersonalizationQuestionnaireView.swift */; };
+		A0031000000000000031000 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0032000000000000032000 /* SettingsView.swift */; };
+		A0033000000000000033000 /* VoiceRecordingFlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0034000000000000034000 /* VoiceRecordingFlowView.swift */; };
+		A0035000000000000035000 /* VoiceRecordingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0036000000000000036000 /* VoiceRecordingView.swift */; };
+		A0037000000000000037000 /* VoiceScriptSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0038000000000000038000 /* VoiceScriptSelectorView.swift */; };
+		A0039000000000000039000 /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0040000000000000040000 /* KeyboardViewController.swift */; };
+		A0041000000000000041000 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0042000000000000042000 /* ShareViewController.swift */; };
+		A0043000000000000043000 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = A0044000000000000044000 /* Alamofire */; };
+		A0045000000000000045000 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = A0046000000000000046000 /* KeychainAccess */; };
+		A0047000000000000047000 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0048000000000000048000 /* Social.framework */; };
+		A0049000000000000049000 /* FlirrtKeyboard.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = A0059000000000000059000 /* FlirrtKeyboard.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		A0050000000000000050000 /* FlirrtShare.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = A0060000000000000060000 /* FlirrtShare.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		B647D652B6B2D4073BE80E1B /* PersonalizationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA51C984C0AE4B199715FBE /* PersonalizationData.swift */; };
+		B0D64C1C9E455478B9E546E0 /* PersonalizationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA51C984C0AE4B199715FBE /* PersonalizationData.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		A0051000000000000051000 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A0052000000000000052000 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A0085000000000000085000;
+			remoteInfo = FlirrtKeyboard;
+		};
+		A0053000000000000053000 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A0052000000000000052000 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A0089000000000000089000;
+			remoteInfo = FlirrtShare;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		A0054000000000000054000 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				A0049000000000000049000 /* FlirrtKeyboard.appex in Embed App Extensions */,
+				A0050000000000000050000 /* FlirrtShare.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		A0058000000000000058000 /* Flirrt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Flirrt.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A0002000000000000002000 /* FlirrtApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlirrtApp.swift; sourceTree = "<group>"; };
+		A0004000000000000004000 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		A0006000000000000006000 /* VoiceModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceModels.swift; sourceTree = "<group>"; };
+		A0008000000000000008000 /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
+		A0010000000000000010000 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
+		A0012000000000000012000 /* NetworkReachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkReachability.swift; sourceTree = "<group>"; };
+		A0014000000000000014000 /* SharedDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedDataManager.swift; sourceTree = "<group>"; };
+		A0016000000000000016000 /* VoiceRecordingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceRecordingManager.swift; sourceTree = "<group>"; };
+		A0018000000000000018000 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		A0020000000000000020000 /* BackgroundNoisePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundNoisePickerView.swift; sourceTree = "<group>"; };
+		A0022000000000000022000 /* LegacyContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegacyContentView.swift; sourceTree = "<group>"; };
+		A0024000000000000024000 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		A0026000000000000026000 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
+		A0028000000000000028000 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		A0030000000000000030000 /* PersonalizationQuestionnaireView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalizationQuestionnaireView.swift; sourceTree = "<group>"; };
+		A0032000000000000032000 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		A0034000000000000034000 /* VoiceRecordingFlowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceRecordingFlowView.swift; sourceTree = "<group>"; };
+		A0036000000000000036000 /* VoiceRecordingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceRecordingView.swift; sourceTree = "<group>"; };
+		A0038000000000000038000 /* VoiceScriptSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceScriptSelectorView.swift; sourceTree = "<group>"; };
+		A0040000000000000040000 /* KeyboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardViewController.swift; sourceTree = "<group>"; };
+		A0042000000000000042000 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
+		A0059000000000000059000 /* FlirrtKeyboard.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = FlirrtKeyboard.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		A0060000000000000060000 /* FlirrtShare.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = FlirrtShare.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		A0061000000000000061000 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A0062000000000000062000 /* Flirrt.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Flirrt.entitlements; sourceTree = "<group>"; };
+		A0063000000000000063000 /* FlirrtKeyboard-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FlirrtKeyboard-Info.plist"; sourceTree = "<group>"; };
+		A0064000000000000064000 /* FlirrtKeyboard.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FlirrtKeyboard.entitlements; sourceTree = "<group>"; };
+		A0065000000000000065000 /* FlirrtShare-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FlirrtShare-Info.plist"; sourceTree = "<group>"; };
+		A0066000000000000066000 /* FlirrtShare.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FlirrtShare.entitlements; sourceTree = "<group>"; };
+		A0048000000000000048000 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		BDA51C984C0AE4B199715FBE /* PersonalizationData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models/PersonalizationData.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A0067000000000000067000 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A0043000000000000043000 /* Alamofire in Frameworks */,
+				A0045000000000000045000 /* KeychainAccess in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A0068000000000000068000 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A0069000000000000069000 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A0047000000000000047000 /* Social.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		A0070000000000000070000 = {
+			isa = PBXGroup;
+			children = (
+				A0071000000000000071000 /* Flirrt */,
+				A0072000000000000072000 /* FlirrtKeyboard */,
+				A0073000000000000073000 /* FlirrtShare */,
+				A0074000000000000074000 /* Products */,
+				A0075000000000000075000 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		A0071000000000000071000 /* Flirrt */ = {
+			isa = PBXGroup;
+			children = (
+				A0076000000000000076000 /* App */,
+				A0077000000000000077000 /* Models */,
+				A0078000000000000078000 /* Services */,
+				A0079000000000000079000 /* Views */,
+				A0061000000000000061000 /* Info.plist */,
+				A0062000000000000062000 /* Flirrt.entitlements */,
+			);
+			path = Flirrt;
+			sourceTree = "<group>";
+		};
+		A0076000000000000076000 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				A0002000000000000002000 /* FlirrtApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		A0077000000000000077000 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				A0006000000000000006000 /* VoiceModels.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		A0078000000000000078000 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				A0008000000000000008000 /* APIClient.swift */,
+				A0010000000000000010000 /* AuthManager.swift */,
+				A0012000000000000012000 /* NetworkReachability.swift */,
+				A0014000000000000014000 /* SharedDataManager.swift */,
+				A0016000000000000016000 /* VoiceRecordingManager.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		A0079000000000000079000 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				A0004000000000000004000 /* ContentView.swift */,
+				A0018000000000000018000 /* AppCoordinator.swift */,
+				A0020000000000000020000 /* BackgroundNoisePickerView.swift */,
+				A0022000000000000022000 /* LegacyContentView.swift */,
+				A0024000000000000024000 /* LoginView.swift */,
+				A0026000000000000026000 /* MainTabView.swift */,
+				A0028000000000000028000 /* OnboardingView.swift */,
+				A0030000000000000030000 /* PersonalizationQuestionnaireView.swift */,
+				A0032000000000000032000 /* SettingsView.swift */,
+				A0034000000000000034000 /* VoiceRecordingFlowView.swift */,
+				A0036000000000000036000 /* VoiceRecordingView.swift */,
+				A0038000000000000038000 /* VoiceScriptSelectorView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		A0072000000000000072000 /* FlirrtKeyboard */ = {
+			isa = PBXGroup;
+			children = (
+				A0040000000000000040000 /* KeyboardViewController.swift */,
+				A0063000000000000063000 /* FlirrtKeyboard-Info.plist */,
+				A0064000000000000064000 /* FlirrtKeyboard.entitlements */,
+			);
+			path = FlirrtKeyboard;
+			sourceTree = "<group>";
+		};
+		A0073000000000000073000 /* FlirrtShare */ = {
+			isa = PBXGroup;
+			children = (
+				A0042000000000000042000 /* ShareViewController.swift */,
+				A0065000000000000065000 /* FlirrtShare-Info.plist */,
+				A0066000000000000066000 /* FlirrtShare.entitlements */,
+			);
+			path = FlirrtShare;
+			sourceTree = "<group>";
+		};
+		A0074000000000000074000 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A0058000000000000058000 /* Flirrt.app */,
+				A0059000000000000059000 /* FlirrtKeyboard.appex */,
+				A0060000000000000060000 /* FlirrtShare.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A0075000000000000075000 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A0048000000000000048000 /* Social.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A0055000000000000055000 /* Flirrt */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A0080000000000000080000 /* Build configuration list for PBXNativeTarget "Flirrt" */;
+			buildPhases = (
+				A0081000000000000081000 /* Sources */,
+				A0067000000000000067000 /* Frameworks */,
+				A0082000000000000082000 /* Resources */,
+				A0054000000000000054000 /* Embed App Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A0056000000000000056000 /* PBXTargetDependency */,
+				A0057000000000000057000 /* PBXTargetDependency */,
+			);
+			name = Flirrt;
+			packageProductDependencies = (
+				A0044000000000000044000 /* Alamofire */,
+				A0046000000000000046000 /* KeychainAccess */,
+			);
+			productName = Flirrt;
+			productReference = A0058000000000000058000 /* Flirrt.app */;
+			productType = "com.apple.product-type.application";
+		};
+		A0085000000000000085000 /* FlirrtKeyboard */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A0086000000000000086000 /* Build configuration list for PBXNativeTarget "FlirrtKeyboard" */;
+			buildPhases = (
+				A0087000000000000087000 /* Sources */,
+				A0068000000000000068000 /* Frameworks */,
+				A0088000000000000088000 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FlirrtKeyboard;
+			productName = FlirrtKeyboard;
+			productReference = A0059000000000000059000 /* FlirrtKeyboard.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		A0089000000000000089000 /* FlirrtShare */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A0090000000000000090000 /* Build configuration list for PBXNativeTarget "FlirrtShare" */;
+			buildPhases = (
+				A0091000000000000091000 /* Sources */,
+				A0069000000000000069000 /* Frameworks */,
+				A0092000000000000092000 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FlirrtShare;
+			productName = FlirrtShare;
+			productReference = A0060000000000000060000 /* FlirrtShare.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A0052000000000000052000 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					A0055000000000000055000 = {
+						CreatedOnToolsVersion = 15.0;
+					};
+					A0085000000000000085000 = {
+						CreatedOnToolsVersion = 15.0;
+					};
+					A0089000000000000089000 = {
+						CreatedOnToolsVersion = 15.0;
+					};
+				};
+			};
+			buildConfigurationList = A0093000000000000093000 /* Build configuration list for PBXProject "Flirrt" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = A0070000000000000070000;
+			packageReferences = (
+				A0094000000000000094000 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				A0095000000000000095000 /* XCRemoteSwiftPackageReference "KeychainAccess" */,
+			);
+			productRefGroup = A0074000000000000074000 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A0055000000000000055000 /* Flirrt */,
+				A0085000000000000085000 /* FlirrtKeyboard */,
+				A0089000000000000089000 /* FlirrtShare */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A0082000000000000082000 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A0088000000000000088000 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A0092000000000000092000 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A0081000000000000081000 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A0001000000000000001000 /* FlirrtApp.swift in Sources */,
+				A0003000000000000003000 /* ContentView.swift in Sources */,
+				A0005000000000000005000 /* VoiceModels.swift in Sources */,
+				A0007000000000000007000 /* APIClient.swift in Sources */,
+				A0009000000000000009000 /* AuthManager.swift in Sources */,
+				A0011000000000000011000 /* NetworkReachability.swift in Sources */,
+				A0013000000000000013000 /* SharedDataManager.swift in Sources */,
+				A0015000000000000015000 /* VoiceRecordingManager.swift in Sources */,
+				A0017000000000000017000 /* AppCoordinator.swift in Sources */,
+				A0019000000000000019000 /* BackgroundNoisePickerView.swift in Sources */,
+				A0021000000000000021000 /* LegacyContentView.swift in Sources */,
+				A0023000000000000023000 /* LoginView.swift in Sources */,
+				A0025000000000000025000 /* MainTabView.swift in Sources */,
+				A0027000000000000027000 /* OnboardingView.swift in Sources */,
+				A0029000000000000029000 /* PersonalizationQuestionnaireView.swift in Sources */,
+				A0031000000000000031000 /* SettingsView.swift in Sources */,
+				A0033000000000000033000 /* VoiceRecordingFlowView.swift in Sources */,
+				A0035000000000000035000 /* VoiceRecordingView.swift in Sources */,
+				A0037000000000000037000 /* VoiceScriptSelectorView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A0087000000000000087000 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A0039000000000000039000 /* KeyboardViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A0091000000000000091000 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A0041000000000000041000 /* ShareViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		A0056000000000000056000 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A0085000000000000085000 /* FlirrtKeyboard */;
+			targetProxy = A0051000000000000051000 /* PBXContainerItemProxy */;
+		};
+		A0057000000000000057000 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A0089000000000000089000 /* FlirrtShare */;
+			targetProxy = A0053000000000000053000 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		A0096000000000000096000 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		A0097000000000000097000 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		A0098000000000000098000 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Flirrt/Flirrt.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Flirrt/Info.plist;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.flirrt.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		A0099000000000000099000 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Flirrt/Flirrt.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Flirrt/Info.plist;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.flirrt.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		A0100000000000000100000 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = FlirrtKeyboard/FlirrtKeyboard.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = FlirrtKeyboard/FlirrtKeyboard-Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.flirrt.app.keyboard;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		A0101000000000000101000 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = FlirrtKeyboard/FlirrtKeyboard.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = FlirrtKeyboard/FlirrtKeyboard-Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.flirrt.app.keyboard;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		A0102000000000000102000 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = FlirrtShare/FlirrtShare.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = FlirrtShare/FlirrtShare-Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.flirrt.app.share;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		A0103000000000000103000 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = FlirrtShare/FlirrtShare.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = FlirrtShare/FlirrtShare-Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.flirrt.app.share;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A0080000000000000080000 /* Build configuration list for PBXNativeTarget "Flirrt" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A0098000000000000098000 /* Debug */,
+				A0099000000000000099000 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A0086000000000000086000 /* Build configuration list for PBXNativeTarget "FlirrtKeyboard" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A0100000000000000100000 /* Debug */,
+				A0101000000000000101000 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A0090000000000000090000 /* Build configuration list for PBXNativeTarget "FlirrtShare" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A0102000000000000102000 /* Debug */,
+				A0103000000000000103000 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A0093000000000000093000 /* Build configuration list for PBXProject "Flirrt" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A0096000000000000096000 /* Debug */,
+				A0097000000000000097000 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		A0094000000000000094000 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.8.0;
+			};
+		};
+		A0095000000000000095000 /* XCRemoteSwiftPackageReference "KeychainAccess" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kishikawakatsumi/KeychainAccess.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.2.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		A0044000000000000044000 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A0094000000000000094000 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		A0046000000000000046000 /* KeychainAccess */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A0095000000000000095000 /* XCRemoteSwiftPackageReference "KeychainAccess" */;
+			productName = KeychainAccess;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = A0052000000000000052000 /* Project object */;
+}

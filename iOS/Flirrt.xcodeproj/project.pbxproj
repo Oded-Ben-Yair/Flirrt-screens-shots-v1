@@ -31,8 +31,8 @@
 		A0043000000000000043000 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = A0044000000000000044000 /* Alamofire */; };
 		A0045000000000000045000 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = A0046000000000000046000 /* KeychainAccess */; };
 		A0047000000000000047000 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0048000000000000048000 /* Social.framework */; };
-		A0049000000000000049000 /* FlirrtKeyboard.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = A0059000000000000059000 /* FlirrtKeyboard.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		A0050000000000000050000 /* FlirrtShare.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = A0060000000000000060000 /* FlirrtShare.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		A0049000000000000049000 /* FlirrtKeyboard.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = A0059000000000000059000 /* FlirrtKeyboard.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		A0050000000000000050000 /* FlirrtShare.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = A0060000000000000060000 /* FlirrtShare.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,22 +53,21 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		A0054000000000000054000 /* Embed App Extensions */ = {
+		A0054000000000000054000 /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				A0049000000000000049000 /* FlirrtKeyboard.appex in Embed App Extensions */,
-				A0050000000000000050000 /* FlirrtShare.appex in Embed App Extensions */,
+				A0049000000000000049000 /* FlirrtKeyboard.appex in Embed Foundation Extensions */,
+				A0050000000000000050000 /* FlirrtShare.appex in Embed Foundation Extensions */,
 			);
-			name = "Embed App Extensions";
+			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		A0058000000000000058000 /* Flirrt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Flirrt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0002000000000000002000 /* FlirrtApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlirrtApp.swift; sourceTree = "<group>"; };
 		A0004000000000000004000 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		A0006000000000000006000 /* VoiceModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceModels.swift; sourceTree = "<group>"; };
@@ -90,6 +89,8 @@
 		A0038000000000000038000 /* VoiceScriptSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceScriptSelectorView.swift; sourceTree = "<group>"; };
 		A0040000000000000040000 /* KeyboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardViewController.swift; sourceTree = "<group>"; };
 		A0042000000000000042000 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
+		A0048000000000000048000 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		A0058000000000000058000 /* Flirrt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Flirrt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0059000000000000059000 /* FlirrtKeyboard.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = FlirrtKeyboard.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0060000000000000060000 /* FlirrtShare.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = FlirrtShare.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0061000000000000061000 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -98,7 +99,6 @@
 		A0064000000000000064000 /* FlirrtKeyboard.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FlirrtKeyboard.entitlements; sourceTree = "<group>"; };
 		A0065000000000000065000 /* FlirrtShare-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FlirrtShare-Info.plist"; sourceTree = "<group>"; };
 		A0066000000000000066000 /* FlirrtShare.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FlirrtShare.entitlements; sourceTree = "<group>"; };
-		A0048000000000000048000 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -153,6 +153,44 @@
 			path = Flirrt;
 			sourceTree = "<group>";
 		};
+		A0072000000000000072000 /* FlirrtKeyboard */ = {
+			isa = PBXGroup;
+			children = (
+				A0040000000000000040000 /* KeyboardViewController.swift */,
+				A0063000000000000063000 /* FlirrtKeyboard-Info.plist */,
+				A0064000000000000064000 /* FlirrtKeyboard.entitlements */,
+			);
+			path = FlirrtKeyboard;
+			sourceTree = "<group>";
+		};
+		A0073000000000000073000 /* FlirrtShare */ = {
+			isa = PBXGroup;
+			children = (
+				A0042000000000000042000 /* ShareViewController.swift */,
+				A0065000000000000065000 /* FlirrtShare-Info.plist */,
+				A0066000000000000066000 /* FlirrtShare.entitlements */,
+			);
+			path = FlirrtShare;
+			sourceTree = "<group>";
+		};
+		A0074000000000000074000 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A0058000000000000058000 /* Flirrt.app */,
+				A0059000000000000059000 /* FlirrtKeyboard.appex */,
+				A0060000000000000060000 /* FlirrtShare.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A0075000000000000075000 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A0048000000000000048000 /* Social.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		A0076000000000000076000 /* App */ = {
 			isa = PBXGroup;
 			children = (
@@ -200,44 +238,6 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		A0072000000000000072000 /* FlirrtKeyboard */ = {
-			isa = PBXGroup;
-			children = (
-				A0040000000000000040000 /* KeyboardViewController.swift */,
-				A0063000000000000063000 /* FlirrtKeyboard-Info.plist */,
-				A0064000000000000064000 /* FlirrtKeyboard.entitlements */,
-			);
-			path = FlirrtKeyboard;
-			sourceTree = "<group>";
-		};
-		A0073000000000000073000 /* FlirrtShare */ = {
-			isa = PBXGroup;
-			children = (
-				A0042000000000000042000 /* ShareViewController.swift */,
-				A0065000000000000065000 /* FlirrtShare-Info.plist */,
-				A0066000000000000066000 /* FlirrtShare.entitlements */,
-			);
-			path = FlirrtShare;
-			sourceTree = "<group>";
-		};
-		A0074000000000000074000 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				A0058000000000000058000 /* Flirrt.app */,
-				A0059000000000000059000 /* FlirrtKeyboard.appex */,
-				A0060000000000000060000 /* FlirrtShare.appex */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		A0075000000000000075000 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				A0048000000000000048000 /* Social.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -248,7 +248,7 @@
 				A0081000000000000081000 /* Sources */,
 				A0067000000000000067000 /* Frameworks */,
 				A0082000000000000082000 /* Resources */,
-				A0054000000000000054000 /* Embed App Extensions */,
+				A0054000000000000054000 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
@@ -307,7 +307,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1500;
-				LastUpgradeCheck = 1500;
+				LastUpgradeCheck = 2600;
 				TargetAttributes = {
 					A0055000000000000055000 = {
 						CreatedOnToolsVersion = 15.0;
@@ -485,6 +485,7 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -541,6 +542,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -613,7 +615,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = NO;
-				INFOPLIST_FILE = FlirrtKeyboard/FlirrtKeyboard-Info.plist;
+				INFOPLIST_FILE = "FlirrtKeyboard/FlirrtKeyboard-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -636,7 +638,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = NO;
-				INFOPLIST_FILE = FlirrtKeyboard/FlirrtKeyboard-Info.plist;
+				INFOPLIST_FILE = "FlirrtKeyboard/FlirrtKeyboard-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -659,7 +661,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = NO;
-				INFOPLIST_FILE = FlirrtShare/FlirrtShare-Info.plist;
+				INFOPLIST_FILE = "FlirrtShare/FlirrtShare-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -682,7 +684,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = NO;
-				INFOPLIST_FILE = FlirrtShare/FlirrtShare-Info.plist;
+				INFOPLIST_FILE = "FlirrtShare/FlirrtShare-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

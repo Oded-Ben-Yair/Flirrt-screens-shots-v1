@@ -43,6 +43,38 @@ class AuthManager: NSObject, ObservableObject {
         controller.performRequests()
     }
 
+    #if DEBUG
+    func signInAsTestUser() {
+        // Skip authentication for development testing
+        Task { @MainActor in
+            self.isLoading = true
+
+            // Create a test user
+            let testUser = User(
+                id: "test-user-123",
+                email: "test@flirrt.ai",
+                fullName: "Test User",
+                voiceId: nil,
+                createdAt: Date(),
+                ageVerified: true
+            )
+
+            // Simulate successful authentication
+            self.user = testUser
+            self.isAuthenticated = true
+            self.ageVerified = true
+
+            // Save test auth state
+            try? keychain.set("test-jwt-token", key: "jwt_token")
+            saveAgeVerification()
+            updateSharedAuthenticationState(isAuthenticated: true, userId: testUser.id)
+
+            self.isLoading = false
+            self.error = nil
+        }
+    }
+    #endif
+
     func verifyAge(_ birthDate: Date) {
         let calendar = Calendar.current
         let ageComponents = calendar.dateComponents([.year], from: birthDate, to: Date())

@@ -159,6 +159,24 @@ struct LoginView: View {
                             .foregroundColor(.gray)
                             .padding(.horizontal)
 
+                        #if DEBUG
+                        // Development Testing Button
+                        Button(action: {
+                            // Skip Apple Sign In for testing
+                            authManager.signInAsTestUser()
+                        }) {
+                            Text("Skip Sign In (Dev Testing)")
+                                .font(.caption)
+                                .foregroundColor(.orange)
+                                .padding(.vertical, 8)
+                                .padding(.horizontal, 16)
+                                .background(Color.orange.opacity(0.2))
+                                .cornerRadius(8)
+                        }
+                        .disabled(!agreedToTerms)
+                        .opacity(agreedToTerms ? 1.0 : 0.4)
+                        #endif
+
                         // Loading state
                         if authManager.isLoading {
                             ProgressView()

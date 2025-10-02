@@ -66,3 +66,6 @@ trees/
 worktrees/
 parallel-tests/
 package-lock.json
+
+# Archive folder (local reference only, may contain historical data)
+.archive/

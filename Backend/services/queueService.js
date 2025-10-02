@@ -167,6 +167,67 @@ class QueueService {
     isReady() {
         return this.isInitialized || this.fallbackMode;
     }
+
+    // Queue Grok API flirt generation (fallback mode: execute immediately)
+    async queueGrokFlirtGeneration(grokPayload, correlationId = null, priority = 1) {
+        logger.debug('Queueing Grok flirt generation', {
+            correlationId,
+            priority,
+            model: grokPayload.model
+        });
+
+        if (!this.fallbackMode) {
+            // Real queue mode (not implemented yet)
+            return await this.addJob('grok-api', {
+                type: 'flirt-generation',
+                payload: grokPayload,
+                correlationId,
+                priority
+            }, { priority });
+        }
+
+        // Fallback mode: Execute immediately through circuit breaker
+        try {
+            logger.info('Fallback mode: Executing Grok API call immediately', { correlationId });
+
+            const result = await circuitBreakerService.callGrokApi(grokPayload, correlationId);
+
+            logger.info('Grok API call completed successfully', {
+                correlationId,
+                success: result.success,
+                fallback: result.fallback || false
+            });
+
+            return result;
+        } catch (error) {
+            logger.error('Grok API call failed in fallback mode', {
+                correlationId,
+                error: error.message
+            });
+            throw error;
+        }
+    }
+
+    // Get health status
+    getHealthStatus() {
+        return {
+            initialized: this.isInitialized || this.fallbackMode,
+            fallbackMode: this.fallbackMode,
+            queuesCount: this.queues.size,
+            ready: this.isReady()
+        };
+    }
+
+    // Shutdown service
+    async shutdown() {
+        try {
+            await this.closeAll();
+            logger.info('Queue service shutdown completed');
+        } catch (error) {
+            logger.error('Error during queue service shutdown:', error.message);
+            throw error;
+        }
+    }
 }
 
 // Export singleton instance

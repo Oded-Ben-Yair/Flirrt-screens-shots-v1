@@ -5,15 +5,17 @@ const cors = require('cors');
 const path = require('path');
 const fs = require('fs');
 const http = require('http');
-const { Pool } = require('pg');
 
 // Import new services
 const { logger } = require('./services/logger');
+const databaseService = require('./services/database');
 const redisService = require('./services/redis');
 const queueService = require('./services/queueService');
 const webSocketService = require('./services/websocketService');
 const circuitBreakerService = require('./services/circuitBreaker');
 const healthCheckService = require('./services/healthCheck');
+const streamingService = require('./services/streamingService');
+const uploadQueueService = require('./services/uploadQueueService');
 
 // Import enhanced middleware
 const {
@@ -30,7 +32,11 @@ const { uploadService } = require('./middleware/optimizedUpload');
 const authRoutes = require('./routes/auth');
 const analysisRoutes = require('./routes/analysis');
 const flirtRoutes = require('./routes/flirts');
+const orchestratedFlirtRoutes = require('./routes/orchestrated-flirts');
+const grok4FastRoutes = require('./routes/grok4Fast');
 const voiceRoutes = require('./routes/voice');
+const streamingRoutes = require('./routes/streaming');
+const statusRoutes = require('./routes/status');
 
 // Import middleware
 const { authenticateToken, createRateLimit } = require('./middleware/auth');
@@ -40,19 +46,12 @@ const app = express();
 const server = http.createServer(app);
 const PORT = process.env.PORT || 3000;
 
-// Database connection
-const pool = new Pool({
-    host: process.env.DB_HOST,
-    port: process.env.DB_PORT,
-    database: process.env.DB_NAME,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
+// Database service (SQLite) - auto-initialized
+logger.info('Database service loaded', {
+    status: databaseService.isConnected ? 'connected' : 'disconnected',
+    dbPath: databaseService.dbPath,
+    tables: ['users', 'screenshots', 'flirts', 'sessions']
 });
-
-// Test database connection
-pool.connect()
-    .then(() => logger.info('Connected to PostgreSQL database'))
-    .catch(err => logger.warn('Database connection failed (some features disabled)', { error: err.message }));
 
 // Initialize services
 logger.info('Initializing Flirrt.ai Backend Server', {
@@ -202,11 +201,13 @@ app.get('/health/history', authenticateToken, async (req, res) => {
 // System metrics endpoint
 app.get('/metrics', authenticateToken, async (req, res) => {
     try {
-        const [queueStats, uploadStats, wsHealth, cbHealth] = await Promise.all([
+        const [queueStats, uploadStats, wsHealth, cbHealth, streamingHealth, uploadQueueStats] = await Promise.all([
             queueService.getQueueStats(),
             uploadService.getUploadStats(),
             webSocketService.getHealthStatus(),
-            circuitBreakerService.getHealthStatus()
+            circuitBreakerService.getHealthStatus(),
+            streamingService.getHealthStatus(),
+            uploadQueueService.getQueueStats()
         ]);
 
         res.json({
@@ -216,7 +217,9 @@ app.get('/metrics', authenticateToken, async (req, res) => {
                 queues: queueStats,
                 uploads: uploadStats,
                 websockets: wsHealth,
-                circuitBreakers: cbHealth
+                circuitBreakers: cbHealth,
+                streaming: streamingHealth,
+                uploadQueue: uploadQueueStats
             },
             correlationId: req.correlationId
         });
@@ -234,7 +237,11 @@ app.get('/metrics', authenticateToken, async (req, res) => {
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/analysis', analysisRoutes);
 app.use('/api/v1/flirts', flirtRoutes);
+app.use('/api/v2/flirts', orchestratedFlirtRoutes);
+app.use('/api/v3/grok4-fast', grok4FastRoutes);
 app.use('/api/v1/voice', voiceRoutes);
+app.use('/api/v1/stream', streamingRoutes);
+app.use('/api/v1/status', statusRoutes);
 
 // GDPR Compliance - User Data Deletion
 app.delete('/api/v1/user/:id/data', authenticateToken, async (req, res) => {
@@ -557,6 +564,8 @@ const gracefulShutdown = async (signal) => {
         logger.info('Shutting down services...');
 
         await webSocketService.shutdown();
+        await streamingService.shutdown();
+        await uploadQueueService.shutdown();
         await queueService.shutdown();
         await redisService.disconnect();
         await pool.end();

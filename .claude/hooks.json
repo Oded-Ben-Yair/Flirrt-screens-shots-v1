@@ -1,0 +1,9 @@
+{
+  "PreToolUse": {
+    "Write": "$CLAUDE_PROJECT_DIR/.claude/hooks/check-documentation-policy.sh",
+    "Edit": "$CLAUDE_PROJECT_DIR/.claude/hooks/check-documentation-policy.sh"
+  },
+  "Notification": {
+    "*": "$CLAUDE_PROJECT_DIR/.claude/hooks/session-start-reminder.sh"
+  }
+}

@@ -3,6 +3,7 @@ import SwiftUI
 @MainActor
 struct SettingsView: View {
     @EnvironmentObject private var authManager: AuthManager
+    @EnvironmentObject private var sharedDataManager: SharedDataManager
     @State private var showingDataDeletionAlert = false
     @State private var showingLogoutAlert = false
     @State private var showingTermsAndPrivacy = false
@@ -126,6 +127,37 @@ struct SettingsView: View {
                             }
                         }
                     }
+
+                    // Developer Tools Section (Debug mode)
+                    #if DEBUG
+                    SettingsSection(title: "Developer Tools") {
+                        VStack(spacing: 0) {
+                            SettingsActionRow(
+                                icon: "camera.aperture",
+                                title: "Test Screenshot Detection",
+                                description: "Trigger test notification to keyboard",
+                                color: .blue
+                            ) {
+                                Task {
+                                    await sharedDataManager.triggerTestScreenshotNotification()
+                                }
+                            }
+
+                            SettingsDivider()
+
+                            SettingsActionRow(
+                                icon: "antenna.radiowaves.left.and.right",
+                                title: "Darwin Notifications",
+                                description: "Test keyboard extension communication",
+                                color: .purple
+                            ) {
+                                Task {
+                                    await testDarwinNotifications()
+                                }
+                            }
+                        }
+                    }
+                    #endif
 
                     // Support Section
                     SettingsSection(title: "Support") {
@@ -266,6 +298,11 @@ struct SettingsView: View {
         if let url = URL(string: "https://apps.apple.com/app/id123456789?action=write-review") {
             UIApplication.shared.open(url)
         }
+    }
+
+    private func testDarwinNotifications() async {
+        await sharedDataManager.triggerTestScreenshotNotification()
+        print("🧪 Darwin notification test completed")
     }
 }
 
