@@ -162,17 +162,8 @@ class ShareViewController: UIViewController {
         )
     }
 
-    override func configurationItems() -> [Any]! {
-        // Optional: Add configuration items
-        let item = SLComposeSheetConfigurationItem()
-        item?.title = "Analysis Type"
-        item?.value = "Auto-detect"
-        item?.tapHandler = {
-            // Show options
-        }
-
-        return [item as Any]
-    }
+    // configurationItems() is deprecated in modern iOS versions
+    // Removed to eliminate build warnings
 }
 
 // MARK: - Supporting Types

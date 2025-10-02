@@ -266,3 +266,121 @@ struct ElevenLabsVoiceSettings: Codable {
     static let highQuality = ElevenLabsVoiceSettings(stability: 0.85, similarityBoost: 0.85)
     static let creative = ElevenLabsVoiceSettings(stability: 0.60, similarityBoost: 0.90)
 }
+
+// MARK: - Voice Script Models
+struct VoiceScript: Identifiable, Codable {
+    let id: String
+    let title: String
+    let text: String
+    let content: String
+    let category: ScriptCategory
+    let difficulty: ScriptDifficulty
+    let duration: TimeInterval
+    let tips: String
+    let tags: [String]
+    let icon: String
+
+    init(id: String = UUID().uuidString, title: String, text: String, category: ScriptCategory, difficulty: ScriptDifficulty, duration: TimeInterval, tips: String = "", tags: [String] = [], content: String? = nil, icon: String? = nil) {
+        self.id = id
+        self.title = title
+        self.text = text
+        self.content = content ?? text
+        self.category = category
+        self.difficulty = difficulty
+        self.duration = duration
+        self.tips = tips
+        self.tags = tags
+        self.icon = icon ?? category.icon
+    }
+
+    static let predefinedScripts: [VoiceScript] = [
+        VoiceScript(
+            title: "Introduction",
+            text: "Hi, I'm excited to get to know you better. Tell me about yourself.",
+            category: .introduction,
+            difficulty: .beginner,
+            duration: 10,
+            tips: "Speak naturally and with enthusiasm",
+            tags: ["intro", "casual"]
+        ),
+        VoiceScript(
+            title: "Casual Greeting",
+            text: "Hey there! How's your day going?",
+            category: .casual,
+            difficulty: .beginner,
+            duration: 8,
+            tips: "Keep it light and friendly",
+            tags: ["greeting", "friendly"]
+        ),
+        VoiceScript(
+            title: "Flirty Compliment",
+            text: "I have to say, your smile really caught my attention.",
+            category: .flirty,
+            difficulty: .intermediate,
+            duration: 12,
+            tips: "Be confident but not overwhelming",
+            tags: ["compliment", "bold"]
+        )
+    ]
+}
+
+enum ScriptCategory: String, Codable, CaseIterable {
+    case introduction = "introduction"
+    case casual = "casual"
+    case flirty = "flirty"
+    case confident = "confident"
+    case playful = "playful"
+    case romantic = "romantic"
+
+    var displayName: String {
+        return rawValue.capitalized
+    }
+
+    var icon: String {
+        switch self {
+        case .introduction: return "hand.wave.fill"
+        case .casual: return "bubble.left"
+        case .flirty: return "heart.fill"
+        case .confident: return "star.fill"
+        case .playful: return "face.smiling"
+        case .romantic: return "heart.circle.fill"
+        }
+    }
+
+    var color: String {
+        switch self {
+        case .introduction: return "blue"
+        case .casual: return "green"
+        case .flirty: return "pink"
+        case .confident: return "purple"
+        case .playful: return "orange"
+        case .romantic: return "red"
+        }
+    }
+}
+
+enum ScriptDifficulty: String, Codable, CaseIterable {
+    case beginner = "beginner"
+    case intermediate = "intermediate"
+    case advanced = "advanced"
+
+    var displayName: String {
+        return rawValue.capitalized
+    }
+
+    var color: String {
+        switch self {
+        case .beginner: return "green"
+        case .intermediate: return "orange"
+        case .advanced: return "red"
+        }
+    }
+
+    var stars: Int {
+        switch self {
+        case .beginner: return 1
+        case .intermediate: return 2
+        case .advanced: return 3
+        }
+    }
+}

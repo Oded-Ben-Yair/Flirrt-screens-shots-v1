@@ -1,0 +1,304 @@
+# 🚀 Flirrt.ai Production Docker Compose Configuration
+# Bulletproof multi-agent deployment orchestration
+
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: flirrt-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: flirrt_prod
+      POSTGRES_USER: flirrt_user
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-secure_password}
+      POSTGRES_INITDB_ARGS: "--auth-host=scram-sha-256 --auth-local=scram-sha-256"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./scripts/init-db.sql:/docker-entrypoint-initdb.d/init-db.sql:ro
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U flirrt_user -d flirrt_prod"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - flirrt-network
+
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    container_name: flirrt-redis
+    restart: unless-stopped
+    command: redis-server --maxmemory 256mb --maxmemory-policy allkeys-lru --requirepass ${REDIS_PASSWORD:-redis_password}
+    volumes:
+      - redis_data:/data
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "--raw", "incr", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - flirrt-network
+
+  # Flirrt API Server (Blue Deployment)
+  flirrt-api-blue:
+    build:
+      context: ../Backend
+      dockerfile: Dockerfile
+    container_name: flirrt-api-blue
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      # Database
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+      POSTGRES_DB: flirrt_prod
+      POSTGRES_USER: flirrt_user
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-secure_password}
+      # Redis
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      REDIS_PASSWORD: ${REDIS_PASSWORD:-redis_password}
+      # API Keys
+      GROK_API_KEY: ${GROK_API_KEY}
+      ELEVENLABS_API_KEY: ${ELEVENLABS_API_KEY}
+      JWT_SECRET: ${JWT_SECRET:-flirrt-jwt-secret-change-for-production}
+      # Agent Configuration
+      ENABLE_AGENT_ORCHESTRATION: true
+      ENABLE_SAFETY_FILTER: true
+      ENABLE_PERSONALIZATION: true
+      ENABLE_VOICE_SYNTHESIS: true
+      ENABLE_CONSENT_TRACKING: true
+    volumes:
+      - api_logs:/app/logs
+      - shared_data:/app/shared
+    ports:
+      - "3000:3000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - flirrt-network
+
+  # Flirrt API Server (Green Deployment) - For Blue-Green Deployment
+  flirrt-api-green:
+    build:
+      context: ../Backend
+      dockerfile: Dockerfile
+    container_name: flirrt-api-green
+    restart: "no"  # Only started during deployment
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      # Database
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+      POSTGRES_DB: flirrt_prod
+      POSTGRES_USER: flirrt_user
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-secure_password}
+      # Redis
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      REDIS_PASSWORD: ${REDIS_PASSWORD:-redis_password}
+      # API Keys
+      GROK_API_KEY: ${GROK_API_KEY}
+      ELEVENLABS_API_KEY: ${ELEVENLABS_API_KEY}
+      JWT_SECRET: ${JWT_SECRET:-flirrt-jwt-secret-change-for-production}
+      # Agent Configuration
+      ENABLE_AGENT_ORCHESTRATION: true
+      ENABLE_SAFETY_FILTER: true
+      ENABLE_PERSONALIZATION: true
+      ENABLE_VOICE_SYNTHESIS: true
+      ENABLE_CONSENT_TRACKING: true
+    volumes:
+      - api_logs:/app/logs
+      - shared_data:/app/shared
+    ports:
+      - "3001:3000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - flirrt-network
+    profiles:
+      - green-deployment
+
+  # Nginx Load Balancer
+  loadbalancer:
+    image: nginx:alpine
+    container_name: flirrt-loadbalancer
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/ssl:/etc/nginx/ssl:ro
+      - nginx_logs:/var/log/nginx
+    depends_on:
+      - flirrt-api-blue
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - flirrt-network
+
+  # Production Monitoring Agent
+  monitoring:
+    build:
+      context: .
+      dockerfile: Dockerfile.monitoring
+    container_name: flirrt-monitoring
+    restart: unless-stopped
+    environment:
+      MONITOR_INTERVAL: 30000
+      METRICS_RETENTION_DAYS: 30
+      ENABLE_ALERTING: true
+      DASHBOARD_PORT: 8080
+    volumes:
+      - monitoring_data:/app/data
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - api_logs:/app/logs/api:ro
+      - nginx_logs:/app/logs/nginx:ro
+    ports:
+      - "8080:8080"
+    depends_on:
+      - flirrt-api-blue
+      - postgres
+      - redis
+    networks:
+      - flirrt-network
+
+  # Log Aggregation (ELK Stack Alternative - Simple)
+  logaggregator:
+    image: fluent/fluent-bit:latest
+    container_name: flirrt-logs
+    restart: unless-stopped
+    volumes:
+      - ./fluent-bit/fluent-bit.conf:/fluent-bit/etc/fluent-bit.conf:ro
+      - api_logs:/logs/api:ro
+      - nginx_logs:/logs/nginx:ro
+      - log_storage:/storage
+    networks:
+      - flirrt-network
+
+  # Backup Service
+  backup:
+    image: postgres:15-alpine
+    container_name: flirrt-backup
+    restart: "no"  # Run on schedule
+    environment:
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+      POSTGRES_DB: flirrt_prod
+      POSTGRES_USER: flirrt_user
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-secure_password}
+    volumes:
+      - backup_data:/backups
+      - ./scripts/backup.sh:/backup.sh:ro
+    command: ["/backup.sh"]
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - flirrt-network
+    profiles:
+      - backup
+
+# Network Configuration
+networks:
+  flirrt-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
+          gateway: 172.20.0.1
+
+# Volume Configuration
+volumes:
+  postgres_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${DATA_PATH:-./data}/postgres
+
+  redis_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${DATA_PATH:-./data}/redis
+
+  api_logs:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${DATA_PATH:-./data}/logs/api
+
+  nginx_logs:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${DATA_PATH:-./data}/logs/nginx
+
+  monitoring_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${DATA_PATH:-./data}/monitoring
+
+  log_storage:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${DATA_PATH:-./data}/logs/storage
+
+  backup_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${DATA_PATH:-./data}/backups
+
+  shared_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${DATA_PATH:-./data}/shared
+
+# Configuration for different environments
+# Usage:
+#   Production: docker-compose up -d
+#   Green Deployment: docker-compose --profile green-deployment up -d flirrt-api-green
+#   Backup: docker-compose --profile backup run backup
+#   Development: docker-compose -f docker-compose.yml -f docker-compose.dev.yml up

@@ -1,0 +1,2 @@
+- you can build and test on xcode and simulator; you must finish building without errors, instaliing on iphone, and than confirm success never before
+- sudo password = 1234
