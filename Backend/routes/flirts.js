@@ -363,17 +363,59 @@ Now analyze the provided screenshot and return JSON in this EXACT format with pr
 
             const responseText = grokResponse.data.choices[0].message.content;
 
+            // Optional debug logging (enable with DEBUG_GROK_RESPONSES=true)
+            if (process.env.DEBUG_GROK_RESPONSES === 'true') {
+                console.log('\n' + '='.repeat(80));
+                console.log('📊 GROK API RESPONSE ANALYSIS');
+                console.log('='.repeat(80));
+                console.log('Response length:', responseText.length, 'chars');
+                console.log('Model:', grokResponse.data.model);
+                console.log('Tokens used:', JSON.stringify(grokResponse.data.usage || 'N/A'));
+                console.log('Finish reason:', grokResponse.data.choices[0].finish_reason);
+                console.log('\n📝 RAW RESPONSE CONTENT:');
+                console.log(responseText.substring(0, 500) + (responseText.length > 500 ? '...' : ''));
+                console.log('='.repeat(80) + '\n');
+            }
+
             // Parse JSON response
             let suggestions;
             try {
                 suggestions = JSON.parse(responseText);
             } catch (parseError) {
-                console.error('Failed to parse Grok response as JSON:', parseError);
+                console.error('❌ Failed to parse Grok response as JSON:', parseError);
+                if (process.env.DEBUG_GROK_RESPONSES === 'true') {
+                    console.error('Raw response:', responseText);
+                }
                 throw new Error('Invalid JSON response from Grok API');
             }
 
             // Validate response structure (handle both old and new formats)
             const grokData = suggestions;
+
+            // Optional field validation logging
+            if (process.env.DEBUG_GROK_RESPONSES === 'true') {
+                console.log('🔍 FIELD VALIDATION:');
+                const requiredFields = ['screenshot_type', 'needs_more_scrolling', 'profile_score', 'extracted_details', 'suggestions'];
+                const missingFields = requiredFields.filter(field => grokData[field] === undefined);
+                const presentFields = requiredFields.filter(field => grokData[field] !== undefined);
+
+                console.log('✅ Present fields:', presentFields.join(', '));
+                if (missingFields.length > 0) {
+                    console.log('❌ Missing fields:', missingFields.join(', '));
+                }
+
+                // Validate suggestion structure
+                if (grokData.suggestions && Array.isArray(grokData.suggestions)) {
+                    console.log(`📋 Suggestions count: ${grokData.suggestions.length}`);
+                    grokData.suggestions.forEach((s, i) => {
+                        const hasReasoning = s.reasoning !== undefined;
+                        const hasReferences = s.references !== undefined;
+                        const hasConfidence = s.confidence !== undefined;
+                        console.log(`  Suggestion ${i+1}: confidence=${hasConfidence ? '✓' : '✗'} reasoning=${hasReasoning ? '✓' : '✗'} references=${hasReferences ? '✓' : '✗'}`);
+                    });
+                }
+                console.log('='.repeat(80) + '\n');
+            }
 
             // NEW: Handle intelligent response format with needs_more_scrolling
             if (grokData.needs_more_scrolling !== undefined) {
