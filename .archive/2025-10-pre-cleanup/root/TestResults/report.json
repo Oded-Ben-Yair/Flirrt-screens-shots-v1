@@ -1,0 +1,94 @@
+{
+  "timestamp": "2025-09-23T07:53:09.661Z",
+  "build": {
+    "status": "success",
+    "duration": 4844,
+    "errors": []
+  },
+  "simulator": {
+    "status": "ready",
+    "info": {
+      "id": "237F6A2D-72E4-49C2-B5E0-7B3F973C6814",
+      "name": "Flirrt Production Device",
+      "state": "Booted"
+    }
+  },
+  "tests": [
+    {
+      "name": "Authentication Flow",
+      "status": "passed",
+      "startTime": 1758613995081,
+      "screenshots": [
+        "login_screen_1758613995081.png"
+      ],
+      "logs": [
+        "Apple Sign In button visible",
+        "Age verification prompt displayed"
+      ],
+      "duration": 381
+    },
+    {
+      "name": "Voice Recording",
+      "status": "passed",
+      "startTime": 1758613995462,
+      "screenshots": [
+        "voice_recording_1758613995462.png"
+      ],
+      "logs": [
+        "Voice recording UI accessible",
+        "Microphone permissions checked"
+      ],
+      "duration": 272
+    },
+    {
+      "name": "Keyboard Extension",
+      "status": "passed",
+      "startTime": 1758613995734,
+      "screenshots": [],
+      "logs": [
+        "Keyboard extension registered",
+        "Memory usage within 60MB limit",
+        "Memory usage: Memory check performed"
+      ],
+      "duration": 106
+    },
+    {
+      "name": "Share Extension",
+      "status": "passed",
+      "startTime": 1758613995840,
+      "screenshots": [
+        "share_extension_1758613995840.png"
+      ],
+      "logs": [
+        "Share extension available",
+        "Screenshot capture functionality verified"
+      ],
+      "duration": 294
+    },
+    {
+      "name": "API Integration",
+      "status": "passed",
+      "startTime": 1758613996134,
+      "screenshots": [],
+      "logs": [
+        "Backend server responding",
+        "Server status: {\"success\":false,\"status\":\"unhealthy\",\"error\":\"\",\"timestamp\":\"2025-09-23T07:53:16.156Z\"}"
+      ],
+      "duration": 23
+    }
+  ],
+  "screenshots": [
+    "login_screen_1758613995081.png",
+    "voice_recording_1758613995462.png",
+    "share_extension_1758613995840.png"
+  ],
+  "performance": {},
+  "summary": {
+    "totalTests": 5,
+    "passedTests": 5,
+    "failedTests": 0,
+    "passRate": "100.00%",
+    "totalDuration": 1076,
+    "screenshotCount": 3
+  }
+}

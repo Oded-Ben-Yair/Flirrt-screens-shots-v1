@@ -47,25 +47,5 @@ coverage/
 # Temporary
 tmp/
 temp/
-*.tmp# Environment Variables
-.env
-.env.*
-Backend/.env
-Backend/.env.backup
-
-# Dependencies
-node_modules/
-
-# Build files
-build/
-.build/
-DerivedData/
-
-# Temporary
-trees/
-worktrees/
-parallel-tests/
-package-lock.json
-
-# Archive folder (local reference only, may contain historical data)
-.archive/
+*.tmpiOS/.build/
+iOS/SourcePackages/
