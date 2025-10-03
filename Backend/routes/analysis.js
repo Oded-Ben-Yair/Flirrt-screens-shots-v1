@@ -6,8 +6,6 @@ const { Pool } = require('pg');
 const axios = require('axios');
 const FormData = require('form-data');
 const { authenticateToken, rateLimit } = require('../middleware/auth');
-const geminiVisionService = require('../services/geminiVisionService');
-const { logger } = require('../services/logger');
 
 const router = express.Router();
 
@@ -97,85 +95,78 @@ router.post('/analyze_screenshot',
             const imageBuffer = await fs.readFile(req.file.path);
             const base64Image = imageBuffer.toString('base64');
 
-            // Use Gemini Vision for superior image analysis
-            logger.info(`🔍 Analyzing screenshot with Gemini Vision - Size: ${req.file.size} bytes`);
+            // Prepare Grok Vision API request
+            const grokApiUrl = `${process.env.GROK_API_URL}/chat/completions`;
 
-            const geminiAnalysis = await geminiVisionService.analyzeImage(base64Image, {
-                analyse_type: 'dating_conversation',
-                include_profile_detection: true,
-                include_conversation_analysis: true,
-                include_context_sufficiency: true
-            });
+            const grokRequestData = {
+                model: "grok-2-vision-1212",
+                messages: [
+                    {
+                        role: "user",
+                        content: [
+                            {
+                                type: "text",
+                                text: `Analyze this dating app screenshot and provide insights for creating flirty conversation suggestions. Context: ${context}.
 
-            if (!geminiAnalysis || !geminiAnalysis.success) {
-                throw new Error('Gemini Vision analysis failed');
-            }
+                                Please provide a detailed analysis including:
+                                1. Profile analysis (age, interests, bio, photos)
+                                2. Chat context (if it's a conversation screenshot)
+                                3. Mood/tone assessment
+                                4. Suggested conversation directions
+                                5. Confidence level for match potential
+                                6. Any red flags or positive indicators
 
-            // Extract key analysis data
-            const analysisData = geminiAnalysis.analysis;
-
-            // CRITICAL: Detect if screenshot has sufficient context
-            const conversationMessages = analysisData.conversation_messages || [];
-            const hasConversation = conversationMessages.length >= 2; // At least 2 messages for context
-            const isProfileView = analysisData.is_profile_bio === true || analysisData.screen_type === 'profile';
-            const isEmpty = conversationMessages.length === 0 && !isProfileView;
-            const needsMoreContext = !hasConversation && !isProfileView;
-
-            logger.info(`📊 Context Analysis - Messages: ${conversationMessages.length}, IsProfile: ${isProfileView}, NeedsMore: ${needsMoreContext}`);
-
-            // Structure analysis result with content sufficiency indicators
-            const analysisResult = {
-                ...analysisData,
-                // Content sufficiency metadata
-                content_sufficiency: {
-                    has_conversation: hasConversation,
-                    is_profile: isProfileView,
-                    is_empty: isEmpty,
-                    needs_more_context: needsMoreContext,
-                    message_count: conversationMessages.length,
-                    recommendation: needsMoreContext
-                        ? (isEmpty ? 'upload_profile' : 'scroll_for_more')
-                        : (isProfileView ? 'profile_opener' : 'context_response')
-                },
-                processed_at: new Date().toISOString(),
-                analysis_engine: 'gemini-vision'
+                                Return the analysis in JSON format with structured data that can be used to generate personalized flirt suggestions.`
+                            },
+                            {
+                                type: "image_url",
+                                image_url: {
+                                    url: `data:${req.file.mimetype};base64,${base64Image}`,
+                                    detail: "high"
+                                }
+                            }
+                        ]
+                    }
+                ],
+                max_tokens: 1000,
+                temperature: 0.7
             };
 
-            // If insufficient context, set special status for immediate user feedback
-            if (needsMoreContext || isEmpty) {
-                logger.warn(`⚠️ Insufficient context detected - Empty: ${isEmpty}, NeedsMore: ${needsMoreContext}`);
+            // Make REAL API call to Grok Vision
+            console.log('Making request to Grok Vision API...');
+            const grokResponse = await axios.post(grokApiUrl, grokRequestData, {
+                headers: {
+                    'Authorization': `Bearer ${process.env.GROK_API_KEY}`,
+                    'Content-Type': 'application/json'
+                },
+                timeout: 30000 // 30 second timeout
+            });
 
-                // Still save to database but with special status
-                try {
-                    await pool.query(
-                        `UPDATE screenshots
-                         SET analysis_result = $1, analysis_status = 'needs_more_context', processed_at = NOW()
-                         WHERE id = $2`,
-                        [JSON.stringify(analysisResult), screenshotId]
-                    );
-                } catch (dbError) {
-                    logger.warn('Database update failed:', { error: dbError.message });
-                }
+            if (!grokResponse.data || !grokResponse.data.choices || !grokResponse.data.choices[0]) {
+                throw new Error('Invalid response from Grok Vision API');
+            }
 
-                // Return special response indicating more context needed
-                return res.json({
-                    success: true,
-                    needs_more_context: true,
-                    data: {
-                        screenshot_id: screenshotId,
-                        analysis: analysisResult,
-                        metadata: {
-                            filename: req.file.filename,
-                            size: req.file.size,
-                            processed_at: new Date().toISOString()
-                        }
+            const analysisText = grokResponse.data.choices[0].message.content;
+
+            // Try to parse JSON from the response, fallback to structured text
+            let analysisResult;
+            try {
+                analysisResult = JSON.parse(analysisText);
+            } catch (parseError) {
+                // If JSON parsing fails, create structured data from text
+                analysisResult = {
+                    raw_analysis: analysisText,
+                    profile_analysis: "Analysis extracted from text",
+                    chat_context: "Context extracted from text",
+                    mood_assessment: "Mood extracted from text",
+                    conversation_suggestions: ["Generated from analysis"],
+                    confidence_level: 0.7,
+                    indicators: {
+                        positive: ["Extracted positive indicators"],
+                        negative: ["Extracted negative indicators"]
                     },
-                    message: isEmpty
-                        ? 'This chat appears empty. Please upload a profile photo or scroll up for more conversation context!'
-                        : 'Not enough conversation visible. Scroll up and take another screenshot for better suggestions!',
-                    action_required: isEmpty ? 'upload_profile' : 'more_screenshots',
-                    recommendation: analysisResult.content_sufficiency.recommendation
-                });
+                    processed_at: new Date().toISOString()
+                };
             }
 
             // Update screenshot with analysis results (if database is available)

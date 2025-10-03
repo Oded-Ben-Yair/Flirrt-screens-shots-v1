@@ -9,7 +9,7 @@ const axios = require('axios');
 
 class FlirtGenerator {
     constructor() {
-        this.grokApiKey = process.env.GROK_API_KEY || 'xai-MASKED_API_KEY';
+        this.grokApiKey = process.env.GROK_API_KEY || 'REMOVED_XAI_KEY';
         this.apiUrl = 'https://api.x.ai/v1/chat/completions';
         this.characterLimit = 280;
 

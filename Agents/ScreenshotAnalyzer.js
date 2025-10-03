@@ -10,7 +10,7 @@ const FormData = require('form-data');
 
 class ScreenshotAnalyzer {
     constructor() {
-        this.grokApiKey = process.env.GROK_API_KEY || 'xai-MASKED_API_KEY';
+        this.grokApiKey = process.env.GROK_API_KEY || 'REMOVED_XAI_KEY';
         this.apiUrl = 'https://api.x.ai/v1/chat/completions';
     }
 

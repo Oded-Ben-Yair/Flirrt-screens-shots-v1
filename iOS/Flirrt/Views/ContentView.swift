@@ -1,6 +1,5 @@
 import SwiftUI
 
-@MainActor
 struct ContentView: View {
     @EnvironmentObject private var authManager: AuthManager
     @EnvironmentObject private var apiClient: APIClient
@@ -114,84 +113,31 @@ struct ContentView: View {
                 }
             }
 
-            // How to Use
-            VStack(spacing: 16) {
-                Text("How to Use Flirrt")
-                    .font(.headline)
-                    .foregroundColor(.white)
-
-                VStack(alignment: .leading, spacing: 12) {
-                    HStack(alignment: .top, spacing: 12) {
-                        Text("1️⃣")
-                            .font(.title2)
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text("Enable the Keyboard")
-                                .font(.subheadline)
-                                .fontWeight(.semibold)
-                                .foregroundColor(.white)
-                            Text("Go to Settings → Keyboard → Add Flirrt")
-                                .font(.caption)
-                                .foregroundColor(.gray)
-                        }
-                    }
-
-                    HStack(alignment: .top, spacing: 12) {
-                        Text("2️⃣")
-                            .font(.title2)
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text("Switch to Flirrt")
-                                .font(.subheadline)
-                                .fontWeight(.semibold)
-                                .foregroundColor(.white)
-                            Text("Tap 🌐 globe icon in any app")
-                                .font(.caption)
-                                .foregroundColor(.gray)
-                        }
-                    }
-
-                    HStack(alignment: .top, spacing: 12) {
-                        Text("3️⃣")
-                            .font(.title2)
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text("Get AI Suggestions")
-                                .font(.subheadline)
-                                .fontWeight(.semibold)
-                                .foregroundColor(.white)
-                            Text("Tap button for personalized flirts")
-                                .font(.caption)
-                                .foregroundColor(.gray)
-                        }
-                    }
+            // Main Features
+            VStack(spacing: 12) {
+                FeatureButton(
+                    icon: "camera.fill",
+                    title: "Analyze Screenshot",
+                    description: "Get instant flirting advice"
+                ) {
+                    // TODO: Implement screenshot analysis
                 }
-                .padding()
-                .background(Color.black.opacity(0.3))
-                .cornerRadius(12)
 
-                // Open Keyboard Settings Button
-                Button(action: {
-                    if let url = URL(string: "App-Prefs:root=General&path=Keyboard/KEYBOARDS") {
-                        UIApplication.shared.open(url)
-                    }
-                }) {
-                    HStack {
-                        Image(systemName: "keyboard")
-                            .font(.title3)
+                FeatureButton(
+                    icon: "message.fill",
+                    title: "Generate Flirts",
+                    description: "AI-powered conversation starters"
+                ) {
+                    // TODO: Implement flirt generation
+                }
 
-                        Text("Open Keyboard Settings")
-                            .font(.headline)
-                            .fontWeight(.semibold)
-                    }
-                    .foregroundColor(.white)
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(
-                        LinearGradient(
-                            colors: [Color.blue, Color.purple],
-                            startPoint: .leading,
-                            endPoint: .trailing
-                        )
-                    )
-                    .cornerRadius(12)
+                FeatureButton(
+                    icon: "speaker.wave.3.fill",
+                    title: "Voice Messages",
+                    description: "Send flirts with your voice",
+                    isEnabled: sharedDataManager.currentVoiceId != nil
+                ) {
+                    // TODO: Implement voice message sending
                 }
             }
 
@@ -271,7 +217,6 @@ struct ContentView: View {
 
 // MARK: - Supporting Views
 
-@MainActor
 struct FeatureButton: View {
     let icon: String
     let title: String
@@ -321,7 +266,6 @@ struct FeatureButton: View {
     }
 }
 
-@MainActor
 struct FeaturePreview: View {
     let icon: String
     let title: String

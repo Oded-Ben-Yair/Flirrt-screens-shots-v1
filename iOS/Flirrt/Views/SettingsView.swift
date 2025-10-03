@@ -1,9 +1,7 @@
 import SwiftUI
 
-@MainActor
 struct SettingsView: View {
     @EnvironmentObject private var authManager: AuthManager
-    @EnvironmentObject private var sharedDataManager: SharedDataManager
     @State private var showingDataDeletionAlert = false
     @State private var showingLogoutAlert = false
     @State private var showingTermsAndPrivacy = false
@@ -127,37 +125,6 @@ struct SettingsView: View {
                             }
                         }
                     }
-
-                    // Developer Tools Section (Debug mode)
-                    #if DEBUG
-                    SettingsSection(title: "Developer Tools") {
-                        VStack(spacing: 0) {
-                            SettingsActionRow(
-                                icon: "camera.aperture",
-                                title: "Test Screenshot Detection",
-                                description: "Trigger test notification to keyboard",
-                                color: .blue
-                            ) {
-                                Task {
-                                    await sharedDataManager.triggerTestScreenshotNotification()
-                                }
-                            }
-
-                            SettingsDivider()
-
-                            SettingsActionRow(
-                                icon: "antenna.radiowaves.left.and.right",
-                                title: "Darwin Notifications",
-                                description: "Test keyboard extension communication",
-                                color: .purple
-                            ) {
-                                Task {
-                                    await testDarwinNotifications()
-                                }
-                            }
-                        }
-                    }
-                    #endif
 
                     // Support Section
                     SettingsSection(title: "Support") {
@@ -299,16 +266,10 @@ struct SettingsView: View {
             UIApplication.shared.open(url)
         }
     }
-
-    private func testDarwinNotifications() async {
-        await sharedDataManager.triggerTestScreenshotNotification()
-        print("🧪 Darwin notification test completed")
-    }
 }
 
 // MARK: - Supporting Views
 
-@MainActor
 struct SettingsSection<Content: View>: View {
     let title: String
     let content: Content
@@ -335,7 +296,6 @@ struct SettingsSection<Content: View>: View {
     }
 }
 
-@MainActor
 struct SettingsToggleRow: View {
     let icon: String
     let title: String
@@ -371,7 +331,6 @@ struct SettingsToggleRow: View {
     }
 }
 
-@MainActor
 struct SettingsActionRow: View {
     let icon: String
     let title: String
@@ -410,7 +369,6 @@ struct SettingsActionRow: View {
     }
 }
 
-@MainActor
 struct SettingsDivider: View {
     var body: some View {
         Divider()
@@ -419,7 +377,6 @@ struct SettingsDivider: View {
     }
 }
 
-@MainActor
 struct ConsentStatusCard: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
@@ -448,7 +405,6 @@ struct ConsentStatusCard: View {
     }
 }
 
-@MainActor
 struct ConsentItem: View {
     let title: String
     let isConsented: Bool
@@ -468,7 +424,6 @@ struct ConsentItem: View {
     }
 }
 
-@MainActor
 struct AccountInfoCard: View {
     let user: User
 
@@ -514,7 +469,6 @@ struct AccountInfoCard: View {
     }
 }
 
-@MainActor
 struct AccountInfoRow: View {
     let label: String
     let value: String
@@ -534,7 +488,6 @@ struct AccountInfoRow: View {
     }
 }
 
-@MainActor
 struct DataExportView: View {
     @Binding var isPresented: Bool
     @State private var isExporting = false
@@ -667,7 +620,6 @@ struct DataExportView: View {
     }
 }
 
-@MainActor
 struct ExportItem: View {
     let text: String
 

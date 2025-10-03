@@ -10,14 +10,13 @@ class AuthManager: NSObject, ObservableObject {
     @Published var ageVerified = false
 
     private let keychain = Keychain(service: "com.flirrt.ai")
-    private var apiClient: APIClient!
+    private let apiClient = APIClient()
 
     var currentUser: User? {
         return user
     }
 
-    @MainActor override init() {
-        self.apiClient = APIClient()
+    override init() {
         super.init()
         checkAuthStatus()
         checkAgeVerification()
@@ -43,38 +42,6 @@ class AuthManager: NSObject, ObservableObject {
         controller.performRequests()
     }
 
-    #if DEBUG
-    func signInAsTestUser() {
-        // Skip authentication for development testing
-        Task { @MainActor in
-            self.isLoading = true
-
-            // Create a test user
-            let testUser = User(
-                id: "test-user-123",
-                email: "test@flirrt.ai",
-                fullName: "Test User",
-                voiceId: nil,
-                createdAt: Date(),
-                ageVerified: true
-            )
-
-            // Simulate successful authentication
-            self.user = testUser
-            self.isAuthenticated = true
-            self.ageVerified = true
-
-            // Save test auth state
-            try? keychain.set("test-jwt-token", key: "jwt_token")
-            saveAgeVerification()
-            updateSharedAuthenticationState(isAuthenticated: true, userId: testUser.id)
-
-            self.isLoading = false
-            self.error = nil
-        }
-    }
-    #endif
-
     func verifyAge(_ birthDate: Date) {
         let calendar = Calendar.current
         let ageComponents = calendar.dateComponents([.year], from: birthDate, to: Date())
@@ -96,7 +63,6 @@ class AuthManager: NSObject, ObservableObject {
                     await MainActor.run {
                         self.isAuthenticated = true
                         self.user = response.user
-                        self.updateSharedAuthenticationState(isAuthenticated: true, userId: response.user?.id)
                     }
                 }
             } catch {
@@ -107,7 +73,7 @@ class AuthManager: NSObject, ObservableObject {
 
     private func saveAgeVerification() {
         UserDefaults.standard.set(true, forKey: "age_verified")
-        if let sharedDefaults = UserDefaults(suiteName: "group.com.flirrt.shared") {
+        if let sharedDefaults = UserDefaults(suiteName: "group.com.flirrt.ai.shared") {
             sharedDefaults.set(true, forKey: "age_verified")
         }
     }
@@ -115,23 +81,12 @@ class AuthManager: NSObject, ObservableObject {
     func logout() {
         try? keychain.remove("jwt_token")
         UserDefaults.standard.removeObject(forKey: "age_verified")
-        if let sharedDefaults = UserDefaults(suiteName: "group.com.flirrt.shared") {
+        if let sharedDefaults = UserDefaults(suiteName: "group.com.flirrt.ai.shared") {
             sharedDefaults.removeObject(forKey: "age_verified")
-            sharedDefaults.removeObject(forKey: "user_authenticated")
-            sharedDefaults.removeObject(forKey: "user_id")
         }
         isAuthenticated = false
         user = nil
         ageVerified = false
-        updateSharedAuthenticationState(isAuthenticated: false, userId: nil)
-    }
-
-    private func updateSharedAuthenticationState(isAuthenticated: Bool, userId: String?) {
-        if let sharedDefaults = UserDefaults(suiteName: "group.com.flirrt.shared") {
-            sharedDefaults.set(isAuthenticated, forKey: "user_authenticated")
-            sharedDefaults.set(userId, forKey: "user_id")
-            sharedDefaults.synchronize()
-        }
     }
 }
 
@@ -152,7 +107,6 @@ extension AuthManager: ASAuthorizationControllerDelegate {
                 await MainActor.run {
                     self.user = response.user
                     self.isAuthenticated = true
-                    self.updateSharedAuthenticationState(isAuthenticated: true, userId: response.user.id)
                 }
             } catch {
                 await MainActor.run {
@@ -169,15 +123,14 @@ extension AuthManager: ASAuthorizationControllerDelegate {
 
 extension AuthManager: ASAuthorizationControllerPresentationContextProviding {
     func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
-        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-              let window = windowScene.windows.first else {
+        guard let window = UIApplication.shared.windows.first else {
             return UIWindow()
         }
         return window
     }
 }
 
-struct User: Codable, Identifiable, Sendable {
+struct User: Codable, Identifiable {
     let id: String
     let email: String?
     let fullName: String?

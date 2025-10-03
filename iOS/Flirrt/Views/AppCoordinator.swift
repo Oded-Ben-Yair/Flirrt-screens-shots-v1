@@ -1,13 +1,10 @@
 import SwiftUI
 
-@MainActor
 struct AppCoordinator: View {
     @EnvironmentObject private var authManager: AuthManager
-    @EnvironmentObject private var sharedDataManager: SharedDataManager
 
     @State private var isOnboardingComplete = UserDefaults.standard.bool(forKey: "onboarding_complete")
     @State private var isPersonalizationComplete = UserDefaults.standard.bool(forKey: "personalization_complete")
-    @State private var showOnboardingFromKeyboard = false
 
     var body: some View {
         Group {
@@ -47,32 +44,11 @@ struct AppCoordinator: View {
             isOnboardingComplete = UserDefaults.standard.bool(forKey: "onboarding_complete")
             isPersonalizationComplete = UserDefaults.standard.bool(forKey: "personalization_complete")
         }
-        .onChange(of: sharedDataManager.onboardingRequested) { requested in
-            if requested && authManager.isAuthenticated && authManager.ageVerified {
-                // If user is authenticated and onboarding is requested from keyboard, show onboarding
-                showOnboardingFromKeyboard = true
-                isOnboardingComplete = false
-                sharedDataManager.resetOnboardingRequest()
-            }
-        }
-        .sheet(isPresented: $showOnboardingFromKeyboard) {
-            OnboardingView(isOnboardingComplete: Binding(
-                get: { isOnboardingComplete },
-                set: { value in
-                    isOnboardingComplete = value
-                    showOnboardingFromKeyboard = false
-                    if value {
-                        sharedDataManager.completeOnboarding()
-                    }
-                }
-            ))
-        }
     }
 }
 
 // MARK: - Age Verification Flow
 
-@MainActor
 struct AgeVerificationFlow: View {
     @EnvironmentObject private var authManager: AuthManager
     @State private var birthDate = Date()

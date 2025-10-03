@@ -40,10 +40,6 @@
 	</dict>
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © 2024 Flirrt AI. All rights reserved.</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Flirrt needs access to analyze your screenshots for conversation suggestions</string>
-	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>Flirrt can save generated images to your photos</string>
 	<key>NSRequiresAquaSystemAppearance</key>
 	<false/>
 </dict>

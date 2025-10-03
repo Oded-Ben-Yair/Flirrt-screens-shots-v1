@@ -62,8 +62,8 @@ in_progress: []
 
 ### API Keys
 ```yaml
-grok: "xai-MASKED_API_KEY"
-elevenlabs: "sk_MASKED_ELEVENLABS_KEY"
+grok: "REMOVED_XAI_KEY"
+elevenlabs: "REMOVED_ELEVENLABS_KEY"
 models:
   text: "grok-4-fast"
   vision: "grok-2-vision-1212"

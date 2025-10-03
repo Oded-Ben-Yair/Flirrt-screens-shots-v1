@@ -1,7 +1,6 @@
 import SwiftUI
 import AuthenticationServices
 
-@MainActor
 struct LoginView: View {
     @EnvironmentObject private var authManager: AuthManager
     @State private var showingAgeVerification = false
@@ -159,24 +158,6 @@ struct LoginView: View {
                             .foregroundColor(.gray)
                             .padding(.horizontal)
 
-                        #if DEBUG
-                        // Development Testing Button
-                        Button(action: {
-                            // Skip Apple Sign In for testing
-                            authManager.signInAsTestUser()
-                        }) {
-                            Text("Skip Sign In (Dev Testing)")
-                                .font(.caption)
-                                .foregroundColor(.orange)
-                                .padding(.vertical, 8)
-                                .padding(.horizontal, 16)
-                                .background(Color.orange.opacity(0.2))
-                                .cornerRadius(8)
-                        }
-                        .disabled(!agreedToTerms)
-                        .opacity(agreedToTerms ? 1.0 : 0.4)
-                        #endif
-
                         // Loading state
                         if authManager.isLoading {
                             ProgressView()
@@ -192,6 +173,58 @@ struct LoginView: View {
                                 .multilineTextAlignment(.center)
                                 .padding(.horizontal)
                         }
+
+                        // Simulator Testing Bypass
+                        #if targetEnvironment(simulator)
+                        VStack(spacing: 12) {
+                            Divider()
+                                .padding(.horizontal)
+
+                            Button(action: {
+                                // Set demo user in standard UserDefaults
+                                UserDefaults.standard.set("demo-user-\(UUID().uuidString)", forKey: "user_id")
+                                UserDefaults.standard.set("Demo User", forKey: "user_name")
+                                UserDefaults.standard.set("demo@flirrt.test", forKey: "user_email")
+                                UserDefaults.standard.set(true, forKey: "onboarding_completed")
+                                UserDefaults.standard.set(true, forKey: "age_verified")
+
+                                // Save to App Group for keyboard access
+                                if let sharedDefaults = UserDefaults(suiteName: "group.com.flirrt.shared") {
+                                    sharedDefaults.set("demo-user-\(UUID().uuidString)", forKey: "user_id")
+                                    sharedDefaults.set("demo-token-\(UUID().uuidString)", forKey: "auth_token")
+                                    sharedDefaults.set(true, forKey: "has_full_access")
+                                    sharedDefaults.synchronize()
+                                    print("✅ Demo user saved to App Group")
+                                }
+
+                                // Bypass authentication
+                                authManager.isAuthenticated = true
+                                authManager.ageVerified = true
+
+                                print("🎭 Running in Demo Mode")
+                            }) {
+                                HStack {
+                                    Image(systemName: "person.fill.questionmark")
+                                        .font(.title3)
+
+                                    Text("Continue as Guest (Testing)")
+                                        .font(.headline)
+                                        .fontWeight(.semibold)
+                                }
+                                .foregroundColor(.white)
+                                .frame(maxWidth: .infinity)
+                                .frame(height: 50)
+                                .background(Color.orange)
+                                .cornerRadius(12)
+                            }
+                            .padding(.horizontal)
+                            .accessibilityLabel("Continue as guest for simulator testing")
+
+                            Text("Simulator Testing Mode")
+                                .font(.caption2)
+                                .foregroundColor(.orange.opacity(0.7))
+                        }
+                        #endif
                     }
 
                     Spacer(minLength: 40)
@@ -218,7 +251,6 @@ struct LoginView: View {
 
 // MARK: - Supporting Views
 
-@MainActor
 struct FeatureHighlight: View {
     let icon: String
     let title: String
@@ -252,7 +284,6 @@ struct FeatureHighlight: View {
     }
 }
 
-@MainActor
 struct AgeVerificationView: View {
     @Binding var birthDate: Date
     let onConfirm: () -> Void
@@ -331,7 +362,6 @@ struct AgeVerificationView: View {
     }
 }
 
-@MainActor
 struct TermsAndPrivacyView: View {
     @Binding var showingTerms: Bool
     @Binding var showingPrivacy: Bool

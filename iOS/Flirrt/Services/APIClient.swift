@@ -1,238 +1,25 @@
 import Foundation
 import Alamofire
 import UIKit
-import OSLog
 
-@MainActor
-final class APIClient: ObservableObject {
+class APIClient: ObservableObject {
     static let shared = APIClient()
 
     private let baseURL = "http://localhost:3000/api/v1"
     private let session: Session
-    private let logger = Logger(subsystem: "com.flirrt.app", category: "APIClient")
 
     @Published var isLoading = false
     @Published var error: Error?
-
-    // Task management for cancellation
-    private var activeTasks = Set<Task<Void, Never>>()
-
-    // Actor for thread-safe network operations
-    private actor NetworkManager {
-        private var requestCount: Int = 0
-
-        func incrementRequests() -> Int {
-            requestCount += 1
-            return requestCount
-        }
-
-        func getRequestCount() -> Int {
-            return requestCount
-        }
-    }
-
-    private let networkManager = NetworkManager()
 
     init() {
         let configuration = URLSessionConfiguration.default
         configuration.timeoutIntervalForRequest = 30
         configuration.timeoutIntervalForResource = 60
         self.session = Session(configuration: configuration)
-        logger.info("APIClient initialized with base URL: \(self.baseURL)")
-    }
-
-    deinit {
-        for task in activeTasks {
-            task.cancel()
-        }
-        logger.info("APIClient deinitialized")
-    }
-
-    func cancelAllTasks() {
-        for task in activeTasks {
-            task.cancel()
-        }
-        activeTasks.removeAll()
-        logger.info("Cancelled all active tasks")
-    }
-
-    // MARK: - Batch Operations with TaskGroup
-
-    /// Perform multiple API operations concurrently using TaskGroup
-    func performBatchOperations<T: Sendable>(
-        operations: [() async throws -> T]
-    ) async throws -> [Result<T, Error>] {
-        return try await withThrowingTaskGroup(of: Result<T, Error>.self) { group in
-            // Add all operations to the task group
-            for operation in operations {
-                group.addTask {
-                    do {
-                        let result = try await operation()
-                        return .success(result)
-                    } catch {
-                        return .failure(error)
-                    }
-                }
-            }
-
-            // Collect results as they complete
-            var results: [Result<T, Error>] = []
-            for try await result in group {
-                results.append(result)
-            }
-            return results
-        }
-    }
-
-    /// Analyze multiple screenshots concurrently
-    func analyzeMultipleScreenshots(
-        imageDataArray: [Data],
-        userId: String,
-        context: AnalysisContext? = nil
-    ) async throws -> [ScreenshotAnalysis] {
-        let operations = imageDataArray.map { imageData in
-            { [weak self] in
-                guard let self = self else { throw APIError.clientUnavailable }
-                return try await self.analyzeScreenshot(imageData: imageData, userId: userId, context: context)
-            }
-        }
-
-        let results = try await performBatchOperations(operations: operations)
-
-        // Extract successful results and log failures
-        return results.compactMap { result in
-            switch result {
-            case .success(let analysis):
-                return analysis
-            case .failure(let error):
-                logger.error("Screenshot analysis failed: \(error.localizedDescription)")
-                return nil
-            }
-        }
-    }
-
-    /// Generate flirts for multiple analysis results concurrently
-    func generateFlirtsForMultipleAnalyses(
-        analysisIds: [String],
-        tone: String = "playful",
-        count: Int = 3
-    ) async throws -> [FlirtResponse] {
-        let operations = analysisIds.map { analysisId in
-            { [weak self] in
-                guard let self = self else { throw APIError.clientUnavailable }
-                return try await self.generateFlirts(analysisId: analysisId, tone: tone, count: count)
-            }
-        }
-
-        let results = try await performBatchOperations(operations: operations)
-
-        return results.compactMap { result in
-            switch result {
-            case .success(let flirtResponse):
-                return flirtResponse
-            case .failure(let error):
-                logger.error("Flirt generation failed: \(error.localizedDescription)")
-                return nil
-            }
-        }
-    }
-
-    /// Synthesize voice for multiple text inputs concurrently
-    func synthesizeMultipleVoices(
-        texts: [String],
-        voiceId: String,
-        emotion: String = "confident"
-    ) async throws -> [VoiceResponse] {
-        let operations = texts.map { text in
-            { [weak self] in
-                guard let self = self else { throw APIError.clientUnavailable }
-                return try await self.synthesizeVoice(text: text, voiceId: voiceId, emotion: emotion)
-            }
-        }
-
-        let results = try await performBatchOperations(operations: operations)
-
-        return results.compactMap { result in
-            switch result {
-            case .success(let voiceResponse):
-                return voiceResponse
-            case .failure(let error):
-                logger.error("Voice synthesis failed: \(error.localizedDescription)")
-                return nil
-            }
-        }
-    }
-
-    /// Process complete workflow: Analysis -> Flirt Generation -> Voice Synthesis
-    func processCompleteWorkflow(
-        imageData: Data,
-        userId: String,
-        voiceId: String,
-        context: AnalysisContext? = nil,
-        tone: String = "playful",
-        emotion: String = "confident"
-    ) async throws -> WorkflowResult {
-        return try await withThrowingTaskGroup(of: Void.self) { group in
-            var analysis: ScreenshotAnalysis?
-            var flirtResponse: FlirtResponse?
-            var voiceResponses: [VoiceResponse] = []
-
-            // Step 1: Analyze screenshot
-            group.addTask { @MainActor in
-                self.isLoading = true
-                analysis = try await self.analyzeScreenshot(imageData: imageData, userId: userId, context: context)
-            }
-
-            try await group.next()
-
-            guard let analysisResult = analysis else {
-                throw APIError.analysisRequired
-            }
-
-            // Step 2: Generate flirts based on analysis
-            group.addTask {
-                flirtResponse = try await self.generateFlirts(
-                    analysisId: analysisResult.analysisId,
-                    tone: tone
-                )
-            }
-
-            try await group.next()
-
-            guard let flirts = flirtResponse else {
-                throw APIError.flirtGenerationRequired
-            }
-
-            // Step 3: Synthesize voice for all flirt suggestions
-            let flirtTexts = flirts.suggestions.map { $0.text }
-
-            group.addTask {
-                voiceResponses = try await self.synthesizeMultipleVoices(
-                    texts: flirtTexts,
-                    voiceId: voiceId,
-                    emotion: emotion
-                )
-            }
-
-            try await group.next()
-
-            await MainActor.run {
-                self.isLoading = false
-            }
-
-            return WorkflowResult(
-                analysis: analysisResult,
-                flirts: flirts,
-                voiceResponses: voiceResponses
-            )
-        }
     }
 
     // MARK: - Authentication
     func authenticateWithApple(userIdentifier: String, identityToken: Data?, authorizationCode: Data?) async throws -> AuthResponse {
-        let requestId = await networkManager.incrementRequests()
-        logger.info("Starting Apple authentication request #\(requestId) for user: \(userIdentifier)")
-
         let parameters: [String: Any] = [
             "userIdentifier": userIdentifier,
             "identityToken": identityToken?.base64EncodedString() ?? "",
@@ -248,10 +35,10 @@ final class APIClient: ObservableObject {
                 .responseDecodable(of: AuthResponse.self) { response in
                     switch response.result {
                     case .success(let authResponse):
-                        self.logger.info("Apple authentication successful for request #\(requestId)")
                         continuation.resume(returning: authResponse)
                     case .failure(let error):
-                        self.logger.error("Apple authentication failed for request #\(requestId): \(error.localizedDescription)")
+                        // REAL ERROR - NO FALLBACK
+                        print("REAL API ERROR - Apple Auth Failed: \(error)")
                         continuation.resume(throwing: error)
                     }
                 }
@@ -259,8 +46,6 @@ final class APIClient: ObservableObject {
     }
 
     func validateToken(_ token: String) async throws -> ValidationResponse {
-        let requestId = await networkManager.incrementRequests()
-        logger.info("Starting token validation request #\(requestId)")
         return try await withCheckedThrowingContinuation { continuation in
             session.request("\(baseURL)/auth/validate",
                           method: .post,
@@ -269,10 +54,9 @@ final class APIClient: ObservableObject {
                 .responseDecodable(of: ValidationResponse.self) { response in
                     switch response.result {
                     case .success(let validationResponse):
-                        self.logger.info("Token validation successful for request #\(requestId)")
                         continuation.resume(returning: validationResponse)
                     case .failure(let error):
-                        self.logger.error("Token validation failed for request #\(requestId): \(error.localizedDescription)")
+                        print("REAL API ERROR - Token Validation Failed: \(error)")
                         continuation.resume(throwing: error)
                     }
                 }
@@ -281,8 +65,6 @@ final class APIClient: ObservableObject {
 
     // MARK: - Screenshot Analysis (REAL GROK API)
     func analyzeScreenshot(imageData: Data, userId: String, context: AnalysisContext? = nil) async throws -> ScreenshotAnalysis {
-        let requestId = await networkManager.incrementRequests()
-        logger.info("Starting screenshot analysis request #\(requestId) for user: \(userId)")
         let formData = MultipartFormData()
 
         // Add image
@@ -303,10 +85,12 @@ final class APIClient: ObservableObject {
                 .responseDecodable(of: ScreenshotAnalysis.self) { response in
                     switch response.result {
                     case .success(let analysis):
-                        self.logger.info("Screenshot analysis successful for request #\(requestId): Confidence = \(analysis.confidenceScore)")
+                        print("REAL GROK ANALYSIS SUCCESS: Confidence = \(analysis.confidenceScore)")
                         continuation.resume(returning: analysis)
                     case .failure(let error):
-                        self.logger.error("Screenshot analysis failed for request #\(requestId): \(error.localizedDescription)")
+                        // REAL ERROR FROM GROK - NO MOCK
+                        print("REAL GROK API ERROR: \(error)")
+                        print("Response: \(response.data?.string ?? "No data")")
                         continuation.resume(throwing: error)
                     }
                 }
@@ -315,8 +99,6 @@ final class APIClient: ObservableObject {
 
     // MARK: - Flirt Generation (REAL GROK API)
     func generateFlirts(analysisId: String, tone: String = "playful", count: Int = 3) async throws -> FlirtResponse {
-        let requestId = await networkManager.incrementRequests()
-        logger.info("Starting flirt generation request #\(requestId) for analysis: \(analysisId)")
         let parameters: [String: Any] = [
             "analysis_id": analysisId,
             "tone_preference": tone,
@@ -337,10 +119,10 @@ final class APIClient: ObservableObject {
                 .responseDecodable(of: FlirtResponse.self) { response in
                     switch response.result {
                     case .success(let flirtResponse):
-                        self.logger.info("Flirt generation successful for request #\(requestId): \(flirtResponse.suggestions.count) suggestions")
+                        print("REAL GROK FLIRTS GENERATED: \(flirtResponse.suggestions.count) suggestions")
                         continuation.resume(returning: flirtResponse)
                     case .failure(let error):
-                        self.logger.error("Flirt generation failed for request #\(requestId): \(error.localizedDescription)")
+                        print("REAL GROK FLIRT GENERATION ERROR: \(error)")
                         continuation.resume(throwing: error)
                     }
                 }
@@ -349,8 +131,6 @@ final class APIClient: ObservableObject {
 
     // MARK: - Voice Synthesis (REAL ELEVENLABS API)
     func synthesizeVoice(text: String, voiceId: String, emotion: String = "confident") async throws -> VoiceResponse {
-        let requestId = await networkManager.incrementRequests()
-        logger.info("Starting voice synthesis request #\(requestId) for voice: \(voiceId)")
         let parameters: [String: Any] = [
             "text": text,
             "user_voice_id": voiceId,
@@ -371,10 +151,11 @@ final class APIClient: ObservableObject {
                 .responseDecodable(of: VoiceResponse.self) { response in
                     switch response.result {
                     case .success(let voiceResponse):
-                        self.logger.info("Voice synthesis successful for request #\(requestId): Duration \(voiceResponse.durationSeconds)s")
+                        print("REAL ELEVENLABS SUCCESS: Audio URL = \(voiceResponse.audioURL)")
+                        print("Duration: \(voiceResponse.durationSeconds)s, Size: \(voiceResponse.fileSizeMB)MB")
                         continuation.resume(returning: voiceResponse)
                     case .failure(let error):
-                        self.logger.error("Voice synthesis failed for request #\(requestId): \(error.localizedDescription)")
+                        print("REAL ELEVENLABS API ERROR: \(error)")
                         continuation.resume(throwing: error)
                     }
                 }
@@ -383,8 +164,6 @@ final class APIClient: ObservableObject {
 
     // MARK: - Voice Clone Upload (REAL ELEVENLABS)
     func uploadVoiceClone(audioData: Data, userId: String) async throws -> VoiceCloneResponse {
-        let requestId = await networkManager.incrementRequests()
-        logger.info("Starting voice clone upload request #\(requestId) for user: \(userId)")
         let formData = MultipartFormData()
 
         formData.append(audioData, withName: "voice_sample", fileName: "voice.m4a", mimeType: "audio/mp4")
@@ -396,10 +175,10 @@ final class APIClient: ObservableObject {
                 .responseDecodable(of: VoiceCloneResponse.self) { response in
                     switch response.result {
                     case .success(let cloneResponse):
-                        self.logger.info("Voice clone upload successful for request #\(requestId): Voice ID = \(cloneResponse.voiceId)")
+                        print("REAL ELEVENLABS CLONE SUCCESS: Voice ID = \(cloneResponse.voiceId)")
                         continuation.resume(returning: cloneResponse)
                     case .failure(let error):
-                        self.logger.error("Voice clone upload failed for request #\(requestId): \(error.localizedDescription)")
+                        print("REAL ELEVENLABS CLONE ERROR: \(error)")
                         continuation.resume(throwing: error)
                     }
                 }
@@ -408,8 +187,6 @@ final class APIClient: ObservableObject {
 
     // MARK: - User Data Deletion (GDPR Compliance)
     func deleteUserData(userId: String, deletionType: String = "complete") async throws -> DeletionResponse {
-        let requestId = await networkManager.incrementRequests()
-        logger.info("Starting user data deletion request #\(requestId) for user: \(userId)")
         let parameters: [String: Any] = [
             "deletion_type": deletionType,
             "verification": [
@@ -428,10 +205,9 @@ final class APIClient: ObservableObject {
                 .responseDecodable(of: DeletionResponse.self) { response in
                     switch response.result {
                     case .success(let deletionResponse):
-                        self.logger.info("User data deletion successful for request #\(requestId): Status = \(deletionResponse.status)")
                         continuation.resume(returning: deletionResponse)
                     case .failure(let error):
-                        self.logger.error("User data deletion failed for request #\(requestId): \(error.localizedDescription)")
+                        print("REAL DELETION ERROR: \(error)")
                         continuation.resume(throwing: error)
                     }
                 }
@@ -439,18 +215,18 @@ final class APIClient: ObservableObject {
     }
 }
 
-// MARK: - Concurrency-Safe Response Models
-struct AuthResponse: Codable, Sendable {
+// MARK: - Response Models
+struct AuthResponse: Codable {
     let token: String
     let user: User
 }
 
-struct ValidationResponse: Codable, Sendable {
+struct ValidationResponse: Codable {
     let valid: Bool
     let user: User?
 }
 
-struct ScreenshotAnalysis: Codable, Sendable {
+struct ScreenshotAnalysis: Codable {
     let analysisId: String
     let conversationAnalysis: ConversationAnalysis
     let personalizationData: PersonalizationData?
@@ -468,7 +244,7 @@ struct ScreenshotAnalysis: Codable, Sendable {
     }
 }
 
-struct ConversationAnalysis: Codable, Sendable {
+struct ConversationAnalysis: Codable {
     let conversationStage: String
     let otherPersonInterestLevel: String
     let conversationTone: String
@@ -484,7 +260,7 @@ struct ConversationAnalysis: Codable, Sendable {
     }
 }
 
-struct PersonalityIndicators: Codable, Sendable {
+struct PersonalityIndicators: Codable {
     let humorAppreciation: String
     let directnessPreference: String
     let intelligenceLevel: String
@@ -496,7 +272,7 @@ struct PersonalityIndicators: Codable, Sendable {
     }
 }
 
-struct PersonalizationData: Codable, Sendable {
+struct PersonalizationData: Codable {
     let userHumorStyle: String?
     let successfulTopics: [String]?
     let optimalDirectness: String?
@@ -508,7 +284,7 @@ struct PersonalizationData: Codable, Sendable {
     }
 }
 
-struct FlirtResponse: Codable, Sendable {
+struct FlirtResponse: Codable {
     let suggestions: [FlirtSuggestion]
     let refreshAvailable: Bool
     let personalizationUpdated: Bool
@@ -520,7 +296,7 @@ struct FlirtResponse: Codable, Sendable {
     }
 }
 
-struct FlirtSuggestion: Codable, Sendable {
+struct FlirtSuggestion: Codable {
     let id: String
     let text: String
     let tone: String
@@ -538,7 +314,7 @@ struct FlirtSuggestion: Codable, Sendable {
     }
 }
 
-struct VoiceResponse: Codable, Sendable {
+struct VoiceResponse: Codable {
     let audioURL: String
     let durationSeconds: Double
     let fileSizeMB: Double
@@ -554,7 +330,7 @@ struct VoiceResponse: Codable, Sendable {
     }
 }
 
-struct VoiceCloneResponse: Codable, Sendable {
+struct VoiceCloneResponse: Codable {
     let voiceId: String
     let status: String
     let processingTime: Int
@@ -566,7 +342,7 @@ struct VoiceCloneResponse: Codable, Sendable {
     }
 }
 
-struct DeletionResponse: Codable, Sendable {
+struct DeletionResponse: Codable {
     let deletionId: String
     let status: String
     let estimatedCompletion: Date
@@ -578,7 +354,7 @@ struct DeletionResponse: Codable, Sendable {
     }
 }
 
-struct AnalysisContext: Codable, Sendable {
+struct AnalysisContext: Codable {
     let relationshipGoal: String
     let userBio: String?
     let platform: String?
@@ -589,25 +365,6 @@ struct AnalysisContext: Codable, Sendable {
         case platform
     }
 }
-
-// MARK: - Workflow Result
-struct WorkflowResult: Sendable {
-    let analysis: ScreenshotAnalysis
-    let flirts: FlirtResponse
-    let voiceResponses: [VoiceResponse]
-}
-
-// MARK: - API Errors
-enum APIError: Error, Sendable {
-    case clientUnavailable
-    case analysisRequired
-    case flirtGenerationRequired
-    case networkUnavailable
-    case invalidResponse
-    case taskCancelled
-}
-
-// User model is defined in AuthManager.swift
 
 // Helper extension
 extension Data {

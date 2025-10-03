@@ -47,5 +47,9 @@ coverage/
 # Temporary
 tmp/
 temp/
-*.tmpiOS/.build/
+*.tmp
+
+# Xcode Build Artifacts
+iOS/.build/
 iOS/SourcePackages/
+TestResults/

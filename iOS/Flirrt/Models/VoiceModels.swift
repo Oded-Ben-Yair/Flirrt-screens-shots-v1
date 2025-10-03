@@ -2,28 +2,15 @@ import Foundation
 import AVFoundation
 
 // MARK: - Voice Clone Model
-struct VoiceClone: Codable, Identifiable, Sendable {
+struct VoiceClone: Codable, Identifiable {
     let id: String
     let name: String
-    let description: String?
     let status: VoiceCloneStatus
     let createdAt: Date
     let quality: VoiceQuality
     let sampleDuration: TimeInterval
     let fileSize: Int64
     let elevenLabsVoiceId: String?
-
-    init(id: String, name: String, description: String? = nil, status: VoiceCloneStatus = .ready, createdAt: Date = Date(), quality: VoiceQuality = .good, sampleDuration: TimeInterval = 0, fileSize: Int64 = 0, elevenLabsVoiceId: String? = nil) {
-        self.id = id
-        self.name = name
-        self.description = description
-        self.status = status
-        self.createdAt = createdAt
-        self.quality = quality
-        self.sampleDuration = sampleDuration
-        self.fileSize = fileSize
-        self.elevenLabsVoiceId = elevenLabsVoiceId
-    }
 
     var isReady: Bool {
         return status == .ready && elevenLabsVoiceId != nil
@@ -57,7 +44,7 @@ struct VoiceClone: Codable, Identifiable, Sendable {
 }
 
 // MARK: - Voice Clone Status
-enum VoiceCloneStatus: String, Codable, CaseIterable, Sendable {
+enum VoiceCloneStatus: String, Codable, CaseIterable {
     case processing = "processing"
     case ready = "ready"
     case failed = "failed"
@@ -65,7 +52,7 @@ enum VoiceCloneStatus: String, Codable, CaseIterable, Sendable {
 }
 
 // MARK: - Voice Quality
-enum VoiceQuality: String, Codable, CaseIterable, Sendable {
+enum VoiceQuality: String, Codable, CaseIterable {
     case excellent = "excellent"
     case good = "good"
     case fair = "fair"
@@ -99,7 +86,7 @@ enum VoiceQuality: String, Codable, CaseIterable, Sendable {
 }
 
 // MARK: - Voice Recording Model
-struct VoiceRecording: Codable, Identifiable, Sendable {
+struct VoiceRecording: Codable, Identifiable {
     let id: String
     let fileName: String
     let fileURL: URL
@@ -129,7 +116,7 @@ struct VoiceRecording: Codable, Identifiable, Sendable {
 }
 
 // MARK: - Voice Synthesis Request
-struct VoiceSynthesisRequest: Codable, Sendable {
+struct VoiceSynthesisRequest: Codable {
     let text: String
     let voiceId: String
     let emotion: VoiceEmotion
@@ -148,7 +135,7 @@ struct VoiceSynthesisRequest: Codable, Sendable {
 }
 
 // MARK: - Voice Emotion
-enum VoiceEmotion: String, Codable, CaseIterable, Sendable {
+enum VoiceEmotion: String, Codable, CaseIterable {
     case confident = "confident"
     case playful = "playful"
     case seductive = "seductive"
@@ -179,7 +166,7 @@ enum VoiceEmotion: String, Codable, CaseIterable, Sendable {
 }
 
 // MARK: - Voice Speed
-enum VoiceSpeed: String, Codable, CaseIterable, Sendable {
+enum VoiceSpeed: String, Codable, CaseIterable {
     case slow = "slow"
     case normal = "normal"
     case fast = "fast"
@@ -201,7 +188,7 @@ enum VoiceSpeed: String, Codable, CaseIterable, Sendable {
 }
 
 // MARK: - Audio Configuration
-struct AudioConfiguration: Sendable {
+struct AudioConfiguration {
     static let defaultSampleRate: Double = 44100
     static let defaultChannels: Int = 1
     static let defaultBitRate: Int = 128000
@@ -221,7 +208,7 @@ struct AudioConfiguration: Sendable {
 }
 
 // MARK: - Voice Recording Statistics
-struct VoiceRecordingStats: Codable, Sendable {
+struct VoiceRecordingStats: Codable {
     let totalRecordings: Int
     let totalDuration: TimeInterval
     let averageQuality: VoiceQuality
@@ -247,7 +234,7 @@ struct VoiceRecordingStats: Codable, Sendable {
 }
 
 // MARK: - Voice Clone Creation Request
-struct VoiceCloneCreationRequest: Sendable {
+struct VoiceCloneCreationRequest {
     let audioData: Data
     let name: String
     let description: String?
@@ -262,7 +249,7 @@ struct VoiceCloneCreationRequest: Sendable {
 }
 
 // MARK: - ElevenLabs Voice Settings
-struct ElevenLabsVoiceSettings: Codable, Sendable {
+struct ElevenLabsVoiceSettings: Codable {
     let stability: Double
     let similarityBoost: Double
     let style: Double?
@@ -280,93 +267,122 @@ struct ElevenLabsVoiceSettings: Codable, Sendable {
     static let creative = ElevenLabsVoiceSettings(stability: 0.60, similarityBoost: 0.90)
 }
 
-// MARK: - Voice Script Model
-struct VoiceScript: Codable, Identifiable, Sendable {
+// MARK: - Voice Script Models
+struct VoiceScript: Identifiable, Codable {
     let id: String
     let title: String
+    let text: String
     let content: String
     let category: ScriptCategory
-    let emotion: VoiceEmotion
-    let estimatedDuration: TimeInterval
     let difficulty: ScriptDifficulty
+    let duration: TimeInterval
+    let tips: String
     let tags: [String]
     let icon: String
+    let emotion: VoiceEmotion
 
-    init(id: String = UUID().uuidString, title: String, content: String, category: ScriptCategory, emotion: VoiceEmotion, estimatedDuration: TimeInterval, difficulty: ScriptDifficulty, tags: [String] = [], icon: String) {
+    init(id: String = UUID().uuidString, title: String, text: String, category: ScriptCategory, difficulty: ScriptDifficulty, duration: TimeInterval, tips: String = "", tags: [String] = [], content: String? = nil, icon: String? = nil, emotion: VoiceEmotion? = nil) {
         self.id = id
         self.title = title
-        self.content = content
+        self.text = text
+        self.content = content ?? text
         self.category = category
-        self.emotion = emotion
-        self.estimatedDuration = estimatedDuration
         self.difficulty = difficulty
+        self.duration = duration
+        self.tips = tips
         self.tags = tags
-        self.icon = icon
+        self.icon = icon ?? category.icon
+        self.emotion = emotion ?? .confident
     }
 
     var formattedDuration: String {
-        let minutes = Int(estimatedDuration) / 60
-        let seconds = Int(estimatedDuration) % 60
-        return String(format: "%d:%02d", minutes, seconds)
+        let minutes = Int(duration) / 60
+        let seconds = Int(duration) % 60
+        if minutes > 0 {
+            return "\(minutes)m \(seconds)s"
+        } else {
+            return "\(seconds)s"
+        }
     }
+
+    static let predefinedScripts: [VoiceScript] = [
+        VoiceScript(
+            title: "Introduction",
+            text: "Hi, I'm excited to get to know you better. Tell me about yourself.",
+            category: .introduction,
+            difficulty: .beginner,
+            duration: 10,
+            tips: "Speak naturally and with enthusiasm",
+            tags: ["intro", "casual"]
+        ),
+        VoiceScript(
+            title: "Casual Greeting",
+            text: "Hey there! How's your day going?",
+            category: .casual,
+            difficulty: .beginner,
+            duration: 8,
+            tips: "Keep it light and friendly",
+            tags: ["greeting", "friendly"]
+        ),
+        VoiceScript(
+            title: "Flirty Compliment",
+            text: "I have to say, your smile really caught my attention.",
+            category: .flirty,
+            difficulty: .intermediate,
+            duration: 12,
+            tips: "Be confident but not overwhelming",
+            tags: ["compliment", "bold"]
+        )
+    ]
 }
 
-// MARK: - Script Category
-enum ScriptCategory: String, Codable, CaseIterable, Sendable {
+enum ScriptCategory: String, Codable, CaseIterable {
     case introduction = "introduction"
-    case conversation = "conversation"
-    case storytelling = "storytelling"
-    case practice = "practice"
-    case custom = "custom"
+    case casual = "casual"
+    case flirty = "flirty"
+    case confident = "confident"
+    case playful = "playful"
+    case romantic = "romantic"
 
     var displayName: String {
-        switch self {
-        case .introduction:
-            return "Introduction"
-        case .conversation:
-            return "Conversation"
-        case .storytelling:
-            return "Storytelling"
-        case .practice:
-            return "Practice"
-        case .custom:
-            return "Custom"
-        }
+        return rawValue.capitalized
     }
 
     var description: String {
         switch self {
-        case .introduction:
-            return "Scripts for personal introductions and self-presentation"
-        case .conversation:
-            return "Natural conversation starters and responses"
-        case .storytelling:
-            return "Engaging stories and anecdotes"
-        case .practice:
-            return "Voice training and pronunciation exercises"
-        case .custom:
-            return "Your own personalized scripts"
+        case .introduction: return "First impressions matter"
+        case .casual: return "Keep it light and easy"
+        case .flirty: return "Show your interest"
+        case .confident: return "Bold and assertive"
+        case .playful: return "Fun and lighthearted"
+        case .romantic: return "Express your feelings"
+        }
+    }
+
+    var icon: String {
+        switch self {
+        case .introduction: return "hand.wave.fill"
+        case .casual: return "bubble.left"
+        case .flirty: return "heart.fill"
+        case .confident: return "star.fill"
+        case .playful: return "face.smiling"
+        case .romantic: return "heart.circle.fill"
         }
     }
 
     var color: String {
         switch self {
-        case .introduction:
-            return "blue"
-        case .conversation:
-            return "green"
-        case .storytelling:
-            return "purple"
-        case .practice:
-            return "orange"
-        case .custom:
-            return "pink"
+        case .introduction: return "blue"
+        case .casual: return "green"
+        case .flirty: return "pink"
+        case .confident: return "purple"
+        case .playful: return "orange"
+        case .romantic: return "red"
         }
     }
 }
 
-// MARK: - Script Difficulty
-enum ScriptDifficulty: String, Codable, CaseIterable, Sendable {
+enum ScriptDifficulty: String, Codable, CaseIterable {
     case beginner = "beginner"
     case intermediate = "intermediate"
     case advanced = "advanced"
@@ -375,151 +391,19 @@ enum ScriptDifficulty: String, Codable, CaseIterable, Sendable {
         return rawValue.capitalized
     }
 
-    var stars: Int {
-        switch self {
-        case .beginner:
-            return 1
-        case .intermediate:
-            return 2
-        case .advanced:
-            return 3
-        }
-    }
-
     var color: String {
         switch self {
-        case .beginner:
-            return "green"
-        case .intermediate:
-            return "yellow"
-        case .advanced:
-            return "red"
-        }
-    }
-}
-
-// MARK: - Voice Request Model
-struct VoiceRequest: Codable, Sendable {
-    let text: String
-    let voiceId: String
-    let timestamp: Date
-
-    init(text: String, voiceId: String, timestamp: Date = Date()) {
-        self.text = text
-        self.voiceId = voiceId
-        self.timestamp = timestamp
-    }
-}
-
-// MARK: - Concurrent Operations Support
-struct ConcurrentVoiceOperations: Sendable {
-    static func processMultipleVoiceClones(_ clones: [VoiceClone]) async throws -> [VoiceClone] {
-        return try await withThrowingTaskGroup(of: VoiceClone.self) { group in
-            for clone in clones {
-                group.addTask {
-                    // Simulate processing time
-                    try await Task.sleep(nanoseconds: UInt64.random(in: 100_000_000...500_000_000))
-                    return clone
-                }
-            }
-
-            var processedClones: [VoiceClone] = []
-            for try await clone in group {
-                processedClones.append(clone)
-            }
-            return processedClones
+        case .beginner: return "green"
+        case .intermediate: return "orange"
+        case .advanced: return "red"
         }
     }
 
-    static func validateMultipleRecordings(_ recordings: [VoiceRecording]) async -> [VoiceRecording] {
-        return await withTaskGroup(of: VoiceRecording?.self) { group in
-            for recording in recordings {
-                group.addTask {
-                    // Simulate validation
-                    try? await Task.sleep(nanoseconds: 50_000_000)
-                    return recording.duration >= 1.0 ? recording : nil
-                }
-            }
-
-            var validRecordings: [VoiceRecording] = []
-            for await validRecording in group {
-                if let recording = validRecording {
-                    validRecordings.append(recording)
-                }
-            }
-            return validRecordings
+    var stars: Int {
+        switch self {
+        case .beginner: return 1
+        case .intermediate: return 2
+        case .advanced: return 3
         }
-    }
-}
-
-// MARK: - Predefined Voice Scripts
-extension VoiceScript {
-    static let predefinedScripts: [VoiceScript] = [
-        VoiceScript(
-            title: "Confident Introduction",
-            content: "Hey there! I'm someone who believes life's too short for boring conversations. I love exploring new places, trying foods I can't pronounce, and finding the humor in everyday situations. What about you - what makes you laugh the most?",
-            category: .introduction,
-            emotion: .confident,
-            estimatedDuration: 15.0,
-            difficulty: .beginner,
-            tags: ["confident", "introduction", "humor"],
-            icon: "person.badge.plus"
-        ),
-
-        VoiceScript(
-            title: "Playful Conversation Starter",
-            content: "Okay, I have to ask - if you could only eat one food for the rest of your life, what would it be? And please don't say pizza because that's basically cheating! I'm genuinely curious about your survival food strategy.",
-            category: .conversation,
-            emotion: .playful,
-            estimatedDuration: 12.0,
-            difficulty: .beginner,
-            tags: ["playful", "question", "food"],
-            icon: "bubble.left.and.bubble.right"
-        ),
-
-        VoiceScript(
-            title: "Mysterious Story",
-            content: "So this happened to me last week, and I still can't believe it. I was walking through the city when I noticed someone following me - but not in a creepy way, more like... they were copying every turn I made. Turns out, they were just using the same GPS route to the same coffee shop. We ended up laughing about it over lattes.",
-            category: .storytelling,
-            emotion: .mysterious,
-            estimatedDuration: 20.0,
-            difficulty: .intermediate,
-            tags: ["mysterious", "story", "coincidence"],
-            icon: "book.closed"
-        ),
-
-        VoiceScript(
-            title: "Seductive Charm",
-            content: "There's something I find incredibly attractive about someone who can make me laugh without even trying. The way you see the world, your perspective on things... it's refreshing. I'd love to know what goes on in that beautiful mind of yours.",
-            category: .conversation,
-            emotion: .seductive,
-            estimatedDuration: 14.0,
-            difficulty: .advanced,
-            tags: ["seductive", "compliment", "charm"],
-            icon: "heart.text.square"
-        ),
-
-        VoiceScript(
-            title: "Voice Training Exercise",
-            content: "Let's practice some voice control techniques. Take a deep breath and speak slowly: 'Red leather, yellow leather, red leather, yellow leather.' Now try varying your tone from low to high: 'The quick brown fox jumps over the lazy dog.' Remember to breathe from your diaphragm and project your voice clearly.",
-            category: .practice,
-            emotion: .casual,
-            estimatedDuration: 25.0,
-            difficulty: .intermediate,
-            tags: ["training", "practice", "pronunciation"],
-            icon: "waveform"
-        )
-    ]
-
-    static func script(for category: ScriptCategory) -> [VoiceScript] {
-        return predefinedScripts.filter { $0.category == category }
-    }
-
-    static func script(for emotion: VoiceEmotion) -> [VoiceScript] {
-        return predefinedScripts.filter { $0.emotion == emotion }
-    }
-
-    static func script(for difficulty: ScriptDifficulty) -> [VoiceScript] {
-        return predefinedScripts.filter { $0.difficulty == difficulty }
     }
 }

@@ -2,14 +2,16 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>com.apple.security.application-groups</key>
-	<array>
-		<string>group.com.flirrt.shared</string>
-	</array>
-	<key>keychain-access-groups</key>
-	<array>
-		<string>$(AppIdentifierPrefix)com.flirrt.app.share</string>
-		<string>$(AppIdentifierPrefix)group.com.flirrt.shared</string>
-	</array>
+    <!-- App Groups for sharing data with main app -->
+    <key>com.apple.security.application-groups</key>
+    <array>
+        <string>group.com.flirrt.ai.shared</string>
+    </array>
+
+    <!-- Keychain Access Groups (optional, for sharing keychain data) -->
+    <key>keychain-access-groups</key>
+    <array>
+        <string>$(AppIdentifierPrefix)com.flirrt.ai.keychain</string>
+    </array>
 </dict>
 </plist>

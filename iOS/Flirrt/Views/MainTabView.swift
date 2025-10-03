@@ -1,6 +1,5 @@
 import SwiftUI
 
-@MainActor
 struct MainTabView: View {
     @EnvironmentObject private var authManager: AuthManager
     @EnvironmentObject private var apiClient: APIClient
@@ -71,7 +70,6 @@ struct MainTabView: View {
 
 // MARK: - Home View
 
-@MainActor
 struct HomeView: View {
     @EnvironmentObject private var authManager: AuthManager
     @EnvironmentObject private var sharedDataManager: SharedDataManager
@@ -214,7 +212,6 @@ struct HomeView: View {
 
 // MARK: - Supporting Views
 
-@MainActor
 struct StatCard: View {
     let title: String
     let value: String
@@ -246,7 +243,6 @@ struct StatCard: View {
     }
 }
 
-@MainActor
 struct VoiceStatusCard: View {
     let hasVoice: Bool
     let onCreateVoice: () -> Void
@@ -290,7 +286,6 @@ struct VoiceStatusCard: View {
     }
 }
 
-@MainActor
 struct QuickActionCard: View {
     let icon: String
     let title: String
@@ -340,7 +335,6 @@ struct QuickActionCard: View {
     }
 }
 
-@MainActor
 struct SectionHeader: View {
     let title: String
 
@@ -356,7 +350,6 @@ struct SectionHeader: View {
     }
 }
 
-@MainActor
 struct RecentActivityList: View {
     var body: some View {
         VStack(spacing: 12) {
@@ -397,7 +390,6 @@ struct RecentActivityList: View {
     ]
 }
 
-@MainActor
 struct RecentActivityRow: View {
     let activity: RecentActivity
 
@@ -439,7 +431,6 @@ struct RecentActivityRow: View {
 
 // MARK: - History View
 
-@MainActor
 struct HistoryView: View {
     var body: some View {
         NavigationView {
@@ -471,10 +462,8 @@ struct HistoryView: View {
 
 // MARK: - Quick Action View
 
-@MainActor
 struct QuickActionView: View {
     @State private var showingActionSheet = false
-    @State private var showingVoiceScripts = false
 
     var body: some View {
         NavigationView {
@@ -483,28 +472,14 @@ struct QuickActionView: View {
                     .font(.title)
                     .foregroundColor(.white)
 
-                VStack(spacing: 16) {
-                    Button("Voice Scripts") {
-                        showingVoiceScripts = true
-                    }
-                    .font(.headline)
-                    .foregroundColor(.white)
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(Color.pink)
-                    .cornerRadius(12)
-
-                    Button("Show More Actions") {
-                        showingActionSheet = true
-                    }
-                    .font(.headline)
-                    .foregroundColor(.white)
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(Color.blue)
-                    .cornerRadius(12)
+                Button("Show Actions") {
+                    showingActionSheet = true
                 }
-                .padding(.horizontal)
+                .font(.headline)
+                .foregroundColor(.white)
+                .padding()
+                .background(Color.pink)
+                .cornerRadius(12)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(
@@ -515,9 +490,6 @@ struct QuickActionView: View {
                 )
             )
             .navigationBarHidden(true)
-        }
-        .sheet(isPresented: $showingVoiceScripts) {
-            VoiceScriptSelectorView()
         }
         .actionSheet(isPresented: $showingActionSheet) {
             ActionSheet(
@@ -535,7 +507,6 @@ struct QuickActionView: View {
 
 // MARK: - Profile View
 
-@MainActor
 struct ProfileView: View {
     @EnvironmentObject private var authManager: AuthManager
 
@@ -611,7 +582,6 @@ struct ProfileView: View {
     }
 }
 
-@MainActor
 struct ProfileStatCard: View {
     let title: String
     let value: String
@@ -634,7 +604,6 @@ struct ProfileStatCard: View {
     }
 }
 
-@MainActor
 struct ProfileActionRow: View {
     let icon: String
     let title: String
@@ -692,11 +661,10 @@ struct RecentActivity: Identifiable {
 
 // MARK: - Placeholder Views
 
-@MainActor
 struct PlaceholderView: View {
     let title: String
     let subtitle: String
-    @Environment(\.dismiss) private var dismiss
+    @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
         NavigationView {
@@ -729,7 +697,7 @@ struct PlaceholderView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button("Done") {
-                        dismiss()
+                        presentationMode.wrappedValue.dismiss()
                     }
                     .foregroundColor(.white)
                 }

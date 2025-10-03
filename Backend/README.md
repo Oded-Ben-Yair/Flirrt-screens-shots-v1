@@ -103,8 +103,8 @@ Server starts on `http://localhost:3000`
 
 ## 🔑 Real API Keys Configured
 
-✅ **Grok API**: `xai-MASKED_API_KEY`
-✅ **ElevenLabs API**: `sk_MASKED_ELEVENLABS_KEY`
+✅ **Grok API**: `REMOVED_XAI_KEY`
+✅ **ElevenLabs API**: `REMOVED_ELEVENLABS_KEY`
 
 Both APIs tested and verified working:
 - Grok API: ✅ Text generation working

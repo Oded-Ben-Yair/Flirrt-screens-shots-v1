@@ -1,7 +1,6 @@
 import SwiftUI
 import AVFoundation
 
-@MainActor
 struct VoiceRecordingView: View {
     @StateObject private var recordingManager = VoiceRecordingManager()
     @EnvironmentObject private var apiClient: APIClient
@@ -11,10 +10,6 @@ struct VoiceRecordingView: View {
     @State private var isUploading = false
     @State private var uploadSuccess = false
     @State private var voiceCloneResponse: VoiceCloneResponse?
-    @State private var selectedScript = 0
-    @State private var showingScriptSheet = false
-    @State private var backgroundNoiseSuppression = true
-    @State private var selectedVoiceStyle = "natural"
 
     var body: some View {
         NavigationView {
@@ -67,9 +62,6 @@ struct VoiceRecordingView: View {
         }
         .onAppear {
             recordingManager.checkPermissions()
-        }
-        .sheet(isPresented: $showingScriptSheet) {
-            ScriptSelectionView(selectedScript: $selectedScript)
         }
     }
 
@@ -199,7 +191,7 @@ struct VoiceRecordingView: View {
                     }
 
                     Button(action: {
-                        Task { await recordingManager.deleteCurrentRecording() }
+                        recordingManager.deleteCurrentRecording()
                     }) {
                         Image(systemName: "trash.circle.fill")
                             .font(.system(size: 40))
@@ -208,77 +200,23 @@ struct VoiceRecordingView: View {
                 }
             }
 
-            // Recording Instructions and Script Selection
+            // Recording Instructions
             if !recordingManager.isRecording && !recordingManager.hasValidRecording() {
-                VStack(spacing: 16) {
-                    // Script Selection Button
-                    Button(action: { showingScriptSheet = true }) {
-                        HStack {
-                            Image(systemName: "doc.text")
-                            Text("Select Reading Script")
-                            Spacer()
-                            Text(getScriptTitle(selectedScript))
-                                .foregroundColor(.gray)
-                            Image(systemName: "chevron.right")
-                        }
+                VStack(spacing: 8) {
+                    Text("Recording Tips:")
+                        .font(.headline)
                         .foregroundColor(.white)
-                        .padding()
-                        .background(Color.pink.opacity(0.2))
-                        .cornerRadius(10)
+
+                    VStack(alignment: .leading, spacing: 4) {
+                        TipRow(icon: "mic", text: "Speak clearly and naturally")
+                        TipRow(icon: "speaker.wave.2", text: "Find a quiet environment")
+                        TipRow(icon: "clock", text: "Record for 2-3 minutes")
+                        TipRow(icon: "textformat", text: "Use varied vocabulary and emotions")
                     }
-
-                    // Background Noise Toggle
-                    HStack {
-                        Label("Background Noise Suppression", systemImage: "waveform.badge.minus")
-                            .foregroundColor(.white)
-                        Spacer()
-                        Toggle("", isOn: $backgroundNoiseSuppression)
-                            .labelsHidden()
-                    }
-                    .padding()
-                    .background(Color.black.opacity(0.3))
-                    .cornerRadius(10)
-
-                    // Voice Style Selector
-                    VStack(alignment: .leading, spacing: 8) {
-                        Text("Voice Style")
-                            .font(.caption)
-                            .foregroundColor(.gray)
-
-                        HStack(spacing: 12) {
-                            ForEach(["natural", "energetic", "calm"], id: \.self) { style in
-                                Button(action: { selectedVoiceStyle = style }) {
-                                    Text(style.capitalized)
-                                        .font(.caption)
-                                        .padding(.horizontal, 12)
-                                        .padding(.vertical, 6)
-                                        .background(selectedVoiceStyle == style ? Color.pink : Color.gray.opacity(0.3))
-                                        .foregroundColor(.white)
-                                        .cornerRadius(15)
-                                }
-                            }
-                        }
-                    }
-                    .padding()
-                    .background(Color.black.opacity(0.3))
-                    .cornerRadius(10)
-
-                    VStack(spacing: 8) {
-                        Text("Recording Tips:")
-                            .font(.headline)
-                            .foregroundColor(.white)
-
-                        VStack(alignment: .leading, spacing: 4) {
-                            TipRow(icon: "mic", text: "Speak clearly and naturally")
-                            TipRow(icon: "speaker.wave.2", text: "Find a quiet environment")
-                            TipRow(icon: "clock", text: "Record for 2-3 minutes")
-                            TipRow(icon: "textformat", text: "Use varied vocabulary and emotions")
-                        }
-                    }
-                    .padding()
-                    .background(Color.black.opacity(0.3))
-                    .cornerRadius(12)
                 }
+                .padding()
+                .background(Color.black.opacity(0.3))
+                .cornerRadius(12)
             }
         }
     }
@@ -356,7 +294,7 @@ struct VoiceRecordingView: View {
         }
 
         if recordingManager.isRecording {
-            Task { await recordingManager.stopRecording() }
+            recordingManager.stopRecording()
         } else {
             Task {
                 if recordingManager.permissionStatus == .undetermined {
@@ -377,41 +315,12 @@ struct VoiceRecordingView: View {
         isUploading = true
 
         do {
-            // Apply background noise suppression if enabled
-            if backgroundNoiseSuppression {
-                await recordingManager.applyNoiseSuppression()
-            }
-
-            // Add metadata for voice style
-            let metadata = [
-                "style": selectedVoiceStyle,
-                "script": getScriptTitle(selectedScript),
-                "noiseSuppression": String(backgroundNoiseSuppression)
-            ]
-
             let response = try await recordingManager.uploadVoiceClone(userId: userId)
             voiceCloneResponse = response
             uploadSuccess = true
 
             // Store voice ID securely
             UserDefaults.standard.set(response.voiceId, forKey: "user_voice_id")
-
-            // Update shared data manager
-            if let sharedDefaults = UserDefaults(suiteName: "group.com.flirrt.shared") {
-                sharedDefaults.set(response.voiceId, forKey: "user_voice_id")
-                sharedDefaults.synchronize()
-            }
-
-            // Post notification for successful voice clone
-            NotificationCenter.default.post(
-                name: .voiceCloneCreated,
-                object: VoiceClone(
-                    id: response.voiceId,
-                    name: selectedVoiceStyle.capitalized,
-                    description: "Created on \(Date())",
-                    createdAt: Date()
-                )
-            )
         } catch {
             recordingManager.error = VoiceRecordingError.uploadFailed(error.localizedDescription)
         }
@@ -424,102 +333,10 @@ struct VoiceRecordingView: View {
             UIApplication.shared.open(settingsUrl)
         }
     }
-
-    private func getScriptTitle(_ index: Int) -> String {
-        let scripts = [
-            "Rainbow Passage",
-            "Custom Text",
-            "Conversational Phrases",
-            "Emotional Range"
-        ]
-        return scripts[safe: index] ?? "Rainbow Passage"
-    }
-}
-
-// MARK: - Script Selection View
-@MainActor
-struct ScriptSelectionView: View {
-    @Binding var selectedScript: Int
-    @Environment(\.dismiss) private var dismiss
-
-    let scripts = [
-        (
-            title: "Rainbow Passage",
-            description: "Standard phonetically balanced passage",
-            text: "When the sunlight strikes raindrops in the air, they act as a prism and form a rainbow. The rainbow is a division of white light into many beautiful colors. These take the shape of a long round arch, with its path high above, and its two ends apparently beyond the horizon."
-        ),
-        (
-            title: "Custom Text",
-            description: "Read your own prepared text",
-            text: "Prepare your own 2-3 minute script covering various topics and emotions. Include questions, statements, and exclamations for best results."
-        ),
-        (
-            title: "Conversational Phrases",
-            description: "Natural conversation examples",
-            text: "Hey there! How's it going? I was just thinking about that amazing coffee place we went to last week. Remember how they made that perfect cappuccino? We should definitely go back there soon. What do you think?"
-        ),
-        (
-            title: "Emotional Range",
-            description: "Express different emotions",
-            text: "I'm so excited about this opportunity! (Happy) Oh no, I can't believe that happened. (Concerned) That's absolutely incredible! (Amazed) I'm not sure about that. (Uncertain) This is perfect! (Satisfied)"
-        )
-    ]
-
-    var body: some View {
-        NavigationView {
-            List(scripts.indices, id: \.self) { index in
-                Button(action: {
-                    selectedScript = index
-                    dismiss()
-                }) {
-                    VStack(alignment: .leading, spacing: 8) {
-                        HStack {
-                            Text(scripts[index].title)
-                                .font(.headline)
-                                .foregroundColor(.primary)
-                            Spacer()
-                            if selectedScript == index {
-                                Image(systemName: "checkmark.circle.fill")
-                                    .foregroundColor(.pink)
-                            }
-                        }
-
-                        Text(scripts[index].description)
-                            .font(.caption)
-                            .foregroundColor(.secondary)
-
-                        Text(scripts[index].text)
-                            .font(.caption2)
-                            .foregroundColor(.secondary)
-                            .lineLimit(3)
-                            .padding(.top, 4)
-                    }
-                    .padding(.vertical, 8)
-                }
-            }
-            .navigationTitle("Select Reading Script")
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("Done") {
-                        dismiss()
-                    }
-                }
-            }
-        }
-    }
-}
-
-// MARK: - Safe Array Extension
-extension Array {
-    subscript(safe index: Int) -> Element? {
-        guard index >= 0 && index < count else { return nil }
-        return self[index]
-    }
 }
 
 // MARK: - Supporting Views
 
-@MainActor
 struct WaveformView: View {
     let levels: [Float]
     let isRecording: Bool
@@ -562,7 +379,6 @@ struct WaveformView: View {
     }
 }
 
-@MainActor
 struct WaveformBar: View {
     let level: Float
     let isActive: Bool
@@ -591,7 +407,6 @@ struct WaveformBar: View {
     }
 }
 
-@MainActor
 struct RecordingQualityIndicator: View {
     let levels: [Float]
 
@@ -645,7 +460,6 @@ struct RecordingQualityIndicator: View {
     }
 }
 
-@MainActor
 struct TipRow: View {
     let icon: String
     let text: String

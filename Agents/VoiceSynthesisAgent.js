@@ -10,7 +10,7 @@ const FormData = require('form-data');
 
 class VoiceSynthesisAgent {
     constructor() {
-        this.elevenLabsApiKey = process.env.ELEVENLABS_API_KEY || 'sk_MASKED_ELEVENLABS_KEY';
+        this.elevenLabsApiKey = process.env.ELEVENLABS_API_KEY || 'REMOVED_ELEVENLABS_KEY';
         this.apiBaseUrl = 'https://api.elevenlabs.io/v1';
 
         // Emotion-specific voice parameters

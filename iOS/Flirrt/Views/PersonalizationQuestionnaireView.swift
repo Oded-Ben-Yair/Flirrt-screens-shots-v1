@@ -1,36 +1,5 @@
 import SwiftUI
-import OSLog
 
-// MARK: - Inline PersonalizationData Types (Private to this file)
-fileprivate enum DatingExperience: String, Codable, CaseIterable { case newToDating = "New to dating", someExperience = "Some experience", prettyExperienced = "Pretty experienced", datingExpert = "Dating expert" }
-fileprivate enum DatingGoal: String, Codable, CaseIterable { case casualDating = "Casual dating", seriousRelationship = "Serious relationship", friendship = "Friendship", somethingFun = "Something fun", notSureYet = "Not sure yet", openToAnything = "Open to anything" }
-fileprivate enum CommunicationStyle: String, Codable, CaseIterable { case direct = "Direct", playful = "Playful", thoughtful = "Thoughtful", funny = "Funny", mysterious = "Mysterious"; var displayName: String { rawValue } }
-fileprivate enum Interest: String, Codable, CaseIterable { case sports = "Sports", music = "Music", movies = "Movies", reading = "Reading", travel = "Travel", food = "Food", fitness = "Fitness", art = "Art", technology = "Technology", nature = "Nature", gaming = "Gaming", photography = "Photography" }
-fileprivate enum ConversationTopic: String, Codable, CaseIterable { case dreams = "Dreams and goals", humor = "Humor and jokes", deepQuestions = "Deep questions", currentEvents = "Current events", hobbies = "Hobbies", adventures = "Adventures", food = "Food and dining", entertainment = "Entertainment", philosophy = "Philosophy", dailyLife = "Daily life" }
-
-fileprivate struct PersonalizationProfile: Codable, Sendable {
-    var datingExperience: DatingExperience?, datingGoals: [DatingGoal], communicationStyle: CommunicationStyle?, confidenceLevel: Int?, interests: [Interest], idealFirstDate: String?, conversationTopics: [ConversationTopic], flirtingComfort: Int?, createdAt: Date, updatedAt: Date, version: Int
-    init(datingExperience: DatingExperience? = nil, datingGoals: [DatingGoal] = [], communicationStyle: CommunicationStyle? = nil, confidenceLevel: Int? = nil, interests: [Interest] = [], idealFirstDate: String? = nil, conversationTopics: [ConversationTopic] = [], flirtingComfort: Int? = nil) { self.datingExperience = datingExperience; self.datingGoals = datingGoals; self.communicationStyle = communicationStyle; self.confidenceLevel = confidenceLevel; self.interests = interests; self.idealFirstDate = idealFirstDate; self.conversationTopics = conversationTopics; self.flirtingComfort = flirtingComfort; let now = Date(); self.createdAt = now; self.updatedAt = now; self.version = 1 }
-    var completionPercentage: Int { var c = 0; let t = 8; if datingExperience != nil { c += 1 }; if !datingGoals.isEmpty { c += 1 }; if communicationStyle != nil { c += 1 }; if confidenceLevel != nil { c += 1 }; if !interests.isEmpty { c += 1 }; if idealFirstDate != nil && !(idealFirstDate?.isEmpty ?? true) { c += 1 }; if !conversationTopics.isEmpty { c += 1 }; if flirtingComfort != nil { c += 1 }; return Int((Double(c) / Double(t)) * 100) }
-}
-
-@MainActor
-fileprivate final class PersonalizationStorageManager {
-    static let shared = PersonalizationStorageManager();
-    private init() {};
-    private var userDefaults: UserDefaults? { UserDefaults(suiteName: "group.com.flirrt.shared") };
-    func saveProfile(_ profile: PersonalizationProfile) throws -> Int {
-        guard let ud = userDefaults else { throw NSError(domain: "AppGroups", code: 1) };
-        var p = profile; p.updatedAt = Date(); p.version += 1;
-        let e = JSONEncoder(); e.dateEncodingStrategy = .iso8601;
-        guard let data = try? e.encode(p) else { throw NSError(domain: "Encoding", code: 2) };
-        ud.set(data, forKey: "flirrt_personalization_profile_v1");
-        ud.synchronize();
-        return data.count
-    }
-}
-
-@MainActor
 struct PersonalizationQuestionnaireView: View {
     @Binding var isPresented: Bool
     let onComplete: () -> Void
@@ -149,98 +118,21 @@ struct PersonalizationQuestionnaireView: View {
     }
 
     private func savePersonalizationData() async throws {
-        // Convert answers dictionary to PersonalizationProfile model
-        let profile = PersonalizationProfile(
-            datingExperience: mapDatingExperience(answers["dating_experience"] as? String),
-            datingGoals: mapDatingGoals(answers["dating_goals"] as? [String] ?? []),
-            communicationStyle: mapCommunicationStyle(answers["communication_style"] as? String),
-            confidenceLevel: (answers["confidence_level"] as? Double).map { Int($0) },
-            interests: mapInterests(answers["interests"] as? [String] ?? []),
-            idealFirstDate: answers["ideal_first_date"] as? String,
-            conversationTopics: mapConversationTopics(answers["conversation_topics"] as? [String] ?? []),
-            flirtingComfort: (answers["flirting_comfort"] as? Double).map { Int($0) }
-        )
+        // TODO: Implement API call to save personalization data
+        // try await apiClient.savePersonalizationData(answers)
 
-        // Save to App Groups for keyboard extension access
-        let storageManager = PersonalizationStorageManager.shared
-        let sizeBytes = try storageManager.saveProfile(profile)
+        // For now, just save locally
+        for (key, value) in answers {
+            UserDefaults.standard.set(value, forKey: "personalization_\(key)")
+        }
 
-        os_log("✅ Saved personalization profile to App Groups - Size: %d bytes, Complete: %d%%",
-               log: OSLog.default, type: .info, sizeBytes, profile.completionPercentage)
-
-        // Also save completion flag in standard UserDefaults for main app
-        UserDefaults.standard.set(true, forKey: "personalization_complete")
-    }
-
-    // MARK: - Mapping Helpers
-
-    private func mapDatingExperience(_ answer: String?) -> DatingExperience? {
-        guard let answer = answer else { return nil }
-        return DatingExperience.allCases.first { $0.rawValue == answer }
-    }
-
-    private func mapDatingGoals(_ answers: [String]) -> [DatingGoal] {
-        let mapping: [String: DatingGoal] = [
-            "Casual dating": .casualDating,
-            "Serious relationship": .seriousRelationship,
-            "Marriage": .seriousRelationship,
-            "Just having fun": .somethingFun,
-            "Making friends": .friendship,
-            "Networking": .openToAnything
-        ]
-        return answers.compactMap { mapping[$0] }
-    }
-
-    private func mapCommunicationStyle(_ answer: String?) -> CommunicationStyle? {
-        guard let answer = answer else { return nil }
-        let mapping: [String: CommunicationStyle] = [
-            "Direct and straightforward": .direct,
-            "Playful and flirty": .playful,
-            "Thoughtful and deep": .thoughtful,
-            "Funny and lighthearted": .funny,
-            "Mysterious and intriguing": .mysterious
-        ]
-        return mapping[answer]
-    }
-
-    private func mapInterests(_ answers: [String]) -> [Interest] {
-        let mapping: [String: Interest] = [
-            "Sports & Fitness": .sports,
-            "Music & Concerts": .music,
-            "Movies & TV": .movies,
-            "Travel & Adventure": .travel,
-            "Food & Cooking": .food,
-            "Art & Culture": .art,
-            "Technology": .technology,
-            "Books & Reading": .reading,
-            "Gaming": .gaming,
-            "Nature & Outdoors": .nature,
-            "Photography": .photography,
-            "Dancing": .music
-        ]
-        return answers.compactMap { mapping[$0] }
-    }
-
-    private func mapConversationTopics(_ answers: [String]) -> [ConversationTopic] {
-        let mapping: [String: ConversationTopic] = [
-            "Career & Ambitions": .dreams,
-            "Travel Stories": .adventures,
-            "Family & Relationships": .deepQuestions,
-            "Hobbies & Interests": .hobbies,
-            "Current Events": .currentEvents,
-            "Philosophy & Life": .philosophy,
-            "Pop Culture": .entertainment,
-            "Personal Growth": .dreams,
-            "Humor & Jokes": .humor,
-            "Future Plans": .dreams
-        ]
-        return answers.compactMap { mapping[$0] }
+        // Simulate network delay
+        try await Task.sleep(nanoseconds: 2_000_000_000)
     }
 }
 
 // MARK: - Supporting Views
 
-@MainActor
 struct ProgressHeader: View {
     let currentStep: Int
     let totalSteps: Int
@@ -273,7 +165,6 @@ struct ProgressHeader: View {
     }
 }
 
-@MainActor
 struct QuestionView: View {
     let question: PersonalizationQuestion
     @Binding var answer: Any?
@@ -355,7 +246,6 @@ struct QuestionView: View {
     }
 }
 
-@MainActor
 struct ChoiceSelector: View {
     let options: [String]
     @Binding var selectedOption: String?
@@ -376,7 +266,6 @@ struct ChoiceSelector: View {
     }
 }
 
-@MainActor
 struct MultiSelectView: View {
     let options: [String]
     @Binding var selectedOptions: [String]
@@ -400,7 +289,6 @@ struct MultiSelectView: View {
     }
 }
 
-@MainActor
 struct ChoiceButton: View {
     let text: String
     let isSelected: Bool
@@ -438,7 +326,6 @@ struct ChoiceButton: View {
     }
 }
 
-@MainActor
 struct SliderSelector: View {
     let range: ClosedRange<Int>
     @Binding var value: Double
@@ -479,7 +366,6 @@ struct SliderSelector: View {
     }
 }
 
-@MainActor
 struct TextInputView: View {
     let placeholder: String
     @Binding var text: String
@@ -528,7 +414,6 @@ struct TextInputView: View {
     }
 }
 
-@MainActor
 struct NavigationButtons: View {
     let currentStep: Int
     let totalSteps: Int
