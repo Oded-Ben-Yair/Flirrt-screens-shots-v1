@@ -6,8 +6,8 @@ struct FlirrtApp: App {
     @StateObject private var authManager = AuthManager()
     @StateObject private var apiClient = APIClient()
     @StateObject private var sharedDataManager = SharedDataManager()
-    // TODO: Add ScreenshotDetectionManager to Xcode target first
-    // @StateObject private var screenshotManager = ScreenshotDetectionManager()
+    // NOTE: ScreenshotDetectionManager needs to be added to Xcode Flirrt target before build
+    @StateObject private var screenshotManager = ScreenshotDetectionManager()
 
     init() {
         setupAppGroups()
@@ -20,10 +20,11 @@ struct FlirrtApp: App {
                 .environmentObject(authManager)
                 .environmentObject(apiClient)
                 .environmentObject(sharedDataManager)
-                // .environmentObject(screenshotManager)
+                .environmentObject(screenshotManager)
                 .onAppear {
                     requestNotificationPermissions()
-                    // screenshotManager.startMonitoring()
+                    // Note: Screenshot detection starts automatically on init
+                    screenshotManager.setDetectionEnabled(true)
                 }
         }
     }
