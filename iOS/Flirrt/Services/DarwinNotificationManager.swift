@@ -1,5 +1,6 @@
 import Foundation
 import OSLog
+import UIKit
 
 /// Specialized Darwin notification manager for ultra-fast IPC with keyboard extension
 /// Handles bi-directional communication for screenshot detection and status updates
@@ -22,7 +23,7 @@ final class DarwinNotificationManager: ObservableObject {
     private let maxLatencyHistory = 10
 
     // MARK: - Connection Status
-    enum ConnectionStatus {
+    enum ConnectionStatus: Equatable {
         case disconnected
         case connecting
         case connected

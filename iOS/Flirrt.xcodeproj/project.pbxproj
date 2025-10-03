@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		58DEF3D30B431139DCA4C2C6 /* DarwinNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4500141D38A23F3E31FB9957 /* DarwinNotificationManager.swift */; };
 		A0001000000000000001000 /* FlirrtApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0002000000000000002000 /* FlirrtApp.swift */; };
 		A0003000000000000003000 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0004000000000000004000 /* ContentView.swift */; };
 		A0005000000000000005000 /* VoiceModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0006000000000000006000 /* VoiceModels.swift */; };
@@ -33,6 +34,7 @@
 		A0047000000000000047000 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0048000000000000048000 /* Social.framework */; };
 		A0049000000000000049000 /* FlirrtKeyboard.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = A0059000000000000059000 /* FlirrtKeyboard.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		A0050000000000000050000 /* FlirrtShare.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = A0060000000000000060000 /* FlirrtShare.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		C283BE8DF73B7A7B6D7B53C6 /* ScreenshotDetectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AB5DF72B9ED8E9D590D084 /* ScreenshotDetectionManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +70,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4500141D38A23F3E31FB9957 /* DarwinNotificationManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DarwinNotificationManager.swift; path = DarwinNotificationManager.swift; sourceTree = "<group>"; };
 		A0002000000000000002000 /* FlirrtApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlirrtApp.swift; sourceTree = "<group>"; };
 		A0004000000000000004000 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		A0006000000000000006000 /* VoiceModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceModels.swift; sourceTree = "<group>"; };
@@ -99,6 +102,7 @@
 		A0064000000000000064000 /* FlirrtKeyboard.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FlirrtKeyboard.entitlements; sourceTree = "<group>"; };
 		A0065000000000000065000 /* FlirrtShare-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FlirrtShare-Info.plist"; sourceTree = "<group>"; };
 		A0066000000000000066000 /* FlirrtShare.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FlirrtShare.entitlements; sourceTree = "<group>"; };
+		F0AB5DF72B9ED8E9D590D084 /* ScreenshotDetectionManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ScreenshotDetectionManager.swift; path = ScreenshotDetectionManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -215,6 +219,8 @@
 				A0012000000000000012000 /* NetworkReachability.swift */,
 				A0014000000000000014000 /* SharedDataManager.swift */,
 				A0016000000000000016000 /* VoiceRecordingManager.swift */,
+				F0AB5DF72B9ED8E9D590D084 /* ScreenshotDetectionManager.swift */,
+				4500141D38A23F3E31FB9957 /* DarwinNotificationManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -392,6 +398,8 @@
 				A0033000000000000033000 /* VoiceRecordingFlowView.swift in Sources */,
 				A0035000000000000035000 /* VoiceRecordingView.swift in Sources */,
 				A0037000000000000037000 /* VoiceScriptSelectorView.swift in Sources */,
+				C283BE8DF73B7A7B6D7B53C6 /* ScreenshotDetectionManager.swift in Sources */,
+				58DEF3D30B431139DCA4C2C6 /* DarwinNotificationManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

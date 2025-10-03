@@ -538,7 +538,7 @@ final class ScreenshotDetectionManager: ObservableObject {
 
     /// Gets current detection statistics
     func getDetectionStats() -> [String: Any] {
-        var stats = [
+        var stats: [String: Any] = [
             "total_screenshots": screenshotCounter,
             "detection_enabled": screenhotDetectionEnabled,
             "last_detection": lastScreenshotDetected?.timeIntervalSince1970 ?? 0,
@@ -580,7 +580,12 @@ final class ScreenshotDetectionManager: ObservableObject {
 
     // MARK: - Cleanup
     deinit {
-        endBackgroundTask()
+        // End background task on main actor
+        if backgroundTaskIdentifier != .invalid {
+            Task { @MainActor in
+                UIApplication.shared.endBackgroundTask(backgroundTaskIdentifier)
+            }
+        }
         cancellables.removeAll()
         logger.info("🔍 ScreenshotDetectionManager deinitialized")
     }
