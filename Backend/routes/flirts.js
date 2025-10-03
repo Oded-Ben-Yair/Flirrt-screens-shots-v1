@@ -39,12 +39,19 @@ try {
 /**
  * Generate Flirt Suggestions with Real Grok API
  * POST /api/v1/generate_flirts
+ *
+ * MVP: Authentication temporarily disabled for testing
  */
 router.post('/generate_flirts',
-    authenticateToken,
-    rateLimit(30, 15 * 60 * 1000), // 30 requests per 15 minutes
+    // authenticateToken,  // DISABLED FOR MVP TESTING
+    // rateLimit(30, 15 * 60 * 1000), // DISABLED FOR MVP TESTING
     async (req, res) => {
         try {
+            // MVP: Use test user when auth is disabled
+            if (!req.user) {
+                req.user = { id: 'test-user-mvp-' + Date.now() };
+            }
+
             const {
                 screenshot_id,
                 image_data,  // NEW: Base64 encoded image for direct Grok vision analysis
@@ -166,58 +173,166 @@ Return ONLY a JSON object with this exact structure:
 
             console.log('Making request to Grok API for flirt generation...');
 
-            // NEW: Grok-4-latest Vision Mode (analyze image + generate flirts in one call)
+            // NEW: Grok Vision Mode (analyze image + generate flirts in one call)
             let grokRequestBody;
             if (image_data) {
-                console.log('Using Grok-beta VISION mode (image analysis + flirt generation)');
+                console.log('Using grok-2-vision-1212 VISION mode (image analysis + flirt generation)');
                 grokRequestBody = {
-                    model: "grok-beta",
+                    model: "grok-2-vision-1212",
                     messages: [
                         {
                             role: "system",
-                            content: "You are Flirrt.ai, a witty dating coach who analyzes dating app profiles and creates personalized conversation starters. Your flirts are clever, respectful, and reference specific details from the profile. Always respond with valid JSON only."
+                            content: "You are Flirrt.ai, an expert dating profile analyst and conversation coach. You intelligently analyze dating app screenshots, extract visual and text details, assess profile quality, and generate personalized conversation starters. You handle multiple languages (English, Hebrew, etc.). You MUST respond with valid JSON only."
                         },
                         {
                             role: "user",
                             content: [
                                 {
                                     type: "text",
-                                    text: `Analyze this dating app screenshot and generate 5 creative ${suggestion_type} suggestions with ${tone} tone. Each should reference something specific you see in the image.
+                                    text: `CRITICAL: You MUST respond with a JSON object containing ALL required fields. DO NOT omit any fields.
 
-Return ONLY a JSON object with this structure:
+ANALYZE THIS DATING APP SCREENSHOT WITH INTELLIGENCE:
+
+STEP 1 - Screenshot Type Detection (REQUIRED):
+You MUST set "screenshot_type" to one of:
+- "profile": Dating app profile with photos, bio, interests, age, name
+- "chat": Message conversation between users
+
+STEP 2 - Content Extraction (Extract ALL visible text in ANY language):
+For PROFILES, extract:
+- Bio text (Hebrew, English, or any language)
+- Name, age, location if visible
+- Interests/hobbies (from tags or UI elements)
+- Visual elements: photos show (activities, pets, tattoos, style, locations)
+- UI elements: interest buttons, hobby icons, prompts
+
+For CHAT, extract:
+- Conversation context and tone
+- Last message content
+- Username/contact name
+
+STEP 3 - Profile Quality Scoring (REQUIRED - You MUST set "profile_score"):
+Calculate a score from 1-10:
+1-3: Minimal (only 1 photo, no bio text)
+4-6: Basic (has photos but limited bio or interests)
+7-10: Rich (multiple photos + detailed bio + interests/hobbies visible)
+
+IMPORTANT: Every profile MUST have a profile_score. Even if it's a chat, set profile_score to 0.
+
+STEP 4 - Decision Logic (REQUIRED - You MUST set "needs_more_scrolling"):
+IF profile_score < 6:
+  → Set needs_more_scrolling: true
+  → Explain what's missing (bio, interests, more photos)
+  → Return empty suggestions array
+
+IF profile_score >= 6:
+  → Set needs_more_scrolling: false
+  → Generate 5 personalized ${suggestion_type} with ${tone} tone
+  → Each MUST reference specific extracted details
+
+IF screenshot_type is CHAT:
+  → Set needs_more_scrolling: true
+  → Message: "This is a chat conversation. Please screenshot the person's profile instead."
+
+STEP 5 - Response Format with FEW-SHOT EXAMPLES:
+
+EXAMPLE 1 (Complete Profile - Clarinha):
 {
-    "suggestions": [
-        {
-            "text": "the flirt text",
-            "confidence": 0.85,
-            "reasoning": "why this works"
-        }
-    ],
-    "metadata": {
-        "suggestion_type": "${suggestion_type}",
-        "tone": "${tone}",
-        "generated_at": "ISO_timestamp"
+  "screenshot_type": "profile",
+  "needs_more_scrolling": false,
+  "profile_score": 8,
+  "message_to_user": "✅ Great profile! Found plenty of details.",
+  "extracted_details": {
+    "bio_text": "I'm looking for friends because im moving. I love cats and gym!",
+    "name": "Clarinha",
+    "age": "24",
+    "interests": ["cats", "gym", "making friends", "relocating"],
+    "visual_elements": ["black dress", "mirror selfie", "home setting", "elegant style"],
+    "key_hooks": ["cat lover", "fitness enthusiast", "new to area", "social"]
+  },
+  "suggestions": [
+    {
+      "text": "New in town and already hitting the gym? I need that kind of motivation! Does your cat have a workout routine too? 🐱💪",
+      "confidence": 0.93,
+      "reasoning": "Playfully combines moving + gym + cats in one opener, shows attention to profile",
+      "references": ["moving", "gym", "cats"]
+    },
+    {
+      "text": "Looking for friends AND a gym buddy? I volunteer as tribute! Though I should warn you, I might spend more time playing with your cat than actually working out 😅",
+      "confidence": 0.88,
+      "reasoning": "References both interests, adds humor, creates conversation opportunity",
+      "references": ["friends", "gym", "cats"]
+    },
+    {
+      "text": "So when you said you love cats and gym, do you bring your cat to the gym or does the cat critique your form from home? 🏋️",
+      "confidence": 0.85,
+      "reasoning": "Humorous question based on both interests, easy to respond to",
+      "references": ["cats", "gym"]
+    },
+    {
+      "text": "Moving to a new place is the perfect excuse to explore! Any chance your cat is also your gym spotter? That would be impressive 🐈",
+      "confidence": 0.82,
+      "reasoning": "Ties together relocation and both hobbies in playful way",
+      "references": ["moving", "cats", "gym"]
+    },
+    {
+      "text": "I'm convinced cat people who love the gym have it all figured out - balance of cuddles and gains! What's your cat's name?",
+      "confidence": 0.87,
+      "reasoning": "Validates her interests, opens conversation with specific question",
+      "references": ["cats", "gym"]
     }
-}`
+  ]
+}
+
+EXAMPLE 2 (Incomplete Profile):
+{
+  "screenshot_type": "profile",
+  "needs_more_scrolling": true,
+  "profile_score": 4,
+  "message_to_user": "📸 I can see photos but no bio text or interests. Please scroll down to show more of the profile (bio, interests, hobbies) and take another screenshot for personalized suggestions.",
+  "extracted_details": {
+    "bio_text": "",
+    "interests": [],
+    "visual_elements": ["outdoor photo", "casual style"],
+    "key_hooks": []
+  },
+  "suggestions": []
+}
+
+EXAMPLE 3 (Chat Conversation):
+{
+  "screenshot_type": "chat",
+  "needs_more_scrolling": true,
+  "profile_score": 0,
+  "message_to_user": "📱 This is a chat conversation, not a profile. Please screenshot the person's dating profile instead for better suggestions.",
+  "extracted_details": {
+    "chat_context": "Instagram direct message conversation",
+    "usernames": ["alegra", "alegrazuili"]
+  },
+  "suggestions": []
+}
+
+Now analyze the provided screenshot and return JSON in this EXACT format with proper intelligence.`
                                 },
                                 {
                                     type: "image_url",
                                     image_url: {
-                                        url: `data:image/jpeg;base64,${image_data}`
+                                        url: `data:image/jpeg;base64,${image_data}`,
+                                        detail: "high"
                                     }
                                 }
                             ]
                         }
                     ],
-                    max_tokens: 2000,
+                    max_tokens: 3000,
                     temperature: 0.9,
                     response_format: { type: "json_object" }
                 };
             } else {
                 // LEGACY: Text-only mode (existing logic)
-                console.log('Using Grok-beta TEXT mode (pre-analyzed screenshot)');
+                console.log('Using grok-2-vision-1212 TEXT mode (pre-analyzed screenshot)');
                 grokRequestBody = {
-                    model: "grok-beta",
+                    model: "grok-2-vision-1212",
                     messages: [
                         {
                             role: "system",
@@ -257,14 +372,36 @@ Return ONLY a JSON object with this structure:
                 throw new Error('Invalid JSON response from Grok API');
             }
 
-            // Validate response structure
-            if (!suggestions.suggestions || !Array.isArray(suggestions.suggestions)) {
+            // Validate response structure (handle both old and new formats)
+            const grokData = suggestions;
+
+            // NEW: Handle intelligent response format with needs_more_scrolling
+            if (grokData.needs_more_scrolling !== undefined) {
+                // New intelligent format
+                console.log(`Intelligent analysis: screenshot_type=${grokData.screenshot_type}, score=${grokData.profile_score}, needs_more=${grokData.needs_more_scrolling}`);
+
+                // If needs more scrolling, return early with message
+                if (grokData.needs_more_scrolling) {
+                    return res.status(200).json({
+                        success: true,
+                        screenshot_type: grokData.screenshot_type,
+                        needs_more_scrolling: true,
+                        profile_score: grokData.profile_score,
+                        message_to_user: grokData.message_to_user || 'Please provide more profile information',
+                        extracted_details: grokData.extracted_details || {},
+                        suggestions: []
+                    });
+                }
+            }
+
+            // Validate suggestions array exists
+            if (!grokData.suggestions || !Array.isArray(grokData.suggestions)) {
                 throw new Error('Invalid suggestions format from Grok API');
             }
 
             // Save suggestions to database (if database is available)
             const savedSuggestions = [];
-            for (const suggestion of suggestions.suggestions) {
+            for (const suggestion of grokData.suggestions) {
                 let suggestionId = 'test-suggestion-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9);
                 let createdAt = new Date().toISOString();
 
@@ -305,8 +442,14 @@ Return ONLY a JSON object with this structure:
                 });
             }
 
-            // Prepare response data
+            // Prepare response data (include new intelligent fields)
             const responseData = {
+                success: true,
+                screenshot_type: grokData.screenshot_type || 'profile',
+                needs_more_scrolling: grokData.needs_more_scrolling || false,
+                profile_score: grokData.profile_score,
+                message_to_user: grokData.message_to_user,
+                extracted_details: grokData.extracted_details || {},
                 suggestions: savedSuggestions,
                 metadata: {
                     suggestion_type,
@@ -352,51 +495,19 @@ Return ONLY a JSON object with this structure:
             });
 
         } catch (error) {
-            console.error('Flirt generation error:', error);
-            console.warn('⚠️  Grok API failed - Using mock suggestions for testing');
+            console.error('❌ Flirt generation error:', error);
+            console.error('Error details:', {
+                message: error.message,
+                stack: error.stack,
+                response: error.response?.data
+            });
 
-            // FALLBACK: Return mock suggestions when Grok API fails
-            // This allows testing keyboard UI without working API
-            const requestBody = req.body || {};
-            const fallbackTone = requestBody.tone || 'playful';
-            const fallbackScreenshotId = requestBody.screenshot_id || 'mock-screenshot';
-            const fallbackSuggestionType = requestBody.suggestion_type || 'opener';
-
-            const mockSuggestions = [
-                {
-                    id: 'mock-1-' + Date.now(),
-                    text: "So what's your story? Besides being absolutely captivating, I mean 😏",
-                    confidence: 0.85,
-                    tone: fallbackTone
-                },
-                {
-                    id: 'mock-2-' + Date.now(),
-                    text: "I have a feeling you're the type who makes bad decisions look incredibly appealing",
-                    confidence: 0.78,
-                    tone: fallbackTone
-                },
-                {
-                    id: 'mock-3-' + Date.now(),
-                    text: "Quick question: on a scale of 1-10, how good are you at ignoring red flags? Asking for a friend 😅",
-                    confidence: 0.72,
-                    tone: fallbackTone
-                }
-            ];
-
-            return res.json({
-                success: true,
-                suggestions: mockSuggestions,
-                metadata: {
-                    suggestion_type: fallbackSuggestionType,
-                    tone: fallbackTone,
-                    screenshot_id: fallbackScreenshotId,
-                    total_suggestions: mockSuggestions.length,
-                    generated_at: new Date().toISOString(),
-                    mock: true,
-                    mock_reason: 'Grok API unavailable'
-                },
-                cached: false,
-                message: 'Mock flirt suggestions (API unavailable)'
+            // NO MOCK FALLBACK - Return actual error
+            return res.status(500).json({
+                success: false,
+                error: error.message || 'Failed to generate flirt suggestions',
+                code: 'FLIRT_GENERATION_ERROR',
+                details: error.response?.data || null
             });
         }
     }
