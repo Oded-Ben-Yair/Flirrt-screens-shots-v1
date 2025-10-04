@@ -94,30 +94,29 @@ app.use((req, res, next) => {
 
 // Health check endpoint
 app.get('/health', async (req, res) => {
+    // Check database connection (optional - don't fail if unavailable)
+    let databaseStatus = 'not_configured';
     try {
-        // Test database connection
         await pool.query('SELECT 1');
-
-        res.json({
-            success: true,
-            status: 'healthy',
-            timestamp: new Date().toISOString(),
-            version: '1.0.0',
-            services: {
-                database: 'connected',
-                grok_api: process.env.GROK_API_KEY ? 'configured' : 'not_configured',
-                elevenlabs_api: process.env.ELEVENLABS_API_KEY ? 'configured' : 'not_configured'
-            }
-        });
+        databaseStatus = 'connected';
     } catch (error) {
-        console.error('Health check failed:', error);
-        res.status(httpStatus.SERVICE_UNAVAILABLE).json({
-            success: false,
-            status: 'unhealthy',
-            error: error.message,
-            timestamp: new Date().toISOString()
-        });
+        console.warn('Database not available for health check:', error.message);
+        databaseStatus = 'unavailable';
     }
+
+    // Health check passes even without database (API keys are more critical)
+    res.json({
+        success: true,
+        status: 'healthy',
+        timestamp: new Date().toISOString(),
+        version: '1.0.0',
+        services: {
+            database: databaseStatus,
+            grok_api: process.env.GROK_API_KEY ? 'configured' : 'not_configured',
+            elevenlabs_api: process.env.ELEVENLABS_API_KEY ? 'configured' : 'not_configured',
+            gemini_api: process.env.GEMINI_API_KEY ? 'configured' : 'not_configured'
+        }
+    });
 });
 
 // API Routes

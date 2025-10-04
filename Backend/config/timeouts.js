@@ -97,6 +97,7 @@ module.exports = {
         // Intelligent Cache Service tiers
         keyboard: 14400,                  // 4 hours - Ultra-fast keyboard extension cache
         standard: 7200,                   // 2 hours - Standard request cache
+        flirtSuggestions: 300,            // 5 minutes - Flirt suggestions cache
         analysis: 3600,                   // 1 hour - Complex analysis cache
         semantic: 10800,                  // 3 hours - Semantic similarity cache
 

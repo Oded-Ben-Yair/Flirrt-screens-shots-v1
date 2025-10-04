@@ -11,6 +11,12 @@ const {
     handleError,
     errorCodes
 } = require('../utils/errorHandler');
+const {
+    validateScreenshotId,
+    validateSuggestionType,
+    validateTone,
+    sanitizeText
+} = require('../utils/validation');
 
 const router = express.Router();
 
@@ -71,12 +77,51 @@ router.post('/generate_flirts',
 
             // Support both modes: new (image_data) and legacy (screenshot_id)
             if (!screenshot_id && !image_data) {
-                return res.status(httpStatus.BAD_REQUEST).json({
-                    success: false,
-                    error: 'Either screenshot_id or image_data is required',
-                    code: errors.VALIDATION_ERROR.code
-                });
+                return sendErrorResponse(
+                    res,
+                    400,
+                    errorCodes.VALIDATION_ERROR,
+                    'Either screenshot_id or image_data is required'
+                );
             }
+
+            // Validate screenshot_id if provided
+            if (screenshot_id) {
+                const screenshotIdValidation = validateScreenshotId(screenshot_id);
+                if (!screenshotIdValidation.valid) {
+                    return sendErrorResponse(
+                        res,
+                        400,
+                        errorCodes.VALIDATION_ERROR,
+                        screenshotIdValidation.error
+                    );
+                }
+            }
+
+            // Validate suggestion_type
+            const suggestionTypeValidation = validateSuggestionType(suggestion_type);
+            if (!suggestionTypeValidation.valid) {
+                return sendErrorResponse(
+                    res,
+                    400,
+                    errorCodes.VALIDATION_ERROR,
+                    suggestionTypeValidation.error
+                );
+            }
+
+            // Validate tone
+            const toneValidation = validateTone(tone);
+            if (!toneValidation.valid) {
+                return sendErrorResponse(
+                    res,
+                    400,
+                    errorCodes.VALIDATION_ERROR,
+                    toneValidation.error
+                );
+            }
+
+            // Sanitize context text input
+            const sanitizedContext = sanitizeText(context);
 
             // Get screenshot analysis (if database is available)
             let screenshot = { analysis_result: { test: 'mock_analysis_for_testing' } };
@@ -134,7 +179,7 @@ router.post('/generate_flirts',
             const userContext = {
                 suggestion_type,
                 tone,
-                context,
+                context: sanitizedContext,
                 user_preferences,
                 analysis: analysisData
             };
@@ -148,7 +193,7 @@ ${JSON.stringify(analysisData, null, 2)}
 REQUEST DETAILS:
 - Type: ${suggestion_type}
 - Tone: ${tone}
-- Additional Context: ${context}
+- Additional Context: ${sanitizedContext}
 - User Preferences: ${JSON.stringify(user_preferences, null, 2)}
 
 INSTRUCTIONS:
@@ -547,11 +592,11 @@ Now analyze the provided screenshot and return JSON in this EXACT format with pr
         } catch (error) {
             // Log error with full context
             logError('generate_flirts', error, {
-                screenshot_id,
-                suggestion_type,
-                tone,
+                screenshot_id: req.body.screenshot_id || null,
+                suggestion_type: req.body.suggestion_type || null,
+                tone: req.body.tone || null,
                 user_id: req.user?.id,
-                has_image_data: !!image_data
+                has_image_data: !!req.body.image_data
             });
 
             // Use centralized error handler for consistent responses
@@ -568,6 +613,32 @@ router.get('/history', authenticateToken, async (req, res) => {
     try {
         const { page = 1, limit = 20, suggestion_type, screenshot_id } = req.query;
         const offset = (page - 1) * limit;
+
+        // Validate suggestion_type if provided
+        if (suggestion_type) {
+            const suggestionTypeValidation = validateSuggestionType(suggestion_type);
+            if (!suggestionTypeValidation.valid) {
+                return sendErrorResponse(
+                    res,
+                    400,
+                    errorCodes.VALIDATION_ERROR,
+                    suggestionTypeValidation.error
+                );
+            }
+        }
+
+        // Validate screenshot_id if provided
+        if (screenshot_id) {
+            const screenshotIdValidation = validateScreenshotId(screenshot_id);
+            if (!screenshotIdValidation.valid) {
+                return sendErrorResponse(
+                    res,
+                    400,
+                    errorCodes.VALIDATION_ERROR,
+                    screenshotIdValidation.error
+                );
+            }
+        }
 
         let whereClause = 'WHERE fs.user_id = $1';
         let queryParams = [req.user.id];
@@ -639,6 +710,9 @@ router.post('/:suggestionId/rate', authenticateToken, async (req, res) => {
         const { suggestionId } = req.params;
         const { rating, feedback } = req.body;
 
+        // Sanitize feedback text input if provided
+        const sanitizedFeedback = feedback ? sanitizeText(feedback) : null;
+
         if (!rating || rating < validation.range.rating.min || rating > validation.range.rating.max) {
             return res.status(httpStatus.BAD_REQUEST).json({
                 success: false,
@@ -685,7 +759,7 @@ router.post('/:suggestionId/rate', authenticateToken, async (req, res) => {
             [req.user.id, 'suggestion_rated', {
                 suggestion_id: suggestionId,
                 rating,
-                feedback: feedback || null
+                feedback: sanitizedFeedback
             }]
         );
 

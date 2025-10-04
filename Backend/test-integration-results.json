@@ -1,0 +1,172 @@
+{
+  "timestamp": "2025-10-04T07:17:07.046Z",
+  "stats": {
+    "total": 21,
+    "passed": 17,
+    "failed": 4,
+    "skipped": 1,
+    "errors": [
+      {
+        "test": "Step 1: Generate flirt suggestions",
+        "error": "[object Object]"
+      },
+      {
+        "test": "Step 2: Voice synthesis",
+        "error": "Skipped (no suggestion ID from previous step)"
+      },
+      {
+        "test": "Flirt generation response time",
+        "error": "[object Object]"
+      }
+    ]
+  },
+  "results": [
+    {
+      "name": "Health check endpoint",
+      "passed": true,
+      "details": "Server is healthy, version 1.0.0",
+      "error": null,
+      "timestamp": "2025-10-04T07:16:29.262Z"
+    },
+    {
+      "name": "Grok API configured",
+      "passed": true,
+      "details": "Status: configured",
+      "error": null,
+      "timestamp": "2025-10-04T07:16:29.262Z"
+    },
+    {
+      "name": "ElevenLabs API configured",
+      "passed": true,
+      "details": "Status: configured",
+      "error": null,
+      "timestamp": "2025-10-04T07:16:29.262Z"
+    },
+    {
+      "name": "Missing required fields (screenshot_id/image_data)",
+      "passed": true,
+      "details": "Returned status 400, expected 400",
+      "error": null,
+      "timestamp": "2025-10-04T07:16:29.271Z"
+    },
+    {
+      "name": "Invalid endpoint (404)",
+      "passed": true,
+      "details": "Returned status 404, includes available_endpoints list: true",
+      "error": null,
+      "timestamp": "2025-10-04T07:16:29.272Z"
+    },
+    {
+      "name": "Malformed JSON",
+      "passed": true,
+      "details": "Returned status 400",
+      "error": null,
+      "timestamp": "2025-10-04T07:16:29.274Z"
+    },
+    {
+      "name": "XSS prevention: <script>alert(\"XSS\")</script>...",
+      "passed": true,
+      "details": "Payload safely handled",
+      "error": null,
+      "timestamp": "2025-10-04T07:16:35.407Z"
+    },
+    {
+      "name": "XSS prevention: <img src=x onerror=alert(\"XSS\"...",
+      "passed": true,
+      "details": "Payload safely handled",
+      "error": null,
+      "timestamp": "2025-10-04T07:16:41.003Z"
+    },
+    {
+      "name": "XSS prevention: javascript:alert(\"XSS\")...",
+      "passed": true,
+      "details": "Payload safely handled",
+      "error": null,
+      "timestamp": "2025-10-04T07:16:47.023Z"
+    },
+    {
+      "name": "XSS prevention: <svg onload=alert(\"XSS\")>...",
+      "passed": true,
+      "details": "Payload safely handled",
+      "error": null,
+      "timestamp": "2025-10-04T07:16:52.707Z"
+    },
+    {
+      "name": "XSS prevention: \"><script>alert(String.fromCha...",
+      "passed": true,
+      "details": "Payload safely handled",
+      "error": null,
+      "timestamp": "2025-10-04T07:17:00.166Z"
+    },
+    {
+      "name": "Step 1: Generate flirt suggestions",
+      "passed": false,
+      "details": null,
+      "error": "[object Object]",
+      "timestamp": "2025-10-04T07:17:00.560Z"
+    },
+    {
+      "name": "Step 2: Voice synthesis",
+      "passed": false,
+      "details": null,
+      "error": "Skipped (no suggestion ID from previous step)",
+      "timestamp": "2025-10-04T07:17:00.560Z"
+    },
+    {
+      "name": "Timeout handling",
+      "passed": true,
+      "details": "Request properly timed out as expected",
+      "error": null,
+      "timestamp": "2025-10-04T07:17:00.563Z"
+    },
+    {
+      "name": "Concurrent requests handling",
+      "passed": true,
+      "details": "5 concurrent requests completed successfully",
+      "error": null,
+      "timestamp": "2025-10-04T07:17:00.574Z"
+    },
+    {
+      "name": "Error format: Missing required field",
+      "passed": false,
+      "details": "Missing fields",
+      "error": null,
+      "timestamp": "2025-10-04T07:17:00.576Z"
+    },
+    {
+      "name": "Error format: 404 Not Found",
+      "passed": true,
+      "details": "Has all required fields: success, error, code, available_endpoints",
+      "error": null,
+      "timestamp": "2025-10-04T07:17:00.580Z"
+    },
+    {
+      "name": "Health check response time",
+      "passed": true,
+      "details": "Responded in 2ms (threshold: 1000ms)",
+      "error": null,
+      "timestamp": "2025-10-04T07:17:00.582Z"
+    },
+    {
+      "name": "Flirt generation response time",
+      "passed": false,
+      "details": null,
+      "error": "[object Object]",
+      "timestamp": "2025-10-04T07:17:01.256Z"
+    },
+    {
+      "name": "External API error handling",
+      "passed": true,
+      "details": "Request handled (success or graceful failure)",
+      "error": null,
+      "timestamp": "2025-10-04T07:17:07.043Z"
+    },
+    {
+      "name": "Database unavailable fallback",
+      "passed": true,
+      "details": "Server operational, database status: unavailable",
+      "error": null,
+      "timestamp": "2025-10-04T07:17:07.046Z"
+    }
+  ]
+}
