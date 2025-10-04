@@ -18,16 +18,23 @@ const VALID_TONES = ['playful', 'direct', 'thoughtful', 'witty', 'romantic', 'ca
  * @returns {Object} { valid: boolean, error: string|null }
  */
 function validateScreenshotId(screenshotId) {
-    if (!screenshotId) {
-        return { valid: false, error: 'Screenshot ID is required' };
+    // Check for null/undefined/empty
+    if (screenshotId === null || screenshotId === undefined || screenshotId === '') {
+        return { valid: false, error: 'Screenshot ID is required and cannot be empty' };
     }
 
     if (typeof screenshotId !== 'string') {
         return { valid: false, error: 'Screenshot ID must be a string' };
     }
 
+    // Trim and check for whitespace-only strings
+    const trimmed = screenshotId.trim();
+    if (trimmed === '') {
+        return { valid: false, error: 'Screenshot ID cannot be empty or whitespace' };
+    }
+
     // Allow alphanumeric with hyphens and underscores, max 100 chars
-    if (!validator.isAlphanumeric(screenshotId.replace(/[-_]/g, '')) || screenshotId.length > 100) {
+    if (!validator.isAlphanumeric(trimmed.replace(/[-_]/g, '')) || trimmed.length > 100) {
         return { valid: false, error: 'Invalid screenshot ID format' };
     }
 
@@ -40,11 +47,21 @@ function validateScreenshotId(screenshotId) {
  * @returns {Object} { valid: boolean, error: string|null }
  */
 function validateSuggestionType(suggestionType) {
-    if (!suggestionType) {
-        return { valid: false, error: 'Suggestion type is required' };
+    // Check for null/undefined/empty
+    if (suggestionType === null || suggestionType === undefined || suggestionType === '') {
+        return { valid: false, error: 'Suggestion type is required and cannot be empty' };
     }
 
-    if (!VALID_SUGGESTION_TYPES.includes(suggestionType)) {
+    if (typeof suggestionType !== 'string') {
+        return { valid: false, error: 'Suggestion type must be a string' };
+    }
+
+    const trimmed = suggestionType.trim();
+    if (trimmed === '') {
+        return { valid: false, error: 'Suggestion type cannot be empty or whitespace' };
+    }
+
+    if (!VALID_SUGGESTION_TYPES.includes(trimmed)) {
         return {
             valid: false,
             error: `Invalid suggestion type. Must be one of: ${VALID_SUGGESTION_TYPES.join(', ')}`
@@ -60,11 +77,21 @@ function validateSuggestionType(suggestionType) {
  * @returns {Object} { valid: boolean, error: string|null }
  */
 function validateTone(tone) {
-    if (!tone) {
-        return { valid: false, error: 'Tone is required' };
+    // Check for null/undefined/empty
+    if (tone === null || tone === undefined || tone === '') {
+        return { valid: false, error: 'Tone is required and cannot be empty' };
     }
 
-    if (!VALID_TONES.includes(tone)) {
+    if (typeof tone !== 'string') {
+        return { valid: false, error: 'Tone must be a string' };
+    }
+
+    const trimmed = tone.trim();
+    if (trimmed === '') {
+        return { valid: false, error: 'Tone cannot be empty or whitespace' };
+    }
+
+    if (!VALID_TONES.includes(trimmed)) {
         return {
             valid: false,
             error: `Invalid tone. Must be one of: ${VALID_TONES.join(', ')}`
@@ -134,18 +161,84 @@ function sanitizeSuggestions(suggestions) {
  * @returns {Object} { valid: boolean, error: string|null }
  */
 function validateTextLength(text, maxLength = 1000) {
-    if (!text) {
-        return { valid: false, error: 'Text is required' };
+    // Check for null/undefined/empty
+    if (text === null || text === undefined || text === '') {
+        return { valid: false, error: 'Text is required and cannot be empty' };
     }
 
     if (typeof text !== 'string') {
         return { valid: false, error: 'Text must be a string' };
     }
 
-    if (text.length > maxLength) {
+    const trimmed = text.trim();
+    if (trimmed === '') {
+        return { valid: false, error: 'Text cannot be empty or whitespace' };
+    }
+
+    if (trimmed.length > maxLength) {
         return {
             valid: false,
             error: `Text too long. Maximum ${maxLength} characters allowed`
+        };
+    }
+
+    return { valid: true, error: null };
+}
+
+/**
+ * Validate required string field with max length
+ * @param {*} value - Value to validate
+ * @param {string} fieldName - Field name for error messages
+ * @param {number} maxLength - Maximum allowed length (default 1000)
+ * @returns {Object} { valid: boolean, error: string|null }
+ */
+function validateRequiredString(value, fieldName, maxLength = 1000) {
+    // Check for null/undefined
+    if (value === null || value === undefined) {
+        return { valid: false, error: `${fieldName} is required` };
+    }
+
+    if (typeof value !== 'string') {
+        return { valid: false, error: `${fieldName} must be a string` };
+    }
+
+    const trimmed = value.trim();
+    if (trimmed === '') {
+        return { valid: false, error: `${fieldName} cannot be empty` };
+    }
+
+    if (trimmed.length > maxLength) {
+        return {
+            valid: false,
+            error: `${fieldName} exceeds maximum length of ${maxLength} characters`
+        };
+    }
+
+    return { valid: true, error: null };
+}
+
+/**
+ * Validate optional string field with max length
+ * @param {*} value - Value to validate
+ * @param {string} fieldName - Field name for error messages
+ * @param {number} maxLength - Maximum allowed length (default 1000)
+ * @returns {Object} { valid: boolean, error: string|null }
+ */
+function validateOptionalString(value, fieldName, maxLength = 1000) {
+    // Optional field - null/undefined is okay
+    if (value === null || value === undefined) {
+        return { valid: true, error: null };
+    }
+
+    if (typeof value !== 'string') {
+        return { valid: false, error: `${fieldName} must be a string` };
+    }
+
+    // Empty string is okay for optional fields
+    if (value.trim().length > maxLength) {
+        return {
+            valid: false,
+            error: `${fieldName} exceeds maximum length of ${maxLength} characters`
         };
     }
 
@@ -200,6 +293,8 @@ module.exports = {
     validateSuggestionType,
     validateTone,
     validateTextLength,
+    validateRequiredString,
+    validateOptionalString,
     validateVoiceModel,
     validateVoiceId,
     sanitizeText,

@@ -17,6 +17,7 @@ const {
     validateTone,
     sanitizeText
 } = require('../utils/validation');
+const { callGrokWithRetry } = require('../utils/apiRetry');
 
 const router = express.Router();
 
@@ -402,19 +403,24 @@ Now analyze the provided screenshot and return JSON in this EXACT format with pr
                 };
             }
 
-            const grokResponse = await axios.post(grokApiUrl, grokRequestBody, {
-                headers: {
+            // Call Grok API with retry logic (3 attempts with exponential backoff)
+            const grokData = await callGrokWithRetry(
+                axios,
+                grokApiUrl,
+                grokRequestBody,
+                {
                     'Authorization': `Bearer ${process.env.GROK_API_KEY}`,
                     'Content-Type': 'application/json'
                 },
-                timeout: timeouts.api.geminiVisionFlirts
-            });
+                timeouts.api.geminiVisionFlirts,
+                3 // max retries
+            );
 
-            if (!grokResponse.data || !grokResponse.data.choices || !grokResponse.data.choices[0]) {
+            if (!grokData || !grokData.choices || !grokData.choices[0]) {
                 throw new Error('Invalid response from Grok API');
             }
 
-            const responseText = grokResponse.data.choices[0].message.content;
+            const responseText = grokData.choices[0].message.content;
 
             // Optional debug logging (enable with DEBUG_GROK_RESPONSES=true)
             if (process.env.DEBUG_GROK_RESPONSES === 'true') {
@@ -422,9 +428,9 @@ Now analyze the provided screenshot and return JSON in this EXACT format with pr
                 console.log('📊 GROK API RESPONSE ANALYSIS');
                 console.log('='.repeat(80));
                 console.log('Response length:', responseText.length, 'chars');
-                console.log('Model:', grokResponse.data.model);
-                console.log('Tokens used:', JSON.stringify(grokResponse.data.usage || 'N/A'));
-                console.log('Finish reason:', grokResponse.data.choices[0].finish_reason);
+                console.log('Model:', grokData.model);
+                console.log('Tokens used:', JSON.stringify(grokData.usage || 'N/A'));
+                console.log('Finish reason:', grokData.choices[0].finish_reason);
                 console.log('\n📝 RAW RESPONSE CONTENT:');
                 console.log(responseText.substring(0, 500) + (responseText.length > 500 ? '...' : ''));
                 console.log('='.repeat(80) + '\n');
@@ -443,14 +449,14 @@ Now analyze the provided screenshot and return JSON in this EXACT format with pr
             }
 
             // Validate response structure (handle both old and new formats)
-            const grokData = suggestions;
+            const parsedData = suggestions;
 
             // Optional field validation logging
             if (process.env.DEBUG_GROK_RESPONSES === 'true') {
                 console.log('🔍 FIELD VALIDATION:');
                 const requiredFields = ['screenshot_type', 'needs_more_scrolling', 'profile_score', 'extracted_details', 'suggestions'];
-                const missingFields = requiredFields.filter(field => grokData[field] === undefined);
-                const presentFields = requiredFields.filter(field => grokData[field] !== undefined);
+                const missingFields = requiredFields.filter(field => parsedData[field] === undefined);
+                const presentFields = requiredFields.filter(field => parsedData[field] !== undefined);
 
                 console.log('✅ Present fields:', presentFields.join(', '));
                 if (missingFields.length > 0) {
@@ -458,9 +464,9 @@ Now analyze the provided screenshot and return JSON in this EXACT format with pr
                 }
 
                 // Validate suggestion structure
-                if (grokData.suggestions && Array.isArray(grokData.suggestions)) {
-                    console.log(`📋 Suggestions count: ${grokData.suggestions.length}`);
-                    grokData.suggestions.forEach((s, i) => {
+                if (parsedData.suggestions && Array.isArray(parsedData.suggestions)) {
+                    console.log(`📋 Suggestions count: ${parsedData.suggestions.length}`);
+                    parsedData.suggestions.forEach((s, i) => {
                         const hasReasoning = s.reasoning !== undefined;
                         const hasReferences = s.references !== undefined;
                         const hasConfidence = s.confidence !== undefined;
@@ -471,32 +477,32 @@ Now analyze the provided screenshot and return JSON in this EXACT format with pr
             }
 
             // NEW: Handle intelligent response format with needs_more_scrolling
-            if (grokData.needs_more_scrolling !== undefined) {
+            if (parsedData.needs_more_scrolling !== undefined) {
                 // New intelligent format
-                console.log(`Intelligent analysis: screenshot_type=${grokData.screenshot_type}, score=${grokData.profile_score}, needs_more=${grokData.needs_more_scrolling}`);
+                console.log(`Intelligent analysis: screenshot_type=${parsedData.screenshot_type}, score=${parsedData.profile_score}, needs_more=${parsedData.needs_more_scrolling}`);
 
                 // If needs more scrolling, return early with message
-                if (grokData.needs_more_scrolling) {
+                if (parsedData.needs_more_scrolling) {
                     return res.status(httpStatus.OK).json({
                         success: true,
-                        screenshot_type: grokData.screenshot_type,
+                        screenshot_type: parsedData.screenshot_type,
                         needs_more_scrolling: true,
-                        profile_score: grokData.profile_score,
-                        message_to_user: grokData.message_to_user || 'Please provide more profile information',
-                        extracted_details: grokData.extracted_details || {},
+                        profile_score: parsedData.profile_score,
+                        message_to_user: parsedData.message_to_user || 'Please provide more profile information',
+                        extracted_details: parsedData.extracted_details || {},
                         suggestions: []
                     });
                 }
             }
 
             // Validate suggestions array exists
-            if (!grokData.suggestions || !Array.isArray(grokData.suggestions)) {
+            if (!parsedData.suggestions || !Array.isArray(parsedData.suggestions)) {
                 throw new Error('Invalid suggestions format from Grok API');
             }
 
             // Save suggestions to database (if database is available)
             const savedSuggestions = [];
-            for (const suggestion of grokData.suggestions) {
+            for (const suggestion of parsedData.suggestions) {
                 let suggestionId = 'test-suggestion-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9);
                 let createdAt = new Date().toISOString();
 
@@ -540,11 +546,11 @@ Now analyze the provided screenshot and return JSON in this EXACT format with pr
             // Prepare response data (include new intelligent fields)
             const responseData = {
                 success: true,
-                screenshot_type: grokData.screenshot_type || 'profile',
-                needs_more_scrolling: grokData.needs_more_scrolling || false,
-                profile_score: grokData.profile_score,
-                message_to_user: grokData.message_to_user,
-                extracted_details: grokData.extracted_details || {},
+                screenshot_type: parsedData.screenshot_type || 'profile',
+                needs_more_scrolling: parsedData.needs_more_scrolling || false,
+                profile_score: parsedData.profile_score,
+                message_to_user: parsedData.message_to_user,
+                extracted_details: parsedData.extracted_details || {},
                 suggestions: savedSuggestions,
                 metadata: {
                     suggestion_type,

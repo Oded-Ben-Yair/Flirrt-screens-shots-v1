@@ -6,6 +6,7 @@ const { Pool } = require('pg');
 const axios = require('axios');
 const FormData = require('form-data');
 const { authenticateToken, rateLimit } = require('../middleware/auth');
+const { validateFileUpload } = require('../middleware/validation');
 const {
     logError,
     sendErrorResponse,
@@ -65,6 +66,7 @@ router.post('/analyze_screenshot',
     authenticateToken,
     rateLimit(20, 15 * 60 * 1000), // 20 requests per 15 minutes
     upload.single('screenshot'),
+    validateFileUpload, // Add file upload validation
     async (req, res) => {
         let screenshotId = null;
 
