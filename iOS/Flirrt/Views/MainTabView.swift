@@ -4,6 +4,7 @@ struct MainTabView: View {
     @EnvironmentObject private var authManager: AuthManager
     @EnvironmentObject private var apiClient: APIClient
     @EnvironmentObject private var sharedDataManager: SharedDataManager
+    @EnvironmentObject private var screenshotManager: ScreenshotDetectionManager
 
     @State private var selectedTab = 0
     @State private var showingVoiceRecording = false
@@ -202,7 +203,7 @@ struct HomeView: View {
             VoiceRecordingView()
         }
         .sheet(isPresented: $showingScreenshotAnalysis) {
-            PlaceholderView(title: "Screenshot Analysis", subtitle: "Coming Soon!")
+            ScreenshotAnalysisView()
         }
         .sheet(isPresented: $showingFlirtGeneration) {
             PlaceholderView(title: "Flirt Generation", subtitle: "AI-powered conversation starters coming soon!")

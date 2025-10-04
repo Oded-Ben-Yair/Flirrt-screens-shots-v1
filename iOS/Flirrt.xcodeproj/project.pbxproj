@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		58DEF3D30B431139DCA4C2C6 /* DarwinNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4500141D38A23F3E31FB9957 /* DarwinNotificationManager.swift */; };
+		7E3C349FFD99D1EBCA11FF58 /* FlirtSuggestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1937AAA195D1AD03252B4C /* FlirtSuggestion.swift */; };
 		A0001000000000000001000 /* FlirrtApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0002000000000000002000 /* FlirrtApp.swift */; };
 		A0003000000000000003000 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0004000000000000004000 /* ContentView.swift */; };
 		A0005000000000000005000 /* VoiceModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0006000000000000006000 /* VoiceModels.swift */; };
@@ -35,6 +36,7 @@
 		A0049000000000000049000 /* FlirrtKeyboard.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = A0059000000000000059000 /* FlirrtKeyboard.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		A0050000000000000050000 /* FlirrtShare.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = A0060000000000000060000 /* FlirrtShare.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C283BE8DF73B7A7B6D7B53C6 /* ScreenshotDetectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AB5DF72B9ED8E9D590D084 /* ScreenshotDetectionManager.swift */; };
+		FB4E12168736F4552ED81BB3 /* ScreenshotAnalysisView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569CDF031189FB940D1FA577 /* ScreenshotAnalysisView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +73,8 @@
 
 /* Begin PBXFileReference section */
 		4500141D38A23F3E31FB9957 /* DarwinNotificationManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DarwinNotificationManager.swift; path = DarwinNotificationManager.swift; sourceTree = "<group>"; };
+		569CDF031189FB940D1FA577 /* ScreenshotAnalysisView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ScreenshotAnalysisView.swift; sourceTree = "<group>"; };
+		9F1937AAA195D1AD03252B4C /* FlirtSuggestion.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FlirtSuggestion.swift; sourceTree = "<group>"; };
 		A0002000000000000002000 /* FlirrtApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlirrtApp.swift; sourceTree = "<group>"; };
 		A0004000000000000004000 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		A0006000000000000006000 /* VoiceModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceModels.swift; sourceTree = "<group>"; };
@@ -207,6 +211,7 @@
 			isa = PBXGroup;
 			children = (
 				A0006000000000000006000 /* VoiceModels.swift */,
+				9F1937AAA195D1AD03252B4C /* FlirtSuggestion.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -240,6 +245,7 @@
 				A0034000000000000034000 /* VoiceRecordingFlowView.swift */,
 				A0036000000000000036000 /* VoiceRecordingView.swift */,
 				A0038000000000000038000 /* VoiceScriptSelectorView.swift */,
+				569CDF031189FB940D1FA577 /* ScreenshotAnalysisView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -400,6 +406,8 @@
 				A0037000000000000037000 /* VoiceScriptSelectorView.swift in Sources */,
 				C283BE8DF73B7A7B6D7B53C6 /* ScreenshotDetectionManager.swift in Sources */,
 				58DEF3D30B431139DCA4C2C6 /* DarwinNotificationManager.swift in Sources */,
+				7E3C349FFD99D1EBCA11FF58 /* FlirtSuggestion.swift in Sources */,
+				FB4E12168736F4552ED81BB3 /* ScreenshotAnalysisView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

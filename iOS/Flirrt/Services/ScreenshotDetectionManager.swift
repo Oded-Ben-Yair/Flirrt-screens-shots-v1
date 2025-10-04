@@ -13,6 +13,7 @@ final class ScreenshotDetectionManager: ObservableObject {
     @Published var lastScreenshotDetected: Date?
     @Published var screenhotDetectionEnabled: Bool = true
     @Published var detectionStatus: DetectionStatus = .idle
+    @Published var latestScreenshotData: Data?  // Latest screenshot image data for UI preview
 
     // MARK: - Private Properties
     private let logger = Logger(subsystem: "com.flirrt.app", category: "ScreenshotDetection")
@@ -448,6 +449,9 @@ final class ScreenshotDetectionManager: ObservableObject {
 
             let screenshotFile = screenshotsDir.appendingPathComponent("\(screenshotId).jpg")
             try imageData.write(to: screenshotFile)
+
+            // Store latest screenshot data for UI preview
+            self.latestScreenshotData = imageData
 
             // Update shared defaults with screenshot info
             sharedDefaults?.set(screenshotId, forKey: "latest_screenshot_id")

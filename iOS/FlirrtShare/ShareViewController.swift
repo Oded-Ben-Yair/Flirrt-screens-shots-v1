@@ -97,7 +97,7 @@ class ShareViewController: UIViewController {
     }
 
     private func saveScreenshotToSharedContainer(_ image: UIImage) {
-        guard let containerURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.com.flirrt.ai.shared") else {
+        guard let containerURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.com.flirrt.shared") else {
             print("Failed to get shared container")
             return
         }
@@ -135,7 +135,7 @@ class ShareViewController: UIViewController {
     }
 
     private func saveMetadata(_ metadata: ScreenshotMetadata) {
-        guard let containerURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.com.flirrt.ai.shared") else { return }
+        guard let containerURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.com.flirrt.shared") else { return }
 
         let metadataURL = containerURL.appendingPathComponent("screenshot_metadata.json")
 

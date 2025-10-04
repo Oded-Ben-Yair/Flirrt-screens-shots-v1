@@ -73,7 +73,7 @@ class AuthManager: NSObject, ObservableObject {
 
     private func saveAgeVerification() {
         UserDefaults.standard.set(true, forKey: "age_verified")
-        if let sharedDefaults = UserDefaults(suiteName: "group.com.flirrt.ai.shared") {
+        if let sharedDefaults = UserDefaults(suiteName: "group.com.flirrt.shared") {
             sharedDefaults.set(true, forKey: "age_verified")
         }
     }
@@ -81,7 +81,7 @@ class AuthManager: NSObject, ObservableObject {
     func logout() {
         try? keychain.remove("jwt_token")
         UserDefaults.standard.removeObject(forKey: "age_verified")
-        if let sharedDefaults = UserDefaults(suiteName: "group.com.flirrt.ai.shared") {
+        if let sharedDefaults = UserDefaults(suiteName: "group.com.flirrt.shared") {
             sharedDefaults.removeObject(forKey: "age_verified")
         }
         isAuthenticated = false

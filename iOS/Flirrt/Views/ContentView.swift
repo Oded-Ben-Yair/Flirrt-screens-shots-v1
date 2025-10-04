@@ -4,8 +4,10 @@ struct ContentView: View {
     @EnvironmentObject private var authManager: AuthManager
     @EnvironmentObject private var apiClient: APIClient
     @EnvironmentObject private var sharedDataManager: SharedDataManager
+    @EnvironmentObject private var screenshotManager: ScreenshotDetectionManager
 
     @State private var showingVoiceRecording = false
+    @State private var showingScreenshotAnalysis = false
 
     var body: some View {
         NavigationView {
@@ -50,6 +52,9 @@ struct ContentView: View {
         }
         .sheet(isPresented: $showingVoiceRecording) {
             VoiceRecordingView()
+        }
+        .sheet(isPresented: $showingScreenshotAnalysis) {
+            ScreenshotAnalysisView()
         }
     }
 
@@ -120,7 +125,7 @@ struct ContentView: View {
                     title: "Analyze Screenshot",
                     description: "Get instant flirting advice"
                 ) {
-                    // TODO: Implement screenshot analysis
+                    showingScreenshotAnalysis = true
                 }
 
                 FeatureButton(

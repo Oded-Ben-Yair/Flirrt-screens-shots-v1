@@ -7,7 +7,7 @@ class SharedDataManager: ObservableObject {
     @Published var recentRecordings: [VoiceRecording] = []
 
     private let userDefaults = UserDefaults.standard
-    private let sharedDefaults = UserDefaults(suiteName: "group.com.flirrt.ai.shared")
+    private let sharedDefaults = UserDefaults(suiteName: "group.com.flirrt.shared")
 
     init() {
         loadStoredData()
