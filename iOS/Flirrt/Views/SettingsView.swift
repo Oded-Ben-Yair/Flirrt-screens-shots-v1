@@ -243,8 +243,8 @@ struct SettingsView: View {
                 // await apiClient.deleteAllUserData()
 
                 // Clear local data
-                UserDefaults.standard.removeObject(forKey: "onboarding_complete")
-                UserDefaults.standard.removeObject(forKey: "age_verified")
+                UserDefaults.standard.removeObject(forKey: AppConstants.UserDefaultsKeys.onboardingComplete)
+                UserDefaults.standard.removeObject(forKey: AppConstants.UserDefaultsKeys.ageVerified)
 
                 // Sign out
                 authManager.logout()

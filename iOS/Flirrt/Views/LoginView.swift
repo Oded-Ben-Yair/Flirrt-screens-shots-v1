@@ -182,17 +182,17 @@ struct LoginView: View {
 
                             Button(action: {
                                 // Set demo user in standard UserDefaults
-                                UserDefaults.standard.set("demo-user-\(UUID().uuidString)", forKey: "user_id")
-                                UserDefaults.standard.set("Demo User", forKey: "user_name")
-                                UserDefaults.standard.set("demo@flirrt.test", forKey: "user_email")
-                                UserDefaults.standard.set(true, forKey: "onboarding_completed")
-                                UserDefaults.standard.set(true, forKey: "age_verified")
+                                UserDefaults.standard.set("demo-user-\(UUID().uuidString)", forKey: AppConstants.UserDefaultsKeys.userId)
+                                UserDefaults.standard.set("Demo User", forKey: AppConstants.UserDefaultsKeys.userName)
+                                UserDefaults.standard.set("demo@flirrt.test", forKey: AppConstants.UserDefaultsKeys.userEmail)
+                                UserDefaults.standard.set(true, forKey: AppConstants.UserDefaultsKeys.onboardingCompleted)
+                                UserDefaults.standard.set(true, forKey: AppConstants.UserDefaultsKeys.ageVerified)
 
                                 // Save to App Group for keyboard access
-                                if let sharedDefaults = UserDefaults(suiteName: "group.com.flirrt.shared") {
-                                    sharedDefaults.set("demo-user-\(UUID().uuidString)", forKey: "user_id")
-                                    sharedDefaults.set("demo-token-\(UUID().uuidString)", forKey: "auth_token")
-                                    sharedDefaults.set(true, forKey: "has_full_access")
+                                if let sharedDefaults = UserDefaults(suiteName: AppConstants.appGroupIdentifier) {
+                                    sharedDefaults.set("demo-user-\(UUID().uuidString)", forKey: AppConstants.UserDefaultsKeys.userId)
+                                    sharedDefaults.set("demo-token-\(UUID().uuidString)", forKey: AppConstants.UserDefaultsKeys.authToken)
+                                    sharedDefaults.set(true, forKey: AppConstants.UserDefaultsKeys.hasFullAccess)
                                     sharedDefaults.synchronize()
                                     print("✅ Demo user saved to App Group")
                                 }

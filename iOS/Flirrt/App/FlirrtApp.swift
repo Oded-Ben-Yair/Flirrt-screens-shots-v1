@@ -30,8 +30,8 @@ struct FlirrtApp: App {
     }
 
     private func setupAppGroups() {
-        if let sharedDefaults = UserDefaults(suiteName: "group.com.flirrt.shared") {
-            sharedDefaults.set(true, forKey: "appLaunched")
+        if let sharedDefaults = UserDefaults(suiteName: AppConstants.appGroupIdentifier) {
+            sharedDefaults.set(true, forKey: AppConstants.UserDefaultsKeys.appLaunched)
             sharedDefaults.synchronize()
         }
     }

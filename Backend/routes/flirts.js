@@ -3,6 +3,14 @@ const { Pool } = require('pg');
 const axios = require('axios');
 const Redis = require('ioredis');
 const { authenticateToken, rateLimit } = require('../middleware/auth');
+const { httpStatus, errors, validation, cache } = require('../config/constants');
+const timeouts = require('../config/timeouts');
+const {
+    logError,
+    sendErrorResponse,
+    handleError,
+    errorCodes
+} = require('../utils/errorHandler');
 
 const router = express.Router();
 
@@ -22,8 +30,8 @@ try {
         host: process.env.REDIS_HOST,
         port: process.env.REDIS_PORT,
         password: process.env.REDIS_PASSWORD,
-        retryDelayOnFailover: 100,
-        maxRetriesPerRequest: 3,
+        retryDelayOnFailover: timeouts.retry.redisRetryDelay,
+        maxRetriesPerRequest: timeouts.retry.maxRetriesNetworkError,
         lazyConnect: true
     });
 
@@ -63,10 +71,10 @@ router.post('/generate_flirts',
 
             // Support both modes: new (image_data) and legacy (screenshot_id)
             if (!screenshot_id && !image_data) {
-                return res.status(400).json({
+                return res.status(httpStatus.BAD_REQUEST).json({
                     success: false,
                     error: 'Either screenshot_id or image_data is required',
-                    code: 'MISSING_REQUIRED_FIELD'
+                    code: errors.VALIDATION_ERROR.code
                 });
             }
 
@@ -89,10 +97,10 @@ router.post('/generate_flirts',
 
                     // Check if user owns this screenshot
                     if (screenshot.owner_id !== req.user.id) {
-                        return res.status(403).json({
+                        return res.status(httpStatus.FORBIDDEN).json({
                             success: false,
-                            error: 'Access denied',
-                            code: 'ACCESS_DENIED'
+                            error: errors.ACCESS_DENIED.message,
+                            code: errors.ACCESS_DENIED.code
                         });
                     }
                 }
@@ -354,7 +362,7 @@ Now analyze the provided screenshot and return JSON in this EXACT format with pr
                     'Authorization': `Bearer ${process.env.GROK_API_KEY}`,
                     'Content-Type': 'application/json'
                 },
-                timeout: 45000 // 45 second timeout for vision processing
+                timeout: timeouts.api.geminiVisionFlirts
             });
 
             if (!grokResponse.data || !grokResponse.data.choices || !grokResponse.data.choices[0]) {
@@ -424,7 +432,7 @@ Now analyze the provided screenshot and return JSON in this EXACT format with pr
 
                 // If needs more scrolling, return early with message
                 if (grokData.needs_more_scrolling) {
-                    return res.status(200).json({
+                    return res.status(httpStatus.OK).json({
                         success: true,
                         screenshot_type: grokData.screenshot_type,
                         needs_more_scrolling: true,
@@ -502,11 +510,11 @@ Now analyze the provided screenshot and return JSON in this EXACT format with pr
                 }
             };
 
-            // Cache results for 1 hour (if Redis is available)
+            // Cache results (if Redis is available)
             if (redis) {
                 try {
                     const cacheKey = `flirts:${screenshot_id}:${suggestion_type}:${tone}:${JSON.stringify(user_preferences)}`;
-                    await redis.setex(cacheKey, 3600, JSON.stringify(responseData));
+                    await redis.setex(cacheKey, cache.tiers.warm.ttl / 1000, JSON.stringify(responseData));
                 } catch (cacheError) {
                     console.warn('Cache storage failed:', cacheError.message);
                 }
@@ -537,20 +545,17 @@ Now analyze the provided screenshot and return JSON in this EXACT format with pr
             });
 
         } catch (error) {
-            console.error('❌ Flirt generation error:', error);
-            console.error('Error details:', {
-                message: error.message,
-                stack: error.stack,
-                response: error.response?.data
+            // Log error with full context
+            logError('generate_flirts', error, {
+                screenshot_id,
+                suggestion_type,
+                tone,
+                user_id: req.user?.id,
+                has_image_data: !!image_data
             });
 
-            // NO MOCK FALLBACK - Return actual error
-            return res.status(500).json({
-                success: false,
-                error: error.message || 'Failed to generate flirt suggestions',
-                code: 'FLIRT_GENERATION_ERROR',
-                details: error.response?.data || null
-            });
+            // Use centralized error handler for consistent responses
+            return handleError(error, res, 'generate_flirts', req.id);
         }
     }
 );
@@ -616,12 +621,12 @@ router.get('/history', authenticateToken, async (req, res) => {
         });
 
     } catch (error) {
-        console.error('Get flirt history error:', error);
-        res.status(500).json({
-            success: false,
-            error: 'Failed to get flirt history',
-            code: 'GET_HISTORY_ERROR'
+        logError('get_flirt_history', error, {
+            user_id: req.user?.id,
+            page: req.query.page,
+            limit: req.query.limit
         });
+        return handleError(error, res, 'get_flirt_history', req.id);
     }
 });
 
@@ -634,11 +639,11 @@ router.post('/:suggestionId/rate', authenticateToken, async (req, res) => {
         const { suggestionId } = req.params;
         const { rating, feedback } = req.body;
 
-        if (!rating || rating < 1 || rating > 5) {
-            return res.status(400).json({
+        if (!rating || rating < validation.range.rating.min || rating > validation.range.rating.max) {
+            return res.status(httpStatus.BAD_REQUEST).json({
                 success: false,
-                error: 'Rating must be between 1 and 5',
-                code: 'INVALID_RATING'
+                error: `Rating must be between ${validation.range.rating.min} and ${validation.range.rating.max}`,
+                code: errors.VALIDATION_ERROR.code
             });
         }
 
@@ -650,18 +655,18 @@ router.post('/:suggestionId/rate', authenticateToken, async (req, res) => {
         const suggestionResult = await pool.query(suggestionQuery, [suggestionId]);
 
         if (suggestionResult.rows.length === 0) {
-            return res.status(404).json({
+            return res.status(httpStatus.NOT_FOUND).json({
                 success: false,
-                error: 'Suggestion not found',
-                code: 'SUGGESTION_NOT_FOUND'
+                error: errors.FLIRT_NOT_FOUND.message,
+                code: errors.FLIRT_NOT_FOUND.code
             });
         }
 
         if (suggestionResult.rows[0].user_id !== req.user.id) {
-            return res.status(403).json({
+            return res.status(httpStatus.FORBIDDEN).json({
                 success: false,
-                error: 'Access denied',
-                code: 'ACCESS_DENIED'
+                error: errors.ACCESS_DENIED.message,
+                code: errors.ACCESS_DENIED.code
             });
         }
 
@@ -690,12 +695,12 @@ router.post('/:suggestionId/rate', authenticateToken, async (req, res) => {
         });
 
     } catch (error) {
-        console.error('Rate suggestion error:', error);
-        res.status(500).json({
-            success: false,
-            error: 'Failed to save rating',
-            code: 'RATING_ERROR'
+        logError('rate_suggestion', error, {
+            user_id: req.user?.id,
+            suggestion_id: req.params.suggestionId,
+            rating: req.body.rating
         });
+        return handleError(error, res, 'rate_suggestion', req.id);
     }
 });
 
@@ -715,18 +720,18 @@ router.post('/:suggestionId/used', authenticateToken, async (req, res) => {
         const suggestionResult = await pool.query(suggestionQuery, [suggestionId]);
 
         if (suggestionResult.rows.length === 0) {
-            return res.status(404).json({
+            return res.status(httpStatus.NOT_FOUND).json({
                 success: false,
-                error: 'Suggestion not found',
-                code: 'SUGGESTION_NOT_FOUND'
+                error: errors.FLIRT_NOT_FOUND.message,
+                code: errors.FLIRT_NOT_FOUND.code
             });
         }
 
         if (suggestionResult.rows[0].user_id !== req.user.id) {
-            return res.status(403).json({
+            return res.status(httpStatus.FORBIDDEN).json({
                 success: false,
-                error: 'Access denied',
-                code: 'ACCESS_DENIED'
+                error: errors.ACCESS_DENIED.message,
+                code: errors.ACCESS_DENIED.code
             });
         }
 
@@ -749,12 +754,11 @@ router.post('/:suggestionId/used', authenticateToken, async (req, res) => {
         });
 
     } catch (error) {
-        console.error('Mark used error:', error);
-        res.status(500).json({
-            success: false,
-            error: 'Failed to mark suggestion as used',
-            code: 'MARK_USED_ERROR'
+        logError('mark_suggestion_used', error, {
+            user_id: req.user?.id,
+            suggestion_id: req.params.suggestionId
         });
+        return handleError(error, res, 'mark_suggestion_used', req.id);
     }
 });
 
@@ -773,10 +777,10 @@ router.delete('/:suggestionId', authenticateToken, async (req, res) => {
         );
 
         if (deleteResult.rowCount === 0) {
-            return res.status(404).json({
+            return res.status(httpStatus.NOT_FOUND).json({
                 success: false,
-                error: 'Suggestion not found',
-                code: 'SUGGESTION_NOT_FOUND'
+                error: errors.FLIRT_NOT_FOUND.message,
+                code: errors.FLIRT_NOT_FOUND.code
             });
         }
 
@@ -786,12 +790,11 @@ router.delete('/:suggestionId', authenticateToken, async (req, res) => {
         });
 
     } catch (error) {
-        console.error('Delete suggestion error:', error);
-        res.status(500).json({
-            success: false,
-            error: 'Failed to delete suggestion',
-            code: 'DELETE_ERROR'
+        logError('delete_suggestion', error, {
+            user_id: req.user?.id,
+            suggestion_id: req.params.suggestionId
         });
+        return handleError(error, res, 'delete_suggestion', req.id);
     }
 });
 

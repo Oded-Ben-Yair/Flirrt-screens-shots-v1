@@ -18,7 +18,7 @@ final class ScreenshotDetectionManager: ObservableObject {
     // MARK: - Private Properties
     private let logger = Logger(subsystem: "com.flirrt.app", category: "ScreenshotDetection")
     private var cancellables = Set<AnyCancellable>()
-    private let sharedDefaults = UserDefaults(suiteName: "group.com.flirrt.shared")
+    private let sharedDefaults = UserDefaults(suiteName: AppConstants.appGroupIdentifier)
     private var screenshotCounter: Int = 0
     private var backgroundTaskIdentifier: UIBackgroundTaskIdentifier = .invalid
     private let darwinNotificationManager = DarwinNotificationManager()
@@ -180,7 +180,7 @@ final class ScreenshotDetectionManager: ObservableObject {
     // MARK: - App Groups Communication
     private func storeNotificationData(_ data: [String: Any], screenshotId: String) async {
         guard let containerURL = FileManager.default.containerURL(
-            forSecurityApplicationGroupIdentifier: "group.com.flirrt.shared"
+            forSecurityApplicationGroupIdentifier: AppConstants.appGroupIdentifier
         ) else {
             logger.error("❌ Failed to get container URL for app group")
             detectionStatus = .error("App Groups access failed")
@@ -196,9 +196,9 @@ final class ScreenshotDetectionManager: ObservableObject {
             try jsonData.write(to: notificationFile)
 
             // Update shared preferences with latest notification
-            sharedDefaults?.set(screenshotId, forKey: "last_screenshot_id")
-            sharedDefaults?.set(Date().timeIntervalSince1970, forKey: "last_screenshot_time")
-            sharedDefaults?.set(screenshotCounter, forKey: "screenshot_counter")
+            sharedDefaults?.set(screenshotId, forKey: AppConstants.UserDefaultsKeys.lastScreenshotId)
+            sharedDefaults?.set(Date().timeIntervalSince1970, forKey: AppConstants.UserDefaultsKeys.lastScreenshotTime)
+            sharedDefaults?.set(screenshotCounter, forKey: AppConstants.UserDefaultsKeys.screenshotCounter)
             sharedDefaults?.synchronize()
 
             logger.info("✅ Notification data stored for keyboard - ID: \(screenshotId)")
@@ -210,7 +210,7 @@ final class ScreenshotDetectionManager: ObservableObject {
 
     private func storeScreenshotMetadata(_ metadata: [String: Any], screenshotId: String) async {
         guard let containerURL = FileManager.default.containerURL(
-            forSecurityApplicationGroupIdentifier: "group.com.flirrt.shared"
+            forSecurityApplicationGroupIdentifier: AppConstants.appGroupIdentifier
         ) else {
             logger.warning("⚠️ Failed to get container URL for metadata storage")
             return
@@ -235,8 +235,8 @@ final class ScreenshotDetectionManager: ObservableObject {
         logger.info("🔄 Preparing for background detection")
 
         // Store current state for background processing
-        sharedDefaults?.set(true, forKey: "app_was_active_during_screenshot")
-        sharedDefaults?.set(Date().timeIntervalSince1970, forKey: "last_active_time")
+        sharedDefaults?.set(true, forKey: AppConstants.UserDefaultsKeys.appWasActiveDuringScreenshot)
+        sharedDefaults?.set(Date().timeIntervalSince1970, forKey: AppConstants.UserDefaultsKeys.lastActiveTime)
         sharedDefaults?.synchronize()
     }
 
@@ -340,8 +340,8 @@ final class ScreenshotDetectionManager: ObservableObject {
         logger.info("✅ Screenshot confirmed in Photos library - ID: \(screenshotId)")
 
         // Update shared data with confirmation
-        sharedDefaults?.set(true, forKey: "last_screenshot_confirmed")
-        sharedDefaults?.set(Date().timeIntervalSince1970, forKey: "last_screenshot_confirmed_time")
+        sharedDefaults?.set(true, forKey: AppConstants.UserDefaultsKeys.lastScreenshotConfirmed)
+        sharedDefaults?.set(Date().timeIntervalSince1970, forKey: AppConstants.UserDefaultsKeys.lastScreenshotConfirmedTime)
         sharedDefaults?.synchronize()
 
         // Send confirmation via Darwin notification manager
@@ -437,7 +437,7 @@ final class ScreenshotDetectionManager: ObservableObject {
 
     private func storeCompressedScreenshot(imageData: Data, screenshotId: String) async {
         guard let containerURL = FileManager.default.containerURL(
-            forSecurityApplicationGroupIdentifier: "group.com.flirrt.shared"
+            forSecurityApplicationGroupIdentifier: AppConstants.appGroupIdentifier
         ) else {
             logger.error("❌ Failed to get App Groups container")
             return
@@ -454,10 +454,10 @@ final class ScreenshotDetectionManager: ObservableObject {
             self.latestScreenshotData = imageData
 
             // Update shared defaults with screenshot info
-            sharedDefaults?.set(screenshotId, forKey: "latest_screenshot_id")
-            sharedDefaults?.set(screenshotFile.path, forKey: "latest_screenshot_path")
-            sharedDefaults?.set(imageData.count, forKey: "latest_screenshot_size")
-            sharedDefaults?.set(imageData.base64EncodedString(), forKey: "screenshot_\(screenshotId)")
+            sharedDefaults?.set(screenshotId, forKey: AppConstants.UserDefaultsKeys.latestScreenshotId)
+            sharedDefaults?.set(screenshotFile.path, forKey: AppConstants.UserDefaultsKeys.latestScreenshotPath)
+            sharedDefaults?.set(imageData.count, forKey: AppConstants.UserDefaultsKeys.latestScreenshotSize)
+            sharedDefaults?.set(imageData.base64EncodedString(), forKey: AppConstants.UserDefaultsKeys.screenshotDataKey(screenshotId))
             sharedDefaults?.synchronize()
 
             let sizeKB = Double(imageData.count) / 1000.0
@@ -527,7 +527,7 @@ final class ScreenshotDetectionManager: ObservableObject {
         screenhotDetectionEnabled = enabled
         logger.info("🔧 Screenshot detection \(enabled ? "enabled" : "disabled")")
 
-        sharedDefaults?.set(enabled, forKey: "screenshot_detection_enabled")
+        sharedDefaults?.set(enabled, forKey: AppConstants.UserDefaultsKeys.screenshotDetectionEnabled)
         sharedDefaults?.synchronize()
 
         // Notify keyboard of detection status change

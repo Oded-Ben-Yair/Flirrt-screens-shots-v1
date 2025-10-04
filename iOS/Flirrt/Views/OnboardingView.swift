@@ -137,7 +137,7 @@ struct OnboardingView: View {
     }
 
     private func completeOnboarding() {
-        UserDefaults.standard.set(true, forKey: "onboarding_complete")
+        UserDefaults.standard.set(true, forKey: AppConstants.UserDefaultsKeys.onboardingComplete)
         withAnimation {
             isOnboardingComplete = true
         }

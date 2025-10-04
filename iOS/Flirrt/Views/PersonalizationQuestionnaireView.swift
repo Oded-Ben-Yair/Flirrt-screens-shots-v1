@@ -103,7 +103,7 @@ struct PersonalizationQuestionnaireView: View {
             do {
                 try await savePersonalizationData()
                 await MainActor.run {
-                    UserDefaults.standard.set(true, forKey: "personalization_complete")
+                    UserDefaults.standard.set(true, forKey: AppConstants.UserDefaultsKeys.personalizationComplete)
                     isLoading = false
                     onComplete()
                 }
@@ -123,7 +123,7 @@ struct PersonalizationQuestionnaireView: View {
 
         // For now, just save locally
         for (key, value) in answers {
-            UserDefaults.standard.set(value, forKey: "personalization_\(key)")
+            UserDefaults.standard.set(value, forKey: AppConstants.UserDefaultsKeys.personalizationKey(key))
         }
 
         // Simulate network delay

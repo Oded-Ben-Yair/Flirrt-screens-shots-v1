@@ -8,7 +8,7 @@ class KeyboardViewController: UIInputViewController {
 
     // MARK: - Properties
     private let logger = OSLog(subsystem: "com.flirrt.keyboard", category: "minimal")
-    private let appGroupID = "group.com.flirrt.shared"
+    private let appGroupID = AppConstants.appGroupIdentifier
 
     private var isAnalyzing = false
     private var suggestions: [FlirtSuggestion] = []
@@ -269,8 +269,8 @@ class KeyboardViewController: UIInputViewController {
         }
 
         // Get latest screenshot
-        guard let screenshotId = sharedDefaults.string(forKey: "latest_screenshot_id"),
-              let screenshotData = sharedDefaults.data(forKey: "screenshot_\(screenshotId)") else {
+        guard let screenshotId = sharedDefaults.string(forKey: AppConstants.UserDefaultsKeys.latestScreenshotId),
+              let screenshotData = sharedDefaults.data(forKey: AppConstants.UserDefaultsKeys.screenshotDataKey(screenshotId)) else {
             showError("No screenshot found. Please take a screenshot first.")
             return
         }

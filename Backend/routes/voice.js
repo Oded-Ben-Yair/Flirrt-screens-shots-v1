@@ -4,6 +4,18 @@ const path = require('path');
 const { Pool } = require('pg');
 const axios = require('axios');
 const { authenticateToken, rateLimit } = require('../middleware/auth');
+const {
+    logError,
+    sendErrorResponse,
+    handleError,
+    errorCodes
+} = require('../utils/errorHandler');
+const {
+    validateTextLength,
+    validateVoiceModel,
+    validateVoiceId,
+    sanitizeText
+} = require('../utils/validation');
 
 const router = express.Router();
 
@@ -40,22 +52,38 @@ router.post('/synthesize_voice',
                 }
             } = req.body;
 
-            if (!text) {
+            // Validate text input
+            const textValidation = validateTextLength(text, 1000);
+            if (!textValidation.valid) {
                 return res.status(400).json({
                     success: false,
-                    error: 'Text is required for voice synthesis',
-                    code: 'MISSING_TEXT'
+                    error: textValidation.error,
+                    code: 'VALIDATION_ERROR'
                 });
             }
 
-            // Validate text length
-            if (text.length > 1000) {
+            // Validate voice model
+            const modelValidation = validateVoiceModel(voice_model);
+            if (!modelValidation.valid) {
                 return res.status(400).json({
                     success: false,
-                    error: 'Text too long. Maximum 1000 characters allowed',
-                    code: 'TEXT_TOO_LONG'
+                    error: modelValidation.error,
+                    code: 'VALIDATION_ERROR'
                 });
             }
+
+            // Validate voice ID
+            const voiceIdValidation = validateVoiceId(voice_id);
+            if (!voiceIdValidation.valid) {
+                return res.status(400).json({
+                    success: false,
+                    error: voiceIdValidation.error,
+                    code: 'VALIDATION_ERROR'
+                });
+            }
+
+            // Sanitize text to prevent XSS
+            const sanitizedText = sanitizeText(text);
 
             // If flirt_suggestion_id is provided, validate it belongs to user (if database is available)
             if (flirt_suggestion_id) {
@@ -92,7 +120,7 @@ router.post('/synthesize_voice',
                 const voiceResult = await pool.query(insertVoiceQuery, [
                     flirt_suggestion_id,
                     req.user.id,
-                    text,
+                    sanitizedText,
                     voice_model
                 ]);
 
@@ -105,7 +133,7 @@ router.post('/synthesize_voice',
             const elevenLabsUrl = `${process.env.ELEVENLABS_API_URL}/text-to-speech/${voice_id}`;
 
             const requestData = {
-                text: text,
+                text: sanitizedText,
                 model_id: voice_model,
                 voice_settings: voice_settings
             };
@@ -155,7 +183,7 @@ router.post('/synthesize_voice',
                     [req.user.id, 'voice_synthesized', {
                         voice_message_id: voiceMessageId,
                         flirt_suggestion_id,
-                        text_length: text.length,
+                        text_length: sanitizedText.length,
                         voice_model,
                         file_size: fileSize
                     }]
@@ -170,7 +198,7 @@ router.post('/synthesize_voice',
                     voice_message_id: voiceMessageId,
                     audio_file: audioFileName,
                     file_size: fileSize,
-                    text_content: text,
+                    text_content: sanitizedText,
                     voice_model,
                     synthesized_at: new Date().toISOString(),
                     download_url: `/api/v1/voice/${voiceMessageId}/download`

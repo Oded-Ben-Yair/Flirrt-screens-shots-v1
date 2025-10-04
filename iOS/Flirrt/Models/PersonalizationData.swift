@@ -263,7 +263,7 @@ enum PersonalizationError: Error, LocalizedError {
     var errorDescription: String? {
         switch self {
         case .appGroupsNotConfigured:
-            return "App Groups not configured. Check entitlements for 'group.com.flirrt.shared'"
+            return "App Groups not configured. Check entitlements for '\(AppConstants.appGroupIdentifier)'"
         case .encodingFailed:
             return "Failed to encode personalization profile"
         case .decodingFailed:
@@ -287,10 +287,10 @@ final class PersonalizationStorageManager {
     // MARK: - Constants
 
     /// App Group identifier (must match entitlements)
-    private static let appGroupIdentifier = "group.com.flirrt.shared"
+    private static let appGroupIdentifier = AppConstants.appGroupIdentifier
 
     /// UserDefaults key for storing profile
-    private static let profileKey = "flirrt_personalization_profile_v1"
+    private static let profileKey = AppConstants.UserDefaultsKeys.personalizationProfile
 
     /// Maximum allowed storage size (512KB App Groups limit)
     private static let maxStorageSizeBytes = 512 * 1024
