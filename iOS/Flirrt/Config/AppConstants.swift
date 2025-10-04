@@ -32,7 +32,7 @@ enum AppConstants {
     /// Base URL for API endpoints
     /// Development: http://localhost:3000/api/v1
     /// Production: https://api.flirrt.ai/api/v1
-    static let apiBaseURL = Environment.current.apiBaseURL
+    static let apiBaseURL = AppEnvironment.current.apiBaseURL
 
     /// API request timeout interval in seconds
     static let apiTimeout: TimeInterval = 30.0
@@ -228,7 +228,7 @@ enum AppConstants {
         static let analyticsEnabled = false
 
         /// Enable debug logging
-        static let debugLoggingEnabled = Environment.current.isDebug
+        static let debugLoggingEnabled = AppEnvironment.current.isDebug
     }
 
     // MARK: - UI Constants
@@ -247,14 +247,14 @@ enum AppConstants {
 
 // MARK: - Environment Configuration
 
-/// Environment-specific configuration
-enum Environment {
+/// Environment-specific configuration (renamed from Environment to avoid SwiftUI conflict)
+enum AppEnvironment {
     case development
     case staging
     case production
 
     /// Current environment (determined at compile time)
-    static var current: Environment {
+    static var current: AppEnvironment {
         #if DEBUG
         return .development
         #else
