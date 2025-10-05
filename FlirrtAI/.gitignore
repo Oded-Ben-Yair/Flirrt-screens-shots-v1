@@ -21,6 +21,8 @@ yarn-error.log*
 .env.development.local
 .env.test.local
 .env.production.local
+.env.backup
+*.backup
 
 # macOS
 .DS_Store
@@ -48,3 +50,8 @@ coverage/
 tmp/
 temp/
 *.tmp
+
+# Xcode Build Artifacts
+iOS/.build/
+iOS/SourcePackages/
+TestResults/

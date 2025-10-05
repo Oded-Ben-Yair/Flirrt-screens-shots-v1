@@ -7,7 +7,7 @@ class SharedDataManager: ObservableObject {
     @Published var recentRecordings: [VoiceRecording] = []
 
     private let userDefaults = UserDefaults.standard
-    private let sharedDefaults = UserDefaults(suiteName: "group.com.flirrt.ai.shared")
+    private let sharedDefaults = UserDefaults(suiteName: AppConstants.appGroupIdentifier)
 
     init() {
         loadStoredData()
@@ -16,16 +16,16 @@ class SharedDataManager: ObservableObject {
 
     private func loadStoredData() {
         // Load current voice ID
-        currentVoiceId = userDefaults.string(forKey: "user_voice_id")
+        currentVoiceId = userDefaults.string(forKey: AppConstants.UserDefaultsKeys.userVoiceId)
 
         // Load voice clones
-        if let data = userDefaults.data(forKey: "voice_clones"),
+        if let data = userDefaults.data(forKey: AppConstants.UserDefaultsKeys.voiceClones),
            let clones = try? JSONDecoder().decode([VoiceClone].self, from: data) {
             voiceClones = clones
         }
 
         // Load recent recordings
-        if let data = userDefaults.data(forKey: "recent_recordings"),
+        if let data = userDefaults.data(forKey: AppConstants.UserDefaultsKeys.recentRecordings),
            let recordings = try? JSONDecoder().decode([VoiceRecording].self, from: data) {
             recentRecordings = recordings
         }
@@ -48,8 +48,8 @@ class SharedDataManager: ObservableObject {
 
     func setCurrentVoiceId(_ voiceId: String) {
         currentVoiceId = voiceId
-        userDefaults.set(voiceId, forKey: "user_voice_id")
-        sharedDefaults?.set(voiceId, forKey: "user_voice_id")
+        userDefaults.set(voiceId, forKey: AppConstants.UserDefaultsKeys.userVoiceId)
+        sharedDefaults?.set(voiceId, forKey: AppConstants.UserDefaultsKeys.userVoiceId)
     }
 
     func addVoiceClone(_ voiceClone: VoiceClone) {
@@ -85,13 +85,13 @@ class SharedDataManager: ObservableObject {
 
     private func saveVoiceClones() {
         if let data = try? JSONEncoder().encode(voiceClones) {
-            userDefaults.set(data, forKey: "voice_clones")
+            userDefaults.set(data, forKey: AppConstants.UserDefaultsKeys.voiceClones)
         }
     }
 
     private func saveRecentRecordings() {
         if let data = try? JSONEncoder().encode(recentRecordings) {
-            userDefaults.set(data, forKey: "recent_recordings")
+            userDefaults.set(data, forKey: AppConstants.UserDefaultsKeys.recentRecordings)
         }
     }
 
@@ -100,11 +100,11 @@ class SharedDataManager: ObservableObject {
         voiceClones = []
         recentRecordings = []
 
-        userDefaults.removeObject(forKey: "user_voice_id")
-        userDefaults.removeObject(forKey: "voice_clones")
-        userDefaults.removeObject(forKey: "recent_recordings")
+        userDefaults.removeObject(forKey: AppConstants.UserDefaultsKeys.userVoiceId)
+        userDefaults.removeObject(forKey: AppConstants.UserDefaultsKeys.voiceClones)
+        userDefaults.removeObject(forKey: AppConstants.UserDefaultsKeys.recentRecordings)
 
-        sharedDefaults?.removeObject(forKey: "user_voice_id")
+        sharedDefaults?.removeObject(forKey: AppConstants.UserDefaultsKeys.userVoiceId)
     }
 }
 

@@ -129,6 +129,46 @@ class APIClient: ObservableObject {
         }
     }
 
+    // MARK: - Flirt Generation from Screenshot Image (REAL GROK VISION API)
+    func generateFlirtsFromImage(
+        imageData: Data,
+        suggestionType: SuggestionType = .opener,
+        tone: String = "playful",
+        context: String = ""
+    ) async throws -> FlirtSuggestionResponse {
+        // Convert image to base64
+        let base64Image = imageData.base64EncodedString()
+
+        let parameters: [String: Any] = [
+            "image_data": base64Image,
+            "suggestion_type": suggestionType.rawValue,
+            "tone": tone,
+            "context": context,
+            "user_preferences": [:]
+        ]
+
+        return try await withCheckedThrowingContinuation { continuation in
+            session.request("\(baseURL)/flirts/generate_flirts",
+                          method: .post,
+                          parameters: parameters,
+                          encoding: JSONEncoding.default)
+                .validate()
+                .responseDecodable(of: FlirtSuggestionResponse.self) { response in
+                    switch response.result {
+                    case .success(let flirtResponse):
+                        print("✅ GROK VISION FLIRTS: \(flirtResponse.flirts.count) suggestions generated")
+                        continuation.resume(returning: flirtResponse)
+                    case .failure(let error):
+                        print("❌ GROK VISION ERROR: \(error)")
+                        if let data = response.data {
+                            print("Response data: \(String(data: data, encoding: .utf8) ?? "Unable to decode")")
+                        }
+                        continuation.resume(throwing: error)
+                    }
+                }
+        }
+    }
+
     // MARK: - Voice Synthesis (REAL ELEVENLABS API)
     func synthesizeVoice(text: String, voiceId: String, emotion: String = "confident") async throws -> VoiceResponse {
         let parameters: [String: Any] = [
@@ -296,23 +336,7 @@ struct FlirtResponse: Codable {
     }
 }
 
-struct FlirtSuggestion: Codable {
-    let id: String
-    let text: String
-    let tone: String
-    let confidence: Double
-    let reasoning: String
-    let voiceAvailable: Bool
-    let expectedOutcome: String
-    let backupSuggestion: String?
-
-    enum CodingKeys: String, CodingKey {
-        case id, text, tone, confidence, reasoning
-        case voiceAvailable = "voice_available"
-        case expectedOutcome = "expected_outcome"
-        case backupSuggestion = "backup_suggestion"
-    }
-}
+// NOTE: FlirtSuggestion model is now imported from Models/FlirtSuggestion.swift
 
 struct VoiceResponse: Codable {
     let audioURL: String

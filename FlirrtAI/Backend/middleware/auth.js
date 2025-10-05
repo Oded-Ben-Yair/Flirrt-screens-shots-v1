@@ -27,8 +27,17 @@ const authenticateToken = async (req, res, next) => {
             });
         }
 
-        // Allow test token for API testing
-        if (token === 'test-token-for-api-testing') {
+        // Validate token format (must be a string)
+        if (typeof token !== 'string' || token.trim() === '') {
+            return res.status(401).json({
+                success: false,
+                error: 'Invalid token format',
+                code: 'TOKEN_MALFORMED'
+            });
+        }
+
+        // Allow test token ONLY in test environment
+        if (process.env.NODE_ENV === 'test' && token === 'test-token-for-api-testing') {
             req.user = {
                 id: 'test-user-id',
                 email: 'test@flirrt.ai',
@@ -40,6 +49,15 @@ const authenticateToken = async (req, res, next) => {
 
         // Verify JWT token
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+        // Additional expiration check (belt and suspenders approach)
+        if (decoded.exp && Date.now() >= decoded.exp * 1000) {
+            return res.status(401).json({
+                success: false,
+                error: 'Token has expired',
+                code: 'TOKEN_EXPIRED'
+            });
+        }
 
         // Check if session exists and is valid
         const sessionQuery = `

@@ -7,6 +7,7 @@ class AuthManager: ObservableObject {
     @Published var isLoading = false
     @Published var error: String?
     @Published var currentUser: User?
+    @Published var ageVerified = false
     
     func signInWithApple() {
         isLoading = true
@@ -25,6 +26,17 @@ class AuthManager: ObservableObject {
         isAuthenticated = false
         currentUser = nil
         error = nil
+        ageVerified = false
+    }
+
+    func verifyAge(_ birthDate: Date) {
+        let age = Calendar.current.dateComponents([.year], from: birthDate, to: Date()).year ?? 0
+        if age >= 18 {
+            ageVerified = true
+        } else {
+            error = "You must be 18 or older to use Flirrt"
+            logout()
+        }
     }
 }
 

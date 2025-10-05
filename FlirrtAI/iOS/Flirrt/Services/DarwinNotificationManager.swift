@@ -1,5 +1,6 @@
 import Foundation
 import OSLog
+import UIKit
 
 /// Specialized Darwin notification manager for ultra-fast IPC with keyboard extension
 /// Handles bi-directional communication for screenshot detection and status updates
@@ -14,7 +15,7 @@ final class DarwinNotificationManager: ObservableObject {
 
     // MARK: - Private Properties
     private let logger = Logger(subsystem: "com.flirrt.app", category: "DarwinNotifications")
-    private let sharedDefaults = UserDefaults(suiteName: "group.com.flirrt.shared")
+    private let sharedDefaults = UserDefaults(suiteName: AppConstants.appGroupIdentifier)
     private var isObservingNotifications = false
 
     // Performance tracking
@@ -22,7 +23,7 @@ final class DarwinNotificationManager: ObservableObject {
     private let maxLatencyHistory = 10
 
     // MARK: - Connection Status
-    enum ConnectionStatus {
+    enum ConnectionStatus: Equatable {
         case disconnected
         case connecting
         case connected
@@ -186,7 +187,7 @@ final class DarwinNotificationManager: ObservableObject {
         }
 
         // Update shared state
-        sharedDefaults?.set(Date().timeIntervalSince1970, forKey: "last_keyboard_heartbeat")
+        sharedDefaults?.set(Date().timeIntervalSince1970, forKey: AppConstants.UserDefaultsKeys.lastKeyboardHeartbeat)
         sharedDefaults?.synchronize()
     }
 
@@ -340,7 +341,7 @@ final class DarwinNotificationManager: ObservableObject {
 
     private func storeNotificationPayload(_ payload: [String: Any], for notificationName: String) async {
         guard let containerURL = FileManager.default.containerURL(
-            forSecurityApplicationGroupIdentifier: "group.com.flirrt.shared"
+            forSecurityApplicationGroupIdentifier: AppConstants.appGroupIdentifier
         ) else {
             logger.warning("⚠️ Failed to get container URL for notification payload")
             return
@@ -357,8 +358,8 @@ final class DarwinNotificationManager: ObservableObject {
             try jsonData.write(to: payloadFile)
 
             // Update shared defaults with latest payload info
-            sharedDefaults?.set(payloadFile.path, forKey: "last_notification_payload_path")
-            sharedDefaults?.set(notificationName, forKey: "last_notification_name")
+            sharedDefaults?.set(payloadFile.path, forKey: AppConstants.UserDefaultsKeys.lastNotificationPayloadPath)
+            sharedDefaults?.set(notificationName, forKey: AppConstants.UserDefaultsKeys.lastNotificationName)
             sharedDefaults?.synchronize()
 
             logger.debug("💾 Notification payload stored: \(notificationName)")

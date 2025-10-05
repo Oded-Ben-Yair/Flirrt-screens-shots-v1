@@ -6,6 +6,18 @@ const { Pool } = require('pg');
 const axios = require('axios');
 const FormData = require('form-data');
 const { authenticateToken, rateLimit } = require('../middleware/auth');
+const { validateFileUpload } = require('../middleware/validation');
+const {
+    logError,
+    sendErrorResponse,
+    handleError,
+    errorCodes,
+    httpStatus
+} = require('../utils/errorHandler');
+const {
+    validateScreenshotId,
+    sanitizeText
+} = require('../utils/validation');
 
 const router = express.Router();
 
@@ -54,19 +66,25 @@ router.post('/analyze_screenshot',
     authenticateToken,
     rateLimit(20, 15 * 60 * 1000), // 20 requests per 15 minutes
     upload.single('screenshot'),
+    validateFileUpload, // Add file upload validation
     async (req, res) => {
         let screenshotId = null;
 
         try {
             if (!req.file) {
-                return res.status(400).json({
-                    success: false,
-                    error: 'Screenshot file is required',
-                    code: 'NO_FILE_UPLOADED'
-                });
+                return sendErrorResponse(
+                    res,
+                    400,
+                    errorCodes.MISSING_REQUIRED_FIELD,
+                    'Screenshot file is required'
+                );
             }
 
             const { context = '', preferences = '{}' } = req.body;
+
+            // Sanitize text inputs
+            const sanitizedContext = sanitizeText(context);
+            const sanitizedPreferences = sanitizeText(preferences);
 
             // Save screenshot metadata to database (if database is available)
             let screenshotId = 'test-screenshot-' + Date.now();
@@ -106,7 +124,7 @@ router.post('/analyze_screenshot',
                         content: [
                             {
                                 type: "text",
-                                text: `Analyze this dating app screenshot and provide insights for creating flirty conversation suggestions. Context: ${context}.
+                                text: `Analyze this dating app screenshot and provide insights for creating flirty conversation suggestions. Context: ${sanitizedContext}.
 
                                 Please provide a detailed analysis including:
                                 1. Profile analysis (age, interests, bio, photos)
@@ -270,6 +288,17 @@ router.get('/:screenshotId', authenticateToken, async (req, res) => {
     try {
         const { screenshotId } = req.params;
 
+        // Validate screenshot_id
+        const screenshotIdValidation = validateScreenshotId(screenshotId);
+        if (!screenshotIdValidation.valid) {
+            return sendErrorResponse(
+                res,
+                400,
+                errorCodes.VALIDATION_ERROR,
+                screenshotIdValidation.error
+            );
+        }
+
         const screenshotQuery = `
             SELECT s.*, u.id as owner_id
             FROM screenshots s
@@ -382,6 +411,17 @@ router.get('/history', authenticateToken, async (req, res) => {
 router.delete('/:screenshotId', authenticateToken, async (req, res) => {
     try {
         const { screenshotId } = req.params;
+
+        // Validate screenshot_id
+        const screenshotIdValidation = validateScreenshotId(screenshotId);
+        if (!screenshotIdValidation.valid) {
+            return sendErrorResponse(
+                res,
+                400,
+                errorCodes.VALIDATION_ERROR,
+                screenshotIdValidation.error
+            );
+        }
 
         // Get screenshot info first
         const screenshotQuery = `

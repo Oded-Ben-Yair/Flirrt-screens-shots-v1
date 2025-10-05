@@ -1,10 +1,34 @@
 require('dotenv').config();
 
+// Validate required environment variables on startup
+const requiredEnvVars = [
+    'GROK_API_KEY',
+    'ELEVENLABS_API_KEY',
+    'JWT_SECRET'
+];
+
+const missingEnvVars = requiredEnvVars.filter(varName => !process.env[varName]);
+
+if (missingEnvVars.length > 0) {
+    console.error('❌ Missing required environment variables:', missingEnvVars.join(', '));
+    console.error('💡 Please ensure these variables are set in your .env file');
+    process.exit(1);
+}
+
+// Validate JWT_SECRET strength
+if (process.env.JWT_SECRET && process.env.JWT_SECRET.length < 32) {
+    console.error('❌ JWT_SECRET is too weak. Must be at least 32 characters long.');
+    console.error('💡 Generate a secure secret with: openssl rand -base64 64');
+    process.exit(1);
+}
+
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
 const fs = require('fs');
 const { Pool } = require('pg');
+const { httpStatus, errors, cors: corsConfig, server } = require('./config/constants');
+const timeouts = require('./config/timeouts');
 
 // Import routes
 const authRoutes = require('./routes/auth');
@@ -17,7 +41,7 @@ const { authenticateToken, rateLimit } = require('./middleware/auth');
 const { securityHeaders, requestSizeLimiter } = require('./middleware/validation');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || server.defaultPort;
 
 // Database connection
 const pool = new Pool({
@@ -42,44 +66,20 @@ if (!fs.existsSync(uploadDir)) {
 
 // Enhanced CORS configuration for iOS app compatibility
 app.use(cors({
-    origin: [
-        'http://localhost:3000',
-        'http://localhost:3001',
-        'http://localhost:8080',
-        'http://localhost:8081',
-        'https://flirrt.ai',
-        'https://app.flirrt.ai',
-        // iOS specific origins
-        'capacitor://localhost',
-        'ionic://localhost',
-        'http://localhost',
-        'https://localhost',
-        // For iOS simulator and development
-        /^http:\/\/192\.168\.\d+\.\d+/,
-        /^http:\/\/10\.0\.\d+\.\d+/,
-        /^http:\/\/172\.16\.\d+\.\d+/
-    ],
+    origin: corsConfig.allowedOrigins,
     credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
-    allowedHeaders: [
-        'Content-Type',
-        'Authorization',
-        'X-Requested-With',
-        'Accept',
-        'Origin',
-        'Access-Control-Request-Method',
-        'Access-Control-Request-Headers'
-    ],
-    exposedHeaders: ['Content-Length', 'X-Foo', 'X-Bar'],
-    maxAge: 86400 // 24 hours
+    methods: corsConfig.allowedMethods,
+    allowedHeaders: corsConfig.allowedHeaders,
+    exposedHeaders: corsConfig.exposedHeaders,
+    maxAge: corsConfig.maxAge
 }));
 
 // Security and validation middleware
 app.use(securityHeaders);
 app.use(requestSizeLimiter);
 
-app.use(express.json({ limit: '10mb' }));
-app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+app.use(express.json({ limit: server.requestLimits.json }));
+app.use(express.urlencoded({ extended: true, limit: server.requestLimits.urlencoded }));
 
 // Request logging middleware
 app.use((req, res, next) => {
@@ -94,30 +94,29 @@ app.use((req, res, next) => {
 
 // Health check endpoint
 app.get('/health', async (req, res) => {
+    // Check database connection (optional - don't fail if unavailable)
+    let databaseStatus = 'not_configured';
     try {
-        // Test database connection
         await pool.query('SELECT 1');
-
-        res.json({
-            success: true,
-            status: 'healthy',
-            timestamp: new Date().toISOString(),
-            version: '1.0.0',
-            services: {
-                database: 'connected',
-                grok_api: process.env.GROK_API_KEY ? 'configured' : 'not_configured',
-                elevenlabs_api: process.env.ELEVENLABS_API_KEY ? 'configured' : 'not_configured'
-            }
-        });
+        databaseStatus = 'connected';
     } catch (error) {
-        console.error('Health check failed:', error);
-        res.status(503).json({
-            success: false,
-            status: 'unhealthy',
-            error: error.message,
-            timestamp: new Date().toISOString()
-        });
+        console.warn('Database not available for health check:', error.message);
+        databaseStatus = 'unavailable';
     }
+
+    // Health check passes even without database (API keys are more critical)
+    res.json({
+        success: true,
+        status: 'healthy',
+        timestamp: new Date().toISOString(),
+        version: '1.0.0',
+        services: {
+            database: databaseStatus,
+            grok_api: process.env.GROK_API_KEY ? 'configured' : 'not_configured',
+            elevenlabs_api: process.env.ELEVENLABS_API_KEY ? 'configured' : 'not_configured',
+            gemini_api: process.env.GEMINI_API_KEY ? 'configured' : 'not_configured'
+        }
+    });
 });
 
 // API Routes
@@ -142,19 +141,19 @@ app.delete('/api/v1/user/:id/data', authenticateToken, async (req, res) => {
                 const adminResult = await pool.query(adminQuery, [requestingUserId]);
 
                 if (adminResult.rows.length === 0) {
-                    return res.status(403).json({
+                    return res.status(httpStatus.FORBIDDEN).json({
                         success: false,
-                        error: 'Access denied. Can only delete your own data.',
-                        code: 'ACCESS_DENIED'
+                        error: errors.ACCESS_DENIED.message,
+                        code: errors.ACCESS_DENIED.code
                     });
                 }
             } catch (dbError) {
                 // If database is not available, only allow users to delete their own data
                 console.warn('Database not available for admin check, restricting to self-deletion only');
-                return res.status(403).json({
+                return res.status(httpStatus.FORBIDDEN).json({
                     success: false,
-                    error: 'Access denied. Can only delete your own data.',
-                    code: 'ACCESS_DENIED'
+                    error: errors.ACCESS_DENIED.message,
+                    code: errors.ACCESS_DENIED.code
                 });
             }
         }
@@ -278,11 +277,11 @@ app.delete('/api/v1/user/:id/data', authenticateToken, async (req, res) => {
             console.warn('Failed to update deletion log (database not available):', logError.message);
         }
 
-        res.status(500).json({
+        res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
             success: false,
-            error: 'Failed to delete user data',
+            error: errors.DELETION_ERROR.message,
             details: error.message,
-            code: 'DELETION_ERROR'
+            code: errors.DELETION_ERROR.code
         });
     }
 });
@@ -326,10 +325,10 @@ app.get('/api/v1/analytics/dashboard', authenticateToken, async (req, res) => {
 
     } catch (error) {
         console.error('Analytics error:', error);
-        res.status(500).json({
+        res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
             success: false,
-            error: 'Failed to get analytics data',
-            code: 'ANALYTICS_ERROR'
+            error: errors.ANALYTICS_ERROR.message,
+            code: errors.ANALYTICS_ERROR.code
         });
     }
 });
@@ -350,10 +349,10 @@ app.get('/uploads/:filename', authenticateToken, async (req, res) => {
         const fileResult = await pool.query(fileQuery, [filename, `%${filename}`]);
 
         if (fileResult.rows.length === 0 || fileResult.rows[0].user_id !== req.user.id) {
-            return res.status(404).json({
+            return res.status(httpStatus.NOT_FOUND).json({
                 success: false,
-                error: 'File not found',
-                code: 'FILE_NOT_FOUND'
+                error: errors.FILE_NOT_FOUND.message,
+                code: errors.FILE_NOT_FOUND.code
             });
         }
 
@@ -361,34 +360,22 @@ app.get('/uploads/:filename', authenticateToken, async (req, res) => {
 
     } catch (error) {
         console.error('File serving error:', error);
-        res.status(500).json({
+        res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
             success: false,
-            error: 'Failed to serve file',
-            code: 'FILE_SERVE_ERROR'
+            error: errors.FILE_SERVE_ERROR.message,
+            code: errors.FILE_SERVE_ERROR.code
         });
     }
 });
 
 // 404 handler
+const { availableEndpoints } = require('./config/constants');
 app.use((req, res) => {
-    res.status(404).json({
+    res.status(httpStatus.NOT_FOUND).json({
         success: false,
-        error: 'Endpoint not found',
-        code: 'NOT_FOUND',
-        available_endpoints: [
-            'POST /api/v1/auth/register',
-            'POST /api/v1/auth/login',
-            'POST /api/v1/auth/logout',
-            'GET /api/v1/auth/me',
-            'POST /api/v1/analysis/analyze_screenshot',
-            'GET /api/v1/analysis/history',
-            'POST /api/v1/flirts/generate_flirts',
-            'GET /api/v1/flirts/history',
-            'POST /api/v1/voice/synthesize_voice',
-            'GET /api/v1/voice/history',
-            'DELETE /api/v1/user/:id/data',
-            'GET /health'
-        ]
+        error: errors.NOT_FOUND.message,
+        code: errors.NOT_FOUND.code,
+        available_endpoints: availableEndpoints
     });
 });
 

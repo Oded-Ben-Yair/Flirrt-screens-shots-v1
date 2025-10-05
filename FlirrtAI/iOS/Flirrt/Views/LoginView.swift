@@ -173,6 +173,58 @@ struct LoginView: View {
                                 .multilineTextAlignment(.center)
                                 .padding(.horizontal)
                         }
+
+                        // Simulator Testing Bypass
+                        #if targetEnvironment(simulator)
+                        VStack(spacing: 12) {
+                            Divider()
+                                .padding(.horizontal)
+
+                            Button(action: {
+                                // Set demo user in standard UserDefaults
+                                UserDefaults.standard.set("demo-user-\(UUID().uuidString)", forKey: AppConstants.UserDefaultsKeys.userId)
+                                UserDefaults.standard.set("Demo User", forKey: AppConstants.UserDefaultsKeys.userName)
+                                UserDefaults.standard.set("demo@flirrt.test", forKey: AppConstants.UserDefaultsKeys.userEmail)
+                                UserDefaults.standard.set(true, forKey: AppConstants.UserDefaultsKeys.onboardingCompleted)
+                                UserDefaults.standard.set(true, forKey: AppConstants.UserDefaultsKeys.ageVerified)
+
+                                // Save to App Group for keyboard access
+                                if let sharedDefaults = UserDefaults(suiteName: AppConstants.appGroupIdentifier) {
+                                    sharedDefaults.set("demo-user-\(UUID().uuidString)", forKey: AppConstants.UserDefaultsKeys.userId)
+                                    sharedDefaults.set("demo-token-\(UUID().uuidString)", forKey: AppConstants.UserDefaultsKeys.authToken)
+                                    sharedDefaults.set(true, forKey: AppConstants.UserDefaultsKeys.hasFullAccess)
+                                    sharedDefaults.synchronize()
+                                    print("✅ Demo user saved to App Group")
+                                }
+
+                                // Bypass authentication
+                                authManager.isAuthenticated = true
+                                authManager.ageVerified = true
+
+                                print("🎭 Running in Demo Mode")
+                            }) {
+                                HStack {
+                                    Image(systemName: "person.fill.questionmark")
+                                        .font(.title3)
+
+                                    Text("Continue as Guest (Testing)")
+                                        .font(.headline)
+                                        .fontWeight(.semibold)
+                                }
+                                .foregroundColor(.white)
+                                .frame(maxWidth: .infinity)
+                                .frame(height: 50)
+                                .background(Color.orange)
+                                .cornerRadius(12)
+                            }
+                            .padding(.horizontal)
+                            .accessibilityLabel("Continue as guest for simulator testing")
+
+                            Text("Simulator Testing Mode")
+                                .font(.caption2)
+                                .foregroundColor(.orange.opacity(0.7))
+                        }
+                        #endif
                     }
 
                     Spacer(minLength: 40)

@@ -3,8 +3,8 @@ import SwiftUI
 struct AppCoordinator: View {
     @EnvironmentObject private var authManager: AuthManager
 
-    @State private var isOnboardingComplete = UserDefaults.standard.bool(forKey: "onboarding_complete")
-    @State private var isPersonalizationComplete = UserDefaults.standard.bool(forKey: "personalization_complete")
+    @State private var isOnboardingComplete = UserDefaults.standard.bool(forKey: AppConstants.UserDefaultsKeys.onboardingComplete)
+    @State private var isPersonalizationComplete = UserDefaults.standard.bool(forKey: AppConstants.UserDefaultsKeys.personalizationComplete)
 
     var body: some View {
         Group {
@@ -41,8 +41,8 @@ struct AppCoordinator: View {
         .animation(.easeInOut(duration: 0.5), value: isPersonalizationComplete)
         .onReceive(NotificationCenter.default.publisher(for: UserDefaults.didChangeNotification)) { _ in
             // Update state when UserDefaults change
-            isOnboardingComplete = UserDefaults.standard.bool(forKey: "onboarding_complete")
-            isPersonalizationComplete = UserDefaults.standard.bool(forKey: "personalization_complete")
+            isOnboardingComplete = UserDefaults.standard.bool(forKey: AppConstants.UserDefaultsKeys.onboardingComplete)
+            isPersonalizationComplete = UserDefaults.standard.bool(forKey: AppConstants.UserDefaultsKeys.personalizationComplete)
         }
     }
 }

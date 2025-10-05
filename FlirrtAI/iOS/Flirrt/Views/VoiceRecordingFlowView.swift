@@ -126,7 +126,7 @@ struct VoiceRecordingFlowView: View {
             uploadSuccess = true
 
             // Store voice ID securely
-            UserDefaults.standard.set(response.voiceId, forKey: "user_voice_id")
+            UserDefaults.standard.set(response.voiceId, forKey: AppConstants.UserDefaultsKeys.userVoiceId)
         } catch {
             recordingManager.error = VoiceRecordingError.uploadFailed(error.localizedDescription)
         }

@@ -13,11 +13,12 @@ final class ScreenshotDetectionManager: ObservableObject {
     @Published var lastScreenshotDetected: Date?
     @Published var screenhotDetectionEnabled: Bool = true
     @Published var detectionStatus: DetectionStatus = .idle
+    @Published var latestScreenshotData: Data?  // Latest screenshot image data for UI preview
 
     // MARK: - Private Properties
     private let logger = Logger(subsystem: "com.flirrt.app", category: "ScreenshotDetection")
     private var cancellables = Set<AnyCancellable>()
-    private let sharedDefaults = UserDefaults(suiteName: "group.com.flirrt.shared")
+    private let sharedDefaults = UserDefaults(suiteName: AppConstants.appGroupIdentifier)
     private var screenshotCounter: Int = 0
     private var backgroundTaskIdentifier: UIBackgroundTaskIdentifier = .invalid
     private let darwinNotificationManager = DarwinNotificationManager()
@@ -179,7 +180,7 @@ final class ScreenshotDetectionManager: ObservableObject {
     // MARK: - App Groups Communication
     private func storeNotificationData(_ data: [String: Any], screenshotId: String) async {
         guard let containerURL = FileManager.default.containerURL(
-            forSecurityApplicationGroupIdentifier: "group.com.flirrt.shared"
+            forSecurityApplicationGroupIdentifier: AppConstants.appGroupIdentifier
         ) else {
             logger.error("❌ Failed to get container URL for app group")
             detectionStatus = .error("App Groups access failed")
@@ -195,9 +196,9 @@ final class ScreenshotDetectionManager: ObservableObject {
             try jsonData.write(to: notificationFile)
 
             // Update shared preferences with latest notification
-            sharedDefaults?.set(screenshotId, forKey: "last_screenshot_id")
-            sharedDefaults?.set(Date().timeIntervalSince1970, forKey: "last_screenshot_time")
-            sharedDefaults?.set(screenshotCounter, forKey: "screenshot_counter")
+            sharedDefaults?.set(screenshotId, forKey: AppConstants.UserDefaultsKeys.lastScreenshotId)
+            sharedDefaults?.set(Date().timeIntervalSince1970, forKey: AppConstants.UserDefaultsKeys.lastScreenshotTime)
+            sharedDefaults?.set(screenshotCounter, forKey: AppConstants.UserDefaultsKeys.screenshotCounter)
             sharedDefaults?.synchronize()
 
             logger.info("✅ Notification data stored for keyboard - ID: \(screenshotId)")
@@ -209,7 +210,7 @@ final class ScreenshotDetectionManager: ObservableObject {
 
     private func storeScreenshotMetadata(_ metadata: [String: Any], screenshotId: String) async {
         guard let containerURL = FileManager.default.containerURL(
-            forSecurityApplicationGroupIdentifier: "group.com.flirrt.shared"
+            forSecurityApplicationGroupIdentifier: AppConstants.appGroupIdentifier
         ) else {
             logger.warning("⚠️ Failed to get container URL for metadata storage")
             return
@@ -234,8 +235,8 @@ final class ScreenshotDetectionManager: ObservableObject {
         logger.info("🔄 Preparing for background detection")
 
         // Store current state for background processing
-        sharedDefaults?.set(true, forKey: "app_was_active_during_screenshot")
-        sharedDefaults?.set(Date().timeIntervalSince1970, forKey: "last_active_time")
+        sharedDefaults?.set(true, forKey: AppConstants.UserDefaultsKeys.appWasActiveDuringScreenshot)
+        sharedDefaults?.set(Date().timeIntervalSince1970, forKey: AppConstants.UserDefaultsKeys.lastActiveTime)
         sharedDefaults?.synchronize()
     }
 
@@ -322,7 +323,10 @@ final class ScreenshotDetectionManager: ObservableObject {
                 foundScreenshot = true
                 self.logger.info("📸 Found recent photo asset - Created: \(creationDate)")
 
-                // Could extract image here if needed for processing
+                // Extract and compress the screenshot for keyboard access
+                Task { @MainActor in
+                    await self.extractAndCompressScreenshot(asset: asset, screenshotId: screenshotId)
+                }
                 stop.pointee = true
             }
         }
@@ -336,12 +340,140 @@ final class ScreenshotDetectionManager: ObservableObject {
         logger.info("✅ Screenshot confirmed in Photos library - ID: \(screenshotId)")
 
         // Update shared data with confirmation
-        sharedDefaults?.set(true, forKey: "last_screenshot_confirmed")
-        sharedDefaults?.set(Date().timeIntervalSince1970, forKey: "last_screenshot_confirmed_time")
+        sharedDefaults?.set(true, forKey: AppConstants.UserDefaultsKeys.lastScreenshotConfirmed)
+        sharedDefaults?.set(Date().timeIntervalSince1970, forKey: AppConstants.UserDefaultsKeys.lastScreenshotConfirmedTime)
         sharedDefaults?.synchronize()
 
         // Send confirmation via Darwin notification manager
         await darwinNotificationManager.sendScreenshotConfirmed(screenshotId: screenshotId)
+    }
+
+    private func extractAndCompressScreenshot(asset: PHAsset, screenshotId: String) async {
+        logger.info("🖼️  Extracting screenshot image from Photos asset - ID: \(screenshotId)")
+
+        let imageManager = PHImageManager.default()
+        let options = PHImageRequestOptions()
+        options.isSynchronous = false
+        options.deliveryMode = .highQualityFormat
+        options.isNetworkAccessAllowed = false // Only local assets
+
+        // Request full-size image
+        return await withCheckedContinuation { continuation in
+            imageManager.requestImage(
+                for: asset,
+                targetSize: PHImageManagerMaximumSize,
+                contentMode: .aspectFit,
+                options: options
+            ) { [weak self] image, info in
+                guard let self = self, let image = image else {
+                    self?.logger.error("❌ Failed to extract image from asset")
+                    continuation.resume()
+                    return
+                }
+
+                self.logger.info("📐 Extracted image size: \(image.size.width)x\(image.size.height)")
+
+                // Compress image for keyboard memory constraints (< 200KB target)
+                Task { @MainActor in
+                    await self.compressAndStoreScreenshot(image: image, screenshotId: screenshotId)
+                    continuation.resume()
+                }
+            }
+        }
+    }
+
+    private func compressAndStoreScreenshot(image: UIImage, screenshotId: String) async {
+        logger.info("🗜️  Compressing screenshot for keyboard access - ID: \(screenshotId)")
+
+        // Start with 0.7 quality, reduce if needed
+        var compressionQuality: CGFloat = 0.7
+        var imageData: Data?
+        let maxSize = 200_000 // 200KB max for keyboard extension
+
+        // Progressive compression to meet size constraint
+        for _ in 0..<5 {
+            guard let data = image.jpegData(compressionQuality: compressionQuality) else {
+                logger.error("❌ Failed to compress image")
+                return
+            }
+
+            imageData = data
+            let sizeKB = Double(data.count) / 1000.0
+            logger.debug("📊 Compressed size: \(String(format: "%.1f", sizeKB))KB at quality \(compressionQuality)")
+
+            if data.count <= maxSize {
+                break
+            }
+
+            // Reduce quality for next iteration
+            compressionQuality -= 0.15
+
+            if compressionQuality < 0.1 {
+                // If still too large, resize image
+                let scaleFactor = sqrt(Double(maxSize) / Double(data.count))
+                let newSize = CGSize(
+                    width: image.size.width * scaleFactor,
+                    height: image.size.height * scaleFactor
+                )
+
+                if let resized = resizeImage(image, to: newSize) {
+                    imageData = resized.jpegData(compressionQuality: 0.7)
+                }
+                break
+            }
+        }
+
+        guard let finalData = imageData else {
+            logger.error("❌ Failed to compress screenshot")
+            return
+        }
+
+        let finalSizeKB = Double(finalData.count) / 1000.0
+        logger.info("✅ Screenshot compressed to \(String(format: "%.1f", finalSizeKB))KB")
+
+        // Store in App Groups for keyboard access
+        await storeCompressedScreenshot(imageData: finalData, screenshotId: screenshotId)
+    }
+
+    private func storeCompressedScreenshot(imageData: Data, screenshotId: String) async {
+        guard let containerURL = FileManager.default.containerURL(
+            forSecurityApplicationGroupIdentifier: AppConstants.appGroupIdentifier
+        ) else {
+            logger.error("❌ Failed to get App Groups container")
+            return
+        }
+
+        do {
+            let screenshotsDir = containerURL.appendingPathComponent("screenshots")
+            try FileManager.default.createDirectory(at: screenshotsDir, withIntermediateDirectories: true)
+
+            let screenshotFile = screenshotsDir.appendingPathComponent("\(screenshotId).jpg")
+            try imageData.write(to: screenshotFile)
+
+            // Store latest screenshot data for UI preview
+            self.latestScreenshotData = imageData
+
+            // Update shared defaults with screenshot info
+            sharedDefaults?.set(screenshotId, forKey: AppConstants.UserDefaultsKeys.latestScreenshotId)
+            sharedDefaults?.set(screenshotFile.path, forKey: AppConstants.UserDefaultsKeys.latestScreenshotPath)
+            sharedDefaults?.set(imageData.count, forKey: AppConstants.UserDefaultsKeys.latestScreenshotSize)
+            sharedDefaults?.set(imageData.base64EncodedString(), forKey: AppConstants.UserDefaultsKeys.screenshotDataKey(screenshotId))
+            sharedDefaults?.synchronize()
+
+            let sizeKB = Double(imageData.count) / 1000.0
+            logger.info("✅ Screenshot stored for keyboard - Size: \(String(format: "%.1f", sizeKB))KB, Path: \(screenshotFile.lastPathComponent)")
+
+        } catch {
+            logger.error("❌ Failed to store screenshot: \(error.localizedDescription)")
+        }
+    }
+
+    private func resizeImage(_ image: UIImage, to newSize: CGSize) -> UIImage? {
+        UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
+        defer { UIGraphicsEndImageContext() }
+
+        image.draw(in: CGRect(origin: .zero, size: newSize))
+        return UIGraphicsGetImageFromCurrentImageContext()
     }
 
     private func getDeviceState() -> [String: Any] {
@@ -395,7 +527,7 @@ final class ScreenshotDetectionManager: ObservableObject {
         screenhotDetectionEnabled = enabled
         logger.info("🔧 Screenshot detection \(enabled ? "enabled" : "disabled")")
 
-        sharedDefaults?.set(enabled, forKey: "screenshot_detection_enabled")
+        sharedDefaults?.set(enabled, forKey: AppConstants.UserDefaultsKeys.screenshotDetectionEnabled)
         sharedDefaults?.synchronize()
 
         // Notify keyboard of detection status change
@@ -410,7 +542,7 @@ final class ScreenshotDetectionManager: ObservableObject {
 
     /// Gets current detection statistics
     func getDetectionStats() -> [String: Any] {
-        var stats = [
+        var stats: [String: Any] = [
             "total_screenshots": screenshotCounter,
             "detection_enabled": screenhotDetectionEnabled,
             "last_detection": lastScreenshotDetected?.timeIntervalSince1970 ?? 0,
@@ -452,7 +584,12 @@ final class ScreenshotDetectionManager: ObservableObject {
 
     // MARK: - Cleanup
     deinit {
-        endBackgroundTask()
+        // End background task on main actor
+        if backgroundTaskIdentifier != .invalid {
+            Task { @MainActor in
+                UIApplication.shared.endBackgroundTask(backgroundTaskIdentifier)
+            }
+        }
         cancellables.removeAll()
         logger.info("🔍 ScreenshotDetectionManager deinitialized")
     }

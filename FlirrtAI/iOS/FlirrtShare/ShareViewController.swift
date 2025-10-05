@@ -97,7 +97,7 @@ class ShareViewController: UIViewController {
     }
 
     private func saveScreenshotToSharedContainer(_ image: UIImage) {
-        guard let containerURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.com.flirrt.ai.shared") else {
+        guard let containerURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: AppConstants.appGroupIdentifier) else {
             print("Failed to get shared container")
             return
         }
@@ -135,7 +135,7 @@ class ShareViewController: UIViewController {
     }
 
     private func saveMetadata(_ metadata: ScreenshotMetadata) {
-        guard let containerURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.com.flirrt.ai.shared") else { return }
+        guard let containerURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: AppConstants.appGroupIdentifier) else { return }
 
         let metadataURL = containerURL.appendingPathComponent("screenshot_metadata.json")
 
@@ -144,9 +144,9 @@ class ShareViewController: UIViewController {
         }
 
         // Also save to UserDefaults for quick access
-        if let sharedDefaults = UserDefaults(suiteName: "group.com.flirrt.ai.shared") {
-            sharedDefaults.set(metadata.fileName, forKey: "latest_screenshot")
-            sharedDefaults.set(metadata.timestamp.timeIntervalSince1970, forKey: "latest_screenshot_time")
+        if let sharedDefaults = UserDefaults(suiteName: AppConstants.appGroupIdentifier) {
+            sharedDefaults.set(metadata.fileName, forKey: AppConstants.UserDefaultsKeys.latestScreenshot)
+            sharedDefaults.set(metadata.timestamp.timeIntervalSince1970, forKey: AppConstants.UserDefaultsKeys.latestScreenshotTimeShare)
             sharedDefaults.synchronize()
         }
     }

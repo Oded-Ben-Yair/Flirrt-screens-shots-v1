@@ -279,8 +279,9 @@ struct VoiceScript: Identifiable, Codable {
     let tips: String
     let tags: [String]
     let icon: String
+    let emotion: VoiceEmotion
 
-    init(id: String = UUID().uuidString, title: String, text: String, category: ScriptCategory, difficulty: ScriptDifficulty, duration: TimeInterval, tips: String = "", tags: [String] = [], content: String? = nil, icon: String? = nil) {
+    init(id: String = UUID().uuidString, title: String, text: String, category: ScriptCategory, difficulty: ScriptDifficulty, duration: TimeInterval, tips: String = "", tags: [String] = [], content: String? = nil, icon: String? = nil, emotion: VoiceEmotion? = nil) {
         self.id = id
         self.title = title
         self.text = text
@@ -291,6 +292,17 @@ struct VoiceScript: Identifiable, Codable {
         self.tips = tips
         self.tags = tags
         self.icon = icon ?? category.icon
+        self.emotion = emotion ?? .confident
+    }
+
+    var formattedDuration: String {
+        let minutes = Int(duration) / 60
+        let seconds = Int(duration) % 60
+        if minutes > 0 {
+            return "\(minutes)m \(seconds)s"
+        } else {
+            return "\(seconds)s"
+        }
     }
 
     static let predefinedScripts: [VoiceScript] = [
@@ -334,6 +346,17 @@ enum ScriptCategory: String, Codable, CaseIterable {
 
     var displayName: String {
         return rawValue.capitalized
+    }
+
+    var description: String {
+        switch self {
+        case .introduction: return "First impressions matter"
+        case .casual: return "Keep it light and easy"
+        case .flirty: return "Show your interest"
+        case .confident: return "Bold and assertive"
+        case .playful: return "Fun and lighthearted"
+        case .romantic: return "Express your feelings"
+        }
     }
 
     var icon: String {

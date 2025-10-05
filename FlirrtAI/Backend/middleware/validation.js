@@ -1,4 +1,5 @@
 const { body, param, query, validationResult } = require('express-validator');
+const { upload } = require('../config/constants');
 
 /**
  * Validation error handler middleware
@@ -13,6 +14,91 @@ const handleValidationErrors = (req, res, next) => {
             code: 'VALIDATION_ERROR'
         });
     }
+    next();
+};
+
+/**
+ * File upload validation middleware
+ * Validates file presence, size, and type for uploaded files
+ */
+const ALLOWED_MIME_TYPES = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
+const MIN_FILE_SIZE = 1024; // 1KB minimum
+
+const validateFileUpload = (req, res, next) => {
+    // Check if file exists
+    if (!req.file) {
+        return res.status(400).json({
+            success: false,
+            error: {
+                code: 'FILE_MISSING',
+                message: 'No file uploaded'
+            }
+        });
+    }
+
+    // Check for zero-byte files
+    if (req.file.size === 0) {
+        return res.status(400).json({
+            success: false,
+            error: {
+                code: 'ZERO_BYTE_FILE',
+                message: 'File is empty (0 bytes)'
+            }
+        });
+    }
+
+    // Check minimum file size
+    if (req.file.size < MIN_FILE_SIZE) {
+        return res.status(400).json({
+            success: false,
+            error: {
+                code: 'FILE_TOO_SMALL',
+                message: `File must be at least ${MIN_FILE_SIZE} bytes`
+            }
+        });
+    }
+
+    // Check maximum file size (10MB for screenshots)
+    const maxSize = upload.maxFileSize.screenshot;
+    if (req.file.size > maxSize) {
+        return res.status(413).json({
+            success: false,
+            error: {
+                code: 'FILE_TOO_LARGE',
+                message: `File exceeds ${maxSize / 1024 / 1024}MB limit`
+            }
+        });
+    }
+
+    // Check MIME type
+    if (!ALLOWED_MIME_TYPES.includes(req.file.mimetype)) {
+        return res.status(400).json({
+            success: false,
+            error: {
+                code: 'INVALID_FILE_TYPE',
+                message: 'Only images allowed (jpeg, jpg, png, gif, webp)',
+                details: {
+                    received: req.file.mimetype,
+                    allowed: ALLOWED_MIME_TYPES
+                }
+            }
+        });
+    }
+
+    // Additional security check for file extension
+    const dangerousExtensions = ['.exe', '.bat', '.cmd', '.scr', '.pif', '.vbs', '.js', '.sh'];
+    const fileExtension = req.file.originalname.toLowerCase().match(/\.[^.]+$/)?.[0];
+
+    if (fileExtension && dangerousExtensions.includes(fileExtension)) {
+        return res.status(400).json({
+            success: false,
+            error: {
+                code: 'DANGEROUS_FILE_EXTENSION',
+                message: 'File extension not allowed for security reasons'
+            }
+        });
+    }
+
     next();
 };
 
@@ -221,6 +307,7 @@ const requestSizeLimiter = (req, res, next) => {
 
 module.exports = {
     handleValidationErrors,
+    validateFileUpload,
     sanitizeInput,
     validateScreenshotAnalysis,
     validateFlirtGeneration,

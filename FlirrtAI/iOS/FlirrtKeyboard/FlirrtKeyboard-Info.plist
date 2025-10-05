@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>FlirrtKeyboard</string>
+	<string>Flirrt</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -15,7 +15,7 @@
 	<key>CFBundleName</key>
 	<string>$(PRODUCT_NAME)</string>
 	<key>CFBundlePackageType</key>
-	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
+	<string>XPC!</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
@@ -38,13 +38,7 @@
 		<key>NSExtensionPrincipalClass</key>
 		<string>$(PRODUCT_MODULE_NAME).KeyboardViewController</string>
 	</dict>
-	<key>NSHumanReadableCopyright</key>
-	<string>Copyright © 2024 Flirrt AI. All rights reserved.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Flirrt keyboard extension needs access to analyze your screenshots for conversation suggestions</string>
-	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>Flirrt keyboard extension can save generated images to your photos</string>
-	<key>NSRequiresAquaSystemAppearance</key>
-	<false/>
+	<string>Flirrt keyboard needs access to your photo library to automatically detect and analyze screenshots for conversation suggestions.</string>
 </dict>
 </plist>

@@ -29,7 +29,7 @@ class AuthManager: NSObject, ObservableObject {
     }
 
     private func checkAgeVerification() {
-        ageVerified = UserDefaults.standard.bool(forKey: "age_verified")
+        ageVerified = UserDefaults.standard.bool(forKey: AppConstants.UserDefaultsKeys.ageVerified)
     }
 
     func signInWithApple() {
@@ -72,17 +72,17 @@ class AuthManager: NSObject, ObservableObject {
     }
 
     private func saveAgeVerification() {
-        UserDefaults.standard.set(true, forKey: "age_verified")
-        if let sharedDefaults = UserDefaults(suiteName: "group.com.flirrt.ai.shared") {
-            sharedDefaults.set(true, forKey: "age_verified")
+        UserDefaults.standard.set(true, forKey: AppConstants.UserDefaultsKeys.ageVerified)
+        if let sharedDefaults = UserDefaults(suiteName: AppConstants.appGroupIdentifier) {
+            sharedDefaults.set(true, forKey: AppConstants.UserDefaultsKeys.ageVerified)
         }
     }
 
     func logout() {
         try? keychain.remove("jwt_token")
-        UserDefaults.standard.removeObject(forKey: "age_verified")
-        if let sharedDefaults = UserDefaults(suiteName: "group.com.flirrt.ai.shared") {
-            sharedDefaults.removeObject(forKey: "age_verified")
+        UserDefaults.standard.removeObject(forKey: AppConstants.UserDefaultsKeys.ageVerified)
+        if let sharedDefaults = UserDefaults(suiteName: AppConstants.appGroupIdentifier) {
+            sharedDefaults.removeObject(forKey: AppConstants.UserDefaultsKeys.ageVerified)
         }
         isAuthenticated = false
         user = nil

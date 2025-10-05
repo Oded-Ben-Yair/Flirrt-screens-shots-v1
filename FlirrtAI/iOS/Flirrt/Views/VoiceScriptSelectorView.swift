@@ -102,7 +102,9 @@ struct CategoryChip: View {
     let action: () -> Void
 
     var body: some View {
-        Button(action: action) {
+        Button {
+            action()
+        } label: {
             HStack(spacing: 8) {
                 Circle()
                     .fill(Color(category.color))
@@ -135,7 +137,9 @@ struct ScriptCard: View {
     @State private var isPressed = false
 
     var body: some View {
-        Button(action: action) {
+        Button {
+            action()
+        } label: {
             VStack(alignment: .leading, spacing: 12) {
                 // Header
                 HStack {
@@ -207,18 +211,19 @@ struct ScriptCard: View {
             .animation(.spring(response: 0.2, dampingFraction: 0.8), value: isPressed)
         }
         .buttonStyle(PlainButtonStyle())
-        .onTapGesture {
-            withAnimation(.spring(response: 0.2, dampingFraction: 0.8)) {
-                isPressed = true
-            }
-
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                withAnimation(.spring(response: 0.2, dampingFraction: 0.8)) {
-                    isPressed = false
+        .simultaneousGesture(
+            DragGesture(minimumDistance: 0)
+                .onChanged { _ in
+                    withAnimation(.spring(response: 0.2, dampingFraction: 0.8)) {
+                        isPressed = true
+                    }
                 }
-                action()
-            }
-        }
+                .onEnded { _ in
+                    withAnimation(.spring(response: 0.2, dampingFraction: 0.8)) {
+                        isPressed = false
+                    }
+                }
+        )
     }
 }
 

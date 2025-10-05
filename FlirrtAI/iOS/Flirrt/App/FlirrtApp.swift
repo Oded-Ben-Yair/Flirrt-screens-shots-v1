@@ -6,6 +6,8 @@ struct FlirrtApp: App {
     @StateObject private var authManager = AuthManager()
     @StateObject private var apiClient = APIClient()
     @StateObject private var sharedDataManager = SharedDataManager()
+    // NOTE: ScreenshotDetectionManager needs to be added to Xcode Flirrt target before build
+    @StateObject private var screenshotManager = ScreenshotDetectionManager()
 
     init() {
         setupAppGroups()
@@ -18,15 +20,18 @@ struct FlirrtApp: App {
                 .environmentObject(authManager)
                 .environmentObject(apiClient)
                 .environmentObject(sharedDataManager)
+                .environmentObject(screenshotManager)
                 .onAppear {
                     requestNotificationPermissions()
+                    // Note: Screenshot detection starts automatically on init
+                    screenshotManager.setDetectionEnabled(true)
                 }
         }
     }
 
     private func setupAppGroups() {
-        if let sharedDefaults = UserDefaults(suiteName: "group.com.flirrt.ai.shared") {
-            sharedDefaults.set(true, forKey: "appLaunched")
+        if let sharedDefaults = UserDefaults(suiteName: AppConstants.appGroupIdentifier) {
+            sharedDefaults.set(true, forKey: AppConstants.UserDefaultsKeys.appLaunched)
             sharedDefaults.synchronize()
         }
     }

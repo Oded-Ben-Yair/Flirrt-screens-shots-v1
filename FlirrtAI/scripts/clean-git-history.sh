@@ -42,19 +42,19 @@ echo ""
 # Create patterns file for git-filter-repo
 PATTERNS_FILE="/tmp/flirrt-secrets-patterns.txt"
 cat > "$PATTERNS_FILE" << 'EOF'
-# xAI API Keys (Grok)
+***REMOVED***
 regex:xai-[A-Za-z0-9]{40,}==>REMOVED_XAI_KEY
 
 # ElevenLabs API Keys
 regex:sk_[A-Za-z0-9]{40,}==>REMOVED_ELEVENLABS_KEY
 
-# Google Gemini API Keys
+***REMOVED***
 regex:AIza[A-Za-z0-9_-]{35}==>REMOVED_GEMINI_KEY
 
-# GitHub Personal Access Tokens
+***REMOVED***
 regex:ghp_[A-Za-z0-9]{36}==>REMOVED_GITHUB_PAT
 
-# OpenAI API Keys
+***REMOVED***
 regex:sk-proj-[A-Za-z0-9_-]{100,}==>REMOVED_OPENAI_KEY
 EOF
 
