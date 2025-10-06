@@ -266,11 +266,19 @@ enum AppEnvironment {
     var apiBaseURL: String {
         switch self {
         case .development:
-            return "http://localhost:3000/api/v1"
+            // Local development: Mac's IP address (update if Mac IP changes)
+            return "http://10.10.10.24:3000/api/v1"
+
         case .staging:
-            return "https://staging-api.flirrt.ai/api/v1"
+            // Render.com production URL
+            // TODO: Replace with your actual Render URL after deployment
+            // Example: "https://flirrt-api-production.onrender.com/api/v1"
+            return "https://flirrt-api-production.onrender.com/api/v1"
+
         case .production:
-            return "https://api.flirrt.ai/api/v1"
+            // Render.com production URL (same as staging for now)
+            // TODO: Replace with your actual Render URL after deployment
+            return "https://flirrt-api-production.onrender.com/api/v1"
         }
     }
 

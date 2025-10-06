@@ -49,12 +49,12 @@ class VoiceRecordingManager: NSObject, ObservableObject {
 
     // MARK: - Permission Handling
     func checkPermissions() {
-        permissionStatus = audioSession.recordPermission
+        permissionStatus = AVAudioSession.sharedInstance().recordPermission
     }
 
     func requestPermissions() async -> Bool {
         await withCheckedContinuation { continuation in
-            audioSession.requestRecordPermission { [weak self] granted in
+            AVAudioSession.sharedInstance().requestRecordPermission { [weak self] granted in
                 DispatchQueue.main.async {
                     self?.permissionStatus = granted ? .granted : .denied
                     continuation.resume(returning: granted)

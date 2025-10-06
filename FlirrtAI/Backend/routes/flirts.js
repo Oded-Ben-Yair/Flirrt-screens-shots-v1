@@ -285,8 +285,15 @@ IF profile_score >= 6:
   → Each MUST reference specific extracted details
 
 IF screenshot_type is CHAT:
-  → Set needs_more_scrolling: true
-  → Message: "This is a chat conversation. Please screenshot the person's profile instead."
+  IF extracted_details contains chat messages (chat_context with actual messages):
+    → Set needs_more_scrolling: false
+    → Set has_conversation: true
+    → Generate 5 conversation continuation responses based on last message
+    → Reference conversation context and tone
+  ELSE (empty chat or no messages visible):
+    → Set needs_more_scrolling: true
+    → Set has_conversation: false
+    → Message: "This is a chat conversation. Please screenshot the person's profile instead for better openers."
 
 STEP 5 - Response Format with FEW-SHOT EXAMPLES:
 
@@ -353,17 +360,65 @@ EXAMPLE 2 (Incomplete Profile):
   "suggestions": []
 }
 
-EXAMPLE 3 (Chat Conversation):
+EXAMPLE 3 (Empty Chat - No Conversation):
 {
   "screenshot_type": "chat",
   "needs_more_scrolling": true,
+  "has_conversation": false,
   "profile_score": 0,
-  "message_to_user": "📱 This is a chat conversation, not a profile. Please screenshot the person's dating profile instead for better suggestions.",
+  "message_to_user": "📱 This is a chat conversation, not a profile. Please screenshot the person's dating profile instead for better openers.",
   "extracted_details": {
-    "chat_context": "Instagram direct message conversation",
+    "chat_context": "Empty Instagram direct message conversation",
     "usernames": ["alegra", "alegrazuili"]
   },
   "suggestions": []
+}
+
+EXAMPLE 4 (Active Chat - Conversation Continuation):
+{
+  "screenshot_type": "chat",
+  "needs_more_scrolling": false,
+  "has_conversation": true,
+  "profile_score": 0,
+  "message_to_user": "💬 Great! I can see the conversation. Here are some ways to continue:",
+  "extracted_details": {
+    "chat_context": "Active Instagram conversation about weekend plans",
+    "last_message_from_them": "I'm thinking about trying that new sushi place this weekend",
+    "conversation_tone": "casual and friendly",
+    "usernames": ["sarah_92", "you"]
+  },
+  "suggestions": [
+    {
+      "text": "Ooh I've been wanting to try that place too! Are you going Saturday or Sunday?",
+      "confidence": 0.92,
+      "reasoning": "Shows shared interest, asks specific question to continue conversation naturally",
+      "references": ["sushi place", "weekend"]
+    },
+    {
+      "text": "I heard their spicy tuna rolls are amazing! Do you usually go for the adventurous rolls or stick with classics?",
+      "confidence": 0.89,
+      "reasoning": "Demonstrates knowledge, creates opportunity to learn their preferences",
+      "references": ["sushi place"]
+    },
+    {
+      "text": "That sounds perfect! I know a great spot nearby for dessert after if you're interested 😊",
+      "confidence": 0.87,
+      "reasoning": "Builds on their plan, subtly suggests extending the time together",
+      "references": ["weekend plans"]
+    },
+    {
+      "text": "Nice choice! Are you a sake person or do you prefer to stick with the rolls and sashimi?",
+      "confidence": 0.85,
+      "reasoning": "Keeps focus on their interest, opens discussion about preferences",
+      "references": ["sushi"]
+    },
+    {
+      "text": "Love that idea! Let me know if you want company - I make an excellent sushi companion 🍣",
+      "confidence": 0.90,
+      "reasoning": "Playful, shows interest in joining, uses emoji to match casual tone",
+      "references": ["sushi place", "weekend"]
+    }
+  ]
 }
 
 Now analyze the provided screenshot and return JSON in this EXACT format with proper intelligence.`
@@ -479,7 +534,7 @@ Now analyze the provided screenshot and return JSON in this EXACT format with pr
             // NEW: Handle intelligent response format with needs_more_scrolling
             if (parsedData.needs_more_scrolling !== undefined) {
                 // New intelligent format
-                console.log(`Intelligent analysis: screenshot_type=${parsedData.screenshot_type}, score=${parsedData.profile_score}, needs_more=${parsedData.needs_more_scrolling}`);
+                console.log(`Intelligent analysis: screenshot_type=${parsedData.screenshot_type}, score=${parsedData.profile_score}, needs_more=${parsedData.needs_more_scrolling}, has_conversation=${parsedData.has_conversation || false}`);
 
                 // If needs more scrolling, return early with message
                 if (parsedData.needs_more_scrolling) {
@@ -487,6 +542,7 @@ Now analyze the provided screenshot and return JSON in this EXACT format with pr
                         success: true,
                         screenshot_type: parsedData.screenshot_type,
                         needs_more_scrolling: true,
+                        has_conversation: parsedData.has_conversation || false,
                         profile_score: parsedData.profile_score,
                         message_to_user: parsedData.message_to_user || 'Please provide more profile information',
                         extracted_details: parsedData.extracted_details || {},
@@ -548,6 +604,7 @@ Now analyze the provided screenshot and return JSON in this EXACT format with pr
                 success: true,
                 screenshot_type: parsedData.screenshot_type || 'profile',
                 needs_more_scrolling: parsedData.needs_more_scrolling || false,
+                has_conversation: parsedData.has_conversation || false,
                 profile_score: parsedData.profile_score,
                 message_to_user: parsedData.message_to_user,
                 extracted_details: parsedData.extracted_details || {},

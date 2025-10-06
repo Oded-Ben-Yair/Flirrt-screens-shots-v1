@@ -594,6 +594,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "";
+				DEVELOPMENT_TEAM = 9L8889KAL6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Flirrt/Info.plist;
@@ -626,6 +627,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "";
+				DEVELOPMENT_TEAM = 9L8889KAL6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Flirrt/Info.plist;
@@ -655,6 +657,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9L8889KAL6;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = "FlirrtKeyboard/FlirrtKeyboard-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -680,6 +683,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9L8889KAL6;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = "FlirrtKeyboard/FlirrtKeyboard-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -705,6 +709,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9L8889KAL6;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = "FlirrtShare/FlirrtShare-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -730,6 +735,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9L8889KAL6;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = "FlirrtShare/FlirrtShare-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (

@@ -174,8 +174,8 @@ struct LoginView: View {
                                 .padding(.horizontal)
                         }
 
-                        // Simulator Testing Bypass
-                        #if targetEnvironment(simulator)
+                        // Debug Testing Bypass (works on simulator and device)
+                        #if DEBUG
                         VStack(spacing: 12) {
                             Divider()
                                 .padding(.horizontal)
@@ -201,7 +201,7 @@ struct LoginView: View {
                                 authManager.isAuthenticated = true
                                 authManager.ageVerified = true
 
-                                print("🎭 Running in Demo Mode")
+                                print("🎭 Running in Debug/Testing Mode")
                             }) {
                                 HStack {
                                     Image(systemName: "person.fill.questionmark")
@@ -218,9 +218,9 @@ struct LoginView: View {
                                 .cornerRadius(12)
                             }
                             .padding(.horizontal)
-                            .accessibilityLabel("Continue as guest for simulator testing")
+                            .accessibilityLabel("Continue as guest for debug testing")
 
-                            Text("Simulator Testing Mode")
+                            Text("Debug Testing Mode")
                                 .font(.caption2)
                                 .foregroundColor(.orange.opacity(0.7))
                         }

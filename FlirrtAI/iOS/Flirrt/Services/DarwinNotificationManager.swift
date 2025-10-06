@@ -312,31 +312,25 @@ final class DarwinNotificationManager: ObservableObject {
 
     // MARK: - Core Notification Sending
     private func sendNotification(_ notificationName: String, withPayload payload: [String: Any] = [:]) async {
-        do {
-            // Store payload in shared container for keyboard access
-            if !payload.isEmpty {
-                await storeNotificationPayload(payload, for: notificationName)
-            }
-
-            // Send Darwin notification
-            let center = CFNotificationCenterGetDarwinNotifyCenter()
-            CFNotificationCenterPostNotification(
-                center,
-                CFNotificationName(notificationName as CFString),
-                nil,
-                nil,
-                true // Deliver immediately
-            )
-
-            lastNotificationSent = Date()
-            messageCount += 1
-
-            logger.debug("📤 Darwin notification sent: \(notificationName)")
-
-        } catch {
-            logger.error("❌ Failed to send notification \(notificationName): \(error.localizedDescription)")
-            connectionStatus = .error("Send failed: \(error.localizedDescription)")
+        // Store payload in shared container for keyboard access
+        if !payload.isEmpty {
+            await storeNotificationPayload(payload, for: notificationName)
         }
+
+        // Send Darwin notification
+        let center = CFNotificationCenterGetDarwinNotifyCenter()
+        CFNotificationCenterPostNotification(
+            center,
+            CFNotificationName(notificationName as CFString),
+            nil,
+            nil,
+            true // Deliver immediately
+        )
+
+        lastNotificationSent = Date()
+        messageCount += 1
+
+        logger.debug("📤 Darwin notification sent: \(notificationName)")
     }
 
     private func storeNotificationPayload(_ payload: [String: Any], for notificationName: String) async {

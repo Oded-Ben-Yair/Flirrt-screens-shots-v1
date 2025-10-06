@@ -13,6 +13,7 @@ class KeyboardViewController: UIInputViewController {
     private var isAnalyzing = false
     private var suggestions: [FlirtSuggestion] = []
     private var lastCheckedAssetIdentifier: String?
+    private var screenshotPollingTimer: Timer?
 
     // MARK: - UI Components
     private lazy var containerView: UIView = {
@@ -72,6 +73,19 @@ class KeyboardViewController: UIInputViewController {
         return indicator
     }()
 
+    private lazy var actionButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.titleLabel?.font = .systemFont(ofSize: 16, weight: .semibold)
+        button.setTitleColor(.white, for: .normal)
+        button.backgroundColor = .systemPink
+        button.layer.cornerRadius = 12
+        button.contentEdgeInsets = UIEdgeInsets(top: 14, left: 20, bottom: 14, right: 20)
+        button.addTarget(self, action: #selector(actionButtonTapped), for: .touchUpInside)
+        button.isHidden = true
+        return button
+    }()
+
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -83,8 +97,16 @@ class KeyboardViewController: UIInputViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        // Check again when keyboard appears (user might have just taken screenshot)
+        // Check immediately when keyboard appears (user might have just taken screenshot)
         checkForRecentScreenshot()
+        // Start continuous polling for screenshots taken while keyboard is visible
+        startScreenshotPolling()
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        // Stop polling to save battery when keyboard is not visible
+        stopScreenshotPolling()
     }
 
     private func setupUI() {
@@ -95,6 +117,7 @@ class KeyboardViewController: UIInputViewController {
         containerView.addSubview(instructionLabel)
         containerView.addSubview(statusLabel)
         containerView.addSubview(activityIndicator)
+        containerView.addSubview(actionButton)
         containerView.addSubview(suggestionsStack)
 
         NSLayoutConstraint.activate([
@@ -121,6 +144,10 @@ class KeyboardViewController: UIInputViewController {
             // Activity Indicator
             activityIndicator.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
             activityIndicator.topAnchor.constraint(equalTo: instructionLabel.bottomAnchor, constant: 24),
+
+            // Action Button
+            actionButton.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
+            actionButton.topAnchor.constraint(equalTo: statusLabel.bottomAnchor, constant: 20),
 
             // Suggestions
             suggestionsStack.topAnchor.constraint(equalTo: statusLabel.bottomAnchor, constant: 12),
@@ -185,6 +212,7 @@ class KeyboardViewController: UIInputViewController {
     private func fetchRecentScreenshots() {
         let fetchOptions = PHFetchOptions()
         fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
+        fetchOptions.predicate = NSPredicate(format: "mediaSubtype = %d", PHAssetMediaSubtype.photoScreenshot.rawValue)
         fetchOptions.fetchLimit = 5
 
         // Fetch only screenshots
@@ -214,6 +242,28 @@ class KeyboardViewController: UIInputViewController {
         } else {
             os_log("Most recent photo is %.0f seconds old (not recent)", log: logger, type: .info, timeSinceCreation)
         }
+    }
+
+    // MARK: - Screenshot Polling
+    private func startScreenshotPolling() {
+        // Invalidate existing timer if any
+        screenshotPollingTimer?.invalidate()
+
+        // Create timer that checks for screenshots every 2 seconds
+        screenshotPollingTimer = Timer.scheduledTimer(
+            withTimeInterval: 2.0,
+            repeats: true
+        ) { [weak self] _ in
+            self?.checkForRecentScreenshot()
+        }
+
+        os_log("🔄 Screenshot polling started (every 2 seconds)", log: logger, type: .info)
+    }
+
+    private func stopScreenshotPolling() {
+        screenshotPollingTimer?.invalidate()
+        screenshotPollingTimer = nil
+        os_log("⏸️ Screenshot polling stopped", log: logger, type: .info)
     }
 
     private func loadAndAnalyzeAsset(_ asset: PHAsset) {
@@ -287,8 +337,12 @@ class KeyboardViewController: UIInputViewController {
 
     // MARK: - Backend API
     private func analyzeWithBackend(base64Image: String, screenshotId: String) {
-        guard let url = URL(string: "http://localhost:3000/api/v1/flirts/generate_flirts") else {
-            showError("Invalid API URL")
+        let apiURL = "\(AppConstants.apiBaseURL)/flirts/generate_flirts"
+        os_log("🌐 API URL: %@", log: logger, type: .info, apiURL)
+
+        guard let url = URL(string: apiURL) else {
+            os_log("❌ Invalid API URL: %@", log: logger, type: .error, apiURL)
+            showError("Invalid API URL: \(apiURL)")
             return
         }
 
@@ -305,7 +359,9 @@ class KeyboardViewController: UIInputViewController {
 
         do {
             request.httpBody = try JSONSerialization.data(withJSONObject: requestBody)
+            os_log("📤 Sending request to backend...", log: logger, type: .info)
         } catch {
+            os_log("❌ Failed to create request: %@", log: logger, type: .error, error.localizedDescription)
             showError("Failed to create request")
             return
         }
@@ -318,14 +374,24 @@ class KeyboardViewController: UIInputViewController {
                 self.activityIndicator.stopAnimating()
 
                 if let error = error {
+                    let nsError = error as NSError
+                    os_log("❌ Network error: %@ (code: %d, domain: %@)", log: self.logger, type: .error,
+                           error.localizedDescription, nsError.code, nsError.domain)
                     self.showError("Network error: \(error.localizedDescription)")
                     return
                 }
 
+                if let httpResponse = response as? HTTPURLResponse {
+                    os_log("📥 Response status: %d", log: self.logger, type: .info, httpResponse.statusCode)
+                }
+
                 guard let data = data else {
+                    os_log("❌ No response data from server", log: self.logger, type: .error)
                     self.showError("No response from server")
                     return
                 }
+
+                os_log("✅ Received %d bytes of data", log: self.logger, type: .info, data.count)
 
                 // Parse response
                 self.parseAPIResponse(data)
@@ -349,6 +415,7 @@ class KeyboardViewController: UIInputViewController {
 
             // Check for intelligent response fields (new format)
             let needsMoreScrolling = json["needs_more_scrolling"] as? Bool ?? false
+            let hasConversation = json["has_conversation"] as? Bool ?? false
             let screenshotType = json["screenshot_type"] as? String
             let profileScore = json["profile_score"] as? Int
             let messageToUser = json["message_to_user"] as? String
@@ -359,18 +426,48 @@ class KeyboardViewController: UIInputViewController {
                 return
             }
 
-            // Handle chat detection
-            if screenshotType == "chat", let message = messageToUser {
-                showNeedsMoreInfo(message: message, screenshotType: screenshotType, profileScore: nil)
-                return
-            }
-
-            // Extract suggestions
+            // Extract suggestions first (needed for chat continuation)
             var suggestionsArray: [[String: Any]]?
             if let dataDict = json["data"] as? [String: Any] {
                 suggestionsArray = dataDict["suggestions"] as? [[String: Any]]
             } else {
                 suggestionsArray = json["suggestions"] as? [[String: Any]]
+            }
+
+            // Handle chat detection
+            if screenshotType == "chat" {
+                // If active conversation with suggestions, show continuation
+                if hasConversation, let suggestions = suggestionsArray, !suggestions.isEmpty {
+                    // Parse suggestions and show chat continuation
+                    let parsedSuggestions = suggestions.compactMap { dict -> FlirtSuggestion? in
+                        guard let id = dict["id"] as? String,
+                              let text = dict["text"] as? String,
+                              let confidence = dict["confidence"] as? Double else {
+                            return nil
+                        }
+                        let reasoning = dict["reasoning"] as? String
+                        let references = dict["references"] as? [String]
+                        return FlirtSuggestion(
+                            id: id,
+                            text: text,
+                            confidence: confidence,
+                            reasoning: reasoning,
+                            references: references
+                        )
+                    }
+
+                    if !parsedSuggestions.isEmpty {
+                        os_log("Active chat conversation - showing continuation", log: logger, type: .info)
+                        showChatContinuation(parsedSuggestions)
+                        return
+                    }
+                }
+
+                // Empty chat or no suggestions - ask for profile screenshot
+                if let message = messageToUser {
+                    showNeedsMoreInfo(message: message, screenshotType: screenshotType, profileScore: nil)
+                    return
+                }
             }
 
             guard let suggestionsArray = suggestionsArray, !suggestionsArray.isEmpty else {
@@ -482,6 +579,22 @@ class KeyboardViewController: UIInputViewController {
         resetToInitialState()
     }
 
+    @objc private func actionButtonTapped() {
+        os_log("Action button tapped - triggering screenshot check", log: logger, type: .info)
+
+        // Haptic feedback
+        let generator = UIImpactFeedbackGenerator(style: .medium)
+        generator.impactOccurred()
+
+        // Hide button and show loading
+        actionButton.isHidden = true
+        statusLabel.text = "Looking for screenshot..."
+        activityIndicator.startAnimating()
+
+        // Immediately check for new screenshot
+        checkForRecentScreenshot()
+    }
+
     private func showNeedsMoreInfo(message: String, screenshotType: String?, profileScore: Int?) {
         os_log("Needs more info: %@", log: logger, type: .info, message)
 
@@ -491,17 +604,49 @@ class KeyboardViewController: UIInputViewController {
         suggestionsStack.isHidden = true
 
         var displayMessage = "💬 \(message)"
+        var buttonTitle = ""
 
         if screenshotType == "chat" {
             statusLabel.textColor = .systemOrange
+            buttonTitle = "📸 Screenshot Their Profile"
         } else if let score = profileScore, score < 6 {
             statusLabel.textColor = .systemBlue
             displayMessage += "\n\n📊 Profile completeness: \(score)/10"
+            buttonTitle = "🔄 Scroll & Screenshot Again"
         } else {
             statusLabel.textColor = .systemBlue
+            buttonTitle = "🔄 Try Again"
         }
 
         statusLabel.text = displayMessage
+
+        // Show action button
+        actionButton.setTitle(buttonTitle, for: .normal)
+        actionButton.isHidden = false
+    }
+
+    private func showChatContinuation(_ newSuggestions: [FlirtSuggestion]) {
+        os_log("Showing chat continuation with %d suggestions", log: logger, type: .info, newSuggestions.count)
+
+        suggestions = newSuggestions
+
+        instructionLabel.isHidden = true
+        statusLabel.isHidden = false
+        statusLabel.text = "💬 Continue the conversation:"
+        statusLabel.textColor = .systemGreen
+        activityIndicator.stopAnimating()
+        actionButton.isHidden = true
+
+        // Clear existing suggestions
+        suggestionsStack.arrangedSubviews.forEach { $0.removeFromSuperview() }
+
+        // Add up to 5 suggestions
+        for (index, suggestion) in newSuggestions.prefix(5).enumerated() {
+            let button = createSuggestionButton(suggestion: suggestion, index: index)
+            suggestionsStack.addArrangedSubview(button)
+        }
+
+        suggestionsStack.isHidden = false
     }
 
     private func showError(_ message: String) {

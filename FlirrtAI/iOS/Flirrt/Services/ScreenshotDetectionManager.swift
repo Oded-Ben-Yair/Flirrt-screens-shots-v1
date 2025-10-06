@@ -477,12 +477,20 @@ final class ScreenshotDetectionManager: ObservableObject {
     }
 
     private func getDeviceState() -> [String: Any] {
+        // Get interface orientation from window scene (modern API)
+        let interfaceOrientation: Int = {
+            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+                return windowScene.interfaceOrientation.rawValue
+            }
+            return 0 // Unknown
+        }()
+
         return [
             "battery_level": UIDevice.current.batteryLevel,
             "low_power_mode": ProcessInfo.processInfo.isLowPowerModeEnabled,
             "screen_brightness": UIScreen.main.brightness,
             "device_orientation": UIDevice.current.orientation.rawValue,
-            "interface_orientation": UIApplication.shared.statusBarOrientation.rawValue,
+            "interface_orientation": interfaceOrientation,
             "thermal_state": ProcessInfo.processInfo.thermalState.rawValue,
             "memory_pressure": getMemoryPressure()
         ]

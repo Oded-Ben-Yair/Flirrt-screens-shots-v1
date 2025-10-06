@@ -26,9 +26,9 @@ const express = require('express');
 const cors = require('cors');
 const path = require('path');
 const fs = require('fs');
-const { Pool } = require('pg');
 const { httpStatus, errors, cors: corsConfig, server } = require('./config/constants');
 const timeouts = require('./config/timeouts');
+const db = require('./config/database');
 
 // Import routes
 const authRoutes = require('./routes/auth');
@@ -42,20 +42,6 @@ const { securityHeaders, requestSizeLimiter } = require('./middleware/validation
 
 const app = express();
 const PORT = process.env.PORT || server.defaultPort;
-
-// Database connection
-const pool = new Pool({
-    host: process.env.DB_HOST,
-    port: process.env.DB_PORT,
-    database: process.env.DB_NAME,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-});
-
-// Test database connection
-pool.connect()
-    .then(() => console.log('✅ Connected to PostgreSQL database'))
-    .catch(err => console.warn('⚠️  Database connection failed (some features disabled):', err.message));
 
 // Ensure upload directory exists
 const uploadDir = process.env.UPLOAD_DIR || './uploads';
@@ -96,12 +82,17 @@ app.use((req, res, next) => {
 app.get('/health', async (req, res) => {
     // Check database connection (optional - don't fail if unavailable)
     let databaseStatus = 'not_configured';
-    try {
-        await pool.query('SELECT 1');
-        databaseStatus = 'connected';
-    } catch (error) {
-        console.warn('Database not available for health check:', error.message);
-        databaseStatus = 'unavailable';
+
+    if (db.isAvailable()) {
+        try {
+            await db.query('SELECT 1');
+            databaseStatus = 'connected';
+        } catch (error) {
+            console.warn('Database health check failed:', error.message);
+            databaseStatus = 'error';
+        }
+    } else {
+        databaseStatus = 'optional_not_configured';
     }
 
     // Health check passes even without database (API keys are more critical)
@@ -110,6 +101,7 @@ app.get('/health', async (req, res) => {
         status: 'healthy',
         timestamp: new Date().toISOString(),
         version: '1.0.0',
+        environment: process.env.NODE_ENV || 'development',
         services: {
             database: databaseStatus,
             grok_api: process.env.GROK_API_KEY ? 'configured' : 'not_configured',
@@ -134,22 +126,30 @@ app.delete('/api/v1/user/:id/data', authenticateToken, async (req, res) => {
         // Check if user is deleting their own data or is admin
         if (requestingUserId !== id) {
             // If database is available, check admin status
-            try {
-                const adminQuery = `
-                    SELECT role FROM user_profiles WHERE user_id = $1 AND role IN ('admin', 'super_admin')
-                `;
-                const adminResult = await pool.query(adminQuery, [requestingUserId]);
+            if (db.isAvailable()) {
+                try {
+                    const adminQuery = `
+                        SELECT role FROM user_profiles WHERE user_id = $1 AND role IN ('admin', 'super_admin')
+                    `;
+                    const adminResult = await db.query(adminQuery, [requestingUserId]);
 
-                if (adminResult.rows.length === 0) {
+                    if (!adminResult || adminResult.rows.length === 0) {
+                        return res.status(httpStatus.FORBIDDEN).json({
+                            success: false,
+                            error: errors.ACCESS_DENIED.message,
+                            code: errors.ACCESS_DENIED.code
+                        });
+                    }
+                } catch (dbError) {
+                    console.warn('Database error during admin check:', dbError.message);
                     return res.status(httpStatus.FORBIDDEN).json({
                         success: false,
                         error: errors.ACCESS_DENIED.message,
                         code: errors.ACCESS_DENIED.code
                     });
                 }
-            } catch (dbError) {
-                // If database is not available, only allow users to delete their own data
-                console.warn('Database not available for admin check, restricting to self-deletion only');
+            } else {
+                // No database - only allow self-deletion
                 return res.status(httpStatus.FORBIDDEN).json({
                     success: false,
                     error: errors.ACCESS_DENIED.message,
@@ -160,84 +160,86 @@ app.delete('/api/v1/user/:id/data', authenticateToken, async (req, res) => {
 
         // Log deletion request (if database is available)
         let filesToDelete = [];
-        try {
-            await pool.query(
-                `INSERT INTO data_deletion_log (user_id, deletion_requested_at, deletion_status)
-                 VALUES ($1, NOW(), 'requested')`,
-                [id]
-            );
-
-            // Start transaction for complete data deletion
-            const client = await pool.connect();
-
+        if (db.isAvailable()) {
             try {
-                await client.query('BEGIN');
-
-                // Get all file paths that need to be deleted
-                const filePathsQuery = `
-                    SELECT voice_file_path FROM voice_messages WHERE user_id = $1
-                    UNION
-                    SELECT file_path FROM screenshots WHERE user_id = $1
-                `;
-                const filePathsResult = await client.query(filePathsQuery, [id]);
-                filesToDelete = filePathsResult.rows;
-
-                // Delete database records (foreign key constraints will handle cascade)
-                await client.query('DELETE FROM user_sessions WHERE user_id = $1', [id]);
-                await client.query('DELETE FROM analytics WHERE user_id = $1', [id]);
-                await client.query('DELETE FROM voice_messages WHERE user_id = $1', [id]);
-                await client.query('DELETE FROM flirt_suggestions WHERE user_id = $1', [id]);
-                await client.query('DELETE FROM screenshots WHERE user_id = $1', [id]);
-                await client.query('DELETE FROM users WHERE id = $1', [id]);
-
-                // Update deletion log
-                await client.query(
-                    `UPDATE data_deletion_log
-                     SET deletion_completed_at = NOW(), deletion_status = 'completed'
-                     WHERE user_id = $1 AND deletion_status = 'requested'`,
+                await db.query(
+                    `INSERT INTO data_deletion_log (user_id, deletion_requested_at, deletion_status)
+                     VALUES ($1, NOW(), 'requested')`,
                     [id]
                 );
 
-                await client.query('COMMIT');
-                client.release();
+                // Start transaction for complete data deletion
+                const client = await db.pool.connect();
 
-            } catch (error) {
-                await client.query('ROLLBACK');
-                client.release();
-                throw error;
-            }
-        } catch (dbError) {
-            console.warn('Database not available for user data deletion, performing file cleanup only:', dbError.message);
+                try {
+                    await client.query('BEGIN');
 
-            // If database is not available, try to clean up any files in upload directory for this user
-            // This is a limited cleanup since we can't query the database
-            const uploadDir = process.env.UPLOAD_DIR || './uploads';
-            const fs = require('fs').promises;
-            const path = require('path');
+                    // Get all file paths that need to be deleted
+                    const filePathsQuery = `
+                        SELECT voice_file_path FROM voice_messages WHERE user_id = $1
+                        UNION
+                        SELECT file_path FROM screenshots WHERE user_id = $1
+                    `;
+                    const filePathsResult = await client.query(filePathsQuery, [id]);
+                    filesToDelete = filePathsResult.rows;
 
-            try {
-                const files = await fs.readdir(uploadDir);
+                    // Delete database records (foreign key constraints will handle cascade)
+                    await client.query('DELETE FROM user_sessions WHERE user_id = $1', [id]);
+                    await client.query('DELETE FROM analytics WHERE user_id = $1', [id]);
+                    await client.query('DELETE FROM voice_messages WHERE user_id = $1', [id]);
+                    await client.query('DELETE FROM flirt_suggestions WHERE user_id = $1', [id]);
+                    await client.query('DELETE FROM screenshots WHERE user_id = $1', [id]);
+                    await client.query('DELETE FROM users WHERE id = $1', [id]);
 
-                // Look for files that might belong to this user (basic pattern matching)
-                const userFiles = files.filter(file =>
-                    file.includes(id) ||
-                    file.startsWith(`screenshot-${id}`) ||
-                    file.startsWith(`voice-${id}`)
-                );
+                    // Update deletion log
+                    await client.query(
+                        `UPDATE data_deletion_log
+                         SET deletion_completed_at = NOW(), deletion_status = 'completed'
+                         WHERE user_id = $1 AND deletion_status = 'requested'`,
+                        [id]
+                    );
 
-                for (const file of userFiles) {
-                    try {
-                        await fs.unlink(path.join(uploadDir, file));
-                    } catch (fileError) {
-                        console.error('Failed to delete file:', file, fileError.message);
-                    }
+                    await client.query('COMMIT');
+                    client.release();
+
+                } catch (error) {
+                    await client.query('ROLLBACK');
+                    client.release();
+                    throw error;
                 }
+            } catch (dbError) {
+                console.warn('Database error during user data deletion, performing file cleanup only:', dbError.message);
 
-                filesToDelete = userFiles.map(file => ({ file_path: path.join(uploadDir, file) }));
-            } catch (dirError) {
-                console.warn('Could not access upload directory for cleanup:', dirError.message);
-                // Don't throw - just continue with empty files list
-                filesToDelete = [];
+                // If database is not available, try to clean up any files in upload directory for this user
+                // This is a limited cleanup since we can't query the database
+                const uploadDir = process.env.UPLOAD_DIR || './uploads';
+                const fs = require('fs').promises;
+                const path = require('path');
+
+                try {
+                    const files = await fs.readdir(uploadDir);
+
+                    // Look for files that might belong to this user (basic pattern matching)
+                    const userFiles = files.filter(file =>
+                        file.includes(id) ||
+                        file.startsWith(`screenshot-${id}`) ||
+                        file.startsWith(`voice-${id}`)
+                    );
+
+                    for (const file of userFiles) {
+                        try {
+                            await fs.unlink(path.join(uploadDir, file));
+                        } catch (fileError) {
+                            console.error('Failed to delete file:', file, fileError.message);
+                        }
+                    }
+
+                    filesToDelete = userFiles.map(file => ({ file_path: path.join(uploadDir, file) }));
+                } catch (dirError) {
+                    console.warn('Could not access upload directory for cleanup:', dirError.message);
+                    // Don't throw - just continue with empty files list
+                    filesToDelete = [];
+                }
             }
         }
 
@@ -266,15 +268,17 @@ app.delete('/api/v1/user/:id/data', authenticateToken, async (req, res) => {
         console.error('GDPR deletion error:', error);
 
         // Update deletion log with failure (if database is available)
-        try {
-            await pool.query(
-                `UPDATE data_deletion_log
-                 SET deletion_status = 'failed', admin_notes = $2
-                 WHERE user_id = $1 AND deletion_status = 'requested'`,
-                [req.params.id, error.message]
-            );
-        } catch (logError) {
-            console.warn('Failed to update deletion log (database not available):', logError.message);
+        if (db.isAvailable()) {
+            try {
+                await db.query(
+                    `UPDATE data_deletion_log
+                     SET deletion_status = 'failed', admin_notes = $2
+                     WHERE user_id = $1 AND deletion_status = 'requested'`,
+                    [req.params.id, error.message]
+                );
+            } catch (logError) {
+                console.warn('Failed to update deletion log:', logError.message);
+            }
         }
 
         res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
@@ -306,8 +310,16 @@ app.get('/api/v1/analytics/dashboard', authenticateToken, async (req, res) => {
             WHERE user_id = $1 AND ${timeFilter}
         `;
 
-        const result = await pool.query(analyticsQuery, [req.user.id]);
-        const stats = result.rows[0];
+        const result = await db.query(analyticsQuery, [req.user.id]);
+        const stats = result ? result.rows[0] : null;
+
+        if (!result || !stats) {
+            return res.status(httpStatus.SERVICE_UNAVAILABLE).json({
+                success: false,
+                error: 'Analytics database not available',
+                code: 'DATABASE_UNAVAILABLE'
+            });
+        }
 
         res.json({
             success: true,
@@ -346,9 +358,9 @@ app.get('/uploads/:filename', authenticateToken, async (req, res) => {
             SELECT user_id FROM voice_messages WHERE voice_file_path LIKE $2
         `;
 
-        const fileResult = await pool.query(fileQuery, [filename, `%${filename}`]);
+        const fileResult = await db.query(fileQuery, [filename, `%${filename}`]);
 
-        if (fileResult.rows.length === 0 || fileResult.rows[0].user_id !== req.user.id) {
+        if (!fileResult || fileResult.rows.length === 0 || fileResult.rows[0].user_id !== req.user.id) {
             return res.status(httpStatus.NOT_FOUND).json({
                 success: false,
                 error: errors.FILE_NOT_FOUND.message,
@@ -418,22 +430,14 @@ app.use((error, req, res, next) => {
     });
 });
 
-// Graceful shutdown
-process.on('SIGTERM', async () => {
+// Graceful shutdown (database cleanup handled in config/database.js)
+process.on('SIGTERM', () => {
     console.log('🔄 SIGTERM received, shutting down gracefully');
-
-    // Close database connections
-    await pool.end();
-
     process.exit(0);
 });
 
-process.on('SIGINT', async () => {
+process.on('SIGINT', () => {
     console.log('🔄 SIGINT received, shutting down gracefully');
-
-    // Close database connections
-    await pool.end();
-
     process.exit(0);
 });
 
