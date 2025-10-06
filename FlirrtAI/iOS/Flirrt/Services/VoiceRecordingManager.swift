@@ -11,7 +11,7 @@ class VoiceRecordingManager: NSObject, ObservableObject {
     @Published var audioLevels: [Float] = []
     @Published var recordingURL: URL?
     @Published var error: VoiceRecordingError?
-    @Published var permissionStatus: AVAudioSession.RecordPermission = .undetermined
+    @Published var permissionStatus: AVAudioApplication.RecordPermission = .undetermined
 
     // MARK: - Constants
     private let maxRecordingDuration: TimeInterval = 180 // 3 minutes
@@ -49,12 +49,12 @@ class VoiceRecordingManager: NSObject, ObservableObject {
 
     // MARK: - Permission Handling
     func checkPermissions() {
-        permissionStatus = AVAudioSession.sharedInstance().recordPermission
+        permissionStatus = AVAudioApplication.shared.recordPermission
     }
 
     func requestPermissions() async -> Bool {
         await withCheckedContinuation { continuation in
-            AVAudioSession.sharedInstance().requestRecordPermission { [weak self] granted in
+            AVAudioApplication.requestRecordPermission { [weak self] granted in
                 DispatchQueue.main.async {
                     self?.permissionStatus = granted ? .granted : .denied
                     continuation.resume(returning: granted)
