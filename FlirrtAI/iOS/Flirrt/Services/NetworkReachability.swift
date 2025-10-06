@@ -143,7 +143,7 @@ class NetworkReachability: ObservableObject {
         guard isConnected else { return false }
 
         // Try to reach the backend API
-        let apiURL = URL(string: "http://localhost:3000/api/v1/health")!
+        let apiURL = URL(string: "\(AppConstants.apiBaseURL.replacingOccurrences(of: "/api/v1", with: ""))/health")!
         var request = URLRequest(url: apiURL)
         request.httpMethod = "GET"
         request.timeoutInterval = 5

@@ -5,7 +5,7 @@ import UIKit
 class APIClient: ObservableObject {
     static let shared = APIClient()
 
-    private let baseURL = "http://localhost:3000/api/v1"
+    private let baseURL = AppConstants.apiBaseURL
     private let session: Session
 
     @Published var isLoading = false
