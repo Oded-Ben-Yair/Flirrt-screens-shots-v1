@@ -270,14 +270,11 @@ enum AppEnvironment {
             return "http://10.10.10.24:3000/api/v1"
 
         case .staging:
-            // Render.com production URL
-            // TODO: Replace with your actual Render URL after deployment
-            // Example: "https://flirrt-api-production.onrender.com/api/v1"
+            // Render.com production URL (deployed and live)
             return "https://flirrt-api-production.onrender.com/api/v1"
 
         case .production:
-            // Render.com production URL (same as staging for now)
-            // TODO: Replace with your actual Render URL after deployment
+            // Render.com production URL (deployed and live)
             return "https://flirrt-api-production.onrender.com/api/v1"
         }
     }
