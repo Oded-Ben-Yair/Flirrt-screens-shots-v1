@@ -369,6 +369,105 @@ router.post('/refresh', authenticateToken, async (req, res) => {
 });
 
 /**
+ * Apple Sign-In (MVP - No Database Required)
+ * POST /api/v1/auth/apple
+ */
+router.post('/apple', rateLimit(10, 15 * 60 * 1000), async (req, res) => {
+    try {
+        const { userIdentifier, identityToken, authorizationCode } = req.body;
+
+        if (!userIdentifier) {
+            return res.status(400).json({
+                success: false,
+                error: 'User identifier is required',
+                code: 'MISSING_USER_IDENTIFIER'
+            });
+        }
+
+        // MVP: Generate a simple JWT for the Apple user (no database)
+        // In production, you'd verify the identity token with Apple's servers
+        const token = jwt.sign(
+            {
+                userId: userIdentifier,
+                provider: 'apple',
+                mvpMode: true
+            },
+            process.env.JWT_SECRET,
+            { expiresIn: process.env.JWT_EXPIRES_IN || '24h' }
+        );
+
+        const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24 hours
+
+        console.log('✅ Apple Sign-In successful (MVP mode):', userIdentifier);
+
+        res.json({
+            success: true,
+            data: {
+                user: {
+                    id: userIdentifier,
+                    provider: 'apple',
+                    mvpMode: true
+                },
+                token,
+                expiresAt
+            },
+            message: 'Apple sign-in successful (MVP mode - no persistence)'
+        });
+
+    } catch (error) {
+        console.error('Apple sign-in error:', error);
+        res.status(500).json({
+            success: false,
+            error: 'Apple sign-in failed',
+            code: 'APPLE_SIGNIN_ERROR'
+        });
+    }
+});
+
+/**
+ * Token Validation (MVP - No Database)
+ * POST /api/v1/auth/validate
+ */
+router.post('/validate', async (req, res) => {
+    try {
+        const authHeader = req.headers.authorization;
+
+        if (!authHeader || !authHeader.startsWith('Bearer ')) {
+            return res.status(401).json({
+                success: false,
+                error: 'No token provided',
+                code: 'NO_TOKEN'
+            });
+        }
+
+        const token = authHeader.substring(7);
+
+        // Verify JWT token
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+        res.json({
+            success: true,
+            data: {
+                valid: true,
+                user: {
+                    id: decoded.userId,
+                    provider: decoded.provider || 'unknown',
+                    mvpMode: decoded.mvpMode || false
+                }
+            }
+        });
+
+    } catch (error) {
+        console.error('Token validation error:', error);
+        res.status(401).json({
+            success: false,
+            error: 'Invalid token',
+            code: 'INVALID_TOKEN'
+        });
+    }
+});
+
+/**
  * Get Current User Profile
  * GET /api/v1/auth/me
  */
