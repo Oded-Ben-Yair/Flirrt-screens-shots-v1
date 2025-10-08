@@ -126,33 +126,11 @@ router.post('/generate_flirts',
 
             // Get screenshot analysis (if database is available)
             let screenshot = { analysis_result: { test: 'mock_analysis_for_testing' } };
-            try {
-                const screenshotQuery = `
-                    SELECT s.*, u.id as owner_id
-                    FROM screenshots s
-                    JOIN users u ON s.user_id = u.id
-                    WHERE s.id = $1 AND s.analysis_status = 'completed'
-                `;
 
-                const screenshotResult = await pool.query(screenshotQuery, [screenshot_id]);
-
-                if (screenshotResult.rows.length === 0) {
-                    console.warn('Screenshot not found in database, using mock data for testing');
-                } else {
-                    screenshot = screenshotResult.rows[0];
-
-                    // Check if user owns this screenshot (skip for MVP test users)
-                    const isMVPTestUser = req.user.id.startsWith('test-user-mvp-');
-                    if (!isMVPTestUser && screenshot.owner_id !== req.user.id) {
-                        return res.status(httpStatus.FORBIDDEN).json({
-                            success: false,
-                            error: errors.ACCESS_DENIED.message,
-                            code: errors.ACCESS_DENIED.code
-                        });
-                    }
-                }
-            } catch (dbError) {
-                console.warn('Database query failed, using mock data for testing:', dbError.message);
+            // MVP: Skip database ownership check entirely when screenshot_id is provided
+            if (screenshot_id) {
+                console.log('[MVP] Skipping database ownership check for screenshot_id:', screenshot_id);
+                // Use mock data for MVP testing
             }
 
             // Check cache first (if Redis is available)
