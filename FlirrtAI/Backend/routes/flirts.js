@@ -61,6 +61,7 @@ router.post('/generate_flirts',
     // authenticateToken,  // DISABLED FOR MVP TESTING
     // rateLimit(30, 15 * 60 * 1000), // DISABLED FOR MVP TESTING
     async (req, res) => {
+        console.log('🔍 [DEBUG] generate_flirts endpoint hit - code version a2ddf7e');
         try {
             // MVP: Use test user when auth is disabled
             if (!req.user) {
