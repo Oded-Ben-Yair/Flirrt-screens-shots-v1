@@ -1,0 +1,16 @@
+
+# Xcode Build
+FlirrtAI/Build/
+FlirrtAI/iOS/.build/
+*.xcuserdata
+xcuserdata/
+
+# Node modules
+node_modules/
+
+# Logs
+*.log
+
+# DS_Store
+.DS_Store
+
