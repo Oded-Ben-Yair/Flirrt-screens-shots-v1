@@ -256,7 +256,7 @@ enum AppEnvironment {
     /// Current environment (determined at compile time)
     static var current: AppEnvironment {
         #if DEBUG
-        return .development
+        return .production  // Temporarily use production for iPad testing
         #else
         return .production
         #endif
