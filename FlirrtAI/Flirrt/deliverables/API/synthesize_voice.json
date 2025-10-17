@@ -1,0 +1,228 @@
+{
+  "endpoint": "/api/v1/synthesize_voice",
+  "method": "POST",
+  "description": "Converts text flirt suggestions into natural voice messages using user's cloned voice",
+  "content_type": "application/json",
+  "authentication": "Bearer token required",
+  "rate_limits": {
+    "requests_per_minute": 5,
+    "daily_limit": 20
+  },
+  "request": {
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "suggestion_id": {
+        "type": "string",
+        "required": false,
+        "description": "ID from previous flirt suggestion"
+      },
+      "text": {
+        "type": "string",
+        "required": true,
+        "max_length": 500,
+        "description": "Text to convert to voice"
+      },
+      "user_voice_id": {
+        "type": "string",
+        "required": true,
+        "description": "User's ElevenLabs voice clone ID"
+      },
+      "emotion": {
+        "type": "string",
+        "enum": ["confident", "playful", "warm", "casual", "sultry", "excited"],
+        "default": "confident",
+        "description": "Emotional tone for voice synthesis"
+      },
+      "speed": {
+        "type": "string",
+        "enum": ["slow", "normal", "fast", "custom"],
+        "default": "normal"
+      },
+      "custom_speed": {
+        "type": "number",
+        "minimum": 0.5,
+        "maximum": 2.0,
+        "description": "Custom speed multiplier (only if speed=custom)"
+      },
+      "preferences": {
+        "type": "object",
+        "required": false,
+        "properties": {
+          "pause_before_punchline": {
+            "type": "boolean",
+            "default": true
+          },
+          "emphasis_style": {
+            "type": "string",
+            "enum": ["subtle", "moderate", "strong"],
+            "default": "moderate"
+          },
+          "voice_warmth": {
+            "type": "string",
+            "enum": ["cool", "neutral", "warm"],
+            "default": "warm"
+          }
+        }
+      }
+    }
+  },
+  "response": {
+    "success": {
+      "status_code": 200,
+      "content_type": "application/json",
+      "body": {
+        "synthesis_result": {
+          "type": "object",
+          "properties": {
+            "audio_url": {
+              "type": "string",
+              "format": "uri",
+              "description": "Secure download URL for voice message"
+            },
+            "duration_seconds": {
+              "type": "number",
+              "description": "Length of audio file"
+            },
+            "file_size_mb": {
+              "type": "number",
+              "description": "Size of audio file"
+            },
+            "format": {
+              "type": "string",
+              "enum": ["mp3", "wav", "ogg"],
+              "default": "mp3"
+            },
+            "expires_at": {
+              "type": "string",
+              "format": "ISO8601",
+              "description": "When download URL expires"
+            }
+          }
+        },
+        "quality_metrics": {
+          "type": "object",
+          "properties": {
+            "naturalness_score": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "emotion_accuracy": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "speech_clarity": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "overall_quality": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            }
+          }
+        },
+        "processing_details": {
+          "type": "object",
+          "properties": {
+            "synthesis_time_ms": {
+              "type": "integer"
+            },
+            "retry_count": {
+              "type": "integer"
+            },
+            "optimization_applied": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "transcript_confirmation": {
+          "type": "string",
+          "description": "Final text used for synthesis"
+        },
+        "usage_guidance": {
+          "type": "object",
+          "properties": {
+            "recommended_playback_context": {
+              "type": "string"
+            },
+            "timing_suggestions": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  },
+  "example_request": {
+    "curl": "curl -X POST https://api.flirrt.ai/v1/synthesize_voice \\\n  -H \"Authorization: Bearer your_access_token\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n    \"text\": \"Your photography skills are making me reconsider my entire Instagram strategy\",\n    \"user_voice_id\": \"voice_xyz123\",\n    \"emotion\": \"confident\",\n    \"speed\": \"normal\",\n    \"preferences\": {\n      \"pause_before_punchline\": true,\n      \"emphasis_style\": \"moderate\"\n    }\n  }'",
+    "javascript": "fetch('https://api.flirrt.ai/v1/synthesize_voice', {\n  method: 'POST',\n  headers: {\n    'Authorization': 'Bearer your_access_token',\n    'Content-Type': 'application/json'\n  },\n  body: JSON.stringify({\n    text: \"Your photography skills are making me reconsider my entire Instagram strategy\",\n    user_voice_id: \"voice_xyz123\",\n    emotion: \"confident\",\n    speed: \"normal\"\n  })\n});"
+  },
+  "example_response": {
+    "synthesis_result": {
+      "audio_url": "https://secure-cdn.flirrt.ai/voice/abc123.mp3",
+      "duration_seconds": 5.8,
+      "file_size_mb": 0.46,
+      "format": "mp3",
+      "expires_at": "2025-09-23T14:30:00Z"
+    },
+    "quality_metrics": {
+      "naturalness_score": 0.93,
+      "emotion_accuracy": 0.90,
+      "speech_clarity": 0.96,
+      "overall_quality": 0.93
+    },
+    "processing_details": {
+      "synthesis_time_ms": 2150,
+      "retry_count": 0,
+      "optimization_applied": ["emphasis_adjustment", "natural_pace_variation"]
+    },
+    "transcript_confirmation": "Your photography skills are making me reconsider my *entire* Instagram strategy",
+    "usage_guidance": {
+      "recommended_playback_context": "After viewing their photography work",
+      "timing_suggestions": "Good follow-up to initial compliment text"
+    }
+  },
+  "error_responses": {
+    "400_invalid_voice": {
+      "error": "INVALID_VOICE_ID",
+      "message": "Voice clone ID not found or expired",
+      "details": {
+        "voice_id": "voice_xyz123",
+        "suggestion": "Re-record voice samples or contact support"
+      }
+    },
+    "422_synthesis_failed": {
+      "error": "SYNTHESIS_FAILED",
+      "message": "Unable to generate voice message",
+      "details": {
+        "reason": "text_too_complex",
+        "suggestion": "Simplify text or try different emotion setting"
+      }
+    },
+    "429_rate_limit": {
+      "error": "VOICE_LIMIT_EXCEEDED",
+      "message": "Daily voice synthesis limit reached",
+      "details": {
+        "daily_limit": 20,
+        "reset_time": "2025-09-23T00:00:00Z"
+      }
+    },
+    "503_service_unavailable": {
+      "error": "VOICE_SERVICE_UNAVAILABLE",
+      "message": "Voice synthesis temporarily unavailable",
+      "details": {
+        "estimated_restoration": "2025-09-22T16:00:00Z",
+        "fallback_suggestion": "Use text-only suggestions"
+      }
+    }
+  }
+}

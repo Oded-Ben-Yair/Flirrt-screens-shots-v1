@@ -39,7 +39,7 @@ The following steps require manual action through Apple's web interfaces. Follow
 4. **Your Privacy Policy URL is:**
    ```
    https://oded-ben-yair.github.io/Flirrt-screens-shots-v1/privacy-policy.html
-   ```
+   ``` https://raw.githubusercontent.com/Oded-Ben-Yair/Flirrt-screens-shots-v1/main/privacy-policy.html
 
 5. **Verify it works:** Open the URL in your browser
 

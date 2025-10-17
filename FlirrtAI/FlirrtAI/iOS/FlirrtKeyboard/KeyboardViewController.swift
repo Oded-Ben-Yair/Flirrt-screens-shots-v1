@@ -615,7 +615,7 @@ class KeyboardViewController: UIInputViewController {
     }
 
     // ✅ ADDED: Handler for keyboard toggle button
-    @objc private func handleInputModeList(from: UIView, with: UIEvent) {
+    @objc override func handleInputModeList(from view: UIView, with event: UIEvent) {
         advanceToNextInputMode()
     }
 
