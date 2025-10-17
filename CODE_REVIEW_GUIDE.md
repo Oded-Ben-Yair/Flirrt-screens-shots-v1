@@ -16,22 +16,21 @@ This document provides external reviewers with a comprehensive overview of the F
 
 ```
 Flirrt-screens-shots-v1/
-├── FlirrtAI/
-│   └── FlirrtAI/              # Main project directory
-│       ├── iOS/               # iOS Application
-│       │   ├── Flirrt.xcodeproj
-│       │   ├── Flirrt/        # Main app target
-│       │   ├── FlirrtKeyboard/ # Keyboard extension
-│       │   └── FlirrtShare/   # Share extension
-│       └── Backend/           # Node.js API Backend
-│           ├── server.js
-│           ├── routes/
-│           ├── services/
-│           ├── middleware/
-│           └── config/
+├── Backend/                   # Node.js API Backend
+│   ├── server.js
+│   ├── routes/
+│   ├── services/
+│   ├── middleware/
+│   └── config/
+├── iOS/                       # iOS Application
+│   ├── Flirrt.xcodeproj
+│   ├── Flirrt/                # Main app target
+│   ├── FlirrtKeyboard/        # Keyboard extension
+│   └── FlirrtShare/           # Share extension
 ├── privacy-policy.html        # Privacy policy for App Store
 ├── README.md                  # Project overview
-└── CODE_REVIEW_GUIDE.md       # This file
+├── CODE_REVIEW_GUIDE.md       # This file
+└── PROJECT_STRUCTURE.md       # Detailed directory guide
 ```
 
 ---
@@ -58,9 +57,9 @@ Flirrt-screens-shots-v1/
 **Priority**: HIGH
 
 **Files to Review**:
-- `FlirrtAI/FlirrtAI/iOS/Flirrt/Config/AppConstants.swift`
-- `FlirrtAI/FlirrtAI/Backend/middleware/auth.js`
-- `FlirrtAI/FlirrtAI/Backend/middleware/validation.js`
+- `iOS/Flirrt/Config/AppConstants.swift`
+- `Backend/middleware/auth.js`
+- `Backend/middleware/validation.js`
 - `privacy-policy.html`
 
 **Review Checklist**:
@@ -82,10 +81,10 @@ Flirrt-screens-shots-v1/
 **Priority**: HIGH
 
 **Files to Review**:
-- `FlirrtAI/FlirrtAI/iOS/FlirrtKeyboard/KeyboardViewController.swift` (Main keyboard logic)
-- `FlirrtAI/FlirrtAI/iOS/Flirrt/Services/APIClient.swift` (Network layer)
-- `FlirrtAI/FlirrtAI/iOS/Flirrt/Services/ScreenshotDetectionManager.swift` (Screenshot handling)
-- `FlirrtAI/FlirrtAI/iOS/Flirrt/Views/ContentView.swift` (Main UI)
+- `iOS/FlirrtKeyboard/KeyboardViewController.swift` (Main keyboard logic)
+- `iOS/Flirrt/Services/APIClient.swift` (Network layer)
+- `iOS/Flirrt/Services/ScreenshotDetectionManager.swift` (Screenshot handling)
+- `iOS/Flirrt/Views/ContentView.swift` (Main UI)
 
 **Review Checklist**:
 - [ ] Swift 5+ best practices followed
@@ -109,10 +108,10 @@ Flirrt-screens-shots-v1/
 **Priority**: HIGH
 
 **Files to Review**:
-- `FlirrtAI/FlirrtAI/Backend/server.js` (Main server)
-- `FlirrtAI/FlirrtAI/Backend/routes/flirts.js` (Core flirt generation logic)
-- `FlirrtAI/FlirrtAI/Backend/services/grok4FastService.js` (AI integration)
-- `FlirrtAI/FlirrtAI/Backend/middleware/optimizedUpload.js` (File handling)
+- `Backend/server.js` (Main server)
+- `Backend/routes/flirts.js` (Core flirt generation logic)
+- `Backend/services/grok4FastService.js` (AI integration)
+- `Backend/middleware/optimizedUpload.js` (File handling)
 
 **Review Checklist**:
 - [ ] Input validation on all endpoints
@@ -136,9 +135,9 @@ Flirrt-screens-shots-v1/
 **Priority**: MEDIUM
 
 **Files to Review**:
-- `FlirrtAI/FlirrtAI/Backend/services/grok4FastService.js`
-- `FlirrtAI/FlirrtAI/Backend/services/geminiVisionService.js`
-- `FlirrtAI/FlirrtAI/iOS/Flirrt/Services/APIClient.swift`
+- `Backend/services/grok4FastService.js`
+- `Backend/services/geminiVisionService.js`
+- `iOS/Flirrt/Services/APIClient.swift`
 
 **Review Checklist**:
 - [ ] API keys stored securely (environment variables)
@@ -160,9 +159,9 @@ Flirrt-screens-shots-v1/
 **Priority**: MEDIUM
 
 **Files to Review**:
-- `FlirrtAI/FlirrtAI/iOS/Flirrt/Services/SharedDataManager.swift`
-- `FlirrtAI/FlirrtAI/iOS/Flirrt/Services/AuthManager.swift`
-- `FlirrtAI/FlirrtAI/Backend/services/database.js`
+- `iOS/Flirrt/Services/SharedDataManager.swift`
+- `iOS/Flirrt/Services/AuthManager.swift`
+- `Backend/services/database.js`
 
 **Review Checklist**:
 - [ ] App Groups data sharing works correctly
@@ -184,9 +183,9 @@ Flirrt-screens-shots-v1/
 **Priority**: MEDIUM
 
 **Files to Review**:
-- `FlirrtAI/Backend/tests/api.test.js`
-- `FlirrtAI/Backend/tests/validation-enforcement.test.js`
-- `FlirrtAI/Backend/tests/comprehensiveQA.test.js`
+- `Backend/tests/api.test.js`
+- `Backend/tests/validation-enforcement.test.js`
+- `Backend/tests/comprehensiveQA.test.js`
 
 **Review Checklist**:
 - [ ] Unit tests cover critical paths
@@ -269,13 +268,13 @@ Flirrt-screens-shots-v1/
 
 ### Backend Testing
 ```bash
-cd FlirrtAI/FlirrtAI/Backend
+cd Backend
 npm install
 npm test
 ```
 
 ### iOS Testing
-1. Open `FlirrtAI/FlirrtAI/iOS/Flirrt.xcodeproj` in Xcode
+1. Open `iOS/Flirrt.xcodeproj` in Xcode
 2. Select target device (real iPhone recommended)
 3. Press Cmd+U to run tests (if implemented)
 4. Press Cmd+R to build and run
@@ -349,6 +348,6 @@ Your feedback is invaluable for improving the code quality, security, and user e
 
 ---
 
-**Last Updated**: October 11, 2025
-**Review Version**: 1.0
-**Status**: Ready for External Review
+**Last Updated**: October 17, 2025
+**Review Version**: 1.1 (Paths updated after restructuring)
+**Status**: ✅ Ready for External Review
