@@ -35,6 +35,8 @@ const authRoutes = require('./routes/auth');
 const analysisRoutes = require('./routes/analysis');
 const flirtRoutes = require('./routes/flirts');
 const voiceRoutes = require('./routes/voice');
+const legalRoutes = require('./routes/legal');
+const accountRoutes = require('./routes/account');
 
 // Import middleware
 const { authenticateToken, rateLimit } = require('./middleware/auth');
@@ -42,6 +44,10 @@ const { securityHeaders, requestSizeLimiter } = require('./middleware/validation
 
 const app = express();
 const PORT = process.env.PORT || server.defaultPort;
+
+// Configure EJS view engine for rendering HTML (privacy policy, terms, etc.)
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
 
 // Ensure upload directory exists
 const uploadDir = process.env.UPLOAD_DIR || './uploads';
@@ -116,6 +122,8 @@ app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/analysis', analysisRoutes);
 app.use('/api/v1/flirts', flirtRoutes);
 app.use('/api/v1/voice', voiceRoutes);
+app.use('/api/v1/legal', legalRoutes);
+app.use('/api/v1/account', accountRoutes);
 
 // GDPR Compliance - User Data Deletion
 app.delete('/api/v1/user/:id/data', authenticateToken, async (req, res) => {
