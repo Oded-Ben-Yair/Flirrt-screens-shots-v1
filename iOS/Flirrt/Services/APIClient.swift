@@ -133,8 +133,10 @@ class APIClient: ObservableObject {
 
     // MARK: - Flirt Generation from Screenshot Image (REAL GROK VISION API)
     /// CRITICAL FIX: Using multipart upload instead of Base64 to prevent memory bloat
+    /// NEW: Added conversationID for multi-screenshot context
     func generateFlirtsFromImage(
         imageData: Data,
+        conversationID: String? = nil,
         suggestionType: SuggestionType = .opener,
         tone: String = "playful",
         context: String = ""
@@ -147,6 +149,12 @@ class APIClient: ObservableObject {
                 multipartFormData: { formData in
                     // Add image as multipart data
                     formData.append(imageData, withName: "screenshot", fileName: "screenshot.jpg", mimeType: "image/jpeg")
+
+                    // NEW: Add conversation_id for multi-screenshot context
+                    if let conversationID = conversationID,
+                       let conversationIDData = conversationID.data(using: .utf8) {
+                        formData.append(conversationIDData, withName: "conversation_id")
+                    }
 
                     // Add other parameters
                     if let suggestionTypeData = suggestionType.rawValue.data(using: .utf8) {

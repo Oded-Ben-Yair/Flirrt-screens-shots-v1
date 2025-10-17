@@ -18,6 +18,8 @@ const {
     sanitizeText
 } = require('../utils/validation');
 const { callGrokWithRetry } = require('../utils/apiRetry');
+const contentModeration = require('../services/contentModeration');
+const conversationContext = require('../services/conversationContext');
 
 const router = express.Router();
 
@@ -72,6 +74,7 @@ router.post('/generate_flirts',
                 screenshot_id,
                 image_data,  // NEW: Base64 encoded image for direct Grok vision analysis
                 context = '',
+                conversation_id = null, // NEW: External dating app conversation ID for multi-screenshot context
                 suggestion_type = 'opener', // 'opener', 'response', 'continuation'
                 tone = 'playful', // 'playful', 'witty', 'romantic', 'casual', 'bold'
                 user_preferences = {}
@@ -124,6 +127,11 @@ router.post('/generate_flirts',
 
             // Sanitize context text input
             const sanitizedContext = sanitizeText(context);
+
+            // NEW: Multi-Screenshot Context - Get or create conversation session
+            const session = await conversationContext.getOrCreateSession(req.user.id, conversation_id);
+            const conversationHistory = await conversationContext.getConversationHistory(session.id, 3);
+            const historyPrompt = conversationContext.buildContextPrompt(conversationHistory);
 
             // Get screenshot analysis (if database is available)
             let screenshot = { analysis_result: { test: 'mock_analysis_for_testing' } };
@@ -190,6 +198,8 @@ router.post('/generate_flirts',
             // Create personalized prompt based on analysis and preferences
             const prompt = `You are Flirrt.ai, an expert dating conversation assistant. Based on the following analysis and context, generate 5 highly personalized and engaging flirt suggestions.
 
+${historyPrompt}
+
 SCREENSHOT ANALYSIS:
 ${JSON.stringify(analysisData, null, 2)}
 
@@ -248,6 +258,8 @@ Return ONLY a JSON object with this exact structure:
                                     text: `CRITICAL: You MUST respond with a JSON object containing ALL required fields. DO NOT omit any fields.
 
 ANALYZE THIS DATING APP SCREENSHOT WITH INTELLIGENCE:
+
+${historyPrompt}
 
 STEP 1 - Screenshot Type Detection (REQUIRED):
 You MUST set "screenshot_type" to one of:
@@ -556,6 +568,27 @@ Now analyze the provided screenshot and return JSON in this EXACT format with pr
             // Validate suggestions array exists
             if (!parsedData.suggestions || !Array.isArray(parsedData.suggestions)) {
                 throw new Error('Invalid suggestions format from Grok API');
+            }
+
+            // CRITICAL: Apply content moderation (App Store requirement for dating apps)
+            console.log(`🛡️ Applying content moderation to ${parsedData.suggestions.length} suggestions...`);
+            const originalCount = parsedData.suggestions.length;
+            parsedData.suggestions = await contentModeration.filterSuggestions(parsedData.suggestions);
+            const blockedCount = originalCount - parsedData.suggestions.length;
+
+            if (blockedCount > 0) {
+                console.log(`🚫 Content moderation blocked ${blockedCount}/${originalCount} suggestions`);
+            }
+
+            // If all suggestions were blocked, return error
+            if (parsedData.suggestions.length === 0) {
+                return res.status(httpStatus.OK).json({
+                    success: true,
+                    suggestions: [],
+                    message: 'Content moderation filtered all suggestions. Please try again with different context or tone.',
+                    moderation_applied: true,
+                    blocked_count: blockedCount
+                });
             }
 
             // Save suggestions to database (if database is available)

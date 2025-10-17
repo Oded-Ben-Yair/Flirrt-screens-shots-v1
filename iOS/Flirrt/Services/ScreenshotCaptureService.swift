@@ -13,7 +13,14 @@ class ScreenshotCaptureService {
 
     private var lastProcessedAssetIdentifier: String?
 
-    private init() {}
+    // NEW: Multi-Screenshot Context - Session Management
+    private let sessionTimeout: TimeInterval = 30 * 60 // 30 minutes
+    private var currentSessionID: String?
+
+    private init() {
+        // Load existing session if still active
+        loadActiveSession()
+    }
 
     // MARK: - Public API
 
@@ -146,9 +153,13 @@ class ScreenshotCaptureService {
     private func uploadToBackend(imageData: Data, completion: @escaping (Result<Void, Error>) -> Void) {
         Task {
             do {
-                // Upload and analyze screenshot
+                // NEW: Get or create conversation session
+                let sessionID = getOrCreateSession()
+
+                // Upload and analyze screenshot with conversation context
                 let result = try await APIClient.shared.generateFlirtsFromImage(
                     imageData: imageData,
+                    conversationID: sessionID,
                     suggestionType: .opener,
                     tone: "playful"
                 )
@@ -220,6 +231,87 @@ class ScreenshotCaptureService {
         )
 
         print("📢 Posted Darwin notification to keyboard")
+    }
+
+    // MARK: - Session Management
+
+    /// Load active session from App Group (if within timeout)
+    private func loadActiveSession() {
+        guard let sharedDefaults = UserDefaults(suiteName: appGroupID) else { return }
+
+        guard let sessionID = sharedDefaults.string(forKey: "conversationSessionID"),
+              let lastActivityDate = sharedDefaults.object(forKey: "sessionLastActivity") as? Date else {
+            return
+        }
+
+        // Check if session is still active (within 30 minutes)
+        let timeSinceActivity = Date().timeIntervalSince(lastActivityDate)
+        if timeSinceActivity < sessionTimeout {
+            currentSessionID = sessionID
+            print("📝 Loaded active session: \(sessionID)")
+        } else {
+            print("⏰ Session expired (\(Int(timeSinceActivity/60)) minutes ago)")
+            clearSession()
+        }
+    }
+
+    /// Get current session or create new one
+    private func getOrCreateSession() -> String {
+        if let sessionID = currentSessionID {
+            // Update activity timestamp
+            saveSession(sessionID)
+            return sessionID
+        }
+
+        // Create new session
+        let sessionID = "session_\(UUID().uuidString)"
+        currentSessionID = sessionID
+        saveSession(sessionID)
+
+        print("✨ Created new conversation session: \(sessionID)")
+        return sessionID
+    }
+
+    /// Save session to App Group
+    private func saveSession(_ sessionID: String) {
+        guard let sharedDefaults = UserDefaults(suiteName: appGroupID) else { return }
+
+        sharedDefaults.set(sessionID, forKey: "conversationSessionID")
+        sharedDefaults.set(Date(), forKey: "sessionLastActivity")
+        sharedDefaults.synchronize()
+    }
+
+    /// Clear current session
+    private func clearSession() {
+        currentSessionID = nil
+
+        guard let sharedDefaults = UserDefaults(suiteName: appGroupID) else { return }
+        sharedDefaults.removeObject(forKey: "conversationSessionID")
+        sharedDefaults.removeObject(forKey: "sessionLastActivity")
+        sharedDefaults.synchronize()
+    }
+
+    /// Public: Start new conversation (reset session)
+    func newConversation() {
+        clearSession()
+        print("🔄 Started new conversation")
+    }
+
+    /// Get current session info
+    func getCurrentSessionInfo() -> (id: String?, isActive: Bool) {
+        guard let sessionID = currentSessionID else {
+            return (nil, false)
+        }
+
+        guard let sharedDefaults = UserDefaults(suiteName: appGroupID),
+              let lastActivityDate = sharedDefaults.object(forKey: "sessionLastActivity") as? Date else {
+            return (sessionID, false)
+        }
+
+        let timeSinceActivity = Date().timeIntervalSince(lastActivityDate)
+        let isActive = timeSinceActivity < sessionTimeout
+
+        return (sessionID, isActive)
     }
 
     // MARK: - Permission Check
