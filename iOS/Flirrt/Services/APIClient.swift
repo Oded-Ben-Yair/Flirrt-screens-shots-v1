@@ -70,8 +70,11 @@ class APIClient: ObservableObject {
         // Add image
         formData.append(imageData, withName: "image", fileName: "screenshot.jpg", mimeType: "image/jpeg")
 
-        // Add user ID
-        formData.append(userId.data(using: .utf8)!, withName: "user_id")
+        // Add user ID - CRITICAL FIX: Safe unwrapping
+        guard let uidData = userId.data(using: .utf8) else {
+            throw APIError.encodingError
+        }
+        formData.append(uidData, withName: "user_id")
 
         // Add optional context
         if let context = context {
@@ -85,12 +88,11 @@ class APIClient: ObservableObject {
                 .responseDecodable(of: ScreenshotAnalysis.self) { response in
                     switch response.result {
                     case .success(let analysis):
-                        print("REAL GROK ANALYSIS SUCCESS: Confidence = \(analysis.confidenceScore)")
+                        print("✅ Analysis complete: Confidence = \(analysis.confidenceScore)")
                         continuation.resume(returning: analysis)
                     case .failure(let error):
-                        // REAL ERROR FROM GROK - NO MOCK
-                        print("REAL GROK API ERROR: \(error)")
-                        print("Response: \(response.data?.string ?? "No data")")
+                        // CRITICAL FIX: Do not log response data (may contain sensitive info)
+                        print("❌ Analysis failed: \(error.localizedDescription)")
                         continuation.resume(throwing: error)
                     }
                 }
@@ -119,10 +121,10 @@ class APIClient: ObservableObject {
                 .responseDecodable(of: FlirtResponse.self) { response in
                     switch response.result {
                     case .success(let flirtResponse):
-                        print("REAL GROK FLIRTS GENERATED: \(flirtResponse.suggestions.count) suggestions")
+                        print("✅ Generated \(flirtResponse.suggestions.count) suggestions")
                         continuation.resume(returning: flirtResponse)
                     case .failure(let error):
-                        print("REAL GROK FLIRT GENERATION ERROR: \(error)")
+                        print("❌ Flirt generation failed: \(error.localizedDescription)")
                         continuation.resume(throwing: error)
                     }
                 }
@@ -130,42 +132,47 @@ class APIClient: ObservableObject {
     }
 
     // MARK: - Flirt Generation from Screenshot Image (REAL GROK VISION API)
+    /// CRITICAL FIX: Using multipart upload instead of Base64 to prevent memory bloat
     func generateFlirtsFromImage(
         imageData: Data,
         suggestionType: SuggestionType = .opener,
         tone: String = "playful",
         context: String = ""
     ) async throws -> FlirtSuggestionResponse {
-        // Convert image to base64
-        let base64Image = imageData.base64EncodedString()
-
-        let parameters: [String: Any] = [
-            "image_data": base64Image,
-            "suggestion_type": suggestionType.rawValue,
-            "tone": tone,
-            "context": context,
-            "user_preferences": [:]
-        ]
+        // CRITICAL FIX: Use multipart upload instead of Base64 encoding
+        // Base64 increases memory usage by 33% and can cause crashes with large images
 
         return try await withCheckedThrowingContinuation { continuation in
-            session.request("\(baseURL)/flirts/generate_flirts",
-                          method: .post,
-                          parameters: parameters,
-                          encoding: JSONEncoding.default)
-                .validate()
-                .responseDecodable(of: FlirtSuggestionResponse.self) { response in
-                    switch response.result {
-                    case .success(let flirtResponse):
-                        print("✅ GROK VISION FLIRTS: \(flirtResponse.flirts.count) suggestions generated")
-                        continuation.resume(returning: flirtResponse)
-                    case .failure(let error):
-                        print("❌ GROK VISION ERROR: \(error)")
-                        if let data = response.data {
-                            print("Response data: \(String(data: data, encoding: .utf8) ?? "Unable to decode")")
-                        }
-                        continuation.resume(throwing: error)
+            session.upload(
+                multipartFormData: { formData in
+                    // Add image as multipart data
+                    formData.append(imageData, withName: "screenshot", fileName: "screenshot.jpg", mimeType: "image/jpeg")
+
+                    // Add other parameters
+                    if let suggestionTypeData = suggestionType.rawValue.data(using: .utf8) {
+                        formData.append(suggestionTypeData, withName: "suggestion_type")
                     }
+                    if let toneData = tone.data(using: .utf8) {
+                        formData.append(toneData, withName: "tone")
+                    }
+                    if let contextData = context.data(using: .utf8) {
+                        formData.append(contextData, withName: "context")
+                    }
+                },
+                to: "\(baseURL)/flirts/generate_flirts"
+            )
+            .validate()
+            .responseDecodable(of: FlirtSuggestionResponse.self) { response in
+                switch response.result {
+                case .success(let flirtResponse):
+                    print("✅ Generated \(flirtResponse.flirts.count) suggestions from image")
+                    continuation.resume(returning: flirtResponse)
+                case .failure(let error):
+                    // CRITICAL FIX: Do not log response data (may contain sensitive info)
+                    print("❌ Image analysis failed: \(error.localizedDescription)")
+                    continuation.resume(throwing: error)
                 }
+            }
         }
     }
 
@@ -191,11 +198,10 @@ class APIClient: ObservableObject {
                 .responseDecodable(of: VoiceResponse.self) { response in
                     switch response.result {
                     case .success(let voiceResponse):
-                        print("REAL ELEVENLABS SUCCESS: Audio URL = \(voiceResponse.audioURL)")
-                        print("Duration: \(voiceResponse.durationSeconds)s, Size: \(voiceResponse.fileSizeMB)MB")
+                        print("✅ Voice synthesized: \(voiceResponse.durationSeconds)s, \(voiceResponse.fileSizeMB)MB")
                         continuation.resume(returning: voiceResponse)
                     case .failure(let error):
-                        print("REAL ELEVENLABS API ERROR: \(error)")
+                        print("❌ Voice synthesis failed: \(error.localizedDescription)")
                         continuation.resume(throwing: error)
                     }
                 }
@@ -207,7 +213,12 @@ class APIClient: ObservableObject {
         let formData = MultipartFormData()
 
         formData.append(audioData, withName: "voice_sample", fileName: "voice.m4a", mimeType: "audio/mp4")
-        formData.append(userId.data(using: .utf8)!, withName: "user_id")
+
+        // CRITICAL FIX: Safe unwrapping
+        guard let uidData = userId.data(using: .utf8) else {
+            throw APIError.encodingError
+        }
+        formData.append(uidData, withName: "user_id")
 
         return try await withCheckedThrowingContinuation { continuation in
             session.upload(multipartFormData: formData, to: "\(baseURL)/voice/clone")
@@ -215,10 +226,10 @@ class APIClient: ObservableObject {
                 .responseDecodable(of: VoiceCloneResponse.self) { response in
                     switch response.result {
                     case .success(let cloneResponse):
-                        print("REAL ELEVENLABS CLONE SUCCESS: Voice ID = \(cloneResponse.voiceId)")
+                        print("✅ Voice clone created: \(cloneResponse.voiceId)")
                         continuation.resume(returning: cloneResponse)
                     case .failure(let error):
-                        print("REAL ELEVENLABS CLONE ERROR: \(error)")
+                        print("❌ Voice clone failed: \(error.localizedDescription)")
                         continuation.resume(throwing: error)
                     }
                 }
@@ -245,9 +256,10 @@ class APIClient: ObservableObject {
                 .responseDecodable(of: DeletionResponse.self) { response in
                     switch response.result {
                     case .success(let deletionResponse):
+                        print("✅ Account deletion initiated")
                         continuation.resume(returning: deletionResponse)
                     case .failure(let error):
-                        print("REAL DELETION ERROR: \(error)")
+                        print("❌ Account deletion failed: \(error.localizedDescription)")
                         continuation.resume(throwing: error)
                     }
                 }
@@ -390,9 +402,23 @@ struct AnalysisContext: Codable {
     }
 }
 
-// Helper extension
-extension Data {
-    var string: String? {
-        String(data: self, encoding: .utf8)
+// MARK: - Error Types
+enum APIError: Error {
+    case encodingError
+    case invalidResponse
+    case unauthorized
+    case networkError(String)
+
+    var localizedDescription: String {
+        switch self {
+        case .encodingError:
+            return "Failed to encode data"
+        case .invalidResponse:
+            return "Invalid response from server"
+        case .unauthorized:
+            return "Unauthorized access"
+        case .networkError(let message):
+            return "Network error: \(message)"
+        }
     }
 }
