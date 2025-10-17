@@ -20,6 +20,8 @@ const {
 const { callGrokWithRetry } = require('../utils/apiRetry');
 const contentModeration = require('../services/contentModeration');
 const conversationContext = require('../services/conversationContext');
+const gamificationService = require('../services/gamificationService');
+const aiOrchestrator = require('../services/aiOrchestrator');
 
 const router = express.Router();
 
@@ -136,32 +138,32 @@ router.post('/generate_flirts',
             // Get screenshot analysis (if database is available)
             let screenshot = { analysis_result: { test: 'mock_analysis_for_testing' } };
 
-<<<<<<< HEAD:FlirrtAI/Backend/routes/flirts.js
-            // MVP: Skip database ownership check entirely when screenshot_id is provided
+            // Query database for screenshot analysis (if screenshot_id is provided)
             if (screenshot_id) {
-                console.log('[MVP] Skipping database ownership check for screenshot_id:', screenshot_id);
-                // Use mock data for MVP testing
-=======
-                const screenshotResult = await pool.query(screenshotQuery, [screenshot_id]);
+                try {
+                    const screenshotQuery = `
+                        SELECT * FROM screenshots WHERE id = $1
+                    `;
+                    const screenshotResult = await pool.query(screenshotQuery, [screenshot_id]);
 
-                if (screenshotResult.rows.length === 0) {
-                    console.warn('Screenshot not found in database, using mock data for testing');
-                } else {
-                    screenshot = screenshotResult.rows[0];
+                    if (screenshotResult.rows.length === 0) {
+                        console.warn('Screenshot not found in database, using mock data for testing');
+                    } else {
+                        screenshot = screenshotResult.rows[0];
 
-                    // Check if user owns this screenshot (skip for MVP test users)
-                    const isMVPTestUser = req.user.id.startsWith('test-user-mvp-');
-                    if (!isMVPTestUser && screenshot.owner_id !== req.user.id) {
-                        return res.status(httpStatus.FORBIDDEN).json({
-                            success: false,
-                            error: errors.ACCESS_DENIED.message,
-                            code: errors.ACCESS_DENIED.code
-                        });
+                        // Check if user owns this screenshot (skip for MVP test users)
+                        const isMVPTestUser = req.user.id.startsWith('test-user-mvp-');
+                        if (!isMVPTestUser && screenshot.owner_id !== req.user.id) {
+                            return res.status(httpStatus.FORBIDDEN).json({
+                                success: false,
+                                error: errors.ACCESS_DENIED.message,
+                                code: errors.ACCESS_DENIED.code
+                            });
+                        }
                     }
+                } catch (dbError) {
+                    console.warn('Database query failed, using mock data for testing:', dbError.message);
                 }
-            } catch (dbError) {
-                console.warn('Database query failed, using mock data for testing:', dbError.message);
->>>>>>> f47538f (fix: Skip ownership check for MVP test users to prevent ACCESS_DENIED errors):Backend/routes/flirts.js
             }
 
             // Check cache first (if Redis is available)
@@ -196,7 +198,7 @@ router.post('/generate_flirts',
             };
 
             // Create personalized prompt based on analysis and preferences
-            const prompt = `You are Flirrt.ai, an expert dating conversation assistant. Based on the following analysis and context, generate 5 highly personalized and engaging flirt suggestions.
+            const prompt = `You are Flirrt.ai, an expert dating conversation assistant. Based on the following analysis and context, generate 3 highly personalized and engaging flirt suggestions.
 
 ${historyPrompt}
 
@@ -210,13 +212,14 @@ REQUEST DETAILS:
 - User Preferences: ${JSON.stringify(user_preferences, null, 2)}
 
 INSTRUCTIONS:
-1. Generate exactly 5 ${suggestion_type} suggestions
+1. Generate exactly 3 ${suggestion_type} suggestions (NOT 5, just 3 for better UX)
 2. Use ${tone} tone throughout
 3. Make suggestions highly specific to the analyzed profile/conversation
 4. Each suggestion should be 1-3 sentences maximum
 5. Avoid generic pickup lines - be creative and personalized
 6. Consider the user's preferences and the analyzed context
 7. Make suggestions that are likely to get a positive response
+8. Order suggestions by confidence (highest first)
 
 Return ONLY a JSON object with this exact structure:
 {
@@ -295,15 +298,17 @@ IF profile_score < 6:
 
 IF profile_score >= 6:
   → Set needs_more_scrolling: false
-  → Generate 5 personalized ${suggestion_type} with ${tone} tone
+  → Generate EXACTLY 3 personalized ${suggestion_type} with ${tone} tone (NOT 5, just 3 for better UX)
   → Each MUST reference specific extracted details
+  → Order by confidence (highest first)
 
 IF screenshot_type is CHAT:
   IF extracted_details contains chat messages (chat_context with actual messages):
     → Set needs_more_scrolling: false
     → Set has_conversation: true
-    → Generate 5 conversation continuation responses based on last message
+    → Generate EXACTLY 3 conversation continuation responses based on last message (NOT 5, just 3 for better UX)
     → Reference conversation context and tone
+    → Order by confidence (highest first)
   ELSE (empty chat or no messages visible):
     → Set needs_more_scrolling: true
     → Set has_conversation: false
@@ -680,6 +685,19 @@ Now analyze the provided screenshot and return JSON in this EXACT format with pr
                 console.warn('Analytics logging failed:', dbError.message);
             }
 
+            // Track gamification stats
+            try {
+                // Track profile analysis if this is a profile screenshot
+                if (parsedData.screenshot_type === 'profile') {
+                    await gamificationService.recordProfileAnalyzed(req.user.id);
+                }
+
+                // Track suggestion generation and tone usage
+                await gamificationService.recordToneUsed(req.user.id, tone);
+            } catch (gamificationError) {
+                console.warn('Gamification tracking failed:', gamificationError.message);
+            }
+
             res.json({
                 success: true,
                 data: responseData,
@@ -907,6 +925,13 @@ router.post('/:suggestionId/used', authenticateToken, async (req, res) => {
             });
         }
 
+        // Get suggestion details for gamification tracking
+        const suggestionQuery = `
+            SELECT confidence_score, context FROM flirt_suggestions WHERE id = $1
+        `;
+        const suggestionDetails = await pool.query(suggestionQuery, [suggestionId]);
+        const suggestion = suggestionDetails.rows[0];
+
         // Mark as used
         await pool.query(
             'UPDATE flirt_suggestions SET used_at = NOW() WHERE id = $1',
@@ -919,6 +944,18 @@ router.post('/:suggestionId/used', authenticateToken, async (req, res) => {
              VALUES ($1, $2, $3)`,
             [req.user.id, 'suggestion_used', { suggestion_id: suggestionId }]
         );
+
+        // Track gamification stats
+        try {
+            const context = suggestion.context ? JSON.parse(suggestion.context) : {};
+            await gamificationService.recordSuggestionUsed(req.user.id, {
+                confidence: suggestion.confidence_score * 100, // Convert to percentage
+                tone: context.tone || 'playful',
+                wasRefresh: false
+            });
+        } catch (gamificationError) {
+            console.warn('Gamification tracking failed:', gamificationError.message);
+        }
 
         res.json({
             success: true,
@@ -967,6 +1004,267 @@ router.delete('/:suggestionId', authenticateToken, async (req, res) => {
             suggestion_id: req.params.suggestionId
         });
         return handleError(error, res, 'delete_suggestion', req.id);
+    }
+});
+
+/**
+ * Refresh Suggestions with Coaching Persona
+ * POST /api/v1/flirts/refresh
+ *
+ * Generate new alternative suggestions using AI coaching,
+ * avoiding previously generated suggestions.
+ */
+router.post('/refresh', authenticateToken, async (req, res) => {
+    try {
+        const {
+            screenshot_id,
+            image_data,
+            context = '',
+            conversation_id = null,
+            suggestion_type = 'opener',
+            tone = 'playful',
+            user_preferences = {},
+            previous_suggestions = [] // Array of previous suggestion texts to avoid
+        } = req.body;
+
+        // Validate inputs (same as generate_flirts)
+        if (!screenshot_id && !image_data) {
+            return sendErrorResponse(
+                res,
+                400,
+                errorCodes.VALIDATION_ERROR,
+                'Either screenshot_id or image_data is required'
+            );
+        }
+
+        // Validate suggestion_type
+        const suggestionTypeValidation = validateSuggestionType(suggestion_type);
+        if (!suggestionTypeValidation.valid) {
+            return sendErrorResponse(
+                res,
+                400,
+                errorCodes.VALIDATION_ERROR,
+                suggestionTypeValidation.error
+            );
+        }
+
+        // Validate tone
+        const toneValidation = validateTone(tone);
+        if (!toneValidation.valid) {
+            return sendErrorResponse(
+                res,
+                400,
+                errorCodes.VALIDATION_ERROR,
+                toneValidation.error
+            );
+        }
+
+        // Sanitize context text
+        const sanitizedContext = sanitizeText(context);
+
+        // Get conversation session for context
+        const session = await conversationContext.getOrCreateSession(req.user.id, conversation_id);
+        const conversationHistory = await conversationContext.getConversationHistory(session.id, 3);
+
+        // Get screenshot analysis (if available)
+        let screenshot = { analysis_result: { test: 'mock_analysis_for_testing' } };
+        if (screenshot_id) {
+            try {
+                const screenshotQuery = `SELECT * FROM screenshots WHERE id = $1`;
+                const screenshotResult = await pool.query(screenshotQuery, [screenshot_id]);
+                if (screenshotResult.rows.length > 0) {
+                    screenshot = screenshotResult.rows[0];
+                }
+            } catch (dbError) {
+                console.warn('Database query failed, using mock data:', dbError.message);
+            }
+        }
+
+        // Build user profile for coaching
+        const userProfile = {
+            screenshot_type: screenshot.analysis_result?.screenshot_type || 'profile',
+            extracted_details: screenshot.analysis_result?.extracted_details || {},
+            tone_preference: tone,
+            goal: user_preferences.goal || 'casual',
+            experience_level: user_preferences.experience_level || 'beginner'
+        };
+
+        // Build context for coaching
+        const coachingContext = {
+            conversation_history: conversationHistory,
+            user_context: sanitizedContext,
+            suggestion_type,
+            screenshot_analysis: screenshot.analysis_result || {}
+        };
+
+        // Use AI Orchestrator for coaching-powered refresh
+        console.log('🔄 Refreshing suggestions with AI coaching...');
+        const coachingResult = await aiOrchestrator.refreshCoachingSuggestions(
+            coachingContext,
+            userProfile,
+            previous_suggestions
+        );
+
+        if (!coachingResult.success) {
+            throw new Error('Failed to generate coaching suggestions');
+        }
+
+        // Apply content moderation
+        console.log(`🛡️ Applying content moderation to ${coachingResult.suggestions.length} refresh suggestions...`);
+        const originalCount = coachingResult.suggestions.length;
+        coachingResult.suggestions = await contentModeration.filterSuggestions(coachingResult.suggestions);
+        const blockedCount = originalCount - coachingResult.suggestions.length;
+
+        if (blockedCount > 0) {
+            console.log(`🚫 Content moderation blocked ${blockedCount}/${originalCount} refresh suggestions`);
+        }
+
+        if (coachingResult.suggestions.length === 0) {
+            return res.status(httpStatus.OK).json({
+                success: true,
+                suggestions: [],
+                message: 'Content moderation filtered all suggestions. Please try again.',
+                moderation_applied: true,
+                blocked_count: blockedCount
+            });
+        }
+
+        // Save suggestions to database
+        const savedSuggestions = [];
+        for (const suggestion of coachingResult.suggestions) {
+            let suggestionId = 'refresh-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9);
+            let createdAt = new Date().toISOString();
+
+            try {
+                const insertQuery = `
+                    INSERT INTO flirt_suggestions (screenshot_id, user_id, suggestion_text, confidence_score, suggestion_type, context)
+                    VALUES ($1, $2, $3, $4, $5, $6)
+                    RETURNING id, created_at
+                `;
+
+                const suggestionResult = await pool.query(insertQuery, [
+                    screenshot_id,
+                    req.user.id,
+                    suggestion.text,
+                    suggestion.confidence / 100 || 0.7, // Convert percentage to decimal
+                    suggestion_type,
+                    JSON.stringify({
+                        tone,
+                        reasoning: suggestion.reasoning,
+                        strategy: suggestion.strategy,
+                        next_steps: suggestion.next_steps,
+                        user_preferences,
+                        original_context: context,
+                        is_refresh: true
+                    })
+                ]);
+
+                suggestionId = suggestionResult.rows[0].id;
+                createdAt = suggestionResult.rows[0].created_at;
+            } catch (dbError) {
+                console.warn('Database insert failed, using mock ID:', dbError.message);
+            }
+
+            savedSuggestions.push({
+                id: suggestionId,
+                text: suggestion.text,
+                tone: suggestion.tone || tone,
+                confidence: suggestion.confidence / 100 || 0.7,
+                reasoning: suggestion.reasoning,
+                strategy: suggestion.strategy,
+                next_steps: suggestion.next_steps,
+                created_at: createdAt,
+                is_refresh: true
+            });
+        }
+
+        // Prepare response with coaching data
+        const responseData = {
+            success: true,
+            suggestions: savedSuggestions,
+            coaching: coachingResult.coaching,
+            metadata: {
+                suggestion_type,
+                tone,
+                screenshot_id,
+                total_suggestions: savedSuggestions.length,
+                is_refresh: true,
+                previous_count: previous_suggestions.length,
+                generated_at: new Date().toISOString()
+            }
+        };
+
+        // Log analytics event
+        try {
+            await pool.query(
+                `INSERT INTO analytics (user_id, event_type, event_data)
+                 VALUES ($1, $2, $3)`,
+                [req.user.id, 'suggestions_refreshed', {
+                    screenshot_id,
+                    suggestion_type,
+                    tone,
+                    suggestions_count: savedSuggestions.length,
+                    previous_count: previous_suggestions.length,
+                    avg_confidence: savedSuggestions.reduce((acc, s) => acc + s.confidence, 0) / savedSuggestions.length
+                }]
+            );
+        } catch (dbError) {
+            console.warn('Analytics logging failed:', dbError.message);
+        }
+
+        // Track gamification stats
+        try {
+            // Track refresh usage
+            await gamificationService.updateUserStats(req.user.id, {
+                increment: {
+                    refreshes_used: 1,
+                    suggestions_generated: savedSuggestions.length
+                }
+            });
+
+            // Track tone usage
+            await gamificationService.recordToneUsed(req.user.id, tone);
+        } catch (gamificationError) {
+            console.warn('Gamification tracking failed:', gamificationError.message);
+        }
+
+        res.json({
+            success: true,
+            data: responseData,
+            message: 'Suggestions refreshed successfully with coaching insights'
+        });
+
+    } catch (error) {
+        logError('refresh_suggestions', error, {
+            screenshot_id: req.body.screenshot_id || null,
+            suggestion_type: req.body.suggestion_type || null,
+            tone: req.body.tone || null,
+            user_id: req.user?.id,
+            has_image_data: !!req.body.image_data,
+            previous_count: req.body.previous_suggestions?.length || 0
+        });
+        return handleError(error, res, 'refresh_suggestions', req.id);
+    }
+});
+
+/**
+ * Get Progress Dashboard (Gamification)
+ * GET /api/v1/flirts/progress
+ */
+router.get('/progress', authenticateToken, async (req, res) => {
+    try {
+        const progressData = await gamificationService.getProgressDashboard(req.user.id);
+
+        res.json({
+            success: true,
+            data: progressData
+        });
+
+    } catch (error) {
+        logError('get_progress', error, {
+            user_id: req.user?.id
+        });
+        return handleError(error, res, 'get_progress', req.id);
     }
 });
 

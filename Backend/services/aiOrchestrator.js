@@ -1690,6 +1690,183 @@ Respond with JSON containing one suggestion.`;
             fallbackUsage: 0
         };
     }
+
+    // ===== CP-5: COACHING PERSONA METHODS =====
+
+    /**
+     * Generate coaching suggestions with GPT-5 Pro (actually GPT-4)
+     * Returns MAX 3 suggestions with reasoning and next steps
+     * @param {Object} context - Conversation context
+     * @param {Object} userProfile - User preferences and level
+     * @returns {Promise<Object>} Coaching suggestions with reasoning
+     */
+    async generateCoachingSuggestions(context, userProfile = {}) {
+        const {
+            screenshot_type = 'profile',
+            extracted_details = {},
+            tone_preference = 'playful',
+            goal = 'casual',
+            experience_level = 'beginner'
+        } = userProfile;
+
+        const correlationId = this.generateCorrelationId();
+
+        console.log(`🎓 Generating coaching suggestions with GPT-4...`);
+        console.log(`   User profile: tone=${tone_preference}, goal=${goal}, level=${experience_level}`);
+
+        try {
+            const openaiApiKey = process.env.OPENAI_API_KEY || process.env.NEW_GROK_API_KEY;
+
+            const response = await axios.post(
+                'https://api.openai.com/v1/chat/completions',
+                {
+                    model: 'gpt-4', // GPT-4 for coaching quality
+                    messages: [
+                        {
+                            role: 'system',
+                            content: this.buildCoachingSystemPrompt(userProfile)
+                        },
+                        {
+                            role: 'user',
+                            content: this.buildCoachingUserPrompt(context, userProfile)
+                        }
+                    ],
+                    temperature: 0.8,
+                    max_tokens: 2000,
+                    response_format: { type: 'json_object' }
+                },
+                {
+                    headers: {
+                        'Authorization': `Bearer ${openaiApiKey}`,
+                        'Content-Type': 'application/json'
+                    },
+                    timeout: 30000
+                }
+            );
+
+            const coachingResponse = JSON.parse(response.data.choices[0].message.content);
+
+            // CRITICAL: Ensure MAX 3 suggestions
+            if (coachingResponse.suggestions && coachingResponse.suggestions.length > 3) {
+                coachingResponse.suggestions = coachingResponse.suggestions
+                    .sort((a, b) => b.confidence - a.confidence)
+                    .slice(0, 3);
+            }
+
+            console.log(`✅ Generated ${coachingResponse.suggestions?.length || 0} coaching suggestions`);
+
+            return {
+                success: true,
+                suggestions: coachingResponse.suggestions || [],
+                coaching: {
+                    overall_strategy: coachingResponse.overall_strategy,
+                    tone_analysis: coachingResponse.tone_analysis,
+                    next_steps: coachingResponse.next_steps,
+                    tips: coachingResponse.tips
+                },
+                correlationId
+            };
+
+        } catch (error) {
+            console.error('❌ Coaching generation error:', error.message);
+
+            // Fallback to basic suggestions
+            return {
+                success: false,
+                error: error.message,
+                suggestions: [],
+                coaching: null,
+                correlationId
+            };
+        }
+    }
+
+    /**
+     * Build coaching system prompt
+     */
+    buildCoachingSystemPrompt(userProfile) {
+        return `You are an expert dating coach with years of experience. Your approach is empathetic, supportive, and focuses on building confidence.
+
+**User Profile:**
+- Tone Preference: ${userProfile.tone_preference || 'playful'}
+- Dating Goal: ${userProfile.goal || 'casual dating'}
+- Experience Level: ${userProfile.experience_level || 'beginner'}
+
+**Response Format:**
+You MUST respond with JSON containing:
+
+{
+  "overall_strategy": "Brief analysis (2-3 sentences)",
+  "tone_analysis": {
+    "current_vibe": "What vibe the profile/conversation gives",
+    "recommended_approach": "How to match that vibe"
+  },
+  "suggestions": [
+    {
+      "text": "The actual message to send",
+      "confidence": 85,
+      "reasoning": "Why this message works (2-3 sentences)",
+      "tone": "playful/serious/witty/romantic",
+      "strategy": "opener/connection/escalation",
+      "next_steps": "What to do after they respond"
+    }
+  ],
+  "next_steps": {
+    "if_positive_response": "How to progress",
+    "if_neutral_response": "How to engage more",
+    "if_no_response": "When/how to follow up"
+  },
+  "tips": [
+    "Actionable tip 1",
+    "Actionable tip 2"
+  ]
+}
+
+**CRITICAL:** Generate EXACTLY 3 suggestions (not 5, not 1). Order by confidence. Be honest about success likelihood.`;
+    }
+
+    /**
+     * Build coaching user prompt
+     */
+    buildCoachingUserPrompt(context, userProfile) {
+        const { screenshot_type, extracted_details } = context;
+
+        let prompt = `Analyze this and provide coaching:\n\n`;
+
+        if (screenshot_type === 'profile') {
+            prompt += `**PROFILE:**\n`;
+            prompt += `Name: ${extracted_details.name || 'N/A'}\n`;
+            prompt += `Bio: ${extracted_details.bio_text || 'No bio'}\n`;
+            prompt += `Interests: ${JSON.stringify(extracted_details.interests || [])}\n\n`;
+            prompt += `**TASK:** Create 3 personalized openers.\n`;
+        } else {
+            prompt += `**CONVERSATION:**\n`;
+            prompt += `Last message: "${extracted_details.last_message_from_them || 'Unknown'}"\n\n`;
+            prompt += `**TASK:** Create 3 ways to continue this conversation.\n`;
+        }
+
+        return prompt;
+    }
+
+    /**
+     * Refresh suggestions (generate new alternatives)
+     * @param {Object} context - Same context
+     * @param {Object} userProfile - User profile
+     * @param {Array} previousSuggestions - Previous suggestions to avoid
+     * @returns {Promise<Object>} New suggestions
+     */
+    async refreshCoachingSuggestions(context, userProfile, previousSuggestions = []) {
+        console.log('🔄 Refreshing suggestions (generating new alternatives)...');
+
+        // Add previous suggestions to context
+        const enhancedContext = {
+            ...context,
+            previous_suggestions: previousSuggestions.map(s => s.text),
+            refresh_request: true
+        };
+
+        return await this.generateCoachingSuggestions(enhancedContext, userProfile);
+    }
 }
 
 // Export singleton instance
