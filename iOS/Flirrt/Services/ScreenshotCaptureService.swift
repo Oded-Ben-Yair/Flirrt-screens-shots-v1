@@ -8,7 +8,7 @@ import UIKit
 class ScreenshotCaptureService {
     static let shared = ScreenshotCaptureService()
 
-    private let appGroupID = "group.com.flirrt.shared"
+    private let appGroupID = "group.com.flirrt" // Must match AppConstants.appGroupIdentifier
     private let darwinNotificationName = "com.flirrt.screenshot.detected"
 
     private var lastProcessedAssetIdentifier: String?
