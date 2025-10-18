@@ -171,6 +171,35 @@
 
 ---
 
-## CHECKPOINT SAVED
+## CHECKPOINT SAVED ✅
 
-Preparing checkpoint commit...
+**Commit:** 86b03aa
+**Tag:** checkpoint-cp4-20251017-complete
+**Branch:** main
+
+**Files Changed:** 8
+- iOS/Flirrt/Services/VoiceService.swift (NEW - 430 lines)
+- iOS/Flirrt/Views/AgeVerificationView.swift (NEW - 260 lines)
+- Backend/routes/legal.js (NEW - 140 lines)
+- Backend/routes/account.js (NEW - 400 lines)
+- Backend/views/privacy-policy.ejs (NEW - 400 lines)
+- Backend/migrations/004_account_deletions.sql (NEW)
+- Backend/server.js (MODIFIED - added EJS config and routes)
+- CP4_PROGRESS.md (NEW)
+
+**Total Lines Added:** ~1,700 lines
+
+---
+
+## SUMMARY
+
+CP-4 successfully implemented critical App Store compliance requirements:
+1. **Voice UI**: Complete ElevenLabs integration with voice cloning and TTS
+2. **Age Verification**: 18+ enforcement with birthdate validation
+3. **Privacy Policy**: Comprehensive policy covering all 5 third-party AI services
+4. **Account Deletion**: GDPR/CCPA compliant 8-step deletion process
+5. **Legal Routes**: Privacy policy HTML rendering with EJS
+
+**App Store Compliance:** ✅ 18+ verification, ✅ Privacy policy, ✅ Data deletion
+
+**Ready for:** CP-5 (Coaching Persona + Gamification)
