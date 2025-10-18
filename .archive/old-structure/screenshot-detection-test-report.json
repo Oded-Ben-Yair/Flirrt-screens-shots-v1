@@ -28,13 +28,13 @@
     "handler_at_line": "SharedDataManager.swift:182-199",
     "darwin_notification_at_line": "SharedDataManager.swift:233-241",
     "app_groups_storage_at_line": "SharedDataManager.swift:246-270",
-    "notification_name": "com.flirrt.screenshot.detected"
+    "notification_name": "com.vibe8.screenshot.detected"
   },
   "testing_recommendations": [
     "Use Cmd+S in Simulator UI (opens Simulator.app screenshot tool)",
     "Use triggerTestScreenshotNotification() method in SharedDataManager",
     "Test on a physical iOS device where screenshot gestures work properly",
-    "Monitor logs with: xcrun simctl spawn <udid> log stream --predicate 'subsystem == \"com.flirrt.app\"'"
+    "Monitor logs with: xcrun simctl spawn <udid> log stream --predicate 'subsystem == \"com.vibe8.app\"'"
   ],
   "overall_status": "⚠️ CANNOT TEST - simctl limitation, but code is CORRECT"
 }

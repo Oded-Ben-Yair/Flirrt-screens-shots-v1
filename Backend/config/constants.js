@@ -1,7 +1,7 @@
 /**
  * Backend Configuration Constants
  *
- * Centralized configuration for the Flirrt.ai backend server.
+ * Centralized configuration for the Vibe8.ai backend server.
  * All magic strings, hardcoded values, and configuration constants are defined here.
  *
  * @module config/constants
@@ -325,8 +325,8 @@ module.exports = {
             'http://localhost:3001',
             'http://localhost:8080',
             'http://localhost:8081',
-            'https://flirrt.ai',
-            'https://app.flirrt.ai',
+            'https://vibe8.ai',
+            'https://app.vibe8.ai',
             'capacitor://localhost',
             'ionic://localhost',
             'http://localhost',
@@ -370,7 +370,7 @@ module.exports = {
         jwt: {
             testToken: 'test-token-for-api-testing',
             testUserId: 'test-user-id',
-            testEmail: 'test@flirrt.ai',
+            testEmail: 'test@vibe8.ai',
             testSessionId: 'test-session-id'
         }
     },
@@ -477,7 +477,7 @@ module.exports = {
     // ============================================================================
     database: {
         type: 'sqlite',                              // Currently using SQLite
-        path: './data/flirrt.db',
+        path: './data/vibe8.db',
 
         // Time Filter Intervals
         timeFilters: {

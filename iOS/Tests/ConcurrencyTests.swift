@@ -2,7 +2,7 @@ import XCTest
 import Foundation
 import UIKit
 import os.log
-@testable import Flirrt
+@testable import Vibe8
 
 /// Comprehensive Concurrency and Actor Safety Tests
 /// Tests thread safety, actor patterns, data races, and concurrent operations
@@ -248,7 +248,7 @@ class ConcurrencyTests: XCTestCase {
             operationQueue.async {
                 // Simulate button taps
                 DispatchQueue.main.async {
-                    keyboardVC.flirrtFreshTapped()
+                    keyboardVC.vibe8FreshTapped()
                     expectation.fulfill()
                 }
             }

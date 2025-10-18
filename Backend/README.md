@@ -1,6 +1,6 @@
-# Flirrt.ai Backend API Server
+# Vibe8.ai Backend API Server
 
-A complete Node.js/Express backend API server for Flirrt.ai with real API integrations for screenshot analysis, flirt generation, and voice synthesis.
+A complete Node.js/Express backend API server for Vibe8.ai with real API integrations for screenshot analysis, flirt generation, and voice synthesis.
 
 ## ✅ Features Implemented
 
@@ -50,10 +50,10 @@ The `.env` file is already configured with:
 ### 3. Database Setup (Optional)
 ```bash
 # Install PostgreSQL and create database
-createdb flirrt_ai
+createdb vibe8_ai
 
 # Run schema
-psql flirrt_ai < db/schema.sql
+psql vibe8_ai < db/schema.sql
 ```
 
 ### 4. Start Server

@@ -1,13 +1,13 @@
-# Flirrt.AI User Manual
+# Vibe8.AI User Manual
 
 **Version:** 1.0.0
 **Last Updated:** October 18, 2025
 
 ---
 
-## Welcome to Flirrt.AI! 👋
+## Welcome to Vibe8.AI! 👋
 
-Flirrt.AI is your personal AI dating wingman that helps you write perfect messages. Get intelligent, personalized conversation suggestions with coaching insights via our custom keyboard extension.
+Vibe8.AI is your personal AI dating wingman that helps you write perfect messages. Get intelligent, personalized conversation suggestions with coaching insights via our custom keyboard extension.
 
 ---
 
@@ -37,7 +37,7 @@ Flirrt.AI is your personal AI dating wingman that helps you write perfect messag
 
 ### Installation
 
-1. Download Flirrt.AI from the App Store
+1. Download Vibe8.AI from the App Store
 2. Open the app
 3. Complete age verification (enter your birthdate)
 4. Grant photo library permission when prompted
@@ -113,11 +113,11 @@ On first launch, you'll go through a quick onboarding:
 1. Open your dating app (Tinder, Bumble, Hinge, etc.)
 2. Navigate to a profile or conversation
 3. Take a screenshot (press Power + Volume Up on most iPhones)
-4. Return to Flirrt.AI
+4. Return to Vibe8.AI
 
 #### From Photo Library
 
-1. Open Flirrt.AI
+1. Open Vibe8.AI
 2. Tap the **Screenshots** tab
 3. Tap **"Take Screenshot"** or **"Select from Library"**
 4. Choose the screenshot of a profile or conversation
@@ -158,7 +158,7 @@ Each suggestion includes coaching to help you learn:
 **Scenario:** You matched with someone who loves hiking
 
 1. **Screenshot:** Capture their dating profile
-2. **Upload:** Select screenshot in Flirrt.AI
+2. **Upload:** Select screenshot in Vibe8.AI
 3. **Wait:** AI analyzes profile (15-30 seconds)
 4. **Review Suggestions:**
    - Suggestion 1: "I noticed you're into hiking! Big Sur or Yosemite?" (92% confidence)
@@ -176,18 +176,18 @@ Each suggestion includes coaching to help you learn:
 1. Open **Settings** app on your iPhone
 2. Go to **General** → **Keyboard** → **Keyboards**
 3. Tap **Add New Keyboard**
-4. Select **Flirrt**
+4. Select **Vibe8**
 5. ⚠️ **Important:** Do NOT enable "Allow Full Access"
    - We respect your privacy - Full Access is not needed
 
 ### Using the Keyboard
 
-#### Switching to Flirrt Keyboard
+#### Switching to Vibe8 Keyboard
 
 1. Open any app (Notes, Messages, Tinder, etc.)
 2. Tap in a text field to bring up keyboard
 3. Tap the **globe icon** (🌐) on the keyboard
-4. Keep tapping until you see Flirrt keyboard
+4. Keep tapping until you see Vibe8 keyboard
 5. Suggestions appear at the top
 
 #### Keyboard Features
@@ -224,7 +224,7 @@ Each suggestion includes coaching to help you learn:
 
 ### Accessing Personalization Settings
 
-1. Open Flirrt.AI
+1. Open Vibe8.AI
 2. Tap **"Settings"** tab
 3. Tap **"Personalization"**
 4. Adjust your preferences
@@ -302,7 +302,7 @@ Each suggestion includes coaching to help you learn:
 **5 Levels Total:**
 
 1. **Beginner (Level 1):** 0-99 XP
-   - Just starting your Flirrt.AI journey
+   - Just starting your Vibe8.AI journey
    - Focus on learning the basics
 
 2. **Learner (Level 2):** 100-299 XP
@@ -314,7 +314,7 @@ Each suggestion includes coaching to help you learn:
    - Adapting advice to your style
 
 4. **Skilled (Level 4):** 600-999 XP
-   - Expert at using Flirrt.AI
+   - Expert at using Vibe8.AI
    - Consistently getting matches and responses
 
 5. **Expert (Level 5):** 1000+ XP
@@ -359,7 +359,7 @@ Each suggestion includes coaching to help you learn:
 - **Profiles Analyzed:** Total screenshots analyzed
 - **Success Rate:** % of messages that got responses (future feature)
 - **Avg Confidence:** Average confidence score of suggestions
-- **Daily Streak:** Consecutive days using Flirrt.AI
+- **Daily Streak:** Consecutive days using Vibe8.AI
 - **Total XP:** Experience points earned
 
 ---
@@ -402,7 +402,7 @@ Each suggestion includes coaching to help you learn:
 
 ### Age Verification
 
-- **Required:** Must be 18+ to use Flirrt.AI
+- **Required:** Must be 18+ to use Vibe8.AI
 - **Enforcement:** Birthdate verified at onboarding
 - **Blocking:** Users under 18 cannot access app features
 
@@ -422,7 +422,7 @@ Each suggestion includes coaching to help you learn:
 
 **Full Deletion in 7 Days:**
 
-1. Open Flirrt.AI
+1. Open Vibe8.AI
 2. Go to **Settings** → **Account**
 3. Tap **"Delete Account"**
 4. Confirm deletion
@@ -443,11 +443,11 @@ Each suggestion includes coaching to help you learn:
 
 **App Won't Launch**
 - Update to latest iOS version
-- Reinstall Flirrt.AI
+- Reinstall Vibe8.AI
 - Restart your iPhone
 
 **Screenshots Not Uploading**
-- Grant photo library permission: Settings → Flirrt.AI → Photos
+- Grant photo library permission: Settings → Vibe8.AI → Photos
 - Check internet connection
 - Try selecting a different screenshot
 - Ensure screenshot is not corrupted
@@ -459,7 +459,7 @@ Each suggestion includes coaching to help you learn:
 - Try refreshing the app
 
 **Voice Recording Failed**
-- Grant microphone permission: Settings → Flirrt.AI → Microphone
+- Grant microphone permission: Settings → Vibe8.AI → Microphone
 - Ensure quiet environment (minimal background noise)
 - Speak clearly for full 30 seconds
 - Try again if upload fails
@@ -468,7 +468,7 @@ Each suggestion includes coaching to help you learn:
 
 **Keyboard Not Appearing**
 - Settings → General → Keyboard → Keyboards
-- Ensure "Flirrt" is in the list
+- Ensure "Vibe8" is in the list
 - Remove and re-add if missing
 - Restart your iPhone
 
@@ -484,10 +484,10 @@ Each suggestion includes coaching to help you learn:
 - Re-add keyboard
 - Ensure iOS is up to date
 
-**Can't Switch to Flirrt Keyboard**
+**Can't Switch to Vibe8 Keyboard**
 - Tap globe icon multiple times
 - Ensure multiple keyboards installed
-- Remove and re-add Flirrt keyboard
+- Remove and re-add Vibe8 keyboard
 - Check keyboard permissions
 
 ### Account Issues
@@ -505,7 +505,7 @@ Each suggestion includes coaching to help you learn:
 **Can't Delete Account**
 - Ensure you're logged in
 - Try again later (server might be busy)
-- Contact support@flirrt.ai for manual deletion
+- Contact support@vibe8.ai for manual deletion
 
 ### Performance Issues
 
@@ -517,7 +517,7 @@ Each suggestion includes coaching to help you learn:
 
 **High Battery Usage**
 - Close app when not in use
-- Disable background app refresh: Settings → Flirrt.AI → Background Refresh
+- Disable background app refresh: Settings → Vibe8.AI → Background Refresh
 - Reduce screen brightness
 - Update to latest iOS version
 
@@ -533,27 +533,27 @@ Each suggestion includes coaching to help you learn:
 
 ### General
 
-**Q: Is Flirrt.AI free?**
+**Q: Is Vibe8.AI free?**
 A: Yes! All features are completely free with no in-app purchases or subscriptions.
 
-**Q: Do I need to be 18+ to use Flirrt.AI?**
+**Q: Do I need to be 18+ to use Vibe8.AI?**
 A: Yes, you must be 18 or older. Age verification is required during onboarding.
 
-**Q: Which dating apps does Flirrt.AI work with?**
-A: Flirrt.AI works with all dating apps! Tinder, Bumble, Hinge, OkCupid, Match, POF, Badoo, Happn, Coffee Meets Bagel, The League, Facebook Dating, Instagram DMs, and any messaging platform.
+**Q: Which dating apps does Vibe8.AI work with?**
+A: Vibe8.AI works with all dating apps! Tinder, Bumble, Hinge, OkCupid, Match, POF, Badoo, Happn, Coffee Meets Bagel, The League, Facebook Dating, Instagram DMs, and any messaging platform.
 
-**Q: Does Flirrt.AI guarantee matches or responses?**
-A: No. Flirrt.AI provides intelligent suggestions to improve your messages, but success depends on genuine connection and communication. Use suggestions as guidance while being yourself.
+**Q: Does Vibe8.AI guarantee matches or responses?**
+A: No. Vibe8.AI provides intelligent suggestions to improve your messages, but success depends on genuine connection and communication. Use suggestions as guidance while being yourself.
 
 ### Privacy & Security
 
 **Q: Does the keyboard track what I type?**
-A: No! The Flirrt keyboard does NOT have "Full Access" permission, so it cannot see or track anything you type. Your privacy is protected.
+A: No! The Vibe8 keyboard does NOT have "Full Access" permission, so it cannot see or track anything you type. Your privacy is protected.
 
 **Q: What happens to my screenshots?**
 A: Screenshots are processed by AI and immediately deleted after analysis. They are never stored permanently on our servers.
 
-**Q: Can I use Flirrt.AI without the keyboard?**
+**Q: Can I use Vibe8.AI without the keyboard?**
 A: Yes! You can use the main app to generate suggestions and copy/paste them manually into your dating apps.
 
 **Q: Is my data encrypted?**
@@ -604,8 +604,8 @@ A: Approximately 50-100MB for the main app. The keyboard extension uses < 50MB m
 **Q: Does the app work offline?**
 A: No, you need an internet connection for AI analysis. However, the keyboard can show cached suggestions offline.
 
-**Q: Can I use Flirrt.AI on iPad?**
-A: Yes! Flirrt.AI supports both iPhone and iPad.
+**Q: Can I use Vibe8.AI on iPad?**
+A: Yes! Vibe8.AI supports both iPhone and iPad.
 
 ---
 
@@ -613,7 +613,7 @@ A: Yes! Flirrt.AI supports both iPhone and iPad.
 
 ### Contact Us
 
-**Email:** support@flirrt.ai
+**Email:** support@vibe8.ai
 **Response Time:** Usually within 24 hours
 
 **Please Include:**
@@ -626,9 +626,9 @@ A: Yes! Flirrt.AI supports both iPhone and iPad.
 
 We'd love to hear from you!
 
-- **Feature Requests:** support@flirrt.ai
-- **Bug Reports:** support@flirrt.ai
-- **General Feedback:** support@flirrt.ai
+- **Feature Requests:** support@vibe8.ai
+- **Bug Reports:** support@vibe8.ai
+- **General Feedback:** support@vibe8.ai
 
 ### Legal
 
@@ -637,9 +637,9 @@ We'd love to hear from you!
 
 ### Social Media
 
-- **Website:** https://flirrt.ai
-- **Twitter:** @flirrtai (coming soon)
-- **Instagram:** @flirrt.ai (coming soon)
+- **Website:** https://vibe8.ai
+- **Twitter:** @vibe8ai (coming soon)
+- **Instagram:** @vibe8.ai (coming soon)
 
 ---
 
@@ -667,5 +667,5 @@ We'd love to hear from you!
 **Version:** 1.0.0
 **Last Updated:** October 18, 2025
 
-Thank you for choosing Flirrt.AI! We're excited to help you make meaningful connections. 💕
+Thank you for choosing Vibe8.AI! We're excited to help you make meaningful connections. 💕
 

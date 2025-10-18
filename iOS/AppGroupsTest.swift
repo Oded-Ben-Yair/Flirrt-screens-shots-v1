@@ -6,7 +6,7 @@ import Foundation
 func testAppGroups() {
     print("🔗 Testing App Groups Data Sharing\n")
 
-    let appGroupID = "group.com.flirrt.shared"
+    let appGroupID = "group.com.vibe8.shared"
 
     // Test 1: UserDefaults sharing
     print("1️⃣ Testing UserDefaults Sharing:")
@@ -76,7 +76,7 @@ func testAppGroups() {
     // Post notification that main app would send
     CFNotificationCenterPostNotification(
         CFNotificationCenterGetDarwinNotifyCenter(),
-        CFNotificationName("com.flirrt.analyze.request" as CFString),
+        CFNotificationName("com.vibe8.analyze.request" as CFString),
         nil, nil, true
     )
     print("   Post analysis request: ✅")
@@ -84,7 +84,7 @@ func testAppGroups() {
     // Post notification that keyboard would send
     CFNotificationCenterPostNotification(
         CFNotificationCenterGetDarwinNotifyCenter(),
-        CFNotificationName("com.flirrt.keyboard.active" as CFString),
+        CFNotificationName("com.vibe8.keyboard.active" as CFString),
         nil, nil, true
     )
     print("   Post keyboard active: ✅")

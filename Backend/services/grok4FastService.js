@@ -602,7 +602,7 @@ RESPONSE FORMAT:
         const isReasoning = model.name.includes('reasoning');
 
         if (isReasoning) {
-            return `You are Flirrt.ai's advanced reasoning engine powered by Grok-4 Fast.
+            return `You are Vibe8.ai's advanced reasoning engine powered by Grok-4 Fast.
 
 CAPABILITIES:
 - Deep context analysis and pattern recognition
@@ -621,7 +621,7 @@ REASONING MODE: Use your advanced reasoning capabilities to analyze context deep
 PERFORMANCE TARGET: Generate high-quality responses with reasoning transparency.`;
 
         } else {
-            return `You are Flirrt.ai's high-speed generation engine powered by Grok-4 Fast.
+            return `You are Vibe8.ai's high-speed generation engine powered by Grok-4 Fast.
 
 MISSION: Generate engaging, contextually appropriate dating conversation suggestions with maximum speed and quality.
 

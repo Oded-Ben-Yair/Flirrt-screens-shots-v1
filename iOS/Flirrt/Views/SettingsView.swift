@@ -184,7 +184,7 @@ struct SettingsView: View {
 
                     // App Info
                     VStack(spacing: 8) {
-                        Text("Flirrt AI")
+                        Text("Vibe8 AI")
                             .font(.caption)
                             .foregroundColor(.gray)
 
@@ -256,7 +256,7 @@ struct SettingsView: View {
     }
 
     private func sendSupportEmail() {
-        if let url = URL(string: "mailto:support@flirrt.ai?subject=Flirrt%20AI%20Support") {
+        if let url = URL(string: "mailto:support@vibe8.ai?subject=Vibe8%20AI%20Support") {
             UIApplication.shared.open(url)
         }
     }

@@ -6,13 +6,13 @@ import SwiftUI
 struct PersonalizationView: View {
 
     @Environment(\.presentationMode) var presentationMode
-    @AppStorage("tone_preference", store: UserDefaults(suiteName: "group.com.flirrt")) private var tonePreference = "playful"
-    @AppStorage("dating_goal", store: UserDefaults(suiteName: "group.com.flirrt")) private var datingGoal = "casual"
-    @AppStorage("experience_level", store: UserDefaults(suiteName: "group.com.flirrt")) private var experienceLevel = "beginner"
+    @AppStorage("tone_preference", store: UserDefaults(suiteName: "group.com.vibe8")) private var tonePreference = "playful"
+    @AppStorage("dating_goal", store: UserDefaults(suiteName: "group.com.vibe8")) private var datingGoal = "casual"
+    @AppStorage("experience_level", store: UserDefaults(suiteName: "group.com.vibe8")) private var experienceLevel = "beginner"
 
     @State private var showingSaveConfirmation = false
 
-    private let appGroupID = "group.com.flirrt"
+    private let appGroupID = "group.com.vibe8"
 
     var body: some View {
         NavigationView {

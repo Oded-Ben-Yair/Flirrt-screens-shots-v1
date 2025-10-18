@@ -2,7 +2,7 @@ import XCTest
 import UIKit
 import Foundation
 import os.log
-@testable import Flirrt
+@testable import Vibe8
 
 /// Comprehensive Performance Validation and Benchmarking Suite
 /// Validates system performance against production requirements
@@ -385,7 +385,7 @@ class PerformanceValidationSuite: XCTestCase {
 
                 switch buttonName {
                 case "Fresh":
-                    keyboardViewController.flirrtFreshTapped()
+                    keyboardViewController.vibe8FreshTapped()
                 case "Analyze":
                     keyboardViewController.analyzeTapped()
                 case "Settings":
@@ -548,7 +548,7 @@ class PerformanceValidationSuite: XCTestCase {
 
         // Establish baselines for core operations
         let baselineTests = [
-            ("Basic UI Operation", { self.keyboardViewController.flirrtFreshTapped() }),
+            ("Basic UI Operation", { self.keyboardViewController.vibe8FreshTapped() }),
             ("Memory Allocation", { let _ = Data(count: 1024 * 1024) }),
             ("Image Creation", { let _ = self.createTestImage(size: CGSize(width: 100, height: 100)) }),
             ("JSON Parsing", {
@@ -581,7 +581,7 @@ class PerformanceValidationSuite: XCTestCase {
 
     private func setupPerformanceTestEnvironment() {
         // Configure for optimal performance testing
-        performanceReporter.setBaselineFile("/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/TestResults/performance_baselines.json")
+        performanceReporter.setBaselineFile("/Users/macbookairm1/Vibe8-screens-shots-v1/Vibe8AI/TestResults/performance_baselines.json")
         memoryProfiler.setReportingInterval(0.1)
         networkProfiler.setTimeoutThreshold(30.0)
     }
@@ -705,7 +705,7 @@ class PerformanceReporter {
 
     func generateComprehensiveReport() {
         let timestamp = DateFormatter.full.string(from: Date())
-        let reportPath = "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/TestResults/performance_validation_report.md"
+        let reportPath = "/Users/macbookairm1/Vibe8-screens-shots-v1/Vibe8AI/TestResults/performance_validation_report.md"
 
         var report = """
         # Performance Validation Report
@@ -809,7 +809,7 @@ class BenchmarkRunner {
     }
 
     func generateBenchmarkReport() {
-        let reportPath = "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/TestResults/benchmark_report.md"
+        let reportPath = "/Users/macbookairm1/Vibe8-screens-shots-v1/Vibe8AI/TestResults/benchmark_report.md"
 
         var report = """
         # Benchmark Report
@@ -878,7 +878,7 @@ class MemoryProfiler {
     func generateMemoryReport() {
         guard !memorySnapshots.isEmpty else { return }
 
-        let reportPath = "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/TestResults/memory_profile_report.md"
+        let reportPath = "/Users/macbookairm1/Vibe8-screens-shots-v1/Vibe8AI/TestResults/memory_profile_report.md"
 
         let maxUsage = memorySnapshots.map { $0.usage }.max() ?? 0
         let minUsage = memorySnapshots.map { $0.usage }.min() ?? 0
@@ -955,7 +955,7 @@ class NetworkProfiler {
     }
 
     func generateNetworkReport() {
-        let reportPath = "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/TestResults/network_profile_report.md"
+        let reportPath = "/Users/macbookairm1/Vibe8-screens-shots-v1/Vibe8AI/TestResults/network_profile_report.md"
 
         let successfulRequests = networkEvents.filter { $0.success }
         let averageResponseTime = successfulRequests.isEmpty ? 0 : successfulRequests.map { $0.responseTime }.reduce(0, +) / Double(successfulRequests.count)

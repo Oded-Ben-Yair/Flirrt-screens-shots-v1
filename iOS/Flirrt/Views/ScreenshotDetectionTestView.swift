@@ -9,7 +9,7 @@ struct ScreenshotDetectionTestView: View {
     @State private var isTestingConnection = false
     @State private var showingAdvancedStats = false
 
-    private let logger = Logger(subsystem: "com.flirrt.app", category: "ScreenshotDetectionTest")
+    private let logger = Logger(subsystem: "com.vibe8.app", category: "ScreenshotDetectionTest")
 
     var body: some View {
         NavigationView {

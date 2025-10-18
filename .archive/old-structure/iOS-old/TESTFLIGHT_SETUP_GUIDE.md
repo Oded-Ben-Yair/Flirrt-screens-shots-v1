@@ -1,13 +1,13 @@
-# TestFlight Beta Distribution Guide - Flirrt.ai
+# TestFlight Beta Distribution Guide - Vibe8.ai
 
 ## 🎯 Overview
 
-Complete guide to distributing Flirrt.ai to beta testers via TestFlight before App Store submission.
+Complete guide to distributing Vibe8.ai to beta testers via TestFlight before App Store submission.
 
 **Current Project Configuration:**
-- Main App Bundle ID: `com.flirrt.app.dev` (needs change to `com.flirrt.app`)
-- Keyboard Extension: `com.flirrt.app.dev.keyboard` → `com.flirrt.app.keyboard`
-- Share Extension: `com.flirrt.app.dev.share` → `com.flirrt.app.share`
+- Main App Bundle ID: `com.vibe8.app.dev` (needs change to `com.vibe8.app`)
+- Keyboard Extension: `com.vibe8.app.dev.keyboard` → `com.vibe8.app.keyboard`
+- Share Extension: `com.vibe8.app.dev.share` → `com.vibe8.app.share`
 - Development Team: `9L8889KAL6` ✅ Already configured
 - Version: `1.0` (build `1`)
 
@@ -44,41 +44,41 @@ Before starting, ensure you have:
 
 **Open Xcode Project:**
 ```bash
-cd /Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS
-open Flirrt.xcodeproj
+cd /Users/macbookairm1/Vibe8-screens-shots-v1/Vibe8AI/iOS
+open Vibe8.xcodeproj
 ```
 
 **Update Bundle IDs:**
-1. Select project "Flirrt" in Navigator
-2. For each target (Flirrt, FlirrtKeyboard, FlirrtShare):
+1. Select project "Vibe8" in Navigator
+2. For each target (Vibe8, Vibe8Keyboard, Vibe8Share):
 
-   **Flirrt (Main App):**
-   - Select target "Flirrt"
+   **Vibe8 (Main App):**
+   - Select target "Vibe8"
    - Go to "Signing & Capabilities" tab
    - Change Bundle Identifier:
-     - From: `com.flirrt.app.dev`
-     - To: `com.flirrt.app`
+     - From: `com.vibe8.app.dev`
+     - To: `com.vibe8.app`
 
-   **FlirrtKeyboard:**
-   - Select target "FlirrtKeyboard"
+   **Vibe8Keyboard:**
+   - Select target "Vibe8Keyboard"
    - Go to "Signing & Capabilities" tab
    - Change Bundle Identifier:
-     - From: `com.flirrt.app.dev.keyboard`
-     - To: `com.flirrt.app.keyboard`
+     - From: `com.vibe8.app.dev.keyboard`
+     - To: `com.vibe8.app.keyboard`
 
-   **FlirrtShare:**
-   - Select target "FlirrtShare"
+   **Vibe8Share:**
+   - Select target "Vibe8Share"
    - Go to "Signing & Capabilities" tab
    - Change Bundle Identifier:
-     - From: `com.flirrt.app.dev.share`
-     - To: `com.flirrt.app.share`
+     - From: `com.vibe8.app.dev.share`
+     - To: `com.vibe8.app.share`
 
 3. **Clean Build Folder**: `Cmd+Shift+K`
 4. **Build to verify**: `Cmd+B`
 
 ### Step 1.2: Update App Groups (if needed)
 
-All 3 targets share: `group.com.flirrt` ✅ (already correct, no change needed)
+All 3 targets share: `group.com.vibe8` ✅ (already correct, no change needed)
 
 ---
 
@@ -92,8 +92,8 @@ All 3 targets share: `group.com.flirrt` ✅ (already correct, no change needed)
 1. Click **"+"** (Add Identifier)
 2. Select **"App IDs"** → Continue
 3. Configure:
-   - **Description:** Flirrt.ai Main App
-   - **Bundle ID:** `com.flirrt.app`
+   - **Description:** Vibe8.ai Main App
+   - **Bundle ID:** `com.vibe8.app`
    - **Capabilities:** Check:
      - ✅ App Groups
      - ✅ Sign in with Apple
@@ -105,8 +105,8 @@ All 3 targets share: `group.com.flirrt` ✅ (already correct, no change needed)
 1. Click **"+"** again
 2. Select **"App IDs"** → Continue
 3. Configure:
-   - **Description:** Flirrt.ai Keyboard Extension
-   - **Bundle ID:** `com.flirrt.app.keyboard`
+   - **Description:** Vibe8.ai Keyboard Extension
+   - **Bundle ID:** `com.vibe8.app.keyboard`
    - **Capabilities:** Check:
      - ✅ App Groups
 4. Click **"Continue"** → **"Register"**
@@ -115,8 +115,8 @@ All 3 targets share: `group.com.flirrt` ✅ (already correct, no change needed)
 1. Click **"+"** again
 2. Select **"App IDs"** → Continue
 3. Configure:
-   - **Description:** Flirrt.ai Share Extension
-   - **Bundle ID:** `com.flirrt.app.share`
+   - **Description:** Vibe8.ai Share Extension
+   - **Bundle ID:** `com.vibe8.app.share`
    - **Capabilities:** Check:
      - ✅ App Groups
      - ✅ Keychain Sharing (optional)
@@ -126,18 +126,18 @@ All 3 targets share: `group.com.flirrt` ✅ (already correct, no change needed)
 
 **Go to:** https://developer.apple.com/account/resources/identifiers (switch to "App Groups")
 
-1. Find existing App Group: `group.com.flirrt`
+1. Find existing App Group: `group.com.vibe8`
 2. If not exists, create:
    - Click **"+"**
    - Select **"App Groups"** → Continue
-   - **Description:** Flirrt Shared Data
-   - **Identifier:** `group.com.flirrt`
+   - **Description:** Vibe8 Shared Data
+   - **Identifier:** `group.com.vibe8`
    - Click **"Continue"** → **"Register"**
 
 3. Assign to all 3 Bundle IDs:
    - Click on each Bundle ID
    - Edit → Check "App Groups" capability
-   - Configure → Select `group.com.flirrt`
+   - Configure → Select `group.com.vibe8`
    - Save
 
 ---
@@ -151,10 +151,10 @@ All 3 targets share: `group.com.flirrt` ✅ (already correct, no change needed)
 1. Click **"+"** → **"New App"**
 2. Configure:
    - **Platforms:** ✅ iOS
-   - **Name:** `Flirrt.ai` (or your preferred app name)
+   - **Name:** `Vibe8.ai` (or your preferred app name)
    - **Primary Language:** English (U.S.)
-   - **Bundle ID:** Select `com.flirrt.app` (from dropdown)
-   - **SKU:** `flirrt-ios-2025` (unique identifier for your records)
+   - **Bundle ID:** Select `com.vibe8.app` (from dropdown)
+   - **SKU:** `vibe8-ios-2025` (unique identifier for your records)
    - **User Access:** Full Access
 3. Click **"Create"**
 
@@ -164,7 +164,7 @@ All 3 targets share: `group.com.flirrt` ✅ (already correct, no change needed)
 
 1. **App Information** (left sidebar):
    - **Privacy Policy URL:** (required for TestFlight)
-     - Example: `https://flirrt.ai/privacy` (create if needed)
+     - Example: `https://vibe8.ai/privacy` (create if needed)
    - **Category:**
      - Primary: "Social Networking"
      - Secondary: "Lifestyle" (optional)
@@ -186,9 +186,9 @@ All 3 targets share: `group.com.flirrt` ✅ (already correct, no change needed)
 
 - **Description:**
 ```
-Flirrt.ai - AI-Powered Dating Assistant
+Vibe8.ai - AI-Powered Dating Assistant
 
-Level up your dating game with Flirrt.ai, the intelligent keyboard extension that generates personalized, witty opening lines and conversation responses for dating apps.
+Level up your dating game with Vibe8.ai, the intelligent keyboard extension that generates personalized, witty opening lines and conversation responses for dating apps.
 
 KEY FEATURES:
 • Screenshot Analysis: Capture any dating profile, our AI analyzes their bio, photos, and interests
@@ -199,7 +199,7 @@ KEY FEATURES:
 
 HOW IT WORKS:
 1. Take a screenshot of any dating profile (Tinder, Bumble, Hinge, etc.)
-2. Open the Flirrt keyboard in your messaging app
+2. Open the Vibe8 keyboard in your messaging app
 3. Instantly receive 5 creative, personalized opening lines
 4. Tap to send - it's that simple!
 
@@ -216,10 +216,10 @@ Powered by advanced AI (Grok Vision, ElevenLabs Voice AI)
   - `dating,flirt,ai,keyboard,tinder,bumble,opener,assistant,conversation,voice`
 
 - **Support URL:**
-  - Your support website or email: `https://flirrt.ai/support`
+  - Your support website or email: `https://vibe8.ai/support`
 
 - **Marketing URL (optional):**
-  - Your main website: `https://flirrt.ai`
+  - Your main website: `https://vibe8.ai`
 
 ---
 
@@ -235,9 +235,9 @@ Powered by advanced AI (Grok Vision, ElevenLabs Voice AI)
    - Open **Keychain Access** on Mac
    - Menu: Keychain Access → Certificate Assistant → Request Certificate from CA
    - **User Email:** your@email.com
-   - **Common Name:** Flirrt Distribution
+   - **Common Name:** Vibe8 Distribution
    - **Request is:** Saved to disk
-   - Save as: `FlirrtDistribution.certSigningRequest`
+   - Save as: `Vibe8Distribution.certSigningRequest`
 4. Upload CSR file → Continue
 5. Download `distribution.cer` file
 6. Double-click to install in Keychain
@@ -249,27 +249,27 @@ Powered by advanced AI (Grok Vision, ElevenLabs Voice AI)
 **Create Profile for Main App:**
 1. Click **"+"** (Add Profile)
 2. Select **"App Store"** → Continue
-3. **App ID:** Select `com.flirrt.app` → Continue
+3. **App ID:** Select `com.vibe8.app` → Continue
 4. **Certificates:** Select the "Apple Distribution" certificate you just created → Continue
-5. **Profile Name:** `Flirrt App Store Profile`
+5. **Profile Name:** `Vibe8 App Store Profile`
 6. Click **"Generate"**
-7. Download: `Flirrt_App_Store_Profile.mobileprovision`
+7. Download: `Vibe8_App_Store_Profile.mobileprovision`
 
 **Create Profile for Keyboard Extension:**
 1. Click **"+"** again
 2. Select **"App Store"** → Continue
-3. **App ID:** Select `com.flirrt.app.keyboard` → Continue
+3. **App ID:** Select `com.vibe8.app.keyboard` → Continue
 4. **Certificates:** Select the distribution certificate → Continue
-5. **Profile Name:** `Flirrt Keyboard App Store Profile`
-6. Download: `Flirrt_Keyboard_App_Store_Profile.mobileprovision`
+5. **Profile Name:** `Vibe8 Keyboard App Store Profile`
+6. Download: `Vibe8_Keyboard_App_Store_Profile.mobileprovision`
 
 **Create Profile for Share Extension:**
 1. Click **"+"** again
 2. Select **"App Store"** → Continue
-3. **App ID:** Select `com.flirrt.app.share` → Continue
+3. **App ID:** Select `com.vibe8.app.share` → Continue
 4. **Certificates:** Select the distribution certificate → Continue
-5. **Profile Name:** `Flirrt Share App Store Profile`
-6. Download: `Flirrt_Share_App_Store_Profile.mobileprovision`
+5. **Profile Name:** `Vibe8 Share App Store Profile`
+6. Download: `Vibe8_Share_App_Store_Profile.mobileprovision`
 
 ### Step 4.3: Install Provisioning Profiles in Xcode
 
@@ -277,7 +277,7 @@ Powered by advanced AI (Grok Vision, ElevenLabs Voice AI)
 
 Or manually:
 ```bash
-cp ~/Downloads/Flirrt_*.mobileprovision ~/Library/MobileDevice/Provisioning\ Profiles/
+cp ~/Downloads/Vibe8_*.mobileprovision ~/Library/MobileDevice/Provisioning\ Profiles/
 ```
 
 ---
@@ -287,14 +287,14 @@ cp ~/Downloads/Flirrt_*.mobileprovision ~/Library/MobileDevice/Provisioning\ Pro
 ### Step 5.1: Configure Xcode for Release
 
 **In Xcode:**
-1. Select target **"Flirrt"** (main app)
+1. Select target **"Vibe8"** (main app)
 2. Go to **"Signing & Capabilities"** tab
 3. **Release** configuration:
    - Team: `9L8889KAL6` (should be auto-selected)
    - **Signing Certificate:** "Apple Distribution" (should auto-select)
-   - **Provisioning Profile:** "Flirrt App Store Profile" (Automatic should work)
+   - **Provisioning Profile:** "Vibe8 App Store Profile" (Automatic should work)
 
-4. Repeat for **FlirrtKeyboard** and **FlirrtShare** targets
+4. Repeat for **Vibe8Keyboard** and **Vibe8Share** targets
 
 ### Step 5.2: Set Build Configuration to Release
 
@@ -307,7 +307,7 @@ cp ~/Downloads/Flirrt_*.mobileprovision ~/Library/MobileDevice/Provisioning\ Pro
 ### Step 5.3: Increment Build Number (if needed)
 
 **In Xcode:**
-1. Select project "Flirrt" in Navigator
+1. Select project "Vibe8" in Navigator
 2. For each target:
    - **General** tab
    - **Version:** `1.0` (keep as is)
@@ -340,7 +340,7 @@ cp ~/Downloads/Flirrt_*.mobileprovision ~/Library/MobileDevice/Provisioning\ Pro
    - Use: **"Automatically manage signing"**
    - Click **"Next"**
 7. **Review Summary:**
-   - Verify all 3 targets listed (Flirrt, FlirrtKeyboard, FlirrtShare)
+   - Verify all 3 targets listed (Vibe8, Vibe8Keyboard, Vibe8Share)
    - Verify provisioning profiles correct
    - Click **"Upload"**
 
@@ -385,11 +385,11 @@ cp ~/Downloads/Flirrt_*.mobileprovision ~/Library/MobileDevice/Provisioning\ Pro
 7. Click **"Submit for Review"**
 8. **Beta App Description:**
 ```
-Flirrt.ai helps dating app users generate personalized opening lines and conversation responses using AI.
+Vibe8.ai helps dating app users generate personalized opening lines and conversation responses using AI.
 
 Test the following:
 1. Screenshot a dating profile from any app (Tinder, Bumble, Hinge)
-2. Open the Flirrt keyboard in any messaging app
+2. Open the Vibe8 keyboard in any messaging app
 3. Receive 5 AI-generated flirt suggestions based on the profile
 4. Test voice recording and voice message generation
 5. Verify network connectivity and error handling
@@ -519,7 +519,7 @@ Test the following:
 
 ## 🐛 Troubleshooting
 
-### Issue: "No profiles for 'com.flirrt.app' were found"
+### Issue: "No profiles for 'com.vibe8.app' were found"
 
 **Fix:**
 1. Go to Developer Portal → Profiles
@@ -576,7 +576,7 @@ Test the following:
 
 **Your Team:**
 - Development Team ID: `9L8889KAL6`
-- Bundle ID Prefix: `com.flirrt.app`
+- Bundle ID Prefix: `com.vibe8.app`
 - App Store Connect: https://appstoreconnect.apple.com
 
 ---

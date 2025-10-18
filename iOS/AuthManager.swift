@@ -34,7 +34,7 @@ class AuthManager: ObservableObject {
         if age >= 18 {
             ageVerified = true
         } else {
-            error = "You must be 18 or older to use Flirrt"
+            error = "You must be 18 or older to use Vibe8"
             logout()
         }
     }

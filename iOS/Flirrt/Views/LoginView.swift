@@ -28,10 +28,10 @@ struct LoginView: View {
                         Image(systemName: "heart.text.square.fill")
                             .font(.system(size: 100))
                             .foregroundStyle(.pink, .purple)
-                            .accessibilityLabel("Flirrt AI logo")
+                            .accessibilityLabel("Vibe8 AI logo")
 
                         VStack(spacing: 8) {
-                            Text("Flirrt AI")
+                            Text("Vibe8 AI")
                                 .font(.largeTitle)
                                 .fontWeight(.bold)
                                 .foregroundColor(.white)
@@ -153,7 +153,7 @@ struct LoginView: View {
                         .accessibilityLabel("Continue with Apple")
 
                         // Age verification disclaimer
-                        Text("You must be 18 or older to use Flirrt")
+                        Text("You must be 18 or older to use Vibe8")
                             .font(.caption)
                             .foregroundColor(.gray)
                             .padding(.horizontal)
@@ -184,7 +184,7 @@ struct LoginView: View {
                                 // Set demo user in standard UserDefaults
                                 UserDefaults.standard.set("demo-user-\(UUID().uuidString)", forKey: AppConstants.UserDefaultsKeys.userId)
                                 UserDefaults.standard.set("Demo User", forKey: AppConstants.UserDefaultsKeys.userName)
-                                UserDefaults.standard.set("demo@flirrt.test", forKey: AppConstants.UserDefaultsKeys.userEmail)
+                                UserDefaults.standard.set("demo@vibe8.test", forKey: AppConstants.UserDefaultsKeys.userEmail)
                                 UserDefaults.standard.set(true, forKey: AppConstants.UserDefaultsKeys.onboardingCompleted)
                                 UserDefaults.standard.set(true, forKey: AppConstants.UserDefaultsKeys.ageVerified)
 
@@ -309,7 +309,7 @@ struct AgeVerificationView: View {
                         .font(.largeTitle)
                         .fontWeight(.bold)
 
-                    Text("Please confirm your birth date to continue. You must be 18 or older to use Flirrt.")
+                    Text("Please confirm your birth date to continue. You must be 18 or older to use Vibe8.")
                         .font(.body)
                         .foregroundColor(.secondary)
                         .multilineTextAlignment(.center)
@@ -376,7 +376,7 @@ struct TermsAndPrivacyView: View {
                             .font(.title2)
                             .fontWeight(.bold)
 
-                        Text("By using Flirrt AI, you agree to these terms and conditions...")
+                        Text("By using Vibe8 AI, you agree to these terms and conditions...")
                             .font(.body)
 
                         // Add actual terms content here

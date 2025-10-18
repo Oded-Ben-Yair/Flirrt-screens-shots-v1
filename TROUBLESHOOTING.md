@@ -1,4 +1,4 @@
-# Flirrt.AI Troubleshooting Guide
+# Vibe8.AI Troubleshooting Guide
 
 **Version:** 1.0.0
 **Last Updated:** October 18, 2025
@@ -65,7 +65,7 @@
 1. **Force Quit and Restart:**
    ```
    1. Double-click Home button (or swipe up from bottom)
-   2. Swipe up on Flirrt.AI to close
+   2. Swipe up on Vibe8.AI to close
    3. Wait 5 seconds
    4. Reopen app from home screen
    ```
@@ -80,10 +80,10 @@
 
 3. **Reinstall App:**
    ```
-   1. Long-press Flirrt.AI icon
+   1. Long-press Vibe8.AI icon
    2. Tap "Remove App" → "Delete App"
    3. Go to App Store
-   4. Search "Flirrt.AI"
+   4. Search "Vibe8.AI"
    5. Download and install again
    ```
 
@@ -127,7 +127,7 @@
 
 4. **Contact Support:**
    - If you're legitimately 18+ but verification fails
-   - Email: support@flirrt.ai
+   - Email: support@vibe8.ai
    - Include screenshot of error
 
 ---
@@ -145,7 +145,7 @@
 
 1. **Check Photo Library Permission:**
    ```
-   Settings → Flirrt.AI → Photos
+   Settings → Vibe8.AI → Photos
    Ensure set to "Read and Write" or "All Photos"
    ```
 
@@ -195,7 +195,7 @@
 1. **Check Backend Status:**
    ```bash
    # In Safari, visit:
-   https://flirrt-api-production.onrender.com/health
+   https://vibe8-api-production.onrender.com/health
 
    # Should show:
    {"success": true, "status": "healthy"}
@@ -264,7 +264,7 @@
    ```
 
 5. **Report Issue:**
-   - Email support@flirrt.ai
+   - Email support@vibe8.ai
    - Include screenshot (if appropriate)
    - Describe what happened
 
@@ -309,15 +309,15 @@
 ### Keyboard Not Appearing in Keyboard List
 
 **Symptoms:**
-- "Flirrt" not in Settings → Keyboards list
-- Can't find Flirrt keyboard to add
+- "Vibe8" not in Settings → Keyboards list
+- Can't find Vibe8 keyboard to add
 - Only system keyboards visible
 
 **Solutions:**
 
 1. **Reinstall App:**
    ```
-   1. Delete Flirrt.AI app
+   1. Delete Vibe8.AI app
    2. Restart iPhone
    3. Reinstall from App Store
    4. Check Settings → Keyboards again
@@ -341,16 +341,16 @@
    Settings → General → Keyboard → Keyboards
    → Add New Keyboard
    → Scroll to "Third-Party Keyboards"
-   → Select "Flirrt"
+   → Select "Vibe8"
    ```
 
 ---
 
-### Can't Switch to Flirrt Keyboard
+### Can't Switch to Vibe8 Keyboard
 
 **Symptoms:**
-- Globe icon doesn't cycle to Flirrt
-- Keyboard list doesn't include Flirrt
+- Globe icon doesn't cycle to Vibe8
+- Keyboard list doesn't include Vibe8
 - Stuck on system keyboard
 
 **Solutions:**
@@ -361,21 +361,21 @@
 
    Should have at least 2 keyboards:
    - English (or your language)
-   - Flirrt
+   - Vibe8
    ```
 
 2. **Tap Globe Icon Multiple Times:**
    - Tap and hold globe icon
    - Menu should appear with all keyboards
-   - Select "Flirrt" from menu
+   - Select "Vibe8" from menu
 
 3. **Enable Keyboard Access:**
    ```
    Settings → General → Keyboard → Keyboards
-   → Flirrt
+   → Vibe8
    → Ensure "Allow Full Access" is OFF
 
-   Note: Flirrt does NOT need Full Access
+   Note: Vibe8 does NOT need Full Access
    ```
 
 4. **Restart App Using Keyboard:**
@@ -396,11 +396,11 @@
 
 1. **Generate Suggestions in Main App First:**
    ```
-   1. Open Flirrt.AI app
+   1. Open Vibe8.AI app
    2. Upload screenshot and generate suggestions
    3. Wait for analysis to complete
    4. Return to dating app
-   5. Switch to Flirrt keyboard
+   5. Switch to Vibe8 keyboard
    ```
 
 2. **Check App Groups:**
@@ -408,20 +408,20 @@
    For developers:
 
    // Main app - check if saving correctly
-   let sharedDefaults = UserDefaults(suiteName: "group.com.flirrt")
+   let sharedDefaults = UserDefaults(suiteName: "group.com.vibe8")
    print(sharedDefaults?.data(forKey: "latest_suggestions"))
 
    // Keyboard - check if reading correctly
-   let sharedDefaults = UserDefaults(suiteName: "group.com.flirrt")
+   let sharedDefaults = UserDefaults(suiteName: "group.com.vibe8")
    print(sharedDefaults?.data(forKey: "latest_suggestions"))
    ```
 
 3. **Refresh Keyboard:**
    ```
-   1. Switch away from Flirrt keyboard
+   1. Switch away from Vibe8 keyboard
    2. Close keyboard completely
    3. Tap text field again
-   4. Switch back to Flirrt keyboard
+   4. Switch back to Vibe8 keyboard
    ```
 
 4. **Reinstall App:**
@@ -436,7 +436,7 @@
 
 **Symptoms:**
 - Keyboard appears then disappears
-- App crashes when switching to Flirrt keyboard
+- App crashes when switching to Vibe8 keyboard
 - Keyboard is unresponsive
 
 **Solutions:**
@@ -457,7 +457,7 @@
    For developers:
 
    // Check App Groups size
-   let sharedDefaults = UserDefaults(suiteName: "group.com.flirrt")
+   let sharedDefaults = UserDefaults(suiteName: "group.com.vibe8")
    sharedDefaults?.dictionaryRepresentation().forEach { key, value in
        print("\\(key): \\(MemoryLayout.size(ofValue: value)) bytes")
    }
@@ -470,10 +470,10 @@
    ```
    Settings → General → Keyboard → Keyboards
    → Edit (top right)
-   → Tap (-) next to Flirrt
+   → Tap (-) next to Vibe8
    → Delete
    → Wait 10 seconds
-   → Add New Keyboard → Flirrt
+   → Add New Keyboard → Vibe8
    ```
 
 4. **Check Console for Errors:**
@@ -482,7 +482,7 @@
 
    1. Open Console.app on Mac
    2. Connect iPhone via USB
-   3. Filter: process:FlirrtKeyboard
+   3. Filter: process:Vibe8Keyboard
    4. Look for errors/crashes
    ```
 
@@ -501,7 +501,7 @@
 
 1. **Check Microphone Permission:**
    ```
-   Settings → Flirrt.AI → Microphone
+   Settings → Vibe8.AI → Microphone
    Ensure toggled ON (green)
    ```
 
@@ -517,7 +517,7 @@
    1. Open Voice Memos app
    2. Record 10 seconds
    3. Play back
-   4. If Voice Memos works → Flirrt.AI issue
+   4. If Voice Memos works → Vibe8.AI issue
    5. If Voice Memos doesn't work → Hardware issue
    ```
 
@@ -684,7 +684,7 @@
    ```
 
 2. **Check Email Spam Folder:**
-   - Look for email from noreply@flirrt.ai
+   - Look for email from noreply@vibe8.ai
    - Mark as "Not Spam" if found
    - Add to contacts to prevent future spam
 
@@ -694,7 +694,7 @@
    - Use new link immediately
 
 4. **Contact Support:**
-   - Email: support@flirrt.ai
+   - Email: support@vibe8.ai
    - Subject: "Password Reset Issue"
    - Include your registered email
 
@@ -711,7 +711,7 @@
 
 1. **Follow Deletion Process:**
    ```
-   1. Open Flirrt.AI
+   1. Open Vibe8.AI
    2. Settings → Account → Delete Account
    3. Select reason
    4. Tap "Confirm Deletion"
@@ -730,7 +730,7 @@
 
 3. **Contact Support for Manual Deletion:**
    ```
-   Email: support@flirrt.ai
+   Email: support@vibe8.ai
    Subject: "Manual Account Deletion Request"
 
    Include:
@@ -743,7 +743,7 @@
    ```
    If in EU:
 
-   Email: privacy@flirrt.ai
+   Email: privacy@vibe8.ai
    Subject: "GDPR Article 17 - Right to Erasure"
 
    We must comply within 30 days
@@ -765,14 +765,14 @@
 1. **Close Background Apps:**
    ```
    1. Double-click Home button
-   2. Swipe up on all apps except Flirrt.AI
-   3. Return to Flirrt.AI
+   2. Swipe up on all apps except Vibe8.AI
+   3. Return to Vibe8.AI
    ```
 
 2. **Restart App:**
    ```
    1. Double-click Home button
-   2. Swipe up on Flirrt.AI
+   2. Swipe up on Vibe8.AI
    3. Wait 5 seconds
    4. Reopen from home screen
    ```
@@ -803,7 +803,7 @@
 ### High Battery Drain
 
 **Symptoms:**
-- Flirrt.AI uses > 20% battery per hour
+- Vibe8.AI uses > 20% battery per hour
 - iPhone gets hot while using app
 - Battery drains even when app is closed
 
@@ -813,14 +813,14 @@
    ```
    Settings → Battery
 
-   Flirrt.AI should be < 10% per day
+   Vibe8.AI should be < 10% per day
    If higher, investigate further
    ```
 
 2. **Disable Background App Refresh:**
    ```
    Settings → General → Background App Refresh
-   → Flirrt.AI: OFF
+   → Vibe8.AI: OFF
    ```
 
 3. **Close App When Not in Use:**
@@ -832,7 +832,7 @@
    - Adjust brightness slider to 50% or lower
 
 5. **Report Issue:**
-   - Email: support@flirrt.ai
+   - Email: support@vibe8.ai
    - Include:
      - iOS version
      - iPhone model
@@ -888,7 +888,7 @@
 
 **Symptoms:**
 ```bash
-curl https://flirrt-api-production.onrender.com/health
+curl https://vibe8-api-production.onrender.com/health
 
 # Returns:
 # {"success": false, "status": "unhealthy"}
@@ -901,7 +901,7 @@ curl https://flirrt-api-production.onrender.com/health
 1. **Check Render Dashboard:**
    ```
    1. Login to https://dashboard.render.com
-   2. Select "flirrt-api-production" service
+   2. Select "vibe8-api-production" service
    3. Check status: Should be "Live" (green)
    4. If "Suspended", click "Resume"
    ```
@@ -918,7 +918,7 @@ curl https://flirrt-api-production.onrender.com/health
 
 3. **Restart Service:**
    ```
-   Render Dashboard → flirrt-api-production
+   Render Dashboard → vibe8-api-production
    → Manual Deploy → Deploy Latest Commit
 
    Wait 2-3 minutes for service to start
@@ -944,7 +944,7 @@ curl https://flirrt-api-production.onrender.com/health
 ```
 Error: connect ECONNREFUSED
 Error: password authentication failed
-Error: database "flirrt_production" does not exist
+Error: database "vibe8_production" does not exist
 ```
 
 **Solutions:**
@@ -1118,8 +1118,8 @@ npm run migrate
    ```bash
    # CAUTION: This deletes all data
 
-   dropdb flirrt_dev
-   createdb flirrt_dev
+   dropdb vibe8_dev
+   createdb vibe8_dev
    npm run migrate
    ```
 
@@ -1140,7 +1140,7 @@ npm run migrate
 4. **Manual SQL Fix:**
    ```sql
    -- Connect to database
-   psql flirrt_dev
+   psql vibe8_dev
 
    -- Check tables
    \\dt
@@ -1216,7 +1216,7 @@ Service won't start
 
 1. **Check Build Logs:**
    ```
-   Render Dashboard → flirrt-api-production
+   Render Dashboard → vibe8-api-production
    → Logs tab
 
    Look for errors:
@@ -1278,9 +1278,9 @@ Processing stuck
 2. **Verify Bundle IDs:**
    ```
    Should be (production):
-   - com.flirrt.app
-   - com.flirrt.app.keyboard
-   - com.flirrt.app.share
+   - com.vibe8.app
+   - com.vibe8.app.keyboard
+   - com.vibe8.app.share
 
    NOT .dev versions for TestFlight
    ```
@@ -1289,7 +1289,7 @@ Processing stuck
    ```
    All targets → Signing & Capabilities
    → Code Signing Identity: Apple Distribution
-   → Provisioning Profile: Flirrt Distribution
+   → Provisioning Profile: Vibe8 Distribution
    ```
 
 4. **Use Application Loader:**
@@ -1368,7 +1368,7 @@ Processing stuck
 
 **Solutions:**
 - Try again later
-- Contact support@flirrt.ai
+- Contact support@vibe8.ai
 - Request manual deletion
 
 ---
@@ -1377,7 +1377,7 @@ Processing stuck
 
 If none of these solutions work:
 
-**Email:** support@flirrt.ai
+**Email:** support@vibe8.ai
 
 **Include:**
 - iOS version

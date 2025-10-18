@@ -149,8 +149,8 @@
     }
   },
   "example_request": {
-    "curl": "curl -X POST https://api.flirrt.ai/v1/analyze_screenshot \\\n  -H \"Authorization: Bearer your_access_token\" \\\n  -F \"image=@conversation_screenshot.png\" \\\n  -F \"user_id=user_12345\" \\\n  -F 'context={\"relationship_goal\":\"serious\",\"platform\":\"tinder\"}' \\\n  -F 'preferences={\"tone_preference\":\"playful\",\"directness_level\":\"medium\"}'",
-    "javascript": "const formData = new FormData();\nformData.append('image', imageFile);\nformData.append('user_id', 'user_12345');\nformData.append('context', JSON.stringify({\n  relationship_goal: 'serious',\n  platform: 'tinder'\n}));\n\nfetch('https://api.flirrt.ai/v1/analyze_screenshot', {\n  method: 'POST',\n  headers: {\n    'Authorization': 'Bearer your_access_token'\n  },\n  body: formData\n});"
+    "curl": "curl -X POST https://api.vibe8.ai/v1/analyze_screenshot \\\n  -H \"Authorization: Bearer your_access_token\" \\\n  -F \"image=@conversation_screenshot.png\" \\\n  -F \"user_id=user_12345\" \\\n  -F 'context={\"relationship_goal\":\"serious\",\"platform\":\"tinder\"}' \\\n  -F 'preferences={\"tone_preference\":\"playful\",\"directness_level\":\"medium\"}'",
+    "javascript": "const formData = new FormData();\nformData.append('image', imageFile);\nformData.append('user_id', 'user_12345');\nformData.append('context', JSON.stringify({\n  relationship_goal: 'serious',\n  platform: 'tinder'\n}));\n\nfetch('https://api.vibe8.ai/v1/analyze_screenshot', {\n  method: 'POST',\n  headers: {\n    'Authorization': 'Bearer your_access_token'\n  },\n  body: formData\n});"
   },
   "example_response": {
     "analysis_id": "analysis_abc123def456",

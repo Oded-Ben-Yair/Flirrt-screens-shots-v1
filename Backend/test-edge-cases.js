@@ -1,5 +1,5 @@
 /**
- * Edge Case Test Suite for FlirrtAI Backend
+ * Edge Case Test Suite for Vibe8AI Backend
  *
  * Tests boundary conditions, unusual inputs, and error handling
  * for all major API endpoints.
@@ -848,7 +848,7 @@ async function testNetworkEdgeCases() {
 
 async function runAllTests() {
     log('\n╔═══════════════════════════════════════════════════╗', 'magenta');
-    log('║   FLIRRTAI BACKEND - EDGE CASE TEST SUITE        ║', 'magenta');
+    log('║   VIBE8AI BACKEND - EDGE CASE TEST SUITE        ║', 'magenta');
     log('╚═══════════════════════════════════════════════════╝', 'magenta');
 
     log(`\nTesting against: ${BASE_URL}`, 'cyan');

@@ -1,6 +1,6 @@
 import XCTest
 import Foundation
-@testable import Flirrt
+@testable import Vibe8
 
 /// CP-6: Comprehensive Integration Tests for All Features
 /// Tests all functionality including CP-5 (Coaching, Gamification, Refresh)
@@ -136,7 +136,7 @@ class CP6ComprehensiveTests: XCTestCase {
     // MARK: - Personalization Tests
 
     func testPersonalizationPreferencesSavedToAppGroups() {
-        let sharedDefaults = UserDefaults(suiteName: "group.com.flirrt")
+        let sharedDefaults = UserDefaults(suiteName: "group.com.vibe8")
         XCTAssertNotNil(sharedDefaults, "App Groups should be accessible")
 
         // Test setting preferences

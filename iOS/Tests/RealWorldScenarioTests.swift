@@ -2,7 +2,7 @@ import XCTest
 import UIKit
 import Foundation
 import os.log
-@testable import Flirrt
+@testable import Vibe8
 
 /// Real-World Dating App Screenshot Testing Scenarios
 /// Tests actual dating app screenshots and validates suggestion quality
@@ -12,7 +12,7 @@ class RealWorldScenarioTests: XCTestCase {
     // MARK: - Test Configuration
 
     private let testTimeout: TimeInterval = 45.0
-    private let evidenceDirectory = "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/TestResults/RealWorldScenarios"
+    private let evidenceDirectory = "/Users/macbookairm1/Vibe8-screens-shots-v1/Vibe8AI/TestResults/RealWorldScenarios"
 
     // MARK: - Test Infrastructure
 

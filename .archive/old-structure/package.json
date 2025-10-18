@@ -1,7 +1,7 @@
 {
-  "name": "flirrtai-orchestrator",
+  "name": "vibe8ai-orchestrator",
   "version": "1.0.0",
-  "description": "FlirrtAI Parallel Testing Orchestrator",
+  "description": "Vibe8AI Parallel Testing Orchestrator",
   "main": "orchestrator.js",
   "scripts": {
     "start": "node orchestrator.js",

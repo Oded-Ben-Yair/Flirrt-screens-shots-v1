@@ -1,7 +1,7 @@
-# 📱 Flirrt iOS App
+# 📱 Vibe8 iOS App
 
 ## Overview
-The Flirrt iOS app is built with SwiftUI and Swift Package Manager, targeting iOS 16.0+. It includes the main app, keyboard extension, and share extension.
+The Vibe8 iOS app is built with SwiftUI and Swift Package Manager, targeting iOS 16.0+. It includes the main app, keyboard extension, and share extension.
 
 ## 🛠️ Build Instructions
 
@@ -16,7 +16,7 @@ The Flirrt iOS app is built with SwiftUI and Swift Package Manager, targeting iO
 xed .
 
 # Or build from command line
-xcodebuild -scheme Flirrt \
+xcodebuild -scheme Vibe8 \
   -destination 'platform=iOS Simulator,name=iPhone 16 Pro' \
   build
 ```
@@ -35,9 +35,9 @@ swift build
 ```
 iOS/
 ├── Package.swift              # SPM configuration
-├── Flirrt/                   # Main app target
+├── Vibe8/                   # Main app target
 │   ├── App/
-│   │   └── FlirrtApp.swift  # App entry point
+│   │   └── Vibe8App.swift  # App entry point
 │   ├── Models/
 │   │   └── VoiceModels.swift # Data models
 │   ├── Services/
@@ -53,10 +53,10 @@ iOS/
 │   └── Resources/
 │       └── PrivacyInfo.xcprivacy
 │
-├── FlirrtKeyboard/           # Keyboard extension
+├── Vibe8Keyboard/           # Keyboard extension
 │   └── KeyboardViewController.swift
 │
-└── FlirrtShare/              # Share extension
+└── Vibe8Share/              # Share extension
     └── ShareViewController.swift
 ```
 
@@ -87,13 +87,13 @@ iOS/
 
 ### App Groups
 ```
-group.com.flirrt.ai.shared
+group.com.vibe8.ai.shared
 ```
 
 ### Bundle Identifiers
-- Main App: `ios.Flirrt`
-- Keyboard: `ios.Flirrt.FlirrtKeyboard`
-- Share: `ios.Flirrt.FlirrtShare`
+- Main App: `ios.Vibe8`
+- Keyboard: `ios.Vibe8.Vibe8Keyboard`
+- Share: `ios.Vibe8.Vibe8Share`
 
 ### Capabilities Required
 - Sign In with Apple
@@ -106,7 +106,7 @@ group.com.flirrt.ai.shared
 ### Unit Tests
 ```bash
 xcodebuild test \
-  -scheme Flirrt \
+  -scheme Vibe8 \
   -destination 'platform=iOS Simulator,name=iPhone 16 Pro'
 ```
 
@@ -114,7 +114,7 @@ xcodebuild test \
 ```bash
 # Run UI tests
 xcodebuild test \
-  -scheme FlirrtUITests \
+  -scheme Vibe8UITests \
   -destination 'platform=iOS Simulator,name=iPhone 16 Pro'
 ```
 
@@ -128,7 +128,7 @@ node SimulatorTestAgent.js --full-test
 
 ### Create Simulator
 ```bash
-xcrun simctl create "Flirrt Test Device" \
+xcrun simctl create "Vibe8 Test Device" \
   com.apple.CoreSimulator.SimDeviceType.iPhone-16-Pro \
   com.apple.CoreSimulator.SimRuntime.iOS-18-6
 ```
@@ -141,12 +141,12 @@ open -a Simulator
 
 ### Install App
 ```bash
-xcrun simctl install booted /path/to/Flirrt.app
+xcrun simctl install booted /path/to/Vibe8.app
 ```
 
 ### Launch App
 ```bash
-xcrun simctl launch booted ios.Flirrt
+xcrun simctl launch booted ios.Vibe8
 ```
 
 ### Take Screenshot
@@ -158,7 +158,7 @@ xcrun simctl io booted screenshot screenshot.png
 
 ### View Logs
 ```bash
-xcrun simctl spawn booted log stream --level=debug | grep Flirrt
+xcrun simctl spawn booted log stream --level=debug | grep Vibe8
 ```
 
 ### Reset Simulator
@@ -211,7 +211,7 @@ func getMemoryUsage() -> Int {
 ## 🔐 Security
 
 ### Keychain Access
-- Service: `com.flirrt.ai`
+- Service: `com.vibe8.ai`
 - Access Group: Shared between app and extensions
 
 ### API Keys
@@ -248,14 +248,14 @@ func getMemoryUsage() -> Int {
 2. **Archive**
    ```bash
    xcodebuild archive \
-     -scheme Flirrt \
-     -archivePath build/Flirrt.xcarchive
+     -scheme Vibe8 \
+     -archivePath build/Vibe8.xcarchive
    ```
 
 3. **Export**
    ```bash
    xcodebuild -exportArchive \
-     -archivePath build/Flirrt.xcarchive \
+     -archivePath build/Vibe8.xcarchive \
      -exportPath build \
      -exportOptionsPlist ExportOptions.plist
    ```
@@ -263,7 +263,7 @@ func getMemoryUsage() -> Int {
 4. **Upload to TestFlight**
    ```bash
    xcrun altool --upload-app \
-     --file build/Flirrt.ipa \
+     --file build/Vibe8.ipa \
      --type ios \
      --apiKey $API_KEY \
      --apiIssuer $ISSUER_ID

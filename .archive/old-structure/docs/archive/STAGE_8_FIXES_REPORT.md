@@ -451,7 +451,7 @@ Some endpoints return different error formats, making client-side error handling
 **Source**: Stage 5 - Build Verification
 
 #### Issue Identified
-`AppConstants.swift` not accessible to FlirrtKeyboard and FlirrtShare extensions
+`AppConstants.swift` not accessible to Vibe8Keyboard and Vibe8Share extensions
 
 #### Fix Applied
 

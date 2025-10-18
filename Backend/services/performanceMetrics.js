@@ -1,6 +1,6 @@
 /**
  * Performance Metrics and Success Rate Validation Service
- * Comprehensive monitoring and validation system for Flirrt.ai
+ * Comprehensive monitoring and validation system for Vibe8.ai
  */
 
 const { logger } = require('./logger');

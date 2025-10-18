@@ -24,7 +24,7 @@
 
 **CRITICAL:** Voice recording and audio mixing ONLY in main app (NOT keyboard extension)
 
-**Created:** `iOS/Flirrt/Services/VoiceService.swift` (430 lines)
+**Created:** `iOS/Vibe8/Services/VoiceService.swift` (430 lines)
 
 **Features:**
 - ✅ ElevenLabs voice cloning integration
@@ -43,7 +43,7 @@
 
 ## STEP 2: Age Verification (iOS) ✅
 
-**Created:** `iOS/Flirrt/Views/AgeVerificationView.swift` (260 lines)
+**Created:** `iOS/Vibe8/Views/AgeVerificationView.swift` (260 lines)
 
 **Features:**
 - ✅ SwiftUI DatePicker for birthdate selection
@@ -163,9 +163,9 @@
 
 **Xcode Build:** ✅ BUILD SUCCEEDED
 **Targets:**
-- Flirrt (main app)
-- FlirrtKeyboard (keyboard extension)
-- FlirrtShare (share extension)
+- Vibe8 (main app)
+- Vibe8Keyboard (keyboard extension)
+- Vibe8Share (share extension)
 
 **Status:** ALL TARGETS BUILT SUCCESSFULLY
 
@@ -178,8 +178,8 @@
 **Branch:** main
 
 **Files Changed:** 8
-- iOS/Flirrt/Services/VoiceService.swift (NEW - 430 lines)
-- iOS/Flirrt/Views/AgeVerificationView.swift (NEW - 260 lines)
+- iOS/Vibe8/Services/VoiceService.swift (NEW - 430 lines)
+- iOS/Vibe8/Views/AgeVerificationView.swift (NEW - 260 lines)
 - Backend/routes/legal.js (NEW - 140 lines)
 - Backend/routes/account.js (NEW - 400 lines)
 - Backend/views/privacy-policy.ejs (NEW - 400 lines)

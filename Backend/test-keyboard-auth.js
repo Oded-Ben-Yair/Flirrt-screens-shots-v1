@@ -15,7 +15,7 @@ const authenticateToken = async (req, res, next) => {
         if (isKeyboardExtension) {
             req.user = {
                 id: 'keyboard-user-' + Date.now(),
-                email: 'keyboard@flirrt.ai',
+                email: 'keyboard@vibe8.ai',
                 sessionId: 'keyboard-session-' + Date.now(),
                 isVerified: true,
                 role: 'keyboard-user',
@@ -44,7 +44,7 @@ const authenticateToken = async (req, res, next) => {
         if (token === 'test-token-for-api-testing') {
             req.user = {
                 id: 'test-user-id',
-                email: 'test@flirrt.ai',
+                email: 'test@vibe8.ai',
                 sessionId: 'test-session-id',
                 isVerified: true,
                 role: 'user'

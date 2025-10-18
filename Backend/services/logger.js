@@ -60,7 +60,7 @@ const logger = winston.createLogger({
     level: process.env.LOG_LEVEL || 'info',
     format: customFormat,
     defaultMeta: {
-        service: 'flirrt-backend',
+        service: 'vibe8-backend',
         version: process.env.APP_VERSION || '1.0.0',
         environment: process.env.NODE_ENV || 'development'
     },

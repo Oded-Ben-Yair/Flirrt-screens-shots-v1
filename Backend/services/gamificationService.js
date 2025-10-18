@@ -1,5 +1,5 @@
 /**
- * Gamification Service for Flirrt.AI
+ * Gamification Service for Vibe8.AI
  *
  * Provides progress tracking, achievements, and level system
  * to create an engaging dating coach experience.
@@ -98,7 +98,7 @@ class GamificationService {
             {
                 id: 'week_streak',
                 title: 'Committed',
-                description: 'Use Flirrt for 7 days in a row',
+                description: 'Use Vibe8 for 7 days in a row',
                 icon: '🔥',
                 requirement: { type: 'daily_streak', count: 7 }
             },

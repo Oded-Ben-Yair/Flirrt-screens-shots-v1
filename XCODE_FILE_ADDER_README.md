@@ -2,7 +2,7 @@
 
 ## Overview
 
-This Python script (`add_swift_file_to_xcode.py`) programmatically adds Swift files to an Xcode project's `project.pbxproj` file without opening Xcode. It was developed to safely add `MinimalHomeView.swift` to the Flirrt iOS project.
+This Python script (`add_swift_file_to_xcode.py`) programmatically adds Swift files to an Xcode project's `project.pbxproj` file without opening Xcode. It was developed to safely add `MinimalHomeView.swift` to the Vibe8 iOS project.
 
 ## Problem Statement
 
@@ -63,7 +63,7 @@ A0081000000000000081000 /* Sources */ = {
     isa = PBXSourcesBuildPhase;
     buildActionMask = 2147483647;
     files = (
-        A0001000000000000001000 /* FlirrtApp.swift in Sources */,
+        A0001000000000000001000 /* Vibe8App.swift in Sources */,
         643B99CC85AD22A3505E5713 /* MinimalHomeView.swift in Sources */,
         ...
     );
@@ -105,7 +105,7 @@ A0081000000000000081000 /* Sources */ = {
 
 7. **Structure Location**
    - Finds the Views group UUID: `A0079000000000000079000`
-   - Finds the Flirrt target UUID: `A0055000000000000055000`
+   - Finds the Vibe8 target UUID: `A0055000000000000055000`
    - Finds the Sources build phase UUID: `A0081000000000000081000`
 
 8. **Section Updates**
@@ -155,7 +155,7 @@ cp project.pbxproj.backup_20251011_123238 project.pbxproj
 
 ### Basic Usage
 ```bash
-cd /Users/macbookairm1/Flirrt-screens-shots-v1
+cd /Users/macbookairm1/Vibe8-screens-shots-v1
 python3 add_swift_file_to_xcode.py
 ```
 
@@ -182,14 +182,14 @@ After running the script:
 
 ### 1. Check Xcode Can Parse the Project
 ```bash
-xcodebuild -project Flirrt.xcodeproj -list
+xcodebuild -project Vibe8.xcodeproj -list
 ```
 Should display targets and schemes without errors.
 
 ### 2. Build the Project
 ```bash
-xcodebuild -project Flirrt.xcodeproj \
-    -scheme Flirrt \
+xcodebuild -project Vibe8.xcodeproj \
+    -scheme Vibe8 \
     -destination 'platform=iOS Simulator,name=iPad (A16)' \
     clean build \
     CODE_SIGNING_ALLOWED=NO
@@ -208,7 +208,7 @@ Should show 4 entries:
 
 ### 4. Open in Xcode
 ```bash
-open Flirrt.xcodeproj
+open Vibe8.xcodeproj
 ```
 The file should appear in the correct folder in the project navigator.
 
@@ -248,7 +248,7 @@ cp /path/to/project.pbxproj.backup_TIMESTAMP /path/to/project.pbxproj
 
 ### Restore from Git (if committed)
 ```bash
-git checkout -- Flirrt.xcodeproj/project.pbxproj
+git checkout -- Vibe8.xcodeproj/project.pbxproj
 ```
 
 ## Success Criteria for This Implementation
@@ -256,7 +256,7 @@ git checkout -- Flirrt.xcodeproj/project.pbxproj
 The script successfully:
 1. Added MinimalHomeView.swift to the project
 2. Placed it in the Views group
-3. Linked it to the Flirrt target
+3. Linked it to the Vibe8 target
 4. Added it to the Sources build phase
 5. Preserved all existing formatting
 6. Validated syntax before writing
@@ -286,7 +286,7 @@ The script successfully:
 1. **Single File**: Currently adds one file at a time
    - To add multiple files: run script multiple times or modify to accept arrays
 
-2. **Single Target**: Only adds to Flirrt target
+2. **Single Target**: Only adds to Vibe8 target
    - To add to keyboard/share extensions: modify TARGET_NAME and rerun
 
 3. **Hardcoded UUIDs**: Sources build phase UUID is hardcoded
@@ -327,7 +327,7 @@ The script successfully:
 
 **Created**: October 11, 2025
 **Author**: Claude Code (Anthropic)
-**Project**: Flirrt AI - iOS App
+**Project**: Vibe8 AI - iOS App
 **Purpose**: Add MinimalHomeView.swift to Xcode project programmatically
 
 ---

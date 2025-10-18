@@ -47,7 +47,7 @@
   - `/Backend/config/` directory (constants.js, timeouts.js)
   - `/Backend/utils/` directory (validation.js, errorHandler.js)
   - `/Backend/tests/` directory (152+ test files)
-  - `/iOS/Flirrt/Config/` directory (AppConstants.swift)
+  - `/iOS/Vibe8/Config/` directory (AppConstants.swift)
   - `/scripts/` directory (automation scripts)
   - `/docs/` directory (security reports)
 
@@ -251,7 +251,7 @@
 6. `/Backend/tests/*.test.js` - Test suites
 
 ### iOS Files
-1. `/iOS/Flirrt/Config/AppConstants.swift` - iOS constants
+1. `/iOS/Vibe8/Config/AppConstants.swift` - iOS constants
 
 ### Documentation Files
 1. `/docs/SECURITY_TEST_REPORT.md` - Security audit
@@ -315,7 +315,7 @@
 ## Recommendations for User
 
 ### Next Steps
-1. **Review the updated README** at `/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/README.md`
+1. **Review the updated README** at `/Users/macbookairm1/Vibe8-screens-shots-v1/Vibe8AI/README.md`
 2. **Verify accuracy** of technical details
 3. **Consider adding**:
    - Screenshots of the app (optional)

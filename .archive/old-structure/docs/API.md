@@ -1,6 +1,6 @@
 # API Documentation
 
-Backend API reference for FlirrtAI server.
+Backend API reference for Vibe8AI server.
 
 **Base URL**: `http://localhost:3000/api/v1`
 

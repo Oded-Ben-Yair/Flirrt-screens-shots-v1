@@ -17,7 +17,7 @@ const path = require('path');
 const crypto = require('crypto');
 
 // Import our optimized services
-const ImageCompressionService = require('../iOS/Flirrt/Services/ImageCompressionService.swift');
+const ImageCompressionService = require('../iOS/Vibe8/Services/ImageCompressionService.swift');
 const streamingDeliveryService = require('./services/streamingDeliveryService');
 const intelligentCacheService = require('./services/intelligentCacheService');
 const advancedQualityAssurance = require('./services/advancedQualityAssurance');

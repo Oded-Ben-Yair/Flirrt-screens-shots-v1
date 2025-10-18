@@ -16,18 +16,18 @@ const router = express.Router();
 // Privacy Policy
 router.get('/privacy', (req, res) => {
     res.render('privacy-policy', {
-        title: 'Privacy Policy - Flirrt.AI',
+        title: 'Privacy Policy - Vibe8.AI',
         lastUpdated: 'October 17, 2025',
-        contactEmail: 'privacy@flirrt.ai'
+        contactEmail: 'privacy@vibe8.ai'
     });
 });
 
 // Terms of Service
 router.get('/terms', (req, res) => {
     res.render('terms-of-service', {
-        title: 'Terms of Service - Flirrt.AI',
+        title: 'Terms of Service - Vibe8.AI',
         lastUpdated: 'October 17, 2025',
-        contactEmail: 'legal@flirrt.ai'
+        contactEmail: 'legal@vibe8.ai'
     });
 });
 

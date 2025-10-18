@@ -18,10 +18,10 @@
 
 **Bundle IDs (DEVELOPMENT)**:
 ```
-Main App:    com.flirrt.app.dev
-Keyboard:    com.flirrt.app.dev.keyboard
-Share:       com.flirrt.app.dev.share
-App Group:   group.com.flirrt
+Main App:    com.vibe8.app.dev
+Keyboard:    com.vibe8.app.dev.keyboard
+Share:       com.vibe8.app.dev.share
+App Group:   group.com.vibe8
 ```
 
 **Build Info**:
@@ -46,13 +46,13 @@ App Group:   group.com.flirrt
 
 **Current** → **Production**:
 ```
-com.flirrt.app.dev          → com.flirrt.app
-com.flirrt.app.dev.keyboard → com.flirrt.app.keyboard
-com.flirrt.app.dev.share    → com.flirrt.app.share
+com.vibe8.app.dev          → com.vibe8.app
+com.vibe8.app.dev.keyboard → com.vibe8.app.keyboard
+com.vibe8.app.dev.share    → com.vibe8.app.share
 ```
 
 **Files to Update**:
-- `Flirrt.xcodeproj/project.pbxproj` (3 targets)
+- `Vibe8.xcodeproj/project.pbxproj` (3 targets)
 - Xcode → Targets → Signing & Capabilities
 
 ---
@@ -62,8 +62,8 @@ com.flirrt.app.dev.share    → com.flirrt.app.share
 **URL**: https://developer.apple.com/account
 
 **Tasks**:
-- [ ] Register 3 Bundle IDs (com.flirrt.app, .keyboard, .share)
-- [ ] Enable capabilities: App Groups (group.com.flirrt)
+- [ ] Register 3 Bundle IDs (com.vibe8.app, .keyboard, .share)
+- [ ] Enable capabilities: App Groups (group.com.vibe8)
 - [ ] Create iOS Distribution Certificate
 - [ ] Create 3 App Store Distribution Provisioning Profiles
 
@@ -75,9 +75,9 @@ com.flirrt.app.dev.share    → com.flirrt.app.share
 
 **Tasks**:
 - [ ] Create new app entry
-- [ ] Name: Flirrt AI
-- [ ] Bundle ID: com.flirrt.app
-- [ ] SKU: flirrt-ai-2025
+- [ ] Name: Vibe8 AI
+- [ ] Bundle ID: com.vibe8.app
+- [ ] SKU: vibe8-ai-2025
 - [ ] Primary Language: English (US)
 
 ---
@@ -127,13 +127,13 @@ com.flirrt.app.dev.share    → com.flirrt.app.share
 
 ```bash
 # Navigate to project
-cd /Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/FlirrtAI/iOS
+cd /Users/macbookairm1/Vibe8-screens-shots-v1/Vibe8AI/Vibe8AI/iOS
 
 # Open Xcode
-open Flirrt.xcodeproj
+open Vibe8.xcodeproj
 
 # Check current bundle IDs
-grep -A 2 "PRODUCT_BUNDLE_IDENTIFIER" Flirrt.xcodeproj/project.pbxproj | grep -E "(com\.flirrt|group\.)"
+grep -A 2 "PRODUCT_BUNDLE_IDENTIFIER" Vibe8.xcodeproj/project.pbxproj | grep -E "(com\.vibe8|group\.)"
 
 # Verify git status
 git status
@@ -192,7 +192,7 @@ git checkout -b production/testflight-setup
 
 ## 📞 Links
 
-- **GitHub**: https://github.com/Oded-Ben-Yair/Flirrt-screens-shots-v1
+- **GitHub**: https://github.com/Oded-Ben-Yair/Vibe8-screens-shots-v1
 - **Apple Developer**: https://developer.apple.com/account
 - **App Store Connect**: https://appstoreconnect.apple.com
 - **Render Dashboard**: https://dashboard.render.com

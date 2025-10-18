@@ -9,7 +9,7 @@ class AuthManager: NSObject, ObservableObject {
     @Published var error: String?
     @Published var ageVerified = false
 
-    private let keychain = Keychain(service: "com.flirrt.ai")
+    private let keychain = Keychain(service: "com.vibe8.ai")
     private let apiClient = APIClient()
 
     var currentUser: User? {
@@ -50,7 +50,7 @@ class AuthManager: NSObject, ObservableObject {
             ageVerified = true
             saveAgeVerification()
         } else {
-            error = "You must be 18 or older to use Flirrt"
+            error = "You must be 18 or older to use Vibe8"
             ageVerified = false
         }
     }

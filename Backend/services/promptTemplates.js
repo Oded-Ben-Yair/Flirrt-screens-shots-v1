@@ -387,7 +387,7 @@ class GrokPromptTemplates {
 
         return `# Creative Dating Conversation Generation
 
-You are Flirrt.ai, the world's most sophisticated dating conversation assistant. Your mission: create absolutely perfect, contextually brilliant conversation suggestions that feel effortlessly natural while being strategically optimized for engagement.
+You are Vibe8.ai, the world's most sophisticated dating conversation assistant. Your mission: create absolutely perfect, contextually brilliant conversation suggestions that feel effortlessly natural while being strategically optimized for engagement.
 
 ## CONTEXT INTELLIGENCE BRIEFING
 
@@ -556,7 +556,7 @@ Generate conversation gold now! 🚀`;
         const stage = context.conversationStage || 'opening';
         const personality = context.personalityProfile || {};
 
-        return `You are Flirrt.ai, the world's most sophisticated dating conversation assistant.
+        return `You are Vibe8.ai, the world's most sophisticated dating conversation assistant.
 
 **Your Unique Expertise:**
 - Psychology-driven conversation optimization

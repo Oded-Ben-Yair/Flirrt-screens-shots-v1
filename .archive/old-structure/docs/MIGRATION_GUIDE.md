@@ -22,7 +22,7 @@
 
 ### What Changed?
 
-In **Stage 3** and **Stage 4**, we eliminated all magic strings and hardcoded values across the Flirrt.ai codebase by implementing a **Single Source of Truth (SSOT)** pattern:
+In **Stage 3** and **Stage 4**, we eliminated all magic strings and hardcoded values across the Vibe8.ai codebase by implementing a **Single Source of Truth (SSOT)** pattern:
 
 - **iOS**: Created `AppConstants.swift` with 44+ UserDefaults keys and configuration values
 - **Backend**: Created `constants.js` (16 categories) and `timeouts.js` (21 categories)
@@ -57,15 +57,15 @@ In **Stage 3** and **Stage 4**, we eliminated all magic strings and hardcoded va
 - UI constants
 - Environment configuration
 
-**Location**: `/iOS/Flirrt/Config/AppConstants.swift`
+**Location**: `/iOS/Vibe8/Config/AppConstants.swift`
 
 ### Structure
 
 ```swift
 enum AppConstants {
     // App Group & Bundle Identifiers
-    static let appGroupIdentifier = "group.com.flirrt"
-    static let bundleIdentifier = "com.flirrt.app"
+    static let appGroupIdentifier = "group.com.vibe8"
+    static let bundleIdentifier = "com.vibe8.app"
 
     // API Configuration
     static let apiBaseURL = Environment.current.apiBaseURL
@@ -135,9 +135,9 @@ let oops = UserDefaults.standard.bool(forKey: AppConstants.UserDefaultsKeys.onbo
 **Before**:
 ```swift
 // Hardcoded in 15+ files
-let defaults = UserDefaults(suiteName: "group.com.flirrt")
+let defaults = UserDefaults(suiteName: "group.com.vibe8")
 let container = FileManager.default.containerURL(
-    forSecurityApplicationGroupIdentifier: "group.com.flirrt"
+    forSecurityApplicationGroupIdentifier: "group.com.vibe8"
 )
 ```
 
@@ -307,9 +307,9 @@ enum Environment {
         case .development:
             return "http://localhost:3000/api/v1"
         case .staging:
-            return "https://staging-api.flirrt.ai/api/v1"
+            return "https://staging-api.vibe8.ai/api/v1"
         case .production:
-            return "https://api.flirrt.ai/api/v1"
+            return "https://api.vibe8.ai/api/v1"
         }
     }
 }
@@ -328,15 +328,15 @@ let apiURL = AppConstants.apiBaseURL  // Automatically uses correct environment
 
 **Example**:
 ```swift
-// In FlirrtKeyboard/KeyboardViewController.swift
-let appGroupIdentifier = "group.com.flirrt"  // TODO: Use AppConstants.appGroupIdentifier
+// In Vibe8Keyboard/KeyboardViewController.swift
+let appGroupIdentifier = "group.com.vibe8"  // TODO: Use AppConstants.appGroupIdentifier
 ```
 
 **Stage 8 Fix**: Add AppConstants.swift to extension targets in Xcode:
 1. Select AppConstants.swift in Project Navigator
 2. File Inspector → Target Membership
-3. Check ✓ FlirrtKeyboard
-4. Check ✓ FlirrtShare
+3. Check ✓ Vibe8Keyboard
+4. Check ✓ Vibe8Share
 
 ---
 
@@ -500,7 +500,7 @@ const cacheKeyboard = timeouts.cache.keyboard;
 **Before**:
 ```javascript
 app.use(cors({
-    origin: ['http://localhost:3000', 'https://flirrt.ai', /* ... */],
+    origin: ['http://localhost:3000', 'https://vibe8.ai', /* ... */],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization', /* ... */]
 }));
@@ -663,7 +663,7 @@ const jittered = timeouts.addJitter(1000, 0.2);  // → 1000-1200 (random)
 ### For Updating Configuration
 
 #### iOS Configuration Update:
-1. Open `/iOS/Flirrt/Config/AppConstants.swift`
+1. Open `/iOS/Vibe8/Config/AppConstants.swift`
 2. Find the constant to update
 3. Update value
 4. Rebuild project
@@ -743,8 +743,8 @@ enum Environment {
     var apiBaseURL: String {
         switch self {
         case .development: return "http://localhost:3000/api/v1"
-        case .staging: return "https://staging-api.flirrt.ai/api/v1"
-        case .production: return "https://api.flirrt.ai/api/v1"
+        case .staging: return "https://staging-api.vibe8.ai/api/v1"
+        case .production: return "https://api.vibe8.ai/api/v1"
         }
     }
 }
@@ -804,7 +804,7 @@ ELEVENLABS_API_KEY=your_elevenlabs_api_key_here
 **Fix**:
 1. Select AppConstants.swift in Project Navigator
 2. File Inspector → Target Membership
-3. Ensure ✓ Flirrt is checked
+3. Ensure ✓ Vibe8 is checked
 
 #### Error 2: "Cannot find 'AppConstants' in scope" (Extension)
 
@@ -813,7 +813,7 @@ ELEVENLABS_API_KEY=your_elevenlabs_api_key_here
 **Temporary Workaround**:
 ```swift
 // In extension code
-let appGroupIdentifier = "group.com.flirrt"  // TODO: Use AppConstants (Stage 8)
+let appGroupIdentifier = "group.com.vibe8"  // TODO: Use AppConstants (Stage 8)
 ```
 
 **Permanent Fix** (Stage 8):
@@ -851,11 +851,11 @@ console.log(api.endpoints.analysis.analyze);
 ### Extension Target Issues (AppConstants Not Found)
 
 #### Problem:
-Extensions (FlirrtKeyboard, FlirrtShare) cannot import AppConstants
+Extensions (Vibe8Keyboard, Vibe8Share) cannot import AppConstants
 
 #### Symptoms:
 ```swift
-// In FlirrtKeyboard/KeyboardViewController.swift
+// In Vibe8Keyboard/KeyboardViewController.swift
 import AppConstants  // ❌ Error: No such module 'AppConstants'
 ```
 
@@ -868,21 +868,21 @@ import AppConstants  // ❌ Error: No such module 'AppConstants'
 1. **Add to Target Membership**:
    - Select AppConstants.swift
    - File Inspector → Target Membership
-   - Check ✓ FlirrtKeyboard
-   - Check ✓ FlirrtShare
+   - Check ✓ Vibe8Keyboard
+   - Check ✓ Vibe8Share
 
 2. **Update Extension Code**:
 ```swift
 // Before (hardcoded)
-let appGroupIdentifier = "group.com.flirrt"
+let appGroupIdentifier = "group.com.vibe8"
 
 // After (using AppConstants)
 let appGroupIdentifier = AppConstants.appGroupIdentifier
 ```
 
 3. **Test**:
-   - Build FlirrtKeyboard target
-   - Build FlirrtShare target
+   - Build Vibe8Keyboard target
+   - Build Vibe8Share target
    - Verify no errors
 
 ### Import Statement Issues
@@ -952,7 +952,7 @@ struct LoginView: View {
                 UserDefaults.standard.set("user123", forKey: "user_id")
                 UserDefaults.standard.set(email, forKey: "user_email")
 
-                let defaults = UserDefaults(suiteName: "group.com.flirrt")
+                let defaults = UserDefaults(suiteName: "group.com.vibe8")
                 defaults?.set(true, forKey: "user_authenticated")
             }
         }
@@ -1020,7 +1020,7 @@ const PORT = 3000;
 
 // Hardcoded CORS
 app.use(cors({
-    origin: ['http://localhost:3000', 'https://flirrt.ai'],
+    origin: ['http://localhost:3000', 'https://vibe8.ai'],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization']
 }));
@@ -1197,8 +1197,8 @@ console.log(jitteredDelay);  // → Random value between 1000-1200
 ### What's Next?
 
 **Stage 8**: Fix extension target access to AppConstants
-- Add AppConstants.swift to FlirrtKeyboard target
-- Add AppConstants.swift to FlirrtShare target
+- Add AppConstants.swift to Vibe8Keyboard target
+- Add AppConstants.swift to Vibe8Share target
 - Replace TODO comments with actual AppConstants usage
 
 ---

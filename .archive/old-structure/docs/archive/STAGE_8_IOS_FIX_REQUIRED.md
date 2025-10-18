@@ -9,7 +9,7 @@
 
 ## Problem
 
-The file `AppConstants.swift` is not accessible to the iOS keyboard and share extensions (`FlirrtKeyboard` and `FlirrtShare`), causing build errors when these extensions try to reference shared constants.
+The file `AppConstants.swift` is not accessible to the iOS keyboard and share extensions (`Vibe8Keyboard` and `Vibe8Share`), causing build errors when these extensions try to reference shared constants.
 
 **Error Symptoms**:
 - Build errors in extension targets referencing AppConstants
@@ -28,12 +28,12 @@ Add `AppConstants.swift` to the extension targets via Xcode's Target Membership 
 
 1. **Open Xcode**
    ```bash
-   open /Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/Flirrt.xcodeproj
+   open /Users/macbookairm1/Vibe8-screens-shots-v1/Vibe8AI/iOS/Vibe8.xcodeproj
    ```
 
 2. **Locate AppConstants.swift**
    - In the Project Navigator (left sidebar), navigate to:
-     - `Flirrt` → `Config` → `AppConstants.swift`
+     - `Vibe8` → `Config` → `AppConstants.swift`
    - Click on the file to select it
 
 3. **Open File Inspector**
@@ -43,18 +43,18 @@ Add `AppConstants.swift` to the extension targets via Xcode's Target Membership 
 4. **Update Target Membership**
    - In the File Inspector, find the **Target Membership** section
    - Check the following checkboxes:
-     - ☑️ Flirrt (should already be checked)
-     - ☑️ FlirrtKeyboard
-     - ☑️ FlirrtShare
+     - ☑️ Vibe8 (should already be checked)
+     - ☑️ Vibe8Keyboard
+     - ☑️ Vibe8Share
 
    ![Target Membership Example](https://docs-assets.developer.apple.com/published/d0e8f8ae1e/target-membership~dark@2x.png)
 
 5. **Verify Changes**
-   - Click on **FlirrtKeyboard** target in Project Navigator
+   - Click on **Vibe8Keyboard** target in Project Navigator
    - Go to **Build Phases** → **Compile Sources**
    - Verify `AppConstants.swift` appears in the list
 
-   - Repeat for **FlirrtShare** target
+   - Repeat for **Vibe8Share** target
 
 6. **Clean and Rebuild**
    ```
@@ -85,17 +85,17 @@ ruby << 'EOF'
 require 'xcodeproj'
 
 # Open the project
-project_path = '/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/Flirrt.xcodeproj'
+project_path = '/Users/macbookairm1/Vibe8-screens-shots-v1/Vibe8AI/iOS/Vibe8.xcodeproj'
 project = Xcodeproj::Project.open(project_path)
 
 # Find the file reference
-file_ref = project.files.find { |f| f.path == 'Flirrt/Config/AppConstants.swift' }
+file_ref = project.files.find { |f| f.path == 'Vibe8/Config/AppConstants.swift' }
 
 if file_ref
   # Get all targets
-  main_target = project.targets.find { |t| t.name == 'Flirrt' }
-  keyboard_target = project.targets.find { |t| t.name == 'FlirrtKeyboard' }
-  share_target = project.targets.find { |t| t.name == 'FlirrtShare' }
+  main_target = project.targets.find { |t| t.name == 'Vibe8' }
+  keyboard_target = project.targets.find { |t| t.name == 'Vibe8Keyboard' }
+  share_target = project.targets.find { |t| t.name == 'Vibe8Share' }
 
   # Add to build phase
   [keyboard_target, share_target].each do |target|
@@ -123,16 +123,16 @@ After applying the fix, verify it works:
 ### 1. Build Test
 
 ```bash
-cd /Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS
+cd /Users/macbookairm1/Vibe8-screens-shots-v1/Vibe8AI/iOS
 
 # Build main app
-xcodebuild -scheme Flirrt -configuration Debug build | grep -E "(error|warning|AppConstants)"
+xcodebuild -scheme Vibe8 -configuration Debug build | grep -E "(error|warning|AppConstants)"
 
 # Build keyboard extension
-xcodebuild -scheme FlirrtKeyboard -configuration Debug build | grep -E "(error|warning|AppConstants)"
+xcodebuild -scheme Vibe8Keyboard -configuration Debug build | grep -E "(error|warning|AppConstants)"
 
 # Build share extension
-xcodebuild -scheme FlirrtShare -configuration Debug build | grep -E "(error|warning|AppConstants)"
+xcodebuild -scheme Vibe8Share -configuration Debug build | grep -E "(error|warning|AppConstants)"
 ```
 
 ### 2. Expected Results
@@ -145,8 +145,8 @@ xcodebuild -scheme FlirrtShare -configuration Debug build | grep -E "(error|warn
 
 1. Run the app in simulator
 2. Enable the keyboard extension:
-   - Settings → General → Keyboard → Keyboards → Add New Keyboard → Flirrt
-3. Switch to Flirrt keyboard in any text field
+   - Settings → General → Keyboard → Keyboards → Add New Keyboard → Vibe8
+3. Switch to Vibe8 keyboard in any text field
 4. Verify keyboard loads without crashes
 
 ---
@@ -168,16 +168,16 @@ iOS app extensions (keyboards, share extensions, widgets, etc.) run in **separat
 If you encounter similar issues with other files, consider adding these to extension targets:
 
 ```
-Flirrt/Config/
+Vibe8/Config/
 ├── AppConstants.swift       ← Already fixed
 ├── APIConfig.swift          ← May need extension access
 └── Endpoints.swift          ← May need extension access
 
-Flirrt/Models/
+Vibe8/Models/
 ├── FlirtSuggestion.swift    ← Likely needed for keyboard
 └── User.swift               ← May be needed
 
-Flirrt/Utils/
+Vibe8/Utils/
 ├── NetworkManager.swift     ← May need extension access
 └── KeychainHelper.swift     ← May need extension access
 ```
@@ -196,8 +196,8 @@ Flirrt/Utils/
 
 ## Status Tracking
 
-- [ ] AppConstants.swift added to FlirrtKeyboard target
-- [ ] AppConstants.swift added to FlirrtShare target
+- [ ] AppConstants.swift added to Vibe8Keyboard target
+- [ ] AppConstants.swift added to Vibe8Share target
 - [ ] Build verification completed (all targets)
 - [ ] Runtime test in simulator completed
 

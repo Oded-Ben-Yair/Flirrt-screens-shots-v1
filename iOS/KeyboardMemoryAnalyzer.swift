@@ -84,7 +84,7 @@ class KeyboardMemoryAnalyzer {
     func testAppGroupsIntegration() {
         print("\n🔗 Testing App Groups Integration")
 
-        let appGroupID = "group.com.flirrt.shared"
+        let appGroupID = "group.com.vibe8.shared"
 
         // Test UserDefaults
         testUserDefaultsIntegration(appGroupID: appGroupID)
@@ -161,7 +161,7 @@ class KeyboardMemoryAnalyzer {
         // Test posting notification (what keyboard would do)
         CFNotificationCenterPostNotification(
             CFNotificationCenterGetDarwinNotifyCenter(),
-            CFNotificationName("com.flirrt.analyze.request" as CFString),
+            CFNotificationName("com.vibe8.analyze.request" as CFString),
             nil, nil, true
         )
         print("  Post notification: ✅ Success")
@@ -179,8 +179,8 @@ class KeyboardMemoryAnalyzer {
         import os.log
 
         class OptimizedKeyboardViewController: UIInputViewController {
-            private let logger = OSLog(subsystem: "com.flirrt.keyboard", category: "memory")
-            private let appGroupID = "group.com.flirrt.shared"
+            private let logger = OSLog(subsystem: "com.vibe8.keyboard", category: "memory")
+            private let appGroupID = "group.com.vibe8.shared"
             private let memoryLimit = 60 * 1024 * 1024
 
             // Lazy loading for UI components
@@ -256,7 +256,7 @@ class KeyboardMemoryAnalyzer {
             private func postNotification() {
                 CFNotificationCenterPostNotification(
                     CFNotificationCenterGetDarwinNotifyCenter(),
-                    CFNotificationName("com.flirrt.analyze.request" as CFString),
+                    CFNotificationName("com.vibe8.analyze.request" as CFString),
                     nil, nil, true
                 )
             }
@@ -265,7 +265,7 @@ class KeyboardMemoryAnalyzer {
                 guard let sharedDefaults = UserDefaults(suiteName: appGroupID) else { return }
                 let authenticated = sharedDefaults.bool(forKey: "user_authenticated")
                 if !authenticated {
-                    textDocumentProxy.insertText("Please open Flirrt app first")
+                    textDocumentProxy.insertText("Please open Vibe8 app first")
                 }
             }
 
@@ -295,7 +295,7 @@ class KeyboardMemoryAnalyzer {
         }
         """
 
-        let outputPath = "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/OptimizedKeyboardViewController.swift"
+        let outputPath = "/Users/macbookairm1/Vibe8-screens-shots-v1/Vibe8AI/iOS/OptimizedKeyboardViewController.swift"
         do {
             try optimizedCode.write(toFile: outputPath, atomically: true, encoding: .utf8)
             print("Saved optimized code to: \(outputPath)")

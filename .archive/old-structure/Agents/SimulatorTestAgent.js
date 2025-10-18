@@ -2,7 +2,7 @@
 
 /**
  * SimulatorTestAgent.js
- * Automated iOS Simulator Testing for Flirrt.ai
+ * Automated iOS Simulator Testing for Vibe8.ai
  *
  * This agent handles:
  * - Building the iOS app with xcodebuild
@@ -21,15 +21,15 @@ const execAsync = util.promisify(exec);
 class SimulatorTestAgent {
     constructor() {
         // Simulator configuration
-        this.simulatorId = '237F6A2D-72E4-49C2-B5E0-7B3F973C6814'; // Flirrt Production Device
-        this.simulatorName = 'Flirrt Production Device';
-        this.scheme = 'Flirrt';
-        this.bundleId = 'ios.Flirrt';
-        this.keyboardBundleId = 'ios.Flirrt.FlirrtKeyboard';
-        this.shareBundleId = 'ios.Flirrt.FlirrtShare';
+        this.simulatorId = '237F6A2D-72E4-49C2-B5E0-7B3F973C6814'; // Vibe8 Production Device
+        this.simulatorName = 'Vibe8 Production Device';
+        this.scheme = 'Vibe8';
+        this.bundleId = 'ios.Vibe8';
+        this.keyboardBundleId = 'ios.Vibe8.Vibe8Keyboard';
+        this.shareBundleId = 'ios.Vibe8.Vibe8Share';
 
         // Paths
-        this.projectRoot = '/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI';
+        this.projectRoot = '/Users/macbookairm1/Vibe8-screens-shots-v1/Vibe8AI';
         this.iosPath = path.join(this.projectRoot, 'iOS');
         this.buildPath = path.join(this.iosPath, 'build');
         this.screenshotsPath = path.join(this.projectRoot, 'TestResults', 'Screenshots');
@@ -50,7 +50,7 @@ class SimulatorTestAgent {
     // ==================== Main Test Runner ====================
 
     async runFullTest(options = {}) {
-        console.log('🚀 Starting Flirrt.ai Automated Test Suite');
+        console.log('🚀 Starting Vibe8.ai Automated Test Suite');
         console.log(`📱 Target Simulator: ${this.simulatorName}`);
         console.log(`🕐 Started at: ${new Date().toISOString()}\n`);
 
@@ -189,7 +189,7 @@ class SimulatorTestAgent {
     async installApp() {
         try {
             // Find the app bundle
-            const appPath = path.join(this.buildPath, 'Build/Products/Debug-iphonesimulator/Flirrt.app');
+            const appPath = path.join(this.buildPath, 'Build/Products/Debug-iphonesimulator/Vibe8.app');
 
             // Note: For SPM projects, the app bundle might not be created
             // We'll use the built objects instead
@@ -394,7 +394,7 @@ class SimulatorTestAgent {
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Flirrt.ai Test Report</title>
+    <title>Vibe8.ai Test Report</title>
     <style>
         body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 20px; }
         h1 { color: #FF1493; }
@@ -406,7 +406,7 @@ class SimulatorTestAgent {
     </style>
 </head>
 <body>
-    <h1>🚀 Flirrt.ai Automated Test Report</h1>
+    <h1>🚀 Vibe8.ai Automated Test Report</h1>
     <div class="summary">
         <h2>Summary</h2>
         <p>Generated: ${new Date().toLocaleString()}</p>
@@ -447,7 +447,7 @@ if (require.main === module) {
     const args = process.argv.slice(2);
     const command = args[0] || 'test';
 
-    console.log('Flirrt.ai Simulator Test Agent v1.0.0\n');
+    console.log('Vibe8.ai Simulator Test Agent v1.0.0\n');
 
     switch (command) {
         case 'test':

@@ -16,7 +16,7 @@ All code changes are complete:
 - [x] ScreenshotCaptureService created
 - [x] App Groups entitlements configured
 - [x] loadSuggestionsFromAppGroup() implemented
-- [x] App Group ID verified: `group.com.flirrt`
+- [x] App Group ID verified: `group.com.vibe8`
 
 **Only 1 manual step remains:** Add ScreenshotCaptureService to Xcode project
 
@@ -28,33 +28,33 @@ All code changes are complete:
 
 1. **Open Xcode:**
    ```bash
-   open iOS/Flirrt.xcodeproj
+   open iOS/Vibe8.xcodeproj
    ```
 
 2. **In Project Navigator, locate:**
-   - Flirrt (main app)
-   - → Flirrt (folder)
+   - Vibe8 (main app)
+   - → Vibe8 (folder)
    - → Services (folder)
 
 3. **Right-click on "Services" folder:**
-   - Select "Add Files to 'Flirrt'..."
+   - Select "Add Files to 'Vibe8'..."
 
 4. **Navigate to and select:**
    ```
-   iOS/Flirrt/Services/ScreenshotCaptureService.swift
+   iOS/Vibe8/Services/ScreenshotCaptureService.swift
    ```
 
 5. **In the dialog that appears:**
    - ✅ Check: "Copy items if needed" (if not already checked)
    - ✅ Check: "Create groups"
-   - ✅ Select target: **Flirrt** (main app ONLY)
-   - ❌ Uncheck: FlirrtKeyboard
-   - ❌ Uncheck: FlirrtShare
+   - ✅ Select target: **Vibe8** (main app ONLY)
+   - ❌ Uncheck: Vibe8Keyboard
+   - ❌ Uncheck: Vibe8Share
 
 6. **Click "Add"**
 
 7. **Verify:**
-   - File appears in Project Navigator under Flirrt/Services/
+   - File appears in Project Navigator under Vibe8/Services/
    - File is blue (part of project), not gray (reference only)
 
 ---
@@ -65,13 +65,13 @@ After adding the file:
 
 ```bash
 cd iOS
-xcodebuild -project Flirrt.xcodeproj -scheme Flirrt -sdk iphonesimulator clean build
+xcodebuild -project Vibe8.xcodeproj -scheme Vibe8 -sdk iphonesimulator clean build
 ```
 
 **Expected:** `** BUILD SUCCEEDED **`
 
 If build fails:
-- Check that ScreenshotCaptureService.swift is in the Flirrt target (not keyboard)
+- Check that ScreenshotCaptureService.swift is in the Vibe8 target (not keyboard)
 - Check that file shows up in Build Phases → Compile Sources
 - Make sure App Groups entitlements are properly configured
 
@@ -83,11 +83,11 @@ After adding the file, verify:
 
 - [ ] ScreenshotCaptureService.swift appears in Xcode Project Navigator
 - [ ] File is blue (not gray) in Project Navigator
-- [ ] File is in Flirrt target only (not keyboard or share extension)
+- [ ] File is in Vibe8 target only (not keyboard or share extension)
 - [ ] Build succeeds with no errors
 - [ ] App Groups entitlements are configured (already done ✅):
-  - Main app: `group.com.flirrt` ✅
-  - Keyboard: `group.com.flirrt` ✅
+  - Main app: `group.com.vibe8` ✅
+  - Keyboard: `group.com.vibe8` ✅
 
 ---
 
@@ -103,7 +103,7 @@ CP-1 Xcode configuration complete. ScreenshotCaptureService added to project. Bu
 
 Then I'll begin CP-2:
 - Install KeyboardKit 9.9 via Swift Package Manager
-- Create FlirrtKeyboardViewController with full QWERTY
+- Create Vibe8KeyboardViewController with full QWERTY
 - Add custom suggestion toolbar
 - Enable iOS 26 Liquid Glass design
 
@@ -152,10 +152,10 @@ Keyboard: Read suggestions, display UI only
 ## ❓ TROUBLESHOOTING
 
 **Problem:** File appears gray in Xcode
-**Solution:** Right-click file → Show File Inspector → Check "Target Membership" → Select Flirrt
+**Solution:** Right-click file → Show File Inspector → Check "Target Membership" → Select Vibe8
 
 **Problem:** Build fails with "Cannot find ScreenshotCaptureService in scope"
-**Solution:** Ensure file is in Flirrt target's "Compile Sources" (Build Phases tab)
+**Solution:** Ensure file is in Vibe8 target's "Compile Sources" (Build Phases tab)
 
 **Problem:** Build fails with "Cannot find type 'FlirtSuggestion'"
 **Solution:** This is expected - the struct is defined in both files. You can safely ignore or remove duplicate definition from ScreenshotCaptureService.swift

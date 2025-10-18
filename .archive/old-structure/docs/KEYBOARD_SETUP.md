@@ -1,6 +1,6 @@
 # Keyboard Setup Guide
 
-Step-by-step guide for installing and using the FlirrtAI keyboard.
+Step-by-step guide for installing and using the Vibe8AI keyboard.
 
 ---
 
@@ -16,10 +16,10 @@ Step-by-step guide for installing and using the FlirrtAI keyboard.
 1. Open iOS **Settings** app
 2. Navigate to: **General** → **Keyboard** → **Keyboards**
 3. Tap **"Add New Keyboard..."**
-4. Scroll down and select **"Flirrt"** from "THIRD-PARTY KEYBOARDS"
+4. Scroll down and select **"Vibe8"** from "THIRD-PARTY KEYBOARDS"
 
 ### Step 3: Enable Full Access
-1. In **Keyboards** settings, tap **"Flirrt"**
+1. In **Keyboards** settings, tap **"Vibe8"**
 2. Toggle **"Allow Full Access"** to **ON**
 3. Confirm the alert (needed for network requests to backend)
 
@@ -32,18 +32,18 @@ Step-by-step guide for installing and using the FlirrtAI keyboard.
 
 ## 🎮 Using the Keyboard
 
-### Switching to Flirrt Keyboard
+### Switching to Vibe8 Keyboard
 
 **Method 1: Globe Icon**
 1. Open any app (Messages, Tinder, etc.)
 2. Tap text field to bring up keyboard
 3. Tap and hold the 🌐 globe icon (bottom-left)
-4. Select "Flirrt" from the list
+4. Select "Vibe8" from the list
 
 **Method 2: Quick Tap**
 1. Tap 🌐 globe icon repeatedly
 2. Cycles through all enabled keyboards
-3. Stop when you see Flirrt keyboard
+3. Stop when you see Vibe8 keyboard
 
 ### Keyboard Interface
 
@@ -69,7 +69,7 @@ Step-by-step guide for installing and using the FlirrtAI keyboard.
 **When to use**: Starting a new conversation, need opener ideas
 
 **How it works**:
-1. Switch to Flirrt keyboard
+1. Switch to Vibe8 keyboard
 2. Button shows "💫 Fresh Flirts"
 3. Tap button
 4. Wait 10-20 seconds
@@ -88,7 +88,7 @@ Step-by-step guide for installing and using the FlirrtAI keyboard.
 
 **How it works** (Intended):
 1. Take screenshot of conversation (Side button + Volume Up)
-2. Switch to Flirrt keyboard
+2. Switch to Vibe8 keyboard
 3. Button automatically changes to "📸 Analyze This"
 4. Tap button
 5. Wait 15-25 seconds (analyzing + generating)
@@ -133,7 +133,7 @@ Step-by-step guide for installing and using the FlirrtAI keyboard.
 ### "Full Access Required" Message
 **Solution**:
 1. Settings → General → Keyboard → Keyboards
-2. Tap "Flirrt"
+2. Tap "Vibe8"
 3. Enable "Allow Full Access"
 4. Return to app and try again
 
@@ -144,15 +144,15 @@ Step-by-step guide for installing and using the FlirrtAI keyboard.
 3. Check Xcode console for error messages
 4. Verify network connectivity
 
-### "Complete Setup in Flirrt App First"
+### "Complete Setup in Vibe8 App First"
 **Solution**:
-1. Open main Flirrt app
+1. Open main Vibe8 app
 2. Complete the onboarding questionnaire
 3. Wait 30 seconds
 4. Return to keyboard and try again
 
 ### Keyboard Uses Too Much Memory
-**iOS might show**: "FlirrtKeyboard using significant memory"
+**iOS might show**: "Vibe8Keyboard using significant memory"
 
 **Solutions**:
 - Close and reopen keyboard (switch away and back)
@@ -237,7 +237,7 @@ In debug builds, you'll see an orange "🐛 Simulate Screenshot" button.
 - Communication style evolves
 
 ### How to Update:
-1. Open main Flirrt app
+1. Open main Vibe8 app
 2. Go to Settings
 3. Tap "Update Personalization"
 4. Modify your responses
@@ -271,7 +271,7 @@ In debug builds, you'll see an orange "🐛 Simulate Screenshot" button.
 **"API request failed"**
 → Check backend logs for errors
 
-**"Complete setup in Flirrt app first"**
+**"Complete setup in Vibe8 app first"**
 → Onboarding not completed or data not synced
 
 ---

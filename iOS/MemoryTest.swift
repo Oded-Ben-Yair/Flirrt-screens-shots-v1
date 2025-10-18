@@ -69,7 +69,7 @@ class MemoryTester {
     func testAppGroupsAccess() {
         print("\n🔗 Testing App Groups access...")
 
-        let appGroupID = "group.com.flirrt.shared"
+        let appGroupID = "group.com.vibe8.shared"
 
         // Test UserDefaults access
         if let sharedDefaults = UserDefaults(suiteName: appGroupID) {

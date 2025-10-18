@@ -8,8 +8,8 @@ import UIKit
 class ScreenshotCaptureService {
     static let shared = ScreenshotCaptureService()
 
-    private let appGroupID = "group.com.flirrt" // Must match AppConstants.appGroupIdentifier
-    private let darwinNotificationName = "com.flirrt.screenshot.detected"
+    private let appGroupID = "group.com.vibe8" // Must match AppConstants.appGroupIdentifier
+    private let darwinNotificationName = "com.vibe8.screenshot.detected"
 
     private var lastProcessedAssetIdentifier: String?
 

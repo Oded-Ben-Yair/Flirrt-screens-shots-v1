@@ -1,4 +1,4 @@
-# 🎯 iPad Testing Guide - Flirrt.AI
+# 🎯 iPad Testing Guide - Vibe8.AI
 **Session Date**: October 11, 2025
 **Deployment ID**: dep-d3l1ir56ubrc738vkg1g
 **Backend Status**: ✅ Deployed to Render
@@ -12,8 +12,8 @@
 The iOS app already has all critical communication fixes in place:
 
 1. **Darwin Notification Listener** ✅
-   - Location: `FlirrtAI/iOS/FlirrtKeyboard/KeyboardViewController.swift:161-179`
-   - Feature: Automatic screenshot detection via `com.flirrt.screenshot.detected`
+   - Location: `Vibe8AI/iOS/Vibe8Keyboard/KeyboardViewController.swift:161-179`
+   - Feature: Automatic screenshot detection via `com.vibe8.screenshot.detected`
    - Auto-triggers analysis when screenshot is detected
 
 2. **Screenshot Polling** ✅
@@ -22,7 +22,7 @@ The iOS app already has all critical communication fixes in place:
    - Works even if Darwin notifications fail
 
 3. **App Groups Configuration** ✅
-   - App Group ID: `group.com.flirrt`
+   - App Group ID: `group.com.vibe8`
    - Shared data access between main app and keyboard
    - Entitlements properly configured
 
@@ -48,12 +48,12 @@ All backend optimizations were already production-ready:
 
 ## 🚀 Testing Instructions
 
-### Step 1: Open the Flirrt App on iPad
+### Step 1: Open the Vibe8 App on iPad
 
 ```bash
 # App Location (if testing via Xcode)
-cd /Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/FlirrtAI/iOS
-open Flirrt.xcodeproj
+cd /Users/macbookairm1/Vibe8-screens-shots-v1/Vibe8AI/Vibe8AI/iOS
+open Vibe8.xcodeproj
 
 # Build & Run on iPad
 ```
@@ -61,16 +61,16 @@ open Flirrt.xcodeproj
 **Important**: Ensure the iPad is:
 - Connected to the Mac OR
 - TestFlight build is installed
-- Has "Allow Full Access" enabled for Flirrt keyboard in Settings
+- Has "Allow Full Access" enabled for Vibe8 keyboard in Settings
 
 ---
 
-### Step 2: Enable Flirrt Keyboard
+### Step 2: Enable Vibe8 Keyboard
 
 1. Open **Settings** → **General** → **Keyboard** → **Keyboards**
 2. Tap **Add New Keyboard...**
-3. Select **Flirrt**
-4. Tap **Flirrt** keyboard in the list
+3. Select **Vibe8**
+4. Tap **Vibe8** keyboard in the list
 5. Enable **"Allow Full Access"** ✅ CRITICAL
 
 ---
@@ -80,7 +80,7 @@ open Flirrt.xcodeproj
 #### Test 1: Automatic Screenshot Detection
 1. Open any dating app (Tinder, Bumble, etc.)
 2. Take a screenshot of a profile (Power + Volume Up)
-3. Immediately open the Flirrt keyboard
+3. Immediately open the Vibe8 keyboard
 4. **Expected**: Keyboard should automatically detect and analyze the screenshot within 2-10 seconds
 
 **Success Criteria**:
@@ -92,7 +92,7 @@ open Flirrt.xcodeproj
 
 #### Test 2: Profile Completion Check
 1. Take a screenshot of an INCOMPLETE profile (< 6 attributes visible)
-2. Open Flirrt keyboard
+2. Open Vibe8 keyboard
 3. **Expected**: "💬 I can see this profile has [X]/10 completeness. Please scroll down..."
 
 **Success Criteria**:
@@ -104,7 +104,7 @@ open Flirrt.xcodeproj
 
 #### Test 3: Chat Detection
 1. Take a screenshot of a CHAT conversation
-2. Open Flirrt keyboard
+2. Open Vibe8 keyboard
 3. **Expected**:
    - If chat has messages → 5 conversation continuation suggestions
    - If chat is empty → "📸 Screenshot Their Profile" button
@@ -118,7 +118,7 @@ open Flirrt.xcodeproj
 
 #### Test 4: Complete Profile
 1. Take a screenshot of a COMPLETE profile (6+ attributes visible)
-2. Open Flirrt keyboard
+2. Open Vibe8 keyboard
 3. **Expected**: 5 high-quality flirt suggestions appear within 2-3 seconds
 
 **Success Criteria**:
@@ -136,7 +136,7 @@ Monitor response times in Xcode console:
 ```swift
 // Expected logs:
 📸 Recent screenshot detected! Created X.X seconds ago
-🌐 API URL: https://flirrt-api-production.onrender.com/api/v1/flirts/generate_flirts
+🌐 API URL: https://vibe8-api-production.onrender.com/api/v1/flirts/generate_flirts
 📤 Sending request to backend...
 📥 Response status: 200
 ✅ Received XXXX bytes of data
@@ -154,13 +154,13 @@ Monitor response times in Xcode console:
 ### Issue: Keyboard doesn't appear
 **Fix**:
 1. Settings → General → Keyboard → Keyboards
-2. Delete Flirrt keyboard
+2. Delete Vibe8 keyboard
 3. Re-add and enable "Allow Full Access"
 
 ### Issue: "No screenshot found" error
 **Fix**:
 1. Settings → Privacy → Photos
-2. Ensure Flirrt keyboard has "Read and Write" access
+2. Ensure Vibe8 keyboard has "Read and Write" access
 3. Take a new screenshot and wait 2-5 seconds
 
 ### Issue: Slow response times (>10 seconds)
@@ -172,9 +172,9 @@ Monitor response times in Xcode console:
 ### Issue: "App Groups not configured" error
 **Fix**:
 1. Open Xcode project
-2. Select **Flirrt** target → **Signing & Capabilities**
-3. Ensure **App Groups** includes `group.com.flirrt`
-4. Select **FlirrtKeyboard** target → verify same App Group
+2. Select **Vibe8** target → **Signing & Capabilities**
+3. Ensure **App Groups** includes `group.com.vibe8`
+4. Select **Vibe8Keyboard** target → verify same App Group
 5. Clean build folder (Cmd+Shift+K) and rebuild
 
 ---
@@ -187,7 +187,7 @@ Monitor response times in Xcode console:
 
 **API Health Endpoint**:
 ```bash
-curl https://flirrt-api-production.onrender.com/api/v1/health
+curl https://vibe8-api-production.onrender.com/api/v1/health
 # Expected: {"status":"healthy","timestamp":"..."}
 ```
 
@@ -228,8 +228,8 @@ curl https://flirrt-api-production.onrender.com/api/v1/health
 ## 🔗 Quick Links
 
 - **Render Backend**: https://dashboard.render.com/web/srv-d3hq6r3uibrs73b4i6bg
-- **GitHub Repo**: https://github.com/Oded-Ben-Yair/Flirrt-screens-shots-v1
-- **Xcode Project**: `/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/FlirrtAI/iOS/Flirrt.xcodeproj`
+- **GitHub Repo**: https://github.com/Oded-Ben-Yair/Vibe8-screens-shots-v1
+- **Xcode Project**: `/Users/macbookairm1/Vibe8-screens-shots-v1/Vibe8AI/Vibe8AI/iOS/Vibe8.xcodeproj`
 
 ---
 
@@ -246,8 +246,8 @@ curl https://flirrt-api-production.onrender.com/api/v1/health
    - Look for "❌" error messages
 
 3. **Verify configuration**:
-   - App Group: `group.com.flirrt`
-   - API Base URL: `https://flirrt-api-production.onrender.com/api/v1`
+   - App Group: `group.com.vibe8`
+   - API Base URL: `https://vibe8-api-production.onrender.com/api/v1`
    - Full Access enabled in Settings
 
 4. **Restart everything**:
@@ -260,4 +260,4 @@ curl https://flirrt-api-production.onrender.com/api/v1/health
 
 **Ready to Test!** 🎉
 
-Open the Flirrt keyboard, take a screenshot, and watch the magic happen! ✨
+Open the Vibe8 keyboard, take a screenshot, and watch the magic happen! ✨

@@ -1,4 +1,4 @@
-# 🎯 FLIRRT.AI - PRODUCTION POLISH SESSION (OCTOBER 2, 2025)
+# 🎯 VIBE8.AI - PRODUCTION POLISH SESSION (OCTOBER 2, 2025)
 
 **Last Updated**: 2025-10-02 15:50 UTC
 **Session**: Production Polish - Automation, Security & Build Fixes
@@ -24,7 +24,7 @@ All API keys and secrets **permanently removed** from git history:
 **Remote**: Origin removed by filter-repo, needs re-add before push
 
 ### 🛠️ Automation Scripts Created
-**Location**: `FlirrtAI/scripts/` (4 production-grade scripts)
+**Location**: `Vibe8AI/scripts/` (4 production-grade scripts)
 
 1. **cleanup-simulators.sh** ✅ TESTED
    - Shuts down all booted simulators
@@ -52,7 +52,7 @@ All API keys and secrets **permanently removed** from git history:
 ### 📱 iOS Code Improvements
 
 **Swift 6 Compatibility** ✅
-- Created `iOS/Flirrt/Extensions/Swift6Compatibility.swift`
+- Created `iOS/Vibe8/Extensions/Swift6Compatibility.swift`
 - Added `extension UserDefaults: @unchecked Sendable {}`
 - **Impact**: Fixes 40+ concurrency warnings
 
@@ -63,7 +63,7 @@ All API keys and secrets **permanently removed** from git history:
 - Added missing properties: `content`, `tags`, `icon`
 
 **Deprecated API Updates** ✅
-- TLSv1.0 → TLSv1.2 in `FlirrtShare/Info.plist`
+- TLSv1.0 → TLSv1.2 in `Vibe8Share/Info.plist`
 - Removed deprecated `configurationItems()` in `ShareViewController.swift`
 
 **Build Status**:
@@ -72,7 +72,7 @@ All API keys and secrets **permanently removed** from git history:
 - **Progress**: 89% warning reduction
 
 ### 🗄️ Database Configuration Cleanup ✅
-**File**: `FlirrtAI/Backend/.env`
+**File**: `Vibe8AI/Backend/.env`
 
 **Before**:
 ```env
@@ -84,7 +84,7 @@ DB_PORT=5432
 ```env
 # Database Configuration (SQLite - currently in use)
 DB_TYPE=sqlite
-DB_PATH=./data/flirrt.db
+DB_PATH=./data/vibe8.db
 
 # PostgreSQL Configuration (not currently active)
 # DB_HOST=localhost  # Commented out
@@ -97,7 +97,7 @@ DB_PATH=./data/flirrt.db
 ## ⚠️ REMAINING ISSUES
 
 ### 🔴 Build Errors (4 errors - VoiceScriptSelectorView.swift)
-**Location**: `FlirrtAI/iOS/Flirrt/Views/VoiceScriptSelectorView.swift`
+**Location**: `Vibe8AI/iOS/Vibe8/Views/VoiceScriptSelectorView.swift`
 
 **Error Pattern**: SwiftUI Button API incompatibility
 ```
@@ -168,18 +168,18 @@ Button {
 
 **2. Build & Verify** (5 min)
 ```bash
-cd FlirrtAI/iOS
-xcodebuild -scheme Flirrt -configuration Debug -destination 'platform=iOS Simulator,name=iPhone 16e' build
+cd Vibe8AI/iOS
+xcodebuild -scheme Vibe8 -configuration Debug -destination 'platform=iOS Simulator,name=iPhone 16e' build
 ```
 
 ### Push to Remote (10 minutes)
 
 **3. Push Cleaned Git History**
 ```bash
-cd /Users/macbookairm1/Flirrt-screens-shots-v1
+cd /Users/macbookairm1/Vibe8-screens-shots-v1
 
 # Re-add remote (git-filter-repo removed it)
-git remote add origin git@github.com:Oded-Ben-Yair/Flirrt-screens-shots-v1.git
+git remote add origin git@github.com:Oded-Ben-Yair/Vibe8-screens-shots-v1.git
 
 # Verify no secrets
 git log -p --all | grep -E 'xai-|sk_|AIza|ghp_'  # Should be empty
@@ -191,7 +191,7 @@ git push --force-with-lease origin fix/real-mvp-implementation
 ### Testing (30 minutes)
 
 **4. Full Integration Test**
-- Open Flirrt.xcodeproj in Xcode
+- Open Vibe8.xcodeproj in Xcode
 - Run on iPhone 16e simulator
 - Test: Login → Onboarding → Voice Recording → Keyboard
 - Document any issues in `docs/KNOWN_ISSUES.md`
@@ -203,16 +203,16 @@ git push --force-with-lease origin fix/real-mvp-implementation
 ### Quick Reference
 ```bash
 # Clean up simulators
-./FlirrtAI/scripts/cleanup-simulators.sh
+./Vibe8AI/scripts/cleanup-simulators.sh
 
 # Build and check warnings
-./FlirrtAI/scripts/build-and-test.sh
+./Vibe8AI/scripts/build-and-test.sh
 
 # Validate before push (checks for secrets)
-./FlirrtAI/scripts/pre-push-validation.sh
+./Vibe8AI/scripts/pre-push-validation.sh
 
 # Clean git history (ONLY if secrets detected)
-./FlirrtAI/scripts/clean-git-history.sh
+./Vibe8AI/scripts/clean-git-history.sh
 ```
 
 ---
@@ -220,7 +220,7 @@ git push --force-with-lease origin fix/real-mvp-implementation
 ## 🔑 SECURITY NOTES
 
 ### .env File (NOT in git)
-**Location**: `FlirrtAI/Backend/.env`
+**Location**: `Vibe8AI/Backend/.env`
 **Status**: ✅ Gitignored, contains real API keys
 **Backup**: Keys also in `~/.claude/CLAUDE.md`
 
@@ -237,7 +237,7 @@ git push --force-with-lease origin fix/real-mvp-implementation
 
 ### Root Directory ✅ CLEAN
 ```
-FlirrtAI/
+Vibe8AI/
 ├── CLAUDE.md              # This file - session handoff
 ├── NEXT_SESSION_GUIDE.md  # Quick start for next session
 ├── README.md              # User-facing readme
@@ -271,7 +271,7 @@ FlirrtAI/
 
 ### Uncommitted Changes
 ```
-M  FlirrtAI/Backend/.env  # Database config cleanup
+M  Vibe8AI/Backend/.env  # Database config cleanup
 ```
 
 ### Remote Status

@@ -1,8 +1,8 @@
-# Flirrt.ai Production Testing Checklist
+# Vibe8.ai Production Testing Checklist
 
 ## 🎯 Overview
 
-Complete testing checklist for validating all Flirrt.ai features in production with cloud backend.
+Complete testing checklist for validating all Vibe8.ai features in production with cloud backend.
 
 **Testing Environment:**
 - Backend: Render.com (HTTPS)
@@ -15,7 +15,7 @@ Complete testing checklist for validating all Flirrt.ai features in production w
 
 ### Backend Verification:
 - [ ] Render.com service deployed successfully
-- [ ] Health endpoint returns 200 OK: `https://flirrt-api-production.onrender.com/health`
+- [ ] Health endpoint returns 200 OK: `https://vibe8-api-production.onrender.com/health`
 - [ ] All API keys configured in environment variables
 - [ ] Environment shows `"environment": "production"`
 - [ ] Services status shows:
@@ -50,7 +50,7 @@ Complete testing checklist for validating all Flirrt.ai features in production w
 **Test Steps:**
 1. Take screenshot of profile (Home + Volume Up)
 2. Open Messages app (or any app with text input)
-3. Tap text field → Switch to Flirrt keyboard
+3. Tap text field → Switch to Vibe8 keyboard
 4. Wait for keyboard to detect screenshot
 
 **Expected Results:**
@@ -82,7 +82,7 @@ Complete testing checklist for validating all Flirrt.ai features in production w
 
 **Test Steps:**
 1. Take screenshot of incomplete profile
-2. Open text field → Switch to Flirrt keyboard
+2. Open text field → Switch to Vibe8 keyboard
 3. Wait for analysis
 
 **Expected Results:**
@@ -112,7 +112,7 @@ Complete testing checklist for validating all Flirrt.ai features in production w
 
 **Test Steps:**
 1. Take screenshot of empty chat
-2. Open text field → Switch to Flirrt keyboard
+2. Open text field → Switch to Vibe8 keyboard
 3. Wait for analysis
 
 **Expected Results:**
@@ -144,7 +144,7 @@ Complete testing checklist for validating all Flirrt.ai features in production w
 
 **Test Steps:**
 1. Take screenshot of active conversation
-2. Open text field → Switch to Flirrt keyboard
+2. Open text field → Switch to Vibe8 keyboard
 3. Wait for analysis
 
 **Expected Results:**
@@ -176,7 +176,7 @@ Complete testing checklist for validating all Flirrt.ai features in production w
 **A) Timeout Error:**
 1. Enable airplane mode on iPad
 2. Take screenshot
-3. Switch to Flirrt keyboard
+3. Switch to Vibe8 keyboard
 
 **Expected:**
 - [ ] Shows error: "Network error: The request timed out"
@@ -315,7 +315,7 @@ If you encounter issues, document using this format:
 ### Session Info:
 - **Date:** __________
 - **Tester:** __________
-- **Backend URL:** https://flirrt-api-production.onrender.com
+- **Backend URL:** https://vibe8-api-production.onrender.com
 - **Build Version:** __________
 
 ### Test Results Summary:

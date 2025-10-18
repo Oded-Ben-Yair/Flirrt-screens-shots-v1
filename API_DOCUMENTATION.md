@@ -1,7 +1,7 @@
-# Flirrt.AI API Documentation
+# Vibe8.AI API Documentation
 
 **Version:** 1.0.0
-**Base URL (Production):** `https://flirrt-api-production.onrender.com/api/v1`
+**Base URL (Production):** `https://vibe8-api-production.onrender.com/api/v1`
 **Base URL (Development):** `http://localhost:3000/api/v1`
 **Last Updated:** October 18, 2025
 
@@ -429,7 +429,7 @@ Authorization: Bearer <token>
 {
   "success": true,
   "data": {
-    "audio_url": "https://flirrt-api.onrender.com/audio/msg_xyz789.mp3",
+    "audio_url": "https://vibe8-api.onrender.com/audio/msg_xyz789.mp3",
     "audio_id": "msg_xyz789",
     "duration": 5.2,
     "text": "Hey! Your profile caught my eye. I love hiking too!",
@@ -571,7 +571,7 @@ Get privacy policy in HTML or JSON format.
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Flirrt.AI Privacy Policy</title>
+    <title>Vibe8.AI Privacy Policy</title>
 </head>
 <body>
     <h1>Privacy Policy</h1>
@@ -791,7 +791,7 @@ X-RateLimit-Reset: 1697640000
 
 **cURL:**
 ```bash
-curl -X POST https://flirrt-api-production.onrender.com/api/v1/flirts/generate_flirts \
+curl -X POST https://vibe8-api-production.onrender.com/api/v1/flirts/generate_flirts \
   -H "Content-Type: application/json" \
   -d '{
     "image_data": "iVBORw0KGgoAAAANSUhEUgAA...",
@@ -803,7 +803,7 @@ curl -X POST https://flirrt-api-production.onrender.com/api/v1/flirts/generate_f
 
 **JavaScript (fetch):**
 ```javascript
-const response = await fetch('https://flirrt-api-production.onrender.com/api/v1/flirts/generate_flirts', {
+const response = await fetch('https://vibe8-api-production.onrender.com/api/v1/flirts/generate_flirts', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json'
@@ -822,7 +822,7 @@ console.log(data.data.suggestions);
 
 **Swift (URLSession):**
 ```swift
-let url = URL(string: "https://flirrt-api-production.onrender.com/api/v1/flirts/generate_flirts")!
+let url = URL(string: "https://vibe8-api-production.onrender.com/api/v1/flirts/generate_flirts")!
 var request = URLRequest(url: url)
 request.httpMethod = "POST"
 request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -848,7 +848,7 @@ URLSession.shared.dataTask(with: request) { data, response, error in
 
 **cURL:**
 ```bash
-curl -X POST https://flirrt-api-production.onrender.com/api/v1/flirts/refresh \
+curl -X POST https://vibe8-api-production.onrender.com/api/v1/flirts/refresh \
   -H "Content-Type: application/json" \
   -d '{
     "screenshot_id": "ss_xyz789",
@@ -867,13 +867,13 @@ curl -X POST https://flirrt-api-production.onrender.com/api/v1/flirts/refresh \
 
 **cURL:**
 ```bash
-curl -X GET https://flirrt-api-production.onrender.com/api/v1/flirts/progress \
+curl -X GET https://vibe8-api-production.onrender.com/api/v1/flirts/progress \
   -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
 ```
 
 **JavaScript:**
 ```javascript
-const response = await fetch('https://flirrt-api-production.onrender.com/api/v1/flirts/progress', {
+const response = await fetch('https://vibe8-api-production.onrender.com/api/v1/flirts/progress', {
   headers: {
     'Authorization': `Bearer ${token}`
   }
@@ -891,7 +891,7 @@ console.log(`Achievements: ${data.data.achievements.unlocked_count}/12`);
 
 **cURL:**
 ```bash
-curl -X POST https://flirrt-api-production.onrender.com/api/v1/voice/generate \
+curl -X POST https://vibe8-api-production.onrender.com/api/v1/voice/generate \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." \
   -d '{
@@ -907,4 +907,4 @@ curl -X POST https://flirrt-api-production.onrender.com/api/v1/voice/generate \
 **Version:** 1.0.0
 **Last Updated:** October 18, 2025
 
-For API support, contact: support@flirrt.ai
+For API support, contact: support@vibe8.ai

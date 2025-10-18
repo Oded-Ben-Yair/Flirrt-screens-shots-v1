@@ -1,9 +1,9 @@
-# App Review Notes for Flirrt.AI
+# App Review Notes for Vibe8.AI
 
-**App Name:** Flirrt.AI - Your Dating Wingman
+**App Name:** Vibe8.AI - Your Dating Wingman
 **Version:** 1.0.0
 **Build:** 1
-**Bundle ID:** com.flirrt.app
+**Bundle ID:** com.vibe8.app
 **Category:** Social Networking
 **Age Rating:** 17+ (Infrequent/Mild Sexual Content or Nudity)
 
@@ -11,7 +11,7 @@
 
 ## App Purpose
 
-Flirrt.AI is an AI-powered dating assistant app that helps users improve their dating conversations through intelligent suggestion generation. The app uses advanced AI to analyze dating app screenshots and provide personalized, contextually appropriate conversation suggestions via a custom keyboard extension.
+Vibe8.AI is an AI-powered dating assistant app that helps users improve their dating conversations through intelligent suggestion generation. The app uses advanced AI to analyze dating app screenshots and provide personalized, contextually appropriate conversation suggestions via a custom keyboard extension.
 
 ---
 
@@ -20,7 +20,7 @@ Flirrt.AI is an AI-powered dating assistant app that helps users improve their d
 ### 1. Custom Keyboard Extension
 - **Functionality:** Displays up to 3 AI-generated conversation suggestions
 - **Privacy:** Keyboard has no "Full Access" - does not collect or transmit user typing data
-- **Communication:** Uses App Groups (group.com.flirrt) to share suggestions between main app and keyboard
+- **Communication:** Uses App Groups (group.com.vibe8) to share suggestions between main app and keyboard
 - **Memory:** Optimized to stay under 50MB memory limit for keyboard extensions
 
 ### 2. Screenshot Analysis
@@ -182,7 +182,7 @@ All third-party services comply with GDPR and CCPA requirements.
 
 **For App Review Team:**
 
-Email: demo@flirrt.ai
+Email: demo@vibe8.ai
 Password: [PROVIDED SEPARATELY VIA APP STORE CONNECT]
 
 **Demo Instructions:**
@@ -195,9 +195,9 @@ Password: [PROVIDED SEPARATELY VIA APP STORE CONNECT]
 7. Select sample profile screenshot (provided in TestFlight notes)
 8. Wait for analysis (15-30 seconds)
 9. View 3 AI-generated suggestions
-10. Enable keyboard: Settings → General → Keyboard → Keyboards → Add New Keyboard → Flirrt
+10. Enable keyboard: Settings → General → Keyboard → Keyboards → Add New Keyboard → Vibe8
 11. Open Notes app or Messages
-12. Switch to Flirrt keyboard
+12. Switch to Vibe8 keyboard
 13. Suggestions appear at top of keyboard
 14. Tap suggestion to insert text
 15. Tap refresh button for new suggestions
@@ -240,12 +240,12 @@ Password: [PROVIDED SEPARATELY VIA APP STORE CONNECT]
 
 **Step 5: Enable Keyboard**
 - Settings → General → Keyboard → Keyboards
-- Add New Keyboard → Flirrt
+- Add New Keyboard → Vibe8
 - Allow Full Access: **NO** (not required)
 
 **Step 6: Use Keyboard**
 - Open any app (Notes, Messages, etc.)
-- Switch to Flirrt keyboard (globe icon)
+- Switch to Vibe8 keyboard (globe icon)
 - 3 suggestions appear at top
 - Tap suggestion to insert text
 - Tap refresh for new suggestions
@@ -348,12 +348,12 @@ Password: [PROVIDED SEPARATELY VIA APP STORE CONNECT]
 
 ## Support & Contact
 
-**Support Email:** support@flirrt.ai
-**Website:** https://flirrt.ai
+**Support Email:** support@vibe8.ai
+**Website:** https://vibe8.ai
 **Privacy Policy:** https://[YOUR_DOMAIN]/api/v1/legal/privacy-policy
 **Terms of Service:** https://[YOUR_DOMAIN]/api/v1/legal/terms
 
-**App Review Questions:** reviewsupport@flirrt.ai
+**App Review Questions:** reviewsupport@vibe8.ai
 
 ---
 
@@ -371,8 +371,8 @@ Password: [PROVIDED SEPARATELY VIA APP STORE CONNECT]
 - **Compliance:** All services meet privacy requirements
 
 ### Production Backend
-- **URL:** https://flirrt-api-production.onrender.com
-- **Health Check:** https://flirrt-api-production.onrender.com/health
+- **URL:** https://vibe8-api-production.onrender.com
+- **Health Check:** https://vibe8-api-production.onrender.com/health
 - **Status:** Production-ready
 
 ### Development Team
@@ -386,10 +386,10 @@ Password: [PROVIDED SEPARATELY VIA APP STORE CONNECT]
 
 **Version 1.0.0 (Build 1) - Initial Submission**
 
-This is the initial submission for Flirrt.AI.
+This is the initial submission for Vibe8.AI.
 
 ---
 
-**App Review Team: Thank you for reviewing Flirrt.AI!**
+**App Review Team: Thank you for reviewing Vibe8.AI!**
 
-If you have any questions or need clarification on any feature, please contact reviewsupport@flirrt.ai. We are committed to providing a safe, privacy-focused dating assistance app that complies with all App Store guidelines.
+If you have any questions or need clarification on any feature, please contact reviewsupport@vibe8.ai. We are committed to providing a safe, privacy-focused dating assistance app that complies with all App Store guidelines.

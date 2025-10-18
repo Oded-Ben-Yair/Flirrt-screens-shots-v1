@@ -1,4 +1,4 @@
-# Deployment Checklist - Flirrt.ai
+# Deployment Checklist - Vibe8.ai
 
 **Production Readiness**: 98/100 ✅
 **Security Grade**: A (Excellent)
@@ -11,7 +11,7 @@
 ```bash
 # 1. Clone & setup
 git clone <repo-url>
-cd FlirrtAI/Backend
+cd Vibe8AI/Backend
 npm install
 
 # 2. Configure environment
@@ -56,11 +56,11 @@ npm start
 **Issue**: AppConstants.swift not accessible to keyboard/share extensions
 
 **Fix** (via Xcode GUI):
-1. Open `iOS/Flirrt.xcodeproj` in Xcode
-2. Select `iOS/Flirrt/Config/AppConstants.swift` in Project Navigator
+1. Open `iOS/Vibe8.xcodeproj` in Xcode
+2. Select `iOS/Vibe8/Config/AppConstants.swift` in Project Navigator
 3. In File Inspector (right sidebar):
-   - Check ☑️ **FlirrtKeyboard**
-   - Check ☑️ **FlirrtShare**
+   - Check ☑️ **Vibe8Keyboard**
+   - Check ☑️ **Vibe8Share**
 4. Build: `⌘B`
 5. Verify: Build Succeeded
 
@@ -131,7 +131,7 @@ npm start
 ```bash
 npm install -g pm2
 cd Backend
-pm2 start server.js --name flirrt-api
+pm2 start server.js --name vibe8-api
 pm2 save
 pm2 startup
 ```
@@ -148,12 +148,12 @@ pm2 startup
 #### Development Build
 ```bash
 # 1. Open Xcode
-open iOS/Flirrt.xcodeproj
+open iOS/Vibe8.xcodeproj
 
 # 2. Fix extension targets (if not done)
 # See "iOS Extension Configuration" above
 
-# 3. Select scheme: Flirrt
+# 3. Select scheme: Vibe8
 # 4. Select destination: Simulator or Device
 # 5. Build: ⌘B
 # Expected: Build Succeeded
@@ -162,9 +162,9 @@ open iOS/Flirrt.xcodeproj
 #### App Store Build
 ```bash
 # 1. Configure signing
-# - Select target: Flirrt
+# - Select target: Vibe8
 # - Signing & Capabilities → Team: <Your Team>
-# - Repeat for FlirrtKeyboard and FlirrtShare
+# - Repeat for Vibe8Keyboard and Vibe8Share
 
 # 2. Archive
 # Product → Archive
@@ -304,13 +304,13 @@ pm2 monit
 
 ```bash
 # View PM2 logs
-pm2 logs flirrt-api
+pm2 logs vibe8-api
 
 # View raw logs
-tail -f /var/log/flirrt-api.log
+tail -f /var/log/vibe8-api.log
 
 # Search for errors
-grep "ERROR" /var/log/flirrt-api.log
+grep "ERROR" /var/log/vibe8-api.log
 ```
 
 ---
@@ -342,8 +342,8 @@ git checkout stage-8-best-practices-complete
 npm start
 
 # Option 3: PM2 rollback
-pm2 stop flirrt-api
-pm2 delete flirrt-api
+pm2 stop vibe8-api
+pm2 delete vibe8-api
 # Deploy previous version
 ```
 
@@ -386,7 +386,7 @@ grep -E "GROK_API_KEY|ELEVENLABS_API_KEY|JWT_SECRET" Backend/.env
 **Fix**:
 ```bash
 # Check server logs
-pm2 logs flirrt-api --lines 100
+pm2 logs vibe8-api --lines 100
 
 # Common causes:
 # 1. Invalid API keys → check .env

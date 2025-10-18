@@ -187,7 +187,7 @@
 12. tests/validation-enforcement.test.js
 
 **iOS**:
-13. Flirrt/Config/AppConstants.swift
+13. Vibe8/Config/AppConstants.swift
 
 **Documentation**:
 14. BUILD_VERIFICATION_REPORT.md

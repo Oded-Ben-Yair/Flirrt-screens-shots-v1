@@ -1,4 +1,4 @@
-# TestFlight Submission Checklist for Flirrt.AI
+# TestFlight Submission Checklist for Vibe8.AI
 
 **Version:** 1.0.0
 **Build:** 1
@@ -49,10 +49,10 @@
 - [ ] Production API URL configured
 - [ ] API keys properly set (environment variables)
 - [ ] Bundle IDs correct:
-  - [ ] Main app: com.flirrt.app
-  - [ ] Keyboard: com.flirrt.app.keyboard
-  - [ ] Share: com.flirrt.app.share
-- [ ] App Groups configured: group.com.flirrt
+  - [ ] Main app: com.vibe8.app
+  - [ ] Keyboard: com.vibe8.app.keyboard
+  - [ ] Share: com.vibe8.app.share
+- [ ] App Groups configured: group.com.vibe8
 - [ ] Deployment target: iOS 15.0
 - [ ] Development Team: 9L8889KAL6
 
@@ -72,7 +72,7 @@
 
 - [ ] Select "Any iOS Device (arm64)" as build destination
 - [ ] Build configuration set to "Release"
-- [ ] Scheme set to "Flirrt"
+- [ ] Scheme set to "Vibe8"
 - [ ] Code signing identity: "Apple Distribution"
 - [ ] Provisioning profile: Distribution profile
 - [ ] Automatic signing enabled (or manual if required)
@@ -82,15 +82,15 @@
 ```bash
 # Clean build folder
 xcodebuild clean \
-  -project Flirrt.xcodeproj \
-  -scheme Flirrt \
+  -project Vibe8.xcodeproj \
+  -scheme Vibe8 \
   -configuration Release
 
 # Create archive
 xcodebuild archive \
-  -project Flirrt.xcodeproj \
-  -scheme Flirrt \
-  -archivePath ./build/Flirrt.xcarchive \
+  -project Vibe8.xcodeproj \
+  -scheme Vibe8 \
+  -archivePath ./build/Vibe8.xcarchive \
   -configuration Release \
   -allowProvisioningUpdates
 ```
@@ -101,9 +101,9 @@ xcodebuild archive \
 - [ ] No warnings or errors during archive
 - [ ] Archive size reasonable (< 200MB)
 - [ ] All targets included:
-  - [ ] Flirrt (main app)
-  - [ ] FlirrtKeyboard
-  - [ ] FlirrtShare
+  - [ ] Vibe8 (main app)
+  - [ ] Vibe8Keyboard
+  - [ ] Vibe8Share
 - [ ] Symbols included for crash reporting
 - [ ] Bitcode disabled (default for iOS 14+)
 
@@ -130,12 +130,12 @@ Create `ExportOptions.plist`:
     <false/>
     <key>provisioningProfiles</key>
     <dict>
-        <key>com.flirrt.app</key>
-        <string>Flirrt Distribution</string>
-        <key>com.flirrt.app.keyboard</key>
-        <string>Flirrt Keyboard Distribution</string>
-        <key>com.flirrt.app.share</key>
-        <string>Flirrt Share Distribution</string>
+        <key>com.vibe8.app</key>
+        <string>Vibe8 Distribution</string>
+        <key>com.vibe8.app.keyboard</key>
+        <string>Vibe8 Keyboard Distribution</string>
+        <key>com.vibe8.app.share</key>
+        <string>Vibe8 Share Distribution</string>
     </dict>
 </dict>
 </plist>
@@ -146,7 +146,7 @@ Create `ExportOptions.plist`:
 ```bash
 # Export IPA
 xcodebuild -exportArchive \
-  -archivePath ./build/Flirrt.xcarchive \
+  -archivePath ./build/Vibe8.xcarchive \
   -exportPath ./build \
   -exportOptionsPlist ExportOptions.plist \
   -allowProvisioningUpdates
@@ -166,14 +166,14 @@ xcodebuild -exportArchive \
 ```bash
 xcrun altool --upload-app \
   --type ios \
-  --file ./build/Flirrt.ipa \
+  --file ./build/Vibe8.ipa \
   --username [APPLE_ID] \
   --password [APP_SPECIFIC_PASSWORD]
 ```
 
 **Option 3: Transporter App**
 - [ ] Open Transporter app
-- [ ] Drag & drop Flirrt.ipa
+- [ ] Drag & drop Vibe8.ipa
 - [ ] Click "Deliver"
 
 ### Verify Upload
@@ -191,7 +191,7 @@ xcrun altool --upload-app \
 ### Build Information
 
 - [ ] Log in to App Store Connect
-- [ ] Select "Flirrt.AI" app
+- [ ] Select "Vibe8.AI" app
 - [ ] Go to "TestFlight" tab
 - [ ] Select uploaded build
 - [ ] Add build notes:
@@ -210,7 +210,7 @@ xcrun altool --upload-app \
 **TESTING NOTES:**
 
 Demo Account:
-- Email: demo@flirrt.ai
+- Email: demo@vibe8.ai
 - Password: [SEE APP_REVIEW_NOTES.md]
 
 Test Instructions:
@@ -250,7 +250,7 @@ Known Issues:
 - [ ] Add external testers (up to 10,000)
 - [ ] Provide test information:
   - [ ] Beta app description
-  - [ ] Feedback email: support@flirrt.ai
+  - [ ] Feedback email: support@vibe8.ai
   - [ ] Test instructions
 - [ ] Submit for Beta App Review (required for external)
 - [ ] Wait for approval (usually 24-48 hours)
@@ -264,13 +264,13 @@ Known Issues:
 **Email Template:**
 
 ```
-Subject: You're Invited to Test Flirrt.AI - Your AI Dating Coach! 🎉
+Subject: You're Invited to Test Vibe8.AI - Your AI Dating Coach! 🎉
 
 Hi [Name],
 
-You've been invited to test Flirrt.AI before the official launch!
+You've been invited to test Vibe8.AI before the official launch!
 
-**What is Flirrt.AI?**
+**What is Vibe8.AI?**
 An AI-powered dating assistant that helps you write better messages. Get 3 personalized conversation suggestions with coaching insights via a custom keyboard.
 
 **How to Install:**
@@ -278,7 +278,7 @@ An AI-powered dating assistant that helps you write better messages. Get 3 perso
 1. Accept the TestFlight invitation (check your email)
 2. Download TestFlight app from App Store (if you don't have it)
 3. Tap "Install" in TestFlight
-4. Launch Flirrt.AI
+4. Launch Vibe8.AI
 
 **How to Test:**
 
@@ -291,11 +291,11 @@ An AI-powered dating assistant that helps you write better messages. Get 3 perso
 6. View 3 AI-generated suggestions
 7. Enable the keyboard:
    - Settings → General → Keyboard → Keyboards
-   - Add New Keyboard → Flirrt
+   - Add New Keyboard → Vibe8
    - DON'T enable "Allow Full Access" (not needed)
 8. Test the keyboard:
    - Open Notes or Messages app
-   - Switch to Flirrt keyboard (globe icon)
+   - Switch to Vibe8 keyboard (globe icon)
    - Tap suggestions to insert text
    - Tap refresh button for new suggestions
 
@@ -311,16 +311,16 @@ An AI-powered dating assistant that helps you write better messages. Get 3 perso
 **Provide Feedback:**
 
 - Within TestFlight app: Tap "Send Beta Feedback"
-- Or email: support@flirrt.ai
+- Or email: support@vibe8.ai
 - Include screenshots of any issues
 
 **Test Duration:**
 This beta test will run for 90 days (until January 15, 2026).
 
-Thank you for helping make Flirrt.AI better!
+Thank you for helping make Vibe8.AI better!
 
 Best regards,
-The Flirrt.AI Team
+The Vibe8.AI Team
 ```
 
 ---
@@ -393,7 +393,7 @@ The Flirrt.AI Team
 - [ ] Positive feedback from beta testers
 - [ ] Analytics showing healthy usage
 - [ ] Backend infrastructure tested under load
-- [ ] Support email (support@flirrt.ai) monitored and responsive
+- [ ] Support email (support@vibe8.ai) monitored and responsive
 - [ ] Privacy policy and terms accessible
 - [ ] Screenshots finalized (6+ images)
 - [ ] App Store description finalized
@@ -425,7 +425,7 @@ The Flirrt.AI Team
 
 1. **Check Backend Health:**
    ```bash
-   curl https://flirrt-api-production.onrender.com/health
+   curl https://vibe8-api-production.onrender.com/health
    ```
 
 2. **Monitor Logs:**
@@ -447,14 +447,14 @@ The Flirrt.AI Team
 - App Store Connect: https://appstoreconnect.apple.com
 - App Review Guidelines: https://developer.apple.com/app-store/review/guidelines/
 
-**Flirrt.AI Resources:**
+**Vibe8.AI Resources:**
 - APP_REVIEW_NOTES.md - Detailed info for App Review
 - APP_STORE_METADATA.md - App Store listing details
-- Backend Health: https://flirrt-api-production.onrender.com/health
+- Backend Health: https://vibe8-api-production.onrender.com/health
 
 **Support Contacts:**
 - Apple Developer Support: https://developer.apple.com/support/
-- Flirrt.AI Support: support@flirrt.ai
+- Vibe8.AI Support: support@vibe8.ai
 
 ---
 

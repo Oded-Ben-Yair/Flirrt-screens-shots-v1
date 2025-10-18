@@ -187,8 +187,8 @@
     }
   },
   "example_request": {
-    "curl": "curl -X DELETE https://api.flirrt.ai/v1/user/user_12345/data \\\n  -H \"Authorization: Bearer your_access_token\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n    \"deletion_type\": \"complete\",\n    \"verification\": {\n      \"email_confirmation\": true,\n      \"confirmation_code\": \"123456\",\n      \"reason\": \"account_closure\"\n    },\n    \"jurisdiction\": \"EU\",\n    \"export_before_deletion\": true\n  }'",
-    "javascript": "fetch('https://api.flirrt.ai/v1/user/user_12345/data', {\n  method: 'DELETE',\n  headers: {\n    'Authorization': 'Bearer your_access_token',\n    'Content-Type': 'application/json'\n  },\n  body: JSON.stringify({\n    deletion_type: 'complete',\n    verification: {\n      email_confirmation: true,\n      confirmation_code: '123456',\n      reason: 'account_closure'\n    },\n    jurisdiction: 'EU'\n  })\n});"
+    "curl": "curl -X DELETE https://api.vibe8.ai/v1/user/user_12345/data \\\n  -H \"Authorization: Bearer your_access_token\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n    \"deletion_type\": \"complete\",\n    \"verification\": {\n      \"email_confirmation\": true,\n      \"confirmation_code\": \"123456\",\n      \"reason\": \"account_closure\"\n    },\n    \"jurisdiction\": \"EU\",\n    \"export_before_deletion\": true\n  }'",
+    "javascript": "fetch('https://api.vibe8.ai/v1/user/user_12345/data', {\n  method: 'DELETE',\n  headers: {\n    'Authorization': 'Bearer your_access_token',\n    'Content-Type': 'application/json'\n  },\n  body: JSON.stringify({\n    deletion_type: 'complete',\n    verification: {\n      email_confirmation: true,\n      confirmation_code: '123456',\n      reason: 'account_closure'\n    },\n    jurisdiction: 'EU'\n  })\n});"
   },
   "example_response": {
     "deletion_request": {

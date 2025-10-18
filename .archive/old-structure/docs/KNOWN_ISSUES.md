@@ -1,6 +1,6 @@
 # Known Issues & Workarounds
 
-Current bugs, limitations, and their workarounds for FlirrtAI.
+Current bugs, limitations, and their workarounds for Vibe8AI.
 
 **Last Updated**: October 4, 2025
 **Testing Coverage**: Stages 1-6 Complete
@@ -281,21 +281,21 @@ catch (error) {
 
 **Error**:
 ```
-/iOS/FlirrtKeyboard/KeyboardViewController.swift:11:30:
+/iOS/Vibe8Keyboard/KeyboardViewController.swift:11:30:
 error: cannot find 'AppConstants' in scope
 ```
 
 **Root Cause**:
-- AppConstants.swift is in the main Flirrt target
-- FlirrtKeyboard and FlirrtShare are separate extension targets
+- AppConstants.swift is in the main Vibe8 target
+- Vibe8Keyboard and Vibe8Share are separate extension targets
 - Extension targets need explicit file membership
 
 **Fix (Manual Step)**:
-1. Open `Flirrt.xcodeproj` in Xcode
-2. Select `iOS/Flirrt/Config/AppConstants.swift` in Project Navigator
+1. Open `Vibe8.xcodeproj` in Xcode
+2. Select `iOS/Vibe8/Config/AppConstants.swift` in Project Navigator
 3. In File Inspector (right panel), check:
-   - [x] FlirrtKeyboard target
-   - [x] FlirrtShare target
+   - [x] Vibe8Keyboard target
+   - [x] Vibe8Share target
 4. Rebuild project
 
 **Estimated Fix Time**: 2 minutes (manual Xcode configuration)
@@ -420,7 +420,7 @@ cd Backend && npm start
 **Problem**: Keyboard extension occasionally shows high memory usage (>40MB)
 
 **Symptoms**:
-- iOS shows "FlirrtKeyboard using significant memory"
+- iOS shows "Vibe8Keyboard using significant memory"
 - Keyboard may be terminated by system
 - UI becomes sluggish
 
@@ -613,7 +613,7 @@ Error: SQLITE_BUSY: database is locked
 **Workaround**:
 ```bash
 cd Backend/data
-rm flirrt.db
+rm vibe8.db
 cd ..
 npm run db:init
 ```

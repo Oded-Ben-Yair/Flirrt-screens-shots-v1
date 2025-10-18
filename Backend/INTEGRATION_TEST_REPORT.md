@@ -1,4 +1,4 @@
-# Integration Test Report - Flirrt.ai Backend
+# Integration Test Report - Vibe8.ai Backend
 ## Agent 2 - Stage 6: Testing & Validation Integration
 
 **Test Date**: October 4, 2025
@@ -402,7 +402,7 @@ console.error('Error:', error.message, error.stack);
 ### Quick Start
 ```bash
 # Navigate to backend directory
-cd /Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/Backend
+cd /Users/macbookairm1/Vibe8-screens-shots-v1/Vibe8AI/Backend
 
 # Ensure server is running
 node server.js &

@@ -52,7 +52,7 @@ struct AgeVerificationView: View {
                             .font(.system(size: 32, weight: .bold, design: .rounded))
                             .foregroundColor(.primary)
 
-                        Text("You must be 18 or older to use Flirrt")
+                        Text("You must be 18 or older to use Vibe8")
                             .font(.system(size: 16, weight: .medium))
                             .foregroundColor(.secondary)
                             .multilineTextAlignment(.center)
@@ -163,7 +163,7 @@ struct AgeVerificationView: View {
         }
 
         if age < 18 {
-            showError(message: "You must be at least 18 years old to use Flirrt. We're sorry, but we can't allow access to users under 18.")
+            showError(message: "You must be at least 18 years old to use Vibe8. We're sorry, but we can't allow access to users under 18.")
             return
         }
 

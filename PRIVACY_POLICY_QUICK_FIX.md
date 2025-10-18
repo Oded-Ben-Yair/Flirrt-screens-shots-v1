@@ -11,7 +11,7 @@
 ### Step 1: Go to Repository Settings
 Open this URL in your browser:
 ```
-https://github.com/Oded-Ben-Yair/Flirrt-screens-shots-v1/settings/pages
+https://github.com/Oded-Ben-Yair/Vibe8-screens-shots-v1/settings/pages
 ```
 
 ### Step 2: Enable GitHub Pages
@@ -27,7 +27,7 @@ GitHub will build and deploy your site.
 ### Step 4: Verify It Works
 After 2-3 minutes, open:
 ```
-https://oded-ben-yair.github.io/Flirrt-screens-shots-v1/privacy-policy.html
+https://oded-ben-yair.github.io/Vibe8-screens-shots-v1/privacy-policy.html
 ```
 
 ✅ **Use this URL in App Store Connect!**
@@ -40,7 +40,7 @@ If you need a URL RIGHT NOW while waiting for GitHub Pages:
 
 ### Use This URL:
 ```
-https://raw.githubusercontent.com/Oded-Ben-Yair/Flirrt-screens-shots-v1/main/privacy-policy.html
+https://raw.githubusercontent.com/Oded-Ben-Yair/Vibe8-screens-shots-v1/main/privacy-policy.html
 ```
 
 ⚠️ **Note:** This will show HTML source code instead of rendering the page, but Apple will accept it for TestFlight beta testing. You should still enable GitHub Pages for a proper URL later.
@@ -61,7 +61,7 @@ https://raw.githubusercontent.com/Oded-Ben-Yair/Flirrt-screens-shots-v1/main/pri
 1. Go to: https://gist.github.com
 2. Click **"New gist"**
 3. Filename: `privacy-policy.html`
-4. Copy the entire content from `/Users/macbookairm1/Flirrt-screens-shots-v1/privacy-policy.html`
+4. Copy the entire content from `/Users/macbookairm1/Vibe8-screens-shots-v1/privacy-policy.html`
 5. Paste into the gist editor
 6. Click **"Create public gist"**
 7. Click **"Raw"** button
@@ -76,14 +76,14 @@ https://raw.githubusercontent.com/Oded-Ben-Yair/Flirrt-screens-shots-v1/main/pri
 1. Use **Solution 2** (GitHub Raw URL) to continue immediately
 2. Use this in App Store Connect:
    ```
-   https://raw.githubusercontent.com/Oded-Ben-Yair/Flirrt-screens-shots-v1/main/privacy-policy.html
+   https://raw.githubusercontent.com/Oded-Ben-Yair/Vibe8-screens-shots-v1/main/privacy-policy.html
    ```
 
 **Then later (after TestFlight is set up):**
 1. Enable GitHub Pages (Solution 1)
 2. Update App Store Connect with the proper URL:
    ```
-   https://oded-ben-yair.github.io/Flirrt-screens-shots-v1/privacy-policy.html
+   https://oded-ben-yair.github.io/Vibe8-screens-shots-v1/privacy-policy.html
    ```
 
 ---
@@ -92,14 +92,14 @@ https://raw.githubusercontent.com/Oded-Ben-Yair/Flirrt-screens-shots-v1/main/pri
 
 ### Test Raw URL (should work immediately):
 ```bash
-curl -I https://raw.githubusercontent.com/Oded-Ben-Yair/Flirrt-screens-shots-v1/main/privacy-policy.html
+curl -I https://raw.githubusercontent.com/Oded-Ben-Yair/Vibe8-screens-shots-v1/main/privacy-policy.html
 ```
 
 Should return **200 OK** ✅
 
 ### Test GitHub Pages URL (works after enabling):
 ```bash
-curl -I https://oded-ben-yair.github.io/Flirrt-screens-shots-v1/privacy-policy.html
+curl -I https://oded-ben-yair.github.io/Vibe8-screens-shots-v1/privacy-policy.html
 ```
 
 Currently returns **404** (needs GitHub Pages enabled)
@@ -110,7 +110,7 @@ Currently returns **404** (needs GitHub Pages enabled)
 
 **You can use RIGHT NOW:**
 ```
-https://raw.githubusercontent.com/Oded-Ben-Yair/Flirrt-screens-shots-v1/main/privacy-policy.html
+https://raw.githubusercontent.com/Oded-Ben-Yair/Vibe8-screens-shots-v1/main/privacy-policy.html
 ```
 
 This URL is **live and working**. Use it to continue with TestFlight setup!

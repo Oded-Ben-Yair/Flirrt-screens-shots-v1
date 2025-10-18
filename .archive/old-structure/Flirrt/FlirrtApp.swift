@@ -1,7 +1,7 @@
 import SwiftUI
 
 @main
-struct FlirrtApp: App {
+struct Vibe8App: App {
     @StateObject private var authManager = AuthManager()
     @StateObject private var apiClient = APIClient()
     @StateObject private var sharedDataManager = SharedDataManager()
@@ -24,7 +24,7 @@ struct FlirrtApp: App {
     }
 
     private func setupAppGroups() {
-        if let sharedDefaults = UserDefaults(suiteName: "group.com.flirrt.shared") {
+        if let sharedDefaults = UserDefaults(suiteName: "group.com.vibe8.shared") {
             sharedDefaults.set(true, forKey: "appLaunched")
             sharedDefaults.synchronize()
         }

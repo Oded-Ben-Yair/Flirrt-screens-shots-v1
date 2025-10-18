@@ -1,7 +1,7 @@
-# Flirrt.ai - AI-Powered Dating Assistant
+# Vibe8.ai - AI-Powered Dating Assistant
 
 ## Overview
-Flirrt.ai is an intelligent iOS application that helps users craft personalized, engaging messages for dating conversations. It uses advanced AI to analyze conversation screenshots and generate contextually appropriate responses with optional voice synthesis.
+Vibe8.ai is an intelligent iOS application that helps users craft personalized, engaging messages for dating conversations. It uses advanced AI to analyze conversation screenshots and generate contextually appropriate responses with optional voice synthesis.
 
 **Current Version**: 1.0.0 | **Production Ready**: 85% | **Security Grade**: A (Excellent)
 
@@ -80,7 +80,7 @@ The application follows a **centralized configuration** pattern to eliminate mag
 
 #### iOS SSOT Files
 
-1. **`iOS/Flirrt/Config/AppConstants.swift`** - Central iOS configuration
+1. **`iOS/Vibe8/Config/AppConstants.swift`** - Central iOS configuration
    - App Group identifiers
    - Bundle identifiers
    - API base URLs (environment-specific)
@@ -92,17 +92,17 @@ The application follows a **centralized configuration** pattern to eliminate mag
 ## Project Structure
 
 ```
-/FlirrtAI/
+/Vibe8AI/
 ├── iOS/                             # iOS Application
-│   ├── Flirrt/                     # Main app
+│   ├── Vibe8/                     # Main app
 │   │   ├── App/                   # App entry point
 │   │   ├── Config/                # ✨ NEW: Configuration
 │   │   │   └── AppConstants.swift # Centralized constants
 │   │   ├── Models/                # Data models
 │   │   ├── Views/                 # SwiftUI views
 │   │   └── Services/              # API & managers
-│   ├── FlirrtKeyboard/             # Keyboard extension
-│   ├── FlirrtShare/                # Share extension
+│   ├── Vibe8Keyboard/             # Keyboard extension
+│   ├── Vibe8Share/                # Share extension
 │   └── Package.swift               # SPM configuration
 │
 ├── Backend/                         # Node.js Server
@@ -255,7 +255,7 @@ node SimulatorTestAgent.js --full-test
 
 ### Keyboard Extension
 - Memory-optimized (<60MB limit)
-- "Flirrt Fresh" instant suggestions
+- "Vibe8 Fresh" instant suggestions
 - Screenshot analysis trigger
 - Voice playback support
 
@@ -459,7 +459,7 @@ Over 60+ security tests covering:
 ### TestFlight Distribution
 ```bash
 # Archive and upload
-xcodebuild archive -scheme Flirrt
+xcodebuild archive -scheme Vibe8
 # Upload to App Store Connect
 xcrun altool --upload-app
 ```
@@ -488,23 +488,23 @@ JWT_SECRET=your_secret_min_32_chars     # Minimum 32 characters
 PORT=3000                               # Server port (default: 3000)
 NODE_ENV=development                    # Environment (development/production)
 DB_TYPE=sqlite                          # Database type
-DB_PATH=./data/flirrt.db               # SQLite database path
+DB_PATH=./data/vibe8.db               # SQLite database path
 ```
 
 **Validation on Startup**: The server validates all required environment variables and fails fast if any are missing or invalid.
 
 ### iOS Configuration
 
-Key constants in `/iOS/Flirrt/Config/AppConstants.swift`:
+Key constants in `/iOS/Vibe8/Config/AppConstants.swift`:
 
 ```swift
 // App Group for data sharing
-static let appGroupIdentifier = "group.com.flirrt"
+static let appGroupIdentifier = "group.com.vibe8"
 
 // API Base URL (environment-specific)
 static let apiBaseURL = Environment.current.apiBaseURL
 // Development: "http://localhost:3000/api/v1"
-// Production: "https://api.flirrt.ai/api/v1"
+// Production: "https://api.vibe8.ai/api/v1"
 
 // Timeout configurations
 static let apiTimeout: TimeInterval = 30.0
@@ -551,7 +551,7 @@ openssl rand -base64 64
 **Simulator Not Found**
 ```bash
 # Create iPhone 16 Pro simulator
-xcrun simctl create "Flirrt Production Device" \
+xcrun simctl create "Vibe8 Production Device" \
   com.apple.CoreSimulator.SimDeviceType.iPhone-16-Pro \
   com.apple.CoreSimulator.SimRuntime.iOS-18-6
 
@@ -694,7 +694,7 @@ The project includes automation scripts in `/scripts/`:
   - `/Backend/utils/errorHandler.js` - Error handling patterns
 
 - **iOS Configuration**:
-  - `/iOS/Flirrt/Config/AppConstants.swift` - All iOS constants
+  - `/iOS/Vibe8/Config/AppConstants.swift` - All iOS constants
 
 ## Production Readiness
 

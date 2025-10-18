@@ -10,8 +10,8 @@
 ## GOALS
 
 - [x] Install KeyboardKit 9.9 via Swift Package Manager → Changed to custom implementation
-- [x] Create FlirrtKeyboardViewController with full QWERTY
-- [x] Add custom Flirrt toolbar with suggestion chips
+- [x] Create Vibe8KeyboardViewController with full QWERTY
+- [x] Add custom Vibe8 toolbar with suggestion chips
 - [x] Enable iOS 26 Liquid Glass design
 - [x] Build succeeds
 - [x] Save checkpoint
@@ -24,7 +24,7 @@
 **Reason:** Full control, no external dependencies, faster implementation, App Store compliant
 
 **Files Created:**
-1. `FlirrtQWERTYKeyboardView.swift` - Custom QWERTY keyboard (170 lines)
+1. `Vibe8QWERTYKeyboardView.swift` - Custom QWERTY keyboard (170 lines)
 2. `EnhancedKeyboardViewController.swift` - Main keyboard controller (200 lines)
 3. `SuggestionToolbarView.swift` - Suggestion chips UI (180 lines)
 

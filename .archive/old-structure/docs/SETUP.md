@@ -1,6 +1,6 @@
 # Setup Guide
 
-Complete installation and configuration guide for FlirrtAI development.
+Complete installation and configuration guide for Vibe8AI development.
 
 ## Prerequisites
 
@@ -39,10 +39,10 @@ PORT=3000
 NODE_ENV=development
 
 # Security
-JWT_SECRET=flirrt_ai_super_secret_key_2024_production
+JWT_SECRET=vibe8_ai_super_secret_key_2024_production
 
 # Database
-DB_PATH=./data/flirrt.db
+DB_PATH=./data/vibe8.db
 ```
 
 ### 3. Initialize Database
@@ -73,42 +73,42 @@ curl http://localhost:3000/health
 ### 1. Open Xcode Project
 ```bash
 cd iOS
-open Flirrt.xcodeproj
+open Vibe8.xcodeproj
 ```
 
 ### 2. Configure Signing & Capabilities
 
-**For Main App (Flirrt target):**
-1. Select Flirrt target
+**For Main App (Vibe8 target):**
+1. Select Vibe8 target
 2. Signing & Capabilities tab
 3. Set Team to your Apple Developer account
 4. Verify capabilities:
-   - ✅ App Groups: `group.com.flirrt.shared`
+   - ✅ App Groups: `group.com.vibe8.shared`
    - ✅ Keychain Sharing
    - ✅ Sign in with Apple
 
-**For Keyboard Extension (FlirrtKeyboard target):**
-1. Select FlirrtKeyboard target
+**For Keyboard Extension (Vibe8Keyboard target):**
+1. Select Vibe8Keyboard target
 2. Set same Team
 3. Verify capabilities:
-   - ✅ App Groups: `group.com.flirrt.shared` (same group!)
+   - ✅ App Groups: `group.com.vibe8.shared` (same group!)
    - ✅ Keychain Sharing
 
-**For Share Extension (FlirrtShare target):**
-1. Select FlirrtShare target
+**For Share Extension (Vibe8Share target):**
+1. Select Vibe8Share target
 2. Set same Team
 3. Verify App Groups capability
 
 ### 3. Update Bundle Identifiers (if needed)
 If using your own Apple Developer account:
-- Flirrt: `com.yourteam.flirrt`
-- FlirrtKeyboard: `com.yourteam.flirrt.keyboard`
-- FlirrtShare: `com.yourteam.flirrt.share`
+- Vibe8: `com.yourteam.vibe8`
+- Vibe8Keyboard: `com.yourteam.vibe8.keyboard`
+- Vibe8Share: `com.yourteam.vibe8.share`
 
-Also update App Group to: `group.com.yourteam.flirrt.shared`
+Also update App Group to: `group.com.yourteam.vibe8.shared`
 
 ### 4. Update API Base URL
-Edit `iOS/Flirrt/Services/APIClient.swift`:
+Edit `iOS/Vibe8/Services/APIClient.swift`:
 ```swift
 private let baseURL = "http://localhost:3000/api/v1"
 // For physical device: use your Mac's IP address
@@ -116,7 +116,7 @@ private let baseURL = "http://localhost:3000/api/v1"
 ```
 
 ### 5. Build and Run
-1. Select "Flirrt" scheme
+1. Select "Vibe8" scheme
 2. Choose iPhone 15 Simulator (or your device)
 3. Cmd+R to build and run
 
@@ -131,16 +131,16 @@ private let baseURL = "http://localhost:3000/api/v1"
 1. Open Settings app
 2. Navigate: General → Keyboard → Keyboards
 3. Tap "Add New Keyboard..."
-4. Select "Flirrt" from the list
-5. Tap "Flirrt" in keyboards list
+4. Select "Vibe8" from the list
+5. Tap "Vibe8" in keyboards list
 6. Enable "Allow Full Access"
 
 ### Test Keyboard:
 1. Open Messages app or Notes
 2. Tap to bring up keyboard
 3. Tap 🌐 globe icon to switch keyboards
-4. Select Flirrt keyboard
-5. Should see Flirrt interface with button
+4. Select Vibe8 keyboard
+5. Should see Vibe8 interface with button
 
 ## Troubleshooting
 
@@ -154,7 +154,7 @@ npm start
 
 **Database errors:**
 ```bash
-rm -rf data/flirrt.db
+rm -rf data/vibe8.db
 npm run db:init
 ```
 
@@ -169,7 +169,7 @@ npm run db:init
 ```bash
 cd iOS
 rm -rf .build
-xcodebuild -scheme Flirrt clean
+xcodebuild -scheme Vibe8 clean
 # Rebuild in Xcode
 ```
 
@@ -204,7 +204,7 @@ ipconfig getifaddr en0
 
 ### Typical Development Session:
 1. Start backend: `cd Backend && npm start`
-2. Open Xcode: `cd iOS && open Flirrt.xcodeproj`
+2. Open Xcode: `cd iOS && open Vibe8.xcodeproj`
 3. Run app in simulator
 4. Check backend logs for API calls
 5. Use Xcode console for iOS logs

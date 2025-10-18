@@ -2,20 +2,20 @@
 import PackageDescription
 
 let package = Package(
-    name: "Flirrt",
+    name: "Vibe8",
     platforms: [
         .iOS(.v16)
     ],
     products: [
         .library(
-            name: "Flirrt",
-            targets: ["Flirrt"]),
+            name: "Vibe8",
+            targets: ["Vibe8"]),
         .library(
-            name: "FlirrtKeyboard",
-            targets: ["FlirrtKeyboard"]),
+            name: "Vibe8Keyboard",
+            targets: ["Vibe8Keyboard"]),
         .library(
-            name: "FlirrtShare",
-            targets: ["FlirrtShare"]),
+            name: "Vibe8Share",
+            targets: ["Vibe8Share"]),
     ],
     dependencies: [
         .package(url: "https://github.com/Alamofire/Alamofire.git", from: "5.8.0"),
@@ -24,21 +24,21 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: "Flirrt",
+            name: "Vibe8",
             dependencies: [
                 "Alamofire",
                 "KeychainAccess"
             ],
-            path: "Flirrt"),
+            path: "Vibe8"),
         .target(
-            name: "FlirrtKeyboard",
+            name: "Vibe8Keyboard",
             dependencies: [
                 .product(name: "KeyboardKit", package: "KeyboardKit")
             ],
-            path: "FlirrtKeyboard"),
+            path: "Vibe8Keyboard"),
         .target(
-            name: "FlirrtShare",
+            name: "Vibe8Share",
             dependencies: [],
-            path: "FlirrtShare"),
+            path: "Vibe8Share"),
     ]
 )

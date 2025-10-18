@@ -109,7 +109,7 @@ class NetworkReachability: ObservableObject {
     }
 
     // Check if we can reach a specific host
-    func canReachHost(_ host: String = "api.flirrt.ai", port: Int = 443) async -> Bool {
+    func canReachHost(_ host: String = "api.vibe8.ai", port: Int = 443) async -> Bool {
         return await withCheckedContinuation { continuation in
             let host = NWEndpoint.Host(host)
             let port = NWEndpoint.Port(integerLiteral: UInt16(port))

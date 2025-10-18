@@ -4,21 +4,21 @@ import os.log
 class KeyboardViewController: UIInputViewController {
 
     // MARK: - Memory Management
-    private let logger = OSLog(subsystem: "com.flirrt.keyboard", category: "memory")
+    private let logger = OSLog(subsystem: "com.vibe8.keyboard", category: "memory")
     private var memoryObserver: NSObjectProtocol?
-    private let appGroupID = "group.com.flirrt.shared"
+    private let appGroupID = "group.com.vibe8.shared"
 
     private var heightConstraint: NSLayoutConstraint?
     private let memoryLimit: Int = 60 * 1024 * 1024 // 60MB limit
 
-    private lazy var flirrtFreshButton: UIButton = {
+    private lazy var vibe8FreshButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("💫 Fresh", for: .normal) // Shorter title to save memory
         button.backgroundColor = .systemPink
         button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = 8
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.addTarget(self, action: #selector(flirrtFreshTapped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(vibe8FreshTapped), for: .touchUpInside)
         return button
     }()
 
@@ -63,23 +63,23 @@ class KeyboardViewController: UIInputViewController {
         view.backgroundColor = .systemBackground
 
         // Add subviews
-        view.addSubview(flirrtFreshButton)
+        view.addSubview(vibe8FreshButton)
         view.addSubview(analyzeButton)
         view.addSubview(suggestionsView)
 
         // Setup constraints
         NSLayoutConstraint.activate([
-            flirrtFreshButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 10),
-            flirrtFreshButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
-            flirrtFreshButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.45, constant: -15),
-            flirrtFreshButton.heightAnchor.constraint(equalToConstant: 50),
+            vibe8FreshButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 10),
+            vibe8FreshButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            vibe8FreshButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.45, constant: -15),
+            vibe8FreshButton.heightAnchor.constraint(equalToConstant: 50),
 
             analyzeButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 10),
             analyzeButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
             analyzeButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.45, constant: -15),
             analyzeButton.heightAnchor.constraint(equalToConstant: 50),
 
-            suggestionsView.topAnchor.constraint(equalTo: flirrtFreshButton.bottomAnchor, constant: 10),
+            suggestionsView.topAnchor.constraint(equalTo: vibe8FreshButton.bottomAnchor, constant: 10),
             suggestionsView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             suggestionsView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             suggestionsView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -10)
@@ -161,14 +161,14 @@ class KeyboardViewController: UIInputViewController {
         if Date().timeIntervalSince1970 - lastScreenshotTime < 60 {
             // Recent screenshot detected - show analyze button prominently
             analyzeButton.alpha = 1.0
-            flirrtFreshButton.alpha = 0.7
+            vibe8FreshButton.alpha = 0.7
         } else {
             analyzeButton.alpha = 0.7
-            flirrtFreshButton.alpha = 1.0
+            vibe8FreshButton.alpha = 1.0
         }
     }
 
-    @objc private func flirrtFreshTapped() {
+    @objc private func vibe8FreshTapped() {
         guard hasFullAccess else {
             showFullAccessRequired()
             return
@@ -233,7 +233,7 @@ class KeyboardViewController: UIInputViewController {
         // Notify main app to process screenshot
         CFNotificationCenterPostNotification(
             CFNotificationCenterGetDarwinNotifyCenter(),
-            CFNotificationName("com.flirrt.analyze.request" as CFString),
+            CFNotificationName("com.vibe8.analyze.request" as CFString),
             nil, nil, true
         )
 
@@ -261,14 +261,14 @@ class KeyboardViewController: UIInputViewController {
 
     private func showFullAccessRequired() {
         let alert = UIAlertController(title: "Full Access Required",
-                                     message: "Please enable Full Access in Settings to use Flirrt features",
+                                     message: "Please enable Full Access in Settings to use Vibe8 features",
                                      preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default))
         present(alert, animated: true)
     }
 
     private func showAuthenticationRequired() {
-        textDocumentProxy.insertText("Please open Flirrt app to sign in first")
+        textDocumentProxy.insertText("Please open Vibe8 app to sign in first")
     }
 
     private func clearCache() {
@@ -359,7 +359,7 @@ class SuggestionsView: UIView {
 // Voice synthesis request
 extension KeyboardViewController {
     private func requestVoiceSynthesis(text: String, voiceId: String) {
-        guard let containerURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.com.flirrt.ai.shared") else { return }
+        guard let containerURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.com.vibe8.ai.shared") else { return }
 
         let request = VoiceRequest(text: text, voiceId: voiceId)
         let requestURL = containerURL.appendingPathComponent("voice_request.json")
@@ -369,7 +369,7 @@ extension KeyboardViewController {
 
             CFNotificationCenterPostNotification(
                 CFNotificationCenterGetDarwinNotifyCenter(),
-                CFNotificationName("com.flirrt.voice.request" as CFString),
+                CFNotificationName("com.vibe8.voice.request" as CFString),
                 nil, nil, true
             )
         }

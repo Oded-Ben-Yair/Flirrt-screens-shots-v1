@@ -1,11 +1,11 @@
-# Claude-Code Master Prompt: Flirrt.ai - Personal Wingman App
+# Claude-Code Master Prompt: Vibe8.ai - Personal Wingman App
 
 ## Project Overview
 
-You are tasked with designing and implementing Flirrt.ai, a personal wingman iOS application that helps users improve their flirting skills in third-party chat applications (Tinder, Instagram, etc.) through AI-powered text suggestions and optional voice messages.
+You are tasked with designing and implementing Vibe8.ai, a personal wingman iOS application that helps users improve their flirting skills in third-party chat applications (Tinder, Instagram, etc.) through AI-powered text suggestions and optional voice messages.
 
 ### Core Product Vision
-- **Name**: Flirrt.ai (double "r" connecting to heart shape in logo)
+- **Name**: Vibe8.ai (double "r" connecting to heart shape in logo)
 - **Goal**: Personal wingman for flirting assistance via suggested texts and voice messages
 - **Platform**: iOS app with keyboard extension
 - **Privacy**: Minimal retention, encryption in transit & at rest, explicit consent
@@ -13,7 +13,7 @@ You are tasked with designing and implementing Flirrt.ai, a personal wingman iOS
 ### Key User Flows
 1. **iOS App + Authentication**: Apple/Google sign-in
 2. **Keyboard Extension**: "Full Access" consent with two primary actions:
-   - "Flirrt Fresh": Personalized opener suggestions bank
+   - "Vibe8 Fresh": Personalized opener suggestions bank
    - "Let's Analyze It!": Screenshot analysis → 3 flirt suggestions + refresh option
 3. **Voice Clone** (Optional): Onboarding voice sample recording → ElevenLabs synthesis
 4. **Privacy-First**: Explicit consent, easy deletion, minimal data retention
@@ -506,7 +506,7 @@ sequenceDiagram
     A->>U: Setup complete, ready to flirt!
 ```
 
-#### Keyboard "Flirrt Fresh" Flow
+#### Keyboard "Vibe8 Fresh" Flow
 ```mermaid
 sequenceDiagram
     participant U as User
@@ -515,7 +515,7 @@ sequenceDiagram
     participant B as Backend API
     participant S as Storage
 
-    U->>K: Tap "Flirrt Fresh" button
+    U->>K: Tap "Vibe8 Fresh" button
     K->>A: Request opener suggestions (via App Groups)
     A->>B: GET /api/v1/fresh_openers
     B->>S: Query user personalization data
@@ -566,13 +566,13 @@ sequenceDiagram
 
 #### Consent UX Copy
 **Voice Cloning Consent**:
-"To create personalized voice messages, Flirrt needs to record a 2-minute voice sample. This helps you sound natural and confident in your flirts. Your voice stays private and secure - only you can use your voice clone, and you can delete it anytime. We use ElevenLabs' secure voice technology with industry-leading encryption."
+"To create personalized voice messages, Vibe8 needs to record a 2-minute voice sample. This helps you sound natural and confident in your flirts. Your voice stays private and secure - only you can use your voice clone, and you can delete it anytime. We use ElevenLabs' secure voice technology with industry-leading encryption."
 
 **Screenshot Analysis Consent**:
-"Flirrt analyzes your conversation screenshots to give you the best flirt suggestions. We only process what you choose to share and never store your private conversations. All analysis happens securely in the cloud and is deleted within 24 hours. You're in complete control of what gets analyzed."
+"Vibe8 analyzes your conversation screenshots to give you the best flirt suggestions. We only process what you choose to share and never store your private conversations. All analysis happens securely in the cloud and is deleted within 24 hours. You're in complete control of what gets analyzed."
 
 **Full Access Keyboard Consent**:
-"To suggest flirts while you chat, Flirrt's keyboard needs 'Full Access' permission. This lets us securely sync your personalized suggestions across apps. We never store what you type or access other keyboards. This permission only enables Flirrt suggestions - your privacy is completely protected."
+"To suggest flirts while you chat, Vibe8's keyboard needs 'Full Access' permission. This lets us securely sync your personalized suggestions across apps. We never store what you type or access other keyboards. This permission only enables Vibe8 suggestions - your privacy is completely protected."
 
 #### Retention Policy
 - **Voice Samples**: Retained until user deletion request (immediate processing)
@@ -635,17 +635,17 @@ Production Environment:
 #### Terraform-Style Resource Names
 ```hcl
 # Core Infrastructure
-resource "aws_ecs_cluster" "flirrt_production" {}
-resource "aws_rds_instance" "flirrt_postgres" {}
-resource "aws_s3_bucket" "flirrt_screenshots" {}
-resource "aws_s3_bucket" "flirrt_voice_samples" {}
+resource "aws_ecs_cluster" "vibe8_production" {}
+resource "aws_rds_instance" "vibe8_postgres" {}
+resource "aws_s3_bucket" "vibe8_screenshots" {}
+resource "aws_s3_bucket" "vibe8_voice_samples" {}
 
 # Security
-resource "aws_kms_key" "flirrt_encryption" {}
-resource "aws_iam_role" "flirrt_api_execution" {}
+resource "aws_kms_key" "vibe8_encryption" {}
+resource "aws_iam_role" "vibe8_api_execution" {}
 
 # Monitoring
-resource "aws_cloudwatch_dashboard" "flirrt_metrics" {}
+resource "aws_cloudwatch_dashboard" "vibe8_metrics" {}
 resource "aws_cloudwatch_alarm" "api_error_rate" {}
 ```
 
@@ -736,7 +736,7 @@ resource "aws_cloudwatch_alarm" "api_error_rate" {}
 
 #### Functional Testing
 **Keyboard Extension**:
-- [ ] "Flirrt Fresh" button displays 5 personalized openers within 3 seconds
+- [ ] "Vibe8 Fresh" button displays 5 personalized openers within 3 seconds
 - [ ] "Let's Analyze It!" processes screenshots and returns 3 suggestions within 10 seconds
 - [ ] Voice message generation completes within 15 seconds
 - [ ] Full Access permission enables all features without crashes
@@ -785,7 +785,7 @@ resource "aws_cloudwatch_alarm" "api_error_rate" {}
 #### MVP 1 (Months 1-3): Core Functionality
 **Features**:
 - iOS app with Apple/Google authentication
-- Keyboard extension with "Flirrt Fresh" opener bank
+- Keyboard extension with "Vibe8 Fresh" opener bank
 - Basic screenshot analysis with 3 suggestion outputs
 - Simple text-based flirt generation (no voice)
 - Privacy consent and data deletion
@@ -851,7 +851,7 @@ Low Value, High Complexity:
 
 #### ZIP Package Contents
 ```
-flirrt-ai-implementation/
+vibe8-ai-implementation/
 ├── prompts/
 │   ├── screenshot_analyzer.txt
 │   ├── personalization_agent.txt

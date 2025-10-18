@@ -1,4 +1,4 @@
-# Deployment Readiness Report - Flirrt.AI v1.0.0
+# Deployment Readiness Report - Vibe8.AI v1.0.0
 
 **Date:** October 18, 2025
 **Status:** ✅ READY FOR DEPLOYMENT
@@ -24,7 +24,7 @@
 - **Status:** ✅ COMPLETE
 - **Checkpoint:** checkpoint-cp2-20251017-143338
 - **Key Deliverables:**
-  - FlirrtQWERTYKeyboardView.swift (225 lines)
+  - Vibe8QWERTYKeyboardView.swift (225 lines)
   - EnhancedKeyboardViewController.swift (256 lines)
   - SuggestionToolbarView.swift (225 lines)
   - iOS 26 Liquid Glass design implementation
@@ -179,7 +179,7 @@
 **iOS Build:**
 ```
 Build Status: ✅ BUILD SUCCEEDED
-Target: Flirrt
+Target: Vibe8
 Configuration: Debug/Release
 Platform: iOS Simulator, iOS Device
 No warnings: ✅
@@ -254,7 +254,7 @@ All services: ✅ CONFIGURED
 
 **Steps:**
 1. Create account at https://render.com
-2. Connect GitHub repository (Oded-Ben-Yair/Flirrt-screens-shots-v1)
+2. Connect GitHub repository (Oded-Ben-Yair/Vibe8-screens-shots-v1)
 3. Create new Web Service:
    - **Root Directory:** `Backend`
    - **Build Command:** `npm install`
@@ -293,7 +293,7 @@ All services: ✅ CONFIGURED
 ### 2. iOS API URL Update (5 min)
 **Status:** Pending - After backend deployment
 
-**File:** `iOS/Flirrt/Config/AppConstants.swift`
+**File:** `iOS/Vibe8/Config/AppConstants.swift`
 
 **Change:**
 ```swift
@@ -303,7 +303,7 @@ static var baseURL: String {
     case .development:
         return "http://localhost:3000/api/v1"
     case .staging:
-        return "https://flirrt-api-staging.onrender.com/api/v1"
+        return "https://vibe8-api-staging.onrender.com/api/v1"
     case .production:
         // UPDATE THIS URL after Render deployment ✅
         return "https://YOUR-ACTUAL-RENDER-URL.onrender.com/api/v1"
@@ -325,35 +325,35 @@ static var baseURL: String {
 1. Update Bundle IDs in Xcode (remove `.dev` suffix):
    ```
    Current (dev):
-   - com.flirrt.app.dev
-   - com.flirrt.app.dev.keyboard
-   - com.flirrt.app.dev.share
+   - com.vibe8.app.dev
+   - com.vibe8.app.dev.keyboard
+   - com.vibe8.app.dev.share
 
    Production:
-   - com.flirrt.app
-   - com.flirrt.app.keyboard
-   - com.flirrt.app.share
+   - com.vibe8.app
+   - com.vibe8.app.keyboard
+   - com.vibe8.app.share
    ```
 
 2. Register Bundle IDs at https://developer.apple.com/account
 3. Create Distribution Certificate
 4. Create 3 Provisioning Profiles:
-   - Flirrt Distribution (main app)
-   - Flirrt Keyboard Distribution
-   - Flirrt Share Distribution
+   - Vibe8 Distribution (main app)
+   - Vibe8 Keyboard Distribution
+   - Vibe8 Share Distribution
 
 **Upload Steps:**
 1. **Clean Build:**
    ```bash
-   xcodebuild clean -project Flirrt.xcodeproj -scheme Flirrt
+   xcodebuild clean -project Vibe8.xcodeproj -scheme Vibe8
    ```
 
 2. **Archive:**
    ```bash
    xcodebuild archive \
-     -project Flirrt.xcodeproj \
-     -scheme Flirrt \
-     -archivePath ./build/Flirrt.xcarchive \
+     -project Vibe8.xcodeproj \
+     -scheme Vibe8 \
+     -archivePath ./build/Vibe8.xcarchive \
      -configuration Release \
      -allowProvisioningUpdates
    ```
@@ -361,7 +361,7 @@ static var baseURL: String {
 3. **Export IPA:**
    ```bash
    xcodebuild -exportArchive \
-     -archivePath ./build/Flirrt.xcarchive \
+     -archivePath ./build/Vibe8.xcarchive \
      -exportPath ./build \
      -exportOptionsPlist ExportOptions.plist \
      -allowProvisioningUpdates
@@ -390,9 +390,9 @@ static var baseURL: String {
 
 **Command:**
 ```bash
-git tag -a v1.0.0-production -m "Flirrt.AI v1.0.0 - Production Release
+git tag -a v1.0.0-production -m "Vibe8.AI v1.0.0 - Production Release
 
-First production release of Flirrt.AI
+First production release of Vibe8.AI
 
 Features:
 - AI-powered conversation suggestions (max 3, coaching persona)
@@ -410,7 +410,7 @@ Technical:
 - AI: GPT-4, Gemini, Grok-4, Perplexity, ElevenLabs
 
 Deployment:
-- Backend: https://flirrt-api-production.onrender.com
+- Backend: https://vibe8-api-production.onrender.com
 - TestFlight: Ready for beta testing
 - App Store: Pending submission
 
@@ -481,7 +481,7 @@ Breakdown:
 - [x] Production API URL (pending Render deployment)
 - [x] API keys properly set (environment variables)
 - [x] Bundle IDs ready for production (remove .dev)
-- [x] App Groups configured: group.com.flirrt
+- [x] App Groups configured: group.com.vibe8
 - [x] Deployment target: iOS 15.0
 - [x] Development Team: 9L8889KAL6
 
@@ -668,7 +668,7 @@ Breakdown:
 
 ## 🎉 CONCLUSION
 
-Flirrt.AI is **production-ready** and awaiting manual deployment to external platforms.
+Vibe8.AI is **production-ready** and awaiting manual deployment to external platforms.
 
 **All automated development, testing, and documentation work is complete** (95% of total work).
 
@@ -702,7 +702,7 @@ Flirrt.AI is **production-ready** and awaiting manual deployment to external pla
 
 ---
 
-**Repository:** https://github.com/Oded-Ben-Yair/Flirrt-screens-shots-v1
+**Repository:** https://github.com/Oded-Ben-Yair/Vibe8-screens-shots-v1
 **Branch:** main
 **Latest Commit:** fe7b283
 **Latest Tag:** checkpoint-cp6-20251018

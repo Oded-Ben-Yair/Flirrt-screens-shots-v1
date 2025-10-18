@@ -1,4 +1,4 @@
-# App Store Metadata for Flirrt.AI
+# App Store Metadata for Vibe8.AI
 
 **Version:** 1.0.0
 **Last Updated:** October 17, 2025
@@ -7,14 +7,14 @@
 
 ## App Name
 
-**Primary:** Flirrt.AI
+**Primary:** Vibe8.AI
 
 **Subtitle (30 characters max):** Your AI Dating Coach
 
 **Alternative Names (if taken):**
-- Flirrt AI - Dating Coach
-- Flirrt Dating Assistant
-- Flirrt - AI Wingman
+- Vibe8 AI - Dating Coach
+- Vibe8 Dating Assistant
+- Vibe8 - AI Wingman
 
 ---
 
@@ -28,7 +28,7 @@ AI-powered dating wingman that helps you write perfect messages. Get 3 personali
 
 **Transform Your Dating Game with AI-Powered Coaching**
 
-Flirrt.AI is your personal dating wingman, powered by advanced AI. Never struggle with what to say again - get intelligent, personalized conversation suggestions that actually work.
+Vibe8.AI is your personal dating wingman, powered by advanced AI. Never struggle with what to say again - get intelligent, personalized conversation suggestions that actually work.
 
 **HOW IT WORKS:**
 
@@ -95,7 +95,7 @@ Flirrt.AI is your personal dating wingman, powered by advanced AI. Never struggl
 - 18+ age verification required
 - GDPR & CCPA compliant
 
-**WHY FLIRRT.AI?**
+**WHY VIBE8.AI?**
 
 🎯 **Personalized:** Every suggestion is tailored to the specific profile and conversation
 🧠 **Smart:** Powered by GPT-4, Gemini 2.5 Pro, and advanced AI models
@@ -147,13 +147,13 @@ Works with screenshots from any dating app:
 
 **GET STARTED TODAY:**
 
-Download Flirrt.AI and never send a boring message again. Your AI dating coach is ready to help you make meaningful connections!
+Download Vibe8.AI and never send a boring message again. Your AI dating coach is ready to help you make meaningful connections!
 
 ---
 
-*Note: Flirrt.AI is a dating assistant tool. Success depends on genuine connection and communication. Use suggestions as guidance while being yourself.*
+*Note: Vibe8.AI is a dating assistant tool. Success depends on genuine connection and communication. Use suggestions as guidance while being yourself.*
 
-**Questions or feedback? Contact: support@flirrt.ai**
+**Questions or feedback? Contact: support@vibe8.ai**
 
 ---
 
@@ -195,7 +195,7 @@ dating ai, flirting tips, conversation starters, dating coach, message suggestio
 
 1. **Hero Screenshot** - Keyboard with suggestions
    - Caption: "Get 3 AI-Powered Suggestions"
-   - Shows: Flirrt keyboard in Notes app with 3 suggestions visible
+   - Shows: Vibe8 keyboard in Notes app with 3 suggestions visible
 
 2. **Screenshot Analysis** - Profile screenshot + suggestions
    - Caption: "Analyze Any Dating Profile"
@@ -259,7 +259,7 @@ dating ai, flirting tips, conversation starters, dating coach, message suggestio
 
 ### Version 1.0.0
 
-🎉 **Welcome to Flirrt.AI - Your AI Dating Coach!**
+🎉 **Welcome to Vibe8.AI - Your AI Dating Coach!**
 
 **NEW FEATURES:**
 
@@ -305,13 +305,13 @@ dating ai, flirting tips, conversation starters, dating coach, message suggestio
 - GDPR & CCPA compliant
 - Account deletion available
 
-**Thank you for choosing Flirrt.AI! Questions? support@flirrt.ai**
+**Thank you for choosing Vibe8.AI! Questions? support@vibe8.ai**
 
 ---
 
 ## Support URL
 
-https://flirrt.ai/support
+https://vibe8.ai/support
 
 **Or:** https://[YOUR_DOMAIN]/support
 
@@ -319,7 +319,7 @@ https://flirrt.ai/support
 
 ## Marketing URL
 
-https://flirrt.ai
+https://vibe8.ai
 
 **Or:** https://[YOUR_DOMAIN]
 
@@ -333,7 +333,7 @@ https://[YOUR_DOMAIN]/api/v1/legal/privacy-policy
 
 ## Copyright
 
-© 2025 Flirrt.AI. All rights reserved.
+© 2025 Vibe8.AI. All rights reserved.
 
 ---
 
@@ -457,13 +457,13 @@ https://[YOUR_DOMAIN]/api/v1/legal/privacy-policy
 **Review Response Template:**
 
 *Positive Reviews (5 stars):*
-"Thank you so much for the amazing review! We're thrilled that Flirrt.AI is helping you with your dating conversations. Keep making those meaningful connections! 💕"
+"Thank you so much for the amazing review! We're thrilled that Vibe8.AI is helping you with your dating conversations. Keep making those meaningful connections! 💕"
 
 *Constructive Reviews (3-4 stars):*
-"Thank you for your feedback! We're always working to improve Flirrt.AI. Your suggestion about [specific feedback] is noted and we'll consider it for future updates. Contact support@flirrt.ai if we can help!"
+"Thank you for your feedback! We're always working to improve Vibe8.AI. Your suggestion about [specific feedback] is noted and we'll consider it for future updates. Contact support@vibe8.ai if we can help!"
 
 *Negative Reviews (1-2 stars):*
-"We're sorry to hear about your experience. We'd love to make this right! Please reach out to support@flirrt.ai so we can help resolve this issue. We take all feedback seriously."
+"We're sorry to hear about your experience. We'd love to make this right! Please reach out to support@vibe8.ai so we can help resolve this issue. We take all feedback seriously."
 
 ---
 
@@ -471,15 +471,15 @@ https://[YOUR_DOMAIN]/api/v1/legal/privacy-policy
 
 **Build Number:** 1
 **Version String:** 1.0.0
-**SKU:** FLIRRT-001
+**SKU:** VIBE8-001
 **Apple ID:** [AUTO-GENERATED]
-**Bundle ID:** com.flirrt.app
+**Bundle ID:** com.vibe8.app
 
 **Additional Bundle IDs:**
-- Keyboard: com.flirrt.app.keyboard
-- Share Extension: com.flirrt.app.share
+- Keyboard: com.vibe8.app.keyboard
+- Share Extension: com.vibe8.app.share
 
-**App Group:** group.com.flirrt
+**App Group:** group.com.vibe8
 
 ---
 

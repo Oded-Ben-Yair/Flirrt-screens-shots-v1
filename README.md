@@ -1,4 +1,4 @@
-# Flirrt.AI - AI-Powered Dating Assistant
+# Vibe8.AI - AI-Powered Dating Assistant
 
 **Version**: 1.0 (Build 1)
 **Status**: ✅ Production Ready | 🚀 Deployed on Render.com | 📱 TestFlight Ready
@@ -7,7 +7,7 @@
 
 ## Overview
 
-Flirrt.AI is an iOS application that provides AI-powered flirt suggestions for dating conversations. Users can share screenshots of their chats, and the app analyzes the context to generate personalized, contextual conversation starters and replies.
+Vibe8.AI is an iOS application that provides AI-powered flirt suggestions for dating conversations. Users can share screenshots of their chats, and the app analyzes the context to generate personalized, contextual conversation starters and replies.
 
 **Key Features**:
 - 📸 Screenshot analysis using AI vision models
@@ -21,7 +21,7 @@ Flirrt.AI is an iOS application that provides AI-powered flirt suggestions for d
 ## Project Structure
 
 ```
-Flirrt-screens-shots-v1/
+Vibe8-screens-shots-v1/
 ├── Backend/                    # Node.js/Express API Server
 │   ├── server.js              # Main server entry point
 │   ├── routes/                # API route handlers
@@ -31,14 +31,14 @@ Flirrt-screens-shots-v1/
 │   └── tests/                 # Jest test suites
 │
 ├── iOS/                       # iOS Application (Swift/SwiftUI)
-│   ├── Flirrt.xcodeproj       # Xcode project
-│   ├── Flirrt/                # Main app target
+│   ├── Vibe8.xcodeproj       # Xcode project
+│   ├── Vibe8/                # Main app target
 │   │   ├── Config/            # App configuration
 │   │   ├── Services/          # API client, auth manager
 │   │   ├── Views/             # SwiftUI views
 │   │   └── Models/            # Data models
-│   ├── FlirrtKeyboard/        # Keyboard extension target
-│   └── FlirrtShare/           # Share extension target
+│   ├── Vibe8Keyboard/        # Keyboard extension target
+│   └── Vibe8Share/           # Share extension target
 │
 ├── privacy-policy.html        # Privacy policy for App Store
 ├── CODE_REVIEW_GUIDE.md       # Guide for external reviewers
@@ -59,18 +59,18 @@ Flirrt-screens-shots-v1/
   - Google Gemini - Advanced image analysis
   - ElevenLabs - Voice synthesis (optional feature)
 - **Deployment**: Render.com
-- **Production URL**: https://flirrt-api-production.onrender.com
+- **Production URL**: https://vibe8-api-production.onrender.com
 
 ### iOS (Swift/SwiftUI)
 - **Language**: Swift 5+
 - **UI Framework**: SwiftUI
 - **Minimum iOS**: 17.0+
 - **Architecture**: MVVM pattern
-- **Communication**: App Groups (`group.com.flirrt`)
+- **Communication**: App Groups (`group.com.vibe8`)
 - **Bundle IDs**:
-  - Main app: `flirrt.ai`
-  - Keyboard: `flirrt.ai.keyboard`
-  - Share extension: `flirrt.ai.share`
+  - Main app: `vibe8.ai`
+  - Keyboard: `vibe8.ai.keyboard`
+  - Share extension: `vibe8.ai.share`
 
 ---
 
@@ -109,11 +109,11 @@ npm test
 
 ```bash
 cd iOS
-open Flirrt.xcodeproj
+open Vibe8.xcodeproj
 ```
 
 In Xcode:
-1. Select `Flirrt` scheme
+1. Select `Vibe8` scheme
 2. Select target device (iPhone simulator or real device)
 3. Press `Cmd+R` to build and run
 
@@ -171,7 +171,7 @@ In Xcode:
 
 ### Privacy Policy
 - **Location**: [`privacy-policy.html`](privacy-policy.html)
-- **Hosted at**: https://oded-ben-yair.github.io/Flirrt-screens-shots-v1/privacy-policy.html
+- **Hosted at**: https://oded-ben-yair.github.io/Vibe8-screens-shots-v1/privacy-policy.html
 - **Compliance**: GDPR/CCPA ready
 
 ### Known Security Considerations
@@ -253,7 +253,7 @@ DATABASE_URL=postgresql://user:pass@host:5432/dbname
 
 ### iOS Configuration
 
-**File**: `iOS/Flirrt/Config/AppConstants.swift`
+**File**: `iOS/Vibe8/Config/AppConstants.swift`
 
 ```swift
 static var apiBaseURL: String {
@@ -261,7 +261,7 @@ static var apiBaseURL: String {
     case .development:
         return "http://localhost:3000/api/v1"
     case .production:
-        return "https://flirrt-api-production.onrender.com/api/v1"
+        return "https://vibe8-api-production.onrender.com/api/v1"
     }
 }
 ```
@@ -347,9 +347,9 @@ See `CODE_REVIEW_GUIDE.md` for comprehensive review checklist.
 
 **Developer**: Oded Ben Yair
 **Email**: odedbenyair@gmail.com
-**Repository**: https://github.com/Oded-Ben-Yair/Flirrt-screens-shots-v1
+**Repository**: https://github.com/Oded-Ben-Yair/Vibe8-screens-shots-v1
 
-**API Status**: https://flirrt-api-production.onrender.com/health
+**API Status**: https://vibe8-api-production.onrender.com/health
 
 ---
 
@@ -357,8 +357,8 @@ See `CODE_REVIEW_GUIDE.md` for comprehensive review checklist.
 
 | Resource | URL |
 |----------|-----|
-| **Privacy Policy** | https://oded-ben-yair.github.io/Flirrt-screens-shots-v1/privacy-policy.html |
-| **Backend API** | https://flirrt-api-production.onrender.com |
+| **Privacy Policy** | https://oded-ben-yair.github.io/Vibe8-screens-shots-v1/privacy-policy.html |
+| **Backend API** | https://vibe8-api-production.onrender.com |
 | **Apple Developer** | https://developer.apple.com/account |
 | **App Store Connect** | https://appstoreconnect.apple.com |
 | **Render Dashboard** | https://dashboard.render.com |

@@ -3,7 +3,7 @@ import UIKit
 import Foundation
 import Network
 import os.log
-@testable import Flirrt
+@testable import Vibe8
 
 /// Comprehensive Integration Tests for Darwin Notifications and WebSocket Communication
 /// Tests cross-component communication and real-time data synchronization
@@ -495,7 +495,7 @@ class IntegrationTestSuite: XCTestCase {
             self.simulateMemoryPressure()
 
             // Verify system continues to function
-            self.keyboardExtension.flirrtFreshTapped()
+            self.keyboardExtension.vibe8FreshTapped()
 
             DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
                 expectation.fulfill()
@@ -564,7 +564,7 @@ class DarwinNotificationTester {
     }
 
     func testScreenshotAnalysisNotification(completion: @escaping (Bool) -> Void) {
-        let notificationName = "com.flirrt.screenshot.analysis.request"
+        let notificationName = "com.vibe8.screenshot.analysis.request"
         let testId = UUID().uuidString
 
         notificationCallbacks[testId] = {
@@ -589,7 +589,7 @@ class DarwinNotificationTester {
     }
 
     func testVoiceSynthesisNotification(completion: @escaping (Bool) -> Void) {
-        let notificationName = "com.flirrt.voice.synthesis.request"
+        let notificationName = "com.vibe8.voice.synthesis.request"
         let testId = UUID().uuidString
 
         notificationCallbacks[testId] = {
@@ -614,7 +614,7 @@ class DarwinNotificationTester {
     }
 
     func testSuggestionCacheNotification(completion: @escaping (Bool) -> Void) {
-        let notificationName = "com.flirrt.suggestions.cache.update"
+        let notificationName = "com.vibe8.suggestions.cache.update"
 
         // Send notification
         let userInfo = CFDictionaryCreate(nil, nil, nil, 0, nil, nil)
@@ -633,7 +633,7 @@ class DarwinNotificationTester {
     }
 
     func testAuthenticationNotification(completion: @escaping (Bool) -> Void) {
-        let notificationName = "com.flirrt.auth.state.changed"
+        let notificationName = "com.vibe8.auth.state.changed"
 
         let userInfo = CFDictionaryCreate(nil, nil, nil, 0, nil, nil)
         CFNotificationCenterPostNotification(
@@ -650,7 +650,7 @@ class DarwinNotificationTester {
     }
 
     func testSettingsUpdateNotification(completion: @escaping (Bool) -> Void) {
-        let notificationName = "com.flirrt.settings.update"
+        let notificationName = "com.vibe8.settings.update"
 
         let userInfo = CFDictionaryCreate(nil, nil, nil, 0, nil, nil)
         CFNotificationCenterPostNotification(
@@ -667,7 +667,7 @@ class DarwinNotificationTester {
     }
 
     func testErrorStateNotification(completion: @escaping (Bool) -> Void) {
-        let notificationName = "com.flirrt.error.state"
+        let notificationName = "com.vibe8.error.state"
 
         let userInfo = CFDictionaryCreate(nil, nil, nil, 0, nil, nil)
         CFNotificationCenterPostNotification(
@@ -684,7 +684,7 @@ class DarwinNotificationTester {
     }
 
     func sendPerformanceTestNotification(id: Int, completion: @escaping () -> Void) {
-        let notificationName = "com.flirrt.performance.test.\(id)"
+        let notificationName = "com.vibe8.performance.test.\(id)"
 
         let userInfo = CFDictionaryCreate(nil, nil, nil, 0, nil, nil)
         CFNotificationCenterPostNotification(
@@ -700,7 +700,7 @@ class DarwinNotificationTester {
     }
 
     func testReliabilityNotification(iteration: Int, completion: @escaping (Bool) -> Void) {
-        let notificationName = "com.flirrt.reliability.test.\(iteration)"
+        let notificationName = "com.vibe8.reliability.test.\(iteration)"
 
         let userInfo = CFDictionaryCreate(nil, nil, nil, 0, nil, nil)
         CFNotificationCenterPostNotification(
@@ -719,7 +719,7 @@ class DarwinNotificationTester {
     }
 
     func sendConcurrentNotification(id: Int, completion: @escaping (Bool) -> Void) {
-        let notificationName = "com.flirrt.concurrent.test.\(id)"
+        let notificationName = "com.vibe8.concurrent.test.\(id)"
 
         let userInfo = CFDictionaryCreate(nil, nil, nil, 0, nil, nil)
         CFNotificationCenterPostNotification(
@@ -940,7 +940,7 @@ class IntegrationReporter {
     }
 
     func generateIntegrationReport() {
-        let reportPath = "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/TestResults/integration_test_report.md"
+        let reportPath = "/Users/macbookairm1/Vibe8-screens-shots-v1/Vibe8AI/TestResults/integration_test_report.md"
         let timestamp = DateFormatter.full.string(from: Date())
 
         var report = """

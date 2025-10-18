@@ -7,7 +7,7 @@ class DatabaseService {
     constructor() {
         this.db = null;
         this.isConnected = false;
-        this.dbPath = path.join(__dirname, '..', 'data', 'flirrt.db');
+        this.dbPath = path.join(__dirname, '..', 'data', 'vibe8.db');
         this.init();
     }
 

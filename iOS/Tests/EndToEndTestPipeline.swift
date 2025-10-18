@@ -2,9 +2,9 @@ import XCTest
 import UIKit
 import Foundation
 import os.log
-@testable import Flirrt
+@testable import Vibe8
 
-/// Comprehensive End-to-End Testing Pipeline for Flirrt.ai
+/// Comprehensive End-to-End Testing Pipeline for Vibe8.ai
 /// Tests complete screenshot-to-suggestion workflow with evidence generation
 /// Validates Darwin notifications, WebSocket communication, and real-world scenarios
 class EndToEndTestPipeline: XCTestCase {
@@ -25,7 +25,7 @@ class EndToEndTestPipeline: XCTestCase {
     // Test Configuration
     let testServerURL = "http://localhost:3000"
     let testTimeout: TimeInterval = 30.0
-    let evidenceDirectory = "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/TestResults"
+    let evidenceDirectory = "/Users/macbookairm1/Vibe8-screens-shots-v1/Vibe8AI/TestResults"
 
     override func setUp() {
         super.setUp()
@@ -593,7 +593,7 @@ class EndToEndTestPipeline: XCTestCase {
     private func benchmarkUIResponse() -> Double {
         let startTime = CFAbsoluteTimeGetCurrent()
 
-        keyboardViewController.flirrtFreshTapped()
+        keyboardViewController.vibe8FreshTapped()
 
         let endTime = CFAbsoluteTimeGetCurrent()
         return endTime - startTime

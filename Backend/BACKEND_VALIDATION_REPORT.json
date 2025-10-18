@@ -11,7 +11,7 @@
   
   "database_loaded": true,
   "database_type": "SQLite 3.x",
-  "database_path": "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/Backend/data/flirrt.db",
+  "database_path": "/Users/macbookairm1/Vibe8-screens-shots-v1/Vibe8AI/Backend/data/vibe8.db",
   "database_size_kb": 52,
   "database_tables": ["users", "screenshots", "flirts", "sessions"],
   "database_wal_enabled": true,
@@ -70,7 +70,7 @@
   
   "critical_fixes_applied": [
     "✅ Circular dependency fixed (uploadQueueService lazy loading)",
-    "✅ PostgreSQL → SQLite migration (data/flirrt.db operational)",
+    "✅ PostgreSQL → SQLite migration (data/vibe8.db operational)",
     "✅ ElevenLabs API key updated",
     "✅ Circuit breaker binding issues resolved",
     "✅ Dual-model pipeline (Gemini Vision + Grok) integrated"

@@ -205,7 +205,7 @@ return sendErrorResponse(
 ### Running Tests:
 
 ```bash
-cd /Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/Backend
+cd /Users/macbookairm1/Vibe8-screens-shots-v1/Vibe8AI/Backend
 node tests/validation-enforcement.test.js
 ```
 
@@ -375,7 +375,7 @@ const sanitizedText = sanitizeText(userInput);
 
 ### Prerequisites:
 ```bash
-cd /Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/Backend
+cd /Users/macbookairm1/Vibe8-screens-shots-v1/Vibe8AI/Backend
 npm install  # Ensure axios is installed
 ```
 

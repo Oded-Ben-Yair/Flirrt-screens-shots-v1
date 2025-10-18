@@ -8,7 +8,7 @@
 
 ## 🎯 Goal
 
-Get Flirrt.AI app to TestFlight so friends with iPhones can install and test it.
+Get Vibe8.AI app to TestFlight so friends with iPhones can install and test it.
 
 ---
 
@@ -27,11 +27,11 @@ Get Flirrt.AI app to TestFlight so friends with iPhones can install and test it.
 
 ### 2. Bundle IDs Updated to Production ✅
 - **Changed:**
-  - `com.flirrt.app.dev` → `com.flirrt.app`
-  - `com.flirrt.app.dev.keyboard` → `com.flirrt.app.keyboard`
-  - `com.flirrt.app.dev.share` → `com.flirrt.app.share`
+  - `com.vibe8.app.dev` → `com.vibe8.app`
+  - `com.vibe8.app.dev.keyboard` → `com.vibe8.app.keyboard`
+  - `com.vibe8.app.dev.share` → `com.vibe8.app.share`
 - **Scope:** Updated in both Debug and Release configurations
-- **File:** `FlirrtAI/FlirrtAI/iOS/Flirrt.xcodeproj/project.pbxproj`
+- **File:** `Vibe8AI/Vibe8AI/iOS/Vibe8.xcodeproj/project.pbxproj`
 - **Committed:** Yes
 
 ### 3. Documentation Created ✅
@@ -50,12 +50,12 @@ Get Flirrt.AI app to TestFlight so friends with iPhones can install and test it.
 The user needs to complete these steps manually through Apple's web interfaces:
 
 ### Step 1: Enable GitHub Pages (2 min) ⚡ DO FIRST
-1. Go to: https://github.com/Oded-Ben-Yair/Flirrt-screens-shots-v1/settings/pages
+1. Go to: https://github.com/Oded-Ben-Yair/Vibe8-screens-shots-v1/settings/pages
 2. Source: "Deploy from a branch" → Branch: "main" → "/ (root)"
 3. Click "Save"
 4. Privacy Policy URL will be:
    ```
-   https://oded-ben-yair.github.io/Flirrt-screens-shots-v1/privacy-policy.html
+   https://oded-ben-yair.github.io/Vibe8-screens-shots-v1/privacy-policy.html
    ```
 
 ### Step 2: Apple Developer Portal (30 min)
@@ -96,14 +96,14 @@ The user needs to complete these steps manually through Apple's web interfaces:
 
 ### Backend
 - **Status:** ✅ Deployed and healthy
-- **URL:** https://flirrt-api-production.onrender.com
+- **URL:** https://vibe8-api-production.onrender.com
 - **Health Check:** `/health` returns 200 OK
 - **Services:** Grok, ElevenLabs, Gemini all configured
 
 ### iOS App
 - **Bundle IDs:** Updated to production (removed .dev)
 - **Development Team:** 9L8889KAL6
-- **App Group:** group.com.flirrt
+- **App Group:** group.com.vibe8
 - **Version:** 1.0 (build 1)
 - **Backend URL:** Configured for Render production
 
@@ -187,8 +187,8 @@ The user will know they're done when:
 - **TestFlight:** https://testflight.apple.com
 
 ### Project
-- **GitHub Repo:** https://github.com/Oded-Ben-Yair/Flirrt-screens-shots-v1
-- **Backend Health:** https://flirrt-api-production.onrender.com/health
+- **GitHub Repo:** https://github.com/Oded-Ben-Yair/Vibe8-screens-shots-v1
+- **Backend Health:** https://vibe8-api-production.onrender.com/health
 
 ---
 
@@ -227,7 +227,7 @@ During manual steps:
 After completion:
 - [ ] Friends receive email invite
 - [ ] Friends install TestFlight app
-- [ ] Friends install Flirrt.AI from TestFlight
+- [ ] Friends install Vibe8.AI from TestFlight
 - [ ] Friends can test on their iPhones
 - [ ] Celebrate! 🎉
 

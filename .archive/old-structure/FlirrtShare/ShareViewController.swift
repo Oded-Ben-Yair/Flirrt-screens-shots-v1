@@ -23,7 +23,7 @@ class ShareViewController: UIViewController {
         view.addSubview(activityIndicator)
 
         let label = UILabel()
-        label.text = "Analyzing screenshot with Flirrt AI..."
+        label.text = "Analyzing screenshot with Vibe8 AI..."
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(label)
@@ -98,7 +98,7 @@ class ShareViewController: UIViewController {
     }
 
     private func saveScreenshotToSharedContainer(_ image: UIImage) {
-        guard let containerURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.com.flirrt.shared") else {
+        guard let containerURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.com.vibe8.shared") else {
             print("Failed to get shared container")
             return
         }
@@ -136,7 +136,7 @@ class ShareViewController: UIViewController {
     }
 
     private func saveMetadata(_ metadata: ScreenshotMetadata) {
-        guard let containerURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.com.flirrt.shared") else { return }
+        guard let containerURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.com.vibe8.shared") else { return }
 
         let metadataURL = containerURL.appendingPathComponent("screenshot_metadata.json")
 
@@ -145,7 +145,7 @@ class ShareViewController: UIViewController {
         }
 
         // Also save to UserDefaults for quick access
-        if let sharedDefaults = UserDefaults(suiteName: "group.com.flirrt.shared") {
+        if let sharedDefaults = UserDefaults(suiteName: "group.com.vibe8.shared") {
             sharedDefaults.set(metadata.fileName, forKey: "latest_screenshot")
             sharedDefaults.set(metadata.timestamp.timeIntervalSince1970, forKey: "latest_screenshot_time")
             sharedDefaults.synchronize()
@@ -156,7 +156,7 @@ class ShareViewController: UIViewController {
         // Post Darwin notification to wake up main app
         CFNotificationCenterPostNotification(
             CFNotificationCenterGetDarwinNotifyCenter(),
-            CFNotificationName("com.flirrt.screenshot.ready" as CFString),
+            CFNotificationName("com.vibe8.screenshot.ready" as CFString),
             nil,
             nil,
             true

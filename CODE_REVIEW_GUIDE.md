@@ -1,4 +1,4 @@
-# 📋 Flirrt.AI - Code Review Guide
+# 📋 Vibe8.AI - Code Review Guide
 
 **Review Date**: October 11, 2025
 **Version**: 1.0 (Build 1)
@@ -8,14 +8,14 @@
 
 ## 🎯 Purpose
 
-This document provides external reviewers with a comprehensive overview of the Flirrt.AI codebase, architecture, and review guidelines.
+This document provides external reviewers with a comprehensive overview of the Vibe8.AI codebase, architecture, and review guidelines.
 
 ---
 
 ## 📁 Project Structure
 
 ```
-Flirrt-screens-shots-v1/
+Vibe8-screens-shots-v1/
 ├── Backend/                   # Node.js API Backend
 │   ├── server.js
 │   ├── routes/
@@ -23,10 +23,10 @@ Flirrt-screens-shots-v1/
 │   ├── middleware/
 │   └── config/
 ├── iOS/                       # iOS Application
-│   ├── Flirrt.xcodeproj
-│   ├── Flirrt/                # Main app target
-│   ├── FlirrtKeyboard/        # Keyboard extension
-│   └── FlirrtShare/           # Share extension
+│   ├── Vibe8.xcodeproj
+│   ├── Vibe8/                # Main app target
+│   ├── Vibe8Keyboard/        # Keyboard extension
+│   └── Vibe8Share/           # Share extension
 ├── privacy-policy.html        # Privacy policy for App Store
 ├── README.md                  # Project overview
 ├── CODE_REVIEW_GUIDE.md       # This file
@@ -41,10 +41,10 @@ Flirrt-screens-shots-v1/
 - **Main App**: User authentication, settings, onboarding
 - **Keyboard Extension**: AI-powered suggestion keyboard
 - **Share Extension**: Screenshot upload functionality
-- **Communication**: App Groups (`group.com.flirrt`)
+- **Communication**: App Groups (`group.com.vibe8`)
 
 ### Backend (Node.js/Express)
-- **Production URL**: https://flirrt-api-production.onrender.com
+- **Production URL**: https://vibe8-api-production.onrender.com
 - **AI Services**: Grok Vision API, ElevenLabs, Google Gemini
 - **Database**: SQLite (development) / PostgreSQL (production ready)
 
@@ -57,7 +57,7 @@ Flirrt-screens-shots-v1/
 **Priority**: HIGH
 
 **Files to Review**:
-- `iOS/Flirrt/Config/AppConstants.swift`
+- `iOS/Vibe8/Config/AppConstants.swift`
 - `Backend/middleware/auth.js`
 - `Backend/middleware/validation.js`
 - `privacy-policy.html`
@@ -65,7 +65,7 @@ Flirrt-screens-shots-v1/
 **Review Checklist**:
 - [ ] No API keys hardcoded in code
 - [ ] HTTPS enforced for all API calls
-- [ ] App Groups properly configured (`group.com.flirrt`)
+- [ ] App Groups properly configured (`group.com.vibe8`)
 - [ ] User data encryption implemented
 - [ ] Privacy policy comprehensive and accurate
 - [ ] No sensitive data in git history
@@ -81,10 +81,10 @@ Flirrt-screens-shots-v1/
 **Priority**: HIGH
 
 **Files to Review**:
-- `iOS/FlirrtKeyboard/KeyboardViewController.swift` (Main keyboard logic)
-- `iOS/Flirrt/Services/APIClient.swift` (Network layer)
-- `iOS/Flirrt/Services/ScreenshotDetectionManager.swift` (Screenshot handling)
-- `iOS/Flirrt/Views/ContentView.swift` (Main UI)
+- `iOS/Vibe8Keyboard/KeyboardViewController.swift` (Main keyboard logic)
+- `iOS/Vibe8/Services/APIClient.swift` (Network layer)
+- `iOS/Vibe8/Services/ScreenshotDetectionManager.swift` (Screenshot handling)
+- `iOS/Vibe8/Views/ContentView.swift` (Main UI)
 
 **Review Checklist**:
 - [ ] Swift 5+ best practices followed
@@ -137,7 +137,7 @@ Flirrt-screens-shots-v1/
 **Files to Review**:
 - `Backend/services/grok4FastService.js`
 - `Backend/services/geminiVisionService.js`
-- `iOS/Flirrt/Services/APIClient.swift`
+- `iOS/Vibe8/Services/APIClient.swift`
 
 **Review Checklist**:
 - [ ] API keys stored securely (environment variables)
@@ -159,8 +159,8 @@ Flirrt-screens-shots-v1/
 **Priority**: MEDIUM
 
 **Files to Review**:
-- `iOS/Flirrt/Services/SharedDataManager.swift`
-- `iOS/Flirrt/Services/AuthManager.swift`
+- `iOS/Vibe8/Services/SharedDataManager.swift`
+- `iOS/Vibe8/Services/AuthManager.swift`
 - `Backend/services/database.js`
 
 **Review Checklist**:
@@ -274,7 +274,7 @@ npm test
 ```
 
 ### iOS Testing
-1. Open `iOS/Flirrt.xcodeproj` in Xcode
+1. Open `iOS/Vibe8.xcodeproj` in Xcode
 2. Select target device (real iPhone recommended)
 3. Press Cmd+U to run tests (if implemented)
 4. Press Cmd+R to build and run
@@ -323,8 +323,8 @@ See `IPAD_TESTING_GUIDE.md` for comprehensive test scenarios
 For questions during code review:
 - **Developer**: Oded Ben Yair
 - **Email**: odedbenyair@gmail.com
-- **Repository**: https://github.com/Oded-Ben-Yair/Flirrt-screens-shots-v1
-- **Backend**: https://flirrt-api-production.onrender.com
+- **Repository**: https://github.com/Oded-Ben-Yair/Vibe8-screens-shots-v1
+- **Backend**: https://vibe8-api-production.onrender.com
 
 ---
 
@@ -342,7 +342,7 @@ For questions during code review:
 
 ---
 
-**Thank you for reviewing Flirrt.AI!** 🙏
+**Thank you for reviewing Vibe8.AI!** 🙏
 
 Your feedback is invaluable for improving the code quality, security, and user experience.
 

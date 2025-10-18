@@ -897,7 +897,7 @@ Generate engaging, contextually perfect suggestions now:`;
         const stage = enrichedContext.conversationStage;
         const personality = enrichedContext.personalityProfile;
 
-        return `You are Flirrt.ai, an expert dating conversation assistant with deep contextual understanding.
+        return `You are Vibe8.ai, an expert dating conversation assistant with deep contextual understanding.
 
 EXPERTISE AREAS:
 - Dating psychology and conversation dynamics
@@ -1621,7 +1621,7 @@ Generate the suggestion now:`;
      * @returns {string} System prompt
      */
     getSingleSuggestionSystemPrompt(enrichedContext) {
-        return `You are Flirrt.ai generating a single, high-quality dating conversation suggestion.
+        return `You are Vibe8.ai generating a single, high-quality dating conversation suggestion.
 
 FOCUS:
 - Quality over quantity (one perfect suggestion)

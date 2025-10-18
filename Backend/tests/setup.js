@@ -1,10 +1,10 @@
-// Jest setup file for Flirrt.ai Backend Tests
+// Jest setup file for Vibe8.ai Backend Tests
 require('dotenv').config();
 
 // Set test environment variables
 process.env.NODE_ENV = 'test';
 process.env.PORT = '0'; // Use random port for testing
-process.env.DB_NAME = process.env.DB_NAME || 'flirrt_test';
+process.env.DB_NAME = process.env.DB_NAME || 'vibe8_test';
 
 // Mock external APIs to prevent real API calls during testing
 const originalFetch = global.fetch;
@@ -58,5 +58,5 @@ afterAll(() => {
 // Export test utilities
 module.exports = {
     testPort: process.env.PORT || 3001,
-    testDbName: process.env.DB_NAME || 'flirrt_test'
+    testDbName: process.env.DB_NAME || 'vibe8_test'
 };

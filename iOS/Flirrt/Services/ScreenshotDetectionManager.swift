@@ -16,7 +16,7 @@ final class ScreenshotDetectionManager: ObservableObject {
     @Published var latestScreenshotData: Data?  // Latest screenshot image data for UI preview
 
     // MARK: - Private Properties
-    private let logger = Logger(subsystem: "com.flirrt.app", category: "ScreenshotDetection")
+    private let logger = Logger(subsystem: "com.vibe8.app", category: "ScreenshotDetection")
     private var cancellables = Set<AnyCancellable>()
     private let sharedDefaults = UserDefaults(suiteName: AppConstants.appGroupIdentifier)
     private var screenshotCounter: Int = 0
@@ -606,9 +606,9 @@ final class ScreenshotDetectionManager: ObservableObject {
 // MARK: - Darwin Notification Constants
 extension ScreenshotDetectionManager {
     struct DarwinNotifications {
-        static let screenshotDetected = "com.flirrt.screenshot.detected"
-        static let screenshotConfirmed = "com.flirrt.screenshot.confirmed"
-        static let detectionStatusChanged = "com.flirrt.detection.status.changed"
+        static let screenshotDetected = "com.vibe8.screenshot.detected"
+        static let screenshotConfirmed = "com.vibe8.screenshot.confirmed"
+        static let detectionStatusChanged = "com.vibe8.detection.status.changed"
     }
 }
 

@@ -1,9 +1,9 @@
 import XCTest
 import Foundation
 import UIKit
-@testable import Flirrt
+@testable import Vibe8
 
-/// Comprehensive API Client Tests for Flirrt.ai Backend Integration
+/// Comprehensive API Client Tests for Vibe8.ai Backend Integration
 /// Tests all API endpoints, authentication, error handling, and network conditions
 class APIClientTests: XCTestCase {
 

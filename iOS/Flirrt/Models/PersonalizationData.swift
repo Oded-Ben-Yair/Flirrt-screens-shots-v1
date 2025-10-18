@@ -1,6 +1,6 @@
 //
 //  PersonalizationData.swift
-//  Flirrt
+//  Vibe8
 //
 //  Created on 2025-10-01
 //  Personalization profile storage using App Groups for keyboard extension access
@@ -428,7 +428,7 @@ final class PersonalizationStorageManager {
         }
 
         // Test write
-        let testKey = "flirrt_app_groups_test"
+        let testKey = "vibe8_app_groups_test"
         userDefaults.set(Date().timeIntervalSince1970, forKey: testKey)
         userDefaults.synchronize()
 

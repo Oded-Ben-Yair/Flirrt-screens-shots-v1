@@ -14,7 +14,7 @@ The KeyboardExtensionAgent has successfully implemented a proper iOS keyboard ex
 
 ### 2. App Groups Configuration
 - ✅ Created entitlement files for both main app and keyboard extension
-- ✅ Configured `group.com.flirrt.shared` for data sharing
+- ✅ Configured `group.com.vibe8.shared` for data sharing
 - ✅ Added keychain access groups for secure data storage
 - ✅ Tested UserDefaults sharing between app and extension
 
@@ -55,31 +55,31 @@ The KeyboardExtensionAgent has successfully implemented a proper iOS keyboard ex
 
 ### Key Files Created
 ```
-/iOS/FlirrtKeyboard/
+/iOS/Vibe8Keyboard/
 ├── Info.plist                    # Extension registration
-├── FlirrtKeyboard.entitlements   # App Groups access
+├── Vibe8Keyboard.entitlements   # App Groups access
 └── KeyboardViewController.swift   # Main implementation
 
-/iOS/FlirrtApp/
-├── Flirrt.entitlements          # Main app entitlements
-├── FlirrtApp.swift              # App entry point
+/iOS/Vibe8App/
+├── Vibe8.entitlements          # Main app entitlements
+├── Vibe8App.swift              # App entry point
 └── ContentView.swift            # Setup instructions UI
 ```
 
 ### App Groups Integration
 ```swift
 // Shared UserDefaults
-let sharedDefaults = UserDefaults(suiteName: "group.com.flirrt.shared")
+let sharedDefaults = UserDefaults(suiteName: "group.com.vibe8.shared")
 
 // File sharing
 let containerURL = FileManager.default.containerURL(
-    forSecurityApplicationGroupIdentifier: "group.com.flirrt.shared"
+    forSecurityApplicationGroupIdentifier: "group.com.vibe8.shared"
 )
 
 // Darwin notifications
 CFNotificationCenterPostNotification(
     CFNotificationCenterGetDarwinNotifyCenter(),
-    CFNotificationName("com.flirrt.analyze.request" as CFString),
+    CFNotificationName("com.vibe8.analyze.request" as CFString),
     nil, nil, true
 )
 ```
@@ -110,7 +110,7 @@ Compliance: ✅ PASS
 2. Screenshot timestamp stored in App Groups
 3. Keyboard detects recent screenshot activity
 4. **Analyze button highlighted** for immediate use
-5. User switches to FlirrtKeyboard
+5. User switches to Vibe8Keyboard
 6. Suggestions loaded from shared container
 7. Voice options available when enabled
 

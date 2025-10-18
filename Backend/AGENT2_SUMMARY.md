@@ -190,7 +190,7 @@
 
 ```bash
 # Navigate to backend
-cd /Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/Backend
+cd /Users/macbookairm1/Vibe8-screens-shots-v1/Vibe8AI/Backend
 
 # Ensure server is running
 node server.js &

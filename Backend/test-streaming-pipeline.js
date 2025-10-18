@@ -896,7 +896,7 @@ class PerformanceTests {
  * Main test runner
  */
 async function runAllTests() {
-    TestUtils.log('🚀 Starting Flirrt.ai Streaming Pipeline Test Suite', colors.bold + colors.green);
+    TestUtils.log('🚀 Starting Vibe8.ai Streaming Pipeline Test Suite', colors.bold + colors.green);
     TestUtils.log(`Target: ${CONFIG.BASE_URL}`, colors.blue);
     TestUtils.log(`WebSocket: ${CONFIG.WS_URL}`, colors.blue);
     TestUtils.log(`Timeout: ${CONFIG.TIMEOUT}ms`, colors.blue);

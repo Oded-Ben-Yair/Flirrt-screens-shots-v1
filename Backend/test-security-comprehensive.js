@@ -19,7 +19,7 @@ const BASE_URL = process.env.TEST_BASE_URL || 'http://localhost:3000';
 const API_URL = `${BASE_URL}/api/v1`;
 
 // Test user credentials (create these first or use test mode)
-const TEST_EMAIL = 'security-test@flirrt.ai';
+const TEST_EMAIL = 'security-test@vibe8.ai';
 const TEST_PASSWORD = 'SecureTestPassword123!';
 let authToken = null;
 

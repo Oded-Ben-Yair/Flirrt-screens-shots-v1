@@ -1,4 +1,4 @@
-# 🚀 FLIRRT.AI - PRODUCTION DEPLOYMENT READY (OCT 6, 2025)
+# 🚀 VIBE8.AI - PRODUCTION DEPLOYMENT READY (OCT 6, 2025)
 
 **Last Updated**: 2025-10-06 09:50 UTC
 **Session**: Production Deployment - Render.com + TestFlight Setup
@@ -16,11 +16,11 @@
 2. Create Web Service → Connect repository
 3. Root Directory: `Backend`, Build: `npm install`, Start: `npm start`
 4. Copy ALL API keys from `Backend/.env` to Render environment variables
-5. Deploy → Get production URL: `https://flirrt-api-production.onrender.com`
+5. Deploy → Get production URL: `https://vibe8-api-production.onrender.com`
 
 **Then update iOS:**
 ```swift
-// iOS/Flirrt/Config/AppConstants.swift:278
+// iOS/Vibe8/Config/AppConstants.swift:278
 case .production:
     return "https://YOUR-ACTUAL-RENDER-URL.onrender.com/api/v1"
 ```
@@ -33,9 +33,9 @@ case .production:
 
 **Critical:**
 1. Update Bundle IDs in Xcode (remove `.dev`):
-   - `com.flirrt.app.dev` → `com.flirrt.app`
-   - `com.flirrt.app.dev.keyboard` → `com.flirrt.app.keyboard`
-   - `com.flirrt.app.dev.share` → `com.flirrt.app.share`
+   - `com.vibe8.app.dev` → `com.vibe8.app`
+   - `com.vibe8.app.dev.keyboard` → `com.vibe8.app.keyboard`
+   - `com.vibe8.app.dev.share` → `com.vibe8.app.share`
 
 2. Register Bundle IDs at https://developer.apple.com/account
 3. Create app at https://appstoreconnect.apple.com
@@ -78,9 +78,9 @@ Backend/
 └── .env                    - API keys (GITIGNORED!)
 
 iOS/
-├── Flirrt/Config/AppConstants.swift    - API URLs
-├── FlirrtKeyboard/KeyboardViewController.swift
-└── Flirrt.xcodeproj
+├── Vibe8/Config/AppConstants.swift    - API URLs
+├── Vibe8Keyboard/KeyboardViewController.swift
+└── Vibe8.xcodeproj
 ```
 
 ---
@@ -95,16 +95,16 @@ Branch: fix/real-mvp-implementation
 Git: Clean ✅
 
 Dev Bundle IDs (current):
-- com.flirrt.app.dev
-- com.flirrt.app.dev.keyboard
-- com.flirrt.app.dev.share
+- com.vibe8.app.dev
+- com.vibe8.app.dev.keyboard
+- com.vibe8.app.dev.share
 
 Prod Bundle IDs (for TestFlight):
-- com.flirrt.app
-- com.flirrt.app.keyboard
-- com.flirrt.app.share
+- com.vibe8.app
+- com.vibe8.app.keyboard
+- com.vibe8.app.share
 
-App Group: group.com.flirrt
+App Group: group.com.vibe8
 ```
 
 **API Keys (Backend/.env - DO NOT COMMIT):**
@@ -112,7 +112,7 @@ App Group: group.com.flirrt
 GROK_API_KEY=xai-Z3M89idolih77H3F9gGpHJQ1b14YGAN1VbTreHzD6mcDL4dN6c0fXmAFAPuZEJNR3ccH0dhrZF4AMyuP
 ELEVENLABS_API_KEY=sk_1fa6060d4ed6254c9ac122c10945e3edd6b53eb4d4229d32
 GEMINI_API_KEY=AIzaSyCp7wWBtinFWbGAF4UPeve89StBpcLRu3U
-JWT_SECRET=flirrt_ai_super_secret_key_2024_production
+JWT_SECRET=vibe8_ai_super_secret_key_2024_production
 NODE_ENV=production
 PORT=3000
 ```
@@ -164,14 +164,14 @@ e0bca30 feat: Complete iPad setup
 
 ```bash
 # Navigate
-cd /Users/macbookairm1/Flirrt-screens-shots-v1
+cd /Users/macbookairm1/Vibe8-screens-shots-v1
 
 # Backend
-cd FlirrtAI/Backend && npm start
+cd Vibe8AI/Backend && npm start
 curl http://localhost:3000/health
 
 # iOS
-cd FlirrtAI/iOS && open Flirrt.xcodeproj
+cd Vibe8AI/iOS && open Vibe8.xcodeproj
 
 # Git
 git status
@@ -187,7 +187,7 @@ git log -p --all | grep -E 'xai-|sk_|AIza'
 ## 🔗 LINKS
 
 **Development:**
-- GitHub: https://github.com/Oded-Ben-Yair/Flirrt-screens-shots-v1
+- GitHub: https://github.com/Oded-Ben-Yair/Vibe8-screens-shots-v1
 - Branch: fix/real-mvp-implementation
 
 **Production:**

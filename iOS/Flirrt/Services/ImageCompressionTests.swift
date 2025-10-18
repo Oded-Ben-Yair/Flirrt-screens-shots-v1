@@ -2,13 +2,13 @@ import UIKit
 import XCTest
 import OSLog
 
-@testable import Flirrt
+@testable import Vibe8
 
 /// Comprehensive test suite for image compression functionality
 final class ImageCompressionTests: XCTestCase {
 
     private var compressionService: ImageCompressionService!
-    private let logger = Logger(subsystem: "com.flirrt.tests", category: "compression")
+    private let logger = Logger(subsystem: "com.vibe8.tests", category: "compression")
 
     override func setUp() {
         super.setUp()

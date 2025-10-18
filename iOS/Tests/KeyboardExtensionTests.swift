@@ -2,9 +2,9 @@ import XCTest
 import UIKit
 import os.log
 import Photos
-@testable import FlirrtKeyboard
+@testable import Vibe8Keyboard
 
-/// Comprehensive test suite for the FlirrtKeyboard extension
+/// Comprehensive test suite for the Vibe8Keyboard extension
 /// Tests critical user-facing functionality that was previously broken
 class KeyboardExtensionTests: XCTestCase {
 
@@ -32,13 +32,13 @@ class KeyboardExtensionTests: XCTestCase {
     func testKeyboardUIElementsExist() {
         // Test that all required UI elements exist
         XCTAssertNotNil(keyboardVC.view, "Main view should exist")
-        XCTAssertNotNil(keyboardVC.flirrtFreshButton, "Fresh button should exist")
+        XCTAssertNotNil(keyboardVC.vibe8FreshButton, "Fresh button should exist")
         XCTAssertNotNil(keyboardVC.analyzeButton, "Analyze button should exist")
         XCTAssertNotNil(keyboardVC.suggestionsView, "Suggestions view should exist")
     }
 
     func testFreshButtonConfiguration() {
-        let freshButton = keyboardVC.flirrtFreshButton
+        let freshButton = keyboardVC.vibe8FreshButton
         XCTAssertEqual(freshButton.title(for: .normal), "💫 Fresh", "Fresh button should have correct title")
         XCTAssertEqual(freshButton.backgroundColor, .systemPink, "Fresh button should have pink background")
         XCTAssertEqual(freshButton.layer.cornerRadius, 8, "Fresh button should have rounded corners")
@@ -65,7 +65,7 @@ class KeyboardExtensionTests: XCTestCase {
         keyboardVC.urlSession = mockSession
 
         // Tap Fresh button
-        keyboardVC.flirrtFreshTapped()
+        keyboardVC.vibe8FreshTapped()
 
         // Verify API call was made
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
@@ -190,12 +190,12 @@ class KeyboardExtensionTests: XCTestCase {
 
         // Make multiple concurrent API calls
         DispatchQueue.global().async {
-            self.keyboardVC.flirrtFreshTapped()
+            self.keyboardVC.vibe8FreshTapped()
             expectation.fulfill()
         }
 
         DispatchQueue.global().async {
-            self.keyboardVC.flirrtFreshTapped()
+            self.keyboardVC.vibe8FreshTapped()
             expectation.fulfill()
         }
 
@@ -210,7 +210,7 @@ class KeyboardExtensionTests: XCTestCase {
     // MARK: - App Groups Integration Tests
 
     func testAppGroupDataSharing() {
-        let appGroupID = "group.com.flirrt.shared"
+        let appGroupID = "group.com.vibe8.shared"
         let sharedDefaults = UserDefaults(suiteName: appGroupID)
 
         XCTAssertNotNil(sharedDefaults, "Should be able to access App Group shared defaults")
@@ -228,7 +228,7 @@ class KeyboardExtensionTests: XCTestCase {
 
     func testSharedDataLoading() {
         // Test loading shared data from App Group
-        let appGroupID = "group.com.flirrt.shared"
+        let appGroupID = "group.com.vibe8.shared"
         guard let sharedDefaults = UserDefaults(suiteName: appGroupID) else {
             XCTFail("Unable to access App Group")
             return
@@ -276,7 +276,7 @@ class KeyboardExtensionTests: XCTestCase {
             expectation.fulfill()
         }
 
-        keyboardVC.flirrtFreshTapped()
+        keyboardVC.vibe8FreshTapped()
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             if !hapticCalled {
@@ -324,7 +324,7 @@ class KeyboardExtensionTests: XCTestCase {
         keyboardVC.didRequestVoice(for: testText, voiceId: testVoiceId)
 
         // Verify voice request was created and written to shared container
-        let appGroupID = "group.com.flirrt.shared"
+        let appGroupID = "group.com.vibe8.shared"
         guard let containerURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: appGroupID) else {
             XCTFail("Unable to access shared container")
             return
@@ -434,7 +434,7 @@ extension KeyboardExtensionTests {
 
     func testFreshButtonResponseTime() {
         measure {
-            keyboardVC.flirrtFreshTapped()
+            keyboardVC.vibe8FreshTapped()
         }
     }
 

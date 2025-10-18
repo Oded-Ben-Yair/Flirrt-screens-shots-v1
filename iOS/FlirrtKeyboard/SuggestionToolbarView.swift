@@ -34,7 +34,7 @@ class SuggestionToolbarView: UIView {
 
     private lazy var placeholderLabel: UILabel = {
         let label = UILabel()
-        label.text = "📸 Take a screenshot in Flirrt app"
+        label.text = "📸 Take a screenshot in Vibe8 app"
         label.font = .systemFont(ofSize: 14, weight: .medium)
         label.textColor = .secondaryLabel
         label.textAlignment = .center

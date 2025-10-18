@@ -19,7 +19,7 @@ describe('API Endpoint Tests', () => {
                 `INSERT INTO users (email, password_hash, created_at)
                  VALUES ($1, $2, NOW())
                  RETURNING id`,
-                ['test@flirrt.ai', 'test_hash_123']
+                ['test@vibe8.ai', 'test_hash_123']
             );
             testUserId = result.rows[0].id;
         }

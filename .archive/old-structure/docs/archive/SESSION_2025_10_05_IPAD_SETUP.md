@@ -10,7 +10,7 @@
 ## 🎯 SESSION SUMMARY
 
 ### What Was Attempted
-User wanted to install Flirrt.ai app on physical iPad for testing screenshot detection feature (which doesn't work on simulator).
+User wanted to install Vibe8.ai app on physical iPad for testing screenshot detection feature (which doesn't work on simulator).
 
 ### What Was Accomplished
 1. ✅ **iPad connected and prepared**
@@ -27,7 +27,7 @@ User wanted to install Flirrt.ai app on physical iPad for testing screenshot det
 3. ✅ **Xcode project configured for automatic signing**
    - All 3 targets set to Automatic signing
    - Team ID: KQT85CV54D
-   - Bundle IDs: com.flirrt.app.dev.* (temporary)
+   - Bundle IDs: com.vibe8.app.dev.* (temporary)
 
 4. ✅ **Environment cleaned**
    - All background Node processes stopped
@@ -64,23 +64,23 @@ User wanted to install Flirrt.ai app on physical iPad for testing screenshot det
 **Key Modified Files** (Production Code):
 ```
 Modified:
-- FlirrtAI/Backend/middleware/auth.js
-- FlirrtAI/Backend/middleware/validation.js
-- FlirrtAI/Backend/routes/analysis.js
-- FlirrtAI/Backend/routes/flirts.js
-- FlirrtAI/Backend/routes/voice.js
-- FlirrtAI/Backend/server.js
-- FlirrtAI/iOS/Flirrt.xcodeproj/project.pbxproj (signing configuration)
-- FlirrtAI/iOS/Flirrt/Views/*.swift (10-stage automated fixes)
-- FlirrtAI/iOS/FlirrtKeyboard/KeyboardViewController.swift
+- Vibe8AI/Backend/middleware/auth.js
+- Vibe8AI/Backend/middleware/validation.js
+- Vibe8AI/Backend/routes/analysis.js
+- Vibe8AI/Backend/routes/flirts.js
+- Vibe8AI/Backend/routes/voice.js
+- Vibe8AI/Backend/server.js
+- Vibe8AI/iOS/Vibe8.xcodeproj/project.pbxproj (signing configuration)
+- Vibe8AI/iOS/Vibe8/Views/*.swift (10-stage automated fixes)
+- Vibe8AI/iOS/Vibe8Keyboard/KeyboardViewController.swift
 
 New Files:
-- FlirrtAI/Backend/test-vision-api.js
-- FlirrtAI/Backend/test-images/ (5 test screenshots)
-- FlirrtAI/iOS/Flirrt/Config/AppConstants.swift
-- FlirrtAI/iOS/Flirrt/Models/FlirtSuggestion.swift
-- FlirrtAI/iOS/Flirrt/Views/ScreenshotAnalysisView.swift
-- FlirrtAI/docs/archive/SESSION_2025_10_05_IPAD_SETUP.md (this file)
+- Vibe8AI/Backend/test-vision-api.js
+- Vibe8AI/Backend/test-images/ (5 test screenshots)
+- Vibe8AI/iOS/Vibe8/Config/AppConstants.swift
+- Vibe8AI/iOS/Vibe8/Models/FlirtSuggestion.swift
+- Vibe8AI/iOS/Vibe8/Views/ScreenshotAnalysisView.swift
+- Vibe8AI/docs/archive/SESSION_2025_10_05_IPAD_SETUP.md (this file)
 ```
 
 **Deleted**: 209 archive files from `.archive/2025-10-pre-cleanup/` (cleanup from previous session)
@@ -105,9 +105,9 @@ CODE_SIGN_STYLE = 'Automatic'
 DEVELOPMENT_TEAM = 'KQT85CV54D' (or auto-detected)
 CODE_SIGN_IDENTITY = 'Apple Development'
 PRODUCT_BUNDLE_IDENTIFIER:
-  - Flirrt: com.flirrt.app.dev
-  - FlirrtKeyboard: com.flirrt.app.dev.keyboard
-  - FlirrtShare: com.flirrt.app.dev.share
+  - Vibe8: com.vibe8.app.dev
+  - Vibe8Keyboard: com.vibe8.app.dev.keyboard
+  - Vibe8Share: com.vibe8.app.dev.share
 ```
 
 ---
@@ -160,7 +160,7 @@ Root Cause: Free "Personal Team" cannot use App Groups
 
 ### Why App Groups Are Required
 
-The Flirrt.ai app architecture requires **App Groups** for:
+The Vibe8.ai app architecture requires **App Groups** for:
 
 1. **Main App → Keyboard Extension** data sharing
    - Screenshot data stored in App Groups container
@@ -172,7 +172,7 @@ The Flirrt.ai app architecture requires **App Groups** for:
    - Personalization profile data
 
 **Capability**: `com.apple.security.application-groups`
-**App Group ID**: `group.com.flirrt`
+**App Group ID**: `group.com.vibe8`
 
 **Free Apple ID ("Personal Team") Limitations**:
 - ❌ Cannot use App Groups
@@ -188,7 +188,7 @@ The Flirrt.ai app architecture requires **App Groups** for:
 
 ### Files Modified for Signing
 
-**File**: `FlirrtAI/iOS/Flirrt.xcodeproj/project.pbxproj`
+**File**: `Vibe8AI/iOS/Vibe8.xcodeproj/project.pbxproj`
 
 **Attempts Made**:
 1. Removed `DEVELOPMENT_TEAM` for automatic detection
@@ -217,24 +217,24 @@ Xcode → Settings → Accounts
 
 **2. Build and Install on iPad** (10 minutes)
 ```bash
-cd /Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS
+cd /Users/macbookairm1/Vibe8-screens-shots-v1/Vibe8AI/iOS
 
 # Build for iPad
-xcodebuild -scheme Flirrt \
+xcodebuild -scheme Vibe8 \
   -configuration Debug \
   -destination 'platform=iOS,id=00008120-001E4C511E800032' \
   -allowProvisioningUpdates \
   build
 
 # Or use Xcode GUI:
-# 1. Open Flirrt.xcodeproj
+# 1. Open Vibe8.xcodeproj
 # 2. Select "iPad" device in toolbar
 # 3. Click Run (▶) or press Cmd+R
 ```
 
 **3. Start Backend Server** (2 minutes)
 ```bash
-cd /Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/Backend
+cd /Users/macbookairm1/Vibe8-screens-shots-v1/Vibe8AI/Backend
 npm start
 
 # Verify health:
@@ -244,12 +244,12 @@ curl http://localhost:3000/health
 **4. Test Screenshot Detection** (20 minutes)
 
 **Test Plan**:
-1. Launch Flirrt app on iPad
+1. Launch Vibe8 app on iPad
 2. Complete onboarding (if needed)
 3. Grant Photos permission when prompted
 4. Open Safari or Messages
 5. Take screenshot (Power + Volume Up on iPad)
-6. Check Flirrt app for detection confirmation
+6. Check Vibe8 app for detection confirmation
 7. Verify screenshot analysis works
 
 **Expected Flow**:
@@ -262,9 +262,9 @@ PHPhotoLibrary extracts screenshot image
      ↓
 Image compressed to <200KB (ImageCompressionService)
      ↓
-Saved to App Groups: group.com.flirrt
+Saved to App Groups: group.com.vibe8
      ↓
-Darwin notification sent: "com.flirrt.screenshot.detected"
+Darwin notification sent: "com.vibe8.screenshot.detected"
      ↓
 Keyboard extension receives notification
      ↓
@@ -278,7 +278,7 @@ Flirt suggestions displayed in keyboard
 ```
 
 **5. Document Test Results** (10 minutes)
-- Create `FlirrtAI/docs/archive/TEST_RESULTS_IPAD_2025_10_0X.md`
+- Create `Vibe8AI/docs/archive/TEST_RESULTS_IPAD_2025_10_0X.md`
 - Include screenshots of success/failure
 - Note any issues or bugs found
 
@@ -288,20 +288,20 @@ Flirt suggestions displayed in keyboard
 
 ### If Build Still Fails After Apple Activation
 
-**Issue**: "No profiles for 'com.flirrt.app.dev' were found"
+**Issue**: "No profiles for 'com.vibe8.app.dev' were found"
 
 **Solution 1**: Update Bundle IDs back to original
 ```bash
-cd /Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS
+cd /Users/macbookairm1/Vibe8-screens-shots-v1/Vibe8AI/iOS
 
 ruby -e "
 require 'xcodeproj'
-project = Xcodeproj::Project.open('Flirrt.xcodeproj')
+project = Xcodeproj::Project.open('Vibe8.xcodeproj')
 
 bundle_ids = {
-  'Flirrt' => 'com.flirrt.app',
-  'FlirrtKeyboard' => 'com.flirrt.app.keyboard',
-  'FlirrtShare' => 'com.flirrt.app.share'
+  'Vibe8' => 'com.vibe8.app',
+  'Vibe8Keyboard' => 'com.vibe8.app.keyboard',
+  'Vibe8Share' => 'com.vibe8.app.share'
 }
 
 bundle_ids.each do |target_name, bundle_id|
@@ -325,9 +325,9 @@ Xcode → Settings → Accounts → [Your Apple ID] → Download Manual Profiles
 
 **Solution 3**: Clean Xcode Build Cache
 ```bash
-cd /Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS
-rm -rf ~/Library/Developer/Xcode/DerivedData/Flirrt-*
-xcodebuild clean -scheme Flirrt
+cd /Users/macbookairm1/Vibe8-screens-shots-v1/Vibe8AI/iOS
+rm -rf ~/Library/Developer/Xcode/DerivedData/Vibe8-*
+xcodebuild clean -scheme Vibe8
 ```
 
 ### If Screenshots Don't Detect on iPad
@@ -342,10 +342,10 @@ xcodebuild clean -scheme Flirrt
 **Check 2**: App Groups Configured
 ```bash
 # Verify entitlements file:
-cat /Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/Flirrt/Flirrt.entitlements
+cat /Users/macbookairm1/Vibe8-screens-shots-v1/Vibe8AI/iOS/Vibe8/Vibe8.entitlements
 # Should contain:
 # <key>com.apple.security.application-groups</key>
-# <array><string>group.com.flirrt</string></array>
+# <array><string>group.com.vibe8</string></array>
 ```
 
 **Check 3**: Backend Server Running
@@ -396,14 +396,14 @@ curl http://localhost:3000/health  # Should return {"success": true}
 - **Status**: Ready for development, trusted, Developer Mode enabled
 
 ### Bundle Identifiers (Current - Temporary)
-- Main App: `com.flirrt.app.dev`
-- Keyboard: `com.flirrt.app.dev.keyboard`
-- Share Extension: `com.flirrt.app.dev.share`
+- Main App: `com.vibe8.app.dev`
+- Keyboard: `com.vibe8.app.dev.keyboard`
+- Share Extension: `com.vibe8.app.dev.share`
 
-**NOTE**: These should be reverted to original IDs (`com.flirrt.app.*`) after paid account activates.
+**NOTE**: These should be reverted to original IDs (`com.vibe8.app.*`) after paid account activates.
 
 ### App Group
-- **ID**: `group.com.flirrt`
+- **ID**: `group.com.vibe8`
 - **Purpose**: Share data between main app and extensions
 - **Requires**: Paid Apple Developer Program (now enrolled)
 
@@ -413,7 +413,7 @@ curl http://localhost:3000/health  # Should return {"success": true}
 
 ### Active Documentation (Root)
 ```
-FlirrtAI/
+Vibe8AI/
 ├── README.md                    # User-facing readme
 ├── docs/
 │   ├── README.md
@@ -456,7 +456,7 @@ FlirrtAI/
 
 ### For Next Session
 1. **Verify Apple activation first** - Don't attempt build until confirmed
-2. **Revert bundle IDs** - Change back to `com.flirrt.app.*` after activation
+2. **Revert bundle IDs** - Change back to `com.vibe8.app.*` after activation
 3. **Full integration test** - Complete screenshot → keyboard → flirts flow
 4. **Document results** - Create test report with screenshots
 
@@ -515,7 +515,7 @@ FlirrtAI/
    ```
 
 3. **What to Do When Activated**
-   - Revert bundle IDs to original (`com.flirrt.app.*`)
+   - Revert bundle IDs to original (`com.vibe8.app.*`)
    - Build app for iPad (`platform=iOS,id=00008120-001E4C511E800032`)
    - Start backend server (`cd Backend && npm start`)
    - Run full integration test (screenshot → keyboard → flirts)

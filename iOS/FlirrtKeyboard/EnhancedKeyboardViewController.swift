@@ -1,18 +1,18 @@
 import UIKit
 import os.log
 
-/// Enhanced Flirrt Keyboard with Full QWERTY + Suggestions
+/// Enhanced Vibe8 Keyboard with Full QWERTY + Suggestions
 /// Production-ready implementation for App Store submission
 class EnhancedKeyboardViewController: UIInputViewController {
 
     // MARK: - Properties
 
-    private let logger = OSLog(subsystem: "com.flirrt.keyboard", category: "enhanced")
-    private let appGroupID = "group.com.flirrt"
+    private let logger = OSLog(subsystem: "com.vibe8.keyboard", category: "enhanced")
+    private let appGroupID = "group.com.vibe8"
     private var darwinNotificationName: CFNotificationName?
 
     private var suggestions: [FlirtSuggestion] = []
-    private var keyboardView: FlirrtQWERTYKeyboardView!
+    private var keyboardView: Vibe8QWERTYKeyboardView!
 
     // MARK: - UI Components
 
@@ -45,7 +45,7 @@ class EnhancedKeyboardViewController: UIInputViewController {
         setupUI()
         setupDarwinNotifications()
         loadSuggestionsFromAppGroup()
-        os_log("Enhanced Flirrt Keyboard loaded", log: logger, type: .info)
+        os_log("Enhanced Vibe8 Keyboard loaded", log: logger, type: .info)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -70,7 +70,7 @@ class EnhancedKeyboardViewController: UIInputViewController {
         containerView.addSubview(activityIndicator)
 
         // Create QWERTY keyboard
-        keyboardView = FlirrtQWERTYKeyboardView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 260))
+        keyboardView = Vibe8QWERTYKeyboardView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 260))
         keyboardView.delegate = self
         keyboardView.translatesAutoresizingMaskIntoConstraints = false
         containerView.addSubview(keyboardView)
@@ -105,7 +105,7 @@ class EnhancedKeyboardViewController: UIInputViewController {
 
     private func setupDarwinNotifications() {
         let center = CFNotificationCenterGetDarwinNotifyCenter()
-        let notificationName = CFNotificationName("com.flirrt.screenshot.detected" as CFString)
+        let notificationName = CFNotificationName("com.vibe8.screenshot.detected" as CFString)
 
         darwinNotificationName = notificationName
 
@@ -177,9 +177,9 @@ class EnhancedKeyboardViewController: UIInputViewController {
     }
 }
 
-// MARK: - FlirrtKeyboardDelegate
+// MARK: - Vibe8KeyboardDelegate
 
-extension EnhancedKeyboardViewController: FlirrtKeyboardDelegate {
+extension EnhancedKeyboardViewController: Vibe8KeyboardDelegate {
     func keyboardDidPressKey(_ key: String) {
         textDocumentProxy.insertText(key)
     }
@@ -227,7 +227,7 @@ extension EnhancedKeyboardViewController: SuggestionToolbarDelegate {
 
     func suggestionToolbarDidRequestRefresh() {
         // Open main app to capture new screenshot
-        if let url = URL(string: "flirrt://analyze-screenshot") {
+        if let url = URL(string: "vibe8://analyze-screenshot") {
             openURL(url)
         }
     }

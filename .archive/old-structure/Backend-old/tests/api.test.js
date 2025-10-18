@@ -5,7 +5,7 @@ const path = require('path');
 process.env.LOG_LEVEL = 'error';
 process.env.NODE_ENV = 'test';
 
-describe('Flirrt API Endpoints', () => {
+describe('Vibe8 API Endpoints', () => {
     let app;
     let server;
 
@@ -107,7 +107,7 @@ describe('Flirrt API Endpoints', () => {
 
 // Simple test runner if running directly
 if (require.main === module) {
-    console.log('Running Flirrt API tests...\n');
+    console.log('Running Vibe8 API tests...\n');
 
     const jest = require('jest');
     jest.run(['--testPathPattern=api.test.js', '--verbose'])

@@ -18,7 +18,7 @@ struct ContentView: View {
                         .font(.system(size: 80))
                         .foregroundColor(.pink)
 
-                    Text("Flirrt AI")
+                    Text("Vibe8 AI")
                         .font(.largeTitle)
                         .fontWeight(.bold)
                         .foregroundColor(.white)

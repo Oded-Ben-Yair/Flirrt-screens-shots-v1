@@ -21,12 +21,12 @@
 
 ### iOS Fixes (Already in Place)
 1. **Darwin Notification Listener** ✅
-   - File: `FlirrtAI/iOS/FlirrtKeyboard/KeyboardViewController.swift:161-179`
-   - Auto-detects screenshots via `com.flirrt.screenshot.detected`
+   - File: `Vibe8AI/iOS/Vibe8Keyboard/KeyboardViewController.swift:161-179`
+   - Auto-detects screenshots via `com.vibe8.screenshot.detected`
    - Includes proper cleanup in deinit
 
 2. **App Groups Configuration** ✅
-   - App Group: `group.com.flirrt`
+   - App Group: `group.com.vibe8`
    - Shared between main app and keyboard extension
    - Entitlements properly configured
 
@@ -63,9 +63,9 @@ curl -X POST "https://api.render.com/deploy/srv-d3hq6r3uibrs73b4i6bg?key=psBQmbt
 ```
 
 **Deployment Details**:
-- Service: Flirrt Backend API
+- Service: Vibe8 Backend API
 - Platform: Render.com
-- URL: https://flirrt-api-production.onrender.com
+- URL: https://vibe8-api-production.onrender.com
 - Status: Live ✅
 
 ### 2. Created Testing Guide ✅
@@ -100,7 +100,7 @@ iOS UIApplication.userDidTakeScreenshotNotification
         ↓
 ScreenshotDetectionManager (Main App)
         ↓
-Darwin Notification: "com.flirrt.screenshot.detected"
+Darwin Notification: "com.vibe8.screenshot.detected"
         ↓
 KeyboardViewController receives notification
         ↓
@@ -123,7 +123,7 @@ User taps → text inserted
 ## 🎯 Testing Checklist
 
 ### Must Test
-- [ ] Open Flirrt keyboard after taking screenshot
+- [ ] Open Vibe8 keyboard after taking screenshot
 - [ ] Verify automatic detection within 10 seconds
 - [ ] Check 5 suggestions appear
 - [ ] Test suggestion insertion on tap
@@ -141,25 +141,25 @@ User taps → text inserted
 
 ### App Group
 ```
-ID: group.com.flirrt
+ID: group.com.vibe8
 Members:
-  - Main app (com.flirrt.app.dev)
-  - Keyboard extension (com.flirrt.app.dev.keyboard)
-  - Share extension (com.flirrt.app.dev.share)
+  - Main app (com.vibe8.app.dev)
+  - Keyboard extension (com.vibe8.app.dev.keyboard)
+  - Share extension (com.vibe8.app.dev.share)
 ```
 
 ### Backend API
 ```
-Base URL: https://flirrt-api-production.onrender.com/api/v1
+Base URL: https://vibe8-api-production.onrender.com/api/v1
 Health: /health
 Generate: /flirts/generate_flirts
 ```
 
 ### Xcode Project
 ```
-Location: /Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/FlirrtAI/iOS/Flirrt.xcodeproj
+Location: /Users/macbookairm1/Vibe8-screens-shots-v1/Vibe8AI/Vibe8AI/iOS/Vibe8.xcodeproj
 Development Team: 9L8889KAL6
-Bundle ID: com.flirrt.app.dev
+Bundle ID: com.vibe8.app.dev
 ```
 
 ---
@@ -193,14 +193,14 @@ Bundle ID: com.flirrt.app.dev
 ### Documentation
 - `IPAD_TESTING_GUIDE.md` - Complete testing instructions
 - `SESSION_SUMMARY_OCT_11.md` - This file
-- `FlirrtAI/CLAUDE.md` - Project configuration
+- `Vibe8AI/CLAUDE.md` - Project configuration
 
 ### Key Code Files
-- `FlirrtAI/iOS/FlirrtKeyboard/KeyboardViewController.swift` - Keyboard implementation
-- `FlirrtAI/iOS/Flirrt/Services/ScreenshotDetectionManager.swift` - Screenshot detection
-- `FlirrtAI/iOS/Flirrt/Services/DarwinNotificationManager.swift` - IPC communication
-- `FlirrtAI/FlirrtAI/Backend/services/grok4FastService.js` - AI backend
-- `FlirrtAI/FlirrtAI/Backend/routes/flirts.js` - Flirt generation endpoint
+- `Vibe8AI/iOS/Vibe8Keyboard/KeyboardViewController.swift` - Keyboard implementation
+- `Vibe8AI/iOS/Vibe8/Services/ScreenshotDetectionManager.swift` - Screenshot detection
+- `Vibe8AI/iOS/Vibe8/Services/DarwinNotificationManager.swift` - IPC communication
+- `Vibe8AI/Vibe8AI/Backend/services/grok4FastService.js` - AI backend
+- `Vibe8AI/Vibe8AI/Backend/routes/flirts.js` - Flirt generation endpoint
 
 ---
 

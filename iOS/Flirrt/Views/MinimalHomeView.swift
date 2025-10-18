@@ -31,9 +31,9 @@ struct MinimalHomeView: View {
                                     endPoint: .bottomTrailing
                                 )
                             )
-                            .accessibilityLabel("Flirrt AI logo")
+                            .accessibilityLabel("Vibe8 AI logo")
 
-                        Text("Flirrt AI")
+                        Text("Vibe8 AI")
                             .font(.largeTitle)
                             .fontWeight(.bold)
                             .foregroundColor(.white)
@@ -57,7 +57,7 @@ struct MinimalHomeView: View {
                         VStack(alignment: .leading, spacing: 16) {
                             InstructionRow(
                                 number: "1",
-                                text: "Add Flirrt keyboard in iOS Settings",
+                                text: "Add Vibe8 keyboard in iOS Settings",
                                 icon: "keyboard"
                             )
 
@@ -69,7 +69,7 @@ struct MinimalHomeView: View {
 
                             InstructionRow(
                                 number: "3",
-                                text: "Open Flirrt keyboard for AI suggestions",
+                                text: "Open Vibe8 keyboard for AI suggestions",
                                 icon: "sparkles"
                             )
                         }

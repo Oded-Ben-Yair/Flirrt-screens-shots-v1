@@ -2,7 +2,7 @@ import XCTest
 import UIKit
 import Foundation
 import os.log
-@testable import Flirrt
+@testable import Vibe8
 
 /// Automated Screenshot Evidence Generation System
 /// Captures visual proof of every feature working with real device interaction
@@ -11,7 +11,7 @@ class AutomatedEvidenceGenerator: XCTestCase {
 
     // MARK: - Configuration
 
-    private let evidenceDirectory = "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/TestResults"
+    private let evidenceDirectory = "/Users/macbookairm1/Vibe8-screens-shots-v1/Vibe8AI/TestResults"
     private let simulatorName = "iPhone 15"
     private let testTimeout: TimeInterval = 60.0
 
@@ -28,8 +28,8 @@ class AutomatedEvidenceGenerator: XCTestCase {
         continueAfterFailure = false
 
         // Initialize applications
-        app = XCUIApplication(bundleIdentifier: "com.flirrt.FlirrtAI")
-        keyboardApp = XCUIApplication(bundleIdentifier: "com.flirrt.FlirrtKeyboard")
+        app = XCUIApplication(bundleIdentifier: "com.vibe8.Vibe8AI")
+        keyboardApp = XCUIApplication(bundleIdentifier: "com.vibe8.Vibe8Keyboard")
         messagesApp = XCUIApplication(bundleIdentifier: "com.apple.MobileSMS")
 
         // Setup evidence collection
@@ -115,20 +115,20 @@ class AutomatedEvidenceGenerator: XCTestCase {
                 messagesApp.textViews["Message"].tap()
             }
 
-            // Switch to Flirrt keyboard
+            // Switch to Vibe8 keyboard
             if messagesApp.buttons["globe"].exists {
                 messagesApp.buttons["globe"].tap()
             }
         }
 
-        try evidenceSession.captureStepWithEvidence("08_FlirrtKeyboardActive") {
-            // Verify Flirrt keyboard is active
+        try evidenceSession.captureStepWithEvidence("08_Vibe8KeyboardActive") {
+            // Verify Vibe8 keyboard is active
             sleep(2) // Allow keyboard to load
 
-            // Look for Flirrt-specific UI elements
+            // Look for Vibe8-specific UI elements
             if messagesApp.buttons["Fresh"].exists {
                 // Keyboard is active and working
-                print("✅ Flirrt keyboard detected")
+                print("✅ Vibe8 keyboard detected")
             }
         }
 
@@ -196,7 +196,7 @@ class AutomatedEvidenceGenerator: XCTestCase {
                 messagesApp.textViews["Message"].tap()
             }
 
-            // Switch to Flirrt keyboard
+            // Switch to Vibe8 keyboard
             if messagesApp.buttons["globe"].exists {
                 messagesApp.buttons["globe"].tap()
             }
@@ -290,7 +290,7 @@ class AutomatedEvidenceGenerator: XCTestCase {
         }
 
         try evidenceSession.captureStepWithEvidence("03_SuggestionResponseTime") {
-            // Switch to Flirrt keyboard
+            // Switch to Vibe8 keyboard
             if messagesApp.buttons["globe"].exists {
                 messagesApp.buttons["globe"].tap()
             }
@@ -489,7 +489,7 @@ class AutomatedEvidenceGenerator: XCTestCase {
                     if messagesApp.textViews["Message"].exists {
                         messagesApp.textViews["Message"].tap()
 
-                        // Switch to Flirrt keyboard
+                        // Switch to Vibe8 keyboard
                         if messagesApp.buttons["globe"].exists {
                             messagesApp.buttons["globe"].tap()
                         }

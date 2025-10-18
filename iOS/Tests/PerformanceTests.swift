@@ -3,9 +3,9 @@ import UIKit
 import Foundation
 import AVFoundation
 import os.log
-@testable import Flirrt
+@testable import Vibe8
 
-/// Comprehensive Performance Tests for Flirrt.ai
+/// Comprehensive Performance Tests for Vibe8.ai
 /// Benchmarks critical user-facing functionality for keyboard extension memory limits
 /// Tests response times, memory usage, and performance under load
 class PerformanceTests: XCTestCase {
@@ -63,7 +63,7 @@ class PerformanceTests: XCTestCase {
 
     func testFreshButtonResponseTime() {
         measure {
-            keyboardVC.flirrtFreshTapped()
+            keyboardVC.vibe8FreshTapped()
         }
     }
 
@@ -105,7 +105,7 @@ class PerformanceTests: XCTestCase {
         measure {
             // Perform intensive operations
             for i in 0..<100 {
-                keyboardVC.flirrtFreshTapped()
+                keyboardVC.vibe8FreshTapped()
                 keyboardVC.analyzeTapped()
 
                 let suggestions = [
@@ -363,7 +363,7 @@ class PerformanceTests: XCTestCase {
                 DispatchQueue.global().async {
                     // Simulate user interactions
                     DispatchQueue.main.async {
-                        self.keyboardVC.flirrtFreshTapped()
+                        self.keyboardVC.vibe8FreshTapped()
                         group.leave()
                     }
                 }
@@ -533,7 +533,7 @@ class PerformanceTests: XCTestCase {
         measure {
             // Simulate rapid user taps
             for _ in 0..<50 {
-                keyboardVC.flirrtFreshTapped()
+                keyboardVC.vibe8FreshTapped()
                 keyboardVC.analyzeTapped()
 
                 let suggestions = [
@@ -636,7 +636,7 @@ extension PerformanceTests {
 
             // Keyboard operations
             startMeasuring()
-            keyboardVC.flirrtFreshTapped()
+            keyboardVC.vibe8FreshTapped()
             keyboardVC.analyzeTapped()
 
             let suggestions = [

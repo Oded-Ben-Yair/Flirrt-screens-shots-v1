@@ -1,6 +1,6 @@
 # Features Documentation
 
-Complete guide to all FlirrtAI features, their status, and usage.
+Complete guide to all Vibe8AI features, their status, and usage.
 
 ---
 
@@ -9,11 +9,11 @@ Complete guide to all FlirrtAI features, their status, and usage.
 ### 1. Keyboard Extension
 **Status**: ✅ Partially Working
 
-The main interface for FlirrtAI - an iOS custom keyboard that provides AI-powered suggestions.
+The main interface for Vibe8AI - an iOS custom keyboard that provides AI-powered suggestions.
 
 #### How It Works:
-1. Enable Flirrt keyboard in iOS Settings
-2. Switch to Flirrt keyboard in any app (Messages, Tinder, etc.)
+1. Enable Vibe8 keyboard in iOS Settings
+2. Switch to Vibe8 keyboard in any app (Messages, Tinder, etc.)
 3. Tap the smart action button
 4. Get AI-generated flirt suggestions
 5. Tap a suggestion to insert it
@@ -85,7 +85,7 @@ Collects information about:
 - Influences AI tone, style, and content
 
 #### Data Storage:
-- Location: `UserDefaults` in `group.com.flirrt.shared`
+- Location: `UserDefaults` in `group.com.vibe8.shared`
 - Format: JSON with versioning
 - Persistence: Survives app restarts
 - Privacy: Never leaves your device except for API requests

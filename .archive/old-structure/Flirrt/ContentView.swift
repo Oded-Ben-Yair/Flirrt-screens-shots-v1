@@ -18,7 +18,7 @@ struct MainTabView: View {
             HomeView()
                 .tabItem {
                     Image(systemName: "heart.fill")
-                    Text("Flirrt")
+                    Text("Vibe8")
                 }
 
             VoiceRecordingView()
@@ -41,7 +41,7 @@ struct HomeView: View {
     var body: some View {
         NavigationView {
             VStack(spacing: 20) {
-                Text("Welcome to Flirrt AI")
+                Text("Welcome to Vibe8 AI")
                     .font(.largeTitle)
                     .fontWeight(.bold)
 
@@ -53,7 +53,7 @@ struct HomeView: View {
                 Spacer()
             }
             .padding()
-            .navigationTitle("Flirrt")
+            .navigationTitle("Vibe8")
         }
     }
 }
@@ -63,7 +63,7 @@ struct LoginView: View {
 
     var body: some View {
         VStack(spacing: 30) {
-            Text("Welcome to Flirrt AI")
+            Text("Welcome to Vibe8 AI")
                 .font(.largeTitle)
                 .fontWeight(.bold)
 

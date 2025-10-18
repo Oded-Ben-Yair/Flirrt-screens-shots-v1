@@ -12,7 +12,7 @@ struct ContentView: View {
                     .font(.system(size: 80))
                     .foregroundColor(.pink)
 
-                Text("Flirrt AI")
+                Text("Vibe8 AI")
                     .font(.largeTitle)
                     .fontWeight(.bold)
 
@@ -27,13 +27,13 @@ struct ContentView: View {
                         .font(.headline)
 
                     setupStep(number: 1, title: "Enable Keyboard",
-                             description: "Go to Settings > General > Keyboard > Keyboards > Add New Keyboard > FlirrtKeyboard")
+                             description: "Go to Settings > General > Keyboard > Keyboards > Add New Keyboard > Vibe8Keyboard")
 
                     setupStep(number: 2, title: "Enable Full Access",
-                             description: "Tap FlirrtKeyboard > Allow Full Access")
+                             description: "Tap Vibe8Keyboard > Allow Full Access")
 
                     setupStep(number: 3, title: "Ready to Use",
-                             description: "Switch to FlirrtKeyboard in any app to get AI suggestions")
+                             description: "Switch to Vibe8Keyboard in any app to get AI suggestions")
                 }
                 .padding()
                 .background(Color.gray.opacity(0.1))
@@ -65,7 +65,7 @@ struct ContentView: View {
                 .tint(.pink)
             }
             .padding()
-            .navigationTitle("Flirrt AI")
+            .navigationTitle("Vibe8 AI")
             .navigationBarTitleDisplayMode(.inline)
         }
         .onAppear {
@@ -114,13 +114,13 @@ struct ContentView: View {
     private func checkKeyboardStatus() {
         // Check if keyboard is installed by looking at available input modes
         let inputModes = UserDefaults.standard.object(forKey: "AppleKeyboards") as? [String] ?? []
-        isKeyboardInstalled = inputModes.contains { $0.contains("FlirrtKeyboard") }
+        isKeyboardInstalled = inputModes.contains { $0.contains("Vibe8Keyboard") }
 
         // Simulate memory usage check
         memoryUsage = Double.random(in: 30...45)
 
         // Update shared UserDefaults
-        if let sharedDefaults = UserDefaults(suiteName: "group.com.flirrt.shared") {
+        if let sharedDefaults = UserDefaults(suiteName: "group.com.vibe8.shared") {
             sharedDefaults.set(true, forKey: "user_authenticated")
             sharedDefaults.set(Date().timeIntervalSince1970, forKey: "last_app_open")
             sharedDefaults.synchronize()

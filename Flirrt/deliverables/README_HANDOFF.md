@@ -1,12 +1,12 @@
-# Flirrt.ai Implementation Handoff Guide
+# Vibe8.ai Implementation Handoff Guide
 
 ## Overview
-This package contains comprehensive documentation and prompts for implementing Flirrt.ai, a personal wingman iOS application that provides AI-powered flirt suggestions and voice messages for dating app conversations.
+This package contains comprehensive documentation and prompts for implementing Vibe8.ai, a personal wingman iOS application that provides AI-powered flirt suggestions and voice messages for dating app conversations.
 
 ## Package Contents
 
 ### 📁 Core Documentation
-- **`ClaudeCode_Flirrt_MasterPrompt.txt`** - Main implementation prompt for Claude-Code
+- **`ClaudeCode_Vibe8_MasterPrompt.txt`** - Main implementation prompt for Claude-Code
 - **`research/notes.md`** - Comprehensive research findings with citations
 - **`research/sources.csv`** - Source tracking spreadsheet
 
@@ -27,7 +27,7 @@ Ready-to-use specialized agent prompts:
 
 ### 📁 Architecture Diagrams (`deliverables/Diagrams/`)
 - `onboarding_flow.mmd` - User onboarding sequence
-- `keyboard_fresh_flow.mmd` - "Flirrt Fresh" feature flow
+- `keyboard_fresh_flow.mmd` - "Vibe8 Fresh" feature flow
 - `screenshot_analysis_flow.mmd` - Screenshot analysis workflow
 
 ### 📁 Policies & Compliance (`deliverables/policies/`)
@@ -44,7 +44,7 @@ Ready-to-use specialized agent prompts:
 ## Quick Start Guide
 
 ### Step 1: Run the Claude-Code Master Prompt
-1. Copy the entire content of `ClaudeCode_Flirrt_MasterPrompt.txt`
+1. Copy the entire content of `ClaudeCode_Vibe8_MasterPrompt.txt`
 2. Paste into Claude-Code interface
 3. Confirm implementation approach and deliverable requirements
 4. Let Claude-Code generate the complete application architecture
@@ -105,7 +105,7 @@ Use the JSON specifications in `/API/` as OpenAPI documentation:
 
 ### ✅ Phase 1: MVP Core (Months 1-3)
 - [ ] iOS app with authentication
-- [ ] Keyboard extension with "Flirrt Fresh"
+- [ ] Keyboard extension with "Vibe8 Fresh"
 - [ ] Basic screenshot analysis
 - [ ] Text-only flirt suggestions
 - [ ] Privacy consent system

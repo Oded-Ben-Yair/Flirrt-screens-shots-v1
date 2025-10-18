@@ -1,4 +1,4 @@
-# 🚀 Flirrt.AI - Critical iOS/Keyboard Fixes Session (Oct 11, 2025)
+# 🚀 Vibe8.AI - Critical iOS/Keyboard Fixes Session (Oct 11, 2025)
 
 **Session Duration**: ~90 minutes
 **Status**: ✅ **ALL CRITICAL BLOCKERS RESOLVED**
@@ -26,18 +26,18 @@ Successfully completed **4 critical iOS/keyboard communication fixes** that were
 **Problem**: Keyboard extension used 3 different wrong App Group IDs, preventing access to shared data.
 
 **Files Changed**:
-- `FlirrtKeyboard/KeyboardViewController.swift` (line 9)
-- `FlirrtKeyboard/KeyboardViewController.swift` (line 407)
-- `FlirrtKeyboard/FlirrtKeyboard.entitlements` (lines 7, 11)
+- `Vibe8Keyboard/KeyboardViewController.swift` (line 9)
+- `Vibe8Keyboard/KeyboardViewController.swift` (line 407)
+- `Vibe8Keyboard/Vibe8Keyboard.entitlements` (lines 7, 11)
 
 **Changes**:
 ```swift
 // BEFORE (BROKEN):
-private let appGroupID = "group.com.flirrt.shared"  // Wrong ID!
-private let appGroupID = "group.com.flirrt.ai.shared"  // Also wrong!
+private let appGroupID = "group.com.vibe8.shared"  // Wrong ID!
+private let appGroupID = "group.com.vibe8.ai.shared"  // Also wrong!
 
 // AFTER (FIXED):
-private let appGroupID = "group.com.flirrt"  // ✅ Correct ID matching main app
+private let appGroupID = "group.com.vibe8"  // ✅ Correct ID matching main app
 ```
 
 **Impact**: Keyboard can now access screenshots, user preferences, voice IDs, and suggestions from main app.
@@ -49,7 +49,7 @@ private let appGroupID = "group.com.flirrt"  // ✅ Correct ID matching main app
 **Problem**: Keyboard required manual button tap to analyze screenshots with 3-second delay.
 
 **Files Changed**:
-- `FlirrtKeyboard/KeyboardViewController.swift` (lines 50, 109-140, 277-286, 352-354)
+- `Vibe8Keyboard/KeyboardViewController.swift` (lines 50, 109-140, 277-286, 352-354)
 
 **Implementation**:
 ```swift
@@ -71,7 +71,7 @@ private func setupScreenshotListener() {
                 keyboard.handleScreenshotDetected()
             }
         },
-        "com.flirrt.screenshot.detected" as CFString,
+        "com.vibe8.screenshot.detected" as CFString,
         nil,
         .deliverImmediately
     )
@@ -108,7 +108,7 @@ User takes screenshot → UIApplication.userDidTakeScreenshotNotification
                      ↓
           ScreenshotDetectionManager (main app)
                      ↓
-          CFNotificationCenterPostNotification("com.flirrt.screenshot.detected")
+          CFNotificationCenterPostNotification("com.vibe8.screenshot.detected")
                      ↓
           Darwin Notification (IPC) → Keyboard Extension
                      ↓
@@ -130,8 +130,8 @@ User takes screenshot → UIApplication.userDidTakeScreenshotNotification
 **Problem**: Voice IDs stored in `UserDefaults.standard` which keyboard extension can't access.
 
 **Files Changed**:
-- `iOS/Flirrt/Views/VoiceRecordingView.swift` (lines 322-328)
-- `iOS/Flirrt/Views/VoiceRecordingFlowView.swift` (lines 128-134)
+- `iOS/Vibe8/Views/VoiceRecordingView.swift` (lines 322-328)
+- `iOS/Vibe8/Views/VoiceRecordingFlowView.swift` (lines 128-134)
 
 **Changes**:
 ```swift
@@ -158,12 +158,12 @@ if let sharedDefaults = UserDefaults(suiteName: AppConstants.appGroupIdentifier)
 **Problem**: Main app not listening for voice synthesis requests from keyboard.
 
 **Files Changed**:
-- `iOS/Flirrt/Services/DarwinNotificationManager.swift` (lines 56, 159-173, 245-288, 515, 518-522)
+- `iOS/Vibe8/Services/DarwinNotificationManager.swift` (lines 56, 159-173, 245-288, 515, 518-522)
 
 **Implementation**:
 ```swift
 // 1. Added notification constant
-static let voiceRequest = "com.flirrt.voice.request"
+static let voiceRequest = "com.vibe8.voice.request"
 
 // 2. Registered observer in setupNotificationObservers()
 CFNotificationCenterAddObserver(
@@ -232,7 +232,7 @@ Keyboard: User taps voice button → requestVoiceSynthesis(text, voiceId)
                                  ↓
                   Write voice_request.json to App Groups
                                  ↓
-                  CFNotificationCenterPostNotification("com.flirrt.voice.request")
+                  CFNotificationCenterPostNotification("com.vibe8.voice.request")
                                  ↓
 Main App: handleVoiceRequest() → Load JSON → Decode
                                  ↓
@@ -277,9 +277,9 @@ Main App: handleVoiceRequest() → Load JSON → Decode
 
 ### Build Results
 ```bash
-cd FlirrtAI/iOS
-xcodebuild -project Flirrt.xcodeproj \
-           -scheme Flirrt \
+cd Vibe8AI/iOS
+xcodebuild -project Vibe8.xcodeproj \
+           -scheme Vibe8 \
            -destination 'platform=iOS Simulator,name=iPad Pro 13-inch (M4)' \
            clean build
 
@@ -293,17 +293,17 @@ xcrun simctl boot "07CA87E1-2619-47B5-BEE5-F785149304FB"
 
 # Install app
 xcrun simctl install "07CA87E1-2619-47B5-BEE5-F785149304FB" \
-    "/Users/macbookairm1/Library/Developer/Xcode/DerivedData/Flirrt-cdwsqxwfxmbtsyapxzddweagaegf/Build/Products/Debug-iphonesimulator/Flirrt.app"
+    "/Users/macbookairm1/Library/Developer/Xcode/DerivedData/Vibe8-cdwsqxwfxmbtsyapxzddweagaegf/Build/Products/Debug-iphonesimulator/Vibe8.app"
 
 # Launch app
-xcrun simctl launch "07CA87E1-2619-47B5-BEE5-F785149304FB" com.flirrt.app.dev
+xcrun simctl launch "07CA87E1-2619-47B5-BEE5-F785149304FB" com.vibe8.app.dev
 
 ✅ App launched successfully (PID: 12633)
 ```
 
 ### App Status
 - **Simulator**: iPad Pro 13-inch (M4) - Running
-- **App**: Flirrt.app (com.flirrt.app.dev) - Running
+- **App**: Vibe8.app (com.vibe8.app.dev) - Running
 - **Build**: Debug-iphonesimulator
 - **Logs**: Showing onboarding flow (first launch)
 
@@ -341,7 +341,7 @@ xcrun simctl launch "07CA87E1-2619-47B5-BEE5-F785149304FB" com.flirrt.app.dev
 ### Build Testing ✅
 - [x] Clean build successful
 - [x] No compilation errors
-- [x] All targets built (Flirrt, FlirrtKeyboard, FlirrtShare)
+- [x] All targets built (Vibe8, Vibe8Keyboard, Vibe8Share)
 - [x] Code signing successful
 - [x] App bundle validated
 
@@ -367,22 +367,22 @@ xcrun simctl launch "07CA87E1-2619-47B5-BEE5-F785149304FB" com.flirrt.app.dev
 
 ### Repository State
 ```bash
-Working Directory: /Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI
+Working Directory: /Users/macbookairm1/Vibe8-screens-shots-v1/Vibe8AI
 Branch: main
 Status: Working tree has changes (not yet committed)
 
 Modified Files (iOS):
-- FlirrtAI/iOS/FlirrtKeyboard/FlirrtKeyboard.entitlements
-- FlirrtAI/iOS/FlirrtKeyboard/KeyboardViewController.swift
-- FlirrtAI/iOS/Flirrt/Services/DarwinNotificationManager.swift
-- FlirrtAI/iOS/Flirrt/Views/VoiceRecordingView.swift
-- FlirrtAI/iOS/Flirrt/Views/VoiceRecordingFlowView.swift
+- Vibe8AI/iOS/Vibe8Keyboard/Vibe8Keyboard.entitlements
+- Vibe8AI/iOS/Vibe8Keyboard/KeyboardViewController.swift
+- Vibe8AI/iOS/Vibe8/Services/DarwinNotificationManager.swift
+- Vibe8AI/iOS/Vibe8/Views/VoiceRecordingView.swift
+- Vibe8AI/iOS/Vibe8/Views/VoiceRecordingFlowView.swift
 ```
 
 ### Commits Status
 - **Previous Commit**: Lost during git rebase conflict
 - **Current State**: Changes verified in files, ready for commit
-- **Note**: Repository structure changed between sessions - FlirrtAI directory duplicated
+- **Note**: Repository structure changed between sessions - Vibe8AI directory duplicated
 
 ---
 
@@ -438,13 +438,13 @@ Modified Files (iOS):
 2. **App Groups are Essential**: UserDefaults.standard doesn't work across extensions
 3. **Redis > NodeCache**: For production, distributed cache beats in-memory
 4. **Git Conflicts**: Repository restructuring caused rebase issues - resolved by accepting remote
-5. **Xcode Build**: Project structure in FlirrtAI/iOS, not FlirrtAI/FlirrtAI/iOS
+5. **Xcode Build**: Project structure in Vibe8AI/iOS, not Vibe8AI/Vibe8AI/iOS
 
 ---
 
 ## ⚠️ Known Issues
 
-1. **Git Repository Structure**: Duplicated FlirrtAI directory (FlirrtAI/FlirrtAI/)
+1. **Git Repository Structure**: Duplicated Vibe8AI directory (Vibe8AI/Vibe8AI/)
 2. **Commit History**: Previous iOS commit lost during rebase
 3. **Testing**: Integration tests deferred per user request
 4. **Backend Server**: Not started during this session (not needed for iOS build)

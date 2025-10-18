@@ -2,12 +2,12 @@ import UIKit
 import os.log
 // CRITICAL FIX: Removed Photos import - keyboard extensions MUST NOT access Photo Library (App Store rejection risk)
 
-/// Minimal Flirrt Keyboard - October 2025
+/// Minimal Vibe8 Keyboard - October 2025
 /// Auto-detects screenshots from Photos library and analyzes immediately
 class KeyboardViewController: UIInputViewController {
 
     // MARK: - Properties
-    private let logger = OSLog(subsystem: "com.flirrt.keyboard", category: "minimal")
+    private let logger = OSLog(subsystem: "com.vibe8.keyboard", category: "minimal")
     private let appGroupID = AppConstants.appGroupIdentifier
 
     private var isAnalyzing = false
@@ -26,7 +26,7 @@ class KeyboardViewController: UIInputViewController {
 
     private lazy var logoLabel: UILabel = {
         let label = UILabel()
-        label.text = "🎯 Flirrt"
+        label.text = "🎯 Vibe8"
         label.font = .systemFont(ofSize: 24, weight: .bold)
         label.textAlignment = .center
         label.textColor = .label
@@ -104,7 +104,7 @@ class KeyboardViewController: UIInputViewController {
         setupUI()
         setupDarwinNotifications()
         loadSuggestionsFromAppGroup()
-        os_log("Minimal Flirrt Keyboard loaded (App Group mode)", log: logger, type: .info)
+        os_log("Minimal Vibe8 Keyboard loaded (App Group mode)", log: logger, type: .info)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -177,7 +177,7 @@ class KeyboardViewController: UIInputViewController {
     // MARK: - Darwin Notifications
     private func setupDarwinNotifications() {
         let center = CFNotificationCenterGetDarwinNotifyCenter()
-        let notificationName = CFNotificationName("com.flirrt.screenshot.detected" as CFString)
+        let notificationName = CFNotificationName("com.vibe8.screenshot.detected" as CFString)
 
         // CRITICAL FIX: Store notification name for cleanup in deinit
         self.darwinNotificationName = notificationName
@@ -217,7 +217,7 @@ class KeyboardViewController: UIInputViewController {
         // Check if suggestions are available
         guard let suggestionsData = sharedDefaults.data(forKey: "latestSuggestions") else {
             // No suggestions yet - show instruction
-            instructionLabel.text = "📸 Open Flirrt app and capture a screenshot"
+            instructionLabel.text = "📸 Open Vibe8 app and capture a screenshot"
             os_log("No suggestions available in App Group", log: logger, type: .info)
             return
         }
@@ -241,7 +241,7 @@ class KeyboardViewController: UIInputViewController {
         // Trigger main app to re-analyze screenshot
         os_log("Refresh requested - opening main app", log: logger, type: .info)
         // Deep link to main app
-        if let url = URL(string: "flirrt://analyze-screenshot") {
+        if let url = URL(string: "vibe8://analyze-screenshot") {
             openURL(url)
         }
     }
@@ -330,12 +330,12 @@ class KeyboardViewController: UIInputViewController {
         generator.impactOccurred()
 
         // Open main app to capture screenshot
-        if let url = URL(string: "flirrt://analyze-screenshot") {
+        if let url = URL(string: "vibe8://analyze-screenshot") {
             openURL(url)
         }
 
         // Update instruction
-        instructionLabel.text = "📸 Take a screenshot in Flirrt app"
+        instructionLabel.text = "📸 Take a screenshot in Vibe8 app"
     }
 
     // ✅ ADDED: Handler for keyboard toggle button

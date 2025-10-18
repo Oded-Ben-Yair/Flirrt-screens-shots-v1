@@ -39,11 +39,11 @@
 * c5c62fd feat: Production polish - automation, security, and build fixes
 * 935ebc6 (tag: pre-cleanup-20251002-154513, tag: pre-cleanup-20251002-154439, backup/before-history-cleanup-20251002-154513, backup/before-history-cleanup-20251002-154439) docs: Comprehensive status assessment Oct 2, 2025
 * 9e66f64 (tag: pre-testing-2025-10-02, tag: pre-cleanup-backup, archive/pre-cleanup-state) docs: Critical documentation for fixing keyboard extension issues
-* e9deebb feat: Complete Flirrt.ai iOS app with proper Xcode structure and extensions
-* 401625c (tag: v1.0.0) feat: Production-ready Flirrt.ai with complete AI orchestration
-* 20cc0ba Delete Flirrt/research/sources.csvZone.Identifier
-* 99021ce Delete Flirrt/research/notes.mdZone.Identifier
-* 49a67f7 Delete Flirrt/attached_assets directory
+* e9deebb feat: Complete Vibe8.ai iOS app with proper Xcode structure and extensions
+* 401625c (tag: v1.0.0) feat: Production-ready Vibe8.ai with complete AI orchestration
+* 20cc0ba Delete Vibe8/research/sources.csvZone.Identifier
+* 99021ce Delete Vibe8/research/notes.mdZone.Identifier
+* 49a67f7 Delete Vibe8/attached_assets directory
 * 1c1e487 Update README.md
 * 4358edd Create README.md with content from README_HANDOFF.md
 * da98ce6 Add files via upload

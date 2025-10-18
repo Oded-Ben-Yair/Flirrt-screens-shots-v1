@@ -1,4 +1,4 @@
-# FlirrtAI - AI-Powered Dating Assistant
+# Vibe8AI - AI-Powered Dating Assistant
 
 **Your personal AI wingman for better conversations**
 
@@ -15,19 +15,19 @@ npm start
 ### iOS App
 ```bash
 cd iOS
-open Flirrt.xcodeproj
+open Vibe8.xcodeproj
 # Build and run in Xcode (iPhone Simulator recommended)
 ```
 
 ### Enable Keyboard
 1. Open iOS Settings
 2. General → Keyboard → Keyboards
-3. Add New Keyboard → Flirrt
+3. Add New Keyboard → Vibe8
 4. Enable "Allow Full Access"
 
-## 📱 What is FlirrtAI?
+## 📱 What is Vibe8AI?
 
-FlirrtAI is an iOS keyboard extension that helps you craft better messages in dating apps. Take a screenshot of your conversation, and the AI analyzes context to generate personalized flirt suggestions.
+Vibe8AI is an iOS keyboard extension that helps you craft better messages in dating apps. Take a screenshot of your conversation, and the AI analyzes context to generate personalized flirt suggestions.
 
 ### Core Features
 - **Screenshot Analysis**: Analyzes conversation screenshots for context
@@ -71,11 +71,11 @@ See [KNOWN_ISSUES.md](./KNOWN_ISSUES.md) for details and workarounds.
 ## 📝 Project Structure
 
 ```
-FlirrtAI/
+Vibe8AI/
 ├── iOS/                  # Swift iOS Application
-│   ├── Flirrt/          # Main app
-│   ├── FlirrtKeyboard/  # Keyboard extension
-│   └── FlirrtShare/     # Share extension
+│   ├── Vibe8/          # Main app
+│   ├── Vibe8Keyboard/  # Keyboard extension
+│   └── Vibe8Share/     # Share extension
 ├── Backend/             # Node.js API Server
 │   ├── routes/          # API endpoints
 │   ├── services/        # Business logic

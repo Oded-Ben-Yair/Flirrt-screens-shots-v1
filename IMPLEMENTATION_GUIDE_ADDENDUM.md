@@ -1,4 +1,4 @@
-# FLIRRT.AI IMPLEMENTATION GUIDE - CRITICAL ADDENDUM
+# VIBE8.AI IMPLEMENTATION GUIDE - CRITICAL ADDENDUM
 
 **Date:** October 17, 2025  
 **Status:** REQUIRED READING - Based on Multi-LLM Validation  
@@ -21,7 +21,7 @@ The original plan had the keyboard extension doing too much, violating iOS sandb
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                      MAIN APP (Flirrt.AI)                   │
+│                      MAIN APP (Vibe8.AI)                   │
 ├─────────────────────────────────────────────────────────────┤
 │ ✅ Photo Library Access (PHPhotoLibrary)                    │
 │ ✅ Screenshot Detection & Processing                        │
@@ -33,13 +33,13 @@ The original plan had the keyboard extension doing too much, violating iOS sandb
 │                                                             │
 │ Shares Data Via:                                            │
 │   → App Groups (UserDefaults, FileManager)                  │
-│   → Deep Links (flirrt://)                                  │
+│   → Deep Links (vibe8://)                                  │
 └─────────────────────────────────────────────────────────────┘
                             ↓
                    (Sanitized Data Only)
                             ↓
 ┌─────────────────────────────────────────────────────────────┐
-│              KEYBOARD EXTENSION (FlirrtKeyboard)            │
+│              KEYBOARD EXTENSION (Vibe8Keyboard)            │
 ├─────────────────────────────────────────────────────────────┤
 │ ✅ QWERTY Keyboard Layout (KeyboardKit)                     │
 │ ✅ Display Suggestion Chips (read from App Group)           │
@@ -58,7 +58,7 @@ The original plan had the keyboard extension doing too much, violating iOS sandb
 
 **1. Remove ALL Photo Library Code from Keyboard Extension**
 
-**File:** `iOS/FlirrtKeyboard/KeyboardViewController.swift`
+**File:** `iOS/Vibe8Keyboard/KeyboardViewController.swift`
 
 ```swift
 // DELETE THIS ENTIRE SECTION:
@@ -69,7 +69,7 @@ The original plan had the keyboard extension doing too much, violating iOS sandb
 // REPLACE WITH:
 private func handleScreenshotRequest() {
     // Deep link to main app
-    openURL(URL(string: "flirrt://capture-screenshot")!)
+    openURL(URL(string: "vibe8://capture-screenshot")!)
 }
 
 private func openURL(_ url: URL) {
@@ -86,7 +86,7 @@ private func openURL(_ url: URL) {
 
 **2. Main App Handles Screenshot Capture**
 
-**File:** `iOS/Flirrt/Services/ScreenshotCaptureService.swift`
+**File:** `iOS/Vibe8/Services/ScreenshotCaptureService.swift`
 
 ```swift
 import Photos
@@ -94,7 +94,7 @@ import UIKit
 
 class ScreenshotCaptureService {
     static let shared = ScreenshotCaptureService()
-    private let appGroupID = "group.com.flirrt.shared"
+    private let appGroupID = "group.com.vibe8.shared"
     
     func captureAndAnalyzeScreenshot() {
         PHPhotoLibrary.requestAuthorization(for: .readWrite) { [weak self] status in
@@ -152,7 +152,7 @@ class ScreenshotCaptureService {
                 // Notify keyboard to refresh
                 CFNotificationCenterPostNotification(
                     CFNotificationCenterGetDarwinNotifyCenter(),
-                    CFNotificationName("com.flirrt.suggestions-updated" as CFString),
+                    CFNotificationName("com.vibe8.suggestions-updated" as CFString),
                     nil,
                     nil,
                     true
@@ -182,11 +182,11 @@ extension UIImage {
 
 **3. Keyboard Reads Suggestions from App Group**
 
-**File:** `iOS/FlirrtKeyboard/FlirrtKeyboardViewController.swift`
+**File:** `iOS/Vibe8Keyboard/Vibe8KeyboardViewController.swift`
 
 ```swift
-class FlirrtKeyboardViewController: KeyboardInputViewController {
-    private let appGroupID = "group.com.flirrt.shared"
+class Vibe8KeyboardViewController: KeyboardInputViewController {
+    private let appGroupID = "group.com.vibe8.shared"
     private var suggestions: [String] = []
     
     override func viewDidLoad() {
@@ -198,10 +198,10 @@ class FlirrtKeyboardViewController: KeyboardInputViewController {
             Unmanaged.passUnretained(self).toOpaque(),
             { (_, observer, name, _, _) in
                 guard let observer = observer else { return }
-                let mySelf = Unmanaged<FlirrtKeyboardViewController>.fromOpaque(observer).takeUnretainedValue()
+                let mySelf = Unmanaged<Vibe8KeyboardViewController>.fromOpaque(observer).takeUnretainedValue()
                 mySelf.loadSuggestionsFromAppGroup()
             },
-            "com.flirrt.suggestions-updated" as CFString,
+            "com.vibe8.suggestions-updated" as CFString,
             nil,
             .deliverImmediately
         )
@@ -507,7 +507,7 @@ router.delete('/delete-account', authenticateToken, async (req, res) => {
 
 **3. Age Verification**
 
-**File:** `iOS/Flirrt/Views/OnboardingView.swift`
+**File:** `iOS/Vibe8/Views/OnboardingView.swift`
 
 ```swift
 struct AgeVerificationView: View {
@@ -519,7 +519,7 @@ struct AgeVerificationView: View {
             Text("Verify Your Age")
                 .font(.title.bold())
             
-            Text("You must be 18 or older to use Flirrt.AI")
+            Text("You must be 18 or older to use Vibe8.AI")
                 .font(.subheadline)
                 .foregroundColor(.secondary)
             
@@ -567,7 +567,7 @@ Base64 encoding, memory bloat, and network inefficiency will cause crashes and p
 
 **1. Replace Base64 with Multipart Upload**
 
-**File:** `iOS/Flirrt/Services/APIClient.swift`
+**File:** `iOS/Vibe8/Services/APIClient.swift`
 
 ```swift
 func uploadScreenshot(_ imageData: Data) async throws -> AnalysisResult {
@@ -651,10 +651,10 @@ module.exports = new CacheService();
 ### App Review Notes Template
 
 ```
-APP REVIEW NOTES FOR FLIRRT.AI
+APP REVIEW NOTES FOR VIBE8.AI
 
 1. DEMO ACCOUNT
-   Email: demo@flirrt.ai
+   Email: demo@vibe8.ai
    Password: DemoPass123!
 
 2. PHOTO LIBRARY PERMISSION
@@ -675,16 +675,16 @@ APP REVIEW NOTES FOR FLIRRT.AI
    - Age verification (18+) is enforced at onboarding
 
 5. PRIVACY
-   - Privacy policy: https://flirrt.ai/privacy
+   - Privacy policy: https://vibe8.ai/privacy
    - Users can delete their account and all data in-app
    - Third-party AI services are disclosed in privacy policy
 
 6. TESTING INSTRUCTIONS
    - Install app
    - Complete onboarding (use birthdate showing 18+)
-   - Enable Flirrt keyboard in Settings → General → Keyboard
+   - Enable Vibe8 keyboard in Settings → General → Keyboard
    - Open any messaging app
-   - Switch to Flirrt keyboard
+   - Switch to Vibe8 keyboard
    - Tap "Analyze" button to analyze a screenshot
    - View AI-generated suggestions
 

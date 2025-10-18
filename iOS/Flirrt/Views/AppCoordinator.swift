@@ -87,7 +87,7 @@ struct AgeVerificationFlow: View {
                         .foregroundColor(.white)
                         .multilineTextAlignment(.center)
 
-                    Text("Please confirm your birth date to continue. You must be 18 or older to use Flirrt.")
+                    Text("Please confirm your birth date to continue. You must be 18 or older to use Vibe8.")
                         .font(.body)
                         .foregroundColor(.gray)
                         .multilineTextAlignment(.center)

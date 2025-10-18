@@ -163,12 +163,12 @@
     }
   },
   "example_request": {
-    "curl": "curl -X POST https://api.flirrt.ai/v1/synthesize_voice \\\n  -H \"Authorization: Bearer your_access_token\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n    \"text\": \"Your photography skills are making me reconsider my entire Instagram strategy\",\n    \"user_voice_id\": \"voice_xyz123\",\n    \"emotion\": \"confident\",\n    \"speed\": \"normal\",\n    \"preferences\": {\n      \"pause_before_punchline\": true,\n      \"emphasis_style\": \"moderate\"\n    }\n  }'",
-    "javascript": "fetch('https://api.flirrt.ai/v1/synthesize_voice', {\n  method: 'POST',\n  headers: {\n    'Authorization': 'Bearer your_access_token',\n    'Content-Type': 'application/json'\n  },\n  body: JSON.stringify({\n    text: \"Your photography skills are making me reconsider my entire Instagram strategy\",\n    user_voice_id: \"voice_xyz123\",\n    emotion: \"confident\",\n    speed: \"normal\"\n  })\n});"
+    "curl": "curl -X POST https://api.vibe8.ai/v1/synthesize_voice \\\n  -H \"Authorization: Bearer your_access_token\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n    \"text\": \"Your photography skills are making me reconsider my entire Instagram strategy\",\n    \"user_voice_id\": \"voice_xyz123\",\n    \"emotion\": \"confident\",\n    \"speed\": \"normal\",\n    \"preferences\": {\n      \"pause_before_punchline\": true,\n      \"emphasis_style\": \"moderate\"\n    }\n  }'",
+    "javascript": "fetch('https://api.vibe8.ai/v1/synthesize_voice', {\n  method: 'POST',\n  headers: {\n    'Authorization': 'Bearer your_access_token',\n    'Content-Type': 'application/json'\n  },\n  body: JSON.stringify({\n    text: \"Your photography skills are making me reconsider my entire Instagram strategy\",\n    user_voice_id: \"voice_xyz123\",\n    emotion: \"confident\",\n    speed: \"normal\"\n  })\n});"
   },
   "example_response": {
     "synthesis_result": {
-      "audio_url": "https://secure-cdn.flirrt.ai/voice/abc123.mp3",
+      "audio_url": "https://secure-cdn.vibe8.ai/voice/abc123.mp3",
       "duration_seconds": 5.8,
       "file_size_mb": 0.46,
       "format": "mp3",

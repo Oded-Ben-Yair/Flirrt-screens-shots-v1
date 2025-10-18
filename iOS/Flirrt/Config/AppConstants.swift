@@ -1,14 +1,14 @@
 //
 //  AppConstants.swift
-//  Flirrt
+//  Vibe8
 //
 //  Created on 2025-10-04.
-//  Copyright © 2025 Flirrt. All rights reserved.
+//  Copyright © 2025 Vibe8. All rights reserved.
 //
 
 import Foundation
 
-/// Centralized application constants for Flirrt.ai
+/// Centralized application constants for Vibe8.ai
 /// All magic strings and configuration values should be defined here
 enum AppConstants {
 
@@ -16,22 +16,22 @@ enum AppConstants {
 
     /// Shared app group identifier for data sharing between app and extensions
     /// Used by: App, Keyboard Extension, Share Extension
-    static let appGroupIdentifier = "group.com.flirrt"
+    static let appGroupIdentifier = "group.com.vibe8"
 
     /// Main app bundle identifier
-    static let bundleIdentifier = "com.flirrt.app"
+    static let bundleIdentifier = "com.vibe8.app"
 
     /// Keyboard extension bundle identifier
-    static let keyboardBundleIdentifier = "com.flirrt.app.keyboard"
+    static let keyboardBundleIdentifier = "com.vibe8.app.keyboard"
 
     /// Share extension bundle identifier
-    static let shareBundleIdentifier = "com.flirrt.app.share"
+    static let shareBundleIdentifier = "com.vibe8.app.share"
 
     // MARK: - API Configuration
 
     /// Base URL for API endpoints
     /// Development: http://localhost:3000/api/v1
-    /// Production: https://api.flirrt.ai/api/v1
+    /// Production: https://api.vibe8.ai/api/v1
     static let apiBaseURL = AppEnvironment.current.apiBaseURL
 
     /// API request timeout interval in seconds
@@ -87,7 +87,7 @@ enum AppConstants {
         static let personalizationComplete = "personalization_complete"
 
         /// Personalization profile data (App Groups)
-        static let personalizationProfile = "flirrt_personalization_profile_v1"
+        static let personalizationProfile = "vibe8_personalization_profile_v1"
 
         /// Dynamic personalization keys prefix (e.g., "personalization_interests")
         static func personalizationKey(_ key: String) -> String {
@@ -193,7 +193,7 @@ enum AppConstants {
         // MARK: - Testing & Debug
 
         /// App Groups configuration test
-        static let appGroupsTest = "flirrt_app_groups_test"
+        static let appGroupsTest = "vibe8_app_groups_test"
 
         /// Test key for validation
         static let testKey = "test_key"
@@ -271,11 +271,11 @@ enum AppEnvironment {
 
         case .staging:
             // Render.com production URL (deployed and live)
-            return "https://flirrt-api-production.onrender.com/api/v1"
+            return "https://vibe8-api-production.onrender.com/api/v1"
 
         case .production:
             // Render.com production URL (deployed and live)
-            return "https://flirrt-api-production.onrender.com/api/v1"
+            return "https://vibe8-api-production.onrender.com/api/v1"
         }
     }
 

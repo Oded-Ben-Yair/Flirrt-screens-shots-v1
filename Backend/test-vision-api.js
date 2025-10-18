@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * Flirrt.ai Vision API Test Suite
+ * Vibe8.ai Vision API Test Suite
  * Tests intelligent profile analysis with real dating app screenshots
  * October 2025 - Claude Code Best Practices
  */
@@ -132,7 +132,7 @@ async function testVisionAPI(imagePath, testName, expectedBehavior) {
  * Run all test cases
  */
 async function runAllTests() {
-    console.log(`\n${colors.bright}${colors.blue}🚀 Flirrt.ai Vision API Test Suite - October 2025${colors.reset}\n`);
+    console.log(`\n${colors.bright}${colors.blue}🚀 Vibe8.ai Vision API Test Suite - October 2025${colors.reset}\n`);
     console.log(`${colors.cyan}Testing intelligent profile analysis with real dating app screenshots${colors.reset}\n`);
 
     // Check if test images directory exists

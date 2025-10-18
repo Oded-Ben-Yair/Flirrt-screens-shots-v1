@@ -1,6 +1,6 @@
 //
 //  FlirtSuggestion.swift
-//  Flirrt
+//  Vibe8
 //
 //  Created on 2025-10-03
 //  Screenshot analysis flirt suggestion model

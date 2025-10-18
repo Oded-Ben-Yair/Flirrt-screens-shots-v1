@@ -3,7 +3,7 @@
 **Date:** October 11, 2025
 **Time:** 05:10:05 - 05:13:35 UTC
 **User IP:** 79.181.131.60
-**Device:** iPad running FlirrtKeyboard/1
+**Device:** iPad running Vibe8Keyboard/1
 
 ---
 
@@ -16,7 +16,7 @@
 ```
 POST /api/v1/flirts/generate_flirts
 Status: 200 OK
-User-Agent: FlirrtKeyboard/1 CFNetwork/3826.600.41 Darwin/24.6.0
+User-Agent: Vibe8Keyboard/1 CFNetwork/3826.600.41 Darwin/24.6.0
 ```
 
 **Backend Processing:**
@@ -324,7 +324,7 @@ Status: ⏳ Pending user test
    - Visible interests/hobbies
    - Name, age shown
 3. Screenshot the profile (not chat!)
-4. Upload via Flirrt keyboard
+4. Upload via Vibe8 keyboard
 5. **Expected:** 5 personalized openers
 
 ### Test Priority 2: Incomplete Profile
@@ -333,7 +333,7 @@ Status: ⏳ Pending user test
    - No bio OR very short bio
    - No interests shown
 2. Screenshot
-3. Upload via Flirrt keyboard
+3. Upload via Vibe8 keyboard
 4. **Expected:** Message asking to scroll for more info
 
 ### Test Priority 3: Different Tones

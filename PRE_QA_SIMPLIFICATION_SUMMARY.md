@@ -8,7 +8,7 @@
 
 ## 📋 Overview
 
-Successfully transformed Flirrt from a feature-heavy app into a **minimal, keyboard-focused MVP** ready for QA testing.
+Successfully transformed Vibe8 from a feature-heavy app into a **minimal, keyboard-focused MVP** ready for QA testing.
 
 ### User Requirements Addressed:
 1. ✅ **Shorter onboarding**: Reduced from 13 steps to 3 steps
@@ -40,7 +40,7 @@ Minimal status screen → Enable keyboard → Use
 ## 📝 Files Modified
 
 ### 1. OnboardingView.swift
-**Location**: `FlirrtAI/FlirrtAI/iOS/Flirrt/Views/OnboardingView.swift`
+**Location**: `Vibe8AI/Vibe8AI/iOS/Vibe8/Views/OnboardingView.swift`
 
 **Changes**:
 - Reduced `allPages` array from 5 pages to 1 welcome page
@@ -51,7 +51,7 @@ Minimal status screen → Enable keyboard → Use
 **Impact**: First-time users see ONE page instead of 5 pages + 8 questions
 
 ### 2. AppCoordinator.swift
-**Location**: `FlirrtAI/FlirrtAI/iOS/Flirrt/Views/AppCoordinator.swift`
+**Location**: `Vibe8AI/Vibe8AI/iOS/Vibe8/Views/AppCoordinator.swift`
 
 **Changes**:
 - Commented out personalization step entirely (lines 23-32)
@@ -60,16 +60,16 @@ Minimal status screen → Enable keyboard → Use
 **Impact**: Users go directly from onboarding to minimal home screen
 
 ### 3. MinimalHomeView.swift (NEW)
-**Location**: `FlirrtAI/FlirrtAI/iOS/Flirrt/Views/MinimalHomeView.swift`
+**Location**: `Vibe8AI/Vibe8AI/iOS/Vibe8/Views/MinimalHomeView.swift`
 
 **Content**:
 ```swift
-- Large Flirrt logo with gradient
+- Large Vibe8 logo with gradient
 - Status: "Keyboard Ready ✅"
 - 3-step instructions:
-  1. Add Flirrt keyboard in iOS Settings
+  1. Add Vibe8 keyboard in iOS Settings
   2. Take a screenshot of any dating profile
-  3. Open Flirrt keyboard for AI suggestions
+  3. Open Vibe8 keyboard for AI suggestions
 - Button: "Open iOS Settings" (deep link)
 - Button: "App Settings"
 - User email + version info at bottom
@@ -78,7 +78,7 @@ Minimal status screen → Enable keyboard → Use
 **Impact**: Clean, simple app that guides users to enable keyboard
 
 ### 4. KeyboardViewController.swift
-**Location**: `FlirrtAI/FlirrtAI/iOS/FlirrtKeyboard/KeyboardViewController.swift`
+**Location**: `Vibe8AI/Vibe8AI/iOS/Vibe8Keyboard/KeyboardViewController.swift`
 
 **Changes**:
 - Added `nextKeyboardButton` property (lines 89-98)
@@ -88,8 +88,8 @@ Minimal status screen → Enable keyboard → Use
 
 **Impact**: Users can now switch between keyboards using standard globe button
 
-### 5. FlirrtApp.swift
-**Location**: `FlirrtAI/FlirrtAI/iOS/Flirrt/App/FlirrtApp.swift`
+### 5. Vibe8App.swift
+**Location**: `Vibe8AI/Vibe8AI/iOS/Vibe8/App/Vibe8App.swift`
 
 **Changes**:
 - Commented out `requestNotificationPermissions()` (lines 25-27)
@@ -136,7 +136,7 @@ All changes verified in code:
 - [x] Globe button calls advanceToNextInputMode()
 - [x] No refresh button in keyboard
 - [x] No voice message picker in keyboard
-- [x] Auto-permissions removed from FlirrtApp
+- [x] Auto-permissions removed from Vibe8App
 - [x] All changes marked with ✅ comments
 
 ---
@@ -153,7 +153,7 @@ All changes verified in code:
 - [ ] Total time < 1 minute
 
 #### 2. Main App Experience
-- [ ] Main screen shows Flirrt logo
+- [ ] Main screen shows Vibe8 logo
 - [ ] Status shows "Keyboard Ready ✅"
 - [ ] Instructions are clear and visible
 - [ ] "Open iOS Settings" button works (deep link)
@@ -213,8 +213,8 @@ All changes verified in code:
 ### Immediate (Before QA)
 1. **Build on Xcode** (10 min)
    ```bash
-   cd /Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/FlirrtAI/iOS
-   xcodebuild -project Flirrt.xcodeproj -scheme Flirrt clean build
+   cd /Users/macbookairm1/Vibe8-screens-shots-v1/Vibe8AI/Vibe8AI/iOS
+   xcodebuild -project Vibe8.xcodeproj -scheme Vibe8 clean build
    ```
 
 2. **Install on iPad** (5 min)

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * Continuous Testing Suite for Flirrt.ai
+ * Continuous Testing Suite for Vibe8.ai
  *
  * This script runs comprehensive tests for all Phase 1 components:
  * - Xcode project compilation
@@ -19,7 +19,7 @@ const execAsync = util.promisify(exec);
 
 class ContinuousTestSuite {
     constructor() {
-        this.projectRoot = '/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI';
+        this.projectRoot = '/Users/macbookairm1/Vibe8-screens-shots-v1/Vibe8AI';
         this.simulatorId = '237F6A2D-72E4-49C2-B5E0-7B3F973C6814';
         this.resultsPath = path.join(this.projectRoot, 'TestResults');
 
@@ -42,7 +42,7 @@ class ContinuousTestSuite {
     }
 
     async runFullValidation() {
-        console.log('🚀 Starting Flirrt.ai Continuous Testing Suite');
+        console.log('🚀 Starting Vibe8.ai Continuous Testing Suite');
         console.log('📊 Validating all Phase 1 deliverables...\n');
 
         try {
@@ -86,7 +86,7 @@ class ContinuousTestSuite {
             // Build the Xcode project
             const buildCommand = `
                 cd "${this.projectRoot}" &&
-                xcodebuild -project FlirrtXcode.xcodeproj -scheme Flirrt \\
+                xcodebuild -project Vibe8Xcode.xcodeproj -scheme Vibe8 \\
                     -destination 'platform=iOS Simulator,id=${this.simulatorId}' \\
                     -configuration Debug -derivedDataPath Build \\
                     CODE_SIGNING_ALLOWED=NO build 2>&1
@@ -105,7 +105,7 @@ class ContinuousTestSuite {
                 const products = await fs.readdir(buildDir);
 
                 this.testResults.phase1_validation.xcode_build.details = {
-                    targets_built: ['Flirrt.app', 'FlirrtKeyboard.appex', 'FlirrtShare.appex'],
+                    targets_built: ['Vibe8.app', 'Vibe8Keyboard.appex', 'Vibe8Share.appex'],
                     products_found: products.filter(p => p.endsWith('.app') || p.endsWith('.appex')),
                     swift_modules: products.filter(p => p.endsWith('.swiftmodule')).length,
                     dependencies: products.filter(p => p.includes('Alamofire') || p.includes('KeychainAccess')).length
@@ -134,25 +134,25 @@ class ContinuousTestSuite {
             const buildDir = path.join(this.projectRoot, 'Build/Build/Products/Debug-iphonesimulator');
 
             // Check keyboard extension
-            const keyboardPath = path.join(buildDir, 'FlirrtKeyboard.appex');
+            const keyboardPath = path.join(buildDir, 'Vibe8Keyboard.appex');
             const { stdout: keyboardSize } = await execAsync(`du -sh "${keyboardPath}"`);
             const keyboardSizeKB = parseFloat(keyboardSize.split('\t')[0]);
 
             // Check share extension
-            const sharePath = path.join(buildDir, 'FlirrtShare.appex');
+            const sharePath = path.join(buildDir, 'Vibe8Share.appex');
             const { stdout: shareSize } = await execAsync(`du -sh "${sharePath}"`);
             const shareSizeKB = parseFloat(shareSize.split('\t')[0]);
 
             // Validate Info.plist configurations
-            const keyboardInfoPath = path.join(this.projectRoot, 'FlirrtKeyboard/Info.plist');
-            const shareInfoPath = path.join(this.projectRoot, 'FlirrtShare/Info.plist');
+            const keyboardInfoPath = path.join(this.projectRoot, 'Vibe8Keyboard/Info.plist');
+            const shareInfoPath = path.join(this.projectRoot, 'Vibe8Share/Info.plist');
 
             const keyboardInfo = await fs.readFile(keyboardInfoPath, 'utf8');
             const shareInfo = await fs.readFile(shareInfoPath, 'utf8');
 
             // Check entitlements
-            const keyboardEntPath = path.join(this.projectRoot, 'FlirrtKeyboard/FlirrtKeyboard.entitlements');
-            const shareEntPath = path.join(this.projectRoot, 'FlirrtShare/FlirrtShare.entitlements');
+            const keyboardEntPath = path.join(this.projectRoot, 'Vibe8Keyboard/Vibe8Keyboard.entitlements');
+            const shareEntPath = path.join(this.projectRoot, 'Vibe8Share/Vibe8Share.entitlements');
 
             const keyboardEnt = await fs.readFile(keyboardEntPath, 'utf8');
             const shareEnt = await fs.readFile(shareEntPath, 'utf8');
@@ -162,7 +162,7 @@ class ContinuousTestSuite {
                 keyboard_size: keyboardSizeKB,
                 share_size: shareSizeKB,
                 under_memory_limit: keyboardSizeKB < 60000, // 60MB limit
-                app_groups_configured: keyboardEnt.includes('group.com.flirrt.shared') && shareEnt.includes('group.com.flirrt.shared'),
+                app_groups_configured: keyboardEnt.includes('group.com.vibe8.shared') && shareEnt.includes('group.com.vibe8.shared'),
                 keyboard_open_access: keyboardInfo.includes('<true/>'),
                 share_activation_rules: shareInfo.includes('NSExtensionActivationSupportsImageWithMaxCount')
             };
@@ -340,7 +340,7 @@ class ContinuousTestSuite {
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Flirrt.ai Phase 1 Validation Report</title>
+    <title>Vibe8.ai Phase 1 Validation Report</title>
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -416,7 +416,7 @@ class ContinuousTestSuite {
 </head>
 <body>
     <div class="header">
-        <h1>🚀 Flirrt.ai Phase 1 Validation Report</h1>
+        <h1>🚀 Vibe8.ai Phase 1 Validation Report</h1>
         <p>Complete testing and validation of all Phase 1 deliverables</p>
         <div class="score-circle">${health.score}/100</div>
         <p><strong>Status: ${health.status.toUpperCase()}</strong></p>
@@ -578,7 +578,7 @@ class ContinuousTestSuite {
     </div>
 
     <footer style="text-align: center; margin-top: 40px; color: #666;">
-        <p>Generated by TestAutomationAgent | Flirrt.ai Phase 1 Validation Suite</p>
+        <p>Generated by TestAutomationAgent | Vibe8.ai Phase 1 Validation Suite</p>
         <p>Report ID: ${this.testResults.timestamp}</p>
     </footer>
 </body>
@@ -591,7 +591,7 @@ class ContinuousTestSuite {
 if (require.main === module) {
     const suite = new ContinuousTestSuite();
 
-    console.log('Flirrt.ai Continuous Testing Suite v1.0.0\n');
+    console.log('Vibe8.ai Continuous Testing Suite v1.0.0\n');
 
     suite.runFullValidation()
         .then((results) => {

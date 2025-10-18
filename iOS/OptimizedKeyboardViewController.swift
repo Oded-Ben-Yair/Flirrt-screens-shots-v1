@@ -3,8 +3,8 @@ import UIKit
 import os.log
 
 class OptimizedKeyboardViewController: UIInputViewController {
-    private let logger = OSLog(subsystem: "com.flirrt.keyboard", category: "memory")
-    private let appGroupID = "group.com.flirrt.shared"
+    private let logger = OSLog(subsystem: "com.vibe8.keyboard", category: "memory")
+    private let appGroupID = "group.com.vibe8.shared"
     private let memoryLimit = 60 * 1024 * 1024
 
     // Lazy loading for UI components
@@ -80,7 +80,7 @@ class OptimizedKeyboardViewController: UIInputViewController {
     private func postNotification() {
         CFNotificationCenterPostNotification(
             CFNotificationCenterGetDarwinNotifyCenter(),
-            CFNotificationName("com.flirrt.analyze.request" as CFString),
+            CFNotificationName("com.vibe8.analyze.request" as CFString),
             nil, nil, true
         )
     }
@@ -89,7 +89,7 @@ class OptimizedKeyboardViewController: UIInputViewController {
         guard let sharedDefaults = UserDefaults(suiteName: appGroupID) else { return }
         let authenticated = sharedDefaults.bool(forKey: "user_authenticated")
         if !authenticated {
-            textDocumentProxy.insertText("Please open Flirrt app first")
+            textDocumentProxy.insertText("Please open Vibe8 app first")
         }
     }
 

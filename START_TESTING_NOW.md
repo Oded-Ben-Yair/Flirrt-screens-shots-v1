@@ -4,20 +4,20 @@
 
 ### Step 1: Open Xcode (30 seconds)
 ```bash
-cd /Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/FlirrtAI/iOS
-open Flirrt.xcodeproj
+cd /Users/macbookairm1/Vibe8-screens-shots-v1/Vibe8AI/Vibe8AI/iOS
+open Vibe8.xcodeproj
 ```
 
 ### Step 2: Build & Run on iPad (1 minute)
-1. Select **Flirrt** scheme
+1. Select **Vibe8** scheme
 2. Select your **iPad** as target device
 3. Click ▶️ **Run** button
 4. Wait for app to install
 
 ### Step 3: Enable Keyboard (1 minute)
 1. iPad: **Settings** → **General** → **Keyboard** → **Keyboards**
-2. **Add New Keyboard...** → Select **Flirrt**
-3. Tap **Flirrt** → Enable **"Allow Full Access"** ✅
+2. **Add New Keyboard...** → Select **Vibe8**
+3. Tap **Vibe8** → Enable **"Allow Full Access"** ✅
 
 ---
 
@@ -27,7 +27,7 @@ open Flirrt.xcodeproj
 
 1. **Open any dating app** (Tinder, Bumble, etc.)
 2. **Take screenshot** of a profile (Power + Volume Up)
-3. **Open Flirrt keyboard** in any chat
+3. **Open Vibe8 keyboard** in any chat
 4. **Wait 5-10 seconds** ⏳
 5. **See suggestions appear** automatically! ✨
 
@@ -57,7 +57,7 @@ Tap any suggestion → text inserted
 - If missing → Grant **Photos access** in Settings
 
 ### "No screenshot found" error?
-**Fix**: Settings → Privacy → Photos → Flirrt Keyboard → Enable "Read and Write"
+**Fix**: Settings → Privacy → Photos → Vibe8 Keyboard → Enable "Read and Write"
 
 ### Keyboard doesn't show up?
 **Fix**: Remove and re-add keyboard in Settings, enable "Allow Full Access"
@@ -78,9 +78,9 @@ Includes:
 
 ## ⚡ Backend Status
 
-**API**: https://flirrt-api-production.onrender.com ✅
+**API**: https://vibe8-api-production.onrender.com ✅
 **Status**: Live (deployed 5 min ago)
-**Health**: https://flirrt-api-production.onrender.com/api/v1/health
+**Health**: https://vibe8-api-production.onrender.com/api/v1/health
 
 ---
 

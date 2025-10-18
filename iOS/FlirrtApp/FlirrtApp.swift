@@ -1,7 +1,7 @@
 import SwiftUI
 
 @main
-struct FlirrtApp: App {
+struct Vibe8App: App {
     var body: some Scene {
         WindowGroup {
             ContentView()

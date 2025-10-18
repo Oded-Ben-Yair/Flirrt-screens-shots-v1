@@ -2,9 +2,9 @@ import XCTest
 import AVFoundation
 import Foundation
 import Combine
-@testable import Flirrt
+@testable import Vibe8
 
-/// Comprehensive Voice Recording Tests for Flirrt.ai
+/// Comprehensive Voice Recording Tests for Vibe8.ai
 /// Tests audio recording, playback, permissions, file management, and ElevenLabs integration
 class VoiceRecordingTests: XCTestCase {
 

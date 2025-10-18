@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Voice Recording Module provides complete functionality for recording high-quality voice samples, creating voice clones via ElevenLabs API, and managing voice recordings within the Flirrt iOS app.
+The Voice Recording Module provides complete functionality for recording high-quality voice samples, creating voice clones via ElevenLabs API, and managing voice recordings within the Vibe8 iOS app.
 
 ## Components
 
@@ -43,7 +43,7 @@ Add the following to your main app's Info.plist:
 ```xml
 <!-- REQUIRED: Microphone access -->
 <key>NSMicrophoneUsageDescription</key>
-<string>Flirrt needs access to your microphone to record voice samples for creating personalized voice clones. This enables the app to generate flirty messages in your own voice.</string>
+<string>Vibe8 needs access to your microphone to record voice samples for creating personalized voice clones. This enables the app to generate flirty messages in your own voice.</string>
 
 <!-- OPTIONAL: Background audio processing -->
 <key>UIBackgroundModes</key>
@@ -191,7 +191,7 @@ class MyViewController: UIViewController {
 ## File Structure
 
 ```
-Flirrt/
+Vibe8/
 ├── Services/
 │   ├── VoiceRecordingManager.swift
 │   └── SharedDataManager.swift

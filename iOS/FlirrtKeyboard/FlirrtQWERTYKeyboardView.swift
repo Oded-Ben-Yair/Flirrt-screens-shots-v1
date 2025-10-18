@@ -1,13 +1,13 @@
 import UIKit
 
-/// Custom QWERTY Keyboard Implementation for Flirrt
+/// Custom QWERTY Keyboard Implementation for Vibe8
 /// iOS 26 Liquid Glass Design
 /// Production-ready custom keyboard without external dependencies
-class FlirrtQWERTYKeyboardView: UIView {
+class Vibe8QWERTYKeyboardView: UIView {
 
     // MARK: - Properties
 
-    weak var delegate: FlirrtKeyboardDelegate?
+    weak var delegate: Vibe8KeyboardDelegate?
 
     private var keyRows: [[KeyButton]] = []
 
@@ -211,9 +211,9 @@ class KeyButton: UIButton {
     }
 }
 
-// MARK: - FlirrtKeyboardDelegate
+// MARK: - Vibe8KeyboardDelegate
 
-protocol FlirrtKeyboardDelegate: AnyObject {
+protocol Vibe8KeyboardDelegate: AnyObject {
     func keyboardDidPressKey(_ key: String)
     func keyboardDidPressDelete()
     func keyboardDidPressReturn()

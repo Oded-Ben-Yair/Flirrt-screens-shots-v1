@@ -1,5 +1,5 @@
 /**
- * Database Configuration for Flirrt.ai Backend
+ * Database Configuration for Vibe8.ai Backend
  * Supports both local development (optional DB) and production (PostgreSQL on Render)
  */
 

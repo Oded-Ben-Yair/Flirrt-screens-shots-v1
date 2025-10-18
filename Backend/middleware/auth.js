@@ -40,7 +40,7 @@ const authenticateToken = async (req, res, next) => {
         if (process.env.NODE_ENV === 'test' && token === 'test-token-for-api-testing') {
             req.user = {
                 id: 'test-user-id',
-                email: 'test@flirrt.ai',
+                email: 'test@vibe8.ai',
                 sessionId: 'test-session-id',
                 isVerified: true
             };

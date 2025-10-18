@@ -1,5 +1,5 @@
 /**
- * Comprehensive Integration Test Suite for Flirrt.ai Backend
+ * Comprehensive Integration Test Suite for Vibe8.ai Backend
  * Tests complete API workflow: Auth -> Screenshot Upload -> Analysis -> Flirt Generation -> Voice Synthesis
  *
  * Agent 2 - Stage 6: Testing & Validation Integration
@@ -504,7 +504,7 @@ function printSummary() {
  */
 async function runAllTests() {
     console.log(`${colors.blue}╔════════════════════════════════════════════════════════════════════════╗${colors.reset}`);
-    console.log(`${colors.blue}║     FLIRRT.AI BACKEND - COMPREHENSIVE INTEGRATION TEST SUITE          ║${colors.reset}`);
+    console.log(`${colors.blue}║     VIBE8.AI BACKEND - COMPREHENSIVE INTEGRATION TEST SUITE          ║${colors.reset}`);
     console.log(`${colors.blue}║     Agent 2 - Stage 6: Testing & Validation Integration              ║${colors.reset}`);
     console.log(`${colors.blue}╚════════════════════════════════════════════════════════════════════════╝${colors.reset}`);
     console.log(`\nBase URL: ${BASE_URL}`);

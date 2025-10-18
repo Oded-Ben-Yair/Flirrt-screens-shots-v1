@@ -1,9 +1,9 @@
 /**
- * Flirrt.ai AI Sub-Agents Module
+ * Vibe8.ai AI Sub-Agents Module
  *
  * This module exports all AI Sub-Agents for easy integration with the backend.
  * Each agent is a specialized component that handles specific aspects of the
- * Flirrt.ai dating app experience.
+ * Vibe8.ai dating app experience.
  *
  * Usage:
  * const { ScreenshotAnalyzer, FlirtGenerator, VoiceSynthesisAgent } = require('./Agents');

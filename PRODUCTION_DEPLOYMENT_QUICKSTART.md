@@ -1,4 +1,4 @@
-# 🚀 Flirrt.ai Production Deployment - Quickstart Guide
+# 🚀 Vibe8.ai Production Deployment - Quickstart Guide
 
 ## ✅ What's Been Completed
 
@@ -37,14 +37,14 @@
    - Deploy!
 
 3. **Get Your Production URL:**
-   - Render will provide: `https://flirrt-api-production.onrender.com`
-   - Verify health: `curl https://flirrt-api-production.onrender.com/health`
+   - Render will provide: `https://vibe8-api-production.onrender.com`
+   - Verify health: `curl https://vibe8-api-production.onrender.com/health`
 
 ### Step 2: Update iOS App with Production URL (5 minutes)
 
 1. **Edit AppConstants.swift:**
    ```swift
-   // File: iOS/Flirrt/Config/AppConstants.swift
+   // File: iOS/Vibe8/Config/AppConstants.swift
    // Lines 272-281
 
    case .staging:
@@ -55,15 +55,15 @@
    ```
 
 2. **Replace placeholders:**
-   - Change `flirrt-api-production` to your actual Render service name
+   - Change `vibe8-api-production` to your actual Render service name
    - Or copy the full URL from Render dashboard
 
 ### Step 3: Build & Install on iPad (10 minutes)
 
 1. **Open Xcode:**
    ```bash
-   cd /Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS
-   open Flirrt.xcodeproj
+   cd /Users/macbookairm1/Vibe8-screens-shots-v1/Vibe8AI/iOS
+   open Vibe8.xcodeproj
    ```
 
 2. **Clean Build:**
@@ -101,9 +101,9 @@ Follow the comprehensive testing checklist:
 - `Backend/.env` - Environment variables (copy to Render)
 
 **iOS:**
-- `iOS/Flirrt/Config/AppConstants.swift` - API URL configuration
+- `iOS/Vibe8/Config/AppConstants.swift` - API URL configuration
 - `iOS/PRODUCTION_TESTING_CHECKLIST.md` - Testing scenarios
-- `iOS/FlirrtKeyboard/KeyboardViewController.swift` - Main keyboard logic
+- `iOS/Vibe8Keyboard/KeyboardViewController.swift` - Main keyboard logic
 
 ### API Endpoints:
 

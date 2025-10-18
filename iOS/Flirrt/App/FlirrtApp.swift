@@ -2,11 +2,11 @@ import SwiftUI
 import UserNotifications
 
 @main
-struct FlirrtApp: App {
+struct Vibe8App: App {
     @StateObject private var authManager = AuthManager()
     @StateObject private var apiClient = APIClient()
     @StateObject private var sharedDataManager = SharedDataManager()
-    // NOTE: ScreenshotDetectionManager needs to be added to Xcode Flirrt target before build
+    // NOTE: ScreenshotDetectionManager needs to be added to Xcode Vibe8 target before build
     @StateObject private var screenshotManager = ScreenshotDetectionManager()
 
     init() {

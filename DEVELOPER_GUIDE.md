@@ -1,4 +1,4 @@
-# Flirrt.AI Developer Guide
+# Vibe8.AI Developer Guide
 
 **Version:** 1.0.0
 **Last Updated:** October 18, 2025
@@ -50,7 +50,7 @@
 ### Repository Structure
 
 ```
-Flirrt-screens-shots-v1/
+Vibe8-screens-shots-v1/
 ├── Backend/
 │   ├── config/
 │   │   ├── database.js          # Database configuration
@@ -83,7 +83,7 @@ Flirrt-screens-shots-v1/
 │   ├── package.json             # Dependencies
 │   └── .env.example             # Environment variables template
 ├── iOS/
-│   ├── Flirrt/
+│   ├── Vibe8/
 │   │   ├── Config/
 │   │   │   └── AppConstants.swift # API URLs, constants
 │   │   ├── Models/
@@ -104,18 +104,18 @@ Flirrt-screens-shots-v1/
 │   │   │   ├── ProgressView.swift
 │   │   │   ├── SettingsView.swift
 │   │   │   └── AgeVerificationView.swift
-│   │   └── FlirrtApp.swift      # App entry point
-│   ├── FlirrtKeyboard/
+│   │   └── Vibe8App.swift      # App entry point
+│   ├── Vibe8Keyboard/
 │   │   ├── KeyboardViewController.swift # Keyboard logic
 │   │   └── Info.plist           # Keyboard configuration
-│   ├── FlirrtShare/
+│   ├── Vibe8Share/
 │   │   └── ShareViewController.swift # Share extension
 │   ├── Tests/
 │   │   ├── APIClientTests.swift
 │   │   ├── CP6ComprehensiveTests.swift
 │   │   ├── PerformanceTests.swift
 │   │   └── IntegrationTestSuite.swift
-│   └── Flirrt.xcodeproj         # Xcode project
+│   └── Vibe8.xcodeproj         # Xcode project
 ├── CP1_PROGRESS.md through CP7_PROGRESS.md # Progress tracking
 ├── APP_REVIEW_NOTES.md          # App Review documentation
 ├── APP_STORE_METADATA.md        # App Store listing
@@ -162,7 +162,7 @@ Flirrt-screens-shots-v1/
 **Suggestion Generation:**
 ```
 1. User takes screenshot in dating app
-2. User selects screenshot in Flirrt.AI
+2. User selects screenshot in Vibe8.AI
 3. iOS uploads screenshot to Backend
 4. Backend processes:
    a. Gemini analyzes screenshot (profile/chat)
@@ -180,7 +180,7 @@ Flirrt-screens-shots-v1/
 
 **Keyboard Extension:**
 ```
-1. User switches to Flirrt keyboard in any app
+1. User switches to Vibe8 keyboard in any app
 2. Keyboard reads suggestions from App Groups
 3. User taps suggestion to insert text
 4. User taps refresh button (if connected to main app)
@@ -197,7 +197,7 @@ Main App                       Keyboard Extension
     │  to App Groups                  │
     ├─────────────────────────────────┤
     │  UserDefaults(suiteName:        │
-    │  "group.com.flirrt")             │
+    │  "group.com.vibe8")             │
     │                                  │
     │                      Reads from App Groups
     │◄──────────────────────────────────┤
@@ -234,8 +234,8 @@ Main App                       Keyboard Extension
 #### 1. Clone Repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/Flirrt-screens-shots-v1.git
-cd Flirrt-screens-shots-v1/Backend
+git clone https://github.com/YOUR_USERNAME/Vibe8-screens-shots-v1.git
+cd Vibe8-screens-shots-v1/Backend
 ```
 
 #### 2. Install Dependencies
@@ -253,7 +253,7 @@ cp .env.example .env
 Edit `.env`:
 ```bash
 # Database
-DATABASE_URL=postgresql://user:password@localhost:5432/flirrt_dev
+DATABASE_URL=postgresql://user:password@localhost:5432/vibe8_dev
 
 # API Keys
 GROK_API_KEY=xai-YOUR_GROK_API_KEY
@@ -277,7 +277,7 @@ REDIS_URL=redis://localhost:6379
 
 ```bash
 # Create database
-createdb flirrt_dev
+createdb vibe8_dev
 
 # Run migrations
 npm run migrate
@@ -319,20 +319,20 @@ Expected response:
 
 ```bash
 cd ../iOS
-open Flirrt.xcodeproj
+open Vibe8.xcodeproj
 ```
 
 #### 2. Configure Signing
 
 1. Select project in Xcode
-2. Select "Flirrt" target
+2. Select "Vibe8" target
 3. Go to "Signing & Capabilities"
 4. Select your Development Team
-5. Repeat for "FlirrtKeyboard" and "FlirrtShare" targets
+5. Repeat for "Vibe8Keyboard" and "Vibe8Share" targets
 
 #### 3. Update API URL
 
-Edit `iOS/Flirrt/Config/AppConstants.swift`:
+Edit `iOS/Vibe8/Config/AppConstants.swift`:
 
 ```swift
 static var baseURL: String {
@@ -340,9 +340,9 @@ static var baseURL: String {
     case .development:
         return "http://localhost:3000/api/v1"  // or your local IP
     case .staging:
-        return "https://flirrt-api-staging.onrender.com/api/v1"
+        return "https://vibe8-api-staging.onrender.com/api/v1"
     case .production:
-        return "https://flirrt-api-production.onrender.com/api/v1"
+        return "https://vibe8-api-production.onrender.com/api/v1"
     }
 }
 ```
@@ -359,12 +359,12 @@ return "http://YOUR_LOCAL_IP:3000/api/v1"  // e.g., http://192.168.1.100:3000/ap
 
 #### 4. Configure App Groups
 
-1. Select "Flirrt" target
+1. Select "Vibe8" target
 2. Go to "Signing & Capabilities"
 3. Click "+ Capability"
 4. Add "App Groups"
-5. Check "group.com.flirrt" (create if needed)
-6. Repeat for "FlirrtKeyboard" target
+5. Check "group.com.vibe8" (create if needed)
+6. Repeat for "Vibe8Keyboard" target
 
 #### 5. Run on Simulator
 
@@ -672,7 +672,7 @@ const Suggestion = sequelize.define('Suggestion', {
 ### Project Structure
 
 **Main App:**
-- `FlirrtApp.swift`: App entry point with `@main`
+- `Vibe8App.swift`: App entry point with `@main`
 - `AppCoordinator.swift`: Navigation logic
 - `MainTabView.swift`: Tab bar interface
 
@@ -754,7 +754,7 @@ class APIClient {
 
 ```swift
 // Main App
-let sharedDefaults = UserDefaults(suiteName: "group.com.flirrt")
+let sharedDefaults = UserDefaults(suiteName: "group.com.vibe8")
 
 // Save suggestions
 let suggestionsData = try? JSONEncoder().encode(suggestions)
@@ -769,7 +769,7 @@ sharedDefaults?.set("casual", forKey: "dating_goal")
 
 ```swift
 // Keyboard Extension
-let sharedDefaults = UserDefaults(suiteName: "group.com.flirrt")
+let sharedDefaults = UserDefaults(suiteName: "group.com.vibe8")
 
 // Read suggestions
 if let suggestionsData = sharedDefaults?.data(forKey: "latest_suggestions") {
@@ -795,7 +795,7 @@ class KeyboardViewController: UIInputViewController {
     }
 
     private func loadSuggestionsFromAppGroups() {
-        let sharedDefaults = UserDefaults(suiteName: "group.com.flirrt")
+        let sharedDefaults = UserDefaults(suiteName: "group.com.vibe8")
 
         if let suggestionsData = sharedDefaults?.data(forKey: "latest_suggestions"),
            let suggestions = try? JSONDecoder().decode([FlirtSuggestion].self, from: suggestionsData) {
@@ -872,9 +872,9 @@ describe('Flirt Generation', () => {
 
 ```bash
 xcodebuild test \
-  -scheme Flirrt \
+  -scheme Vibe8 \
   -destination 'platform=iOS Simulator,name=iPhone 15 Pro' \
-  -only-testing:FlirrtTests/CP6ComprehensiveTests/testRefreshEndpointReturnsMax3Suggestions
+  -only-testing:Vibe8Tests/CP6ComprehensiveTests/testRefreshEndpointReturnsMax3Suggestions
 ```
 
 #### Example Test
@@ -1105,4 +1105,4 @@ curl -X POST https://api.x.ai/v1/chat/completions \
 **Version:** 1.0.0
 **Last Updated:** October 18, 2025
 
-For questions or issues, contact: support@flirrt.ai
+For questions or issues, contact: support@vibe8.ai

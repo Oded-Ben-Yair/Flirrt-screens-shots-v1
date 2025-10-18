@@ -22,7 +22,7 @@ class ShareViewController: UIViewController {
         view.addSubview(activityIndicator)
 
         let label = UILabel()
-        label.text = "Analyzing screenshot with Flirrt AI..."
+        label.text = "Analyzing screenshot with Vibe8 AI..."
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(label)
@@ -155,7 +155,7 @@ class ShareViewController: UIViewController {
         // Post Darwin notification to wake up main app
         CFNotificationCenterPostNotification(
             CFNotificationCenterGetDarwinNotifyCenter(),
-            CFNotificationName("com.flirrt.screenshot.ready" as CFString),
+            CFNotificationName("com.vibe8.screenshot.ready" as CFString),
             nil,
             nil,
             true

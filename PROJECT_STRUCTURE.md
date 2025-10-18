@@ -1,4 +1,4 @@
-# Project Structure - Flirrt.AI
+# Project Structure - Vibe8.AI
 
 **Last Updated**: October 17, 2025
 **Purpose**: Clear directory layout for external reviewers
@@ -8,10 +8,10 @@
 ## 📂 Root Directory Overview
 
 ```
-Flirrt-screens-shots-v1/           # Repository root
+Vibe8-screens-shots-v1/           # Repository root
 ├── Backend/                       # ✅ REVIEW THIS - Backend API
 ├── iOS/                           # ✅ REVIEW THIS - iOS Application
-├── Flirrt/                        # 📄 Design docs (not code)
+├── Vibe8/                        # 📄 Design docs (not code)
 ├── .archive/                      # 🗑️ IGNORE - Old code
 ├── privacy-policy.html            # ✅ Privacy policy
 ├── README.md                      # ✅ Start here
@@ -64,7 +64,7 @@ Backend/
 │   └── comprehensiveQA.test.js
 │
 └── data/                          # SQLite database (gitignored)
-    └── flirrt.db
+    └── vibe8.db
 ```
 
 **Key Files for Security Review**:
@@ -77,16 +77,16 @@ Backend/
 
 ### 2. iOS/ - iOS Application
 
-**Entry Point**: `iOS/Flirrt.xcodeproj` (Open in Xcode)
+**Entry Point**: `iOS/Vibe8.xcodeproj` (Open in Xcode)
 
 ```
 iOS/
-├── Flirrt.xcodeproj/              # Xcode project file
+├── Vibe8.xcodeproj/              # Xcode project file
 │   └── project.pbxproj            # Project configuration
 │
-├── Flirrt/                        # Main app target
+├── Vibe8/                        # Main app target
 │   ├── App/
-│   │   └── FlirrtApp.swift        # App entry point
+│   │   └── Vibe8App.swift        # App entry point
 │   │
 │   ├── Config/
 │   │   └── AppConstants.swift     # API URLs, configuration ⭐
@@ -111,33 +111,33 @@ iOS/
 │   ├── Resources/
 │   │   └── Info.plist             # App metadata
 │   │
-│   └── Flirrt.entitlements       # iOS entitlements (App Groups)
+│   └── Vibe8.entitlements       # iOS entitlements (App Groups)
 │
-├── FlirrtKeyboard/                # Keyboard extension target ⭐
+├── Vibe8Keyboard/                # Keyboard extension target ⭐
 │   ├── KeyboardViewController.swift # Keyboard logic (CRITICAL)
-│   ├── FlirrtKeyboard.entitlements
-│   └── FlirrtKeyboard-Info.plist
+│   ├── Vibe8Keyboard.entitlements
+│   └── Vibe8Keyboard-Info.plist
 │
-└── FlirrtShare/                   # Share extension target
+└── Vibe8Share/                   # Share extension target
     ├── ShareViewController.swift  # Screenshot sharing
-    ├── FlirrtShare.entitlements
-    └── FlirrtShare-Info.plist
+    ├── Vibe8Share.entitlements
+    └── Vibe8Share-Info.plist
 ```
 
 **Key Files for Security Review**:
-- `Flirrt/Config/AppConstants.swift` - API configuration, no hardcoded keys
-- `Flirrt/Services/APIClient.swift` - Network security, HTTPS enforcement
-- `FlirrtKeyboard/KeyboardViewController.swift` - Keyboard extension logic
-- `Flirrt/Flirrt.entitlements` - App permissions
+- `Vibe8/Config/AppConstants.swift` - API configuration, no hardcoded keys
+- `Vibe8/Services/APIClient.swift` - Network security, HTTPS enforcement
+- `Vibe8Keyboard/KeyboardViewController.swift` - Keyboard extension logic
+- `Vibe8/Vibe8.entitlements` - App permissions
 
 ---
 
 ## 📄 SKIM THESE (Design Docs)
 
-### 3. Flirrt/ - Design Package (Not Implementation)
+### 3. Vibe8/ - Design Package (Not Implementation)
 
 ```
-Flirrt/
+Vibe8/
 ├── CLAUDE.md                      # Design instructions (outdated)
 ├── deliverables/                  # Design specs (not code)
 └── research/                      # Research notes
@@ -156,7 +156,7 @@ Flirrt/
 ```
 .archive/
 └── old-structure/                 # Previous directory structure
-    ├── FlirrtAI-legacy/           # Old nested structure
+    ├── Vibe8AI-legacy/           # Old nested structure
     ├── Backend-old/               # Outdated backend
     └── iOS-old/                   # Outdated iOS code
 ```
@@ -202,10 +202,10 @@ Flirrt/
 5. `Backend/services/grok4FastService.js` - AI integration
 
 **iOS**:
-1. `iOS/Flirrt/Config/AppConstants.swift` - Configuration
-2. `iOS/Flirrt/Services/APIClient.swift` - Network layer
-3. `iOS/FlirrtKeyboard/KeyboardViewController.swift` - Keyboard extension
-4. `iOS/Flirrt/Services/SharedDataManager.swift` - Data sharing
+1. `iOS/Vibe8/Config/AppConstants.swift` - Configuration
+2. `iOS/Vibe8/Services/APIClient.swift` - Network layer
+3. `iOS/Vibe8Keyboard/KeyboardViewController.swift` - Keyboard extension
+4. `iOS/Vibe8/Services/SharedDataManager.swift` - Data sharing
 
 ### High Priority
 
@@ -215,9 +215,9 @@ Flirrt/
 - `Backend/config/database.js` - DB configuration
 
 **iOS**:
-- `iOS/Flirrt/Views/ContentView.swift` - Main UI
-- `iOS/Flirrt/Services/AuthManager.swift` - Auth management
-- `iOS/FlirrtShare/ShareViewController.swift` - Share extension
+- `iOS/Vibe8/Views/ContentView.swift` - Main UI
+- `iOS/Vibe8/Services/AuthManager.swift` - Auth management
+- `iOS/Vibe8Share/ShareViewController.swift` - Share extension
 
 ### Medium Priority
 
@@ -227,8 +227,8 @@ Flirrt/
 - `Backend/routes/*.js` - Other endpoints
 
 **iOS**:
-- `iOS/Flirrt/Views/*.swift` - UI components
-- `iOS/Flirrt/Models/*.swift` - Data models
+- `iOS/Vibe8/Views/*.swift` - UI components
+- `iOS/Vibe8/Models/*.swift` - Data models
 
 ### Low Priority
 
@@ -291,7 +291,7 @@ Documentation: ~15 markdown files
 ### Navigate to Code
 
 ```bash
-cd /Users/macbookairm1/Flirrt-screens-shots-v1
+cd /Users/macbookairm1/Vibe8-screens-shots-v1
 
 # Backend
 cd Backend
@@ -301,7 +301,7 @@ npm start
 
 # iOS
 cd iOS
-open Flirrt.xcodeproj
+open Vibe8.xcodeproj
 ```
 
 ### Check Git Status
@@ -342,16 +342,16 @@ find . -name "*.plist" -o -name "*.entitlements" -o -name "*.json"
 Focus on:
 - `Backend/middleware/auth.js`
 - `Backend/middleware/validation.js`
-- `iOS/Flirrt/Config/AppConstants.swift`
-- `iOS/Flirrt/Services/APIClient.swift`
+- `iOS/Vibe8/Config/AppConstants.swift`
+- `iOS/Vibe8/Services/APIClient.swift`
 - All `.entitlements` files
 
 ### iOS Reviewers
 
 Focus on:
-- `iOS/Flirrt.xcodeproj/project.pbxproj` - Project config
-- `iOS/FlirrtKeyboard/KeyboardViewController.swift` - Main logic
-- `iOS/Flirrt/Services/` - All service classes
+- `iOS/Vibe8.xcodeproj/project.pbxproj` - Project config
+- `iOS/Vibe8Keyboard/KeyboardViewController.swift` - Main logic
+- `iOS/Vibe8/Services/` - All service classes
 - Memory management (weak/unowned references)
 
 ### Backend Reviewers
@@ -374,5 +374,5 @@ If directory structure is still unclear:
 ---
 
 **Last Updated**: October 17, 2025
-**Repository**: https://github.com/Oded-Ben-Yair/Flirrt-screens-shots-v1
+**Repository**: https://github.com/Oded-Ben-Yair/Vibe8-screens-shots-v1
 **Status**: ✅ Cleaned and organized for external review

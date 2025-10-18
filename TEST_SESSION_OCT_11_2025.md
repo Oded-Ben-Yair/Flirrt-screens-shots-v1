@@ -92,7 +92,7 @@ static var current: AppEnvironment {
 ## ✅ Backend Testing Results
 
 ### Production URL
-`https://flirrt-api-production.onrender.com/api/v1`
+`https://vibe8-api-production.onrender.com/api/v1`
 
 ### Test 1: Health Check ✅
 ```json
@@ -169,15 +169,15 @@ static var current: AppEnvironment {
 
 ### Build Details
 - **Device:** iPad (18.6) - UDID: 00008120-001E4C511E800032
-- **Bundle ID:** com.flirrt.app.dev
+- **Bundle ID:** com.vibe8.app.dev
 - **Configuration:** Debug
-- **Signing:** Apple Development: office@flirrt.ai (TK2K599TF8)
+- **Signing:** Apple Development: office@vibe8.ai (TK2K599TF8)
 - **Build Result:** ✅ SUCCESS
 - **Installation:** ✅ SUCCESS
 
 ### Extensions Included
-- ✅ FlirrtKeyboard.appex (Custom keyboard)
-- ✅ FlirrtShare.appex (Share extension)
+- ✅ Vibe8Keyboard.appex (Custom keyboard)
+- ✅ Vibe8Share.appex (Share extension)
 
 ---
 
@@ -188,7 +188,7 @@ static var current: AppEnvironment {
 **User Action:**
 1. Opened dating app
 2. Took screenshot of chat conversation
-3. Opened Flirrt keyboard
+3. Opened Vibe8 keyboard
 4. Uploaded screenshot
 
 **App Response:**
@@ -220,7 +220,7 @@ IF screenshot_type is CHAT:
 
 ### Backend (Render.com)
 - **Status:** ✅ Live and responding
-- **URL:** https://flirrt-api-production.onrender.com
+- **URL:** https://vibe8-api-production.onrender.com
 - **Grok API:** ✅ Configured and working
 - **Response Time:** ~5-6 seconds (normal for AI generation)
 - **Error Handling:** ✅ Validated and working
@@ -240,7 +240,7 @@ IF screenshot_type is CHAT:
 ### Data Flow
 ```
 1. User takes screenshot in dating app
-2. User switches to Flirrt keyboard
+2. User switches to Vibe8 keyboard
 3. User taps camera icon → uploads screenshot
 4. iOS App sends to backend:
    POST /api/v1/flirts/generate_flirts
@@ -304,19 +304,19 @@ IF screenshot_type is CHAT:
    - Visible interests/hobbies
    - Name, age visible
 3. Screenshot the profile
-4. Upload via Flirrt keyboard
+4. Upload via Vibe8 keyboard
 5. **Expected:** 5 personalized openers referencing profile details
 
 **Test 2: Incomplete Profile**
 1. Find profile with minimal info (1 photo, no bio)
 2. Screenshot
-3. Upload via Flirrt keyboard
+3. Upload via Vibe8 keyboard
 4. **Expected:** Message asking to scroll for more info
 
 **Test 3: Chat Conversation**
 1. Open active conversation with messages
 2. Screenshot the chat
-3. Upload via Flirrt keyboard
+3. Upload via Vibe8 keyboard
 4. **Expected:** 5 conversation reply suggestions
 
 **Test 4: Different Tones**
@@ -366,7 +366,7 @@ IF screenshot_type is CHAT:
 GROK_API_KEY=xai-[REDACTED]
 ELEVENLABS_API_KEY=sk_[REDACTED]
 GEMINI_API_KEY=AIza[REDACTED]
-JWT_SECRET=flirrt_ai_super_secret_key_2024_production
+JWT_SECRET=vibe8_ai_super_secret_key_2024_production
 NODE_ENV=production
 PORT=3000
 ```
@@ -384,7 +384,7 @@ static var current: AppEnvironment {
 
 // Production URL
 case .production:
-    return "https://flirrt-api-production.onrender.com/api/v1"
+    return "https://vibe8-api-production.onrender.com/api/v1"
 ```
 
 ---
@@ -392,12 +392,12 @@ case .production:
 ## 🔗 Important Links
 
 **Production:**
-- Backend: https://flirrt-api-production.onrender.com
-- Health Check: https://flirrt-api-production.onrender.com/health
+- Backend: https://vibe8-api-production.onrender.com
+- Health Check: https://vibe8-api-production.onrender.com/health
 - Render Dashboard: https://dashboard.render.com
 
 **Development:**
-- GitHub Repo: https://github.com/Oded-Ben-Yair/Flirrt-screens-shots-v1
+- GitHub Repo: https://github.com/Oded-Ben-Yair/Vibe8-screens-shots-v1
 - Current Branch: main (formerly fix/real-mvp-implementation)
 
 **APIs:**

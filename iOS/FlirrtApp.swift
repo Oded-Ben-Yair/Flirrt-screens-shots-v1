@@ -1,7 +1,7 @@
 import SwiftUI
 
 @main
-struct FlirrtApp: App {
+struct Vibe8App: App {
     // Initialize your managers here
     @StateObject private var authManager = AuthManager()
     @StateObject private var apiClient = APIClient()

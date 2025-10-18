@@ -1,15 +1,15 @@
-# FLIRRT.AI TRANSFORMATION GUIDE FOR CLAUDE-CODE SONNET 4.5
+# VIBE8.AI TRANSFORMATION GUIDE FOR CLAUDE-CODE SONNET 4.5
 
 **Date:** October 17, 2025  
-**Target:** Transform Flirrt.AI MVP into Production-Ready Dating Wingman  
+**Target:** Transform Vibe8.AI MVP into Production-Ready Dating Wingman  
 **Executor:** Claude Code Sonnet 4.5 with Agent SDK  
-**Repository:** Oded-Ben-Yair/Flirrt-screens-shots-v1
+**Repository:** Oded-Ben-Yair/Vibe8-screens-shots-v1
 
 ---
 
 ## EXECUTIVE SUMMARY
 
-This guide provides complete, step-by-step instructions for transforming the Flirrt.AI MVP into a sophisticated, AI-powered dating coach. You (Claude Code Sonnet 4.5) will use your advanced agentic capabilities, including subagents, checkpoints, and MCP integration, to execute this transformation.
+This guide provides complete, step-by-step instructions for transforming the Vibe8.AI MVP into a sophisticated, AI-powered dating coach. You (Claude Code Sonnet 4.5) will use your advanced agentic capabilities, including subagents, checkpoints, and MCP integration, to execute this transformation.
 
 **Critical Context:**
 - You have **30+ hours of focus** capability (Sonnet 4.5)
@@ -38,18 +38,18 @@ swift --version
 node --version
 
 # Check if repository is cloned
-cd /path/to/Flirrt-screens-shots-v1
+cd /path/to/Vibe8-screens-shots-v1
 ```
 
-### 1.2 Create Flirrt.AI Development Plugin
+### 1.2 Create Vibe8.AI Development Plugin
 
-Create `.claude-plugin/flirrt-ai-dev.json`:
+Create `.claude-plugin/vibe8-ai-dev.json`:
 
 ```json
 {
-  "name": "flirrt-ai-dev",
+  "name": "vibe8-ai-dev",
   "version": "1.0.0",
-  "description": "Flirrt.AI comprehensive development plugin with specialized subagents",
+  "description": "Vibe8.AI comprehensive development plugin with specialized subagents",
   "agents": [
     {
       "name": "ios-architect",
@@ -77,14 +77,14 @@ Create `.claude-plugin/flirrt-ai-dev.json`:
       "name": "xcode-build",
       "description": "Build and test Xcode projects",
       "command": "xcodebuild",
-      "args": ["-project", "iOS/Flirrt.xcodeproj", "-scheme", "Flirrt", "-sdk", "iphonesimulator"]
+      "args": ["-project", "iOS/Vibe8.xcodeproj", "-scheme", "Vibe8", "-sdk", "iphonesimulator"]
     }
   ],
   "slashCommands": [
     {
       "name": "build-ios",
       "description": "Build iOS app in Xcode simulator",
-      "command": "cd iOS && xcodebuild -project Flirrt.xcodeproj -scheme Flirrt -sdk iphonesimulator build"
+      "command": "cd iOS && xcodebuild -project Vibe8.xcodeproj -scheme Vibe8 -sdk iphonesimulator build"
     },
     {
       "name": "test-backend",
@@ -110,7 +110,7 @@ Create `.claude-plugin/flirrt-ai-dev.json`:
 ### 1.3 Install Plugin
 
 ```bash
-/plugin install .claude-plugin/flirrt-ai-dev.json
+/plugin install .claude-plugin/vibe8-ai-dev.json
 ```
 
 ### 1.4 Create Checkpoint Strategy
@@ -131,7 +131,7 @@ Use `/checkpoint-save` command at each milestone.
 
 ### 2.1 Fix KeyboardViewController Memory Leak
 
-**File:** `iOS/FlirrtKeyboard/KeyboardViewController.swift`
+**File:** `iOS/Vibe8Keyboard/KeyboardViewController.swift`
 
 **Issue:** CFNotification observer not removed, causing memory leak and potential crash.
 
@@ -157,7 +157,7 @@ class KeyboardViewController: UIInputViewController {
         super.viewDidLoad()
         
         // Store notification name for cleanup
-        notificationName = CFNotificationName("com.flirrt.screenshot" as CFString)
+        notificationName = CFNotificationName("com.vibe8.screenshot" as CFString)
         
         CFNotificationCenterAddObserver(
             CFNotificationCenterGetDarwinNotifyCenter(),
@@ -173,7 +173,7 @@ class KeyboardViewController: UIInputViewController {
 
 ### 2.2 Remove Photo Library Access from Keyboard Extension
 
-**File:** `iOS/FlirrtKeyboard/KeyboardViewController.swift`
+**File:** `iOS/Vibe8Keyboard/KeyboardViewController.swift`
 
 **Issue:** Accessing Photos from keyboard extension violates privacy/sandbox rules and will cause App Store rejection.
 
@@ -186,7 +186,7 @@ class KeyboardViewController: UIInputViewController {
 **New Architecture:**
 
 ```
-Main App (Flirrt.AI)
+Main App (Vibe8.AI)
   ├── Screenshot Detection (PHPhotoLibrary access here)
   ├── Image Processing
   └── Share via App Groups → Keyboard Extension reads sanitized data
@@ -200,7 +200,7 @@ import Photos
 
 class ScreenshotManager {
     static let shared = ScreenshotManager()
-    private let appGroupID = "group.com.flirrt.shared"
+    private let appGroupID = "group.com.vibe8.shared"
     
     func detectAndProcessScreenshot() {
         PHPhotoLibrary.requestAuthorization { status in
@@ -229,7 +229,7 @@ class ScreenshotManager {
 // In Keyboard Extension (KeyboardViewController.swift)
 // Remove ALL PHPhotoLibrary code
 // Read from App Groups instead
-let sharedDefaults = UserDefaults(suiteName: "group.com.flirrt.shared")
+let sharedDefaults = UserDefaults(suiteName: "group.com.vibe8.shared")
 if let screenshotData = sharedDefaults?.dictionary(forKey: "latestScreenshot") {
     // Use screenshot data
 }
@@ -237,7 +237,7 @@ if let screenshotData = sharedDefaults?.dictionary(forKey: "latestScreenshot") {
 
 ### 2.3 Fix APIClient Security Issues
 
-**File:** `iOS/Flirrt/Services/APIClient.swift`
+**File:** `iOS/Vibe8/Services/APIClient.swift`
 
 **Issues:**
 1. Logging sensitive response data
@@ -252,7 +252,7 @@ import OSLog
 
 class APIClient {
     static let shared = APIClient()
-    private let logger = Logger(subsystem: "com.flirrt.api", category: "network")
+    private let logger = Logger(subsystem: "com.vibe8.api", category: "network")
     
     private init() {
         // Enforce singleton
@@ -317,23 +317,23 @@ enum APIError: Error {
 
 ### 3.1 Install KeyboardKit 9.9
 
-**Add to `iOS/Flirrt.xcodeproj`:**
+**Add to `iOS/Vibe8.xcodeproj`:**
 
 1. Open Xcode
 2. File → Add Package Dependencies
 3. Enter: `https://github.com/KeyboardKit/KeyboardKit`
 4. Version: 9.9.0 or later
-5. Add to both `Flirrt` and `FlirrtKeyboard` targets
+5. Add to both `Vibe8` and `Vibe8Keyboard` targets
 
 ### 3.2 Create New Keyboard View Controller
 
-**File:** `iOS/FlirrtKeyboard/FlirrtKeyboardViewController.swift`
+**File:** `iOS/Vibe8Keyboard/Vibe8KeyboardViewController.swift`
 
 ```swift
 import KeyboardKit
 import SwiftUI
 
-class FlirrtKeyboardViewController: KeyboardInputViewController {
+class Vibe8KeyboardViewController: KeyboardInputViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -343,8 +343,8 @@ class FlirrtKeyboardViewController: KeyboardInputViewController {
             setIsLiquidGlassEnabled(true)
         }
         
-        // Setup Flirrt custom toolbar
-        setupFlirrtToolbar()
+        // Setup Vibe8 custom toolbar
+        setupVibe8Toolbar()
         
         // Configure keyboard appearance
         setupKeyboardAppearance()
@@ -357,9 +357,9 @@ class FlirrtKeyboardViewController: KeyboardInputViewController {
         // We just need to add our custom toolbar on top
     }
     
-    private func setupFlirrtToolbar() {
+    private func setupVibe8Toolbar() {
         // Create SwiftUI toolbar view
-        let toolbarView = FlirrtToolbarView(
+        let toolbarView = Vibe8ToolbarView(
             onScreenshotTap: { [weak self] in
                 self?.handleScreenshotAnalysis()
             },
@@ -387,14 +387,14 @@ class FlirrtKeyboardViewController: KeyboardInputViewController {
     }
     
     private func setupKeyboardAppearance() {
-        // Customize KeyboardKit appearance to match Flirrt branding
+        // Customize KeyboardKit appearance to match Vibe8 branding
         // KeyboardKit 9.9 automatically handles Liquid Glass design for iOS 26+
     }
     
     private func handleScreenshotAnalysis() {
         // Deep link to main app for screenshot analysis
         // (Photo Library access must be in main app, not keyboard extension)
-        if let url = URL(string: "flirrt://analyze-screenshot") {
+        if let url = URL(string: "vibe8://analyze-screenshot") {
             openURL(url)
         }
     }
@@ -406,7 +406,7 @@ class FlirrtKeyboardViewController: KeyboardInputViewController {
     
     private func handleVoiceMessage() {
         // Open voice message UI in main app
-        if let url = URL(string: "flirrt://voice-message") {
+        if let url = URL(string: "vibe8://voice-message") {
             openURL(url)
         }
     }
@@ -423,9 +423,9 @@ class FlirrtKeyboardViewController: KeyboardInputViewController {
     }
 }
 
-// MARK: - Flirrt Toolbar View
+// MARK: - Vibe8 Toolbar View
 
-struct FlirrtToolbarView: View {
+struct Vibe8ToolbarView: View {
     let onScreenshotTap: () -> Void
     let onRefreshTap: () -> Void
     let onVoiceTap: () -> Void
@@ -523,7 +523,7 @@ extension Notification.Name {
 
 ### 3.3 Update Info.plist
 
-**File:** `iOS/FlirrtKeyboard/Info.plist`
+**File:** `iOS/Vibe8Keyboard/Info.plist`
 
 Update `NSExtensionPrincipalClass` to point to new view controller:
 
@@ -544,7 +544,7 @@ Update `NSExtensionPrincipalClass` to point to new view controller:
     <key>NSExtensionPointIdentifier</key>
     <string>com.apple.ui-services.keyboard</string>
     <key>NSExtensionPrincipalClass</key>
-    <string>$(PRODUCT_MODULE_NAME).FlirrtKeyboardViewController</string>
+    <string>$(PRODUCT_MODULE_NAME).Vibe8KeyboardViewController</string>
 </dict>
 ```
 
@@ -557,11 +557,11 @@ Update `NSExtensionPrincipalClass` to point to new view controller:
 **Manual Testing:**
 1. Run app in simulator
 2. Go to Settings → General → Keyboard → Keyboards → Add New Keyboard
-3. Select "Flirrt"
+3. Select "Vibe8"
 4. Open any app with text input
-5. Switch to Flirrt keyboard
+5. Switch to Vibe8 keyboard
 6. Verify QWERTY layout appears
-7. Verify Flirrt toolbar appears above keyboard
+7. Verify Vibe8 toolbar appears above keyboard
 
 **CHECKPOINT:** After successful KeyboardKit integration, run `/checkpoint-save` with description "CP-2: KeyboardKit 9.9 integration completed"
 
@@ -955,7 +955,7 @@ module.exports = {
 
 ### 4.4 iOS: Conversation Session View
 
-**File:** `iOS/Flirrt/Views/ConversationSessionView.swift`
+**File:** `iOS/Vibe8/Views/ConversationSessionView.swift`
 
 ```swift
 import SwiftUI
@@ -1080,7 +1080,7 @@ struct ContextProgressBar: View {
 
 ### 5.1 Enable Voice Recording View
 
-**File:** `iOS/Flirrt/Views/VoiceRecordingView.swift`
+**File:** `iOS/Vibe8/Views/VoiceRecordingView.swift`
 
 This file already exists but is disabled. Enable it in navigation:
 
@@ -1091,7 +1091,7 @@ NavigationLink("Voice Messages", destination: VoiceRecordingView())
 
 ### 5.2 Implement Audio Mixing Service
 
-**File:** `iOS/Flirrt/Services/AudioMixingService.swift`
+**File:** `iOS/Vibe8/Services/AudioMixingService.swift`
 
 ```swift
 import AVFoundation
@@ -1265,7 +1265,7 @@ enum AudioMixingError: Error {
 
 ### 5.3 Add Background Sounds to Bundle
 
-Download or create the following audio files and add to `iOS/Flirrt/Resources/Audio/`:
+Download or create the following audio files and add to `iOS/Vibe8/Resources/Audio/`:
 - `beach_waves.mp3`
 - `party_ambience.mp3`
 - `forest_birds.mp3`
@@ -1276,7 +1276,7 @@ Ensure they are added to the Xcode project and included in the app target.
 
 ### 5.4 Update Voice Message Flow
 
-**File:** `iOS/Flirrt/Views/VoiceMessageView.swift`
+**File:** `iOS/Vibe8/Views/VoiceMessageView.swift`
 
 ```swift
 import SwiftUI
@@ -1405,7 +1405,7 @@ struct BackgroundSoundButton: View {
 **File:** `Backend/prompts/coachingPersona.js`
 
 ```javascript
-const COACHING_PERSONA = `You are an expert dating coach and wingman. Your name is Flirrt, and you're here to help people build genuine connections.
+const COACHING_PERSONA = `You are an expert dating coach and wingman. Your name is Vibe8, and you're here to help people build genuine connections.
 
 Your personality:
 - Supportive and encouraging, never judgmental
@@ -1591,7 +1591,7 @@ router.post('/regenerate', authenticateToken, async (req, res) => {
 
 ### 6.4 iOS: Enhanced Suggestion Display
 
-**File:** `iOS/Flirrt/Views/SuggestionCardView.swift`
+**File:** `iOS/Vibe8/Views/SuggestionCardView.swift`
 
 ```swift
 import SwiftUI
@@ -1723,11 +1723,11 @@ Activate the `qa-engineer` subagent from your plugin:
 
 ### 7.2 iOS Unit Tests
 
-**File:** `iOS/FlirrtTests/ConversationSessionTests.swift`
+**File:** `iOS/Vibe8Tests/ConversationSessionTests.swift`
 
 ```swift
 import XCTest
-@testable import Flirrt
+@testable import Vibe8
 
 class ConversationSessionTests: XCTestCase {
     
@@ -1845,7 +1845,7 @@ describe('Conversation API', () => {
 ```bash
 #!/bin/bash
 
-echo "🧪 Running Flirrt.AI End-to-End Tests"
+echo "🧪 Running Vibe8.AI End-to-End Tests"
 echo "======================================"
 
 # Backend tests
@@ -1862,8 +1862,8 @@ cd ..
 echo "📱 Testing iOS App..."
 cd iOS
 xcodebuild test \
-  -project Flirrt.xcodeproj \
-  -scheme Flirrt \
+  -project Vibe8.xcodeproj \
+  -scheme Vibe8 \
   -destination 'platform=iOS Simulator,name=iPhone 15 Pro,OS=18.0'
 if [ $? -ne 0 ]; then
     echo "❌ iOS tests failed"
@@ -1886,7 +1886,7 @@ echo "✅ All tests passed!"
 
 ```env
 # Database
-DATABASE_URL=postgresql://user:password@localhost:5432/flirrt
+DATABASE_URL=postgresql://user:password@localhost:5432/vibe8
 
 # Redis
 REDIS_URL=redis://localhost:6379
@@ -1908,17 +1908,17 @@ PORT=3000
 
 ### 8.2 iOS Build Configuration
 
-Update `iOS/Flirrt/Config.xcconfig`:
+Update `iOS/Vibe8/Config.xcconfig`:
 
 ```
 // API Endpoints
-API_BASE_URL = https://flirrt-api.onrender.com
+API_BASE_URL = https://vibe8-api.onrender.com
 
 // App Group ID
-APP_GROUP_ID = group.com.flirrt.shared
+APP_GROUP_ID = group.com.vibe8.shared
 
 // Deep Link Scheme
-URL_SCHEME = flirrt
+URL_SCHEME = vibe8
 ```
 
 ### 8.3 Deployment Checklist
@@ -1945,8 +1945,8 @@ npm run load-test
 
 # iOS memory profiling
 cd iOS
-xcodebuild -project Flirrt.xcodeproj \
-  -scheme Flirrt \
+xcodebuild -project Vibe8.xcodeproj \
+  -scheme Vibe8 \
   -destination 'platform=iOS Simulator,name=iPhone 15 Pro' \
   -enableAddressSanitizer YES \
   -enableThreadSanitizer YES
@@ -2017,7 +2017,7 @@ Create a progress tracking file:
 **File:** `PROGRESS.md`
 
 ```markdown
-# Flirrt.AI Transformation Progress
+# Vibe8.AI Transformation Progress
 
 ## Checkpoints
 - [ ] CP-1: Critical bug fixes
@@ -2048,7 +2048,7 @@ Create a progress tracking file:
 
 All features must be fully functional:
 
-1. ✅ **Full QWERTY Keyboard** with Flirrt toolbar
+1. ✅ **Full QWERTY Keyboard** with Vibe8 toolbar
 2. ✅ **Multi-Screenshot Context** with gamified progress tracking
 3. ✅ **Voice Messages** with background sound mixing
 4. ✅ **Refresh Suggestions** with variety
@@ -2090,7 +2090,7 @@ All features must be fully functional:
 cd iOS
 rm -rf ~/Library/Developer/Xcode/DerivedData
 xcodebuild clean
-xcodebuild -project Flirrt.xcodeproj -scheme Flirrt
+xcodebuild -project Vibe8.xcodeproj -scheme Vibe8
 ```
 
 ### Issue: Gemini 2.5 Pro API errors
@@ -2107,7 +2107,7 @@ curl -H "Authorization: Bearer $GEMINI_API_KEY" \
 **Solution:**
 Verify background sound files are in bundle:
 ```bash
-cd iOS/Flirrt/Resources/Audio
+cd iOS/Vibe8/Resources/Audio
 ls -la *.mp3
 ```
 
@@ -2129,9 +2129,9 @@ ls -la *.mp3
 
 | URL | Action |
 |-----|--------|
-| `flirrt://analyze-screenshot` | Open screenshot analysis |
-| `flirrt://voice-message` | Open voice message UI |
-| `flirrt://conversation/:id` | Open specific conversation |
+| `vibe8://analyze-screenshot` | Open screenshot analysis |
+| `vibe8://voice-message` | Open voice message UI |
+| `vibe8://conversation/:id` | Open specific conversation |
 
 ---
 

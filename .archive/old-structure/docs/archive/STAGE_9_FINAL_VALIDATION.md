@@ -274,9 +274,9 @@ All P1 issues resolved in Stage 8.
 - [ ] Database credentials configured (or use mock data)
 
 #### 2. iOS Extension Configuration ⚠️
-- [ ] Open `Flirrt.xcodeproj` in Xcode
-- [ ] Add `AppConstants.swift` to `FlirrtKeyboard` target
-- [ ] Add `AppConstants.swift` to `FlirrtShare` target
+- [ ] Open `Vibe8.xcodeproj` in Xcode
+- [ ] Add `AppConstants.swift` to `Vibe8Keyboard` target
+- [ ] Add `AppConstants.swift` to `Vibe8Share` target
 - [ ] Verify build succeeds
 - [ ] **Time**: 2 minutes
 - [ ] **Guide**: `STAGE_8_IOS_FIX_REQUIRED.md`
@@ -346,7 +346,7 @@ curl -X POST http://localhost:3000/api/v1/analysis/analyze_screenshot \
 ```bash
 # 1. Clone repository
 git clone <repo-url>
-cd FlirrtAI
+cd Vibe8AI
 
 # 2. Checkout production branch
 git checkout fix/real-mvp-implementation
@@ -361,18 +361,18 @@ cp .env.example .env
 
 # 5. Start server
 npm start
-# Or use PM2: pm2 start server.js --name flirrt-api
+# Or use PM2: pm2 start server.js --name vibe8-api
 ```
 
 #### Step 2: iOS App Build
 ```bash
 # 1. Open Xcode
-open iOS/Flirrt.xcodeproj
+open iOS/Vibe8.xcodeproj
 
 # 2. Configure extension targets (2 minutes)
 # Follow STAGE_8_IOS_FIX_REQUIRED.md
 
-# 3. Select scheme: Flirrt
+# 3. Select scheme: Vibe8
 # 4. Select destination: iPhone (or simulator)
 # 5. Product → Build (⌘B)
 # Expected: Build Succeeded

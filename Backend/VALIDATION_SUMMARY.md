@@ -116,7 +116,7 @@ validateTextLength, validateVoiceModel, validateVoiceId, sanitizeText
 ## How to Run Tests
 
 ```bash
-cd /Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/Backend
+cd /Users/macbookairm1/Vibe8-screens-shots-v1/Vibe8AI/Backend
 
 # Start backend server in one terminal
 npm start

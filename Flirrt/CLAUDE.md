@@ -1,11 +1,11 @@
-# Flirrt.ai - Personal Wingman iOS App
+# Vibe8.ai - Personal Wingman iOS App
 
 ## Project Overview
-Flirrt.ai is a personal wingman iOS application that helps users improve their flirting skills through AI-powered text suggestions and optional voice messages. The app integrates as a keyboard extension with third-party dating apps.
+Vibe8.ai is a personal wingman iOS application that helps users improve their flirting skills through AI-powered text suggestions and optional voice messages. The app integrates as a keyboard extension with third-party dating apps.
 
 ## Architecture
 - **iOS App**: Main container with SwiftUI, authentication, voice clone setup
-- **Keyboard Extension**: Custom keyboard with "Flirrt Fresh" and "Let's Analyze It!" features
+- **Keyboard Extension**: Custom keyboard with "Vibe8 Fresh" and "Let's Analyze It!" features
 - **Share Extension**: Screenshot upload functionality for conversation analysis
 - **Backend API**: Node.js/Express server with Grok Vision API and ElevenLabs integration
 - **Privacy Layer**: End-to-end encryption, minimal data retention, consent management
@@ -18,7 +18,7 @@ Flirrt.ai is a personal wingman iOS application that helps users improve their f
 - **Authentication**: Apple/Google OAuth
 
 ## Key Features
-1. **Flirrt Fresh**: Personalized opener suggestions bank
+1. **Vibe8 Fresh**: Personalized opener suggestions bank
 2. **Let's Analyze It!**: Screenshot analysis → 3 contextual flirt suggestions
 3. **Voice Clone**: Optional ElevenLabs voice synthesis for audio messages
 4. **Privacy-First**: Explicit consent, 24-hour screenshot retention, easy data deletion

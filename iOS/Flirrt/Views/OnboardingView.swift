@@ -107,7 +107,7 @@ struct OnboardingView: View {
                                 )
                                 .cornerRadius(12)
                         }
-                        .accessibilityLabel(currentPage == pages.count - 1 ? "Get started with Flirrt" : "Next page")
+                        .accessibilityLabel(currentPage == pages.count - 1 ? "Get started with Vibe8" : "Next page")
                     }
                     .padding(.horizontal)
                 }
@@ -291,8 +291,8 @@ struct OnboardingPage: Identifiable {
     // ✅ SIMPLIFIED: Reduced from 5 pages to 1 page for faster onboarding
     static let allPages: [OnboardingPage] = [
         OnboardingPage(
-            title: "Welcome to Flirrt AI",
-            description: "Your AI-powered flirting assistant. Take a screenshot of any dating profile, open the Flirrt keyboard, and get instant personalized suggestions.",
+            title: "Welcome to Vibe8 AI",
+            description: "Your AI-powered flirting assistant. Take a screenshot of any dating profile, open the Vibe8 keyboard, and get instant personalized suggestions.",
             systemImage: "heart.text.square.fill",
             imageName: nil,
             iconColor: .pink,
@@ -302,7 +302,7 @@ struct OnboardingPage: Identifiable {
                 "Use the keyboard in any dating app"
             ],
             showAnimation: false,
-            iconAccessibilityLabel: "Flirrt AI heart logo"
+            iconAccessibilityLabel: "Vibe8 AI heart logo"
         )
     ]
 }

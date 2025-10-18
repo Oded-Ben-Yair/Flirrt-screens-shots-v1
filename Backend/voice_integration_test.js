@@ -22,7 +22,7 @@ async function testVoiceIntegrationFlow() {
                 email: 'test@example.com',
                 fullName: 'Test User'
             },
-            'flirrt-jwt-secret-change-for-production',
+            'vibe8-jwt-secret-change-for-production',
             { expiresIn: '1h' }
         );
         console.log('Generated test token');

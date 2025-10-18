@@ -94,7 +94,7 @@ class WebSocketService {
             this.sendMessage(ws, 'connection', {
                 connectionId,
                 timestamp: new Date().toISOString(),
-                message: 'Connected to Flirrt.ai WebSocket server'
+                message: 'Connected to Vibe8.ai WebSocket server'
             });
         });
 

@@ -141,8 +141,8 @@
     }
   },
   "example_request": {
-    "curl": "curl -X POST https://api.flirrt.ai/v1/generate_flirts \\\n  -H \"Authorization: Bearer your_access_token\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n    \"analysis_id\": \"analysis_abc123def456\",\n    \"tone_preference\": \"playful\",\n    \"count\": 3,\n    \"constraints\": {\n      \"max_length\": 280,\n      \"include_emoji\": true,\n      \"avoid_topics\": [\"politics\"]\n    }\n  }'",
-    "javascript": "fetch('https://api.flirrt.ai/v1/generate_flirts', {\n  method: 'POST',\n  headers: {\n    'Authorization': 'Bearer your_access_token',\n    'Content-Type': 'application/json'\n  },\n  body: JSON.stringify({\n    analysis_id: 'analysis_abc123def456',\n    tone_preference: 'playful',\n    count: 3,\n    constraints: {\n      max_length: 280,\n      include_emoji: true\n    }\n  })\n});"
+    "curl": "curl -X POST https://api.vibe8.ai/v1/generate_flirts \\\n  -H \"Authorization: Bearer your_access_token\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n    \"analysis_id\": \"analysis_abc123def456\",\n    \"tone_preference\": \"playful\",\n    \"count\": 3,\n    \"constraints\": {\n      \"max_length\": 280,\n      \"include_emoji\": true,\n      \"avoid_topics\": [\"politics\"]\n    }\n  }'",
+    "javascript": "fetch('https://api.vibe8.ai/v1/generate_flirts', {\n  method: 'POST',\n  headers: {\n    'Authorization': 'Bearer your_access_token',\n    'Content-Type': 'application/json'\n  },\n  body: JSON.stringify({\n    analysis_id: 'analysis_abc123def456',\n    tone_preference: 'playful',\n    count: 3,\n    constraints: {\n      max_length: 280,\n      include_emoji: true\n    }\n  })\n});"
   },
   "example_response": {
     "suggestions": [

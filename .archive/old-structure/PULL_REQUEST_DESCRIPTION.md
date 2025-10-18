@@ -234,7 +234,7 @@ This PR implements comprehensive fixes for all 134 issues identified in the code
 - tests/validation-enforcement.test.js (38 tests)
 
 **iOS**:
-- Flirrt/Config/AppConstants.swift (44+ keys)
+- Vibe8/Config/AppConstants.swift (44+ keys)
 
 **Documentation**:
 - BUILD_VERIFICATION_REPORT.md
@@ -262,8 +262,8 @@ This PR implements comprehensive fixes for all 134 issues identified in the code
 - Services/ScreenshotDetectionManager.swift
 - Views/LoginView.swift
 - Views/OnboardingView.swift
-- FlirrtKeyboard/KeyboardViewController.swift
-- FlirrtShare/ShareViewController.swift
+- Vibe8Keyboard/KeyboardViewController.swift
+- Vibe8Share/ShareViewController.swift
 - (+ 9 other files)
 
 **Documentation**:
@@ -280,7 +280,7 @@ For developers integrating these changes:
 ### iOS
 ```swift
 // Before
-UserDefaults(suiteName: "group.com.flirrt")
+UserDefaults(suiteName: "group.com.vibe8")
 let key = "user_id"
 
 // After
@@ -314,8 +314,8 @@ All changes are backward compatible at the API level. Internal refactoring only.
 ### For Developers
 
 1. **iOS Extension Configuration Required** (2 minutes):
-   - Add `AppConstants.swift` to `FlirrtKeyboard` target
-   - Add `AppConstants.swift` to `FlirrtShare` target
+   - Add `AppConstants.swift` to `Vibe8Keyboard` target
+   - Add `AppConstants.swift` to `Vibe8Share` target
    - See `STAGE_8_IOS_FIX_REQUIRED.md`
 
 2. **Validation Stricter**:

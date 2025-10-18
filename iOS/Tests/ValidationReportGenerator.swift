@@ -2,7 +2,7 @@ import XCTest
 import UIKit
 import Foundation
 import os.log
-@testable import Flirrt
+@testable import Vibe8
 
 /// Comprehensive Validation Report Generator
 /// Aggregates all testing results and generates detailed validation evidence
@@ -11,8 +11,8 @@ class ValidationReportGenerator: XCTestCase {
 
     // MARK: - Report Configuration
 
-    private let reportOutputDirectory = "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/TestResults"
-    private let evidenceDirectory = "/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/TestResults"
+    private let reportOutputDirectory = "/Users/macbookairm1/Vibe8-screens-shots-v1/Vibe8AI/TestResults"
+    private let evidenceDirectory = "/Users/macbookairm1/Vibe8-screens-shots-v1/Vibe8AI/TestResults"
 
     // MARK: - Test Infrastructure
 
@@ -175,7 +175,7 @@ class ValidationReportGenerator: XCTestCase {
             metrics: metrics
         )
 
-        let filePath = "\(reportOutputDirectory)/FLIRRT_AI_VALIDATION_REPORT.md"
+        let filePath = "\(reportOutputDirectory)/VIBE8_AI_VALIDATION_REPORT.md"
         try? report.write(to: URL(fileURLWithPath: filePath), atomically: true, encoding: .utf8)
         print("📄 Consolidated report saved to: \(filePath)")
     }
@@ -302,7 +302,7 @@ class ReportFormatter {
         let timestamp = DateFormatter.full.string(from: Date())
 
         return """
-        # Flirrt.ai Validation Report - Executive Summary
+        # Vibe8.ai Validation Report - Executive Summary
 
         **Generated**: \(timestamp)
         **Validation Period**: Comprehensive Testing Phase
@@ -310,7 +310,7 @@ class ReportFormatter {
 
         ## 🎯 Validation Overview
 
-        Flirrt.ai has undergone comprehensive validation testing across all critical system components. This executive summary presents the key findings and overall system readiness assessment.
+        Vibe8.ai has undergone comprehensive validation testing across all critical system components. This executive summary presents the key findings and overall system readiness assessment.
 
         ## 📊 Key Metrics
 
@@ -342,7 +342,7 @@ class ReportFormatter {
 
         ## 🚀 Production Readiness
 
-        Based on comprehensive testing across \(metrics.totalTestsExecuted) test cases, Flirrt.ai demonstrates:
+        Based on comprehensive testing across \(metrics.totalTestsExecuted) test cases, Vibe8.ai demonstrates:
 
         1. **High Reliability**: \(String(format: "%.1f", metrics.reliabilityScore))% success rate across all test scenarios
         2. **Strong Performance**: Response times well within acceptable limits
@@ -373,7 +373,7 @@ class ReportFormatter {
         let timestamp = DateFormatter.full.string(from: Date())
 
         return """
-        # Flirrt.ai Detailed Validation Report
+        # Vibe8.ai Detailed Validation Report
 
         **Generated**: \(timestamp)
         **Testing Framework**: Comprehensive Multi-Suite Validation
@@ -472,7 +472,7 @@ class ReportFormatter {
 
         ## ✅ Conclusion
 
-        Flirrt.ai has successfully passed comprehensive validation testing with a \(String(format: "%.1f", metrics.overallPassRate))% overall pass rate. All critical features are functional, performance metrics are within acceptable ranges, and the system demonstrates high reliability across diverse scenarios.
+        Vibe8.ai has successfully passed comprehensive validation testing with a \(String(format: "%.1f", metrics.overallPassRate))% overall pass rate. All critical features are functional, performance metrics are within acceptable ranges, and the system demonstrates high reliability across diverse scenarios.
 
         **Recommendation**: **APPROVED FOR PRODUCTION DEPLOYMENT**
 
@@ -481,7 +481,7 @@ class ReportFormatter {
 
     func createTechnicalReport(testResults: TestResultCollection, metrics: ValidationMetrics) -> String {
         return """
-        # Flirrt.ai Technical Validation Report
+        # Vibe8.ai Technical Validation Report
 
         **Generated**: \(DateFormatter.full.string(from: Date()))
 
@@ -543,7 +543,7 @@ class ReportFormatter {
 
     func createRecommendationsReport(metrics: ValidationMetrics) -> String {
         return """
-        # Flirrt.ai Validation Recommendations
+        # Vibe8.ai Validation Recommendations
 
         **Generated**: \(DateFormatter.full.string(from: Date()))
 
@@ -603,7 +603,7 @@ class ReportFormatter {
         let timestamp = DateFormatter.full.string(from: Date())
 
         var index = """
-        # Flirrt.ai Evidence Index
+        # Vibe8.ai Evidence Index
 
         **Generated**: \(timestamp)
         **Total Evidence Files**: \(evidence.totalFiles)
@@ -638,7 +638,7 @@ class ReportFormatter {
 
     func createConsolidatedReport(testResults: TestResultCollection, evidence: EvidenceCollection, metrics: ValidationMetrics) -> String {
         return """
-        # Flirrt.ai Comprehensive Validation Report
+        # Vibe8.ai Comprehensive Validation Report
 
         **Generated**: \(DateFormatter.full.string(from: Date()))
         **Version**: 1.0.0
@@ -646,7 +646,7 @@ class ReportFormatter {
 
         ## 🎯 Executive Summary
 
-        Flirrt.ai has successfully completed comprehensive validation testing with outstanding results:
+        Vibe8.ai has successfully completed comprehensive validation testing with outstanding results:
 
         - **Overall Success Rate**: \(String(format: "%.1f", metrics.overallPassRate))%
         - **Performance Score**: \(String(format: "%.1f", metrics.performanceScore))%
@@ -699,7 +699,7 @@ class ReportFormatter {
 
         ## 🚀 Production Readiness
 
-        Based on comprehensive validation, Flirrt.ai is ready for production deployment:
+        Based on comprehensive validation, Vibe8.ai is ready for production deployment:
 
         1. **Technical Readiness**: All systems operational and performant
         2. **Quality Assurance**: Extensive testing with high success rates

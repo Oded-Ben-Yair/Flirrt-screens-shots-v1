@@ -7,23 +7,23 @@ The share extension infrastructure has been implemented and is ready for integra
 
 ### Core Extension Files
 - **ShareViewController.swift** - Main extension view controller
-  - Location: `/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/FlirrtShare/ShareViewController.swift`
+  - Location: `/Users/macbookairm1/Vibe8-screens-shots-v1/Vibe8AI/iOS/Vibe8Share/ShareViewController.swift`
   - Inherits from UIViewController (proper for share extensions)
   - Handles image processing and App Groups storage
 
 - **Info.plist** - Extension configuration
-  - Location: `/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/FlirrtShare/Info.plist`
+  - Location: `/Users/macbookairm1/Vibe8-screens-shots-v1/Vibe8AI/iOS/Vibe8Share/Info.plist`
   - NSExtensionPointIdentifier: com.apple.share-services
   - NSExtensionActivationRule: Accepts images (PNG/JPEG)
-  - Bundle ID: com.flirrt.ai.share
+  - Bundle ID: com.vibe8.ai.share
 
-- **FlirrtShare.entitlements** - App Groups entitlement
-  - Location: `/Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/iOS/FlirrtShare/FlirrtShare.entitlements`
-  - App Group: group.com.flirrt.ai.shared
+- **Vibe8Share.entitlements** - App Groups entitlement
+  - Location: `/Users/macbookairm1/Vibe8-screens-shots-v1/Vibe8AI/iOS/Vibe8Share/Vibe8Share.entitlements`
+  - App Group: group.com.vibe8.ai.shared
 
 ### Supporting Files
 - **build_extensions.sh** - Build helper script
-- **FlirrtProject.xcconfig** - Xcode configuration
+- **Vibe8Project.xcconfig** - Xcode configuration
 
 ## 🔧 Implementation Requirements
 
@@ -40,32 +40,32 @@ To make the share extension work, you need to:
 1. **Create New Xcode Project**:
    ```bash
    # Create new iOS app project in Xcode
-   # Name: Flirrt
-   # Bundle ID: com.flirrt.ai
+   # Name: Vibe8
+   # Bundle ID: com.vibe8.ai
    ```
 
 2. **Add Share Extension Target**:
    ```
    File -> New -> Target -> Share Extension
-   Product Name: FlirrtShare
-   Bundle Identifier: com.flirrt.ai.share
+   Product Name: Vibe8Share
+   Bundle Identifier: com.vibe8.ai.share
    ```
 
 3. **Copy Files to Extension Target**:
    - Replace generated ShareViewController.swift with our implementation
    - Copy Info.plist to extension target
-   - Add FlirrtShare.entitlements to extension target
+   - Add Vibe8Share.entitlements to extension target
 
 4. **Enable App Groups**:
-   - Main app: Capabilities -> App Groups -> group.com.flirrt.ai.shared
-   - Extension: Capabilities -> App Groups -> group.com.flirrt.ai.shared
+   - Main app: Capabilities -> App Groups -> group.com.vibe8.ai.shared
+   - Extension: Capabilities -> App Groups -> group.com.vibe8.ai.shared
 
 ## 📱 How the Extension Works
 
 ### Activation
 - Appears in iOS share sheet when sharing screenshots
 - Activates for PNG/JPEG images only
-- Shows custom "Analyzing screenshot with Flirrt AI..." UI
+- Shows custom "Analyzing screenshot with Vibe8 AI..." UI
 
 ### Processing Flow
 1. **Receive Image**: Gets screenshot from share sheet
@@ -77,13 +77,13 @@ To make the share extension work, you need to:
 ### App Groups Integration
 ```swift
 // Shared container path
-FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.com.flirrt.ai.shared")
+FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.com.vibe8.ai.shared")
 
 // Shared UserDefaults
-UserDefaults(suiteName: "group.com.flirrt.ai.shared")
+UserDefaults(suiteName: "group.com.vibe8.ai.shared")
 
 // Darwin notification
-CFNotificationCenterPostNotification(..., "com.flirrt.screenshot.ready", ...)
+CFNotificationCenterPostNotification(..., "com.vibe8.screenshot.ready", ...)
 ```
 
 ## 🔄 Integration with Keyboard Extension
@@ -102,7 +102,7 @@ Once properly integrated in Xcode:
 1. **Build and Install**: Install app on device/simulator
 2. **Take Screenshot**: Use any app (Tinder, Bumble, etc.)
 3. **Share Screenshot**: Tap share button
-4. **Find Flirrt**: Look for "Flirrt Share" in share sheet
+4. **Find Vibe8**: Look for "Vibe8 Share" in share sheet
 5. **Test Processing**: Verify screenshot is saved and processed
 
 ## 📋 Requirements for Next Phase
@@ -135,10 +135,10 @@ Once properly integrated in Xcode:
 ## 📁 File Structure Ready for Xcode
 
 ```
-FlirrtShare/
+Vibe8Share/
 ├── ShareViewController.swift      ✅ Complete
 ├── Info.plist                    ✅ Complete
-├── FlirrtShare.entitlements      ✅ Complete
+├── Vibe8Share.entitlements      ✅ Complete
 └── [Xcode will add additional files]
 ```
 

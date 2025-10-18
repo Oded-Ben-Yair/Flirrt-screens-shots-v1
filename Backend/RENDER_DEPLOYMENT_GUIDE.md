@@ -1,8 +1,8 @@
-# Flirrt.ai Backend - Render.com Production Deployment Guide
+# Vibe8.ai Backend - Render.com Production Deployment Guide
 
 ## 🎯 Overview
 
-Deploy Flirrt.ai backend to Render.com for production-ready, always-on cloud hosting with HTTPS.
+Deploy Vibe8.ai backend to Render.com for production-ready, always-on cloud hosting with HTTPS.
 
 **Benefits:**
 - ✅ HTTPS by default (required for iOS App Transport Security)
@@ -15,7 +15,7 @@ Deploy Flirrt.ai backend to Render.com for production-ready, always-on cloud hos
 
 ## 📋 Prerequisites
 
-- [x] GitHub account with FlirrtAI repository
+- [x] GitHub account with Vibe8AI repository
 - [x] Render.com account (create at https://render.com)
 - [x] Team plan subscription ($19/month recommended)
 - [x] All API keys ready (Grok, ElevenLabs, Gemini)
@@ -35,7 +35,7 @@ Deploy Flirrt.ai backend to Render.com for production-ready, always-on cloud hos
 
 1. In Render Dashboard, click **"New +"** → **"Web Service"**
 2. Click **"Connect GitHub"** (if not already connected)
-3. Select repository: `FlirrtAI` or your fork
+3. Select repository: `Vibe8AI` or your fork
 4. Render will scan for the backend
 
 ### Step 3: Configure Web Service
@@ -43,7 +43,7 @@ Deploy Flirrt.ai backend to Render.com for production-ready, always-on cloud hos
 Fill in the deployment configuration:
 
 **Basic Settings:**
-- **Name:** `flirrt-api-production`
+- **Name:** `vibe8-api-production`
 - **Region:** `Oregon (US West)` (or closest to your users)
 - **Branch:** `main` (or `production` if you have one)
 - **Root Directory:** `Backend`
@@ -114,19 +114,19 @@ Once deployed, Render provides:
 
 **API Base URL:**
 ```
-https://flirrt-api-production.onrender.com
+https://vibe8-api-production.onrender.com
 ```
 
 **Health Check:**
 ```
-https://flirrt-api-production.onrender.com/health
+https://vibe8-api-production.onrender.com/health
 ```
 
 **API Endpoints:**
 ```
-https://flirrt-api-production.onrender.com/api/v1/flirts/generate_flirts
-https://flirrt-api-production.onrender.com/api/v1/voice/*
-https://flirrt-api-production.onrender.com/api/v1/auth/*
+https://vibe8-api-production.onrender.com/api/v1/flirts/generate_flirts
+https://vibe8-api-production.onrender.com/api/v1/voice/*
+https://vibe8-api-production.onrender.com/api/v1/auth/*
 ```
 
 ### Step 7: Verify Deployment
@@ -134,7 +134,7 @@ https://flirrt-api-production.onrender.com/api/v1/auth/*
 Test the health endpoint:
 
 ```bash
-curl https://flirrt-api-production.onrender.com/health
+curl https://vibe8-api-production.onrender.com/health
 ```
 
 Expected response:
@@ -170,9 +170,9 @@ Expected response:
 
 1. In Render Dashboard, click **"New +"** → **"PostgreSQL"**
 2. Configure:
-   - **Name:** `flirrt-database`
-   - **Database:** `flirrt`
-   - **User:** `flirrt_user`
+   - **Name:** `vibe8-database`
+   - **Database:** `vibe8`
+   - **User:** `vibe8_user`
    - **Region:** Same as web service (Oregon US West)
    - **Plan:** Free (development) or Starter $7/month (production)
 3. Click **"Create Database"**
@@ -194,7 +194,7 @@ The backend auto-creates tables on first connection (see `config/database.js`).
 
 Now update your iOS app to use the production URL:
 
-### Edit `iOS/Flirrt/Config/AppConstants.swift`:
+### Edit `iOS/Vibe8/Config/AppConstants.swift`:
 
 ```swift
 var apiBaseURL: String {
@@ -202,16 +202,16 @@ var apiBaseURL: String {
     case .development:
         return "http://10.10.10.24:3000/api/v1"  // Keep for local dev
     case .staging:
-        return "https://flirrt-api-production.onrender.com/api/v1"
+        return "https://vibe8-api-production.onrender.com/api/v1"
     case .production:
-        return "https://flirrt-api-production.onrender.com/api/v1"
+        return "https://vibe8-api-production.onrender.com/api/v1"
     }
 }
 ```
 
 ### Clean Up Local Network Code:
 
-1. **Delete** `NSLocalNetworkUsageDescription` from `FlirrtKeyboard-Info.plist`
+1. **Delete** `NSLocalNetworkUsageDescription` from `Vibe8Keyboard-Info.plist`
 2. **Archive** `NETWORK_SETUP_INSTRUCTIONS.md` (no longer needed)
 3. **Rebuild** app in Xcode:
    ```bash
@@ -382,7 +382,7 @@ git push
 **Fix:**
 ```swift
 // Verify AppConstants.swift has HTTPS URL
-return "https://flirrt-api-production.onrender.com/api/v1"  // ✅ HTTPS
+return "https://vibe8-api-production.onrender.com/api/v1"  // ✅ HTTPS
 // NOT: "http://..." // ❌ Will fail on iOS
 ```
 
@@ -418,7 +418,7 @@ You now have:
 
 **Your Production API:**
 ```
-https://flirrt-api-production.onrender.com/api/v1
+https://vibe8-api-production.onrender.com/api/v1
 ```
 
 ---

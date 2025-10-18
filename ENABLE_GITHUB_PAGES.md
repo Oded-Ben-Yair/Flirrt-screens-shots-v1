@@ -3,7 +3,7 @@
 ## Quick Steps (2 minutes)
 
 1. **Go to your GitHub repository:**
-   https://github.com/Oded-Ben-Yair/Flirrt-screens-shots-v1
+   https://github.com/Oded-Ben-Yair/Vibe8-screens-shots-v1
 
 2. **Click "Settings"** (in the repository menu)
 
@@ -18,7 +18,7 @@
 
 6. **Your Privacy Policy URL will be:**
    ```
-   https://oded-ben-yair.github.io/Flirrt-screens-shots-v1/privacy-policy.html
+   https://oded-ben-yair.github.io/Vibe8-screens-shots-v1/privacy-policy.html
    ```
 
 7. **Verify it works** by visiting the URL in your browser
@@ -30,7 +30,7 @@
 When creating your app in App Store Connect, paste this URL in the **Privacy Policy URL** field:
 
 ```
-https://oded-ben-yair.github.io/Flirrt-screens-shots-v1/privacy-policy.html
+https://oded-ben-yair.github.io/Vibe8-screens-shots-v1/privacy-policy.html
 ```
 
 ---

@@ -1,12 +1,12 @@
 # Architecture Documentation
 
-Technical design and system architecture for FlirrtAI.
+Technical design and system architecture for Vibe8AI.
 
 ---
 
 ## 🏗️ System Overview
 
-FlirrtAI is a multi-component system consisting of:
+Vibe8AI is a multi-component system consisting of:
 1. **iOS Main App** - User-facing application
 2. **iOS Keyboard Extension** - Custom keyboard for suggestions
 3. **iOS Share Extension** - For sharing screenshots
@@ -49,7 +49,7 @@ FlirrtAI is a multi-component system consisting of:
 
 ### App Structure
 
-#### Main App Target: `Flirrt`
+#### Main App Target: `Vibe8`
 **Responsibilities:**
 - User authentication (Apple Sign In)
 - Onboarding questionnaire
@@ -58,9 +58,9 @@ FlirrtAI is a multi-component system consisting of:
 
 **Key Components:**
 ```
-Flirrt/
+Vibe8/
 ├── App/
-│   └── FlirrtApp.swift          # App entry point, lifecycle
+│   └── Vibe8App.swift          # App entry point, lifecycle
 ├── Features/                     # Feature-based organization
 │   ├── Onboarding/
 │   ├── Main/
@@ -77,7 +77,7 @@ Flirrt/
     └── VoiceModels.swift
 ```
 
-#### Keyboard Extension Target: `FlirrtKeyboard`
+#### Keyboard Extension Target: `Vibe8Keyboard`
 **Responsibilities:**
 - Display suggestions interface
 - Detect screenshots (Darwin notifications)
@@ -87,7 +87,7 @@ Flirrt/
 
 **Key Components:**
 ```
-FlirrtKeyboard/
+Vibe8Keyboard/
 ├── KeyboardViewController.swift  # Main controller (2100→800 lines)
 ├── SuggestionsView.swift         # UI for displaying suggestions
 ├── ImageCompressionService.swift # HEIC compression
@@ -162,7 +162,7 @@ Display in SuggestionsView
 ## 🔐 Security & Privacy
 
 ### App Groups
-**ID**: `group.com.flirrt.shared`
+**ID**: `group.com.vibe8.shared`
 
 **Purpose**: Share data between main app and extensions
 
@@ -172,7 +172,7 @@ Display in SuggestionsView
 - `voice_enabled` (bool)
 - `current_voice_id` (string)
 - `last_screenshot_time` (double)
-- `flirrt_personalization_profile_v1` (Data) - JSON encoded profile
+- `vibe8_personalization_profile_v1` (Data) - JSON encoded profile
 
 ### Keychain Sharing
 - Stores Apple Sign In credentials
@@ -214,7 +214,7 @@ Backend/
 │   ├── auth.js              # JWT verification
 │   └── correlationId.js     # Request tracking
 └── data/
-    └── flirrt.db            # SQLite database file
+    └── vibe8.db            # SQLite database file
 ```
 
 ---

@@ -24,7 +24,7 @@ final class ImageCompressionService {
         static let compressionTarget: Double = 0.7     // Target 70% compression ratio
     }
 
-    private let logger = Logger(subsystem: "com.flirrt.app", category: "ImageCompression")
+    private let logger = Logger(subsystem: "com.vibe8.app", category: "ImageCompression")
 
     // MARK: - Public Interface
 

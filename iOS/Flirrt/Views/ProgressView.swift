@@ -547,7 +547,7 @@ struct Achievement: Identifiable {
             id: "week_streak",
             icon: "🔥",
             title: "Committed",
-            description: "Use Flirrt for 7 days in a row",
+            description: "Use Vibe8 for 7 days in a row",
             progress: 2,
             target: 7
         ),

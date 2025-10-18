@@ -1,6 +1,6 @@
 /**
  * Quality Assurance Service
- * Comprehensive QA pipeline ensuring 100% success rate for Flirrt.ai
+ * Comprehensive QA pipeline ensuring 100% success rate for Vibe8.ai
  */
 
 const crypto = require('crypto');

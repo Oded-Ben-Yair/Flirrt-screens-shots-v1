@@ -26,7 +26,7 @@ The following steps require manual action through Apple's web interfaces. Follow
 
 1. **Go to your repository settings:**
    ```
-   https://github.com/Oded-Ben-Yair/Flirrt-screens-shots-v1/settings/pages
+   https://github.com/Oded-Ben-Yair/Vibe8-screens-shots-v1/settings/pages
    ```
 
 2. **Configure GitHub Pages:**
@@ -38,8 +38,8 @@ The following steps require manual action through Apple's web interfaces. Follow
 
 4. **Your Privacy Policy URL is:**
    ```
-   https://oded-ben-yair.github.io/Flirrt-screens-shots-v1/privacy-policy.html
-   ``` https://raw.githubusercontent.com/Oded-Ben-Yair/Flirrt-screens-shots-v1/main/privacy-policy.html
+   https://oded-ben-yair.github.io/Vibe8-screens-shots-v1/privacy-policy.html
+   ``` https://raw.githubusercontent.com/Oded-Ben-Yair/Vibe8-screens-shots-v1/main/privacy-policy.html
 
 5. **Verify it works:** Open the URL in your browser
 
@@ -56,8 +56,8 @@ The following steps require manual action through Apple's web interfaces. Follow
 1. Click **"+" button** (top left)
 2. Select **"App IDs"** → Continue
 3. Configure:
-   - Description: **Flirrt AI Main App**
-   - Bundle ID: **Explicit** → **com.flirrt.app**
+   - Description: **Vibe8 AI Main App**
+   - Bundle ID: **Explicit** → **com.vibe8.app**
    - Capabilities (check these):
      - ✅ App Groups
      - ✅ Sign in with Apple
@@ -69,8 +69,8 @@ The following steps require manual action through Apple's web interfaces. Follow
 1. Click **"+" button** again
 2. Select **"App IDs"** → Continue
 3. Configure:
-   - Description: **Flirrt AI Keyboard Extension**
-   - Bundle ID: **Explicit** → **com.flirrt.app.keyboard**
+   - Description: **Vibe8 AI Keyboard Extension**
+   - Bundle ID: **Explicit** → **com.vibe8.app.keyboard**
    - Capabilities (check these):
      - ✅ App Groups
 4. Click **"Continue"** → **"Register"**
@@ -80,8 +80,8 @@ The following steps require manual action through Apple's web interfaces. Follow
 1. Click **"+" button** again
 2. Select **"App IDs"** → Continue
 3. Configure:
-   - Description: **Flirrt AI Share Extension**
-   - Bundle ID: **Explicit** → **com.flirrt.app.share**
+   - Description: **Vibe8 AI Share Extension**
+   - Bundle ID: **Explicit** → **com.vibe8.app.share**
    - Capabilities (check these):
      - ✅ App Groups
      - ✅ Keychain Sharing (optional)
@@ -92,7 +92,7 @@ The following steps require manual action through Apple's web interfaces. Follow
 1. Click on **each Bundle ID** you just created
 2. Find **"App Groups"** capability
 3. Click **"Configure"**
-4. Select **"group.com.flirrt"**
+4. Select **"group.com.vibe8"**
 5. Click **"Save"**
 6. Repeat for all 3 Bundle IDs
 
@@ -114,17 +114,17 @@ The following steps require manual action through Apple's web interfaces. Follow
 2. Menu: **Keychain Access → Certificate Assistant → Request a Certificate from a Certificate Authority**
 3. Fill in:
    - **User Email Address:** your email
-   - **Common Name:** Flirrt Distribution
+   - **Common Name:** Vibe8 Distribution
    - **Request is:** ✅ Saved to disk
 4. Click **"Continue"**
-5. Save as **FlirrtDistribution.certSigningRequest**
+5. Save as **Vibe8Distribution.certSigningRequest**
 
 ### 3.3: Create Distribution Certificate in Developer Portal
 
 1. In Apple Developer Portal, click **"+" button**
 2. Select **"Apple Distribution"**
 3. Click **"Continue"**
-4. Upload the **FlirrtDistribution.certSigningRequest** file
+4. Upload the **Vibe8Distribution.certSigningRequest** file
 5. Click **"Continue"**
 6. Download **distribution.cer** file
 7. **Double-click** the downloaded file to install it in Keychain
@@ -143,33 +143,33 @@ You need to create **3 provisioning profiles** (one for each target).
 
 1. Click **"+" button**
 2. Select **"App Store"** → Continue
-3. **App ID:** Select **com.flirrt.app** → Continue
+3. **App ID:** Select **com.vibe8.app** → Continue
 4. **Certificates:** Select your **Apple Distribution** certificate → Continue
-5. **Profile Name:** **Flirrt App Store Profile**
+5. **Profile Name:** **Vibe8 App Store Profile**
 6. Click **"Generate"**
-7. Download **Flirrt_App_Store_Profile.mobileprovision**
+7. Download **Vibe8_App_Store_Profile.mobileprovision**
 8. **Double-click** to install
 
 ### 4.2: Create Profile for Keyboard Extension
 
 1. Click **"+" button**
 2. Select **"App Store"** → Continue
-3. **App ID:** Select **com.flirrt.app.keyboard** → Continue
+3. **App ID:** Select **com.vibe8.app.keyboard** → Continue
 4. **Certificates:** Select your **Apple Distribution** certificate → Continue
-5. **Profile Name:** **Flirrt Keyboard App Store Profile**
+5. **Profile Name:** **Vibe8 Keyboard App Store Profile**
 6. Click **"Generate"**
-7. Download **Flirrt_Keyboard_App_Store_Profile.mobileprovision**
+7. Download **Vibe8_Keyboard_App_Store_Profile.mobileprovision**
 8. **Double-click** to install
 
 ### 4.3: Create Profile for Share Extension
 
 1. Click **"+" button**
 2. Select **"App Store"** → Continue
-3. **App ID:** Select **com.flirrt.app.share** → Continue
+3. **App ID:** Select **com.vibe8.app.share** → Continue
 4. **Certificates:** Select your **Apple Distribution** certificate → Continue
-5. **Profile Name:** **Flirrt Share App Store Profile**
+5. **Profile Name:** **Vibe8 Share App Store Profile**
 6. Click **"Generate"**
-7. Download **Flirrt_Share_App_Store_Profile.mobileprovision**
+7. Download **Vibe8_Share_App_Store_Profile.mobileprovision**
 8. **Double-click** to install
 
 ✅ **Verify:** All 3 profiles should be in `~/Library/MobileDevice/Provisioning Profiles/`
@@ -185,10 +185,10 @@ You need to create **3 provisioning profiles** (one for each target).
 1. Click **"+" button** → **"New App"**
 2. Configure:
    - **Platforms:** ✅ iOS
-   - **Name:** **Flirrt.AI** (or **Flirrt AI**)
+   - **Name:** **Vibe8.AI** (or **Vibe8 AI**)
    - **Primary Language:** English (U.S.)
-   - **Bundle ID:** Select **com.flirrt.app**
-   - **SKU:** **flirrt-ai-2025**
+   - **Bundle ID:** Select **com.vibe8.app**
+   - **SKU:** **vibe8-ai-2025**
    - **User Access:** Full Access
 3. Click **"Create"**
 
@@ -198,7 +198,7 @@ You need to create **3 provisioning profiles** (one for each target).
 2. Fill in:
    - **Privacy Policy URL:**
      ```
-     https://oded-ben-yair.github.io/Flirrt-screens-shots-v1/privacy-policy.html
+     https://oded-ben-yair.github.io/Vibe8-screens-shots-v1/privacy-policy.html
      ```
    - **Category:**
      - Primary: **Social Networking**
@@ -228,8 +228,8 @@ You need to create **3 provisioning profiles** (one for each target).
 ### 6.1: Open Xcode Project
 
 ```bash
-cd /Users/macbookairm1/Flirrt-screens-shots-v1/FlirrtAI/FlirrtAI/iOS
-open Flirrt.xcodeproj
+cd /Users/macbookairm1/Vibe8-screens-shots-v1/Vibe8AI/Vibe8AI/iOS
+open Vibe8.xcodeproj
 ```
 
 ### 6.2: Configure Archive Scheme
@@ -271,7 +271,7 @@ open Flirrt.xcodeproj
    - Select **"Automatically manage signing"**
    - Click **"Next"**
 7. **Review Summary:**
-   - Verify all 3 targets listed (Flirrt, FlirrtKeyboard, FlirrtShare)
+   - Verify all 3 targets listed (Vibe8, Vibe8Keyboard, Vibe8Share)
    - Verify provisioning profiles are correct
    - Click **"Upload"**
 8. **Wait for upload** (2-10 minutes)
@@ -283,7 +283,7 @@ open Flirrt.xcodeproj
 
 ### Go to: https://appstoreconnect.apple.com
 
-1. Click **"My Apps"** → **"Flirrt.AI"**
+1. Click **"My Apps"** → **"Vibe8.AI"**
 2. Click **"TestFlight"** tab
 3. Your build will show **"Processing"** status
 4. **Wait 10-15 minutes** for Apple to process
@@ -311,7 +311,7 @@ open Flirrt.xcodeproj
 5. **They'll receive an email immediately** with instructions to:
    - Install TestFlight app from App Store
    - Open the invite link
-   - Install Flirrt.AI
+   - Install Vibe8.AI
 
 ✅ **Your friends can test immediately!** No Apple review needed for internal testers.
 
@@ -375,7 +375,7 @@ You're done when:
 
 | Resource | URL |
 |----------|-----|
-| Privacy Policy | https://oded-ben-yair.github.io/Flirrt-screens-shots-v1/privacy-policy.html |
+| Privacy Policy | https://oded-ben-yair.github.io/Vibe8-screens-shots-v1/privacy-policy.html |
 | Developer Portal | https://developer.apple.com/account |
 | App Store Connect | https://appstoreconnect.apple.com |
 | Certificates | https://developer.apple.com/account/resources/certificates/list |

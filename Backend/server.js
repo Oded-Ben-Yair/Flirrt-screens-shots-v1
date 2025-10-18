@@ -451,7 +451,7 @@ process.on('SIGINT', () => {
 
 // Start server
 app.listen(PORT, () => {
-    console.log(`🚀 Flirrt.ai Backend Server running on port ${PORT}`);
+    console.log(`🚀 Vibe8.ai Backend Server running on port ${PORT}`);
     console.log(`📡 Health check: http://localhost:${PORT}/health`);
     console.log(`🔑 API Base URL: http://localhost:${PORT}/api/v1`);
     console.log(`📊 Environment: ${process.env.NODE_ENV || 'development'}`);

@@ -198,7 +198,7 @@ router.post('/generate_flirts',
             };
 
             // Create personalized prompt based on analysis and preferences
-            const prompt = `You are Flirrt.ai, an expert dating conversation assistant. Based on the following analysis and context, generate 3 highly personalized and engaging flirt suggestions.
+            const prompt = `You are Vibe8.ai, an expert dating conversation assistant. Based on the following analysis and context, generate 3 highly personalized and engaging flirt suggestions.
 
 ${historyPrompt}
 
@@ -251,7 +251,7 @@ Return ONLY a JSON object with this exact structure:
                     messages: [
                         {
                             role: "system",
-                            content: "You are Flirrt.ai, an expert dating profile analyst and conversation coach. You intelligently analyze dating app screenshots, extract visual and text details, assess profile quality, and generate personalized conversation starters. You handle multiple languages (English, Hebrew, etc.). You MUST respond with valid JSON only."
+                            content: "You are Vibe8.ai, an expert dating profile analyst and conversation coach. You intelligently analyze dating app screenshots, extract visual and text details, assess profile quality, and generate personalized conversation starters. You handle multiple languages (English, Hebrew, etc.). You MUST respond with valid JSON only."
                         },
                         {
                             role: "user",
@@ -464,7 +464,7 @@ Now analyze the provided screenshot and return JSON in this EXACT format with pr
                     messages: [
                         {
                             role: "system",
-                            content: "You are Flirrt.ai, an expert dating conversation assistant. You create personalized, engaging, and contextually appropriate flirt suggestions. Always respond with valid JSON only."
+                            content: "You are Vibe8.ai, an expert dating conversation assistant. You create personalized, engaging, and contextually appropriate flirt suggestions. Always respond with valid JSON only."
                         },
                         {
                             role: "user",

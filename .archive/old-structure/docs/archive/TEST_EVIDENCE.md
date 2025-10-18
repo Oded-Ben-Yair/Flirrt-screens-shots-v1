@@ -145,7 +145,7 @@ cd Backend && npm start
 **Expected Output**:
 ```
 ✅ Connected to PostgreSQL database
-🚀 Flirrt.ai Backend Server running on port 3000
+🚀 Vibe8.ai Backend Server running on port 3000
 📡 Health check: http://localhost:3000/health
 🔑 API Base URL: http://localhost:3000/api/v1
 ✅ Server ready to accept connections
@@ -178,13 +178,13 @@ curl http://localhost:3000/health
 ### ⏳ Darwin Notification Listener (Pending)
 
 **Test Date**: To be tested
-**Component**: `FlirrtKeyboard/KeyboardViewController.swift`
+**Component**: `Vibe8Keyboard/KeyboardViewController.swift`
 **Purpose**: Verify Darwin notifications received when screenshot detected
 
 **Implementation Status**: ✅ Code added (lines 120-149)
 
 **Test Plan**:
-1. Launch main Flirrt app on iOS Simulator
+1. Launch main Vibe8 app on iOS Simulator
 2. Grant Photos permissions
 3. Take screenshot in Safari/Messages
 4. Check Console logs for: `📸 Screenshot detected via Darwin notification!`
@@ -207,14 +207,14 @@ Keyboard → Calls API with base64 image → Displays flirts
 ### ⏳ Screenshot Detection Manager (Pending)
 
 **Test Date**: To be tested
-**Component**: `Flirrt/Services/ScreenshotDetectionManager.swift`
+**Component**: `Vibe8/Services/ScreenshotDetectionManager.swift`
 **Status**: File exists (482 lines), NOT in Xcode target
 
 **Blocker**: Needs manual Xcode GUI action to add to target
 
 **Test Plan**:
-1. Add ScreenshotDetectionManager.swift to Flirrt target in Xcode
-2. Uncomment initialization in FlirrtApp.swift:
+1. Add ScreenshotDetectionManager.swift to Vibe8 target in Xcode
+2. Uncomment initialization in Vibe8App.swift:
    ```swift
    @StateObject private var screenshotManager = ScreenshotDetectionManager()
    ```
@@ -241,7 +241,7 @@ Keyboard → Calls API with base64 image → Displays flirts
 **Files Modified**:
 1. `Backend/routes/flirts.js` - Removed Redis, WebSocket, CircuitBreaker (~1,600 lines)
 2. `Backend/server.js` - Removed orchestrated-flirts route
-3. `iOS/FlirrtKeyboard/KeyboardViewController.swift` - Simplified from 2,865 to 695 lines
+3. `iOS/Vibe8Keyboard/KeyboardViewController.swift` - Simplified from 2,865 to 695 lines
 
 **Total Lines Removed**: 3,471
 

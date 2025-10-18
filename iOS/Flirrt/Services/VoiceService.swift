@@ -16,7 +16,7 @@ class VoiceService: NSObject {
     static let shared = VoiceService()
 
     private let apiClient = APIClient.shared
-    private let appGroupID = "group.com.flirrt"
+    private let appGroupID = "group.com.vibe8"
 
     // Audio recording
     private var audioRecorder: AVAudioRecorder?

@@ -138,7 +138,7 @@ You are a voice synthesis orchestration specialist focused on converting text fl
 ```json
 {
   "synthesis_result": {
-    "audio_url": "https://secure-cdn.flirrt.ai/voice/abc123.mp3",
+    "audio_url": "https://secure-cdn.vibe8.ai/voice/abc123.mp3",
     "duration_seconds": 8.2,
     "file_size_mb": 0.65,
     "format": "mp3",
@@ -185,7 +185,7 @@ You are a voice synthesis orchestration specialist focused on converting text fl
 ```json
 {
   "synthesis_result": {
-    "audio_url": "https://secure-cdn.flirrt.ai/voice/def456.mp3",
+    "audio_url": "https://secure-cdn.vibe8.ai/voice/def456.mp3",
     "duration_seconds": 5.8,
     "file_size_mb": 0.46,
     "format": "mp3",

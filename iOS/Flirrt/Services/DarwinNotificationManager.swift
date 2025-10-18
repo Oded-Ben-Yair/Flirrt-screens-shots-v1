@@ -14,7 +14,7 @@ final class DarwinNotificationManager: ObservableObject {
     @Published var messageCount: Int = 0
 
     // MARK: - Private Properties
-    private let logger = Logger(subsystem: "com.flirrt.app", category: "DarwinNotifications")
+    private let logger = Logger(subsystem: "com.vibe8.app", category: "DarwinNotifications")
     private let sharedDefaults = UserDefaults(suiteName: AppConstants.appGroupIdentifier)
     private var isObservingNotifications = false
 
@@ -42,21 +42,21 @@ final class DarwinNotificationManager: ObservableObject {
     // MARK: - Notification Types
     struct NotificationNames {
         // Outgoing (Main App → Keyboard)
-        static let screenshotDetected = "com.flirrt.screenshot.detected"
-        static let screenshotConfirmed = "com.flirrt.screenshot.confirmed"
-        static let appStatusChanged = "com.flirrt.app.status.changed"
-        static let detectionEnabled = "com.flirrt.detection.enabled"
-        static let detectionDisabled = "com.flirrt.detection.disabled"
+        static let screenshotDetected = "com.vibe8.screenshot.detected"
+        static let screenshotConfirmed = "com.vibe8.screenshot.confirmed"
+        static let appStatusChanged = "com.vibe8.app.status.changed"
+        static let detectionEnabled = "com.vibe8.detection.enabled"
+        static let detectionDisabled = "com.vibe8.detection.disabled"
 
         // Incoming (Keyboard → Main App)
-        static let keyboardReady = "com.flirrt.keyboard.ready"
-        static let keyboardHeartbeat = "com.flirrt.keyboard.heartbeat"
-        static let analysisRequested = "com.flirrt.analyze.request"
-        static let statusRequest = "com.flirrt.status.request"
+        static let keyboardReady = "com.vibe8.keyboard.ready"
+        static let keyboardHeartbeat = "com.vibe8.keyboard.heartbeat"
+        static let analysisRequested = "com.vibe8.analyze.request"
+        static let statusRequest = "com.vibe8.status.request"
 
         // Bi-directional
-        static let ping = "com.flirrt.ping"
-        static let pong = "com.flirrt.pong"
+        static let ping = "com.vibe8.ping"
+        static let pong = "com.vibe8.pong"
     }
 
     // MARK: - Initialization

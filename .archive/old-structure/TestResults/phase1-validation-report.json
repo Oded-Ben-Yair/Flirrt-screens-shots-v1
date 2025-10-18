@@ -6,14 +6,14 @@
       "duration": 7277,
       "details": {
         "targets_built": [
-          "Flirrt.app",
-          "FlirrtKeyboard.appex",
-          "FlirrtShare.appex"
+          "Vibe8.app",
+          "Vibe8Keyboard.appex",
+          "Vibe8Share.appex"
         ],
         "products_found": [
-          "Flirrt.app",
-          "FlirrtKeyboard.appex",
-          "FlirrtShare.appex"
+          "Vibe8.app",
+          "Vibe8Keyboard.appex",
+          "Vibe8Share.appex"
         ],
         "swift_modules": 5,
         "dependencies": 5

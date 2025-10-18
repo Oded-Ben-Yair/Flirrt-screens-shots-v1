@@ -1,4 +1,4 @@
-# Flirrt.ai Research Notes - September 22, 2025
+# Vibe8.ai Research Notes - September 22, 2025
 
 ## Replit Agent 3 Best Practices
 
