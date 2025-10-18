@@ -971,7 +971,7 @@ PERFORMANCE TARGET: Sub-second response times with consistent quality.`;
 
             // Try legacy circuit breaker approach
             const legacyPayload = {
-                model: 'grok-beta',
+                model: 'grok-4-fast',
                 messages: [
                     {
                         role: "user",
@@ -992,7 +992,7 @@ PERFORMANCE TARGET: Sub-second response times with consistent quality.`;
                         correlationId,
                         fallback: true,
                         originalError: originalError.message,
-                        fallbackModel: 'grok-beta'
+                        fallbackModel: 'grok-4-fast'
                     }
                 };
             }
@@ -1042,7 +1042,7 @@ PERFORMANCE TARGET: Sub-second response times with consistent quality.`;
                     uniquenessScore: 0.6,
                     engagementPotential: 0.7,
                     characterCount: text.length,
-                    model: 'grok-beta-fallback'
+                    model: 'grok-4-fast-fallback'
                 }));
 
             return {

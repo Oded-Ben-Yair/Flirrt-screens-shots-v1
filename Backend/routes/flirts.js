@@ -245,9 +245,9 @@ Return ONLY a JSON object with this exact structure:
             // NEW: Grok Vision Mode (analyze image + generate flirts in one call)
             let grokRequestBody;
             if (image_data) {
-                console.log('Using grok-2-vision-1212 VISION mode (image analysis + flirt generation)');
+                console.log('Using grok-4-fast VISION mode (image analysis + flirt generation)');
                 grokRequestBody = {
-                    model: "grok-2-vision-1212",
+                    model: "grok-4-fast",
                     messages: [
                         {
                             role: "system",
@@ -458,9 +458,9 @@ Now analyze the provided screenshot and return JSON in this EXACT format with pr
                 };
             } else {
                 // LEGACY: Text-only mode (existing logic)
-                console.log('Using grok-2-vision-1212 TEXT mode (pre-analyzed screenshot)');
+                console.log('Using grok-4-fast TEXT mode (pre-analyzed screenshot)');
                 grokRequestBody = {
-                    model: "grok-2-vision-1212",
+                    model: "grok-4-fast",
                     messages: [
                         {
                             role: "system",

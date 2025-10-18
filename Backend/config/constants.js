@@ -455,7 +455,7 @@ module.exports = {
     ai: {
         // Model Names
         models: {
-            grok: 'grok-beta',
+            grok: 'grok-4-fast',
             gemini: 'gemini-1.5-flash',
             grok4fast: 'grok-4-fast'
         },

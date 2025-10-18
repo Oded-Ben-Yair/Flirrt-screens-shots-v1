@@ -40,8 +40,8 @@ class AIOrchestrator {
                 maxRetries: 2
             },
             grok: {
-                generation: 'grok-beta',
-                creative: 'grok-2-latest',
+                generation: 'grok-4-fast',
+                creative: 'grok-4-fast',
                 timeout: 25000,
                 maxRetries: 3
             }

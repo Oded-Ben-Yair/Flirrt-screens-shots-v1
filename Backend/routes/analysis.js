@@ -117,7 +117,7 @@ router.post('/analyze_screenshot',
             const grokApiUrl = `${process.env.GROK_API_URL}/chat/completions`;
 
             const grokRequestData = {
-                model: "grok-2-vision-1212",
+                model: "grok-4-fast",
                 messages: [
                     {
                         role: "user",

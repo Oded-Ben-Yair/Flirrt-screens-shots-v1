@@ -662,7 +662,7 @@ class AdvancedQualityAssurance {
         const modelConfidences = {
             'grok-4-fast-reasoning': 0.9,
             'grok-4-fast-non-reasoning': 0.8,
-            'grok-beta': 0.75,
+            'grok-4-fast': 0.75,
             'gemini-vision': 0.85,
             'emergency-fallback': 0.3
         };

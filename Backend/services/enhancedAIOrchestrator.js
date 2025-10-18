@@ -37,7 +37,7 @@ class EnhancedAIOrchestrator {
                 primary: 'grok-4-fast-reasoning',
                 target: 3000, // <3 seconds
                 characteristics: ['standard', 'creative', 'balanced'],
-                fallback: 'grok-beta'
+                fallback: 'grok-4-fast'
             },
 
             // Tier 3: Comprehensive models for complex analysis
@@ -1003,7 +1003,7 @@ class EnhancedAIOrchestrator {
     async executeLegacyGrokFallback(request, classification, options, correlationId) {
         // Fallback to original Grok service
         const payload = {
-            model: 'grok-beta',
+            model: 'grok-4-fast',
             messages: [{
                 role: "user",
                 content: `Generate dating conversation suggestions: ${request.context || 'general'}`
@@ -1015,7 +1015,7 @@ class EnhancedAIOrchestrator {
         const response = await circuitBreakerService.callGrokApi(payload, correlationId);
 
         if (response.success) {
-            return this.parseLegacyResponse(response.data, 'grok-beta');
+            return this.parseLegacyResponse(response.data, 'grok-4-fast');
         }
 
         throw new Error('Legacy Grok fallback failed');
