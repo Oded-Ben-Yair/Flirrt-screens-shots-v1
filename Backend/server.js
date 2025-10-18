@@ -3,8 +3,8 @@ require('dotenv').config();
 // Validate required environment variables on startup
 const requiredEnvVars = [
     'GROK_API_KEY',
-    'ELEVENLABS_API_KEY',
-    'JWT_SECRET'
+    'ELEVENLABS_API_KEY'
+    // JWT_SECRET is optional - only needed if using authentication
 ];
 
 const missingEnvVars = requiredEnvVars.filter(varName => !process.env[varName]);
@@ -15,11 +15,11 @@ if (missingEnvVars.length > 0) {
     process.exit(1);
 }
 
-// Validate JWT_SECRET strength
+// Validate JWT_SECRET strength (if provided)
 if (process.env.JWT_SECRET && process.env.JWT_SECRET.length < 32) {
-    console.error('❌ JWT_SECRET is too weak. Must be at least 32 characters long.');
-    console.error('💡 Generate a secure secret with: openssl rand -base64 64');
-    process.exit(1);
+    console.warn('⚠️  JWT_SECRET is too weak. Should be at least 32 characters long.');
+    console.warn('💡 Generate a secure secret with: openssl rand -base64 64');
+    // Don't exit - just warn for now
 }
 
 const express = require('express');
