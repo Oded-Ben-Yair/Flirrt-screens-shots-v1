@@ -1,0 +1,49 @@
+* fe7b283 (HEAD -> main, origin/main) CP-7: Security audit and final documentation complete (Phases 1-2)
+* 73c8f0f (tag: checkpoint-cp6-20251018) CP-6: Testing and App Store preparation complete
+* 7494bc3 (tag: checkpoint-cp5-20251017) feat: CP-5 Coaching Persona + Gamification Complete
+* 86b03aa (tag: checkpoint-cp4-20251017-complete) feat: CP-4 Voice UI + Privacy Policy
+* b3a136b (tag: checkpoint-cp3-20251017-complete) feat: CP-3 Multi-Screenshot Context + Content Moderation
+* f2e3098 (tag: checkpoint-cp2-20251017-143338) CP-2: Custom QWERTY keyboard implementation complete
+* 4412ad7 (tag: checkpoint-cp1-xcode-config-20251017-141709) CP-1: Xcode configuration verified and documented
+* ad87bb4 (tag: checkpoint-cp1-20251017-140831) CP-1: Critical bug fixes and architecture revision completed
+* e4cbceb fix: Update CODE_REVIEW_GUIDE.md paths after restructuring
+* 2a5a635 refactor: Major repository restructuring for external review
+* 10e630d chore: Major repository cleanup for external review
+* 3753c7b fix: Update Bundle IDs to match Apple Developer Portal
+* 2ccce6f docs: TestFlight session summary - automated setup complete
+* 421ee79 docs: Add comprehensive TestFlight manual steps guide
+* 32a8ed4 docs: Add GitHub Pages setup instructions for privacy policy
+* cc9e470 feat: Update Bundle IDs to production for TestFlight
+* 2fa01fe feat: Add privacy policy for TestFlight distribution
+* 5cbe9b1 feat: Pre-QA app simplification - minimal MVP ready
+* 45dffb4 feat: Complete critical iOS/Keyboard communication fixes + build verification
+* 0c445da docs: Complete session documentation with Render logs analysis (API keys redacted)
+* 39f29a1 fix: Update audio API to iOS 17+ AVAudioSession
+* ff0752c feat: Configure iOS app to use production Render URL for testing
+* 7b07262 debug: Add log to verify Render deployment
+* a2ddf7e (origin/fix/real-mvp-implementation, fix/real-mvp-implementation) fix: Remove database ownership check completely for MVP
+| * 826ac27 (refs/stash) On main: Keep local backend URL for testing
+|/| 
+| * 875f4cc index on main: 4fe8b19 fix: Skip ownership check for MVP test users + add .gitignore
+|/  
+* 4fe8b19 fix: Skip ownership check for MVP test users + add .gitignore
+* c30d3c4 chore: Force Render redeploy with latest code
+* b09058e feat: Add Apple Sign-In endpoint for MVP
+* 94c5b20 fix: Remove all hardcoded localhost URLs - use AppConstants
+* 34fc776 feat: Production URL confirmed for Render deployment
+* 2abe842 docs: Update CLAUDE.md session handoff for production deployment
+* e6d4462 feat: Production deployment preparation - Render.com integration
+* 85e3fb1 docs: Add comprehensive TestFlight beta distribution guides
+* e0bca30 feat: Complete iPad setup and production-grade improvements
+* f5f2f6a (tag: v1.0.0-production-ready) docs: Production-grade session summary and handoff
+* c5c62fd feat: Production polish - automation, security, and build fixes
+* 935ebc6 (tag: pre-cleanup-20251002-154513, tag: pre-cleanup-20251002-154439, backup/before-history-cleanup-20251002-154513, backup/before-history-cleanup-20251002-154439) docs: Comprehensive status assessment Oct 2, 2025
+* 9e66f64 (tag: pre-testing-2025-10-02, tag: pre-cleanup-backup, archive/pre-cleanup-state) docs: Critical documentation for fixing keyboard extension issues
+* e9deebb feat: Complete Flirrt.ai iOS app with proper Xcode structure and extensions
+* 401625c (tag: v1.0.0) feat: Production-ready Flirrt.ai with complete AI orchestration
+* 20cc0ba Delete Flirrt/research/sources.csvZone.Identifier
+* 99021ce Delete Flirrt/research/notes.mdZone.Identifier
+* 49a67f7 Delete Flirrt/attached_assets directory
+* 1c1e487 Update README.md
+* 4358edd Create README.md with content from README_HANDOFF.md
+* da98ce6 Add files via upload
