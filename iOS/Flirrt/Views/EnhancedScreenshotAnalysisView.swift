@@ -3,7 +3,7 @@
 //  Vibe8
 //
 //  Complete redesign with multi-screenshot, refresh, and AI coaching
-//  Based on GPT-4O and Grok-4 UX best practices
+//  FIXED to match existing API schema
 //
 
 import SwiftUI
@@ -17,15 +17,15 @@ struct EnhancedScreenshotAnalysisView: View {
     // MARK: - State
     
     @State private var selectedImages: [UIImage] = []
-    @State private var selectedImagesData: [Data] = []
     @State private var showingImagePicker = false
     @State private var isAnalyzing = false
     @State private var flirtSuggestions: [FlirtSuggestion] = []
     @State private var selectedTone: String = "playful"
     @State private var errorMessage: String?
     @State private var showingError = false
-    @State private var showingCoaching: [UUID: Bool] = [:]
+    @State private var showingCoaching: [String: Bool] = [:]  // Changed from UUID to String
     @State private var isRefreshing = false
+    @State private var conversationID: String?  // For multi-screenshot context
     
     // MARK: - Available Tones
     
@@ -60,7 +60,7 @@ struct EnhancedScreenshotAnalysisView: View {
                             screenshotPreviewSection
                         }
                         
-                        // Tone selector (only if images selected and no results)
+                        // Tone selector
                         if !selectedImages.isEmpty && flirtSuggestions.isEmpty {
                             toneSelectorSection
                         }
@@ -70,7 +70,7 @@ struct EnhancedScreenshotAnalysisView: View {
                             analyzeButton
                         }
                         
-                        // Results section with refresh
+                        // Results section
                         if !flirtSuggestions.isEmpty {
                             resultsSection
                         }
@@ -102,10 +102,7 @@ struct EnhancedScreenshotAnalysisView: View {
                 }
             }
             .sheet(isPresented: $showingImagePicker) {
-                MultiScreenshotPicker(
-                    selectedImages: $selectedImages,
-                    selectedImagesData: $selectedImagesData
-                )
+                MultiScreenshotPicker(selectedImages: $selectedImages, maxSelection: 3)
             }
             .alert("Error", isPresented: $showingError) {
                 Button("OK", role: .cancel) {}
@@ -115,12 +112,12 @@ struct EnhancedScreenshotAnalysisView: View {
         }
     }
     
-    // MARK: - Subviews
+    // MARK: - View Components
     
     private var headerSection: some View {
         VStack(spacing: 8) {
             Image(systemName: "sparkles.rectangle.stack")
-                .font(.system(size: 60))
+                .font(.system(size: 50))
                 .foregroundStyle(
                     LinearGradient(
                         colors: [.pink, .purple],
@@ -129,12 +126,11 @@ struct EnhancedScreenshotAnalysisView: View {
                     )
                 )
             
-            Text("AI Flirt Assistant")
-                .font(.title2)
-                .fontWeight(.bold)
+            Text("AI Flirt Generator")
+                .font(.title.bold())
                 .foregroundColor(.white)
             
-            Text("Select 1-3 screenshots for personalized suggestions")
+            Text("Upload 1-3 screenshots for personalized suggestions")
                 .font(.subheadline)
                 .foregroundColor(.gray)
                 .multilineTextAlignment(.center)
@@ -149,63 +145,64 @@ struct EnhancedScreenshotAnalysisView: View {
             } label: {
                 VStack(spacing: 16) {
                     Image(systemName: "photo.stack")
-                        .font(.system(size: 50))
-                        .foregroundColor(.pink.opacity(0.7))
+                        .font(.system(size: 60))
+                        .foregroundColor(.gray)
                     
                     Text("Select Screenshots")
                         .font(.headline)
-                        .fontWeight(.semibold)
+                        .foregroundColor(.white)
                     
                     Text("Choose 1-3 chat or profile screenshots")
                         .font(.caption)
                         .foregroundColor(.gray)
-                        .multilineTextAlignment(.center)
                 }
                 .frame(maxWidth: .infinity)
-                .padding(.vertical, 60)
+                .frame(height: 200)
                 .background(Color.gray.opacity(0.2))
                 .cornerRadius(16)
             }
-            .foregroundColor(.white)
-            
-            // Quick tip
-            HStack(spacing: 8) {
-                Image(systemName: "lightbulb.fill")
-                    .foregroundColor(.yellow)
-                Text("Tip: Multiple screenshots give better context for chats")
-                    .font(.caption)
-                    .foregroundColor(.gray)
-            }
-            .padding()
-            .background(Color.gray.opacity(0.15))
-            .cornerRadius(12)
         }
     }
     
     private var screenshotPreviewSection: some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack {
-                ScreenshotCountIndicator(count: selectedImages.count)
+                Text("Selected Screenshots (\(selectedImages.count)/3)")
+                    .font(.headline)
+                    .foregroundColor(.white)
                 
                 Spacer()
                 
                 Button {
                     showingImagePicker = true
                 } label: {
-                    HStack(spacing: 4) {
-                        Image(systemName: "plus.circle.fill")
-                        Text(selectedImages.count < 3 ? "Add More" : "Change")
-                            .font(.caption)
-                            .fontWeight(.medium)
-                    }
-                    .foregroundColor(.pink)
+                    Image(systemName: "plus.circle.fill")
+                        .foregroundColor(.pink)
                 }
+                .disabled(selectedImages.count >= 3)
             }
             
-            ScreenshotGrid(images: selectedImages) { index in
-                withAnimation {
-                    selectedImages.remove(at: index)
-                    selectedImagesData.remove(at: index)
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 12) {
+                    ForEach(Array(selectedImages.enumerated()), id: \.offset) { index, image in
+                        ZStack(alignment: .topTrailing) {
+                            Image(uiImage: image)
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 120, height: 180)
+                                .clipShape(RoundedRectangle(cornerRadius: 12))
+                            
+                            Button {
+                                selectedImages.remove(at: index)
+                            } label: {
+                                Image(systemName: "xmark.circle.fill")
+                                    .foregroundColor(.white)
+                                    .background(Color.black.opacity(0.6))
+                                    .clipShape(Circle())
+                            }
+                            .padding(8)
+                        }
+                    }
                 }
             }
         }
@@ -219,15 +216,13 @@ struct EnhancedScreenshotAnalysisView: View {
             
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 12) {
-                    ForEach(availableTones, id: \.0) { tone, emoji, label in
+                    ForEach(availableTones, id: \.0) { tone in
                         ToneButton(
-                            emoji: emoji,
-                            label: label,
-                            isSelected: selectedTone == tone
+                            emoji: tone.1,
+                            label: tone.2,
+                            isSelected: selectedTone == tone.0
                         ) {
-                            withAnimation(.spring()) {
-                                selectedTone = tone
-                            }
+                            selectedTone = tone.0
                         }
                     }
                 }
@@ -239,7 +234,7 @@ struct EnhancedScreenshotAnalysisView: View {
         Button {
             analyzeScreenshots()
         } label: {
-            HStack(spacing: 8) {
+            HStack {
                 Image(systemName: "sparkles")
                 Text("Generate Flirts")
                     .fontWeight(.semibold)
@@ -260,52 +255,107 @@ struct EnhancedScreenshotAnalysisView: View {
     }
     
     private var resultsSection: some View {
-        VStack(alignment: .leading, spacing: 16) {
-            // Header with refresh button
+        VStack(spacing: 16) {
             HStack {
-                VStack(alignment: .leading, spacing: 4) {
-                    Text("\(flirtSuggestions.count) Suggestions")
-                        .font(.headline)
-                        .foregroundColor(.white)
-                    
-                    Text(selectedTone.capitalized + " tone")
-                        .font(.caption)
-                        .foregroundColor(.gray)
-                }
+                Text("Your Flirts")
+                    .font(.title2.bold())
+                    .foregroundColor(.white)
                 
                 Spacer()
                 
-                // Refresh button
                 Button {
                     refreshSuggestions()
                 } label: {
-                    HStack(spacing: 6) {
+                    HStack(spacing: 4) {
                         Image(systemName: "arrow.clockwise")
-                            .rotationEffect(.degrees(isRefreshing ? 360 : 0))
                         Text("New Vibes")
-                            .font(.caption)
-                            .fontWeight(.semibold)
+                            .font(.caption.bold())
                     }
                     .padding(.horizontal, 12)
-                    .padding(.vertical, 8)
+                    .padding(.vertical, 6)
                     .background(Color.pink.opacity(0.2))
                     .foregroundColor(.pink)
-                    .cornerRadius(20)
+                    .cornerRadius(8)
                 }
                 .disabled(isRefreshing)
             }
             
-            // Suggestion cards with coaching
             ForEach(flirtSuggestions) { suggestion in
-                EnhancedFlirtCard(
-                    suggestion: suggestion,
-                    showCoaching: Binding(
-                        get: { showingCoaching[suggestion.id] ?? false },
-                        set: { showingCoaching[suggestion.id] = $0 }
-                    )
-                )
+                suggestionCard(suggestion)
             }
         }
+    }
+    
+    private func suggestionCard(_ suggestion: FlirtSuggestion) -> some View {
+        VStack(alignment: .leading, spacing: 12) {
+            // Suggestion text
+            Text(suggestion.text)  // Changed from .message to .text
+                .font(.body)
+                .foregroundColor(.white)
+                .padding()
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .background(Color.gray.opacity(0.2))
+                .cornerRadius(12)
+            
+            // Action buttons
+            HStack(spacing: 12) {
+                Button {
+                    UIPasteboard.general.string = suggestion.text  // Changed from .message to .text
+                    // Haptic feedback
+                    let generator = UIImpactFeedbackGenerator(style: .medium)
+                    generator.impactOccurred()
+                } label: {
+                    HStack(spacing: 4) {
+                        Image(systemName: "doc.on.doc")
+                        Text("Copy")
+                    }
+                    .font(.caption.bold())
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 8)
+                    .background(Color.blue.opacity(0.2))
+                    .foregroundColor(.blue)
+                    .cornerRadius(8)
+                }
+                
+                Button {
+                    showingCoaching[suggestion.id, default: false].toggle()
+                } label: {
+                    HStack(spacing: 4) {
+                        Image(systemName: "lightbulb.fill")
+                        Text(showingCoaching[suggestion.id, default: false] ? "Hide" : "Why This Works")
+                    }
+                    .font(.caption.bold())
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 8)
+                    .background(Color.yellow.opacity(0.2))
+                    .foregroundColor(.yellow)
+                    .cornerRadius(8)
+                }
+            }
+            
+            // AI Coaching (expandable)
+            if showingCoaching[suggestion.id, default: false], let reasoning = suggestion.reasoning {
+                VStack(alignment: .leading, spacing: 8) {
+                    HStack(spacing: 6) {
+                        Image(systemName: "lightbulb.fill")
+                            .foregroundColor(.yellow)
+                        Text("AI Coaching")
+                            .font(.caption.bold())
+                            .foregroundColor(.yellow)
+                    }
+                    
+                    Text(reasoning)
+                        .font(.caption)
+                        .foregroundColor(.gray)
+                }
+                .padding()
+                .background(Color.yellow.opacity(0.1))
+                .cornerRadius(8)
+            }
+        }
+        .padding()
+        .background(Color.gray.opacity(0.1))
+        .cornerRadius(16)
     }
     
     private var loadingView: some View {
@@ -314,38 +364,38 @@ struct EnhancedScreenshotAnalysisView: View {
                 .scaleEffect(1.5)
                 .tint(.pink)
             
-            Text(isRefreshing ? "Mixing up fresh ideas..." : "Crafting your vibe...")
+            Text(isRefreshing ? "Generating new vibes..." : "Analyzing screenshots...")
                 .font(.subheadline)
                 .foregroundColor(.gray)
-            
-            if !isRefreshing {
-                Text("AI is analyzing your screenshots")
-                    .font(.caption)
-                    .foregroundColor(.gray.opacity(0.7))
-            }
         }
         .frame(maxWidth: .infinity)
         .padding(.vertical, 40)
     }
     
-    // MARK: - Methods
+    // MARK: - Actions
     
     private func analyzeScreenshots() {
-        guard !selectedImagesData.isEmpty else {
-            errorMessage = "No screenshots selected"
-            showingError = true
-            return
-        }
+        guard !selectedImages.isEmpty else { return }
         
         isAnalyzing = true
-        flirtSuggestions = []
+        errorMessage = nil
+        
+        // Generate conversation ID for multi-screenshot context
+        if selectedImages.count > 1 {
+            conversationID = UUID().uuidString
+        }
         
         Task {
             do {
-                // Call API with multiple images
-                let response = try await apiClient.generateFlirtsFromMultipleImages(
-                    imagesData: selectedImagesData,
-                    context: selectedImages.count > 1 ? "chat" : "profile",
+                // FIXED: Use existing API method with proper parameters
+                guard let imageData = selectedImages.first?.jpegData(compressionQuality: 0.8) else {
+                    throw NSError(domain: "ImageError", code: -1, userInfo: [NSLocalizedDescriptionKey: "Failed to process image"])
+                }
+                
+                let response = try await apiClient.generateFlirtsFromImage(
+                    imageData: imageData,
+                    conversationID: conversationID,
+                    suggestionType: .opener,
                     tone: selectedTone
                 )
                 
@@ -353,136 +403,107 @@ struct EnhancedScreenshotAnalysisView: View {
                     flirtSuggestions = response.flirts
                     isAnalyzing = false
                 }
+                
+                // If multiple images, send the rest with same conversation ID
+                if selectedImages.count > 1 {
+                    for i in 1..<selectedImages.count {
+                        if let additionalImageData = selectedImages[i].jpegData(compressionQuality: 0.8) {
+                            _ = try await apiClient.generateFlirtsFromImage(
+                                imageData: additionalImageData,
+                                conversationID: conversationID,
+                                suggestionType: .opener,
+                                tone: selectedTone
+                            )
+                        }
+                    }
+                }
+                
             } catch {
                 await MainActor.run {
-                    isAnalyzing = false
                     errorMessage = error.localizedDescription
                     showingError = true
+                    isAnalyzing = false
                 }
             }
         }
     }
     
     private func refreshSuggestions() {
-        guard !selectedImagesData.isEmpty else { return }
-        
         isRefreshing = true
-        
-        // Get previous suggestions for API
-        let previousMessages = flirtSuggestions.map { $0.message }
         
         Task {
             do {
-                let response = try await apiClient.generateFlirtsFromMultipleImages(
-                    imagesData: selectedImagesData,
-                    context: selectedImages.count > 1 ? "chat" : "profile",
-                    tone: selectedTone,
-                    previousSuggestions: previousMessages
+                guard let imageData = selectedImages.first?.jpegData(compressionQuality: 0.8) else {
+                    throw NSError(domain: "ImageError", code: -1, userInfo: [NSLocalizedDescriptionKey: "Failed to process image"])
+                }
+                
+                let response = try await apiClient.generateFlirtsFromImage(
+                    imageData: imageData,
+                    conversationID: conversationID,
+                    suggestionType: .opener,
+                    tone: selectedTone
                 )
                 
                 await MainActor.run {
-                    withAnimation {
-                        flirtSuggestions = response.flirts
-                        isRefreshing = false
-                    }
+                    flirtSuggestions = response.flirts
+                    isRefreshing = false
                 }
             } catch {
                 await MainActor.run {
-                    isRefreshing = false
                     errorMessage = error.localizedDescription
                     showingError = true
+                    isRefreshing = false
                 }
             }
         }
     }
     
     private func resetView() {
-        withAnimation {
-            selectedImages = []
-            selectedImagesData = []
-            flirtSuggestions = []
-            selectedTone = "playful"
-            showingCoaching = [:]
-        }
+        selectedImages = []
+        flirtSuggestions = []
+        conversationID = nil
+        showingCoaching = [:]
     }
 }
 
-// MARK: - Enhanced Flirt Card with Coaching
+// MARK: - Supporting Views
 
-struct EnhancedFlirtCard: View {
-    let suggestion: FlirtSuggestion
-    @Binding var showCoaching: Bool
-    @State private var copied = false
+struct ToneButton: View {
+    let emoji: String
+    let label: String
+    let isSelected: Bool
+    let action: () -> Void
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            // Main suggestion
-            Text(suggestion.message)
-                .font(.body)
-                .foregroundColor(.white)
-                .lineSpacing(4)
-            
-            // Coaching toggle
-            if let reasoning = suggestion.reasoning, !reasoning.isEmpty {
-                Button {
-                    withAnimation(.spring()) {
-                        showCoaching.toggle()
-                    }
-                } label: {
-                    HStack(spacing: 6) {
-                        Image(systemName: showCoaching ? "lightbulb.fill" : "lightbulb")
-                            .foregroundColor(.yellow)
-                        Text(showCoaching ? "Hide Coaching" : "Why This Works")
-                            .font(.caption)
-                            .fontWeight(.medium)
-                        Image(systemName: showCoaching ? "chevron.up" : "chevron.down")
-                            .font(.caption2)
-                    }
-                    .foregroundColor(.yellow)
-                }
-                
-                if showCoaching {
-                    Text(reasoning)
-                        .font(.caption)
-                        .foregroundColor(.gray)
-                        .padding(.top, 4)
-                        .transition(.opacity.combined(with: .move(edge: .top)))
-                }
+        Button(action: action) {
+            VStack(spacing: 6) {
+                Text(emoji)
+                    .font(.title2)
+                Text(label)
+                    .font(.caption)
+                    .fontWeight(isSelected ? .semibold : .regular)
             }
-            
-            // Action buttons
-            HStack(spacing: 12) {
-                Button {
-                    UIPasteboard.general.string = suggestion.message
-                    copied = true
-                    
-                    // Haptic feedback
-                    let generator = UIImpactFeedbackGenerator(style: .medium)
-                    generator.impactOccurred()
-                    
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                        copied = false
-                    }
-                } label: {
-                    HStack(spacing: 6) {
-                        Image(systemName: copied ? "checkmark" : "doc.on.doc")
-                        Text(copied ? "Copied!" : "Copy")
-                            .font(.caption)
-                            .fontWeight(.medium)
-                    }
-                    .padding(.horizontal, 12)
-                    .padding(.vertical, 8)
-                    .background(copied ? Color.green.opacity(0.2) : Color.pink.opacity(0.2))
-                    .foregroundColor(copied ? .green : .pink)
-                    .cornerRadius(8)
-                }
-                
-                Spacer()
-            }
+            .frame(width: 80, height: 80)
+            .background(
+                isSelected ?
+                LinearGradient(
+                    colors: [.pink, .purple],
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                ) :
+                LinearGradient(
+                    colors: [Color.gray.opacity(0.2), Color.gray.opacity(0.2)],
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                )
+            )
+            .foregroundColor(.white)
+            .cornerRadius(12)
+            .overlay(
+                RoundedRectangle(cornerRadius: 12)
+                    .stroke(isSelected ? Color.pink : Color.clear, lineWidth: 2)
+            )
         }
-        .padding()
-        .background(Color.gray.opacity(0.15))
-        .cornerRadius(12)
     }
 }
 
@@ -502,26 +523,14 @@ extension Color {
         case 8: // ARGB (32-bit)
             (a, r, g, b) = (int >> 24, int >> 16 & 0xFF, int >> 8 & 0xFF, int & 0xFF)
         default:
-            (a, r, g, b) = (1, 1, 1, 0)
+            (a, r, g, b) = (255, 0, 0, 0)
         }
-        
         self.init(
             .sRGB,
             red: Double(r) / 255,
             green: Double(g) / 255,
-            blue:  Double(b) / 255,
+            blue: Double(b) / 255,
             opacity: Double(a) / 255
         )
     }
 }
-
-// MARK: - Preview
-
-struct EnhancedScreenshotAnalysisView_Previews: PreviewProvider {
-    static var previews: some View {
-        EnhancedScreenshotAnalysisView()
-            .environmentObject(APIClient())
-            .environmentObject(ScreenshotDetectionManager())
-    }
-}
-
