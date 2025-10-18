@@ -112,7 +112,7 @@ app.get('/health', async (req, res) => {
             database: databaseStatus,
             grok_api: process.env.GROK_API_KEY ? 'configured' : 'not_configured',
             elevenlabs_api: process.env.ELEVENLABS_API_KEY ? 'configured' : 'not_configured',
-            gemini_api: process.env.GEMINI_API_KEY ? 'configured' : 'not_configured'
+            openai_api: process.env.OPENAI_API_KEY ? 'configured' : 'not_configured'
         }
     });
 });
