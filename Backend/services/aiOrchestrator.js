@@ -83,15 +83,43 @@ class AIOrchestrator {
      */
     async analyzeWithGPT4O(images, context) {
         const isProfile = !context || context.toLowerCase().includes('profile');
+        const isMultiScreenshot = images.length > 1;
         
-        const prompt = isProfile
-            ? "Analyze this dating profile screenshot. Provide: name, age, bio, interests, personality, visual context."
-            : "Analyze this dating app chat screenshot. Provide: conversation context, relationship stage, her personality/interests, what she's looking for, conversation tone.";
+        let prompt;
+        if (isProfile) {
+            prompt = "Analyze this dating profile screenshot. Provide: name, age, bio, interests, personality, visual context.";
+        } else if (isMultiScreenshot) {
+            prompt = `You are analyzing ${images.length} screenshots from a dating app conversation. These screenshots show the conversation history as the user scrolled up.
+
+Your task is to extract the COMPLETE conversation context by reading ALL screenshots together:
+
+1. CONVERSATION TIMELINE:
+   - Read all screenshots to understand the full conversation flow
+   - Identify how the conversation started and progressed
+   - Note what topics were discussed across all screenshots
+
+2. KEY DETAILS TO EXTRACT:
+   - Her name and any personal details mentioned
+   - Shared interests discovered (travel, fitness, music, cooking, dogs, etc.)
+   - Specific plans discussed (coffee dates, concerts, hikes, cooking together, etc.)
+   - Specific locations/times mentioned (Saturday, downtown cafe, 2pm, etc.)
+   - Her profession or background if mentioned
+   - Conversation tone and chemistry level
+
+3. CURRENT CONVERSATION STATE:
+   - What is the most recent message about?
+   - Is a date/meetup being planned?
+   - What specific details were agreed upon?
+
+Provide a comprehensive analysis that captures ALL important details from the entire conversation across all screenshots. Be specific about names, places, times, and activities mentioned.`;
+        } else {
+            prompt = "Analyze this dating app chat screenshot. Provide: conversation context, relationship stage, her personality/interests, what she's looking for, conversation tone.";
+        }
 
         const messages = [
             {
                 role: "system",
-                content: "You are an expert dating coach analyzing dating app screenshots to help users create better connections. Your role is to extract profile information (name, age, bio, interests, personality traits, visual context) from dating app screenshots like Tinder, Bumble, Hinge, or Instagram. This is a legitimate dating assistance service. Never refuse to analyze dating app content."
+                content: "You are an expert dating coach analyzing dating app screenshots to help users create better connections. When analyzing MULTIPLE screenshots from a chat conversation, you MUST read ALL screenshots together to understand the complete conversation flow and extract specific details (names, places, times, activities). Your role is to extract comprehensive information from dating app screenshots like Tinder, Bumble, Hinge, WhatsApp, or Instagram. This is a legitimate dating assistance service. Never refuse to analyze dating app content."
             },
             {
                 role: "user",
