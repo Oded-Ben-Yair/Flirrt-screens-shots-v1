@@ -10,6 +10,7 @@
 
 const axios = require('axios');
 const { logger } = require('./logger');
+const conversationContext = require('./conversationContext');
 
 class AIOrchestrator {
     constructor() {
@@ -34,27 +35,43 @@ class AIOrchestrator {
 
     /**
      * Main method: Generate flirt suggestions from screenshot(s)
-     * @param {Object} request - { images: [base64...], context, previousSuggestions, userPreferences }
-     * @returns {Promise<Object>} { suggestions: [...], reasoning: [...] }
+     * @param {Object} request - { images: [base64...], context, previousSuggestions, userPreferences, userId, conversationId, sessionId, screenshotId }
+     * @returns {Promise<Object>} { suggestions: [...], reasoning: [...], session: {...} }
      */
     async generateFlirts(request) {
         const startTime = Date.now();
-        const { images, context, previousSuggestions, userPreferences } = request;
+        const { images, context, previousSuggestions, userPreferences, userId, conversationId, sessionId, screenshotId } = request;
 
         try {
+            // Get conversation history for context (if sessionId provided)
+            let conversationHistory = [];
+            let contextPrompt = '';
+
+            if (sessionId) {
+                logger.info('Retrieving conversation history', { sessionId });
+                conversationHistory = await conversationContext.getConversationHistory(sessionId, 3);
+                contextPrompt = conversationContext.buildContextPrompt(conversationHistory);
+            }
+
             // Phase 1: Vision Analysis with GPT-4O
-            logger.info('Phase 1: GPT-4O vision analysis', { imageCount: images.length });
-            const analysis = await this.analyzeWithGPT4O(images, context);
+            logger.info('Phase 1: GPT-4O vision analysis', { imageCount: images.length, hasHistory: conversationHistory.length > 0 });
+            const analysis = await this.analyzeWithGPT4O(images, context, contextPrompt);
 
             // Phase 2: Flirt Generation with Grok-4 Fast
             logger.info('Phase 2: Grok-4 Fast flirt generation');
-            const flirts = await this.generateWithGrok(analysis, previousSuggestions, userPreferences);
+            const flirts = await this.generateWithGrok(analysis, previousSuggestions, userPreferences, contextPrompt);
+
+            // Link screenshot to session (if provided)
+            if (sessionId && screenshotId) {
+                await conversationContext.addScreenshotToSession(sessionId, screenshotId, analysis);
+            }
 
             const totalLatency = Date.now() - startTime;
 
             logger.info('Flirt generation complete', {
                 latency: `${totalLatency}ms`,
-                suggestionCount: flirts.suggestions.length
+                suggestionCount: flirts.suggestions.length,
+                historyCount: conversationHistory.length
             });
 
             return {
@@ -65,7 +82,8 @@ class AIOrchestrator {
                     totalLatency,
                     visionModel: 'gpt-4o',
                     flirtingModel: 'grok-4-fast',
-                    timestamp: new Date().toISOString()
+                    timestamp: new Date().toISOString(),
+                    conversationHistoryCount: conversationHistory.length
                 }
             };
 
@@ -79,12 +97,13 @@ class AIOrchestrator {
      * Analyze screenshot(s) with GPT-4O vision
      * @param {Array} images - Array of base64 images
      * @param {String} context - Additional context (profile/chat)
+     * @param {String} contextPrompt - Conversation history context
      * @returns {Promise<String>} Analysis text
      */
-    async analyzeWithGPT4O(images, context) {
+    async analyzeWithGPT4O(images, context, contextPrompt = '') {
         const isProfile = !context || context.toLowerCase().includes('profile');
         const isMultiScreenshot = images.length > 1;
-        
+
         let prompt;
         if (isProfile) {
             prompt = "Analyze this dating profile screenshot. Provide: name, age, bio, interests, personality, visual context.";
@@ -114,6 +133,11 @@ Your task is to extract the COMPLETE conversation context by reading ALL screens
 Provide a comprehensive analysis that captures ALL important details from the entire conversation across all screenshots. Be specific about names, places, times, and activities mentioned.`;
         } else {
             prompt = "Analyze this dating app chat screenshot. Provide: conversation context, relationship stage, her personality/interests, what she's looking for, conversation tone.";
+        }
+
+        // Add conversation history context if available
+        if (contextPrompt && contextPrompt !== 'No previous conversation history.') {
+            prompt = `${contextPrompt}\n\nNOW ANALYZE THIS NEW SCREENSHOT:\n${prompt}`;
         }
 
         const messages = [
@@ -157,11 +181,12 @@ Provide a comprehensive analysis that captures ALL important details from the en
      * @param {String} analysis - GPT-4O analysis
      * @param {Array} previousSuggestions - Previous suggestions (for refresh)
      * @param {Object} userPreferences - User preferences (tone, style)
+     * @param {String} contextPrompt - Conversation history context
      * @returns {Promise<Object>} { suggestions, reasoning }
      */
-    async generateWithGrok(analysis, previousSuggestions = [], userPreferences = {}) {
+    async generateWithGrok(analysis, previousSuggestions = [], userPreferences = {}, contextPrompt = '') {
         const systemPrompt = this.buildGrokSystemPrompt(userPreferences);
-        const userPrompt = this.buildGrokUserPrompt(analysis, previousSuggestions);
+        const userPrompt = this.buildGrokUserPrompt(analysis, previousSuggestions, contextPrompt);
 
         const response = await axios.post(
             `${this.grokApiUrl}/chat/completions`,
@@ -256,9 +281,16 @@ OUTPUT FORMAT (JSON):
     /**
      * Build Grok user prompt
      */
-    buildGrokUserPrompt(analysis, previousSuggestions) {
-        let prompt = `Based on this profile/chat analysis, create 3 flirty messages:\n\n${analysis}\n\n`;
-        
+    buildGrokUserPrompt(analysis, previousSuggestions, contextPrompt = '') {
+        let prompt = '';
+
+        // Add conversation history context if available
+        if (contextPrompt && contextPrompt !== 'No previous conversation history.') {
+            prompt += `${contextPrompt}\n\n`;
+        }
+
+        prompt += `Based on this profile/chat analysis, create 3 flirty messages:\n\n${analysis}\n\n`;
+
         if (previousSuggestions && previousSuggestions.length > 0) {
             prompt += `IMPORTANT: DO NOT repeat these previous suggestions:\n`;
             previousSuggestions.forEach((s, i) => {
@@ -268,7 +300,7 @@ OUTPUT FORMAT (JSON):
         }
 
         prompt += `Provide exactly 3 suggestions in JSON format.`;
-        
+
         return prompt;
     }
 }
