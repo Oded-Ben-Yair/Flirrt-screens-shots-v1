@@ -169,14 +169,16 @@ class ScreenshotCaptureService {
                     FlirtSuggestion(
                         id: flirt.id,
                         text: flirt.text,
+                        tone: flirt.tone,
                         confidence: flirt.confidence,
                         reasoning: flirt.reasoning,
-                        references: flirt.references
+                        createdAt: flirt.createdAt,
+                        suggestionType: flirt.suggestionType
                     )
                 }
 
-                // Share with keyboard via App Groups
-                self.shareSuggestionsWithKeyboard(suggestions)
+                // Phase 3: Share full response with session metadata
+                self.shareSuggestionsWithKeyboard(suggestions, sessionMetadata: result.metadata?.session)
 
                 // Notify keyboard to refresh
                 self.notifyKeyboard()
@@ -194,27 +196,45 @@ class ScreenshotCaptureService {
         }
     }
 
-    private func shareSuggestionsWithKeyboard(_ suggestions: [FlirtSuggestion]) {
+    private func shareSuggestionsWithKeyboard(_ suggestions: [FlirtSuggestion], sessionMetadata: SessionMetadata?) {
         guard let sharedDefaults = UserDefaults(suiteName: appGroupID) else {
             print("❌ Failed to access App Group")
             return
         }
 
         do {
-            // Encode suggestions
             let encoder = JSONEncoder()
-            let data = try encoder.encode(suggestions)
 
-            // Save to App Group
-            sharedDefaults.set(data, forKey: "latestSuggestions")
+            // Legacy: Save suggestions alone for backwards compatibility
+            let suggestionsData = try encoder.encode(suggestions)
+            sharedDefaults.set(suggestionsData, forKey: "latestSuggestions")
+
+            // Phase 3: Save full response with session metadata
+            if let sessionMetadata = sessionMetadata {
+                let responseData = KeyboardResponseData(
+                    suggestions: suggestions,
+                    session: sessionMetadata
+                )
+                let fullResponseData = try encoder.encode(responseData)
+                sharedDefaults.set(fullResponseData, forKey: "latestResponse")
+
+                print("✅ Shared \(suggestions.count) suggestions + session metadata (count: \(sessionMetadata.screenshotCount), quality: \(sessionMetadata.qualityLevel ?? "unknown"))")
+            } else {
+                print("✅ Shared \(suggestions.count) suggestions (no session metadata)")
+            }
+
             sharedDefaults.set(Date(), forKey: "lastUpdate")
             sharedDefaults.synchronize()
-
-            print("✅ Shared \(suggestions.count) suggestions with keyboard via App Group")
 
         } catch {
             print("❌ Failed to encode suggestions: \(error.localizedDescription)")
         }
+    }
+
+    // Phase 3: Response data structure for keyboard
+    private struct KeyboardResponseData: Codable {
+        let suggestions: [FlirtSuggestion]
+        let session: SessionMetadata
     }
 
     private func notifyKeyboard() {

@@ -56,6 +56,47 @@ class KeyboardViewController: UIInputViewController {
         return label
     }()
 
+    // MARK: - Phase 3: Progress Indicator UI
+    private lazy var progressContainerView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .secondarySystemBackground
+        view.layer.cornerRadius = 8
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.isHidden = true
+        return view
+    }()
+
+    private lazy var progressLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Context: 1/3 screenshots"
+        label.font = .systemFont(ofSize: 12, weight: .semibold)
+        label.textAlignment = .center
+        label.textColor = .secondaryLabel
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+
+    private lazy var progressBar: UIProgressView = {
+        let progress = UIProgressView(progressViewStyle: .default)
+        progress.progressTintColor = .systemPink
+        progress.trackTintColor = .systemGray5
+        progress.translatesAutoresizingMaskIntoConstraints = false
+        progress.progress = 0.33
+        return progress
+    }()
+
+    private lazy var contextMessageLabel: UILabel = {
+        let label = UILabel()
+        label.text = ""
+        label.font = .systemFont(ofSize: 11, weight: .regular)
+        label.textAlignment = .center
+        label.textColor = .secondaryLabel
+        label.numberOfLines = 2
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.isHidden = true
+        return label
+    }()
+
     private lazy var suggestionsStack: UIStackView = {
         let stack = UIStackView()
         stack.axis = .vertical
@@ -131,6 +172,12 @@ class KeyboardViewController: UIInputViewController {
         // ✅ ADDED: Keyboard toggle button
         containerView.addSubview(nextKeyboardButton)
 
+        // Phase 3: Progress indicator UI
+        containerView.addSubview(progressContainerView)
+        progressContainerView.addSubview(progressLabel)
+        progressContainerView.addSubview(progressBar)
+        containerView.addSubview(contextMessageLabel)
+
         NSLayoutConstraint.activate([
             // Container
             containerView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -170,7 +217,26 @@ class KeyboardViewController: UIInputViewController {
             nextKeyboardButton.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 12),
             nextKeyboardButton.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -12),
             nextKeyboardButton.widthAnchor.constraint(equalToConstant: 44),
-            nextKeyboardButton.heightAnchor.constraint(equalToConstant: 44)
+            nextKeyboardButton.heightAnchor.constraint(equalToConstant: 44),
+
+            // Phase 3: Progress indicator constraints
+            progressContainerView.topAnchor.constraint(equalTo: instructionLabel.bottomAnchor, constant: 12),
+            progressContainerView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 20),
+            progressContainerView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -20),
+            progressContainerView.heightAnchor.constraint(equalToConstant: 60),
+
+            progressLabel.topAnchor.constraint(equalTo: progressContainerView.topAnchor, constant: 8),
+            progressLabel.leadingAnchor.constraint(equalTo: progressContainerView.leadingAnchor, constant: 12),
+            progressLabel.trailingAnchor.constraint(equalTo: progressContainerView.trailingAnchor, constant: -12),
+
+            progressBar.topAnchor.constraint(equalTo: progressLabel.bottomAnchor, constant: 8),
+            progressBar.leadingAnchor.constraint(equalTo: progressContainerView.leadingAnchor, constant: 12),
+            progressBar.trailingAnchor.constraint(equalTo: progressContainerView.trailingAnchor, constant: -12),
+            progressBar.heightAnchor.constraint(equalToConstant: 4),
+
+            contextMessageLabel.topAnchor.constraint(equalTo: progressContainerView.bottomAnchor, constant: 8),
+            contextMessageLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 20),
+            contextMessageLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -20)
         ])
     }
 
@@ -214,7 +280,23 @@ class KeyboardViewController: UIInputViewController {
             return
         }
 
-        // Check if suggestions are available
+        // Phase 3: Try to load full response with session metadata
+        if let responseData = sharedDefaults.data(forKey: "latestResponse") {
+            do {
+                let decoder = JSONDecoder()
+                let response = try decoder.decode(KeyboardResponseData.self, from: responseData)
+
+                if !response.suggestions.isEmpty {
+                    os_log("✅ Loaded %d suggestions with session metadata from App Group", log: logger, type: .info, response.suggestions.count)
+                    showSuggestions(response.suggestions, sessionMetadata: response.session)
+                    return
+                }
+            } catch {
+                os_log("Failed to decode response with metadata: %@", log: logger, type: .error, error.localizedDescription)
+            }
+        }
+
+        // Fallback: Check if suggestions are available (legacy format)
         guard let suggestionsData = sharedDefaults.data(forKey: "latestSuggestions") else {
             // No suggestions yet - show instruction
             instructionLabel.text = "📸 Open Vibe8 app and capture a screenshot"
@@ -222,14 +304,14 @@ class KeyboardViewController: UIInputViewController {
             return
         }
 
-        // Decode suggestions
+        // Decode suggestions (legacy)
         do {
             let decoder = JSONDecoder()
             let loadedSuggestions = try decoder.decode([FlirtSuggestion].self, from: suggestionsData)
 
             if !loadedSuggestions.isEmpty {
-                os_log("✅ Loaded %d suggestions from App Group", log: logger, type: .info, loadedSuggestions.count)
-                showSuggestions(loadedSuggestions)
+                os_log("✅ Loaded %d suggestions from App Group (legacy)", log: logger, type: .info, loadedSuggestions.count)
+                showSuggestions(loadedSuggestions, sessionMetadata: nil)
             }
         } catch {
             os_log("Failed to decode suggestions: %@", log: logger, type: .error, error.localizedDescription)
@@ -268,7 +350,7 @@ class KeyboardViewController: UIInputViewController {
         suggestionsStack.isHidden = true
     }
 
-    private func showSuggestions(_ newSuggestions: [FlirtSuggestion]) {
+    private func showSuggestions(_ newSuggestions: [FlirtSuggestion], sessionMetadata: SessionMetadata?) {
         suggestions = newSuggestions
 
         instructionLabel.isHidden = true
@@ -276,6 +358,14 @@ class KeyboardViewController: UIInputViewController {
         statusLabel.text = "Tap a suggestion to use it:"
         statusLabel.textColor = .systemGreen
         activityIndicator.stopAnimating()
+
+        // Phase 3: Display progress indicator if session metadata available
+        if let session = sessionMetadata {
+            updateProgressIndicator(session: session)
+        } else {
+            progressContainerView.isHidden = true
+            contextMessageLabel.isHidden = true
+        }
 
         // Clear existing suggestions
         suggestionsStack.arrangedSubviews.forEach { $0.removeFromSuperview() }
@@ -287,6 +377,41 @@ class KeyboardViewController: UIInputViewController {
         }
 
         suggestionsStack.isHidden = false
+    }
+
+    // Phase 3: Update progress indicator based on session metadata
+    private func updateProgressIndicator(session: SessionMetadata) {
+        let count = session.screenshotCount
+        let progress = Float(count) / 3.0
+
+        progressLabel.text = "Context: \(count)/3 screenshots"
+        progressBar.progress = min(progress, 1.0)
+
+        // Color progression: pink -> green as context improves
+        if count >= 3 {
+            progressBar.progressTintColor = .systemGreen
+            progressLabel.textColor = .systemGreen
+        } else if count >= 2 {
+            progressBar.progressTintColor = .systemOrange
+            progressLabel.textColor = .systemOrange
+        } else {
+            progressBar.progressTintColor = .systemPink
+            progressLabel.textColor = .secondaryLabel
+        }
+
+        progressContainerView.isHidden = false
+
+        // Show context request message if more context needed
+        if session.needsMoreContext, let message = session.contextMessage {
+            contextMessageLabel.text = message
+            contextMessageLabel.isHidden = false
+        } else if let unlockMessage = session.unlockMessage {
+            contextMessageLabel.text = unlockMessage
+            contextMessageLabel.textColor = .systemGreen
+            contextMessageLabel.isHidden = false
+        } else {
+            contextMessageLabel.isHidden = true
+        }
     }
 
     private func createSuggestionButton(suggestion: FlirtSuggestion, index: Int) -> UIButton {
@@ -385,4 +510,18 @@ struct FlirtSuggestion: Codable {
     let confidence: Double
     let reasoning: String?
     let references: [String]?
+}
+
+// Phase 3: Session metadata for progress tracking
+struct SessionMetadata: Codable {
+    let screenshotCount: Int
+    let needsMoreContext: Bool
+    let contextMessage: String?
+    let contextScore: Double?
+    let unlockMessage: String?
+}
+
+struct KeyboardResponseData: Codable {
+    let suggestions: [FlirtSuggestion]
+    let session: SessionMetadata?
 }

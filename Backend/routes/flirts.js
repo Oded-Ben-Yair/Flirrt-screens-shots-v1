@@ -102,15 +102,21 @@ router.post('/', async (req, res) => {
             }
         };
 
-        // Add session metadata if available
+        // Add session metadata if available (Phase 3: Enhanced gamification)
         if (session) {
+            const currentCount = session.screenshot_count + 1; // +1 for current screenshot
             response.session = {
                 sessionId: session.id,
-                screenshotCount: session.screenshot_count + 1, // +1 for current screenshot
+                screenshotCount: currentCount,
                 needsMoreContext,
                 contextMessage: needsMoreContext
                     ? generateContextRequestMessage(session.screenshot_count)
-                    : null
+                    : null,
+                // Phase 3: Gamification enhancements
+                unlockMessage: generateUnlockMessage(currentCount),
+                contextScore: calculateContextScore(currentCount, session),
+                progressPercentage: Math.min((currentCount / 3.0) * 100, 100).toFixed(0),
+                qualityLevel: currentCount >= 3 ? 'premium' : currentCount >= 2 ? 'enhanced' : 'basic'
             };
         }
 
@@ -160,6 +166,39 @@ function generateContextRequestMessage(screenshotCount) {
         return "Good! You can share one more screenshot for even better context-aware suggestions.";
     }
     return null;
+}
+
+/**
+ * Phase 3: Generate unlock/gamification messages
+ * @param {number} screenshotCount - Current screenshot count
+ * @returns {string|null}
+ */
+function generateUnlockMessage(screenshotCount) {
+    if (screenshotCount === 1) {
+        return "🔓 Context level 1 unlocked! One more for premium suggestions!";
+    } else if (screenshotCount === 2) {
+        return "🎯 Context level 2 unlocked! One more for maximum context!";
+    } else if (screenshotCount >= 3) {
+        return "⭐ Premium context unlocked! Maximum quality suggestions!";
+    }
+    return null;
+}
+
+/**
+ * Phase 3: Calculate context score (0-1 scale)
+ * @param {number} screenshotCount - Current screenshot count
+ * @param {Object} session - Session object
+ * @returns {number}
+ */
+function calculateContextScore(screenshotCount, session) {
+    // Base score from screenshot count (0.33, 0.66, 1.0)
+    const baseScore = Math.min(screenshotCount / 3.0, 1.0);
+
+    // Bonus for session activity (how recent the screenshots are)
+    const sessionAge = session.updated_at ? (new Date() - new Date(session.updated_at)) / 1000 / 60 : 0; // minutes
+    const freshnessBonus = sessionAge < 5 ? 0.1 : 0; // 10% bonus if within 5 minutes
+
+    return Math.min(baseScore + freshnessBonus, 1.0);
 }
 
 module.exports = router;

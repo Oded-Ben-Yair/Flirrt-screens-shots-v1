@@ -164,6 +164,8 @@ struct ResponseMetadata: Codable, Sendable {
     let generatedAt: String?
     let mock: Bool?
     let mockReason: String?
+    // Phase 3: Session metadata for progress tracking
+    let session: SessionMetadata?
 
     enum CodingKeys: String, CodingKey {
         case suggestionType = "suggestion_type"
@@ -173,6 +175,32 @@ struct ResponseMetadata: Codable, Sendable {
         case generatedAt = "generated_at"
         case mock
         case mockReason = "mock_reason"
+        case session
+    }
+}
+
+// MARK: - SessionMetadata (Phase 3)
+
+/// Session metadata for multi-screenshot context tracking
+struct SessionMetadata: Codable, Sendable {
+    let sessionId: String?
+    let screenshotCount: Int
+    let needsMoreContext: Bool
+    let contextMessage: String?
+    let contextScore: Double?
+    let unlockMessage: String?
+    let progressPercentage: String?
+    let qualityLevel: String?
+
+    enum CodingKeys: String, CodingKey {
+        case sessionId
+        case screenshotCount
+        case needsMoreContext
+        case contextMessage
+        case contextScore
+        case unlockMessage
+        case progressPercentage
+        case qualityLevel
     }
 }
 
