@@ -1,0 +1,140 @@
+{
+  "scenario_id": "06",
+  "name": "Late Night Hookup",
+  "description": "Testing AI's ability to read late-night sexual intent and suggest escalation without being crude",
+  "difficulty": "medium",
+  "context_type": "late_night_hookup",
+  "sexual_tension_level": "high",
+  "conversation_stage": "advanced",
+  "total_screenshots": 3,
+  "conversation_flow": {
+    "stage_1": {
+      "screenshot_index": 1,
+      "time": "11:47 PM",
+      "message_count": 3,
+      "sexual_tension": "medium-high",
+      "context_cues": [
+        "Late night timing (11:47 PM)",
+        "Direct flirtation ('you up?')",
+        "Quick responses",
+        "Emoji usage suggesting playfulness"
+      ],
+      "key_hooks": [
+        "Late night = hookup intent",
+        "Both parties online and responsive",
+        "Casual, playful tone established"
+      ],
+      "expected_ai_behavior": {
+        "should_recognize": [
+          "Late night hookup scenario",
+          "High sexual interest from both parties",
+          "Need to escalate without being too forward"
+        ],
+        "should_suggest": [
+          "Playful responses that maintain sexual tension",
+          "Subtle escalation (not crude)",
+          "Keep momentum going"
+        ],
+        "should_avoid": [
+          "Overly romantic suggestions",
+          "Crude or explicit content",
+          "Slowing down the pace"
+        ]
+      }
+    },
+    "stage_2": {
+      "screenshot_index": 2,
+      "time": "11:52 PM",
+      "message_count": 6,
+      "sexual_tension": "high",
+      "context_cues": [
+        "More explicit flirtation",
+        "Physical attraction mentioned",
+        "Logistics being discussed ('what are you doing?')",
+        "Continued late night timing"
+      ],
+      "key_hooks": [
+        "Transition from flirting to logistics",
+        "Both parties interested in meeting",
+        "Sexual tension building"
+      ],
+      "expected_ai_behavior": {
+        "should_recognize": [
+          "Conversation moving toward potential meetup",
+          "Need to balance interest with not being desperate",
+          "Maintaining playful sexual tension"
+        ],
+        "should_suggest": [
+          "Responses that suggest availability without desperation",
+          "Continue flirtatious banter",
+          "Subtle logistics discussion"
+        ],
+        "should_avoid": [
+          "Being too eager or desperate",
+          "Explicit sexual content",
+          "Serious relationship talk"
+        ]
+      }
+    },
+    "stage_3": {
+      "screenshot_index": 3,
+      "time": "11:58 PM",
+      "message_count": 9,
+      "sexual_tension": "very_high",
+      "context_cues": [
+        "Logistics being finalized",
+        "Clear hookup intent from both sides",
+        "Playful sexual references",
+        "Time/location discussion"
+      ],
+      "key_hooks": [
+        "Closing the deal without being awkward",
+        "Maintaining attraction through logistics",
+        "Setting clear expectations"
+      ],
+      "expected_ai_behavior": {
+        "should_recognize": [
+          "This is the closing phase",
+          "Need to keep it smooth and confident",
+          "Balance logistics with maintaining attraction"
+        ],
+        "should_suggest": [
+          "Confident but casual logistics discussion",
+          "Keep sexual tension alive during planning",
+          "Make it easy for both parties to say yes"
+        ],
+        "should_avoid": [
+          "Awkward explicit discussion",
+          "Overthinking the logistics",
+          "Killing the vibe with too much planning"
+        ]
+      }
+    }
+  },
+  "context_progression_test": {
+    "1_screenshot": {
+      "context_available": "Limited - only see initial late night exchange",
+      "expected_quality": "Good suggestions for late night flirting, but may miss the escalation pattern",
+      "limitations": "AI doesn't know if this is first late night contact or part of ongoing pattern"
+    },
+    "2_screenshots": {
+      "context_available": "Better - sees escalation from flirting to logistics discussion",
+      "expected_quality": "Significantly improved - understands hookup intent and escalation pattern",
+      "improvements": "Can suggest responses that bridge flirting to logistics smoothly"
+    },
+    "3_screenshots": {
+      "context_available": "Complete - full arc from initial contact to closing logistics",
+      "expected_quality": "Best - understands full context and can suggest optimal closing moves",
+      "improvements": "Knows relationship dynamic, can maintain sexual tension while handling logistics"
+    }
+  },
+  "quality_metrics": {
+    "tone_appropriateness": "Playful, confident, sexually suggestive without being crude",
+    "escalation_handling": "Smooth progression from flirting to logistics without awkwardness",
+    "timing_awareness": "Recognizes late night timing and adjusts suggestions accordingly",
+    "desperation_avoidance": "Maintains cool, confident vibe without seeming too eager"
+  },
+  "created_at": "2025-10-19",
+  "test_priority": "high",
+  "notes": "Critical test for AI's ability to read sexual subtext and timing cues"
+}

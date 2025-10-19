@@ -1,0 +1,195 @@
+SCENARIO 08: AGGRESSIVE OPENER
+==============================
+
+CONVERSATION FLOW VALIDATION
+----------------------------
+
+=== SCREENSHOT 1: Aggressive Frame Test (9:20 PM) ===
+
+MESSAGE 1 (9:20 PM) - HER:
+"I don't usually do this but... you're exactly my type and I had to say something 😈"
+
+CONTEXT CUES:
+- Very forward opener
+- "I don't usually do this" = disqualifier/plausible deniability
+- "exactly my type" = high interest signal
+- Devil emoji = sexual framing
+- Evening timing (9:20 PM)
+- This is a FRAME TEST / confidence screen
+
+MESSAGE 2 (9:21 PM) - HER:
+"fair warning: I'm trouble 😏"
+
+CONTEXT CUES:
+- Double message = high investment from her
+- "I'm trouble" = frame test continues
+- Winking emoji = playful challenge
+- Testing if he'll supplicate or match energy
+
+EXPECTED AI SUGGESTIONS (Screenshot 1 only):
+✓ Match her energy confidently
+✓ Slight reframe to establish his frame
+✓ Show sexual comfort without being crude
+✓ Playful, not shocked or try-hard
+
+COMMON AI MISTAKES (Screenshot 1 only):
+✗ Being shocked/awkward ("wow, um, thanks!")
+✗ Being too crude ("let's fuck then")
+✗ Supplicating ("really? I'm flattered!")
+✗ Generic boring response ("hey, what's up?")
+
+CRITICAL: This is testing FRAME CONTROL and confidence
+
+
+=== SCREENSHOT 2: Frame Battle Continues (9:25 PM) ===
+
+MESSAGE 3 (9:22 PM) - HIM:
+"funny, I was just thinking the same thing about you... minus the 'I don't usually do this' part 😏"
+
+CONTEXT CUES:
+- Matches her energy without supplicating
+- Playful reframe (calling out her disqualifier)
+- Shows confidence and wit
+- Sexual comfort demonstrated
+
+MESSAGE 4 (9:23 PM) - HER:
+"oh really? so you DO usually do this? 😂"
+
+CONTEXT CUES:
+- She's testing again (frame battle continues)
+- Laughing emoji = still playful, not offended
+- Turning his words against him
+- Still high engagement = good sign
+
+MESSAGE 5 (9:25 PM) - HER:
+"I like your confidence though 😘"
+
+CONTEXT CUES:
+- BUYING SIGNAL - she approves of frame control
+- "I like" = explicit positive feedback
+- Kiss emoji = escalation approval
+- Tests are softening
+
+EXPECTED AI SUGGESTIONS (Screenshots 1-2):
+✓ Continue witty banter
+✓ Maintain confident frame
+✓ Don't get defensive about testing
+✓ Keep it playful and sexual
+
+IMPROVEMENTS vs Screenshot 1:
++ Knows this is playful testing, not serious
++ Sees she responds well to confidence
++ Can calibrate continued banter level
+
+
+=== SCREENSHOT 3: Transition to Connection (9:32 PM) ===
+
+MESSAGE 6 (9:27 PM) - HIM:
+"confidence is just honesty with style 😏 so what makes me 'exactly your type'?"
+
+CONTEXT CUES:
+- Maintains frame while showing genuine interest
+- Witty line shows personality
+- Asking about her = building connection
+- Smooth transition from testing to rapport
+
+MESSAGE 7 (9:29 PM) - HER:
+"tall, looks like you take care of yourself, and apparently quick with the comebacks... deadly combo"
+
+CONTEXT CUES:
+- Genuine compliments = past the testing phase
+- Specific attractions = real interest
+- "deadly combo" = playful but genuine
+- She's investing in connection now
+
+MESSAGE 8 (9:32 PM) - HER:
+"so what are you up to tonight? besides talking to trouble on tinder 😈"
+
+CONTEXT CUES:
+- LOGISTICS QUESTION = major buying signal
+- Still playful but now action-oriented
+- "talking to trouble" = maintains sexy frame
+- Ready to potentially meet
+
+EXPECTED AI SUGGESTIONS (All 3 screenshots):
+✓ Show genuine interest while maintaining edge
+✓ Smooth logistics introduction
+✓ Balance playfulness with connection
+✓ Don't drop the confident frame completely
+
+COMPLETE CONTEXT ADVANTAGES:
++ Sees full test cycle: aggressive → testing → connection
++ Knows what she responds to (confidence, wit)
++ Understands when to transition to logistics
++ Can suggest optimal closing approach
+
+
+=== VALIDATION CRITERIA ===
+
+FRAME CONTROL:
+✓ Doesn't supplicate to her aggressive frame
+✓ Maintains confident, playful energy
+✓ Not defensive when tested
+✓ Slight reframes show strong frame
+
+CALIBRATION:
+✓ Matches her energy without being crude
+✓ Reads buying signals correctly
+✓ Knows when testing ends, connection begins
+✓ Smooth transition to logistics
+
+WIT QUALITY:
+✓ Clever responses show personality
+✓ Not try-hard or over-thinking
+✓ Natural, conversational humor
+✓ Playful without being goofy
+
+TRANSITION SMOOTHNESS:
+✓ Moves from testing to connection naturally
+✓ Introduces logistics at right moment
+✓ Maintains sexual tension throughout
+✓ Doesn't become boring after passing tests
+
+
+=== AI QUALITY SCORING ===
+
+1 SCREENSHOT (Minimal Context):
+EXPECTED SCORE: 4-6/10
+RISK: High chance of bad suggestions
+- May suggest supplicating responses
+- Could be too crude or too awkward
+- Doesn't know this is testing
+- Might suggest boring/safe responses
+
+2 SCREENSHOTS (Better Context):
+EXPECTED SCORE: 7-8/10
+- Understands playful testing dynamic
+- Sees she responds to confidence
+- Can calibrate banter appropriately
+- Still might miss logistics timing
+
+3 SCREENSHOTS (Complete Context):
+EXPECTED SCORE: 9-10/10
+- Knows full test cycle
+- Perfect calibration of confidence
+- Optimal logistics timing
+- Understands her personality/preferences
+
+
+=== NOTES FOR TESTING ===
+
+- HARDEST scenario for AI to handle correctly
+- Tests frame control, confidence, calibration
+- High risk of bad suggestions without full context
+- Critical that AI doesn't:
+  * Supplicate or act shocked
+  * Be crude or explicit
+  * Get defensive or argumentative
+  * Drop sexual tension after passing tests
+- Should demonstrate clear improvement with more screenshots
+
+---
+Created: 2025-10-19
+Scenario Type: Aggressive Opener
+Difficulty: Hard
+Priority: Critical

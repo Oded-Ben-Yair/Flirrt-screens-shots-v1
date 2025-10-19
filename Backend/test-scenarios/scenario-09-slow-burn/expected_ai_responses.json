@@ -1,0 +1,206 @@
+{
+  "scenario_id": "09",
+  "name": "Slow Burn",
+  "test_stages": {
+    "stage_1": {
+      "screenshot_count": 1,
+      "context": "Early rapport building about hiking, she said 'I'd probably just slow you down'",
+      "expected_quality_level": "good",
+      "good_responses": [
+        {
+          "text": "somehow I doubt that... besides, the best views are worth slowing down for 😊",
+          "score": 9,
+          "reasoning": "Perfect - builds her up, subtle first flirtation, still gentle and rapport-focused"
+        },
+        {
+          "text": "I'm more about enjoying the journey than rushing to the summit anyway 😊",
+          "score": 8,
+          "reasoning": "Philosophical callback to hiking, warm tone, no pressure, genuine"
+        },
+        {
+          "text": "I have a feeling you're being modest... what's your favorite local trail?",
+          "score": 7,
+          "reasoning": "Complimentary, continues rapport building, good question but less personality"
+        }
+      ],
+      "bad_responses": [
+        {
+          "text": "damn, you're gorgeous... want to meet up? 😍",
+          "score": 2,
+          "reasoning": "WAY too fast - kills slow burn dynamic, seems only interested in looks"
+        },
+        {
+          "text": "oh that's fine, we can just hang out instead",
+          "score": 4,
+          "reasoning": "Too direct about meeting, misses the pacing, no personality"
+        },
+        {
+          "text": "yeah hiking can be tough",
+          "score": 3,
+          "reasoning": "Boring, agreement without building, no connection deepening"
+        }
+      ],
+      "quality_criteria": {
+        "pacing": "Gentle escalation, no rushing to flirtation or logistics",
+        "rapport": "Focus on building genuine connection first",
+        "patience": "Don't push for date/sexual content yet",
+        "authenticity": "Show genuine interest in her stories/interests"
+      },
+      "common_ai_mistakes": [
+        "Escalating too quickly to sexual content",
+        "Pushing for date too early",
+        "Generic responses without personality",
+        "Missing the rapport-building phase importance"
+      ]
+    },
+    "stage_2": {
+      "screenshot_count": 2,
+      "context": "Now sees she suggested hiking together, conversation deepening about cooking and interests",
+      "expected_quality_level": "very_good",
+      "good_responses": [
+        {
+          "text": "I make a mean pasta carbonara... maybe I'll have to prove it sometime 😊",
+          "score": 9,
+          "reasoning": "Perfect pacing - subtle date hint through shared interest, warm tone, not pushy"
+        },
+        {
+          "text": "cooking is my favorite way to unwind after a long hike actually... perfect combo 😊",
+          "score": 8,
+          "reasoning": "Connects their shared interests, builds future scenario implicitly, natural"
+        },
+        {
+          "text": "you're sweet 😊 I love trying new recipes - any cuisine you're particularly good at?",
+          "score": 7,
+          "reasoning": "Warm compliment back, deepens conversation, but maybe less forward than ideal"
+        }
+      ],
+      "bad_responses": [
+        {
+          "text": "want to come over for dinner this weekend?",
+          "score": 4,
+          "reasoning": "Too direct too soon, doesn't match slow burn pacing"
+        },
+        {
+          "text": "yeah I like cooking too",
+          "score": 3,
+          "reasoning": "Boring, no personality, doesn't build connection or escalation"
+        },
+        {
+          "text": "I'd love to cook for you... you're amazing",
+          "score": 4,
+          "reasoning": "Too romantic too soon, seems over-invested for stage of conversation"
+        }
+      ],
+      "quality_criteria": {
+        "escalation": "Gradual, subtle increase in romantic framing",
+        "callbacks": "Reference earlier conversation points naturally",
+        "personality": "Share genuine interests and stories",
+        "future_pacing": "Hint at future together without being pushy"
+      },
+      "context_improvements": [
+        "Knows she suggested meeting (major green light)",
+        "Sees shared interests building",
+        "Can suggest escalation that fits established rhythm"
+      ]
+    },
+    "stage_3": {
+      "screenshot_count": 3,
+      "context": "Full 2+ hour conversation, inside jokes established, she called him 'dangerous', strong connection built",
+      "expected_quality_level": "excellent",
+      "good_responses": [
+        {
+          "text": "tell you what - I'll cook, you bring the wine, and we can plan our hiking trip over dinner? Saturday work?",
+          "score": 10,
+          "reasoning": "PERFECT - leverages all shared interests, confident but natural, specific day, callback to earlier conversation"
+        },
+        {
+          "text": "dangerous is my middle name 😏 how about we test that theory this weekend? I'll make that carbonara I mentioned",
+          "score": 9,
+          "reasoning": "Playful callback, confident date ask, references specific earlier point, good timing"
+        },
+        {
+          "text": "since we're both clearly dangerous people 😏 we should probably supervise each other... how's Saturday for that dinner?",
+          "score": 9,
+          "reasoning": "Uses her 'dangerous' comment, playful, smooth logistics, great callback"
+        }
+      ],
+      "bad_responses": [
+        {
+          "text": "want to meet up sometime?",
+          "score": 4,
+          "reasoning": "Generic, doesn't leverage 2+ hours of conversation, vague, wastes built connection"
+        },
+        {
+          "text": "so can I take you out?",
+          "score": 5,
+          "reasoning": "Too formal, doesn't reference shared interests, wastes all the rapport"
+        },
+        {
+          "text": "I really like talking to you, maybe we could grab coffee?",
+          "score": 5,
+          "reasoning": "Coffee is too casual after this connection, doesn't leverage cooking/shared interests"
+        }
+      ],
+      "quality_criteria": {
+        "callback_density": "Reference multiple earlier conversation points",
+        "personalization": "Date suggestion based on shared interests",
+        "confidence": "Strong ask after building foundation",
+        "specificity": "Specific day/activity, not vague 'sometime'"
+      },
+      "context_improvements": [
+        "Sees full conversation arc (2+ hours)",
+        "Knows all inside jokes and shared interests",
+        "Can suggest perfectly personalized, timed date ask",
+        "Understands her personality and humor style completely"
+      ]
+    }
+  },
+  "overall_quality_metrics": {
+    "pacing": {
+      "description": "Gradual escalation that feels natural over extended time",
+      "weight": 0.3,
+      "test": "No rushed jumps, respects 2+ hour build-up"
+    },
+    "callback_usage": {
+      "description": "References earlier conversation points to show attention",
+      "weight": 0.25,
+      "test": "Date suggestions should incorporate shared interests discussed"
+    },
+    "escalation_calibration": {
+      "description": "Reads receptiveness and adjusts accordingly",
+      "weight": 0.2,
+      "test": "Gentle testing, advances when positive signals received"
+    },
+    "connection_depth": {
+      "description": "Builds genuine rapport before sexual tension",
+      "weight": 0.15,
+      "test": "Shows genuine interest in her stories and personality"
+    },
+    "personalization": {
+      "description": "Date suggestions deeply personalized to conversation",
+      "weight": 0.1,
+      "test": "Should feel like natural culmination of everything discussed"
+    }
+  },
+  "expected_score_progression": {
+    "1_screenshot": {
+      "expected_range": "5-6/10",
+      "limitations": "May escalate too fast or stay too platonic, missing pacing strategy"
+    },
+    "2_screenshots": {
+      "expected_range": "7-8/10",
+      "improvements": "Understands slow burn pacing, sees some shared interests"
+    },
+    "3_screenshots": {
+      "expected_range": "9-10/10",
+      "optimal": "Perfect pacing, fully personalized suggestions, optimal callback usage"
+    }
+  },
+  "pacing_guidelines": {
+    "0-30_minutes": "Pure rapport building, no flirtation",
+    "30-60_minutes": "Subtle flirtation can begin",
+    "60-90_minutes": "Romantic framing emerging",
+    "90-120_minutes": "Strong connection, ready for date ask",
+    "critical_note": "AI must recognize time progression and adjust suggestions accordingly"
+  }
+}

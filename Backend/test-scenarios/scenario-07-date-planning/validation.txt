@@ -1,0 +1,214 @@
+SCENARIO 07: DATE PLANNING
+==========================
+
+CONVERSATION FLOW VALIDATION
+----------------------------
+
+=== SCREENSHOT 1: Transition to Planning (2:30 PM) ===
+
+MESSAGE 1 (2:15 PM) - HER:
+"haha yeah that movie was so bad it was good 😂"
+
+CONTEXT CUES:
+- Daytime conversation (2:15 PM)
+- Discussing shared interests (movies)
+- Positive, upbeat tone
+- Good rapport established
+
+MESSAGE 2 (2:18 PM) - HIM:
+"right? we should have a bad movie night sometime"
+
+CONTEXT CUES:
+- Natural date suggestion through shared interest
+- Casual "sometime" = not too pushy
+- Builds on current conversation
+- Opens door for her to agree
+
+MESSAGE 3 (2:20 PM) - HER:
+"omg yes! I know the perfect terrible rom-com 😊"
+
+CONTEXT CUES:
+- Enthusiastic agreement ("omg yes!")
+- Contributing to date idea = genuine interest
+- Smiling emoji = positive energy
+- Quick response = high engagement
+
+MESSAGE 4 (2:30 PM) - HIM:
+"perfect! when are you free?"
+
+CONTEXT CUES:
+- Moving to logistics confidently
+- Direct but not pushy
+- Builds on her enthusiasm
+- Puts ball in her court for timing
+
+EXPECTED AI SUGGESTIONS (Screenshot 1 only):
+✓ Enthusiastic but not desperate
+✓ Specific day/time suggestions
+✓ Keep conversation fun during planning
+✓ Show thoughtfulness in planning
+
+LIMITATIONS (Screenshot 1 only):
+✗ Doesn't know what interests they share
+✗ Missing context of how they met
+✗ Can't see personality compatibility
+
+
+=== SCREENSHOT 2: Venue Discussion (3:15 PM) ===
+
+MESSAGE 5 (2:35 PM) - HER:
+"I'm free Friday or Saturday night!"
+
+CONTEXT CUES:
+- Offering options = making it easy
+- Weekend nights = taking date seriously
+- Exclamation point = enthusiasm maintained
+
+MESSAGE 6 (2:40 PM) - HIM:
+"Friday works! Want to grab dinner first? There's this cool Thai place"
+
+CONTEXT CUES:
+- Decisive choice (Friday)
+- Adding dinner = proper date, not just movies
+- Specific venue suggestion = thoughtfulness
+- Not asking permission, offering option
+
+MESSAGE 7 (3:00 PM) - HER:
+"I love Thai food! Where is it?"
+
+CONTEXT CUES:
+- Positive response to suggestion
+- Practical question about location
+- Still engaged and enthusiastic
+
+MESSAGE 8 (3:15 PM) - HIM:
+"Downtown near the theater. We could do 7pm dinner, 9pm movie?"
+
+CONTEXT CUES:
+- Logistics coming together
+- Specific timeline = planning competence
+- Makes it easy to say yes
+- Reasonable timing
+
+EXPECTED AI SUGGESTIONS (Screenshots 1-2):
+✓ Venue ideas that match her interests
+✓ Thoughtful timing/logistics
+✓ Keep flirtatious energy alive
+✓ Show planning competence
+
+IMPROVEMENTS vs Screenshot 1:
++ Knows she loves Thai food
++ Understands her enthusiasm level
++ Can suggest personalized plan
+
+
+=== SCREENSHOT 3: Building Anticipation (4:00 PM) ===
+
+MESSAGE 9 (3:20 PM) - HER:
+"Perfect! I'm excited 😊"
+
+CONTEXT CUES:
+- Clear confirmation
+- Expressing anticipation
+- Positive energy
+
+MESSAGE 10 (3:25 PM) - HIM:
+"Me too! Fair warning though, I'm definitely going to judge your movie choices all night 😏"
+
+CONTEXT CUES:
+- Matching excitement
+- Playful teasing = maintaining attraction
+- Callback to movie theme
+- Building anticipation for interaction
+
+MESSAGE 11 (3:30 PM) - HER:
+"oh please, you're the one who recommended sharknado 😂"
+
+CONTEXT CUES:
+- Playful banter continues
+- Remembering earlier conversation
+- Comfortable teasing = good rapport
+
+MESSAGE 12 (4:00 PM) - HER:
+"can't wait for Friday!"
+
+CONTEXT CUES:
+- Reinforcing excitement
+- Keeping conversation alive
+- Clear anticipation building
+
+EXPECTED AI SUGGESTIONS (All 3 screenshots):
+✓ Build anticipation for date
+✓ Playful teasing about date activities
+✓ Keep conversation going until Friday
+✓ Reference shared interests/inside jokes
+
+COMPLETE CONTEXT ADVANTAGES:
++ Knows full shared interest profile
++ Sees inside jokes developing
++ Understands her personality/humor style
++ Can maintain momentum until date
+
+
+=== VALIDATION CRITERIA ===
+
+THOUGHTFULNESS:
+✓ Date suggestions show effort and personalization
+✓ Builds on shared interests
+✓ Considers logistics (location, timing)
+✓ Makes it easy and comfortable
+
+LOGISTICS EFFICIENCY:
+✓ Handles planning smoothly
+✓ Doesn't overthink or over-discuss
+✓ Gets to "yes" without friction
+✓ Maintains conversational flow
+
+ATTRACTION MAINTENANCE:
+✓ Keeps flirtatious energy alive
+✓ Playful teasing mixed with planning
+✓ Doesn't become purely transactional
+✓ Shows personality through venue choices
+
+ANTICIPATION BUILDING:
+✓ Creates excitement for the date
+✓ References upcoming plans playfully
+✓ Maintains conversation momentum
+✓ Makes waiting feel fun, not boring
+
+
+=== AI QUALITY SCORING ===
+
+1 SCREENSHOT (Limited Context):
+EXPECTED SCORE: 6-7/10
+- Can suggest generic date ideas
+- Missing personalization opportunities
+- Doesn't know her interests/preferences
+
+2 SCREENSHOTS (Better Context):
+EXPECTED SCORE: 8/10
+- Knows her interests (Thai food, movies)
+- Can suggest aligned venues
+- Understands enthusiasm level
+
+3 SCREENSHOTS (Complete Context):
+EXPECTED SCORE: 9-10/10
+- Can leverage inside jokes
+- Perfect personalization
+- Knows how to maintain momentum until date
+- Understands full compatibility picture
+
+
+=== NOTES FOR TESTING ===
+
+- Tests AI's ability to handle logistics without killing vibe
+- Should suggest thoughtful, personalized dates
+- Must maintain attraction during practical discussion
+- Should build anticipation, not just confirm details
+- More context = more personalized suggestions
+
+---
+Created: 2025-10-19
+Scenario Type: Date Planning
+Difficulty: Medium
+Priority: High

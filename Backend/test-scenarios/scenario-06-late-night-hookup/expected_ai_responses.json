@@ -1,0 +1,204 @@
+{
+  "scenario_id": "06",
+  "name": "Late Night Hookup",
+  "test_stages": {
+    "stage_1": {
+      "screenshot_count": 1,
+      "context": "Her: 'hey you up? 😏' at 11:47 PM",
+      "expected_quality_level": "good",
+      "good_responses": [
+        {
+          "text": "depends... are you offering something better than sleep? 😏",
+          "score": 9,
+          "reasoning": "Matches her energy, playful challenge, maintains frame, sexually suggestive without crude"
+        },
+        {
+          "text": "couldn't sleep... now I'm definitely not going to 😈",
+          "score": 8,
+          "reasoning": "Shows interest, playful, implies she's the reason, good emoji choice"
+        },
+        {
+          "text": "I am now 😊 what's keeping you up?",
+          "score": 7,
+          "reasoning": "Friendly but maybe too safe, lacks sexual edge for late night context"
+        }
+      ],
+      "bad_responses": [
+        {
+          "text": "yeah just watching netflix",
+          "score": 3,
+          "reasoning": "Boring, kills momentum, doesn't match her playful energy, misses hookup intent"
+        },
+        {
+          "text": "hey beautiful! I'd love to get to know you better",
+          "score": 2,
+          "reasoning": "Too formal/romantic for late night hookup context, seems desperate"
+        },
+        {
+          "text": "wanna come over? 😏",
+          "score": 4,
+          "reasoning": "Too fast/desperate, skips the banter, kills sexual tension by being too direct"
+        },
+        {
+          "text": "yes! I've been thinking about you all day",
+          "score": 2,
+          "reasoning": "Way too eager, desperate, they just matched, unrealistic"
+        }
+      ],
+      "quality_criteria": {
+        "tone": "Playful, confident, sexually suggestive without being crude",
+        "energy_level": "High - match her late night flirtation",
+        "frame": "Confident but not desperate - she pursued him",
+        "pacing": "Quick responses appropriate for late night momentum"
+      },
+      "common_ai_mistakes": [
+        "Being too romantic/relationship-oriented",
+        "Being overly crude or explicit",
+        "Boring responses that kill momentum",
+        "Not recognizing late night timing significance"
+      ]
+    },
+    "stage_2": {
+      "screenshot_count": 2,
+      "context": "Now sees escalation to 'what are you doing?' and 'you should come fix that'",
+      "expected_quality_level": "very_good",
+      "good_responses": [
+        {
+          "text": "I could be convinced... where are you?",
+          "score": 9,
+          "reasoning": "Playful resistance maintains frame, moves to logistics smoothly, not too eager"
+        },
+        {
+          "text": "dangerous words at this hour 😏 send me your address",
+          "score": 8,
+          "reasoning": "Acknowledges timing, confident logistics move, playful tone"
+        },
+        {
+          "text": "well if you insist... I'd hate to leave you bored 😈",
+          "score": 8,
+          "reasoning": "Playful acceptance, maintains sexual tension, confident without desperate"
+        }
+      ],
+      "bad_responses": [
+        {
+          "text": "really?? are you sure?",
+          "score": 3,
+          "reasoning": "Sounds shocked/uncertain, kills confident vibe, seems inexperienced"
+        },
+        {
+          "text": "I'll be there in 5 minutes!",
+          "score": 4,
+          "reasoning": "Too eager, desperate energy, no playfulness"
+        },
+        {
+          "text": "maybe we should get to know each other first?",
+          "score": 2,
+          "reasoning": "Totally wrong context, misses hookup intent, kills momentum"
+        }
+      ],
+      "quality_criteria": {
+        "tone": "Confident but smooth - she invited him over",
+        "logistics": "Move to practical details without killing vibe",
+        "frame": "Slight resistance/challenge maintains attraction",
+        "sexual_tension": "Keep it alive during logistics discussion"
+      },
+      "context_improvements": [
+        "Knows she's serious about meeting (not just flirting)",
+        "Can suggest smooth logistics transition",
+        "Understands mutual hookup intent"
+      ]
+    },
+    "stage_3": {
+      "screenshot_count": 3,
+      "context": "Full conversation: flirting → invitation → logistics finalization",
+      "expected_quality_level": "excellent",
+      "good_responses": [
+        {
+          "text": "just yourself... and maybe some patience 😏",
+          "score": 10,
+          "reasoning": "Perfect close - playful, sexual tension maintained, smooth logistics, confident"
+        },
+        {
+          "text": "I'll bring the wine... you bring those late night thoughts 😈",
+          "score": 9,
+          "reasoning": "Thoughtful (bringing wine), sexy callback, maintains vibe"
+        },
+        {
+          "text": "on my way... fair warning, I'm terrible at leaving early 😏",
+          "score": 9,
+          "reasoning": "Confident, playful forward projection, maintains sexual tension"
+        }
+      ],
+      "bad_responses": [
+        {
+          "text": "okay I'm leaving now!",
+          "score": 4,
+          "reasoning": "Too eager, no playfulness, sounds desperate"
+        },
+        {
+          "text": "can't wait to see you!",
+          "score": 5,
+          "reasoning": "Too romantic/eager for hookup context, lacks edge"
+        },
+        {
+          "text": "should I bring condoms?",
+          "score": 2,
+          "reasoning": "Way too explicit/crude, kills sexual tension, awkward"
+        }
+      ],
+      "quality_criteria": {
+        "tone": "Confident close maintaining playful sexual tension",
+        "logistics": "Handle details smoothly without overthinking",
+        "frame": "Strong to the end - not showing relief or desperation",
+        "anticipation": "Build excitement for meeting without being crude"
+      },
+      "context_improvements": [
+        "Sees full arc from initial contact to close",
+        "Knows her interest level is very high",
+        "Can suggest perfect closing responses",
+        "Understands timing and pacing expectations"
+      ]
+    }
+  },
+  "overall_quality_metrics": {
+    "sexual_calibration": {
+      "description": "Balance sexual tension without being crude",
+      "weight": 0.3,
+      "test": "Responses should be suggestive but not explicit"
+    },
+    "frame_control": {
+      "description": "Maintain confident frame without desperation",
+      "weight": 0.25,
+      "test": "Should seem like prize being won, not desperate to meet"
+    },
+    "timing_awareness": {
+      "description": "Recognize and leverage late night context",
+      "weight": 0.2,
+      "test": "Suggestions should match hookup intent of timing"
+    },
+    "logistics_smoothness": {
+      "description": "Handle practical details without killing vibe",
+      "weight": 0.15,
+      "test": "Move to logistics naturally while maintaining attraction"
+    },
+    "pacing": {
+      "description": "Match high energy late night momentum",
+      "weight": 0.1,
+      "test": "Quick, engaged responses that keep momentum"
+    }
+  },
+  "expected_score_progression": {
+    "1_screenshot": {
+      "expected_range": "6-7/10",
+      "limitations": "May be too cautious or miss hookup context"
+    },
+    "2_screenshots": {
+      "expected_range": "8-9/10",
+      "improvements": "Understands hookup intent, can suggest smooth logistics"
+    },
+    "3_screenshots": {
+      "expected_range": "9-10/10",
+      "optimal": "Perfect calibration of tone, timing, and frame"
+    }
+  }
+}

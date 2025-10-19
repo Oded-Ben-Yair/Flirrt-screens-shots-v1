@@ -1,0 +1,199 @@
+{
+  "scenario_id": "07",
+  "name": "Date Planning",
+  "test_stages": {
+    "stage_1": {
+      "screenshot_count": 1,
+      "context": "Transition from casual chat to date planning - 'when are you free?'",
+      "expected_quality_level": "good",
+      "good_responses": [
+        {
+          "text": "I'm free Friday or Saturday! Any preference?",
+          "score": 8,
+          "reasoning": "Offers options, makes it easy, shows availability without desperation"
+        },
+        {
+          "text": "this weekend works! Want to do Friday evening?",
+          "score": 8,
+          "reasoning": "Specific suggestion, confident decision, keeps momentum"
+        },
+        {
+          "text": "I could do Thursday or Friday night - which works better for you?",
+          "score": 7,
+          "reasoning": "Good options, polite, maybe slightly passive putting ball in her court"
+        }
+      ],
+      "bad_responses": [
+        {
+          "text": "I'm free whenever you want!",
+          "score": 3,
+          "reasoning": "Too accommodating, seems desperate, no leadership"
+        },
+        {
+          "text": "let me check my calendar and get back to you",
+          "score": 4,
+          "reasoning": "Kills momentum, seems over-busy or uninterested"
+        },
+        {
+          "text": "how about tonight?",
+          "score": 5,
+          "reasoning": "Too eager/desperate, doesn't give her time to prepare"
+        }
+      ],
+      "quality_criteria": {
+        "enthusiasm": "Show interest without desperation",
+        "leadership": "Make suggestions, don't just ask questions",
+        "logistics": "Be specific about timing options",
+        "energy": "Maintain upbeat conversation flow"
+      },
+      "common_ai_mistakes": [
+        "Generic date suggestions without personalization",
+        "Being too passive or too aggressive",
+        "Forgetting to maintain flirtatious energy",
+        "Overthinking the logistics"
+      ]
+    },
+    "stage_2": {
+      "screenshot_count": 2,
+      "context": "Now discussing venue options, she mentioned loving Thai food",
+      "expected_quality_level": "very_good",
+      "good_responses": [
+        {
+          "text": "there's this amazing Thai spot downtown I've been wanting to try - we could do dinner there then grab drinks after?",
+          "score": 9,
+          "reasoning": "Specific venue, references her interest, thoughtful plan, offers progression"
+        },
+        {
+          "text": "perfect! I know the best Thai place - they make everything spicy just how it should be 😊",
+          "score": 8,
+          "reasoning": "Shows expertise, personality through food preferences, warm tone"
+        },
+        {
+          "text": "Thai food it is! How about that place near the waterfront? Great food and nice views",
+          "score": 8,
+          "reasoning": "Specific suggestion, adds value (views), romantic setting"
+        }
+      ],
+      "bad_responses": [
+        {
+          "text": "sure, pick any Thai restaurant you like",
+          "score": 3,
+          "reasoning": "Too passive, no leadership, seems like he doesn't care"
+        },
+        {
+          "text": "I don't really know any Thai places",
+          "score": 4,
+          "reasoning": "Doesn't take initiative to find one, kills momentum"
+        },
+        {
+          "text": "Thai food is okay I guess, but I prefer Italian",
+          "score": 2,
+          "reasoning": "Dismisses her preference, selfish, bad vibe"
+        }
+      ],
+      "quality_criteria": {
+        "personalization": "Reference her stated preferences",
+        "thoughtfulness": "Show you put thought into venue choice",
+        "confidence": "Make specific suggestions, show local knowledge",
+        "value_adding": "Suggest venues that enhance the experience"
+      },
+      "context_improvements": [
+        "Knows her food preferences",
+        "Can suggest aligned venues",
+        "Understands enthusiasm level for planning"
+      ]
+    },
+    "stage_3": {
+      "screenshot_count": 3,
+      "context": "Date finalized, building anticipation - inside jokes about movies/hiking established",
+      "expected_quality_level": "excellent",
+      "good_responses": [
+        {
+          "text": "can't wait! Fair warning though - I take my bad movies very seriously 😂",
+          "score": 10,
+          "reasoning": "Perfect - references inside joke, builds anticipation, playful tone, genuine excitement"
+        },
+        {
+          "text": "Saturday can't come fast enough! I'll try not to judge your movie taste too harshly 😏",
+          "score": 9,
+          "reasoning": "Shows excitement, playful teasing callback, maintains flirtatious energy"
+        },
+        {
+          "text": "this is going to be fun 😊 I promise to only quote the bad movies moderately",
+          "score": 8,
+          "reasoning": "Builds anticipation, references shared interest, shows personality"
+        }
+      ],
+      "bad_responses": [
+        {
+          "text": "ok see you Saturday!",
+          "score": 4,
+          "reasoning": "Too brief, no personality, doesn't build anticipation"
+        },
+        {
+          "text": "just to confirm - Saturday at 7pm right?",
+          "score": 5,
+          "reasoning": "Too transactional, kills romantic vibe, sounds anxious"
+        },
+        {
+          "text": "I'm so excited omg I can't wait!",
+          "score": 4,
+          "reasoning": "Too eager/desperate energy, lacks cool confidence"
+        }
+      ],
+      "quality_criteria": {
+        "anticipation": "Build excitement for the date",
+        "callbacks": "Reference inside jokes and shared interests",
+        "tone": "Playful and flirtatious, not transactional",
+        "momentum": "Keep conversation alive until date"
+      },
+      "context_improvements": [
+        "Knows all inside jokes to reference",
+        "Sees full conversation arc and shared interests",
+        "Can suggest perfectly personalized responses",
+        "Understands relationship dynamic and her humor style"
+      ]
+    }
+  },
+  "overall_quality_metrics": {
+    "thoughtfulness": {
+      "description": "Date suggestions show effort and personalization",
+      "weight": 0.3,
+      "test": "Should reference her interests and show planning"
+    },
+    "logistics_efficiency": {
+      "description": "Handle planning smoothly without overthinking",
+      "weight": 0.2,
+      "test": "Get to 'yes' naturally without friction"
+    },
+    "attraction_maintenance": {
+      "description": "Keep flirtatious energy during practical discussion",
+      "weight": 0.25,
+      "test": "Mix planning with playful banter"
+    },
+    "anticipation_building": {
+      "description": "Create excitement for upcoming date",
+      "weight": 0.15,
+      "test": "Build momentum and anticipation, not just confirm details"
+    },
+    "callback_usage": {
+      "description": "Reference earlier conversation points",
+      "weight": 0.1,
+      "test": "Show attention to conversation, use inside jokes"
+    }
+  },
+  "expected_score_progression": {
+    "1_screenshot": {
+      "expected_range": "6-7/10",
+      "limitations": "Generic date suggestions, missing personalization"
+    },
+    "2_screenshots": {
+      "expected_range": "8/10",
+      "improvements": "Can personalize based on her preferences"
+    },
+    "3_screenshots": {
+      "expected_range": "9-10/10",
+      "optimal": "Fully personalized, leverages inside jokes, perfect anticipation building"
+    }
+  }
+}

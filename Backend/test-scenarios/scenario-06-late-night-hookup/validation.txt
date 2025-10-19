@@ -1,0 +1,195 @@
+SCENARIO 06: LATE NIGHT HOOKUP
+================================
+
+CONVERSATION FLOW VALIDATION
+----------------------------
+
+=== SCREENSHOT 1: Initial Late Night Contact (11:47 PM) ===
+
+MESSAGE 1 (11:47 PM) - HER:
+"hey you up? 😏"
+
+CONTEXT CUES:
+- Late night timing (11:47 PM) = hookup intent likely
+- Casual "hey you up?" = classic hookup opener
+- Winking emoji = playful/sexual intent
+- Question format = testing his availability/interest
+
+MESSAGE 2 (11:48 PM) - HIM:
+"couldn't sleep... thinking about trouble to get into 😈"
+
+CONTEXT CUES:
+- Quick response (1 min) = he's available and interested
+- "thinking about trouble" = matches her sexual frame
+- Devil emoji = playful sexual energy
+- Not asking questions = confident, not eager
+
+MESSAGE 3 (11:49 PM) - HER:
+"oh really? what kind of trouble? 😘"
+
+CONTEXT CUES:
+- She's engaging with his frame
+- Asking follow-up = still testing/interested
+- Kiss emoji = escalating sexual tension
+- Quick response = high engagement
+
+EXPECTED AI SUGGESTIONS (Screenshot 1 only):
+✓ Playful, confident responses
+✓ Match sexual energy without being crude
+✓ Keep momentum going
+✓ Suggest availability without desperation
+
+LIMITATIONS (Screenshot 1 only):
+✗ Doesn't know relationship history
+✗ Can't see if this is first late night text or pattern
+✗ Missing escalation trajectory
+
+
+=== SCREENSHOT 2: Escalation to Logistics (11:52 PM) ===
+
+MESSAGE 4 (11:50 PM) - HIM:
+"the kind that involves you... what are you doing right now?"
+
+CONTEXT CUES:
+- Confident escalation
+- Direct interest in her
+- Logistics question = moving toward meetup
+- Not being too explicit
+
+MESSAGE 5 (11:51 PM) - HER:
+"just watching Netflix... but I'm bored"
+
+CONTEXT CUES:
+- "Netflix" late at night = potential innuendo
+- "I'm bored" = invitation for solution
+- Not asking about him = wants to be pursued
+
+MESSAGE 6 (11:52 PM) - HER:
+"you should come fix that 😏"
+
+CONTEXT CUES:
+- Direct invitation
+- Playful tone maintained
+- Putting ball in his court
+- Clear hookup intent
+
+EXPECTED AI SUGGESTIONS (Screenshots 1-2):
+✓ Confident logistics responses
+✓ Match her directness without being awkward
+✓ Smooth transition to planning
+✓ Maintain sexual tension during logistics
+
+IMPROVEMENTS vs Screenshot 1:
++ Knows she's actively inviting him over
++ Understands hookup intent is mutual
++ Can suggest smooth acceptance without desperation
+
+
+=== SCREENSHOT 3: Closing Logistics (11:58 PM) ===
+
+MESSAGE 7 (11:53 PM) - HIM:
+"I could be convinced... where are you?"
+
+CONTEXT CUES:
+- Playful resistance = maintaining frame
+- Not jumping immediately = shows value
+- Logistics question = moving forward
+
+MESSAGE 8 (11:54 PM) - HER:
+"downtown... you?"
+
+CONTEXT CUES:
+- Direct answer = serious about meeting
+- Reciprocal question = checking logistics
+- Brief = eager to finalize
+
+MESSAGE 9 (11:56 PM) - HIM:
+"20 mins away. want me to bring anything? 😏"
+
+CONTEXT CUES:
+- Specific time = commitment to come
+- "bring anything" = polite but suggestive
+- Winking emoji = maintains playful tone
+- Making it easy for her to say yes
+
+MESSAGE 10 (11:58 PM) - HER:
+"just yourself... and hurry 😘"
+
+CONTEXT CUES:
+- Clear green light
+- "hurry" = high interest
+- Kiss emoji = anticipation
+- Deal closed
+
+EXPECTED AI SUGGESTIONS (All 3 screenshots):
+✓ Confident but smooth logistics close
+✓ Keep sexual tension alive during planning
+✓ Make it easy and comfortable for both
+✓ Don't overthink or kill the vibe
+
+COMPLETE CONTEXT ADVANTAGES:
++ Sees full arc: flirting → invitation → logistics
++ Knows she's genuinely interested (not just testing)
++ Understands timing and pacing expectations
++ Can suggest optimal closing responses
+
+
+=== VALIDATION CRITERIA ===
+
+TONE APPROPRIATENESS:
+✓ Playful throughout
+✓ Sexually suggestive but not crude
+✓ Confident without arrogance
+✓ Maintains mystery and tension
+
+ESCALATION HANDLING:
+✓ Smooth progression from flirting to logistics
+✓ No awkward jumps in tone or content
+✓ Maintains attraction during practical discussion
+✓ Closes confidently without desperation
+
+TIMING AWARENESS:
+✓ Recognizes late night = hookup context
+✓ Understands quick responses = high interest
+✓ Knows not to overthink or delay
+
+DESPERATION AVOIDANCE:
+✓ Doesn't jump too eagerly at invitation
+✓ Maintains slight challenge/playfulness
+✓ Makes it smooth and easy, not try-hard
+
+
+=== AI QUALITY SCORING ===
+
+1 SCREENSHOT (Limited Context):
+EXPECTED SCORE: 6-7/10
+- Can handle initial flirtation well
+- May be too cautious or too forward
+- Missing escalation pattern
+
+2 SCREENSHOTS (Better Context):
+EXPECTED SCORE: 8-9/10
+- Understands hookup intent clearly
+- Can suggest smooth logistics transition
+- Knows her interest level
+
+3 SCREENSHOTS (Complete Context):
+EXPECTED SCORE: 9-10/10
+- Perfect calibration of tone and timing
+- Smooth close maintaining attraction
+- Full understanding of dynamic
+
+
+=== NOTES FOR TESTING ===
+
+- This scenario tests AI's ability to read sexual subtext
+- Critical that AI doesn't suggest crude/explicit content
+- Must balance confidence with smoothness
+- Late night timing should heavily influence suggestions
+- Test that more screenshots = better calibration
+
+---
+Created: 2025-10-19
+Scenario Type: Late Night Hookup
+Difficulty: Medium
+Priority: High

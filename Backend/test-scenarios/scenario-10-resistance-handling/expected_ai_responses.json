@@ -1,0 +1,228 @@
+{
+  "scenario_id": "10",
+  "name": "Resistance Handling",
+  "test_stages": {
+    "stage_1": {
+      "screenshot_count": 1,
+      "context": "First objection: 'I have a crazy week with work stuff' after date suggestion",
+      "expected_quality_level": "moderate",
+      "good_responses": [
+        {
+          "text": "no worries, work first! Let me know when things calm down 😊",
+          "score": 7,
+          "reasoning": "Respectful acknowledgment, leaves door open, warm tone - but might be giving up too easily"
+        },
+        {
+          "text": "totally get it - how about next weekend then? Give you time to decompress",
+          "score": 8,
+          "reasoning": "Acknowledges excuse, offers alternative, shows persistence without pushiness"
+        },
+        {
+          "text": "crazy weeks call for good drinks 😊 but fair enough - what does your next week look like?",
+          "score": 8,
+          "reasoning": "Playful reframe, doesn't cave, gentle persistence, opens discussion"
+        }
+      ],
+      "bad_responses": [
+        {
+          "text": "ok no problem, maybe another time!",
+          "score": 4,
+          "reasoning": "Gives up too easily - might be testing, conversation still active"
+        },
+        {
+          "text": "come on, you have to eat anyway! Just one drink?",
+          "score": 2,
+          "reasoning": "Pushy, argumentative, doesn't respect her boundary, desperate energy"
+        },
+        {
+          "text": "that's what everyone says when they're not interested...",
+          "score": 1,
+          "reasoning": "Defensive, butthurt, kills all attraction, accusatory"
+        },
+        {
+          "text": "work is more important than getting to know someone amazing?",
+          "score": 2,
+          "reasoning": "Guilt-tripping, manipulative, arrogant, terrible frame"
+        }
+      ],
+      "quality_criteria": {
+        "respect": "Acknowledge her stated reason without arguing",
+        "frame": "Don't get defensive or butthurt",
+        "persistence": "Keep door open without being pushy",
+        "reading": "Can't tell yet if testing or genuine - balanced approach"
+      },
+      "common_ai_mistakes": [
+        "Giving up completely after first objection",
+        "Being too pushy or demanding",
+        "Getting defensive or accusatory",
+        "Not recognizing this might be testing"
+      ],
+      "critical_note": "With only 1 screenshot, very hard to know if testing or genuine disinterest"
+    },
+    "stage_2": {
+      "screenshot_count": 2,
+      "context": "Second objection after continued conversation, but she's still engaged and chatty - clear testing pattern",
+      "expected_quality_level": "good",
+      "good_responses": [
+        {
+          "text": "you're making this difficult 😏 but I like that about you... how about YOU pick the day then?",
+          "score": 9,
+          "reasoning": "Perfect - playful call-out of testing, shows interest without desperation, puts ball in her court confidently"
+        },
+        {
+          "text": "I'm starting to think you're just testing how persistent I am 😂 but fine, what does work for you?",
+          "score": 8,
+          "reasoning": "Recognizes testing, playful about it, maintains frame while being persistent"
+        },
+        {
+          "text": "alright alright, I can take a hint... jk 😏 seriously though, when are you actually free?",
+          "score": 8,
+          "reasoning": "Fake backing off shows confidence, winking emoji shows he knows it's playful, persistent"
+        }
+      ],
+      "bad_responses": [
+        {
+          "text": "okay I get it, you're not interested",
+          "score": 2,
+          "reasoning": "Gives up despite clear testing signs, butthurt energy, misses signals"
+        },
+        {
+          "text": "why do you keep making excuses?",
+          "score": 1,
+          "reasoning": "Confrontational, accusatory, terrible frame, kills attraction"
+        },
+        {
+          "text": "please just give me one chance!",
+          "score": 1,
+          "reasoning": "Desperate, begging, complete frame loss, instant attraction killer"
+        },
+        {
+          "text": "you're still talking to me so you must be interested...",
+          "score": 3,
+          "reasoning": "Try-hard logic, sounds insecure, pointing out the obvious awkwardly"
+        }
+      ],
+      "quality_criteria": {
+        "pattern_recognition": "Identifies this is testing, not genuine rejection",
+        "playfulness": "Maintains fun energy despite objections",
+        "persistence": "Continues pursuing without desperation",
+        "frame": "Confident throughout, not fazed by resistance"
+      },
+      "context_improvements": [
+        "Sees pattern: multiple objections + continued engagement",
+        "Knows she's testing confidence",
+        "Can suggest calibrated persistence"
+      ]
+    },
+    "stage_3": {
+      "screenshot_count": 3,
+      "context": "She countered with Saturday after his second attempt - tests passed, she's ready to meet",
+      "expected_quality_level": "very_good",
+      "good_responses": [
+        {
+          "text": "Saturday works perfect 😊 see, that wasn't so hard was it? 😏",
+          "score": 10,
+          "reasoning": "PERFECT - confident close, playful callback to testing, not showing relief, maintains frame to end"
+        },
+        {
+          "text": "Saturday it is! I knew you'd come around 😏 8pm work?",
+          "score": 9,
+          "reasoning": "Confident, playful acknowledgment of persistence paying off, moves to logistics smoothly"
+        },
+        {
+          "text": "see, good things come to those who persist 😊 Saturday sounds great - where should we meet?",
+          "score": 8,
+          "reasoning": "Light callback to persistence, warm close, practical logistics"
+        }
+      ],
+      "bad_responses": [
+        {
+          "text": "oh thank god, I thought you were going to keep saying no!",
+          "score": 2,
+          "reasoning": "Shows relief/desperation, reveals he was worried, loses all frame built"
+        },
+        {
+          "text": "really?? Are you sure??",
+          "score": 3,
+          "reasoning": "Sounds shocked, insecure, kills confident vibe"
+        },
+        {
+          "text": "ok great! I promise you won't regret it!",
+          "score": 4,
+          "reasoning": "Too eager, supplicating, desperate energy"
+        },
+        {
+          "text": "finally! What changed your mind?",
+          "score": 3,
+          "reasoning": "Sounds frustrated, questions her decision, bad frame"
+        }
+      ],
+      "quality_criteria": {
+        "frame_to_end": "Maintain confident frame, don't show relief",
+        "playful_close": "Can acknowledge testing playfully",
+        "smooth_logistics": "Move to details naturally",
+        "no_desperation": "Act like outcome was expected"
+      },
+      "context_improvements": [
+        "Sees full pattern: resistance → persistence → breakthrough",
+        "Knows objections were tests of confidence",
+        "Can suggest perfect closing that maintains frame",
+        "Understands when to close vs when to persist"
+      ]
+    }
+  },
+  "overall_quality_metrics": {
+    "persistence_calibration": {
+      "description": "Knows when to push forward vs when to back off",
+      "weight": 0.3,
+      "test": "Should persist through testing but recognize genuine rejection"
+    },
+    "frame_maintenance": {
+      "description": "Stays confident despite objections",
+      "weight": 0.25,
+      "test": "No defensiveness, butthurt, or desperation at any stage"
+    },
+    "pattern_recognition": {
+      "description": "Identifies testing vs genuine disinterest",
+      "weight": 0.25,
+      "test": "Continued engagement = testing, not rejection"
+    },
+    "close_timing": {
+      "description": "Recognizes buying signals and closes appropriately",
+      "weight": 0.2,
+      "test": "Counter-offer is major signal to close confidently"
+    }
+  },
+  "expected_score_progression": {
+    "1_screenshot": {
+      "expected_range": "4-6/10",
+      "critical_risk": "May give up too easily or push too hard - can't distinguish testing from rejection"
+    },
+    "2_screenshots": {
+      "expected_range": "7-8/10",
+      "improvements": "Recognizes testing pattern, can suggest calibrated persistence"
+    },
+    "3_screenshots": {
+      "expected_range": "9-10/10",
+      "optimal": "Perfect persistence, recognizes breakthrough, maintains frame to end"
+    }
+  },
+  "testing_vs_rejection_signals": {
+    "testing_signals": [
+      "Still chatty and engaged after saying no",
+      "Responses are still friendly and warm",
+      "Vague objections without specifics",
+      "Eventually offers counter-option",
+      "Asking questions about venues/activities"
+    ],
+    "rejection_signals": [
+      "Short, one-word responses",
+      "Long delays between messages",
+      "Conversation dying out",
+      "No counter-offers or alternatives",
+      "Direct statement of disinterest"
+    ],
+    "critical_learning": "AI must learn to distinguish these patterns to avoid bad advice"
+  },
+  "critical_note": "Most nuanced scenario. Requires reading subtle engagement signals. Very easy to give bad advice without full context."
+}

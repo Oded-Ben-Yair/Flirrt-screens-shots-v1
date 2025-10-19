@@ -1,0 +1,143 @@
+{
+  "scenario_id": "10",
+  "name": "Resistance Handling",
+  "description": "Testing AI's ability to handle objections, excuses, and resistance without being pushy or giving up",
+  "difficulty": "hard",
+  "context_type": "resistance_handling",
+  "sexual_tension_level": "variable",
+  "conversation_stage": "mid_to_advanced",
+  "total_screenshots": 3,
+  "conversation_flow": {
+    "stage_1": {
+      "screenshot_index": 1,
+      "time": "5:00 PM",
+      "message_count": 8,
+      "sexual_tension": "medium",
+      "context_cues": [
+        "Good conversation established",
+        "Attempt to set up date",
+        "She gives soft resistance/excuse",
+        "Tone remains friendly"
+      ],
+      "key_hooks": [
+        "First objection after date suggestion",
+        "Need to address without being pushy",
+        "Maintain attractive frame despite resistance"
+      ],
+      "expected_ai_behavior": {
+        "should_recognize": [
+          "This is likely a soft test, not hard rejection",
+          "Need to acknowledge but not cave",
+          "Keep conversation going while being persistent"
+        ],
+        "should_suggest": [
+          "Acknowledge excuse without making it a big deal",
+          "Offer alternative without being pushy",
+          "Keep conversation fun and light"
+        ],
+        "should_avoid": [
+          "Getting defensive or argumentative",
+          "Immediately giving up",
+          "Being overly persistent or pushy",
+          "Making excuses for her"
+        ]
+      }
+    },
+    "stage_2": {
+      "screenshot_index": 2,
+      "time": "6:15 PM",
+      "message_count": 15,
+      "sexual_tension": "medium",
+      "context_cues": [
+        "Conversation continues after first objection",
+        "Second attempt at logistics",
+        "Another soft resistance (different excuse)",
+        "She's still engaged in conversation"
+      ],
+      "key_hooks": [
+        "Pattern of resistance emerging",
+        "Need to calibrate: is she testing or not interested?",
+        "Balance persistence with respect"
+      ],
+      "expected_ai_behavior": {
+        "should_recognize": [
+          "Multiple objections may be tests of confidence",
+          "Still engaged = still interested",
+          "Need to persist without being desperate"
+        ],
+        "should_suggest": [
+          "Playful responses that reframe objections",
+          "Continue building attraction",
+          "Plant seeds for meeting without forcing"
+        ],
+        "should_avoid": [
+          "Getting frustrated or showing annoyance",
+          "Trying too hard to convince her",
+          "Dropping logistics discussion completely",
+          "Supplicating or begging"
+        ]
+      }
+    },
+    "stage_3": {
+      "screenshot_index": 3,
+      "time": "7:30 PM",
+      "message_count": 24,
+      "sexual_tension": "medium-high",
+      "context_cues": [
+        "Continued strong conversation",
+        "Resistance softening",
+        "She gives buying signals",
+        "Window opening for successful logistics"
+      ],
+      "key_hooks": [
+        "Resistance breaking down",
+        "Opportunity to close smoothly",
+        "Don't fuck it up by being too eager"
+      ],
+      "expected_ai_behavior": {
+        "should_recognize": [
+          "Persistence paid off - she's ready now",
+          "Close confidently but smoothly",
+          "Don't show relief or desperation"
+        ],
+        "should_suggest": [
+          "Confident but casual logistics close",
+          "Assume the sale without being pushy",
+          "Keep it light and fun while planning"
+        ],
+        "should_avoid": [
+          "Showing too much excitement (seems desperate)",
+          "Being overly cautious (seems scared)",
+          "Bringing up previous resistance",
+          "Making it a big deal"
+        ]
+      }
+    }
+  },
+  "context_progression_test": {
+    "1_screenshot": {
+      "context_available": "Minimal - only sees one objection",
+      "expected_quality": "May give up too easily or push too hard",
+      "limitations": "Doesn't know if this is pattern of testing or genuine disinterest"
+    },
+    "2_screenshots": {
+      "context_available": "Better - sees multiple objections but continued engagement",
+      "expected_quality": "Improved - understands this is testing, can calibrate persistence",
+      "improvements": "Knows to maintain frame while being respectfully persistent"
+    },
+    "3_screenshots": {
+      "context_available": "Complete - sees full pattern: resistance → persistence → breakthrough",
+      "expected_quality": "Best - knows when to persist, when to back off, when to close",
+      "improvements": "Can suggest perfect timing and tone for successful close"
+    }
+  },
+  "quality_metrics": {
+    "persistence_calibration": "Knows when to push forward vs back off",
+    "frame_maintenance": "Stays confident despite objections",
+    "excuse_handling": "Addresses resistance smoothly without being argumentative",
+    "close_timing": "Recognizes buying signals and closes appropriately"
+  },
+  "created_at": "2025-10-19",
+  "test_priority": "critical",
+  "notes": "Most nuanced scenario - AI must balance persistence with respect, read subtle signals"
+}

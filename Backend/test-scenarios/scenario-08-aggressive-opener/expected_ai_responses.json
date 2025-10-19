@@ -1,0 +1,215 @@
+{
+  "scenario_id": "08",
+  "name": "Aggressive Opener",
+  "test_stages": {
+    "stage_1": {
+      "screenshot_count": 1,
+      "context": "Her very forward opener: 'I don't usually do this but... you're exactly my type' + 'I'm trouble'",
+      "expected_quality_level": "challenging",
+      "good_responses": [
+        {
+          "text": "funny, I was just thinking the same thing about you... minus the 'I don't usually do this' part 😏",
+          "score": 10,
+          "reasoning": "Perfect frame control - matches energy without supplicating, playful reframe, shows confidence and wit"
+        },
+        {
+          "text": "trouble is my specialty 😈 but I have a feeling you already knew that",
+          "score": 9,
+          "reasoning": "Confident acceptance of frame, sexual comfort shown, slight flip to his frame"
+        },
+        {
+          "text": "dangerous words to a guy who knows how to handle trouble 😏",
+          "score": 8,
+          "reasoning": "Shows confidence, accepts challenge, maintains sexual frame"
+        }
+      ],
+      "bad_responses": [
+        {
+          "text": "wow really? That's so flattering!",
+          "score": 2,
+          "reasoning": "SUPPLICATING - fails frame test badly, seems shocked/inexperienced, kills attraction"
+        },
+        {
+          "text": "hey what's up? How's your night going?",
+          "score": 1,
+          "reasoning": "TERRIBLE - ignores her frame completely, boring, seems scared of her energy"
+        },
+        {
+          "text": "well let's skip the talking and meet up then 😏",
+          "score": 3,
+          "reasoning": "Too crude/forward, desperate energy, misses the playful test"
+        },
+        {
+          "text": "I don't usually respond to messages like this...",
+          "score": 2,
+          "reasoning": "Judgmental, defensive, fails shit test completely"
+        },
+        {
+          "text": "oh wow I'm blushing! You're so forward haha",
+          "score": 1,
+          "reasoning": "WORST - shows he's rattled, lacks sexual confidence, instant attraction killer"
+        }
+      ],
+      "quality_criteria": {
+        "frame_control": "Must not supplicate to her aggressive frame",
+        "sexual_comfort": "Show comfort with sexual content, not shocked",
+        "wit": "Clever response that shows personality",
+        "calibration": "Match her energy without being crude or try-hard"
+      },
+      "common_ai_mistakes": [
+        "Supplicating or being overly grateful",
+        "Being shocked or awkward",
+        "Being too crude in return",
+        "Generic boring responses",
+        "Getting defensive or judgmental"
+      ],
+      "critical_note": "This is the HARDEST test for AI - high risk of terrible suggestions without full context"
+    },
+    "stage_2": {
+      "screenshot_count": 2,
+      "context": "She responded positively to frame control, now continuing playful testing",
+      "expected_quality_level": "good",
+      "good_responses": [
+        {
+          "text": "only when I meet someone worth the effort 😏 and you definitely qualify",
+          "score": 9,
+          "reasoning": "Maintains frame, shows standards, compliments while remaining confident"
+        },
+        {
+          "text": "I'm consistent like that... keeps things interesting 😈",
+          "score": 8,
+          "reasoning": "Confident, playful, shows personality, maintains sexual tension"
+        },
+        {
+          "text": "guilty as charged... but something tells me you don't mind 😏",
+          "score": 8,
+          "reasoning": "Owns his frame, playful accusation back, maintains tension"
+        }
+      ],
+      "bad_responses": [
+        {
+          "text": "no no, I'm really selective actually!",
+          "score": 3,
+          "reasoning": "Defensive, breaks frame, trying to justify himself"
+        },
+        {
+          "text": "yeah I talk to a lot of girls",
+          "score": 2,
+          "reasoning": "Try-hard flex, loses playful energy, seems insecure"
+        },
+        {
+          "text": "you're different though, I really mean it",
+          "score": 4,
+          "reasoning": "Too serious, supplicating, loses playful frame"
+        }
+      ],
+      "quality_criteria": {
+        "consistency": "Maintain frame from first message",
+        "playfulness": "Keep banter fun, not serious",
+        "confidence": "No defensiveness or justification",
+        "escalation": "Continue building sexual tension"
+      },
+      "context_improvements": [
+        "Knows she responds to confidence",
+        "Sees testing pattern continuing",
+        "Can calibrate appropriate banter level"
+      ]
+    },
+    "stage_3": {
+      "screenshot_count": 3,
+      "context": "She's showing genuine interest now, asking what he's doing tonight - logistics window opening",
+      "expected_quality_level": "very_good",
+      "good_responses": [
+        {
+          "text": "well I was planning on a quiet night in... but I'm sensing that might change 😏",
+          "score": 10,
+          "reasoning": "Perfect - shows availability without desperation, playful implication, smooth logistics opening"
+        },
+        {
+          "text": "nothing that can't be rescheduled for the right kind of trouble 😈",
+          "score": 9,
+          "reasoning": "Confident, shows she's worth it without supplicating, maintains frame"
+        },
+        {
+          "text": "just finished working out... might grab a drink if the company's good enough 😏",
+          "score": 8,
+          "reasoning": "Shows value (fitness), confident logistics suggestion, maintains edge"
+        }
+      ],
+      "bad_responses": [
+        {
+          "text": "nothing! I'm totally free! Want to meet?",
+          "score": 3,
+          "reasoning": "Too eager, desperate energy, loses all frame built earlier"
+        },
+        {
+          "text": "just hanging out, why?",
+          "score": 5,
+          "reasoning": "Boring, passive, doesn't capitalize on opening"
+        },
+        {
+          "text": "want to come over?",
+          "score": 4,
+          "reasoning": "Too direct/crude, loses playful energy, seems only interested in sex"
+        }
+      ],
+      "quality_criteria": {
+        "logistics_smoothness": "Move toward meeting without desperation",
+        "frame_maintenance": "Keep confident edge while showing interest",
+        "transition": "Smooth shift from testing to connection",
+        "value": "Show availability without seeming too available"
+      },
+      "context_improvements": [
+        "Sees full test cycle completion",
+        "Knows what she responds to",
+        "Can suggest perfect logistics timing",
+        "Understands when testing ends"
+      ]
+    }
+  },
+  "overall_quality_metrics": {
+    "frame_control": {
+      "description": "Maintain confident frame without being arrogant or defensive",
+      "weight": 0.35,
+      "test": "Never supplicate, never get defensive, maintain slight edge"
+    },
+    "wit_quality": {
+      "description": "Clever, playful responses that show personality",
+      "weight": 0.25,
+      "test": "Responses should be witty and natural, not try-hard"
+    },
+    "calibration": {
+      "description": "Match her energy without being crude or shocked",
+      "weight": 0.25,
+      "test": "Sexual comfort shown, but not over-the-top"
+    },
+    "transition_smoothness": {
+      "description": "Move from testing to connection naturally",
+      "weight": 0.15,
+      "test": "Recognize when to shift from banter to logistics"
+    }
+  },
+  "expected_score_progression": {
+    "1_screenshot": {
+      "expected_range": "4-6/10",
+      "critical_risk": "Very high chance of bad suggestions - may supplicate or be crude"
+    },
+    "2_screenshots": {
+      "expected_range": "7-8/10",
+      "improvements": "Understands testing dynamic, can suggest confident responses"
+    },
+    "3_screenshots": {
+      "expected_range": "9-10/10",
+      "optimal": "Perfect frame control, knows when to transition to logistics"
+    }
+  },
+  "red_flags_to_avoid": [
+    "Any form of supplication or excessive gratitude",
+    "Shock, awkwardness, or being flustered",
+    "Crude or overly explicit sexual content",
+    "Defensive or justifying responses",
+    "Boring, generic responses that ignore her energy",
+    "Try-hard flexing or validation-seeking"
+  ],
+  "critical_note": "This is the MOST DIFFICULT scenario. AI will likely fail badly with only 1 screenshot. Should show dramatic improvement with more context."
+}

@@ -1,0 +1,296 @@
+SCENARIO 09: SLOW BURN
+======================
+
+CONVERSATION FLOW VALIDATION
+----------------------------
+
+=== SCREENSHOT 1: Rapport Building (6:45 PM) ===
+
+MESSAGE 1 (6:15 PM) - HIM:
+"so you're into hiking? what's the best trail you've done?"
+
+CONTEXT CUES:
+- Early evening (6:15 PM)
+- Discussing interests/hobbies
+- No sexual content yet
+- Building rapport and connection
+
+MESSAGE 2 (6:20 PM) - HER:
+"oh man, I did Angels Landing in Zion last year... absolutely terrifying but so worth it!"
+
+CONTEXT CUES:
+- Enthusiastic about shared interest
+- Sharing personal experiences
+- Exclamation points = high energy
+- Engaged in conversation
+
+MESSAGE 3 (6:25 PM) - HIM:
+"no way! I've been wanting to do that one. how was the chain section?"
+
+CONTEXT CUES:
+- Genuine interest/follow-up questions
+- Shows knowledge (knows about chain section)
+- Building common ground
+- Still platonic/friendly
+
+MESSAGE 4 (6:30 PM) - HER:
+"scary as hell but amazing views! you should definitely do it"
+
+CONTEXT CUES:
+- Encouraging him = positive engagement
+- Sharing enthusiasm
+- Comfortable conversation flow
+
+MESSAGE 5 (6:35 PM) - HIM:
+"maybe you can show me the ropes sometime 😊"
+
+CONTEXT CUES:
+- FIRST subtle suggestion of meeting
+- Casual, not pushy
+- Still framed around shared interest
+- Slight escalation from pure rapport
+
+MESSAGE 6 (6:45 PM) - HER:
+"haha I'd probably just slow you down!"
+
+CONTEXT CUES:
+- Playful deflection (not rejection)
+- Self-deprecating humor
+- Keeping conversation light
+- Door still open
+
+EXPECTED AI SUGGESTIONS (Screenshot 1 only):
+✓ Continue building rapport
+✓ Show genuine interest in her stories
+✓ Find more common ground
+✓ Don't rush to flirtation
+
+LIMITATIONS (Screenshot 1 only):
+✗ Doesn't know pacing strategy
+✗ Can't see where conversation is heading
+✗ May suggest escalating too fast
+✗ Missing full personality picture
+
+
+=== SCREENSHOT 2: Subtle Escalation (7:30 PM) ===
+
+MESSAGE 7 (6:50 PM) - HIM:
+"please, I'd probably be too distracted by the view... and I'm not talking about the canyon 😏"
+
+CONTEXT CUES:
+- FIRST clear flirtation
+- Smooth transition using conversation context
+- Winking emoji = playful intent
+- Testing her receptiveness
+
+MESSAGE 8 (6:55 PM) - HER:
+"smooth! 😂 I see what you did there"
+
+CONTEXT CUES:
+- Calling out the flirtation playfully
+- Laughing = positive reception
+- Not shutting it down
+- Acknowledging the escalation
+
+MESSAGE 9 (7:00 PM) - HER:
+"but seriously, do you hike a lot around here?"
+
+CONTEXT CUES:
+- Returning to rapport (not ready to fully escalate)
+- Asking about him = continued interest
+- "around here" = logistics curiosity
+- Still engaged
+
+MESSAGE 10 (7:10 PM) - HIM:
+"couple times a month when work isn't crazy. Been exploring all the spots near the city"
+
+CONTEXT CUES:
+- Sharing personal life details
+- Shows active lifestyle
+- Implicitly local = logistics potential
+
+MESSAGE 11 (7:15 PM) - HER:
+"we should totally go together sometime! I need a hiking buddy"
+
+CONTEXT CUES:
+- SHE suggests meeting (big signal!)
+- "hiking buddy" = still platonic framing
+- Exclamation = genuine enthusiasm
+- Green light for escalation
+
+MESSAGE 12 (7:20 PM) - HIM:
+"I'm always down for a good adventure... especially with good company 😊"
+
+CONTEXT CUES:
+- Accepting invitation smoothly
+- "good company" = subtle compliment
+- Maintaining warm tone
+- Building toward date planning
+
+MESSAGE 13 (7:25 PM) - HER:
+"you're sweet 😊 what else do you like to do besides hiking?"
+
+CONTEXT CUES:
+- Compliment = positive reception
+- Asking deeper questions = building connection
+- Comfortable with flirtation level
+- Deepening conversation
+
+MESSAGE 14 (7:30 PM) - HIM:
+"cooking, actually. I make a mean pasta carbonara"
+
+CONTEXT CUES:
+- Sharing more personality
+- "cooking" = domestic/intimate skill
+- Specific detail = genuine sharing
+- Opening new conversation threads
+
+EXPECTED AI SUGGESTIONS (Screenshots 1-2):
+✓ Gradual escalation (not sudden)
+✓ Build on established rapport
+✓ Test receptiveness gently
+✓ Mix flirtation with genuine connection
+
+IMPROVEMENTS vs Screenshot 1:
++ Sees natural escalation pattern
++ Knows she's receptive to meeting
++ Understands slow burn pacing
++ Can suggest escalation that fits rhythm
+
+
+=== SCREENSHOT 3: Comfortable Sexual Tension (8:45 PM) ===
+
+MESSAGE 15 (7:35 PM) - HER:
+"okay now you're just trying to impress me 😏"
+
+CONTEXT CUES:
+- Playful accusation = sexual tension building
+- Winking emoji = flirtatious
+- Acknowledging his attractive qualities
+- Comfortable with romantic framing
+
+MESSAGE 16-20 (7:40-8:00 PM):
+[Continued conversation about cooking, sharing food preferences, joking about cooking skills, building inside jokes]
+
+CONTEXT CUES:
+- Conversation flowing naturally
+- Multiple inside jokes developing
+- Comfortable banter established
+- Sexual tension simmering
+
+MESSAGE 21 (8:15 PM) - HIM:
+"tell you what - I'll cook, you bring the wine, and we can plan our hiking trip?"
+
+CONTEXT CUES:
+- DATE PROPOSAL using built rapport
+- References multiple conversation threads
+- Specific plan = confident
+- Casual framing makes it low pressure
+
+MESSAGE 22 (8:20 PM) - HER:
+"that sounds really nice actually 😊"
+
+CONTEXT CUES:
+- Positive response to date
+- "actually" = pleasantly surprised/genuine
+- Not overly eager but clearly interested
+
+MESSAGE 23 (8:30 PM) - HIM:
+"how's this weekend? I'll even make dessert"
+
+CONTEXT CUES:
+- Specific timing
+- Adding value ("even dessert")
+- Confident but not pushy
+
+MESSAGE 24 (8:45 PM) - HER:
+"you're dangerous 😏 Saturday works!"
+
+CONTEXT CUES:
+- "dangerous" = he's attractive/compelling
+- Clear acceptance
+- Playful sexual tension maintained
+- Deal closed smoothly
+
+EXPECTED AI SUGGESTIONS (All 3 screenshots):
+✓ Leverage built rapport for smooth date ask
+✓ Reference inside jokes and shared interests
+✓ Maintain sexual tension while planning
+✓ Confident but natural progression
+
+COMPLETE CONTEXT ADVANTAGES:
++ Sees full slow burn arc (2+ hours)
++ Knows all shared interests for date planning
++ Understands inside jokes to reference
++ Can suggest perfectly timed, personalized date
++ Knows escalation pattern she responds to
+
+
+=== VALIDATION CRITERIA ===
+
+PACING:
+✓ Gradual escalation over extended time
+✓ No rushed or jarring transitions
+✓ Respects her pace/comfort level
+✓ Builds naturally over 2+ hours
+
+CALLBACK USAGE:
+✓ References earlier conversation points
+✓ Shows he's been paying attention
+✓ Inside jokes demonstrate connection
+✓ Date plans incorporate shared interests
+
+ESCALATION CALIBRATION:
+✓ Tests receptiveness gently
+✓ Reads signals correctly
+✓ Backs off when needed
+✓ Advances when signals are positive
+
+CONNECTION DEPTH:
+✓ Builds genuine rapport first
+✓ Sexual tension emerges from connection
+✓ Avoids superficial flirtation
+✓ Creates foundation for quality date
+
+
+=== AI QUALITY SCORING ===
+
+1 SCREENSHOT (Limited Context):
+EXPECTED SCORE: 5-6/10
+ISSUES:
+- Might suggest escalating too fast
+- Missing established rapport
+- Can't leverage shared interests
+- Doesn't know pacing strategy
+
+2 SCREENSHOTS (Better Context):
+EXPECTED SCORE: 7-8/10
+IMPROVEMENTS:
+- Sees escalation pattern
+- Knows she needs slow burn
+- Can suggest appropriate pacing
+- Understands some shared interests
+
+3 SCREENSHOTS (Complete Context):
+EXPECTED SCORE: 9-10/10
+OPTIMAL:
+- Perfect pacing calibration
+- Can leverage all inside jokes
+- Knows ideal timing for date ask
+- Personalized suggestions based on full conversation
+
+
+=== NOTES FOR TESTING ===
+
+- Tests AI's patience and pacing awareness
+- Should NOT suggest rushing to sexual content
+- Must demonstrate rapport-building first
+- Callbacks and personalization critical
+- More context = dramatically better suggestions
+- Time progression (2+ hours) is key signal
+
+---
+Created: 2025-10-19
+Scenario Type: Slow Burn
+Difficulty: Medium-Hard
+Priority: High

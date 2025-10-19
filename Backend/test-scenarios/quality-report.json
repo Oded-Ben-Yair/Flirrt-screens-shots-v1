@@ -1,0 +1,76 @@
+{
+  "testDate": "2025-10-19T17:50:53.366Z",
+  "summary": {
+    "totalScenarios": 5,
+    "passed": 5,
+    "failed": 0,
+    "averageImprovement": "57.4%"
+  },
+  "scenarios": [
+    {
+      "scenario": "Late Night Hookup",
+      "scenarioId": "06",
+      "difficulty": "medium",
+      "scores": [
+        6.5,
+        8,
+        9
+      ],
+      "improvement": 38.5,
+      "passed": true
+    },
+    {
+      "scenario": "Date Planning",
+      "scenarioId": "07",
+      "difficulty": "medium",
+      "scores": [
+        6.5,
+        8,
+        9
+      ],
+      "improvement": 38.5,
+      "passed": true
+    },
+    {
+      "scenario": "Aggressive Opener",
+      "scenarioId": "08",
+      "difficulty": "hard",
+      "scores": [
+        5,
+        7,
+        9
+      ],
+      "improvement": 80,
+      "passed": true
+    },
+    {
+      "scenario": "Slow Burn",
+      "scenarioId": "09",
+      "difficulty": "medium-hard",
+      "scores": [
+        6,
+        7.5,
+        9
+      ],
+      "improvement": 50,
+      "passed": true
+    },
+    {
+      "scenario": "Resistance Handling",
+      "scenarioId": "10",
+      "difficulty": "hard",
+      "scores": [
+        5,
+        7,
+        9
+      ],
+      "improvement": 80,
+      "passed": true
+    }
+  ],
+  "conclusions": {
+    "contextMatters": true,
+    "significantImprovement": true,
+    "highQualityFinal": true
+  }
+}
