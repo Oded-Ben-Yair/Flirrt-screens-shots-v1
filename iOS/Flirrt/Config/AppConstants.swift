@@ -157,6 +157,20 @@ enum AppConstants {
             return "screenshot_\(screenshotId)"
         }
 
+        // MARK: - Conversation Context
+
+        /// Current conversation session ID
+        static let currentConversationID = "current_conversation_id"
+
+        /// Conversation session start timestamp
+        static let conversationStartTime = "conversation_start_time"
+
+        /// Screenshot count in current conversation
+        static let conversationScreenshotCount = "conversation_screenshot_count"
+
+        /// Last conversation activity timestamp
+        static let conversationLastActivity = "conversation_last_activity"
+
         // MARK: - Keyboard Extension
 
         /// Last keyboard heartbeat timestamp

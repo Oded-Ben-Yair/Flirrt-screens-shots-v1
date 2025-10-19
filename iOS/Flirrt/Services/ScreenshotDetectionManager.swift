@@ -22,6 +22,7 @@ final class ScreenshotDetectionManager: ObservableObject {
     private var screenshotCounter: Int = 0
     private var backgroundTaskIdentifier: UIBackgroundTaskIdentifier = .invalid
     private let darwinNotificationManager = DarwinNotificationManager()
+    private let conversationSessionManager: ConversationSessionManager
 
     // Performance tracking
     private var detectionStartTime: CFAbsoluteTime = 0
@@ -47,7 +48,8 @@ final class ScreenshotDetectionManager: ObservableObject {
     }
 
     // MARK: - Initialization
-    init() {
+    init(conversationSessionManager: ConversationSessionManager? = nil) {
+        self.conversationSessionManager = conversationSessionManager ?? ConversationSessionManager()
         setupScreenshotDetection()
         setupBackgroundHandling()
         logger.info("🔍 ScreenshotDetectionManager initialized - Detection enabled: \(self.screenhotDetectionEnabled)")
@@ -106,25 +108,34 @@ final class ScreenshotDetectionManager: ObservableObject {
         screenshotCounter += 1
 
         let screenshotId = generateScreenshotId()
-        logger.info("📸 INSTANT SCREENSHOT DETECTED - ID: \(screenshotId), Count: \(self.screenshotCounter)")
+
+        // Get or create conversation session
+        let conversationID = conversationSessionManager.getOrCreateSession()
+        conversationSessionManager.incrementScreenshotCount()
+
+        logger.info("📸 INSTANT SCREENSHOT DETECTED - ID: \(screenshotId), ConversationID: \(conversationID), Count: \(self.screenshotCounter)")
 
         // Immediate Darwin notification (fastest path)
-        await sendInstantNotificationToKeyboard(screenshotId: screenshotId)
+        await sendInstantNotificationToKeyboard(screenshotId: screenshotId, conversationID: conversationID)
 
         // Process screenshot metadata in background
         Task.detached(priority: .userInitiated) {
-            await self.processScreenshotMetadata(screenshotId: screenshotId)
+            await self.processScreenshotMetadata(screenshotId: screenshotId, conversationID: conversationID)
         }
 
         let detectionTime = CFAbsoluteTimeGetCurrent() - detectionStartTime
         logger.info("⚡ Screenshot detection complete in \(String(format: "%.3f", detectionTime * 1000))ms")
     }
 
-    private func sendInstantNotificationToKeyboard(screenshotId: String) async {
+    private func sendInstantNotificationToKeyboard(screenshotId: String, conversationID: String) async {
         detectionStatus = .processing
+
+        let sessionInfo = conversationSessionManager.getSessionInfo()
 
         let notificationData: [String: Any] = [
             "screenshot_id": screenshotId,
+            "conversation_id": conversationID,
+            "screenshot_count": sessionInfo["screenshot_count"] as? Int ?? 0,
             "timestamp": Date().timeIntervalSince1970,
             "detection_time": CFAbsoluteTimeGetCurrent() - detectionStartTime,
             "counter": screenshotCounter,
@@ -154,11 +165,12 @@ final class ScreenshotDetectionManager: ObservableObject {
         }
     }
 
-    private func processScreenshotMetadata(screenshotId: String) async {
-        logger.info("📊 Processing screenshot metadata for ID: \(screenshotId)")
+    private func processScreenshotMetadata(screenshotId: String, conversationID: String) async {
+        logger.info("📊 Processing screenshot metadata for ID: \(screenshotId), ConversationID: \(conversationID)")
 
         let metadata: [String: Any] = [
             "screenshot_id": screenshotId,
+            "conversation_id": conversationID,
             "app_state": UIApplication.shared.applicationState.rawValue,
             "timestamp": Date().timeIntervalSince1970,
             "device_orientation": UIDevice.current.orientation.rawValue,
@@ -569,7 +581,8 @@ final class ScreenshotDetectionManager: ObservableObject {
     func triggerTestNotification() async {
         logger.info("🧪 Triggering test notification")
         let testId = "test_\(Int(Date().timeIntervalSince1970))"
-        await sendInstantNotificationToKeyboard(screenshotId: testId)
+        let conversationID = conversationSessionManager.getOrCreateSession()
+        await sendInstantNotificationToKeyboard(screenshotId: testId, conversationID: conversationID)
     }
 
     /// Tests connection with keyboard extension
