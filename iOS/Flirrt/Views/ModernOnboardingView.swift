@@ -15,37 +15,37 @@ struct ModernOnboardingView: View {
     
     private let pages: [OnboardingPage] = [
         OnboardingPage(
-            icon: "sparkles.rectangle.stack",
-            title: "AI-Powered Flirting",
-            subtitle: "Get personalized, spicy suggestions that actually work",
+            icon: "keyboard",
+            title: "Enable Flirrt Keyboard",
+            subtitle: "Go to Settings → General → Keyboard → Add Flirrt",
             color: .pink,
-            animation: "hero"
+            animation: "keyboard"
         ),
         OnboardingPage(
-            icon: "photo.stack",
-            title: "Analyze Screenshots",
-            subtitle: "Upload 1-3 chat or profile screenshots for instant tips",
+            icon: "camera.viewfinder",
+            title: "Take a Screenshot",
+            subtitle: "Open Tinder/Bumble and screenshot your chat",
             color: .purple,
-            animation: "screenshots"
+            animation: "screenshot"
         ),
         OnboardingPage(
-            icon: "lightbulb.fill",
-            title: "AI Coaching",
-            subtitle: "Learn why each suggestion works and level up your game",
-            color: .yellow,
-            animation: "coaching"
-        ),
-        OnboardingPage(
-            icon: "waveform",
-            title: "Voice Messages",
-            subtitle: "Turn your flirts into natural-sounding voice messages",
+            icon: "sparkles",
+            title: "AI Analyzes Instantly",
+            subtitle: "Flirrt's AI reads the screenshot and generates perfect replies",
             color: .blue,
-            animation: "voice"
+            animation: "ai"
         ),
         OnboardingPage(
-            icon: "flame.fill",
-            title: "Ready to Vibe?",
-            subtitle: "Let's boost your dating confidence in seconds",
+            icon: "hand.tap.fill",
+            title: "Tap to Insert",
+            subtitle: "Switch to Flirrt keyboard and tap any suggestion",
+            color: .yellow,
+            animation: "tap"
+        ),
+        OnboardingPage(
+            icon: "heart.fill",
+            title: "Start Getting Dates!",
+            subtitle: "Your AI wingman works automatically in the background",
             color: .orange,
             animation: "ready"
         )
@@ -55,7 +55,7 @@ struct ModernOnboardingView: View {
         ZStack {
             // Background gradient
             LinearGradient(
-                colors: [Color.black, Color(hex: "1a1a1a")],
+                colors: [Color.black, Color.black.opacity(0.9)],
                 startPoint: .top,
                 endPoint: .bottom
             )
@@ -200,10 +200,10 @@ struct OnboardingPageView: View {
             }
             
             // Interactive demo based on page
-            if page.animation == "screenshots" {
-                screenshotDemo
-            } else if page.animation == "coaching" {
-                coachingDemo
+            if page.animation == "keyboard" {
+                keyboardDemo
+            } else if page.animation == "tap" {
+                tapDemo
             }
             
             Spacer()
@@ -213,84 +213,68 @@ struct OnboardingPageView: View {
         }
     }
     
-    private var screenshotDemo: some View {
-        HStack(spacing: 12) {
-            ForEach(0..<3) { index in
-                RoundedRectangle(cornerRadius: 8)
-                    .fill(Color.gray.opacity(0.3))
-                    .frame(width: 80, height: 120)
-                    .overlay(
-                        Image(systemName: "photo")
-                            .foregroundColor(.gray)
-                    )
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 8)
-                            .stroke(page.color, lineWidth: 2)
-                    )
-            }
-        }
-    }
-    
-    private var coachingDemo: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            HStack(spacing: 6) {
-                Image(systemName: "lightbulb.fill")
-                    .foregroundColor(.yellow)
-                Text("Why This Works")
+    private var keyboardDemo: some View {
+        VStack(spacing: 12) {
+            HStack(spacing: 8) {
+                Image(systemName: "gearshape.fill")
+                    .foregroundColor(.gray)
+                Text("Settings → General → Keyboard")
                     .font(.caption)
-                    .fontWeight(.medium)
-                    .foregroundColor(.yellow)
+                    .foregroundColor(.gray)
             }
-            
-            Text("This suggestion builds intrigue and shows genuine interest in their hobbies")
-                .font(.caption)
-                .foregroundColor(.gray)
-                .padding()
-                .background(Color.gray.opacity(0.2))
-                .cornerRadius(8)
+
+            RoundedRectangle(cornerRadius: 8)
+                .fill(Color.gray.opacity(0.2))
+                .frame(height: 50)
+                .overlay(
+                    HStack {
+                        Image(systemName: "keyboard")
+                            .foregroundColor(.pink)
+                        Text("Flirrt Keyboard")
+                            .font(.subheadline)
+                            .foregroundColor(.white)
+                        Spacer()
+                        Image(systemName: "checkmark.circle.fill")
+                            .foregroundColor(.green)
+                    }
+                    .padding(.horizontal)
+                )
         }
         .padding(.horizontal, 40)
     }
-}
 
-// MARK: - Tone Button Component
+    private var tapDemo: some View {
+        VStack(spacing: 12) {
+            // Mock keyboard suggestion
+            RoundedRectangle(cornerRadius: 8)
+                .fill(Color.pink.opacity(0.2))
+                .frame(height: 60)
+                .overlay(
+                    VStack(spacing: 4) {
+                        HStack {
+                            Image(systemName: "sparkles")
+                                .font(.caption)
+                                .foregroundColor(.pink)
+                            Text("Hey! Love your profile pic 😊")
+                                .font(.caption)
+                                .foregroundColor(.white)
+                            Spacer()
+                        }
 
-struct ToneButton: View {
-    let emoji: String
-    let label: String
-    let isSelected: Bool
-    let action: () -> Void
-    
-    var body: some View {
-        Button(action: action) {
-            VStack(spacing: 6) {
-                Text(emoji)
-                    .font(.title2)
-                Text(label)
-                    .font(.caption)
-                    .fontWeight(isSelected ? .semibold : .regular)
-            }
-            .frame(width: 80, height: 80)
-            .background(
-                isSelected ?
-                LinearGradient(
-                    colors: [.pink, .purple],
-                    startPoint: .topLeading,
-                    endPoint: .bottomTrailing
-                ) :
-                LinearGradient(
-                    colors: [Color.gray.opacity(0.2), Color.gray.opacity(0.2)],
-                    startPoint: .topLeading,
-                    endPoint: .bottomTrailing
+                        HStack {
+                            Image(systemName: "hand.tap.fill")
+                                .font(.caption2)
+                                .foregroundColor(.yellow)
+                            Text("Tap to insert")
+                                .font(.caption2)
+                                .foregroundColor(.gray)
+                            Spacer()
+                        }
+                    }
+                    .padding(.horizontal, 12)
                 )
-            )
-            .foregroundColor(.white)
-            .cornerRadius(12)
-            .overlay(
-                RoundedRectangle(cornerRadius: 12)
-                    .stroke(isSelected ? Color.pink : Color.clear, lineWidth: 2)
-            )
         }
+        .padding(.horizontal, 40)
     }
 }
 

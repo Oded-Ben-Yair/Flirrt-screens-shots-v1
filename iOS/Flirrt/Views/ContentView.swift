@@ -55,6 +55,8 @@ struct ContentView: View {
         }
         .sheet(isPresented: $showingScreenshotAnalysis) {
             ScreenshotAnalysisView()
+                .environmentObject(apiClient)
+                .environmentObject(screenshotManager)
         }
     }
 

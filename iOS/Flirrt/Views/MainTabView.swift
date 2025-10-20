@@ -73,7 +73,9 @@ struct MainTabView: View {
 
 struct HomeView: View {
     @EnvironmentObject private var authManager: AuthManager
+    @EnvironmentObject private var apiClient: APIClient
     @EnvironmentObject private var sharedDataManager: SharedDataManager
+    @EnvironmentObject private var screenshotManager: ScreenshotDetectionManager
     @State private var showingVoiceRecording = false
     @State private var showingScreenshotAnalysis = false
     @State private var showingFlirtGeneration = false
@@ -204,6 +206,8 @@ struct HomeView: View {
         }
         .sheet(isPresented: $showingScreenshotAnalysis) {
             ScreenshotAnalysisView()
+                .environmentObject(apiClient)
+                .environmentObject(screenshotManager)
         }
         .sheet(isPresented: $showingFlirtGeneration) {
             PlaceholderView(title: "Flirt Generation", subtitle: "AI-powered conversation starters coming soon!")

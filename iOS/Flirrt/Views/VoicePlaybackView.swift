@@ -135,6 +135,7 @@ struct VoicePlaybackView: View {
     let message: String
     @StateObject private var audioPlayer = AudioPlayerManager()
     @EnvironmentObject private var apiClient: APIClient
+    @EnvironmentObject private var sharedDataManager: SharedDataManager
     @State private var isGenerating = false
     @State private var audioURL: URL?
     @State private var showError = false
@@ -303,17 +304,18 @@ struct VoicePlaybackView: View {
     
     private func generateVoice() {
         isGenerating = true
-        
+
         Task {
             do {
-                let response = try await apiClient.synthesizeVoice(text: message)
+                // Use current voice ID or a default placeholder
+                let voiceId = sharedDataManager.currentVoiceId ?? "default"
+                let response = try await apiClient.synthesizeVoice(text: message, voiceId: voiceId)
                 
                 await MainActor.run {
                     isGenerating = false
-                    audioURL = response.audioURL
-                    
                     // Auto-play after generation
-                    if let url = response.audioURL {
+                    if let url = URL(string: response.audioURL) {
+                        audioURL = url
                         audioPlayer.playAudio(from: url)
                     }
                 }

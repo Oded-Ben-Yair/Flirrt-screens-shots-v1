@@ -17,8 +17,8 @@ struct AppCoordinator: View {
                 AgeVerificationFlow()
                     .transition(.opacity)
             } else if !isOnboardingComplete {
-                // Show onboarding for first-time users
-                OnboardingView(isOnboardingComplete: $isOnboardingComplete)
+                // Show modern onboarding for first-time users
+                ModernOnboardingView()
                     .transition(.slide)
             // ✅ REMOVED: Skip personalization questionnaire for faster onboarding
             // } else if !isPersonalizationComplete {

@@ -15,8 +15,9 @@ struct EnhancedScreenshotAnalysisView: View {
     @EnvironmentObject private var screenshotManager: ScreenshotDetectionManager
     
     // MARK: - State
-    
+
     @State private var selectedImages: [UIImage] = []
+    @State private var selectedImagesData: [Data] = []
     @State private var showingImagePicker = false
     @State private var isAnalyzing = false
     @State private var flirtSuggestions: [FlirtSuggestion] = []
@@ -102,7 +103,7 @@ struct EnhancedScreenshotAnalysisView: View {
                 }
             }
             .sheet(isPresented: $showingImagePicker) {
-                MultiScreenshotPicker(selectedImages: $selectedImages, maxSelection: 3)
+                MultiScreenshotPicker(selectedImages: $selectedImages, selectedImagesData: $selectedImagesData)
             }
             .alert("Error", isPresented: $showingError) {
                 Button("OK", role: .cancel) {}
@@ -460,6 +461,7 @@ struct EnhancedScreenshotAnalysisView: View {
     
     private func resetView() {
         selectedImages = []
+        selectedImagesData = []
         flirtSuggestions = []
         conversationID = nil
         showingCoaching = [:]
