@@ -37,6 +37,7 @@ const flirtRoutes = require('./routes/flirts');
 const voiceRoutes = require('./routes/voice');
 const legalRoutes = require('./routes/legal');
 const accountRoutes = require('./routes/account');
+const abTestingRoutes = require('./routes/abTesting');
 
 // Import middleware
 const { authenticateToken, rateLimit } = require('./middleware/auth');
@@ -124,6 +125,7 @@ app.use('/api/v1/flirts', flirtRoutes);
 app.use('/api/v1/voice', voiceRoutes);
 app.use('/api/v1/legal', legalRoutes);
 app.use('/api/v1/account', accountRoutes);
+app.use('/api/v1/ab-testing', abTestingRoutes);
 
 // GDPR Compliance - User Data Deletion
 app.delete('/api/v1/user/:id/data', authenticateToken, async (req, res) => {
