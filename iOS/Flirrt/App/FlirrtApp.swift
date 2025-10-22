@@ -22,13 +22,9 @@ struct Vibe8App: App {
                 .environmentObject(sharedDataManager)
                 .environmentObject(screenshotManager)
                 .onAppear {
-                    // ✅ REMOVED: Don't request permissions on app launch
-                    // Let keyboard request Photos access when first needed
-                    // requestNotificationPermissions()
-
-                    // ✅ REMOVED: Don't auto-start screenshot detection in main app
-                    // Detection happens in keyboard extension only
-                    // screenshotManager.setDetectionEnabled(true)
+                    // ✅ Enable screenshot detection in main app
+                    // (Keyboard extensions CANNOT access Photos - Apple restriction)
+                    screenshotManager.setDetectionEnabled(true)
                 }
         }
     }
