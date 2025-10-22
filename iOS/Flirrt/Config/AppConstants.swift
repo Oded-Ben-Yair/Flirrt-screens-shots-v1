@@ -285,11 +285,11 @@ enum AppEnvironment {
 
         case .staging:
             // Render.com production URL (deployed and live)
-            return "https://vibe8-api-production.onrender.com/api/v1"
+            return "https://flirrt-api-production.onrender.com/api/v1"
 
         case .production:
             // Render.com production URL (deployed and live)
-            return "https://vibe8-api-production.onrender.com/api/v1"
+            return "https://flirrt-api-production.onrender.com/api/v1"
         }
     }
 
