@@ -74,9 +74,18 @@ class AIOrchestrator {
                 historyCount: conversationHistory.length
             });
 
+            // Normalize suggestion format (ensure 'text' field exists)
+            const normalizedSuggestions = flirts.suggestions.slice(0, 3).map(s => ({
+                text: s.text || s.message, // Support both formats
+                message: s.message || s.text, // Keep both for compatibility
+                tone: s.tone || 'playful',
+                reasoning: s.reasoning || '',
+                confidence: s.confidence || 0.85
+            }));
+
             return {
                 success: true,
-                suggestions: flirts.suggestions.slice(0, 3), // Max 3 suggestions
+                suggestions: normalizedSuggestions,
                 reasoning: flirts.reasoning,
                 metadata: {
                     totalLatency,
