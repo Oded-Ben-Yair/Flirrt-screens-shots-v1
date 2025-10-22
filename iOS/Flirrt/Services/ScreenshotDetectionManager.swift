@@ -23,6 +23,7 @@ final class ScreenshotDetectionManager: ObservableObject {
     private var backgroundTaskIdentifier: UIBackgroundTaskIdentifier = .invalid
     private let darwinNotificationManager = DarwinNotificationManager()
     private let conversationSessionManager: ConversationSessionManager
+    private let apiClient: APIClient
 
     // Performance tracking
     private var detectionStartTime: CFAbsoluteTime = 0
@@ -48,8 +49,9 @@ final class ScreenshotDetectionManager: ObservableObject {
     }
 
     // MARK: - Initialization
-    init(conversationSessionManager: ConversationSessionManager? = nil) {
+    init(conversationSessionManager: ConversationSessionManager? = nil, apiClient: APIClient? = nil) {
         self.conversationSessionManager = conversationSessionManager ?? ConversationSessionManager()
+        self.apiClient = apiClient ?? APIClient.shared
         setupScreenshotDetection()
         setupBackgroundHandling()
         logger.info("🔍 ScreenshotDetectionManager initialized - Detection enabled: \(self.screenhotDetectionEnabled)")
@@ -115,7 +117,12 @@ final class ScreenshotDetectionManager: ObservableObject {
 
         logger.info("📸 INSTANT SCREENSHOT DETECTED - ID: \(screenshotId), ConversationID: \(conversationID), Count: \(self.screenshotCounter)")
 
-        // Immediate Darwin notification (fastest path)
+        // Start automatic analysis in background (don't await - let it run async)
+        Task.detached(priority: .userInitiated) {
+            await self.performAutomaticAnalysis(screenshotId: screenshotId, conversationID: conversationID)
+        }
+
+        // Immediate Darwin notification (keyboard will load suggestions when ready)
         await sendInstantNotificationToKeyboard(screenshotId: screenshotId, conversationID: conversationID)
 
         // Process screenshot metadata in background
@@ -604,13 +611,220 @@ final class ScreenshotDetectionManager: ObservableObject {
     }
 
     // MARK: - Cleanup
-    deinit {
+    private func cleanupBeforeDeinit() {
         // End background task on main actor
         if backgroundTaskIdentifier != .invalid {
             Task { @MainActor in
                 UIApplication.shared.endBackgroundTask(backgroundTaskIdentifier)
             }
         }
+    }
+    
+    // MARK: - Automatic Screenshot Analysis
+    private func performAutomaticAnalysis(screenshotId: String, conversationID: String) async {
+        logger.info("🤖 Starting automatic screenshot analysis - ID: \(screenshotId)")
+        
+        // Start background task to allow execution if app backgrounds
+        let backgroundTask = UIApplication.shared.beginBackgroundTask { [weak self] in
+            self?.logger.warning("⏰ Background task expired during screenshot analysis")
+        }
+        
+        defer {
+            if backgroundTask != .invalid {
+                UIApplication.shared.endBackgroundTask(backgroundTask)
+            }
+        }
+        
+        // Step 1: Check photo library permissions
+        let photoStatus = await requestPhotoLibraryAccess()
+        guard photoStatus else {
+            logger.error("❌ Photo library access denied")
+            await saveErrorToAppGroups(error: "Photo access denied. Please enable in Settings.")
+            return
+        }
+        
+        // Step 2: Fetch latest screenshot
+        guard let imageData = await fetchLatestScreenshot() else {
+            logger.error("❌ Failed to fetch latest screenshot")
+            await saveErrorToAppGroups(error: "Could not access screenshot. Please try again.")
+            return
+        }
+        
+        logger.info("📸 Screenshot fetched: \(imageData.count / 1024)KB")
+        
+        // Step 3: Call API with retry
+        do {
+            let response = try await callAPIWithRetry(imageData: imageData, conversationID: conversationID)
+            
+            logger.info("✅ API returned \(response.suggestions.count) suggestions")
+            
+            // Step 4: Save to App Groups
+            await saveSuggestionsToAppGroups(response: response, conversationID: conversationID)
+            
+            logger.info("💾 Suggestions saved to App Groups - Keyboard ready!")
+            
+        } catch {
+            logger.error("❌ API call failed: \(error.localizedDescription)")
+            await saveErrorToAppGroups(error: "Network error. Please check your connection.")
+        }
+    }
+    
+    // MARK: - Photo Library Access
+    private func requestPhotoLibraryAccess() async -> Bool {
+        let status = PHPhotoLibrary.authorizationStatus(for: .readWrite)
+        
+        switch status {
+        case .authorized, .limited:
+            return true
+        case .notDetermined:
+            let newStatus = await PHPhotoLibrary.requestAuthorization(for: .readWrite)
+            return newStatus == .authorized || newStatus == .limited
+        default:
+            return false
+        }
+    }
+    
+    // MARK: - Screenshot Fetching
+    private func fetchLatestScreenshot() async -> Data? {
+        return await withCheckedContinuation { continuation in
+            DispatchQueue.global(qos: .userInitiated).async {
+                autoreleasepool {
+                    // Fetch screenshots from Photos library
+                    let fetchOptions = PHFetchOptions()
+                    fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
+                    fetchOptions.fetchLimit = 1
+                    
+                    // Get screenshots album
+                    let screenshots = PHAssetCollection.fetchAssetCollections(
+                        with: .smartAlbum,
+                        subtype: .smartAlbumScreenshots,
+                        options: nil
+                    )
+                    
+                    guard let screenshotsAlbum = screenshots.firstObject else {
+                        self.logger.error("❌ Screenshots album not found")
+                        continuation.resume(returning: nil)
+                        return
+                    }
+                    
+                    // Fetch latest screenshot
+                    let assets = PHAsset.fetchAssets(in: screenshotsAlbum, options: fetchOptions)
+                    guard let latestAsset = assets.firstObject else {
+                        self.logger.error("❌ No screenshots found in album")
+                        continuation.resume(returning: nil)
+                        return
+                    }
+                    
+                    // Request image data
+                    let options = PHImageRequestOptions()
+                    options.isSynchronous = true
+                    options.deliveryMode = .highQualityFormat
+                    options.resizeMode = .fast
+                    
+                    PHImageManager.default().requestImage(
+                        for: latestAsset,
+                        targetSize: CGSize(width: 1024, height: 1024),
+                        contentMode: .aspectFit,
+                        options: options
+                    ) { image, _ in
+                        guard let image = image else {
+                            self.logger.error("❌ Failed to load image from asset")
+                            continuation.resume(returning: nil)
+                            return
+                        }
+                        
+                        // Compress to JPEG
+                        guard let data = image.jpegData(compressionQuality: 0.7) else {
+                            self.logger.error("❌ Failed to compress image")
+                            continuation.resume(returning: nil)
+                            return
+                        }
+                        
+                        continuation.resume(returning: data)
+                    }
+                }
+            }
+        }
+    }
+    
+    // MARK: - API Call with Retry
+    private func callAPIWithRetry(imageData: Data, conversationID: String, retryCount: Int = 1) async throws -> FlirtSuggestionResponse {
+        do {
+            let response = try await apiClient.generateFlirtsFromImage(
+                imageData: imageData,
+                conversationID: conversationID,
+                suggestionType: .opener,
+                tone: "playful"
+            )
+            return response
+        } catch {
+            if retryCount > 0 {
+                logger.warning("⚠️ API call failed, retrying in 1s... (\(retryCount) retries left)")
+                try await Task.sleep(nanoseconds: 1_000_000_000)  // 1s backoff
+                return try await callAPIWithRetry(imageData: imageData, conversationID: conversationID, retryCount: retryCount - 1)
+            }
+            throw error
+        }
+    }
+    
+    // MARK: - App Groups Communication
+    private func saveSuggestionsToAppGroups(response: FlirtSuggestionResponse, conversationID: String) async {
+        guard let sharedDefaults = sharedDefaults else {
+            logger.error("❌ App Groups not accessible")
+            return
+        }
+        
+        // Prepare response data matching keyboard's expected structure
+        let responseData: [String: Any] = [
+            "suggestions": response.suggestions.map { suggestion in
+                [
+                    "text": suggestion.text,
+                    "tone": suggestion.tone,
+                    "confidence": suggestion.confidence,
+                    "reasoning": suggestion.reasoning ?? ""
+                ]
+            },
+            "session": [
+                "sessionId": conversationID,
+                "screenshotCount": conversationSessionManager.getSessionInfo()["screenshot_count"] as? Int ?? 1,
+                "contextScore": 0.43,
+                "needsMoreContext": true,
+                "contextMessage": "First screenshot received! For better suggestions, you can share 1-2 more screenshots.",
+                "progressPercentage": "33",
+                "qualityLevel": "basic"
+            ],
+            "metadata": [
+                "timestamp": Date().timeIntervalSince1970,
+                "conversationID": conversationID
+            ]
+        ]
+        
+        // Encode and save
+        if let data = try? JSONSerialization.data(withJSONObject: responseData) {
+            sharedDefaults.set(data, forKey: "latestResponse")
+            sharedDefaults.synchronize()
+            logger.info("💾 Saved \(response.suggestions.count) suggestions to App Groups")
+        } else {
+            logger.error("❌ Failed to encode response data")
+        }
+    }
+    
+    private func saveErrorToAppGroups(error: String) async {
+        guard let sharedDefaults = sharedDefaults else { return }
+        
+        let errorData: [String: Any] = [
+            "error": error,
+            "timestamp": Date().timeIntervalSince1970
+        ]
+        
+        if let data = try? JSONSerialization.data(withJSONObject: errorData) {
+            sharedDefaults.set(data, forKey: "latestResponse")
+            sharedDefaults.synchronize()
+            logger.error("💾 Saved error to App Groups: \(error)")
+        }
+    }
+
+    deinit {
         cancellables.removeAll()
         logger.info("🔍 ScreenshotDetectionManager deinitialized")
     }
