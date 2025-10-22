@@ -32,9 +32,10 @@ class APIClient: ObservableObject {
                           parameters: parameters,
                           encoding: JSONEncoding.default)
                 .validate()
-                .responseDecodable(of: AuthResponse.self) { response in
+                .responseDecodable(of: AuthResponseWrapper.self) { response in
                     switch response.result {
-                    case .success(let authResponse):
+                    case .success(let wrapper):
+                        let authResponse = AuthResponse(from: wrapper)
                         continuation.resume(returning: authResponse)
                     case .failure(let error):
                         // REAL ERROR - NO FALLBACK
@@ -276,9 +277,39 @@ class APIClient: ObservableObject {
 }
 
 // MARK: - Response Models
+struct AuthResponseWrapper: Codable {
+    let success: Bool
+    let data: AuthResponseData
+    let message: String?
+}
+
+struct AuthResponseData: Codable {
+    let user: AuthUser
+    let token: String
+    let expiresAt: String
+}
+
+struct AuthUser: Codable {
+    let id: String
+    let provider: String
+    let mvpMode: Bool
+}
+
 struct AuthResponse: Codable {
     let token: String
     let user: User
+    
+    init(from wrapper: AuthResponseWrapper) {
+        self.token = wrapper.data.token
+        self.user = User(
+            id: wrapper.data.user.id,
+            email: nil,
+            fullName: nil,
+            voiceId: nil,
+            createdAt: Date(),
+            ageVerified: false
+        )
+    }
 }
 
 struct ValidationResponse: Codable {
