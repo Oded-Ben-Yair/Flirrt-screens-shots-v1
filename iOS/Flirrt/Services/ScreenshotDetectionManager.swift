@@ -655,14 +655,15 @@ final class ScreenshotDetectionManager: ObservableObject {
         // Step 3: Call API with retry
         do {
             let response = try await callAPIWithRetry(imageData: imageData, conversationID: conversationID)
-            
-            logger.info("✅ API returned \(response.suggestions.count) suggestions")
-            
+
+            let count = response.suggestions?.count ?? 0
+            logger.info("✅ API returned \(count) suggestions")
+
             // Step 4: Save to App Groups
             await saveSuggestionsToAppGroups(response: response, conversationID: conversationID)
-            
+
             logger.info("💾 Suggestions saved to App Groups - Keyboard ready!")
-            
+
         } catch {
             logger.error("❌ API call failed: \(error.localizedDescription)")
             await saveErrorToAppGroups(error: "Network error. Please check your connection.")
@@ -776,14 +777,14 @@ final class ScreenshotDetectionManager: ObservableObject {
         
         // Prepare response data matching keyboard's expected structure
         let responseData: [String: Any] = [
-            "suggestions": response.suggestions.map { suggestion in
+            "suggestions": response.suggestions?.map { suggestion in
                 [
                     "text": suggestion.text,
                     "tone": suggestion.tone,
                     "confidence": suggestion.confidence,
                     "reasoning": suggestion.reasoning ?? ""
                 ]
-            },
+            } ?? [],
             "session": [
                 "sessionId": conversationID,
                 "screenshotCount": conversationSessionManager.getSessionInfo()["screenshot_count"] as? Int ?? 1,
@@ -803,7 +804,8 @@ final class ScreenshotDetectionManager: ObservableObject {
         if let data = try? JSONSerialization.data(withJSONObject: responseData) {
             sharedDefaults.set(data, forKey: "latestResponse")
             sharedDefaults.synchronize()
-            logger.info("💾 Saved \(response.suggestions.count) suggestions to App Groups")
+            let count = response.suggestions?.count ?? 0
+            logger.info("💾 Saved \(count) suggestions to App Groups")
         } else {
             logger.error("❌ Failed to encode response data")
         }
