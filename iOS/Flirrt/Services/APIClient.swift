@@ -114,7 +114,7 @@ class APIClient: ObservableObject {
         ]
 
         return try await withCheckedThrowingContinuation { continuation in
-            session.request("\(baseURL)/generate_flirts",
+            session.request("\(baseURL)/flirts",
                           method: .post,
                           parameters: parameters,
                           encoding: JSONEncoding.default)
@@ -149,12 +149,12 @@ class APIClient: ObservableObject {
             session.upload(
                 multipartFormData: { formData in
                     // Add image as multipart data
-                    formData.append(imageData, withName: "screenshot", fileName: "screenshot.jpg", mimeType: "image/jpeg")
+                    formData.append(imageData, withName: "images[0]", fileName: "screenshot.jpg", mimeType: "image/jpeg")
 
                     // NEW: Add conversation_id for multi-screenshot context
                     if let conversationID = conversationID,
                        let conversationIDData = conversationID.data(using: .utf8) {
-                        formData.append(conversationIDData, withName: "conversation_id")
+                        formData.append(conversationIDData, withName: "conversationId")
                     }
 
                     // Add other parameters
@@ -168,7 +168,7 @@ class APIClient: ObservableObject {
                         formData.append(contextData, withName: "context")
                     }
                 },
-                to: "\(baseURL)/flirts/generate_flirts"
+                to: "\(baseURL)/flirts"
             )
             .validate()
             .responseDecodable(of: FlirtSuggestionResponse.self) { response in
