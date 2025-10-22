@@ -12,13 +12,20 @@ const { Pool } = require('pg');
  */
 class ConversationContextService {
   constructor() {
-    this.pool = new Pool({
-      host: process.env.DB_HOST,
-      port: process.env.DB_PORT,
-      database: process.env.DB_NAME,
-      user: process.env.DB_USER,
-      password: process.env.DB_PASSWORD,
-    });
+    // Only create pool if DB credentials exist (graceful degradation)
+    if (process.env.DB_HOST && process.env.DB_NAME) {
+      this.pool = new Pool({
+        host: process.env.DB_HOST,
+        port: process.env.DB_PORT,
+        database: process.env.DB_NAME,
+        user: process.env.DB_USER,
+        password: process.env.DB_PASSWORD,
+      });
+      console.log('✅ Database pool initialized for conversation context');
+    } else {
+      this.pool = null;
+      console.warn('⚠️  Database not configured - using mock sessions (conversation context disabled)');
+    }
 
     // Session expires after 30 minutes of inactivity
     this.sessionTimeout = 30 * 60 * 1000;
@@ -31,6 +38,19 @@ class ConversationContextService {
    * @returns {Promise<Object>} Session object
    */
   async getOrCreateSession(userId, conversationId = null) {
+    // If no database, return mock session immediately
+    if (!this.pool) {
+      console.log('📦 Returning mock session (database not configured)');
+      return {
+        id: `session_${Date.now()}`,
+        user_id: userId,
+        conversation_id: conversationId,
+        created_at: new Date(),
+        updated_at: new Date(),
+        screenshot_count: 0
+      };
+    }
+
     try {
       // Try to find active session (updated within last 30 minutes)
       const activeSessionQuery = `
@@ -85,6 +105,12 @@ class ConversationContextService {
    * @returns {Promise<void>}
    */
   async addScreenshotToSession(sessionId, screenshotId, analysis) {
+    // If no database, skip gracefully
+    if (!this.pool) {
+      console.log('📦 Skipping screenshot session link (database not configured)');
+      return;
+    }
+
     try {
       // Link screenshot to session
       const linkQuery = `
@@ -119,6 +145,12 @@ class ConversationContextService {
    * @returns {Promise<Array>} Array of previous screenshots with suggestions
    */
   async getConversationHistory(sessionId, limit = 3) {
+    // If no database, return empty history
+    if (!this.pool) {
+      console.log('📦 Returning empty history (database not configured)');
+      return [];
+    }
+
     try {
       const historyQuery = `
         SELECT
@@ -198,6 +230,11 @@ class ConversationContextService {
    * @returns {Promise<number>} Number of sessions closed
    */
   async closeInactiveSessions() {
+    // If no database, skip gracefully
+    if (!this.pool) {
+      return 0;
+    }
+
     try {
       const closeQuery = `
         UPDATE conversation_sessions
@@ -226,6 +263,11 @@ class ConversationContextService {
    * @returns {Promise<Object>} Session stats
    */
   async getSessionStats(sessionId) {
+    // If no database, return null
+    if (!this.pool) {
+      return null;
+    }
+
     try {
       const statsQuery = `
         SELECT
