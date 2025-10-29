@@ -8,7 +8,7 @@ class EnhancedKeyboardViewController: UIInputViewController {
     // MARK: - Properties
 
     private let logger = OSLog(subsystem: "com.vibe8.keyboard", category: "enhanced")
-    private let appGroupID = "group.com.vibe8"
+    private let appGroupID = "group.com.flirrt"
     private var darwinNotificationName: CFNotificationName?
 
     private var suggestions: [FlirtSuggestion] = []
@@ -137,11 +137,23 @@ class EnhancedKeyboardViewController: UIInputViewController {
     private func loadSuggestionsFromAppGroup() {
         guard let sharedDefaults = UserDefaults(suiteName: appGroupID) else {
             os_log("Failed to access App Group", log: logger, type: .error)
+            activityIndicator.stopAnimating()
             return
         }
 
+        // Check if analysis is in progress
+        let isAnalyzing = sharedDefaults.bool(forKey: "isAnalyzingScreenshot")
+        if isAnalyzing {
+            os_log("🔄 Screenshot analysis in progress...", log: logger, type: .info)
+            activityIndicator.startAnimating()
+            suggestionToolbar.showPlaceholder() // Show placeholder while loading
+            return
+        }
+
+        // Check for suggestions data
         guard let suggestionsData = sharedDefaults.data(forKey: "latestSuggestions") else {
             os_log("No suggestions available in App Group", log: logger, type: .info)
+            activityIndicator.stopAnimating()
             suggestionToolbar.showPlaceholder()
             return
         }
@@ -152,11 +164,13 @@ class EnhancedKeyboardViewController: UIInputViewController {
 
             if !loadedSuggestions.isEmpty {
                 os_log("✅ Loaded %d suggestions from App Group", log: logger, type: .info, loadedSuggestions.count)
+                activityIndicator.stopAnimating()
                 suggestions = Array(loadedSuggestions.prefix(3)) // Max 3 suggestions
                 suggestionToolbar.updateSuggestions(suggestions)
             }
         } catch {
             os_log("Failed to decode suggestions: %@", log: logger, type: .error, error.localizedDescription)
+            activityIndicator.stopAnimating()
         }
     }
 

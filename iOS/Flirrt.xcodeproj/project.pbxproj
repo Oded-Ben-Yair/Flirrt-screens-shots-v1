@@ -15,6 +15,7 @@
 		58DEF3D30B431139DCA4C2C6 /* DarwinNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4500141D38A23F3E31FB9957 /* DarwinNotificationManager.swift */; };
 		643B99CC85AD22A3505E5713 /* MinimalHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D7C0E00F965F58FF598F50 /* MinimalHomeView.swift */; };
 		7E3C349FFD99D1EBCA11FF58 /* FlirtSuggestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1937AAA195D1AD03252B4C /* FlirtSuggestion.swift */; };
+		904F707330C5CFE56C993A8A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BB96009CCDEDE350FD37A0BB /* Assets.xcassets */; };
 		A0001000000000000001000 /* FlirrtApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0002000000000000002000 /* FlirrtApp.swift */; };
 		A0003000000000000003000 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0004000000000000004000 /* ContentView.swift */; };
 		A0005000000000000005000 /* VoiceModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0006000000000000006000 /* VoiceModels.swift */; };
@@ -121,6 +122,7 @@
 		A0065000000000000065000 /* FlirrtShare-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FlirrtShare-Info.plist"; sourceTree = "<group>"; };
 		A0066000000000000066000 /* FlirrtShare.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FlirrtShare.entitlements; sourceTree = "<group>"; };
 		A1D7C0E00F965F58FF598F50 /* MinimalHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinimalHomeView.swift; sourceTree = "<group>"; };
+		BB96009CCDEDE350FD37A0BB /* Assets.xcassets */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = FlirrtApp/Assets.xcassets; sourceTree = SOURCE_ROOT; };
 		C9A94B145045D90065562989 /* VoicePlaybackView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = VoicePlaybackView.swift; sourceTree = "<group>"; };
 		D4FA899A9F071DA8A073BB12 /* AppConstants.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AppConstants.swift; path = ../Flirrt/Config/AppConstants.swift; sourceTree = "<group>"; };
 		F0AB5DF72B9ED8E9D590D084 /* ScreenshotDetectionManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ScreenshotDetectionManager.swift; sourceTree = "<group>"; };
@@ -204,6 +206,7 @@
 				A0061000000000000061000 /* Info.plist */,
 				A0062000000000000062000 /* Flirrt.entitlements */,
 				E8FCDE87BE75747C5F41A5CA /* Config */,
+				BB96009CCDEDE350FD37A0BB /* Assets.xcassets */,
 			);
 			path = Flirrt;
 			sourceTree = "<group>";
@@ -425,6 +428,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				904F707330C5CFE56C993A8A /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -644,7 +648,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 9L8889KAL6;
 				ENABLE_PREVIEWS = YES;
@@ -677,7 +681,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 9L8889KAL6;
 				ENABLE_PREVIEWS = YES;
@@ -708,7 +712,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = 9L8889KAL6;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = "FlirrtKeyboard/FlirrtKeyboard-Info.plist";
@@ -734,7 +738,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = 9L8889KAL6;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = "FlirrtKeyboard/FlirrtKeyboard-Info.plist";
@@ -760,7 +764,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = 9L8889KAL6;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = "FlirrtShare/FlirrtShare-Info.plist";
@@ -786,7 +790,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = 9L8889KAL6;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = "FlirrtShare/FlirrtShare-Info.plist";

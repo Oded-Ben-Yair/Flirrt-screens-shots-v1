@@ -53,7 +53,7 @@
     <!-- App Groups for sharing data with main app -->
     <key>com.apple.security.application-groups</key>
     <array>
-        <string>group.com.flirrt.shared</string>
+        <string>group.com.flirrt</string>
     </array>
 
     <!-- App Transport Security -->

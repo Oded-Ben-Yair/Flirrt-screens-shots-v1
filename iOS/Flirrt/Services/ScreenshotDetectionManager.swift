@@ -117,13 +117,10 @@ final class ScreenshotDetectionManager: ObservableObject {
 
         logger.info("📸 INSTANT SCREENSHOT DETECTED - ID: \(screenshotId), ConversationID: \(conversationID), Count: \(self.screenshotCounter)")
 
-        // Start automatic analysis in background (don't await - let it run async)
+        // Start automatic analysis in background (keyboard notification will be sent after analysis completes)
         Task.detached(priority: .userInitiated) {
             await self.performAutomaticAnalysis(screenshotId: screenshotId, conversationID: conversationID)
         }
-
-        // Immediate Darwin notification (keyboard will load suggestions when ready)
-        await sendInstantNotificationToKeyboard(screenshotId: screenshotId, conversationID: conversationID)
 
         // Process screenshot metadata in background
         Task.detached(priority: .userInitiated) {
@@ -287,17 +284,144 @@ final class ScreenshotDetectionManager: ObservableObject {
     }
 
     private func checkForBackgroundScreenshots() async {
-        // This method can be used to detect screenshots taken while app was backgrounded
-        // Implementation would involve checking Photos library for recent images
-        logger.debug("🔍 Checking for background screenshots")
+        logger.info("🔍 Checking for screenshots taken while app was backgrounded")
 
         guard await requestPhotosPermissionIfNeeded() else {
             logger.info("📷 Photos permission not available for background check")
             return
         }
 
-        // Implementation for background screenshot detection would go here
-        // This is optional and depends on specific requirements
+        // Get the last time app was active
+        guard let lastActiveTime = sharedDefaults?.double(forKey: AppConstants.UserDefaultsKeys.lastActiveTime),
+              lastActiveTime > 0 else {
+            logger.debug("No last active time recorded")
+            return
+        }
+
+        let lastActiveDate = Date(timeIntervalSince1970: lastActiveTime)
+        let timeSinceBackground = Date().timeIntervalSince(lastActiveDate)
+
+        // Only check if we were backgrounded for less than 30 minutes
+        guard timeSinceBackground < 1800 else {
+            logger.info("App was backgrounded for too long (\(Int(timeSinceBackground))s), skipping check")
+            return
+        }
+
+        logger.info("📸 Looking for screenshots taken in last \(Int(timeSinceBackground))s while app was backgrounded")
+
+        // Fetch screenshots from Photos library created since last active time
+        let fetchOptions = PHFetchOptions()
+        fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
+        fetchOptions.predicate = NSPredicate(format: "creationDate >= %@", lastActiveDate as NSDate)
+
+        // Get screenshots album
+        let screenshots = PHAssetCollection.fetchAssetCollections(
+            with: .smartAlbum,
+            subtype: .smartAlbumScreenshots,
+            options: nil
+        )
+
+        guard let screenshotsAlbum = screenshots.firstObject else {
+            logger.warning("⚠️ Screenshots album not found")
+            return
+        }
+
+        // Fetch recent screenshots
+        let assets = PHAsset.fetchAssets(in: screenshotsAlbum, options: fetchOptions)
+
+        guard assets.count > 0 else {
+            logger.info("No new screenshots found since app was backgrounded")
+            return
+        }
+
+        logger.info("🎯 Found \(assets.count) screenshot(s) taken while app was backgrounded!")
+
+        // Process each screenshot
+        assets.enumerateObjects { [weak self] asset, index, _ in
+            guard let self = self else { return }
+
+            Task { @MainActor in
+                let screenshotId = self.generateScreenshotId()
+                let conversationID = self.conversationSessionManager.getOrCreateSession()
+                self.conversationSessionManager.incrementScreenshotCount()
+
+                self.logger.info("📸 Processing background screenshot \(index + 1)/\(assets.count) - ID: \(screenshotId)")
+
+                // Extract image from asset
+                await self.extractAndProcessBackgroundScreenshot(
+                    asset: asset,
+                    screenshotId: screenshotId,
+                    conversationID: conversationID
+                )
+            }
+        }
+    }
+
+    private func extractAndProcessBackgroundScreenshot(asset: PHAsset, screenshotId: String, conversationID: String) async {
+        logger.info("🖼️ Extracting background screenshot - ID: \(screenshotId)")
+
+        // Request image from asset
+        let imageManager = PHImageManager.default()
+        let options = PHImageRequestOptions()
+        options.isSynchronous = true
+        options.deliveryMode = .highQualityFormat
+        options.resizeMode = .fast
+
+        return await withCheckedContinuation { continuation in
+            imageManager.requestImage(
+                for: asset,
+                targetSize: CGSize(width: 1024, height: 1024),
+                contentMode: .aspectFit,
+                options: options
+            ) { [weak self] image, _ in
+                guard let self = self, let image = image else {
+                    self?.logger.error("❌ Failed to extract background screenshot")
+                    continuation.resume()
+                    return
+                }
+
+                // Compress to JPEG
+                guard let imageData = image.jpegData(compressionQuality: 0.7) else {
+                    self.logger.error("❌ Failed to compress background screenshot")
+                    continuation.resume()
+                    return
+                }
+
+                self.logger.info("✅ Background screenshot extracted: \(imageData.count / 1024)KB")
+
+                // Process with automatic analysis
+                Task { @MainActor in
+                    await self.processBackgroundScreenshot(
+                        imageData: imageData,
+                        screenshotId: screenshotId,
+                        conversationID: conversationID
+                    )
+                    continuation.resume()
+                }
+            }
+        }
+    }
+
+    private func processBackgroundScreenshot(imageData: Data, screenshotId: String, conversationID: String) async {
+        logger.info("🤖 Processing background screenshot with automatic analysis - ID: \(screenshotId)")
+
+        // Call API with retry
+        do {
+            let response = try await callAPIWithRetry(imageData: imageData, conversationID: conversationID)
+            let count = response.suggestions?.count ?? 0
+            logger.info("✅ Background screenshot processed: \(count) suggestions")
+
+            // Save to App Groups
+            await saveSuggestionsToAppGroups(response: response, conversationID: conversationID)
+
+            // Send notification to keyboard
+            await sendInstantNotificationToKeyboard(screenshotId: screenshotId, conversationID: conversationID)
+
+            logger.info("💾 Background screenshot analysis complete - Keyboard ready!")
+        } catch {
+            logger.error("❌ Background screenshot analysis failed: \(error.localizedDescription)")
+            await saveErrorToAppGroups(error: "Could not analyze screenshot. Please try again.")
+        }
     }
 
     // MARK: - Photos Library Analysis
@@ -307,13 +431,14 @@ final class ScreenshotDetectionManager: ObservableObject {
     }
 
     private func requestPhotosPermissionIfNeeded() async -> Bool {
-        let status = PHPhotoLibrary.authorizationStatus(for: .readWrite)
+        let status = PHPhotoLibrary.authorizationStatus()
 
         switch status {
         case .authorized, .limited:
             return true
         case .notDetermined:
-            let newStatus = await PHPhotoLibrary.requestAuthorization(for: .readWrite)
+            // Request read-only access - use .addOnly which grants read access
+            let newStatus = await PHPhotoLibrary.requestAuthorization(for: .addOnly)
             return newStatus == .authorized || newStatus == .limited
         case .denied, .restricted:
             logger.info("📷 Photos access denied - Screenshot analysis limited")
@@ -623,18 +748,27 @@ final class ScreenshotDetectionManager: ObservableObject {
     // MARK: - Automatic Screenshot Analysis
     private func performAutomaticAnalysis(screenshotId: String, conversationID: String) async {
         logger.info("🤖 Starting automatic screenshot analysis - ID: \(screenshotId)")
-        
+
+        // Set analyzing flag for keyboard loading state
+        if let sharedDefaults = UserDefaults(suiteName: AppConstants.appGroupIdentifier) {
+            sharedDefaults.set(true, forKey: "isAnalyzingScreenshot")
+        }
+
         // Start background task to allow execution if app backgrounds
         let backgroundTask = UIApplication.shared.beginBackgroundTask { [weak self] in
             self?.logger.warning("⏰ Background task expired during screenshot analysis")
         }
-        
+
         defer {
             if backgroundTask != .invalid {
                 UIApplication.shared.endBackgroundTask(backgroundTask)
             }
+            // Clear analyzing flag when done (success or failure)
+            if let sharedDefaults = UserDefaults(suiteName: AppConstants.appGroupIdentifier) {
+                sharedDefaults.set(false, forKey: "isAnalyzingScreenshot")
+            }
         }
-        
+
         // Step 1: Check photo library permissions
         let photoStatus = await requestPhotoLibraryAccess()
         guard photoStatus else {
@@ -664,6 +798,10 @@ final class ScreenshotDetectionManager: ObservableObject {
 
             logger.info("💾 Suggestions saved to App Groups - Keyboard ready!")
 
+            // Step 5: Notify keyboard that suggestions are ready (after saving!)
+            await sendInstantNotificationToKeyboard(screenshotId: screenshotId, conversationID: conversationID)
+            logger.info("📢 Keyboard notified - Suggestions available!")
+
         } catch {
             logger.error("❌ API call failed: \(error.localizedDescription)")
             await saveErrorToAppGroups(error: "Network error. Please check your connection.")
@@ -672,13 +810,14 @@ final class ScreenshotDetectionManager: ObservableObject {
     
     // MARK: - Photo Library Access
     private func requestPhotoLibraryAccess() async -> Bool {
-        let status = PHPhotoLibrary.authorizationStatus(for: .readWrite)
-        
+        let status = PHPhotoLibrary.authorizationStatus()
+
         switch status {
         case .authorized, .limited:
             return true
         case .notDetermined:
-            let newStatus = await PHPhotoLibrary.requestAuthorization(for: .readWrite)
+            // Request read-only access - use .addOnly which grants read access
+            let newStatus = await PHPhotoLibrary.requestAuthorization(for: .addOnly)
             return newStatus == .authorized || newStatus == .limited
         default:
             return false

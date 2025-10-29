@@ -91,9 +91,21 @@ router.post('/', async (req, res) => {
         }
 
         // Build response with session metadata
+        // Normalize suggestion format to ensure iOS compatibility (uses .text field)
+        const normalizedSuggestions = result.suggestions.map(s => ({
+            id: s.id,
+            text: s.text || s.message,  // Ensure .text field exists for iOS
+            message: s.message || s.text,  // Keep .message for backward compatibility
+            tone: s.tone,
+            confidence: s.confidence,
+            reasoning: s.reasoning,
+            suggestionType: s.suggestionType,
+            createdAt: s.createdAt
+        }));
+
         const response = {
             success: true,
-            suggestions: result.suggestions,
+            suggestions: normalizedSuggestions,
             reasoning: result.reasoning,
             metadata: result.metadata,
             moderation: {
