@@ -33,9 +33,10 @@ const db = require('./config/database');
 // Import routes
 const authRoutes = require('./routes/auth');
 const analysisRoutes = require('./routes/analysis');
-const flirtRoutes = require('./routes/flirts');
+const flirtRoutes = require('./routes/flirts'); // LEGACY: Grok-2-vision single model
 const voiceRoutes = require('./routes/voice');
-const vibe8FlirtsRoutes = require('./routes/vibe8-flirts'); // Vibe8: Gemini + GPT-5 pipeline
+const vibe8FlirtsRoutes = require('./routes/vibe8-flirts'); // OLD: Gemini + GPT-5 pipeline
+const trainedFlirtsRoutes = require('./routes/trained-flirts'); // PRODUCTION: Grok-2-vision + GPT-5 pipeline
 
 // Import middleware
 const { authenticateToken, rateLimit } = require('./middleware/auth');
@@ -115,11 +116,12 @@ app.get('/health', async (req, res) => {
 // API Routes
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/analysis', analysisRoutes);
-app.use('/api/v1/flirts', flirtRoutes);
+app.use('/api/v1/flirts', flirtRoutes); // LEGACY: Single-model Grok-2-vision
 app.use('/api/v1/voice', voiceRoutes);
 
-// Vibe8 V2 API - Optimized Gemini 2.5 Pro + GPT-5 Pipeline
-app.use('/api/v2/vibe8', vibe8FlirtsRoutes);
+// V2 API Routes
+app.use('/api/v2/vibe8', vibe8FlirtsRoutes); // OLD: Gemini 2.5 Pro + GPT-5 Pipeline
+app.use('/api/v2/trained', trainedFlirtsRoutes); // PRODUCTION: Grok-2-vision + GPT-5 Pipeline (TRAINED)
 
 // GDPR Compliance - User Data Deletion
 app.delete('/api/v1/user/:id/data', authenticateToken, async (req, res) => {

@@ -1,3 +1,17 @@
+/**
+ * ⚠️ DEPRECATED - OLD UNTRAINED PIPELINE
+ *
+ * This route uses Gemini 2.5 Pro + GPT-5 (untrained pipeline).
+ *
+ * **USE INSTEAD**: /api/v2/trained (routes/trained-flirts.js)
+ * - Trained pipeline: Grok-2-vision + GPT-5
+ * - Better quality, faster performance
+ * - User-validated architecture
+ *
+ * **Status**: Maintained for backward compatibility only
+ * **Removal date**: TBD after trained pipeline validation
+ */
+
 const express = require('express');
 const multer = require('multer');
 const path = require('path');
@@ -10,7 +24,7 @@ const { logger } = require('../services/logger');
 const router = express.Router();
 
 /**
- * Vibe8 Flirts API - Gemini 2.5 Pro → GPT-5 Pipeline
+ * Vibe8 Flirts API - Gemini 2.5 Pro → GPT-5 Pipeline (DEPRECATED)
  *
  * Implements THE VIBE8 FIXING PLAN dual-model orchestration:
  * 1. Screenshot Analysis: Gemini 2.5 Pro (multimodal vision)

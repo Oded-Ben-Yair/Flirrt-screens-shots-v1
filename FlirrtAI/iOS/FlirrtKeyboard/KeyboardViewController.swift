@@ -337,7 +337,8 @@ class KeyboardViewController: UIInputViewController {
 
     // MARK: - Backend API
     private func analyzeWithBackend(base64Image: String, screenshotId: String) {
-        let apiURL = "\(AppConstants.apiBaseURL)/flirts/generate_flirts"
+        // UPDATED: Using trained Grok-2-vision + GPT-5 pipeline
+        let apiURL = "\(AppConstants.apiBaseURL)/api/v2/trained/analyze-and-generate"
         os_log("🌐 API URL: %@", log: logger, type: .info, apiURL)
 
         guard let url = URL(string: apiURL) else {

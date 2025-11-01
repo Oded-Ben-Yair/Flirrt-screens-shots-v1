@@ -1,3 +1,17 @@
+/**
+ * ⚠️ LEGACY - SINGLE-MODEL PIPELINE
+ *
+ * This route uses Grok-2-vision only (single model).
+ *
+ * **USE INSTEAD**: /api/v2/trained (routes/trained-flirts.js)
+ * - Trained dual-model pipeline: Grok-2-vision (analysis) + GPT-5 (generation)
+ * - Better quality with coaching tone
+ * - Proper separation of concerns
+ *
+ * **Status**: Maintained for backward compatibility only
+ * **Removal date**: TBD after trained pipeline validation
+ */
+
 const express = require('express');
 const { Pool } = require('pg');
 const axios = require('axios');
@@ -32,23 +46,27 @@ const pool = new Pool({
 
 // Redis connection for caching (optional)
 let redis = null;
-try {
-    redis = new Redis({
-        host: process.env.REDIS_HOST,
-        port: process.env.REDIS_PORT,
-        password: process.env.REDIS_PASSWORD,
-        retryDelayOnFailover: timeouts.retry.redisRetryDelay,
-        maxRetriesPerRequest: timeouts.retry.maxRetriesNetworkError,
-        lazyConnect: true
-    });
+if (process.env.REDIS_HOST && process.env.REDIS_PORT) {
+    try {
+        redis = new Redis({
+            host: process.env.REDIS_HOST,
+            port: process.env.REDIS_PORT,
+            password: process.env.REDIS_PASSWORD,
+            retryDelayOnFailover: timeouts.retry.redisRetryDelay,
+            maxRetriesPerRequest: timeouts.retry.maxRetriesNetworkError,
+            lazyConnect: true
+        });
 
-    redis.on('error', (err) => {
-        console.warn('Redis connection error (caching disabled):', err.message);
+        redis.on('error', (err) => {
+            console.warn('Redis connection error (caching disabled):', err.message);
+            redis = null;
+        });
+    } catch (error) {
+        console.warn('Redis initialization failed (caching disabled):', error.message);
         redis = null;
-    });
-} catch (error) {
-    console.warn('Redis initialization failed (caching disabled):', error.message);
-    redis = null;
+    }
+} else {
+    console.log('ℹ️  Redis not configured - caching disabled (this is normal for MVP)');
 }
 
 /**
