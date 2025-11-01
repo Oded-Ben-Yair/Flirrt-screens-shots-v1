@@ -35,6 +35,7 @@ const authRoutes = require('./routes/auth');
 const analysisRoutes = require('./routes/analysis');
 const flirtRoutes = require('./routes/flirts');
 const voiceRoutes = require('./routes/voice');
+const vibe8FlirtsRoutes = require('./routes/vibe8-flirts'); // Vibe8: Gemini + GPT-5 pipeline
 
 // Import middleware
 const { authenticateToken, rateLimit } = require('./middleware/auth');
@@ -116,6 +117,9 @@ app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/analysis', analysisRoutes);
 app.use('/api/v1/flirts', flirtRoutes);
 app.use('/api/v1/voice', voiceRoutes);
+
+// Vibe8 V2 API - Optimized Gemini 2.5 Pro + GPT-5 Pipeline
+app.use('/api/v2/vibe8', vibe8FlirtsRoutes);
 
 // GDPR Compliance - User Data Deletion
 app.delete('/api/v1/user/:id/data', authenticateToken, async (req, res) => {

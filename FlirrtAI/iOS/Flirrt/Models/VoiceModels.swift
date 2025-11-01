@@ -1,5 +1,6 @@
 import Foundation
 import AVFoundation
+import SwiftUI
 
 // MARK: - Voice Clone Model
 struct VoiceClone: Codable, Identifiable {
@@ -370,14 +371,14 @@ enum ScriptCategory: String, Codable, CaseIterable {
         }
     }
 
-    var color: String {
+    var color: Color {
         switch self {
-        case .introduction: return "blue"
-        case .casual: return "green"
-        case .flirty: return "pink"
-        case .confident: return "purple"
-        case .playful: return "orange"
-        case .romantic: return "red"
+        case .introduction: return .blue
+        case .casual: return .green
+        case .flirty: return .pink
+        case .confident: return .purple
+        case .playful: return .orange
+        case .romantic: return .red
         }
     }
 }
@@ -391,11 +392,11 @@ enum ScriptDifficulty: String, Codable, CaseIterable {
         return rawValue.capitalized
     }
 
-    var color: String {
+    var color: Color {
         switch self {
-        case .beginner: return "green"
-        case .intermediate: return "orange"
-        case .advanced: return "red"
+        case .beginner: return .green
+        case .intermediate: return .orange
+        case .advanced: return .red
         }
     }
 

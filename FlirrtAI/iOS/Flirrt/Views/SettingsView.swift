@@ -10,6 +10,7 @@ struct SettingsView: View {
     @State private var voiceProcessingEnabled = true
     @State private var analyticsEnabled = false
     @State private var darkModeEnabled = true
+    @State private var gamificationEnabled = true // Phase 3: Gamification toggle
 
     var body: some View {
         NavigationView {
@@ -115,6 +116,19 @@ struct SettingsView: View {
 
                             SettingsDivider()
 
+                            SettingsToggleRow(
+                                icon: "gamecontroller.fill",
+                                title: "Gamification",
+                                description: "Points, streaks, and scroll-to-reveal mechanics",
+                                isOn: $gamificationEnabled,
+                                color: .orange
+                            )
+                            .onChange(of: gamificationEnabled) { _, newValue in
+                                UserDefaults.standard.set(newValue, forKey: "gamification.enabled")
+                            }
+
+                            SettingsDivider()
+
                             SettingsActionRow(
                                 icon: "star.fill",
                                 title: "Premium Features",
@@ -208,6 +222,16 @@ struct SettingsView: View {
             )
             .navigationTitle("Settings")
             .navigationBarTitleDisplayMode(.large)
+            .onAppear {
+                // Load gamification setting
+                gamificationEnabled = UserDefaults.standard.bool(forKey: "gamification.enabled")
+                // Default to true if not set
+                if !UserDefaults.standard.bool(forKey: "gamification.settingInitialized") {
+                    gamificationEnabled = true
+                    UserDefaults.standard.set(true, forKey: "gamification.enabled")
+                    UserDefaults.standard.set(true, forKey: "gamification.settingInitialized")
+                }
+            }
         }
         .alert("Delete All Data", isPresented: $showingDataDeletionAlert) {
             Button("Cancel", role: .cancel) { }

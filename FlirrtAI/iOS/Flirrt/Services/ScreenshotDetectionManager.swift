@@ -6,14 +6,16 @@ import Combine
 
 /// Ultra-fast screenshot detection manager with <0.1s detection time
 /// Implements instant notification bridge to keyboard extension via Darwin notifications
+/// Migrated to Observation framework (iOS 17+)
 @MainActor
-final class ScreenshotDetectionManager: ObservableObject {
+@Observable
+final class ScreenshotDetectionManager {
 
-    // MARK: - Published Properties
-    @Published var lastScreenshotDetected: Date?
-    @Published var screenhotDetectionEnabled: Bool = true
-    @Published var detectionStatus: DetectionStatus = .idle
-    @Published var latestScreenshotData: Data?  // Latest screenshot image data for UI preview
+    // MARK: - Observable Properties (auto-tracked via @Observable)
+    var lastScreenshotDetected: Date?
+    var screenhotDetectionEnabled: Bool = true
+    var detectionStatus: DetectionStatus = .idle
+    var latestScreenshotData: Data?  // Latest screenshot image data for UI preview
 
     // MARK: - Private Properties
     private let logger = Logger(subsystem: "com.flirrt.app", category: "ScreenshotDetection")

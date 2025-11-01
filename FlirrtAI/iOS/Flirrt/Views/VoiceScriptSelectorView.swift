@@ -107,7 +107,7 @@ struct CategoryChip: View {
         } label: {
             HStack(spacing: 8) {
                 Circle()
-                    .fill(Color(category.color))
+                    .fill(category.color)
                     .frame(width: 8, height: 8)
 
                 Text(category.displayName)
@@ -118,13 +118,13 @@ struct CategoryChip: View {
             .padding(.vertical, 10)
             .background(
                 RoundedRectangle(cornerRadius: 20)
-                    .fill(isSelected ? Color(category.color).opacity(0.2) : Color(.systemGray6))
+                    .fill(isSelected ? category.color.opacity(0.2) : Color(.systemGray6))
                     .overlay(
                         RoundedRectangle(cornerRadius: 20)
-                            .stroke(isSelected ? Color(category.color) : Color.clear, lineWidth: 2)
+                            .stroke(isSelected ? category.color : Color.clear, lineWidth: 2)
                     )
             )
-            .foregroundColor(isSelected ? Color(category.color) : .primary)
+            .foregroundColor(isSelected ? category.color : .primary)
         }
         .buttonStyle(PlainButtonStyle())
     }
@@ -146,9 +146,9 @@ struct ScriptCard: View {
                     HStack(spacing: 12) {
                         Image(systemName: script.icon)
                             .font(.title2)
-                            .foregroundColor(Color(script.category.color))
+                            .foregroundColor(script.category.color)
                             .frame(width: 40, height: 40)
-                            .background(Color(script.category.color).opacity(0.2))
+                            .background(script.category.color.opacity(0.2))
                             .clipShape(Circle())
 
                         VStack(alignment: .leading, spacing: 4) {
@@ -236,7 +236,7 @@ struct DifficultyStars: View {
             ForEach(1...3, id: \.self) { index in
                 Image(systemName: "star.fill")
                     .font(.caption2)
-                    .foregroundColor(index <= difficulty.stars ? Color(difficulty.color) : Color(.systemGray4))
+                    .foregroundColor(index <= difficulty.stars ? difficulty.color : Color(.systemGray4))
             }
         }
     }
@@ -323,9 +323,9 @@ struct ScriptDetailView: View {
                         HStack {
                             Image(systemName: script.icon)
                                 .font(.largeTitle)
-                                .foregroundColor(Color(script.category.color))
+                                .foregroundColor(script.category.color)
                                 .frame(width: 60, height: 60)
-                                .background(Color(script.category.color).opacity(0.2))
+                                .background(script.category.color.opacity(0.2))
                                 .clipShape(Circle())
 
                             VStack(alignment: .leading, spacing: 8) {

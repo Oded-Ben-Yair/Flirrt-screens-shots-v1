@@ -1,0 +1,16 @@
+# Appfile for Vibe8 (formerly Flirrt)
+
+# App identifier
+app_identifier("com.flirrt.app.dev")
+
+# Apple ID
+apple_id(ENV["APPLE_ID"])
+
+# Apple Developer Team ID
+team_id(ENV["TEAM_ID"])
+
+# iTunes Connect Team ID
+itc_team_id(ENV["ITC_TEAM_ID"])
+
+# For more information about the Appfile, see:
+# https://docs.fastlane.tools/advanced/#appfile
