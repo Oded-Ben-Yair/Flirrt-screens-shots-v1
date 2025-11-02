@@ -136,7 +136,7 @@ class CP6ComprehensiveTests: XCTestCase {
     // MARK: - Personalization Tests
 
     func testPersonalizationPreferencesSavedToAppGroups() {
-        let sharedDefaults = UserDefaults(suiteName: "group.com.vibe8")
+        let sharedDefaults = UserDefaults(suiteName: "group.com.flirrt")
         XCTAssertNotNil(sharedDefaults, "App Groups should be accessible")
 
         // Test setting preferences
