@@ -204,10 +204,14 @@ class APIClient: ObservableObject {
             "context": context
         ]
 
-        print("📡 Calling TRAINED pipeline: POST /api/v2/trained/analyze-and-generate")
+        // Construct v2 URL by replacing /api/v1 with /api/v2/trained
+        let trainedURL = baseURL.replacingOccurrences(of: "/api/v1", with: "/api/v2/trained")
+        let fullURL = "\(trainedURL)/analyze-and-generate"
+
+        print("📡 Calling TRAINED pipeline: POST \(fullURL)")
 
         return try await withCheckedThrowingContinuation { continuation in
-            session.request("\(baseURL)/api/v2/trained/analyze-and-generate",
+            session.request(fullURL,
                           method: .post,
                           parameters: parameters,
                           encoding: JSONEncoding.default)
