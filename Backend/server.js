@@ -38,6 +38,7 @@ const voiceRoutes = require('./routes/voice');
 const legalRoutes = require('./routes/legal');
 const accountRoutes = require('./routes/account');
 const abTestingRoutes = require('./routes/abTesting');
+const trainedFlirtsRoutes = require('./routes/trained-flirts'); // TRAINED PIPELINE: Grok-2-vision + GPT-4O
 
 // Import middleware
 const { authenticateToken, rateLimit } = require('./middleware/auth');
@@ -121,11 +122,14 @@ app.get('/health', async (req, res) => {
 // API Routes
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/analysis', analysisRoutes);
-app.use('/api/v1/flirts', flirtRoutes);
+app.use('/api/v1/flirts', flirtRoutes); // Legacy route (GPT-4O + Grok-4 Fast)
 app.use('/api/v1/voice', voiceRoutes);
 app.use('/api/v1/legal', legalRoutes);
 app.use('/api/v1/account', accountRoutes);
 app.use('/api/v1/ab-testing', abTestingRoutes);
+
+// V2 API Routes - Trained Pipeline
+app.use('/api/v2/trained', trainedFlirtsRoutes); // TRAINED PIPELINE: Grok-2-vision + GPT-4O
 
 // GDPR Compliance - User Data Deletion
 app.delete('/api/v1/user/:id/data', authenticateToken, async (req, res) => {

@@ -185,6 +185,46 @@ class APIClient: ObservableObject {
         }
     }
 
+    // MARK: - TRAINED PIPELINE: Grok-2-vision + GPT-4O (NEW v2 endpoint)
+    /// Generate flirts using the trained dual-model pipeline
+    /// Endpoint: POST /api/v2/trained/analyze-and-generate
+    func generateFlirtsWithTrainedPipeline(
+        imageData: Data,
+        suggestionType: SuggestionType = .opener,
+        tone: String = "playful",
+        context: String = ""
+    ) async throws -> FlirtSuggestionResponse {
+        // Convert image to base64 for JSON payload
+        let base64Image = imageData.base64EncodedString()
+
+        let parameters: [String: Any] = [
+            "image_data": base64Image,
+            "suggestion_type": suggestionType.rawValue,
+            "tone": tone,
+            "context": context
+        ]
+
+        print("📡 Calling TRAINED pipeline: POST /api/v2/trained/analyze-and-generate")
+
+        return try await withCheckedThrowingContinuation { continuation in
+            session.request("\(baseURL)/api/v2/trained/analyze-and-generate",
+                          method: .post,
+                          parameters: parameters,
+                          encoding: JSONEncoding.default)
+                .validate()
+                .responseDecodable(of: FlirtSuggestionResponse.self) { response in
+                    switch response.result {
+                    case .success(let flirtResponse):
+                        print("✅ TRAINED pipeline: Generated \(flirtResponse.flirts.count) suggestions")
+                        continuation.resume(returning: flirtResponse)
+                    case .failure(let error):
+                        print("❌ TRAINED pipeline failed: \(error.localizedDescription)")
+                        continuation.resume(throwing: error)
+                    }
+                }
+        }
+    }
+
     // MARK: - Voice Synthesis (REAL ELEVENLABS API)
     func synthesizeVoice(text: String, voiceId: String, emotion: String = "confident") async throws -> VoiceResponse {
         let parameters: [String: Any] = [

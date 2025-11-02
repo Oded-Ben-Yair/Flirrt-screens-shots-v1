@@ -887,15 +887,19 @@ final class ScreenshotDetectionManager: ObservableObject {
         }
     }
     
-    // MARK: - API Call with Retry
+    // MARK: - API Call with Retry (TRAINED PIPELINE)
     private func callAPIWithRetry(imageData: Data, conversationID: String, retryCount: Int = 1) async throws -> FlirtSuggestionResponse {
+        logger.info("📡 Calling TRAINED pipeline - conversation \(conversationID), attempt \(2 - retryCount)")
+
         do {
-            let response = try await apiClient.generateFlirtsFromImage(
+            // Call the TRAINED PIPELINE API (Backend: Grok-2-vision + GPT-4O)
+            let response = try await apiClient.generateFlirtsWithTrainedPipeline(
                 imageData: imageData,
-                conversationID: conversationID,
                 suggestionType: .opener,
-                tone: "playful"
+                tone: "playful",
+                context: "profile"
             )
+            logger.info("✅ TRAINED pipeline returned \(response.suggestions?.count ?? 0) suggestions")
             return response
         } catch {
             if retryCount > 0 {
