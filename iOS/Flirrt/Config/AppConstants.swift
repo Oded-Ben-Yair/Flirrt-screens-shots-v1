@@ -16,7 +16,7 @@ enum AppConstants {
 
     /// Shared app group identifier for data sharing between app and extensions
     /// Used by: App, Keyboard Extension, Share Extension
-    static let appGroupIdentifier = "group.com.flirrt"
+    static let appGroupIdentifier = "group.flirrt.ai"
 
     /// Main app bundle identifier
     static let bundleIdentifier = "com.vibe8.app"
