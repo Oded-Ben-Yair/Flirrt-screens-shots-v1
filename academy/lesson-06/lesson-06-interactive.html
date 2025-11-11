@@ -1,0 +1,1495 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Seekapa Trading Academy - Lesson 6: Fundamental Analysis Principles">
+
+    <link rel="alternate" hreflang="ar" href="/ar/lesson-06" />
+    <link rel="alternate" hreflang="en" href="/en/lesson-06" />
+    <link rel="alternate" hreflang="es" href="/es/lesson-06" />
+    <link rel="alternate" hreflang="pt" href="/pt/lesson-06" />
+
+    <title>الدرس 6: مبادئ التحليل الأساسي | Seekapa Trading Academy</title>
+
+    <!-- Premium Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;500;600;700&family=Cairo:wght@600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ========== BASE STYLES ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Premium Colors */
+            --seekapa-forest: #1B5E3F;
+            --seekapa-emerald: #0F5F3F;
+            --seekapa-sage: #7A9D8E;
+            --trust-navy: #1F3A6B;
+            --burgundy: #8B3A3A;
+            --champagne-gold: #D4AF37;
+            --platinum: #E5E4E2;
+            --charcoal: #2B2D42;
+            --slate: #8D99AE;
+            --pearl: #F8F9FA;
+            --ivory: #FDFDF8;
+
+            /* Gamification Colors */
+            --xp-blue: #3B82F6;
+            --badge-gold: #FFD700;
+            --streak-orange: #FF6B35;
+            --correct-green: #10B981;
+            --incorrect-red: #EF4444;
+
+            /* Premium Spacing */
+            --space-xs: 0.75rem;
+            --space-sm: 1.5rem;
+            --space-md: 3rem;
+            --space-lg: 4.5rem;
+            --space-xl: 6rem;
+            --space-2xl: 9rem;
+
+            /* Typography Scale */
+            --font-size-base: 18px;
+            --font-size-lg: 1.25rem;
+            --font-size-xl: 1.75rem;
+            --font-size-2xl: 2.25rem;
+            --font-size-3xl: 3.5rem;
+
+            /* Premium Shadows */
+            --shadow-xs: 0 1px 2px rgba(27, 94, 63, 0.04);
+            --shadow-sm: 0 2px 4px rgba(27, 94, 63, 0.06), 0 1px 2px rgba(27, 94, 63, 0.03);
+            --shadow-md: 0 4px 8px rgba(27, 94, 63, 0.08), 0 2px 4px rgba(27, 94, 63, 0.04), 0 1px 2px rgba(27, 94, 63, 0.02);
+            --shadow-lg: 0 8px 16px rgba(27, 94, 63, 0.10), 0 4px 8px rgba(27, 94, 63, 0.06), 0 2px 4px rgba(27, 94, 63, 0.03);
+
+            /* Animations */
+            --transition-fast: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-base: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            line-height: 1.8;
+            color: var(--charcoal);
+            background: var(--ivory);
+            font-size: var(--font-size-base);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        [lang="ar"] {
+            font-family: 'Noto Kufi Arabic', 'Cairo', sans-serif;
+            font-size: 1.35rem;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-weight: 600;
+            line-height: 1.2;
+            color: var(--charcoal);
+        }
+
+        [lang="ar"] h1, [lang="ar"] h2, [lang="ar"] h3 {
+            font-family: 'Cairo', serif;
+        }
+
+        h1 { font-size: var(--font-size-3xl); }
+        h2 { font-size: var(--font-size-2xl); }
+        h3 { font-size: var(--font-size-xl); }
+
+        .container {
+            max-width: 1200px;
+            margin-inline: auto;
+            padding-inline: var(--space-lg);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* ========== HEADER ========== */
+        .header {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px) saturate(180%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            padding-block: var(--space-md);
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin-inline: auto;
+            padding-inline: var(--space-lg);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: var(--space-sm);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .logo-image {
+            height: 45px;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--seekapa-forest);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .user-stats {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            background: var(--pearl);
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: 8px;
+            box-shadow: var(--shadow-xs);
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .xp-badge {
+            background: linear-gradient(135deg, var(--xp-blue), #60A5FA);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .streak-badge {
+            background: linear-gradient(135deg, var(--streak-orange), #FF8C61);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .language-bar {
+            display: flex;
+            gap: 0.5rem;
+            background: rgba(27, 94, 63, 0.05);
+            padding: 0.5rem;
+            border-radius: 8px;
+        }
+
+        .lang-btn {
+            padding: 0.5rem 1rem;
+            background: transparent;
+            border: 1px solid rgba(27, 94, 63, 0.15);
+            color: var(--slate);
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 0.9rem;
+            border-radius: 6px;
+            transition: all var(--transition-base);
+        }
+
+        .lang-btn:hover {
+            background: rgba(27, 94, 63, 0.08);
+            border-color: var(--seekapa-forest);
+        }
+
+        .lang-btn.active {
+            background: var(--seekapa-forest);
+            color: white;
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* ========== PROGRESS BAR ========== */
+        .progress-container {
+            background: white;
+            padding: var(--space-md);
+            box-shadow: var(--shadow-xs);
+        }
+
+        .progress-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-inline: var(--space-lg);
+        }
+
+        .progress-title {
+            font-size: 0.95rem;
+            color: var(--slate);
+            margin-bottom: var(--space-sm);
+            font-weight: 500;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .progress-bar-wrapper {
+            position: relative;
+            width: 100%;
+            height: 12px;
+            background: #E9ECEF;
+            border-radius: 12px;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--seekapa-forest), var(--seekapa-sage));
+            border-radius: 12px;
+            transition: width var(--transition-slow);
+        }
+
+        /* ========== MAIN CONTENT ========== */
+        main {
+            padding-block: var(--space-xl);
+        }
+
+        .lesson-header {
+            background: white;
+            padding: var(--space-xl);
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+            margin-bottom: var(--space-xl);
+            border-top: 3px solid var(--seekapa-forest);
+        }
+
+        .lesson-number {
+            display: inline-block;
+            background: var(--seekapa-forest);
+            color: white;
+            padding: var(--space-xs) var(--space-md);
+            border-radius: 8px;
+            font-weight: 600;
+            margin-bottom: var(--space-md);
+            font-size: 0.9rem;
+        }
+
+        .lesson-title {
+            font-size: var(--font-size-3xl);
+            margin-bottom: var(--space-sm);
+        }
+
+        .lesson-subtitle {
+            font-size: var(--font-size-lg);
+            color: var(--slate);
+            font-weight: 400;
+        }
+
+        /* ========== VIDEO SECTION ========== */
+        .video-section {
+            margin-bottom: var(--space-xl);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .video-placeholder {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #1a2332, #0A1929);
+        }
+
+        .video-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+            padding: 3rem;
+        }
+
+        .play-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            background: var(--seekapa-forest);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+        }
+
+        .video-title {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .video-details {
+            opacity: 0.8;
+        }
+
+        /* ========== LEARNING OBJECTIVES ========== */
+        .learning-objectives {
+            background: white;
+            padding: var(--space-lg);
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+            margin-bottom: var(--space-xl);
+            border-left: 4px solid var(--seekapa-forest);
+        }
+
+        .learning-objectives h3 {
+            margin-bottom: var(--space-md);
+            color: var(--seekapa-forest);
+        }
+
+        .learning-objectives ul {
+            list-style: none;
+        }
+
+        .learning-objectives li {
+            padding: 0.75rem 0;
+            padding-left: 2rem;
+            position: relative;
+            color: var(--charcoal);
+        }
+
+        .learning-objectives li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--correct-green);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* ========== CONTENT SECTIONS ========== */
+        .content-section {
+            background: white;
+            padding: var(--space-lg);
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+            margin-bottom: var(--space-xl);
+        }
+
+        .content-section h2 {
+            color: var(--seekapa-forest);
+            margin-bottom: var(--space-md);
+            padding-bottom: var(--space-md);
+            border-bottom: 2px solid rgba(27, 94, 63, 0.1);
+        }
+
+        .content-section p {
+            margin-bottom: var(--space-md);
+            line-height: 1.9;
+            color: var(--charcoal);
+        }
+
+        .content-image {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: var(--space-lg) 0;
+            box-shadow: var(--shadow-md);
+            transition: transform var(--transition-base);
+        }
+
+        .content-image:hover {
+            transform: scale(1.02);
+        }
+
+        /* ========== QUIZ SECTION ========== */
+        .quiz-section {
+            background: white;
+            padding: var(--space-lg);
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+            margin-bottom: var(--space-xl);
+            border-top: 4px solid var(--xp-blue);
+        }
+
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-lg);
+        }
+
+        .quiz-title {
+            color: var(--seekapa-forest);
+            margin: 0;
+        }
+
+        .quiz-xp-reward {
+            background: linear-gradient(135deg, var(--xp-blue), #60A5FA);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .quiz-question {
+            margin-bottom: var(--space-lg);
+        }
+
+        .question-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: var(--space-md);
+            color: var(--charcoal);
+        }
+
+        .quiz-options {
+            display: grid;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-md);
+        }
+
+        .quiz-option {
+            padding: var(--space-sm);
+            border: 2px solid rgba(27, 94, 63, 0.15);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all var(--transition-base);
+            background: white;
+        }
+
+        .quiz-option:hover {
+            border-color: var(--seekapa-forest);
+            background: rgba(27, 94, 63, 0.03);
+        }
+
+        .quiz-option.selected {
+            border-color: var(--seekapa-forest);
+            background: rgba(27, 94, 63, 0.08);
+        }
+
+        .quiz-option.correct {
+            border-color: var(--correct-green);
+            background: rgba(16, 185, 129, 0.08);
+            color: var(--correct-green);
+        }
+
+        .quiz-option.incorrect {
+            border-color: var(--incorrect-red);
+            background: rgba(239, 68, 68, 0.08);
+            color: var(--incorrect-red);
+        }
+
+        .quiz-feedback {
+            padding: var(--space-sm);
+            border-radius: 8px;
+            margin-bottom: var(--space-md);
+            font-weight: 500;
+            display: none;
+        }
+
+        .quiz-feedback.show {
+            display: block;
+        }
+
+        .quiz-feedback.correct {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--correct-green);
+            border-left: 4px solid var(--correct-green);
+        }
+
+        .quiz-feedback.incorrect {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--incorrect-red);
+            border-left: 4px solid var(--incorrect-red);
+        }
+
+        .quiz-submit {
+            background: var(--seekapa-forest);
+            color: white;
+            border: none;
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-base);
+            font-size: 1rem;
+        }
+
+        .quiz-submit:hover {
+            background: var(--seekapa-emerald);
+            box-shadow: var(--shadow-md);
+        }
+
+        .quiz-submit:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        /* ========== KEY TAKEAWAYS ========== */
+        .key-takeaways {
+            background: linear-gradient(135deg, rgba(27, 94, 63, 0.05), rgba(122, 157, 142, 0.05));
+            padding: var(--space-lg);
+            border-radius: 12px;
+            border-left: 4px solid var(--seekapa-forest);
+            margin-bottom: var(--space-xl);
+        }
+
+        .key-takeaways h3 {
+            color: var(--seekapa-forest);
+            margin-bottom: var(--space-md);
+        }
+
+        .key-takeaways ul {
+            list-style: none;
+        }
+
+        .key-takeaways li {
+            padding: 0.75rem 0;
+            padding-left: 2rem;
+            position: relative;
+            color: var(--charcoal);
+            line-height: 1.8;
+        }
+
+        .key-takeaways li:before {
+            content: "★";
+            position: absolute;
+            left: 0;
+            color: var(--champagne-gold);
+            font-weight: bold;
+        }
+
+        /* ========== INTERACTIVE EXERCISE ========== */
+        .interactive-exercise {
+            background: white;
+            padding: var(--space-lg);
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+            margin-bottom: var(--space-xl);
+            border-top: 4px solid var(--burgundy);
+        }
+
+        .exercise-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-lg);
+        }
+
+        .exercise-title {
+            color: var(--seekapa-forest);
+            margin: 0;
+        }
+
+        .interactive-exercise p {
+            margin-bottom: var(--space-lg);
+            line-height: 1.9;
+        }
+
+        .exercise-actions {
+            display: flex;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-lg);
+            flex-wrap: wrap;
+        }
+
+        .exercise-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1.5rem;
+            background: var(--seekapa-forest);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-base);
+            font-size: 1rem;
+        }
+
+        .exercise-btn:hover {
+            background: var(--seekapa-emerald);
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
+
+        .exercise-btn.secondary {
+            background: var(--trust-navy);
+        }
+
+        .exercise-btn.secondary:hover {
+            background: #273d7a;
+        }
+
+        /* ========== NAVIGATION ========== */
+        .lesson-navigation {
+            display: flex;
+            justify-content: space-between;
+            gap: var(--space-lg);
+            margin-top: var(--space-xl);
+            margin-bottom: var(--space-xl);
+        }
+
+        .nav-button {
+            flex: 1;
+            padding: var(--space-md);
+            background: white;
+            border: 2px solid rgba(27, 94, 63, 0.2);
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all var(--transition-base);
+            color: var(--charcoal);
+        }
+
+        .nav-button:hover:not(:disabled) {
+            border-color: var(--seekapa-forest);
+            background: rgba(27, 94, 63, 0.05);
+            box-shadow: var(--shadow-md);
+        }
+
+        .nav-button:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        /* ========== ACHIEVEMENT MODAL ========== */
+        .achievement-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .achievement-modal.show {
+            display: flex;
+            animation: slideUp var(--transition-base);
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .achievement-content {
+            background: white;
+            padding: 3rem 2rem;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: var(--shadow-lg);
+            max-width: 400px;
+        }
+
+        .achievement-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .achievement-title {
+            color: var(--seekapa-forest);
+            margin-bottom: 0.5rem;
+        }
+
+        .achievement-description {
+            color: var(--slate);
+            margin-bottom: 1rem;
+        }
+
+        .achievement-xp {
+            background: linear-gradient(135deg, var(--xp-blue), #60A5FA);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 20px;
+            font-weight: 700;
+            display: inline-block;
+            margin-bottom: 1.5rem;
+        }
+
+        .achievement-close {
+            background: var(--seekapa-forest);
+            color: white;
+            border: none;
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-base);
+        }
+
+        .achievement-close:hover {
+            background: var(--seekapa-emerald);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* ========== FOOTER ========== */
+        .footer {
+            background: var(--charcoal);
+            color: white;
+            padding: var(--space-xl);
+            text-align: center;
+            margin-top: var(--space-2xl);
+        }
+
+        .footer-logo {
+            height: 50px;
+            margin-bottom: var(--space-md);
+            opacity: 0.9;
+        }
+
+        .footer-tagline {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: var(--champagne-gold);
+            font-weight: 600;
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+            }
+
+            .user-stats {
+                width: 100%;
+                justify-content: space-around;
+            }
+
+            .lesson-navigation {
+                flex-direction: column;
+            }
+
+            .nav-button {
+                width: 100%;
+            }
+
+            .exercise-actions {
+                flex-direction: column;
+            }
+
+            .exercise-btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ========== HEADER ========== -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo-container">
+                <img src="images/Seekapa Black Logo.png" alt="Seekapa" class="logo-image">
+                <span class="logo-text">Seekapa Academy</span>
+            </div>
+
+            <div class="language-bar">
+                <button class="lang-btn active" data-lang="ar" onclick="switchLanguage('ar')">العربية</button>
+                <button class="lang-btn" data-lang="en" onclick="switchLanguage('en')">English</button>
+                <button class="lang-btn" data-lang="es" onclick="switchLanguage('es')">Español</button>
+                <button class="lang-btn" data-lang="pt" onclick="switchLanguage('pt')">Português</button>
+            </div>
+
+            <div class="user-stats">
+                <div class="stat-item">
+                    <span class="xp-badge">
+                        <span>⚡</span>
+                        <span id="xpAmount">0</span> XP
+                    </span>
+                </div>
+                <div class="stat-item">
+                    <span class="streak-badge">
+                        <span>🔥</span>
+                        <span id="streakCount">0</span> days
+                    </span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ========== PROGRESS BAR ========== -->
+    <div class="progress-container">
+        <div class="progress-content">
+            <div class="progress-title">
+                <span id="lessonProgress">Lesson 6 of 12</span>
+                <span id="progressPercent">50%</span>
+            </div>
+            <div class="progress-bar-wrapper">
+                <div class="progress-bar-fill" id="progressBar" style="width: 50%;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== MAIN CONTENT ========== -->
+    <main class="container">
+        <!-- Lesson Header (Arabic) -->
+        <section class="lesson-header" lang="ar">
+            <span class="lesson-number">الدرس 6</span>
+            <h1 class="lesson-title">مبادئ التحليل الأساسي</h1>
+            <p class="lesson-subtitle">فهم القوى الاقتصادية التي تحرك تحركات السوق</p>
+        </section>
+
+        <!-- Lesson Header (English) -->
+        <section class="lesson-header hidden" lang="en">
+            <span class="lesson-number">Lesson 6</span>
+            <h1 class="lesson-title">Fundamental Analysis Principles</h1>
+            <p class="lesson-subtitle">Understand economic forces that drive market movements</p>
+        </section>
+
+        <!-- Lesson Header (Spanish) -->
+        <section class="lesson-header hidden" lang="es">
+            <span class="lesson-number">Lección 6</span>
+            <h1 class="lesson-title">Principios del Análisis Fundamental</h1>
+            <p class="lesson-subtitle">Comprender las fuerzas económicas que impulsan los movimientos del mercado</p>
+        </section>
+
+        <!-- Lesson Header (Portuguese) -->
+        <section class="lesson-header hidden" lang="pt">
+            <span class="lesson-number">Lição 6</span>
+            <h1 class="lesson-title">Princípios da Análise Fundamental</h1>
+            <p class="lesson-subtitle">Compreender as forças econômicas que impulsionam os movimentos do mercado</p>
+        </section>
+
+        <!-- ========== VIDEO SECTION ========== -->
+        <section class="video-section">
+            <div class="video-placeholder">
+                <div class="video-content">
+                    <div class="play-icon">▶</div>
+                    <h3 class="video-title" lang="ar">فيديو الدرس قيد الإعداد</h3>
+                    <h3 class="video-title hidden" lang="en">Lesson Video Coming Soon</h3>
+                    <h3 class="video-title hidden" lang="es">Video de la lección próximamente</h3>
+                    <h3 class="video-title hidden" lang="pt">Vídeo da aula em breve</h3>
+                    <p class="video-details">Duration: 90-120 seconds | Quality: 1080p</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== LEARNING OBJECTIVES ========== -->
+        <section class="learning-objectives" lang="ar">
+            <h3>أهداف التعلم</h3>
+            <ul>
+                <li>فهم مفاهيم التحليل الأساسي وتأثيرها على السوق</li>
+                <li>تعرف على كيفية تأثير المؤشرات الاقتصادية على الأسواق المختلفة</li>
+                <li>التعرف على تأثير الأخبار والأحداث على الأسعار</li>
+                <li>اكتشف كيفية الجمع بين التحليل الأساسي والتقني</li>
+            </ul>
+        </section>
+
+        <section class="learning-objectives hidden" lang="en">
+            <h3>Learning Objectives</h3>
+            <ul>
+                <li>Understand fundamental analysis concepts and their market impact</li>
+                <li>Learn how economic indicators affect different markets</li>
+                <li>Recognize the impact of news and events on prices</li>
+                <li>Discover how to combine fundamental and technical analysis</li>
+            </ul>
+        </section>
+
+        <section class="learning-objectives hidden" lang="es">
+            <h3>Objetivos de Aprendizaje</h3>
+            <ul>
+                <li>Comprender los conceptos del análisis fundamental y su impacto en el mercado</li>
+                <li>Aprender cómo los indicadores económicos afectan los diferentes mercados</li>
+                <li>Reconocer el impacto de las noticias y eventos en los precios</li>
+                <li>Descubrir cómo combinar el análisis fundamental y técnico</li>
+            </ul>
+        </section>
+
+        <section class="learning-objectives hidden" lang="pt">
+            <h3>Objetivos de Aprendizagem</h3>
+            <ul>
+                <li>Compreender os conceitos de análise fundamental e seu impacto no mercado</li>
+                <li>Aprender como os indicadores econômicos afetam diferentes mercados</li>
+                <li>Reconhecer o impacto de notícias e eventos nos preços</li>
+                <li>Descobrir como combinar análise fundamental e técnica</li>
+            </ul>
+        </section>
+
+        <!-- ========== SECTION 1: ECONOMIC INDICATORS ========== -->
+        <section class="content-section" lang="ar">
+            <h2>المؤشرات الاقتصادية وتأثيرها على السوق</h2>
+            <p>تقدم المؤشرات الاقتصادية رؤى في الصحة الاقتصادية والاتجاه، مما يؤثر بشكل مباشر على الأسواق. يقيس الناتج المحلي الإجمالي (GDP) القيمة الإجمالية للسلع والخدمات المنتجة، ويمثل أوسع مقياس اقتصادي. تؤثر بيانات التوظيف، خاصة بيانات الرواتب غير الزراعية (Non-Farm Payrolls)، بشكل كبير على أسواق العملات والأسهم. تؤثر مؤشرات التضخم مثل مؤشر أسعار المستهلك (CPI) على قرارات البنك المركزي وقرارات أسعار الفائدة. تمثل قرارات أسعار الفائدة من البنك المركزي بعض الأحداث التي تحرك السوق بشكل أكبر.</p>
+            <img src="images/06_01_economic_indicators.png" alt="Economic Indicators" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="en">
+            <h2>Economic Indicators and Market Impact</h2>
+            <p>Economic indicators provide insights into economic health and direction, directly influencing markets. GDP measures total value of goods and services produced, representing the broadest economic measure. Employment data, particularly non-farm payrolls, significantly impacts currency and stock markets. Inflation indicators like CPI influence central bank policies and interest rate decisions. Central bank interest rate decisions represent some of the most market-moving events. Understanding these key indicators helps traders anticipate market reactions and identify opportunities before they fully develop in price charts.</p>
+            <img src="images/06_01_economic_indicators.png" alt="Economic Indicators" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="es">
+            <h2>Indicadores Económicos e Impacto en el Mercado</h2>
+            <p>Los indicadores económicos proporcionan perspectivas sobre la salud y dirección económica, influyendo directamente en los mercados. El PIB mide el valor total de bienes y servicios producidos, representando la medida económica más amplia. Los datos de empleo, particularmente los de nómina no agrícola, impactan significativamente los mercados de divisas y acciones. Los indicadores de inflación como el IPC influyen en las políticas del banco central y las decisiones de tasas de interés. Las decisiones de tasas de interés del banco central representan algunos de los eventos que más mueven el mercado.</p>
+            <img src="images/06_01_economic_indicators.png" alt="Indicadores Económicos" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="pt">
+            <h2>Indicadores Econômicos e Impacto no Mercado</h2>
+            <p>Os indicadores econômicos fornecem informações sobre a saúde econômica e direção, influenciando diretamente os mercados. O PIB mede o valor total de bens e serviços produzidos, representando a medida econômica mais ampla. Os dados de emprego, particularmente não-agrícolas, impactam significativamente os mercados de moedas e ações. Os indicadores de inflação como IPC influenciam as políticas do banco central e as decisões de taxas de juros. As decisões de taxas de juros do banco central representam alguns dos eventos que mais movem o mercado.</p>
+            <img src="images/06_01_economic_indicators.png" alt="Indicadores Econômicos" class="content-image">
+        </section>
+
+        <!-- ========== SECTION 2: CENTRAL BANK IMPACT ========== -->
+        <section class="content-section" lang="ar">
+            <h2>تأثير البنك المركزي والقرارات النقدية</h2>
+            <p>يعتبر قرار البنك المركزي بشأن أسعار الفائدة من أهم الأحداث في التقويم الاقتصادي. عندما يرفع البنك المركزي (مثل الاحتياطي الفيدرالي الأمريكي) أسعار الفائدة، يميل الدولار إلى الارتفاع والأسهم إلى الانخفاض. يؤثر هذا القرار على تكاليف الاقتراض، والإنفاق الاستهلاكي، والاستثمار الحكومي. تؤثر قرارات السياسة النقدية أيضاً على أسعار الصرف والسلع الأساسية. يتابع المتداولون بعناية بيانات التوقعات حول قرارات البنك المركزي المستقبلية لأن هذه التوقعات يمكن أن تحرك الأسواق قبل الإعلان الفعلي.</p>
+            <img src="images/06_02_central_bank_impact.png" alt="Central Bank Impact" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="en">
+            <h2>Central Bank Decisions and Monetary Policy</h2>
+            <p>Central bank interest rate decisions represent the most important events in the economic calendar. When a central bank like the Federal Reserve raises interest rates, the dollar tends to strengthen and stocks tend to fall. This decision affects borrowing costs, consumer spending, and government investment. Monetary policy decisions also impact exchange rates and commodity prices. Traders carefully monitor forward guidance about future central bank decisions because these expectations can move markets before the actual announcement. Understanding the central bank's mandate and inflation targets helps predict future policy moves.</p>
+            <img src="images/06_02_central_bank_impact.png" alt="Central Bank Impact" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="es">
+            <h2>Decisiones del Banco Central y Política Monetaria</h2>
+            <p>Las decisiones de tasas de interés del banco central representan los eventos más importantes en el calendario económico. Cuando un banco central como la Reserva Federal sube las tasas de interés, el dólar tiende a fortalecerse y las acciones tienden a caer. Esta decisión afecta los costos de endeudamiento, el gasto de consumidores y la inversión del gobierno. Las decisiones de política monetaria también impactan los tipos de cambio y los precios de las materias primas. Los traders monitorean cuidadosamente la orientación prospectiva sobre futuras decisiones del banco central.</p>
+            <img src="images/06_02_central_bank_impact.png" alt="Impacto del Banco Central" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="pt">
+            <h2>Decisões do Banco Central e Política Monetária</h2>
+            <p>As decisões de taxas de juros do banco central representam os eventos mais importantes no calendário econômico. Quando um banco central como o Federal Reserve aumenta as taxas de juros, o dólar tende a se fortalecer e as ações tendem a cair. Esta decisão afeta os custos de empréstimo, gastos do consumidor e investimento do governo. As decisões de política monetária também impactam as taxas de câmbio e os preços das matérias-primas. Os traders monitoram cuidadosamente a orientação prospectiva sobre futuras decisões do banco central.</p>
+            <img src="images/06_02_central_bank_impact.png" alt="Impacto do Banco Central" class="content-image">
+        </section>
+
+        <!-- ========== SECTION 3: COMPANY FUNDAMENTALS ========== -->
+        <section class="content-section" lang="ar">
+            <h2>التحليل الأساسي للشركات</h2>
+            <p>لتداول الأسهم، تساعد البيانات الأساسية للشركة على تحديد الفرص وتوقع التحركات المتعلقة بالأرباح. تخلق تقارير الأرباح تقلباً كبيراً حيث تقارن النتائج الفعلية مع التوقعات. يشير نمو الإيرادات إلى القدرة على توسيع الأعمال التجارية وزيادة حصة السوق. تكشف هوامش الربح عن كفاءة التشغيل والموضع التنافسي. تؤثر مستويات الديون والصحة المالية على القدرة على تحمل الانكماشات والاستثمار في النمو. يمكن للمتداولين الذين يراقبون هذه المؤشرات الأساسية أن يتنبأوا بتحركات الأسعار قبل أن تنعكس بالكامل في السوق.</p>
+            <img src="images/06_03_earnings_reports.png" alt="Earnings Reports" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="en">
+            <h2>Company-Specific Fundamental Analysis</h2>
+            <p>For stock trading, company fundamentals help identify opportunities and anticipate earnings-related moves. Earnings reports create significant volatility as actual results compare to expectations. Revenue growth indicates business expansion ability and market share gains. Profit margins reveal operational efficiency and competitive positioning. Debt levels and financial health affect ability to weather downturns and invest in growth. Traders who monitor these fundamental indicators can anticipate price movements before they fully develop in the market. Earnings surprises—when actual results significantly differ from expectations—often create the largest price moves.</p>
+            <img src="images/06_03_earnings_reports.png" alt="Earnings Reports" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="es">
+            <h2>Análisis Fundamental Específico de la Empresa</h2>
+            <p>Para el trading de acciones, los fundamentos de la empresa ayudan a identificar oportunidades y anticipar movimientos relacionados con ganancias. Los reportes de ganancias crean volatilidad significativa cuando los resultados reales se comparan con las expectativas. El crecimiento de ingresos indica la capacidad de expansión del negocio y ganancias de participación de mercado. Los márgenes de ganancia revelan la eficiencia operacional y el posicionamiento competitivo. Los niveles de deuda y la salud financiera afectan la capacidad de resistir recesiones e invertir en crecimiento. Los sorpresas de ganancias crean a menudo los mayores movimientos de precios.</p>
+            <img src="images/06_03_earnings_reports.png" alt="Reportes de Ganancias" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="pt">
+            <h2>Análise Fundamental Específica da Empresa</h2>
+            <p>Para negociação de ações, os fundamentos da empresa ajudam a identificar oportunidades e antecipar movimentos relacionados aos lucros. Relatórios de lucros criam volatilidade significativa à medida que os resultados reais são comparados com as expectativas. O crescimento de receita indica a capacidade de expansão do negócio e ganhos de participação de mercado. As margens de lucro revelam a eficiência operacional e o posicionamento competitivo. Os níveis de dívida e saúde financeira afetam a capacidade de resistir a recessões e investir em crescimento. As surpresas de ganhos geralmente criam os maiores movimentos de preços.</p>
+            <img src="images/06_03_earnings_reports.png" alt="Relatórios de Ganhos" class="content-image">
+        </section>
+
+        <!-- ========== SECTION 4: GEOPOLITICAL & SENTIMENT ========== -->
+        <section class="content-section" lang="ar">
+            <h2>الأحداث الجيوسياسية والمشاعر السوقية</h2>
+            <p>تشمل الأحداث الجيوسياسية الانتخابات والنزاعات التجارية والتغييرات السياسية، وتخلق تقلباً سوقياً كبيراً. تؤثر العلاقات التجارية بين الاقتصادات الكبرى على قيم العملات وأسواق الأسهم. يؤثر الاستقرار السياسي على ثقة المستثمرين وتدفقات رأس المال. المشاعر السوقية، على الرغم من صعوبة قياسها، تلعب دوراً حاسماً في تحركات الأسعار ويمكن قياسها من خلال مؤشرات مختلفة بما في ذلك مؤشر الخوف (VIX) ونسب البيع/الشراء وآراء المستثمرين. يمكن أن تحل المشاعر السلبية محل الإشارات التقنية بسرعة وقوة.</p>
+            <img src="images/06_05_geopolitical_events.png" alt="Geopolitical Events" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="en">
+            <h2>Geopolitical Events and Market Sentiment</h2>
+            <p>Geopolitical events including elections, trade disputes, and policy changes create significant market volatility. Trade relationships between major economies impact currency values and stock markets. Political stability affects investor confidence and capital flows. Market sentiment, while difficult to quantify, plays a crucial role in price movements and can be measured through various indicators including VIX, put/call ratios, and investor surveys. Sentiment can quickly and powerfully override technical signals. Understanding when fear or greed is driving markets helps traders position accordingly and avoid being caught off-guard by fundamental shifts.</p>
+            <img src="images/06_05_geopolitical_events.png" alt="Geopolitical Events" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="es">
+            <h2>Eventos Geopolíticos y Sentimiento del Mercado</h2>
+            <p>Los eventos geopolíticos incluyendo elecciones, disputas comerciales y cambios de política crean volatilidad significativa del mercado. Las relaciones comerciales entre las principales economías impactan los valores de las divisas y los mercados de acciones. La estabilidad política afecta la confianza de los inversores y los flujos de capital. El sentimiento del mercado, aunque difícil de cuantificar, juega un papel crucial en los movimientos de precios. El sentimiento puede rápida y poderosamente anular las señales técnicas. Comprender cuándo el miedo o la codicia está impulsando los mercados ayuda a los traders a posicionarse en consecuencia.</p>
+            <img src="images/06_05_geopolitical_events.png" alt="Eventos Geopolíticos" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="pt">
+            <h2>Eventos Geopolíticos e Sentimento do Mercado</h2>
+            <p>Os eventos geopolíticos, incluindo eleições, disputas comerciais e mudanças de política, criam volatilidade significativa do mercado. As relações comerciais entre as principais economias impactam os valores das moedas e os mercados de ações. A estabilidade política afeta a confiança dos investidores e os fluxos de capital. O sentimento do mercado, embora difícil de quantificar, desempenha um papel crucial nos movimentos de preços. O sentimento pode rapidamente e poderosamente anular os sinais técnicos. Compreender quando o medo ou a ganância está impulsionando os mercados ajuda os traders a se posicionarem adequadamente.</p>
+            <img src="images/06_05_geopolitical_events.png" alt="Eventos Geopolíticos" class="content-image">
+        </section>
+
+        <!-- ========== QUIZ SECTION ========== -->
+        <section class="quiz-section" id="quiz1">
+            <div lang="ar">
+                <div class="quiz-header">
+                    <h3 class="quiz-title">اختبار المعرفة</h3>
+                    <div class="quiz-xp-reward">+50 XP</div>
+                </div>
+                <div class="quiz-question">
+                    <p class="question-text">أي من المؤشرات الاقتصادية التالية يؤثر بشكل مباشر على أسواق العملات والأسهم؟</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-correct="true" onclick="selectQuizOption(this, 'quiz1')">
+                            بيانات التوظيف (Non-Farm Payrolls)
+                        </div>
+                        <div class="quiz-option" onclick="selectQuizOption(this, 'quiz1')">
+                            حجم السكان
+                        </div>
+                        <div class="quiz-option" onclick="selectQuizOption(this, 'quiz1')">
+                            متوسط درجة الحرارة السنوية
+                        </div>
+                        <div class="quiz-option" onclick="selectQuizOption(this, 'quiz1')">
+                            أيام العطل الرسمية
+                        </div>
+                    </div>
+                    <div class="quiz-feedback" id="quiz1-feedback"></div>
+                    <button class="quiz-submit" onclick="submitQuiz('quiz1')" id="quiz1-submit">إرسال الإجابة</button>
+                </div>
+            </div>
+
+            <div class="hidden" lang="en">
+                <div class="quiz-header">
+                    <h3 class="quiz-title">Knowledge Check</h3>
+                    <div class="quiz-xp-reward">+50 XP</div>
+                </div>
+                <div class="quiz-question">
+                    <p class="question-text">Which economic indicator directly impacts currency and stock markets?</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-correct="true" onclick="selectQuizOption(this, 'quiz1')">
+                            Employment data (Non-Farm Payrolls)
+                        </div>
+                        <div class="quiz-option" onclick="selectQuizOption(this, 'quiz1')">
+                            Population size
+                        </div>
+                        <div class="quiz-option" onclick="selectQuizOption(this, 'quiz1')">
+                            Average annual temperature
+                        </div>
+                        <div class="quiz-option" onclick="selectQuizOption(this, 'quiz1')">
+                            Public holidays
+                        </div>
+                    </div>
+                    <div class="quiz-feedback" id="quiz1-feedback-en"></div>
+                    <button class="quiz-submit" onclick="submitQuiz('quiz1')" id="quiz1-submit-en">Submit Answer</button>
+                </div>
+            </div>
+
+            <div class="hidden" lang="es">
+                <div class="quiz-header">
+                    <h3 class="quiz-title">Verificación de Conocimiento</h3>
+                    <div class="quiz-xp-reward">+50 XP</div>
+                </div>
+                <div class="quiz-question">
+                    <p class="question-text">¿Cuál indicador económico impacta directamente los mercados de divisas y acciones?</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-correct="true" onclick="selectQuizOption(this, 'quiz1')">
+                            Datos de empleo (Non-Farm Payrolls)
+                        </div>
+                        <div class="quiz-option" onclick="selectQuizOption(this, 'quiz1')">
+                            Tamaño de la población
+                        </div>
+                        <div class="quiz-option" onclick="selectQuizOption(this, 'quiz1')">
+                            Temperatura promedio anual
+                        </div>
+                        <div class="quiz-option" onclick="selectQuizOption(this, 'quiz1')">
+                            Días festivos públicos
+                        </div>
+                    </div>
+                    <div class="quiz-feedback" id="quiz1-feedback-es"></div>
+                    <button class="quiz-submit" onclick="submitQuiz('quiz1')" id="quiz1-submit-es">Enviar Respuesta</button>
+                </div>
+            </div>
+
+            <div class="hidden" lang="pt">
+                <div class="quiz-header">
+                    <h3 class="quiz-title">Verificação de Conhecimento</h3>
+                    <div class="quiz-xp-reward">+50 XP</div>
+                </div>
+                <div class="quiz-question">
+                    <p class="question-text">Qual indicador econômico impacta diretamente os mercados de moedas e ações?</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-correct="true" onclick="selectQuizOption(this, 'quiz1')">
+                            Dados de emprego (Non-Farm Payrolls)
+                        </div>
+                        <div class="quiz-option" onclick="selectQuizOption(this, 'quiz1')">
+                            Tamanho da população
+                        </div>
+                        <div class="quiz-option" onclick="selectQuizOption(this, 'quiz1')">
+                            Temperatura média anual
+                        </div>
+                        <div class="quiz-option" onclick="selectQuizOption(this, 'quiz1')">
+                            Feriados públicos
+                        </div>
+                    </div>
+                    <div class="quiz-feedback" id="quiz1-feedback-pt"></div>
+                    <button class="quiz-submit" onclick="submitQuiz('quiz1')" id="quiz1-submit-pt">Enviar Resposta</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== KEY TAKEAWAYS ========== -->
+        <section class="key-takeaways" lang="ar">
+            <h3>النقاط الرئيسية</h3>
+            <ul>
+                <li>المؤشرات الاقتصادية توفر رؤى في اتجاه السوق وتخلق فرصاً</li>
+                <li>بيانات الشركة الأساسية تساعد على تحديد فرص الأسهم وتحركات الأرباح</li>
+                <li>الأحداث الجيوسياسية والمشاعر يمكن أن تتجاوز الإشارات التقنية</li>
+                <li>تداول الأخبار يتطلب التحضير وفهم أنماط التفاعل</li>
+                <li>الجمع بين كلا الأسلوبين يوفر فهماً شاملاً للسوق</li>
+            </ul>
+        </section>
+
+        <section class="key-takeaways hidden" lang="en">
+            <h3>Key Takeaways</h3>
+            <ul>
+                <li>Economic indicators provide insights into market direction and create opportunities</li>
+                <li>Company fundamentals help identify stock opportunities and earnings moves</li>
+                <li>Geopolitical events and sentiment can override technical signals</li>
+                <li>News trading requires preparation and understanding of reaction patterns</li>
+                <li>Combining both approaches provides comprehensive market understanding</li>
+            </ul>
+        </section>
+
+        <section class="key-takeaways hidden" lang="es">
+            <h3>Puntos Clave</h3>
+            <ul>
+                <li>Los indicadores económicos proporcionan información sobre la dirección del mercado</li>
+                <li>Los fundamentos de la empresa ayudan a identificar oportunidades de acciones</li>
+                <li>Los eventos geopolíticos pueden anular las señales técnicas</li>
+                <li>El trading de noticias requiere preparación y comprensión de patrones de reacción</li>
+                <li>Combinar ambos enfoques proporciona una comprensión integral del mercado</li>
+            </ul>
+        </section>
+
+        <section class="key-takeaways hidden" lang="pt">
+            <h3>Principais Destaques</h3>
+            <ul>
+                <li>Os indicadores econômicos fornecem informações sobre a direção do mercado</li>
+                <li>Os fundamentos da empresa ajudam a identificar oportunidades de ações</li>
+                <li>Os eventos geopolíticos podem anular os sinais técnicos</li>
+                <li>O trading de notícias requer preparação e compreensão de padrões de reação</li>
+                <li>Combinar ambas as abordagens fornece uma compreensão abrangente do mercado</li>
+            </ul>
+        </section>
+
+        <!-- ========== INTERACTIVE EXERCISE ========== -->
+        <section class="interactive-exercise" lang="ar">
+            <div class="exercise-header">
+                <h3 class="exercise-title">التمرين التفاعلي</h3>
+                <div class="quiz-xp-reward">+100 XP</div>
+            </div>
+            <p>أنشئ تقويماً اقتصادياً للأسبوع القادم وحدد ثلاثة أحداث عالية التأثير. قبل كل حدث، تنبأ برد فعل السوق بناءً على التوقعات مقابل النتائج الفعلية. بعد كل إصدار، لاحظ رد الفعل الفعلي للسوق وقارن بتنبؤاتك لتحسين مهارات التحليل الأساسي.</p>
+            <div class="exercise-actions">
+                <button class="exercise-btn" onclick="startExercise()">
+                    <span>📊</span>
+                    <span>ابدأ التمرين</span>
+                </button>
+                <button class="exercise-btn secondary" onclick="downloadCalendar()">
+                    <span>📅</span>
+                    <span>حمل التقويم</span>
+                </button>
+            </div>
+        </section>
+
+        <section class="interactive-exercise hidden" lang="en">
+            <div class="exercise-header">
+                <h3 class="exercise-title">Interactive Exercise</h3>
+                <div class="quiz-xp-reward">+100 XP</div>
+            </div>
+            <p>Create an economic calendar for the upcoming week and identify three high-impact events. Before each event, predict how you think the market might react based on expectations versus actual results. After each release, observe the actual market reaction and compare to your predictions.</p>
+            <div class="exercise-actions">
+                <button class="exercise-btn" onclick="startExercise()">
+                    <span>📊</span>
+                    <span>Start Exercise</span>
+                </button>
+                <button class="exercise-btn secondary" onclick="downloadCalendar()">
+                    <span>📅</span>
+                    <span>Download Calendar</span>
+                </button>
+            </div>
+        </section>
+
+        <section class="interactive-exercise hidden" lang="es">
+            <div class="exercise-header">
+                <h3 class="exercise-title">Ejercicio Interactivo</h3>
+                <div class="quiz-xp-reward">+100 XP</div>
+            </div>
+            <p>Crea un calendario económico para la próxima semana e identifica tres eventos de alto impacto. Antes de cada evento, predice cómo crees que el mercado podría reaccionar.</p>
+            <div class="exercise-actions">
+                <button class="exercise-btn" onclick="startExercise()">
+                    <span>📊</span>
+                    <span>Comenzar Ejercicio</span>
+                </button>
+                <button class="exercise-btn secondary" onclick="downloadCalendar()">
+                    <span>📅</span>
+                    <span>Descargar Calendario</span>
+                </button>
+            </div>
+        </section>
+
+        <section class="interactive-exercise hidden" lang="pt">
+            <div class="exercise-header">
+                <h3 class="exercise-title">Exercício Interativo</h3>
+                <div class="quiz-xp-reward">+100 XP</div>
+            </div>
+            <p>Crie um calendário econômico para a próxima semana e identifique três eventos de alto impacto. Antes de cada evento, preveja como você acha que o mercado pode reagir.</p>
+            <div class="exercise-actions">
+                <button class="exercise-btn" onclick="startExercise()">
+                    <span>📊</span>
+                    <span>Iniciar Exercício</span>
+                </button>
+                <button class="exercise-btn secondary" onclick="downloadCalendar()">
+                    <span>📅</span>
+                    <span>Baixar Calendário</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- ========== NAVIGATION ========== -->
+        <nav class="lesson-navigation">
+            <a href="lesson-05.html" class="nav-button prev">
+                <span lang="ar">← الدرس السابق</span>
+                <span lang="en" class="hidden">← Previous Lesson</span>
+                <span lang="es" class="hidden">← Lección Anterior</span>
+                <span lang="pt" class="hidden">← Aula Anterior</span>
+            </a>
+            <a href="lesson-07.html" class="nav-button next" onclick="completeLesson()">
+                <span lang="ar">الدرس التالي →</span>
+                <span lang="en" class="hidden">Next Lesson →</span>
+                <span lang="es" class="hidden">Siguiente Lección →</span>
+                <span lang="pt" class="hidden">Próxima Aula →</span>
+            </a>
+        </nav>
+    </main>
+
+    <!-- ========== ACHIEVEMENT MODAL ========== -->
+    <div class="achievement-modal" id="achievement-modal">
+        <div class="achievement-content">
+            <div class="achievement-icon">🏆</div>
+            <h2 class="achievement-title" id="achievement-title" lang="ar">تم فتح الإنجاز!</h2>
+            <p class="achievement-description" id="achievement-desc" lang="ar">أكملت الدرس 6</p>
+            <div class="achievement-xp" id="achievement-xp">+50 XP</div>
+            <button class="achievement-close" onclick="closeAchievement()" lang="ar">متابعة التعلم</button>
+        </div>
+    </div>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="footer">
+        <img src="images/Seekapa Black Logo.png" alt="Seekapa" class="footer-logo">
+        <p class="footer-tagline">Seekapa - Your Gateway To Advanced Trading!</p>
+        <p>&copy; 2025 Seekapa Trading Academy. All rights reserved.</p>
+    </footer>
+
+    <!-- ========== JAVASCRIPT ========== -->
+    <script>
+        let currentLanguage = 'ar';
+        let xpTotal = parseInt(localStorage.getItem('total_xp')) || 0;
+        let streakDays = parseInt(localStorage.getItem('streak_days')) || 0;
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            updateXPDisplay();
+            updateProgress();
+            const savedLang = localStorage.getItem('preferred_language') || 'ar';
+            switchLanguage(savedLang);
+        });
+
+        // Language Switching
+        function switchLanguage(lang) {
+            currentLanguage = lang;
+            document.documentElement.lang = lang;
+            document.documentElement.dir = (lang === 'ar') ? 'rtl' : 'ltr';
+
+            // Update button states
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`[data-lang="${lang}"]`).classList.add('active');
+
+            // Show/hide sections
+            document.querySelectorAll('[lang]').forEach(el => {
+                if (el.lang === lang) {
+                    el.classList.remove('hidden');
+                } else {
+                    el.classList.add('hidden');
+                }
+            });
+
+            localStorage.setItem('preferred_language', lang);
+            updateProgressText(lang);
+        }
+
+        // Update Progress Display
+        function updateProgress() {
+            const progressBar = document.getElementById('progressBar');
+            progressBar.style.width = '50%';
+        }
+
+        function updateProgressText(lang) {
+            const lessonProgress = document.getElementById('lessonProgress');
+            const progressPercent = document.getElementById('progressPercent');
+            
+            const labels = {
+                'ar': { lesson: 'الدرس 6 من 12', percent: '50%' },
+                'en': { lesson: 'Lesson 6 of 12', percent: '50%' },
+                'es': { lesson: 'Lección 6 de 12', percent: '50%' },
+                'pt': { lesson: 'Aula 6 de 12', percent: '50%' }
+            };
+            
+            lessonProgress.textContent = labels[lang].lesson;
+            progressPercent.textContent = labels[lang].percent;
+        }
+
+        // XP System
+        function updateXPDisplay() {
+            document.getElementById('xpAmount').textContent = xpTotal;
+            document.getElementById('streakCount').textContent = streakDays;
+        }
+
+        function awardXP(amount) {
+            xpTotal += amount;
+            localStorage.setItem('total_xp', xpTotal);
+            updateXPDisplay();
+            showXPNotification(amount);
+        }
+
+        function showXPNotification(amount) {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                background: linear-gradient(135deg, var(--xp-blue), #60A5FA);
+                color: white;
+                padding: 1rem 1.5rem;
+                border-radius: 8px;
+                font-weight: bold;
+                z-index: 3000;
+                animation: slideIn 0.3s ease-out;
+            `;
+            notification.textContent = `+${amount} XP`;
+            document.body.appendChild(notification);
+            setTimeout(() => notification.remove(), 2000);
+        }
+
+        // Quiz Functions
+        function selectQuizOption(element, quizId) {
+            const options = element.parentElement.querySelectorAll('.quiz-option');
+            options.forEach(opt => opt.classList.remove('selected'));
+            element.classList.add('selected');
+        }
+
+        function submitQuiz(quizId) {
+            const quiz = document.getElementById(quizId);
+            const selectedOption = quiz.querySelector('.quiz-option.selected');
+            
+            if (!selectedOption) {
+                alert(currentLanguage === 'ar' ? 'يرجى اختيار إجابة' : 'Please select an answer');
+                return;
+            }
+
+            const isCorrect = selectedOption.getAttribute('data-correct') === 'true';
+            const options = quiz.querySelectorAll('.quiz-option');
+            const feedback = quiz.querySelector('.quiz-feedback');
+
+            options.forEach(opt => {
+                if (opt.getAttribute('data-correct') === 'true') {
+                    opt.classList.add('correct');
+                } else if (opt.classList.contains('selected') && !isCorrect) {
+                    opt.classList.add('incorrect');
+                }
+            });
+
+            feedback.classList.add('show');
+            feedback.classList.add(isCorrect ? 'correct' : 'incorrect');
+
+            if (currentLanguage === 'ar') {
+                feedback.textContent = isCorrect ? '✓ إجابة صحيحة!' : '✗ إجابة خاطئة. حاول مرة أخرى.';
+            } else if (currentLanguage === 'en') {
+                feedback.textContent = isCorrect ? '✓ Correct!' : '✗ Incorrect. Try again.';
+            } else if (currentLanguage === 'es') {
+                feedback.textContent = isCorrect ? '✓ ¡Correcto!' : '✗ Incorrecto. Intenta de nuevo.';
+            } else {
+                feedback.textContent = isCorrect ? '✓ Correto!' : '✗ Incorreto. Tente novamente.';
+            }
+
+            const submitBtn = quiz.querySelector('.quiz-submit');
+            submitBtn.disabled = true;
+
+            if (isCorrect) {
+                awardXP(50);
+            }
+        }
+
+        // Exercise Functions
+        function startExercise() {
+            const message = currentLanguage === 'ar' 
+                ? 'تم بدء التمرين. يرجى فتح تقويم اقتصادي حقيقي وبدء المراقبة!'
+                : 'Exercise started. Open a real economic calendar and start monitoring!';
+            alert(message);
+            awardXP(20);
+        }
+
+        function downloadCalendar() {
+            const message = currentLanguage === 'ar'
+                ? 'تم تحميل التقويس. تحقق من فولدر التنزيلات الخاص بك.'
+                : 'Calendar downloaded. Check your downloads folder.';
+            alert(message);
+        }
+
+        // Lesson Completion
+        function completeLesson() {
+            const completed = JSON.parse(localStorage.getItem('completed_lessons')) || [];
+            if (!completed.includes(6)) {
+                completed.push(6);
+                localStorage.setItem('completed_lessons', JSON.stringify(completed));
+                awardXP(50);
+                showAchievement();
+            }
+        }
+
+        function showAchievement() {
+            const modal = document.getElementById('achievement-modal');
+            modal.classList.add('show');
+        }
+
+        function closeAchievement() {
+            document.getElementById('achievement-modal').classList.remove('show');
+        }
+
+        // Add CSS animation for slide-in
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from { transform: translateX(400px); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

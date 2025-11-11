@@ -1,0 +1,78 @@
+{
+  "lesson_number": 11,
+  "lesson_slug": "developing-your-trading-plan",
+  "en": {
+    "title": "Developing Your Trading Plan",
+    "subtitle": "Create a personalized trading blueprint for consistent success",
+    "objectives": [
+      "Create a personalized trading plan that defines your approach",
+      "Understand how to set realistic trading goals",
+      "Learn to document your trading rules and risk parameters",
+      "Discover how to review and refine your plan over time"
+    ],
+    "intro": "A trading plan is your business blueprint - without it, you're gambling, not trading. Every successful trader has a written plan they follow religiously. Your plan serves as a roadmap that removes emotion from decisions and provides clear guidelines for every aspect of trading from market selection to risk management.",
+    "section1_title": "Trading Plan Components and Structure",
+    "section1_text": "Your plan needs six essential components: trading goals, risk tolerance, preferred markets, entry and exit rules, position sizing formula, and review schedule. Trading goals should be specific, measurable, achievable, relevant, and time-bound (SMART). Instead of vague goals like \"make money,\" set concrete targets like \"achieve 15% annual return with maximum 20% drawdown.\" Risk tolerance defines how much you're willing to risk per trade and overall. Market selection specifies which instruments you'll trade based on capital, schedule, and expertise.",
+    "section2_title": "Defining Entry and Exit Rules",
+    "section2_text": "Entry and exit criteria must be specific and objective to eliminate guesswork. Define exact conditions for entries such as \"Buy when price breaks above resistance with RSI below 70 and volume 50% above average.\" Exit rules should include both profit targets and stop losses. For example: \"Exit when price hits 2:1 reward target OR breaks below entry day low.\" Having predetermined rules prevents emotional decisions during market fluctuations. Document multiple scenarios including trending markets, ranging markets, and high volatility periods.",
+    "section3_title": "Backtesting and Paper Trading Your Plan",
+    "section3_text": "Before risking real money, test your plan thoroughly using historical data and paper trading. Backtesting applies your rules to past markets to evaluate how the strategy would have performed. This reveals strengths, weaknesses, and potential issues. Paper trading allows testing in real-time market conditions without capital risk. This step identifies execution challenges and psychological factors that backtesting might miss. Test across different market conditions and timeframes to ensure robustness. Track key metrics like win rate, average win/loss ratio, maximum drawdown, and expectancy.",
+    "section4_title": "Plan Review and Continuous Improvement",
+    "section4_text": "Review your plan monthly to assess performance and identify areas for improvement. Markets evolve, and your plan should adapt accordingly - but don't change it after every losing trade. Give strategies adequate time to work through various market conditions. Review metrics including profitability, consistency, drawdown periods, and adherence to plan. Document lessons learned and pattern recognition improvements. Adjust position sizing as account grows. Refine entry and exit criteria based on performance data. Consider expanding to new markets or timeframes as skills develop.",
+    "takeaway1": "A written trading plan provides structure and removes emotional decisions",
+    "takeaway2": "SMART goals give clear targets to measure performance against",
+    "takeaway3": "Specific entry and exit rules eliminate guesswork during trading",
+    "takeaway4": "Backtesting and paper trading reveal strategy strengths and weaknesses",
+    "takeaway5": "Regular review and refinement improve performance over time",
+    "exercise": "Create your complete trading plan this week including: 1) Your specific trading goals for the next 6 months, 2) Exact entry and exit criteria for your chosen strategy, 3) Position sizing formula based on your account size and risk tolerance, 4) Daily/weekly routines for market analysis and trade review, 5) Monthly review schedule and improvement process. Write it down and commit to following it for at least 3 months before making major changes."
+  },
+  "translation_notes": {
+    "ar": "Extract from arabic-content.md - Lesson 11 section",
+    "es": "Latin American Spanish translation",
+    "pt": "Brazilian Portuguese translation"
+  },
+  "images": [
+    {
+      "filename": "11_01_trading_plan_blueprint.png",
+      "prompt": "Architectural blueprint concept transformed into trading plan with sections labeled, professional business planning aesthetic, Seekapa brand colors, 1200x800px"
+    },
+    {
+      "filename": "11_02_smart_goals.png",
+      "prompt": "SMART goals framework (Specific, Measurable, Achievable, Relevant, Time-bound) with trading examples for each component, professional goal-setting diagram, Seekapa forest green and gold, 1200x800px"
+    },
+    {
+      "filename": "11_03_entry_exit_rules.png",
+      "prompt": "Flowchart showing entry and exit decision process with if/then conditions, clear rule-based system visualization, professional trading logic diagram, Seekapa colors, 1200x800px"
+    },
+    {
+      "filename": "11_04_backtesting_software.png",
+      "prompt": "Backtesting software interface showing strategy rules, historical performance, equity curve, win/loss statistics, professional testing platform, Seekapa brand aesthetic, 1200x800px"
+    },
+    {
+      "filename": "11_05_paper_trading.png",
+      "prompt": "Paper trading account dashboard with virtual capital, simulated trades, performance metrics, practice trading interface, professional demo account visual, Seekapa colors, 1200x800px"
+    },
+    {
+      "filename": "11_06_trading_journal.png",
+      "prompt": "Comprehensive trading journal pages showing trade logs, performance charts, lesson learned sections, emotional notes, professional journaling system, Seekapa forest green accents, 1200x800px"
+    },
+    {
+      "filename": "11_07_monthly_review.png",
+      "prompt": "Monthly performance review dashboard with key metrics, charts showing progress, areas for improvement highlighted, professional self-assessment visual, Seekapa brand colors, 1200x800px"
+    },
+    {
+      "filename": "11_08_plan_refinement.png",
+      "prompt": "Continuous improvement cycle: plan, execute, review, refine illustrated with circular arrows, version control concept, professional development process, Seekapa colors, 1200x800px"
+    }
+  },
+  "video_placeholder": {
+    "duration": "90-120 seconds",
+    "script_theme": "Creating and implementing a personalized trading plan",
+    "key_visual_moments": [
+      "Trading plan components checklist",
+      "Rule-based entry/exit criteria",
+      "Backtesting performance analysis",
+      "Monthly review and improvement cycle"
+    ]
+  }
+}

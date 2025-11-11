@@ -1,0 +1,78 @@
+{
+  "lesson_number": 8,
+  "lesson_slug": "trading-psychology-mindset",
+  "en": {
+    "title": "Trading Psychology & Mindset",
+    "subtitle": "Master your mind to achieve consistent trading success",
+    "objectives": [
+      "Understand the psychological challenges of trading",
+      "Learn to manage emotions like fear and greed",
+      "Develop discipline and patience in trading decisions",
+      "Create mental frameworks for consistent decision-making under pressure"
+    ],
+    "intro": "Trading psychology often determines success or failure more than technical knowledge or analysis skills. The financial markets create a unique psychological environment where money is constantly at risk, decisions must be made quickly, and outcomes are immediately visible. This environment can trigger emotional responses that interfere with rational decision-making and lead to costly mistakes.",
+    "section1_title": "Understanding Trading Emotions",
+    "section1_text": "Fear and greed represent the two primary emotions that drive market behavior and individual decisions. Fear manifests as fear of losing money, missing opportunities, being wrong, or even fear of success. Fear of losing money causes traders to exit profitable trades too early or avoid trades altogether. Fear of missing out (FOMO) leads to chasing prices and entering at poor levels. Greed manifests as desire for larger profits, leading traders to hold winners too long or risk too much. The euphoria from winning trades can be as dangerous as the fear from losses, often leading to overconfidence and increased risk-taking.",
+    "section2_title": "Developing Trading Discipline",
+    "section2_text": "Discipline in trading means following your predetermined plan regardless of emotions or market conditions. This includes sticking to position sizing rules, honoring stop losses, and maintaining consistent analysis processes. Creating and following a trading plan provides clear guidelines made in advance, reducing emotional decision-making during stressful conditions. Routine and consistency help build discipline over time through similar patterns for analysis, preparation, and execution. Record keeping and trade journaling provide accountability and learning opportunities by documenting trades, reasoning, and emotional states.",
+    "section3_title": "Patience and Timing in Trading",
+    "section3_text": "Patience represents one of the most valuable trader traits, yet it's often difficult to develop. Markets don't always provide ideal opportunities, and forcing trades when conditions aren't favorable typically leads to losses. Waiting for high-probability setups requires patience but significantly improves results. Market timing involves understanding when to be active and when to step aside - some conditions favor certain strategies while others create challenging environments. The ability to sit with open positions without constantly monitoring or adjusting is another form of patience that reduces overtrading and transaction costs.",
+    "section4_title": "Building Mental Resilience",
+    "section4_text": "Mental resilience involves developing ability to handle stress, uncertainty, and setbacks without losing focus or making emotional decisions. This skill develops through experience and conscious effort. Stress management techniques help maintain clear thinking during challenging conditions through breathing exercises, meditation, physical exercise, or simply taking breaks when stress levels become too high. Accepting uncertainty as fundamental to trading helps reduce anxiety and improve decision-making - markets are inherently unpredictable, and traders who accept this can focus on managing risk rather than predicting outcomes with certainty. Learning from mistakes rather than dwelling on them builds resilience and improves future performance.",
+    "takeaway1": "Fear and greed are the primary emotions that interfere with rational trading",
+    "takeaway2": "Discipline involves following predetermined plans regardless of emotions",
+    "takeaway3": "Patience in waiting for high-probability setups significantly improves results",
+    "takeaway4": "Managing winning and losing streaks requires maintaining perspective and consistency",
+    "takeaway5": "Creating optimal trading conditions supports better decision-making and emotional control",
+    "exercise": "Keep a detailed emotion journal for one week of trading or market observation. Record your emotional state before, during, and after each trading decision or potential trade. Note patterns in emotional responses and identify situations where emotions might have influenced decision-making. This awareness is the first step in developing better emotional control."
+  },
+  "translation_notes": {
+    "ar": "Extract from arabic-content.md - Lesson 8 section",
+    "es": "Latin American Spanish translation",
+    "pt": "Brazilian Portuguese translation"
+  },
+  "images": [
+    {
+      "filename": "08_01_trading_emotions.png",
+      "prompt": "Emotional cycle visualization showing fear, greed, hope, regret around trading chart, psychological states illustrated with facial expressions, professional trading psychology diagram, Seekapa brand colors, 1200x800px"
+    },
+    {
+      "filename": "08_02_discipline_framework.png",
+      "prompt": "Trading discipline framework showing plan adherence, routine consistency, journal keeping connected by arrows, professional self-improvement visualization, Seekapa forest green and gold, 1200x800px"
+    },
+    {
+      "filename": "08_03_fomo_prevention.png",
+      "prompt": "FOMO (fear of missing out) scenario showing trader resisting impulse to chase price, thought bubble with rational thinking, professional trading psychology visual, Seekapa colors, 1200x800px"
+    },
+    {
+      "filename": "08_04_winning_losing_streaks.png",
+      "prompt": "Graph showing winning and losing streaks over time, emotional reactions at peaks and valleys, maintaining equilibrium line, professional performance psychology, Seekapa brand aesthetic, 1200x800px"
+    },
+    {
+      "filename": "08_05_meditation_mindfulness.png",
+      "prompt": "Trader in meditation pose with calm trading charts in background, mindfulness and focus concept, stress management visualization, professional wellness aesthetic, Seekapa colors, 1200x800px"
+    },
+    {
+      "filename": "08_06_trading_journal.png",
+      "prompt": "Professional trading journal interface showing trade entries with emotional notes, reflection sections, pattern identification, clean organized layout, Seekapa forest green accents, 1200x800px"
+    },
+    {
+      "filename": "08_07_mental_resilience.png",
+      "prompt": "Mental resilience building blocks: stress management, accepting uncertainty, learning from mistakes stacked as foundation, professional psychological strength visual, Seekapa colors, 1200x800px"
+    },
+    {
+      "filename": "08_08_growth_mindset.png",
+      "prompt": "Growth mindset concept with learning curve, continuous improvement cycle, challenge as opportunity visualization, professional self-development diagram, Seekapa brand colors, 1200x800px"
+    }
+  ],
+  "video_placeholder": {
+    "duration": "90-120 seconds",
+    "script_theme": "Trading psychology and mental discipline",
+    "key_visual_moments": [
+      "Fear and greed cycle in action",
+      "Discipline vs impulsive decision comparison",
+      "Patience leading to better trade setups",
+      "Mental resilience through challenges"
+    ]
+  }
+}

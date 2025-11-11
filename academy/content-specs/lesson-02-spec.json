@@ -1,0 +1,78 @@
+{
+  "lesson_number": 2,
+  "lesson_slug": "understanding-financial-markets-asset-classes",
+  "en": {
+    "title": "Understanding Financial Markets & Asset Classes",
+    "subtitle": "Explore different markets and discover where trading opportunities exist",
+    "objectives": [
+      "Learn about different financial markets and their characteristics",
+      "Understand various asset classes available for trading",
+      "Recognize trading hours and market behaviors across different markets",
+      "Identify which markets align with your trading goals and risk tolerance"
+    ],
+    "intro": "The global financial system offers numerous markets and asset classes, each with unique characteristics, trading hours, and opportunities. This lesson explores these different markets, helping you understand where trading opportunities exist and which markets might suit your trading style and schedule.",
+    "section1_title": "Stock Markets: Equity Trading Fundamentals",
+    "section1_text": "Stock markets represent ownership shares in publicly traded companies. When you buy a stock, you become a partial owner of that company. Stock trading occurs on major exchanges like NYSE or NASDAQ. Stock markets typically operate 9:30 AM to 4:00 PM ET for US markets, with pre-market and after-hours sessions. Individual stocks are influenced by company news, earnings reports, and broader market movements.",
+    "section2_title": "Forex Markets: Currency Trading Dynamics",
+    "section2_text": "The foreign exchange market is the world's largest financial market, with over $6 trillion traded daily. Forex trading involves buying one currency while selling another, traded in pairs like EUR/USD. Forex markets operate 24 hours a day, five days a week across global financial centers. Currency prices are influenced by economic indicators, central bank policies, and geopolitical events.",
+    "section3_title": "Commodities: Trading Physical Assets",
+    "section3_text": "Commodity markets involve trading physical goods like gold, oil, wheat, and coffee. These markets serve important economic functions for hedging and speculation. Commodities can be traded through futures contracts, ETFs, or stocks of commodity producers. Prices are influenced by supply and demand, weather conditions, geopolitical events, and economic cycles.",
+    "section4_title": "Cryptocurrency Markets: Digital Asset Trading",
+    "section4_text": "Cryptocurrency trading offers 24/7 opportunities with high volatility. Bitcoin, Ethereum, and thousands of digital currencies provide trading opportunities with significant risks due to regulatory uncertainty. Cryptocurrency markets are relatively new and less regulated, leading to higher volatility and different risk profiles compared to traditional markets.",
+    "takeaway1": "Different markets offer varying levels of risk, volatility, and opportunity",
+    "takeaway2": "Stock markets provide ownership stakes with specific trading hours",
+    "takeaway3": "Forex markets offer 24-hour trading with high liquidity",
+    "takeaway4": "Commodity markets allow trading in physical goods through various instruments",
+    "takeaway5": "Understanding market characteristics helps you choose appropriate trading venues",
+    "exercise": "Research and compare the trading hours, typical spreads, and volatility characteristics of three different markets (stocks, forex, commodities). Create a comparison chart that helps you understand which markets might fit your schedule and risk tolerance."
+  },
+  "translation_notes": {
+    "ar": "Extract Arabic (Khaleeji dialect) translations from /home/odedbe/academy/arabic-content.md - Lesson 2 section",
+    "es": "Translate to Latin American Spanish maintaining professional financial education tone",
+    "pt": "Translate to Brazilian Portuguese maintaining professional financial education tone"
+  },
+  "images": [
+    {
+      "filename": "02_01_global_markets.png",
+      "prompt": "Professional trading education illustration showing global stock exchanges (NYSE, NASDAQ, London, Tokyo) connected with network lines, modern financial district skylines, Seekapa forest green (#1B5E3F) and champagne gold (#D4AF37) color scheme, clean minimalist design, 1200x800px"
+    },
+    {
+      "filename": "02_02_forex_trading.png",
+      "prompt": "Currency pair trading visualization showing EUR/USD, GBP/JPY with flowing exchange arrows, world map with major financial centers highlighted, professional forex market aesthetic, Seekapa brand colors, modern clean design, 1200x800px"
+    },
+    {
+      "filename": "02_03_commodity_market.png",
+      "prompt": "Commodity trading illustration featuring gold bars, oil barrels, wheat, coffee beans arranged professionally, supply and demand balance scale, warm golden tones with Seekapa green accents, trading platform interface elements, 1200x800px"
+    },
+    {
+      "filename": "02_04_cryptocurrency.png",
+      "prompt": "Modern cryptocurrency trading visualization with Bitcoin, Ethereum symbols, blockchain network visualization, 24/7 global trading theme, digital aesthetic with Seekapa brand colors, futuristic yet professional, 1200x800px"
+    },
+    {
+      "filename": "02_05_market_comparison.png",
+      "prompt": "Comparison chart showing different market characteristics (stocks, forex, commodities, crypto) with trading hours clock, volatility indicators, liquidity gauges, professional infographic style, Seekapa colors, 1200x800px"
+    },
+    {
+      "filename": "02_06_trading_sessions.png",
+      "prompt": "World map showing 24-hour forex trading sessions (Asian, European, American) with time zones, clock faces, market activity heatmap, professional geographical visualization, Seekapa brand aesthetic, 1200x800px"
+    },
+    {
+      "filename": "02_07_asset_classes.png",
+      "prompt": "Asset class diversification illustration showing stocks, bonds, commodities, currencies, real estate icons arranged in professional portfolio layout, risk-return spectrum visualization, Seekapa colors, 1200x800px"
+    },
+    {
+      "filename": "02_08_market_participants.png",
+      "prompt": "Trading ecosystem illustration showing retail traders, institutional investors, market makers, brokers with connecting network lines, professional business aesthetic, Seekapa forest green and gold accents, 1200x800px"
+    }
+  ],
+  "video_placeholder": {
+    "duration": "90-120 seconds",
+    "script_theme": "Exploring global financial markets and asset classes",
+    "key_visual_moments": [
+      "Global stock exchanges connecting worldwide",
+      "Forex currency pairs flowing 24/7",
+      "Physical commodities (gold, oil) transitioning to digital trading",
+      "Cryptocurrency network visualization"
+    ]
+  }
+}

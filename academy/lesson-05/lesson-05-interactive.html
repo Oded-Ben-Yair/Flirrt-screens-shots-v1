@@ -1,0 +1,1397 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Seekapa Trading Academy - Lesson 5: Trading Indicators & Tools - Master technical indicators for better trading signals.">
+
+    <link rel="alternate" hreflang="ar" href="/ar/lesson-05" />
+    <link rel="alternate" hreflang="en" href="/en/lesson-05" />
+    <link rel="alternate" hreflang="es" href="/es/lesson-05" />
+    <link rel="alternate" hreflang="pt" href="/pt/lesson-05" />
+
+    <title>الدرس 5: مؤشرات التداول والأدوات | Seekapa Trading Academy</title>
+
+    <!-- Premium Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;500;600;700&family=Cairo:wght@600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ========== CSS RESET & BASE STYLES ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Seekapa Brand Colors */
+            --seekapa-forest: #1B5E3F;
+            --seekapa-emerald: #0F5F3F;
+            --seekapa-sage: #7A9D8E;
+            --trust-navy: #1F3A6B;
+            --burgundy: #8B3A3A;
+            --champagne-gold: #D4AF37;
+            --platinum: #E5E4E2;
+            --charcoal: #2B2D42;
+            --slate: #8D99AE;
+            --pearl: #F8F9FA;
+            --ivory: #FDFDF8;
+
+            /* Gamification Colors */
+            --xp-blue: #3B82F6;
+            --badge-gold: #FFD700;
+            --streak-orange: #FF6B35;
+            --correct-green: #10B981;
+            --incorrect-red: #EF4444;
+
+            /* Spacing Scale */
+            --space-xs: 0.75rem;
+            --space-sm: 1.5rem;
+            --space-md: 3rem;
+            --space-lg: 4.5rem;
+            --space-xl: 6rem;
+            --space-2xl: 9rem;
+
+            /* Typography */
+            --font-size-base: 18px;
+            --font-size-lg: 1.25rem;
+            --font-size-xl: 1.75rem;
+            --font-size-2xl: 2.25rem;
+            --font-size-3xl: 3.5rem;
+
+            /* Shadows */
+            --shadow-xs: 0 1px 2px rgba(27, 94, 63, 0.04);
+            --shadow-sm: 0 2px 4px rgba(27, 94, 63, 0.06), 0 1px 2px rgba(27, 94, 63, 0.03);
+            --shadow-md: 0 4px 8px rgba(27, 94, 63, 0.08), 0 2px 4px rgba(27, 94, 63, 0.04);
+            --shadow-lg: 0 8px 16px rgba(27, 94, 63, 0.10), 0 4px 8px rgba(27, 94, 63, 0.06);
+            --shadow-hover: 0 12px 24px rgba(27, 94, 63, 0.15), 0 6px 12px rgba(27, 94, 63, 0.08);
+
+            /* Animations */
+            --transition-fast: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-base: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.8;
+            color: var(--charcoal);
+            background: var(--ivory);
+            font-size: var(--font-size-base);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        [lang="ar"] {
+            font-family: 'Noto Kufi Arabic', 'Cairo', sans-serif;
+            font-size: 1.35rem;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-weight: 600;
+            line-height: 1.2;
+            color: var(--charcoal);
+            margin-bottom: var(--space-sm);
+        }
+
+        [lang="ar"] h1, [lang="ar"] h2, [lang="ar"] h3, [lang="ar"] h4 {
+            font-family: 'Cairo', serif;
+        }
+
+        h1 { font-size: var(--font-size-3xl); }
+        h2 { font-size: var(--font-size-2xl); }
+        h3 { font-size: var(--font-size-xl); }
+
+        p {
+            margin-bottom: var(--space-sm);
+            color: var(--slate);
+            line-height: 1.9;
+        }
+
+        a {
+            color: var(--seekapa-forest);
+            text-decoration: none;
+            transition: color var(--transition-fast);
+        }
+
+        a:hover {
+            color: var(--seekapa-emerald);
+        }
+
+        .hidden { display: none !important; }
+
+        /* ========== PROGRESS BAR ========== */
+        .progress-container {
+            width: 100%;
+            height: 4px;
+            background: rgba(212, 175, 55, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1001;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--champagne-gold), var(--seekapa-forest));
+            width: 0%;
+            transition: width var(--transition-slow);
+        }
+
+        /* ========== PREMIUM HEADER ========== */
+        .header {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px) saturate(180%);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+            padding-block: var(--space-md);
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin-inline: auto;
+            padding-inline: var(--space-lg);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: var(--space-sm);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .logo-image {
+            height: 45px;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--seekapa-forest);
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* User Stats & Language */
+        .user-stats {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            background: var(--pearl);
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: 8px;
+            box-shadow: var(--shadow-xs);
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .xp-badge {
+            background: linear-gradient(135deg, var(--xp-blue), #60A5FA);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .streak-badge {
+            background: linear-gradient(135deg, var(--streak-orange), #FF8C61);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .language-bar {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .lang-btn {
+            background: none;
+            border: 1px solid var(--platinum);
+            padding: 0.4rem 0.9rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--slate);
+            transition: all var(--transition-fast);
+        }
+
+        .lang-btn.active {
+            background: var(--seekapa-forest);
+            color: white;
+            border-color: var(--seekapa-forest);
+        }
+
+        .lang-btn:hover {
+            background: var(--seekapa-sage);
+            color: white;
+            border-color: var(--seekapa-sage);
+        }
+
+        /* ========== MAIN CONTENT ========== */
+        .lesson-container {
+            max-width: 1000px;
+            margin-inline: auto;
+            padding: var(--space-lg);
+        }
+
+        .lesson-progress {
+            text-align: center;
+            color: var(--slate);
+            font-size: 0.95rem;
+            margin-bottom: var(--space-md);
+            font-weight: 500;
+        }
+
+        /* ========== HERO SECTION ========== */
+        .hero-section {
+            text-align: center;
+            margin-bottom: var(--space-2xl);
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .hero-title {
+            background: linear-gradient(135deg, var(--seekapa-forest), var(--seekapa-emerald));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: clamp(2.5rem, 8vw, var(--font-size-3xl));
+            margin-bottom: var(--space-sm);
+        }
+
+        .hero-subtitle {
+            font-size: var(--font-size-lg);
+            color: var(--slate);
+            max-width: 600px;
+            margin-inline: auto;
+            font-weight: 400;
+        }
+
+        /* ========== VIDEO SECTION ========== */
+        .video-section {
+            margin-bottom: var(--space-2xl);
+            background: linear-gradient(135deg, rgba(27, 94, 63, 0.05), rgba(212, 175, 55, 0.05));
+            border-radius: 12px;
+            padding: var(--space-lg);
+            border: 1px solid rgba(27, 94, 63, 0.1);
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            background: var(--pearl);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .video-placeholder {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #f5f5f5, #e0e0e0);
+            gap: var(--space-sm);
+        }
+
+        .play-icon {
+            font-size: 4rem;
+            color: var(--seekapa-forest);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .video-placeholder p {
+            margin: 0;
+            text-align: center;
+            color: var(--charcoal);
+        }
+
+        .video-details {
+            font-size: 0.85rem;
+            color: var(--slate) !important;
+        }
+
+        /* ========== OBJECTIVES SECTION ========== */
+        .objectives-section {
+            background: linear-gradient(135deg, rgba(27, 94, 63, 0.08), rgba(212, 175, 55, 0.08));
+            padding: var(--space-lg);
+            border-radius: 12px;
+            margin-bottom: var(--space-2xl);
+            border-left: 4px solid var(--seekapa-forest);
+        }
+
+        .objectives-section h2 {
+            color: var(--seekapa-forest);
+            margin-bottom: var(--space-md);
+        }
+
+        .objectives-list {
+            list-style: none;
+            display: grid;
+            gap: var(--space-sm);
+        }
+
+        .objectives-list li {
+            padding-left: var(--space-md);
+            position: relative;
+            color: var(--charcoal);
+            font-weight: 500;
+        }
+
+        .objectives-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--correct-green);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* ========== CONTENT SECTIONS ========== */
+        .content-section {
+            margin-bottom: var(--space-2xl);
+            background: white;
+            padding: var(--space-lg);
+            border-radius: 12px;
+            box-shadow: var(--shadow-sm);
+            transition: box-shadow var(--transition-base);
+        }
+
+        .content-section:hover {
+            box-shadow: var(--shadow-md);
+        }
+
+        .content-section h2 {
+            color: var(--seekapa-forest);
+            margin-bottom: var(--space-sm);
+            padding-bottom: var(--space-sm);
+            border-bottom: 2px solid rgba(212, 175, 55, 0.3);
+        }
+
+        .content-section p {
+            color: var(--charcoal);
+            line-height: 1.95;
+            margin-bottom: var(--space-sm);
+        }
+
+        .content-image {
+            width: 100%;
+            border-radius: 8px;
+            margin-top: var(--space-lg);
+            box-shadow: var(--shadow-md);
+            background: var(--pearl);
+            aspect-ratio: 16/9;
+            object-fit: cover;
+        }
+
+        /* ========== TAKEAWAYS SECTION ========== */
+        .takeaways-section {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(27, 94, 63, 0.05));
+            padding: var(--space-lg);
+            border-radius: 12px;
+            margin-bottom: var(--space-2xl);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .takeaways-section h2 {
+            color: var(--seekapa-forest);
+            margin-bottom: var(--space-md);
+        }
+
+        .takeaways-list {
+            list-style: none;
+            display: grid;
+            gap: var(--space-sm);
+        }
+
+        .takeaways-list li {
+            padding: var(--space-sm);
+            padding-left: var(--space-md);
+            background: white;
+            border-radius: 8px;
+            border-left: 3px solid var(--champagne-gold);
+            position: relative;
+            color: var(--charcoal);
+        }
+
+        .takeaways-list li:before {
+            content: "★";
+            position: absolute;
+            left: 0.6rem;
+            color: var(--champagne-gold);
+            font-size: 1.2rem;
+        }
+
+        /* ========== QUIZ SECTION ========== */
+        .quiz-section {
+            background: white;
+            padding: var(--space-lg);
+            border-radius: 12px;
+            margin-bottom: var(--space-2xl);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .quiz-section h2 {
+            color: var(--seekapa-forest);
+            margin-bottom: var(--space-lg);
+        }
+
+        .quiz-container {
+            display: grid;
+            gap: var(--space-lg);
+        }
+
+        .quiz-question {
+            background: var(--pearl);
+            padding: var(--space-lg);
+            border-radius: 8px;
+            border-left: 4px solid var(--xp-blue);
+        }
+
+        .quiz-question h4 {
+            color: var(--charcoal);
+            margin-bottom: var(--space-sm);
+            font-weight: 600;
+        }
+
+        .quiz-options {
+            display: grid;
+            gap: var(--space-sm);
+            margin-top: var(--space-sm);
+        }
+
+        .option-label {
+            display: flex;
+            align-items: center;
+            padding: var(--space-sm);
+            background: white;
+            border: 1px solid var(--platinum);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            color: var(--charcoal);
+        }
+
+        .option-label:hover {
+            background: var(--seekapa-sage);
+            color: white;
+            border-color: var(--seekapa-sage);
+        }
+
+        .option-label input {
+            margin-right: var(--space-xs);
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .option-label input:checked {
+            accent-color: var(--seekapa-forest);
+        }
+
+        .quiz-results {
+            margin-top: var(--space-lg);
+            padding: var(--space-lg);
+            border-radius: 8px;
+            display: none;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .quiz-results.success {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(16, 185, 129, 0.05));
+            border: 1px solid var(--correct-green);
+            display: block;
+        }
+
+        .quiz-results.partial {
+            background: linear-gradient(135deg, rgba(251, 146, 60, 0.1), rgba(251, 146, 60, 0.05));
+            border: 1px solid #fb923c;
+            display: block;
+        }
+
+        .results-message {
+            color: var(--charcoal);
+            font-weight: 600;
+            margin-bottom: var(--space-sm);
+            font-size: 1.1rem;
+        }
+
+        /* ========== EXERCISE SECTION ========== */
+        .exercise-section {
+            background: linear-gradient(135deg, rgba(27, 94, 63, 0.08), rgba(212, 175, 55, 0.08));
+            padding: var(--space-lg);
+            border-radius: 12px;
+            margin-bottom: var(--space-2xl);
+            border: 1px solid var(--seekapa-sage);
+        }
+
+        .exercise-section h2 {
+            color: var(--seekapa-forest);
+            margin-bottom: var(--space-sm);
+        }
+
+        .exercise-section p {
+            color: var(--charcoal);
+            margin-bottom: var(--space-lg);
+            line-height: 1.95;
+        }
+
+        .complete-btn {
+            background: linear-gradient(135deg, var(--seekapa-forest), var(--seekapa-emerald));
+            color: white;
+            border: none;
+            padding: 0.85rem 2rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-base);
+            box-shadow: var(--shadow-md);
+        }
+
+        .complete-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .complete-btn:active {
+            transform: translateY(0);
+        }
+
+        .complete-btn.completed {
+            background: var(--correct-green);
+        }
+
+        /* ========== NAVIGATION SECTION ========== */
+        .navigation-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-lg);
+            margin-bottom: var(--space-2xl);
+        }
+
+        .nav-btn {
+            padding: 1.2rem;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all var(--transition-base);
+            border: 2px solid var(--platinum);
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .prev-btn {
+            background: var(--pearl);
+            color: var(--seekapa-forest);
+            border-color: var(--seekapa-forest);
+        }
+
+        .prev-btn:hover {
+            background: var(--seekapa-forest);
+            color: white;
+        }
+
+        .next-btn {
+            background: linear-gradient(135deg, var(--seekapa-forest), var(--seekapa-emerald));
+            color: white;
+        }
+
+        .next-btn:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-2px);
+        }
+
+        /* ========== FOOTER ========== */
+        .site-footer {
+            background: var(--charcoal);
+            color: var(--platinum);
+            padding: var(--space-lg) var(--space-md);
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .footer-content p {
+            color: var(--platinum);
+            margin-bottom: var(--space-xs);
+        }
+
+        .disclaimer {
+            font-size: 0.85rem;
+            color: var(--slate);
+        }
+
+        /* ========== ANIMATIONS ========== */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        /* ========== RESPONSIVE DESIGN ========== */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: var(--space-sm);
+            }
+
+            .language-bar {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .lesson-container {
+                padding: var(--space-md);
+            }
+
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+
+            .navigation-section {
+                grid-template-columns: 1fr;
+            }
+
+            h1 { font-size: 2rem; }
+            h2 { font-size: 1.5rem; }
+            h3 { font-size: 1.25rem; }
+
+            body {
+                font-size: 16px;
+            }
+
+            [lang="ar"] {
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            :root {
+                --space-sm: 1rem;
+                --space-md: 1.5rem;
+                --space-lg: 2rem;
+            }
+
+            .header {
+                padding-block: var(--space-sm);
+            }
+
+            .lesson-container {
+                padding: var(--space-sm);
+            }
+
+            .hero-title {
+                font-size: 1.75rem;
+            }
+
+            .content-section,
+            .quiz-section,
+            .takeaways-section {
+                padding: var(--space-sm);
+            }
+
+            .nav-btn {
+                padding: 0.85rem;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* ========== ACCESSIBILITY ========== */
+        .lang-btn:focus,
+        .option-label:focus,
+        .complete-btn:focus,
+        .nav-btn:focus {
+            outline: 2px solid var(--seekapa-forest);
+            outline-offset: 2px;
+        }
+
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        [aria-label] {
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+    <!-- Progress Bar -->
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <!-- Premium Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo-container">
+                <img src="images/Seekapa Black Logo.png" alt="Seekapa Logo" class="logo-image">
+                <span class="logo-text" data-translate="academy_name">أكاديمية سيكابا للتداول</span>
+            </div>
+
+            <div class="user-stats">
+                <div class="stat-item">
+                    <span class="xp-badge"><span>⚡</span> <span id="xpAmount">0</span> XP</span>
+                </div>
+                <div class="stat-item">
+                    <span class="streak-badge"><span>🔥</span> <span id="streakCount">0</span> days</span>
+                </div>
+            </div>
+
+            <div class="language-bar">
+                <button class="lang-btn active" data-lang="ar" onclick="switchLanguage('ar')">العربية</button>
+                <button class="lang-btn" data-lang="en" onclick="switchLanguage('en')">English</button>
+                <button class="lang-btn" data-lang="es" onclick="switchLanguage('es')">Español</button>
+                <button class="lang-btn" data-lang="pt" onclick="switchLanguage('pt')">Português</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="lesson-container">
+        <!-- Lesson Progress -->
+        <div class="lesson-progress" data-translate="lesson_number">الدرس 5 من 12</div>
+
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <h1 class="hero-title" data-translate="title">مؤشرات التداول والأدوات</h1>
+            <p class="hero-subtitle" data-translate="subtitle">أتقن المؤشرات التقنية لتأكيد الإشارات وتحسين التوقيت</p>
+        </section>
+
+        <!-- Video Section -->
+        <section class="video-section">
+            <div class="video-container">
+                <div class="video-placeholder">
+                    <div class="play-icon">▶</div>
+                    <p data-translate="video_coming_soon">الفيديو قيد الإعداد</p>
+                    <p class="video-details" data-translate="video_details">المدة: 90-120 ثانية | الجودة: 1080p</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Learning Objectives -->
+        <section class="objectives-section">
+            <h2 data-translate="objectives_title">أهداف التعلم</h2>
+            <ul class="objectives-list">
+                <li data-translate="objective_1">فهم كيفية عمل مؤشرات التداول وتطبيقاتها العملية</li>
+                <li data-translate="objective_2">تعلم استخدام المتوسطات المتحركة لتحديد الاتجاهات</li>
+                <li data-translate="objective_3">إتقان مؤشرات الزخم مثل RSI و MACD لتحليل القوة</li>
+                <li data-translate="objective_4">اكتشف كيفية دمج المؤشرات للحصول على إشارات أفضل دون الإفراط في التحليل</li>
+            </ul>
+        </section>
+
+        <!-- Introduction -->
+        <section class="content-section">
+            <p data-translate="intro">تعمل مؤشرات التداول كحسابات رياضية بناءً على السعر والحجم أو بيانات السوق التي تساعد على تحديد الاتجاهات والزخم والانعكاسات المحتملة. بينما يشكل حركة السعر الأساس، توفر المؤشرات تأكيداً إضافياً وتساعد على توقيت الدخول والخروج بدقة أكبر. في هذا الدرس، ستتعلم أكثر المؤشرات عملية يستخدمها التجار المحترفون وكيفية دمجها في إعدادات تداول عالية الاحتمالية.</p>
+        </section>
+
+        <!-- Content Section 1: Moving Averages -->
+        <section class="content-section">
+            <h2 data-translate="section1_title">المتوسطات المتحركة: أدوات تتبع الاتجاه</h2>
+            <p data-translate="section1_text">تعمل المتوسطات المتحركة على تسهيل تقلبات السعر لتحديد الاتجاهات الأساسية وتوفير مستويات دعم ومقاومة ديناميكية. المتوسطات المتحركة البسيطة (SMA) تعطي وزناً متساوياً لجميع الأسعار، بينما المتوسطات المتحركة الأسية (EMA) تركز على الأسعار الحالية بقوة أكبر. الفترات الشائعة تشمل 20 و 50 و 100 و 200، حيث توفر الفترات الأطول إشارات أكثر سلاسة. تولد تقاطعات المتوسطات المتحركة إشارات تداول قوية: تقاطع الذهب (عندما يعبر EMA 50 فوق EMA 200) يشير إلى تعزز الزخم الصعودي، وتقاطع الموت (عندما يعبر EMA 50 تحت EMA 200) يشير إلى ضغط هبوطي محتمل.</p>
+            <img src="images/05_01_moving_averages.png" alt="Moving Averages Chart" class="content-image">
+        </section>
+
+        <!-- Content Section 2: Oscillators -->
+        <section class="content-section">
+            <h2 data-translate="section2_title">مؤشرات الزخم: الظروف المشتراة أو المباعة بإفراط</h2>
+            <p data-translate="section2_text">تتذبذب مؤشرات الزخم بين حدود ثابتة لتحديد تغييرات الزخم والظروف القصوى. يقيس مؤشر القوة النسبية (RSI) سرعة وحجم تغييرات الأسعار، متذبذباً بين 0 و 100. القراءات فوق 70 تشير إلى ظروف مشتراة بإفراط قد يكون السعر مستحقاً لتصحيح، بينما القراءات أقل من 30 تشير إلى ظروف مباعة بإفراط. MACD يجمع بين تتبع الاتجاه والزخم من خلال إظهار العلاقات بين متوسطين متحركين أسيين. عندما يعبر خط MACD فوق خط الإشارة، يظهر زخم صعودي قوي؛ عند عبوره للأسفل، يهيمن الزخم الهبوطي. الاختلافات بين السعر ومؤشرات الزخم توفر إشارات انعكاس قوية بشكل خاص.</p>
+            <img src="images/05_02_golden_death_cross.png" alt="Golden and Death Cross" class="content-image">
+        </section>
+
+        <!-- Content Section 3: Volume Indicators -->
+        <section class="content-section">
+            <h2 data-translate="section3_title">مؤشرات الحجم: تأكيد تحركات الأسعار</h2>
+            <p data-translate="section3_text">تحلل مؤشرات الحجم نشاط التداول وتدفق الأموال لتأكيد تحركات الأسعار وتحديد الانعكاسات المحتملة. يقوم مؤشر التراكم على الحجم (OBV) بإنشاء خط تراكمي يجب أن يتجه مع الأسعار في التحركات الصحيحة - الاختلافات تشير إلى تحركات ضعيفة قد تنعكس. متوسط السعر المرجح بالحجم (VWAP) يُظهر متوسط السعر المرجح بالحجم، بمثابة معيار لنشاط الأسواق المؤسسية. يراقب التجار المحترفون تأكيد الحجم: التحركات القوية على حجم مرتفع أكثر موثوقية من تحركات الأسعار على حجم خفيف.</p>
+            <img src="images/05_05_volume_indicators.png" alt="Volume Indicators" class="content-image">
+        </section>
+
+        <!-- Content Section 4: Combining Indicators -->
+        <section class="content-section">
+            <h2 data-translate="section4_title">دمج المؤشرات للحصول على إشارات أفضل</h2>
+            <p data-translate="section4_text">يؤدي دمج مؤشرات متعددة إلى تحسين جودة الإشارات مع تجنب الإفراط في التحليل. يجمع النهج الشائع بين مؤشرات تتبع الاتجاه (المتوسطات المتحركة) ومؤشرات الزخم (RSI أو MACD) لتحديد الإعدادات حيث يتفق كلاهما على الاتجاه. يضيف تأكيد الحجم طبقة ثالثة حاسمة من خلال التأكد من أن نشاط التداول الكافي يدعم التحرك. تحليل أطر زمنية متعددة يساعد على تأكيد الإشارات عبر آفاق زمنية مختلفة: تحديد اتجاه الاتجاه في الرسوم البيانية اليومية، ثم التداول في أطر زمنية أقل للحصول على نقاط دخول محسنة.</p>
+            <img src="images/05_07_indicator_confluence.png" alt="Indicator Confluence" class="content-image">
+        </section>
+
+        <!-- Key Takeaways -->
+        <section class="takeaways-section">
+            <h2 data-translate="takeaways_title">النقاط الرئيسية</h2>
+            <ul class="takeaways-list">
+                <li data-translate="takeaway1">تساعد المتوسطات المتحركة في تحديد الاتجاهات وتوفير مستويات دعم ومقاومة ديناميكية</li>
+                <li data-translate="takeaway2">تحدد مؤشرات الزخم تغييرات الزخم والظروف المشتراة أو المباعة بإفراط للانعكاسات</li>
+                <li data-translate="takeaway3">تؤكد مؤشرات الحجم تحركات الأسعار وتكشف نشاط المؤسسات</li>
+                <li data-translate="takeaway4">يحسن دمج المؤشرات جودة الإشارات لكن تجنب الإفراط في التحليل</li>
+                <li data-translate="takeaway5">فهم قيود المؤشرات يمنع الأخطاء التجارية الشائعة</li>
+            </ul>
+        </section>
+
+        <!-- Quiz Section -->
+        <section class="quiz-section">
+            <h2 data-translate="quiz_title">اختبر معلوماتك</h2>
+            <div class="quiz-container" id="quiz"></div>
+            <div class="quiz-results" id="quizResults"></div>
+        </section>
+
+        <!-- Practical Exercise -->
+        <section class="exercise-section">
+            <h2 data-translate="exercise_title">تمرين عملي</h2>
+            <p data-translate="exercise">قم بإعداد مخطط بثلاثة مؤشرات: EMA بفترة 20، RSI (14)، وأعمدة الحجم. تدرب على تحديد إشارات التقارب حيث تتفق مؤشرات متعددة على نفس الاتجاه. وثق خمس أمثلة محددة على مدار الأسبوع القادم: سجل التاريخ والأداة وكيف أكد كل مؤشر التحرك. لاحظ كيف أداء هذه الإشارات المتقاربة مقارنة بإشارات مؤشر واحد. يبني هذا التمرين مهارات التعرف على الأنماط الأساسية للتداول الاحترافي.</p>
+            <button class="complete-btn" onclick="markExerciseComplete()">
+                <span data-translate="mark_complete">تم الإنجاز</span>
+            </button>
+        </section>
+
+        <!-- Navigation -->
+        <section class="navigation-section">
+            <a href="lesson-04-interactive.html" class="nav-btn prev-btn">
+                <span data-translate="previous_lesson">← الدرس السابق</span>
+            </a>
+            <a href="lesson-06-interactive.html" class="nav-btn next-btn">
+                <span data-translate="next_lesson">الدرس التالي →</span>
+            </a>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p>&copy; 2025 Seekapa Trading Academy. <span data-translate="all_rights">جميع الحقوق محفوظة</span>.</p>
+            <p class="disclaimer" data-translate="disclaimer">تحذير المخاطر: التداول ينطوي على مخاطر كبيرة. الأداء السابق لا يضمن النتائج المستقبلية. استخدم دائماً إدارة المخاطر المناسبة ولا تخاطر بأكثر مما تستطيع تحمل خسارته.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // ========== TRANSLATIONS DATA ==========
+        const translations = {
+            en: {
+                lesson_number: "Lesson 5 of 12",
+                academy_name: "Seekapa Trading Academy",
+                title: "Trading Indicators & Tools",
+                subtitle: "Master technical indicators to confirm signals and improve timing",
+                objectives_title: "Learning Objectives",
+                objective_1: "Understand how trading indicators work and their applications",
+                objective_2: "Learn to use moving averages for trend identification",
+                objective_3: "Master oscillators like RSI and MACD for momentum analysis",
+                objective_4: "Discover how to combine indicators for better signals while avoiding over-analysis",
+                video_coming_soon: "Video Coming Soon",
+                video_details: "Duration: 90-120 seconds | Quality: 1080p",
+                intro: "Trading indicators serve as mathematical calculations based on price, volume, or market data that help identify trends, momentum, and potential reversals. While price action forms the foundation, indicators provide additional confirmation and help time entries and exits more precisely.",
+                section1_title: "Moving Averages: Trend Following Tools",
+                section1_text: "Moving averages smooth out price fluctuations to identify underlying trends and provide dynamic support and resistance. Simple moving averages (SMA) give equal weight to all prices, while exponential moving averages (EMA) emphasize recent prices more heavily. Common periods include 20, 50, 100, and 200, with longer periods providing smoother signals.",
+                section2_title: "Oscillators: Momentum and Overbought/Oversold Conditions",
+                section2_text: "Oscillators fluctuate between fixed boundaries helping identify momentum changes and extreme market conditions. The Relative Strength Index (RSI) measures the speed and magnitude of price changes, oscillating between 0 and 100. Readings above 70 suggest overbought conditions where price may be due for correction, while readings below 30 indicate oversold conditions.",
+                section3_title: "Volume Indicators: Confirming Price Movements",
+                section3_text: "Volume indicators analyze trading activity and money flow to confirm price movements and identify potential reversals. On-Balance Volume (OBV) creates a cumulative line that should trend with prices in healthy moves—divergences signal weak moves likely to reverse.",
+                section4_title: "Combining Indicators for Better Signals",
+                section4_text: "Combining multiple indicators improves signal quality while avoiding over-analysis and analysis paralysis. A common high-probability approach pairs trend-following indicators (moving averages) with momentum oscillators (RSI or MACD) to identify setups where both agree on direction.",
+                takeaways_title: "Key Takeaways",
+                takeaway1: "Moving averages help identify trends and provide dynamic support/resistance levels",
+                takeaway2: "Oscillators identify momentum changes and overbought/oversold conditions for reversals",
+                takeaway3: "Volume indicators confirm price movements and reveal institutional activity",
+                takeaway4: "Combining indicators improves signal quality but avoid over-analysis",
+                takeaway5: "Understanding indicator limitations prevents common trading mistakes",
+                quiz_title: "Test Your Knowledge",
+                quiz_q1: "What is the primary purpose of moving averages in technical analysis?",
+                quiz_q1_a: "To predict future price movements with 100% accuracy",
+                quiz_q1_b: "To smooth out price fluctuations and identify underlying trends",
+                quiz_q1_c: "To replace the need for price action analysis",
+                quiz_q1_d: "To eliminate all trading risk",
+                quiz_q1_correct: "b",
+                quiz_q2: "A 'golden cross' occurs when:",
+                quiz_q2_a: "A 50 EMA crosses above a 200 EMA, suggesting bullish momentum",
+                quiz_q2_b: "The price touches resistance three times",
+                quiz_q2_c: "Volume spikes above normal levels",
+                quiz_q2_d: "The RSI reaches 100",
+                quiz_q2_correct: "a",
+                quiz_q3: "What does an RSI reading above 70 typically indicate?",
+                quiz_q3_a: "Strong bullish signal to buy immediately",
+                quiz_q3_b: "Overbought conditions where price may be due for correction",
+                quiz_q3_c: "Support level being established",
+                quiz_q3_d: "Oversold conditions ready for reversal",
+                quiz_q3_correct: "b",
+                quiz_q4: "MACD primarily helps traders identify:",
+                quiz_q4_a: "Support and resistance levels",
+                quiz_q4_b: "Volume confirmation signals",
+                quiz_q4_c: "Trend-following direction and momentum changes",
+                quiz_q4_d: "Candlestick pattern completion",
+                quiz_q4_correct: "c",
+                quiz_q5: "What does a divergence between price and an oscillator signal?",
+                quiz_q5_a: "The indicator is broken and should be ignored",
+                quiz_q5_b: "A potential reversal may be coming soon",
+                quiz_q5_c: "The trend will continue stronger",
+                quiz_q5_d: "Volume is decreasing",
+                quiz_q5_correct: "b",
+                exercise_title: "Practical Exercise",
+                exercise: "Set up a chart with three indicators: a 20-period EMA, RSI (14), and volume bars. Practice identifying confluence signals where multiple indicators align to suggest the same direction.",
+                mark_complete: "Mark Exercise Complete",
+                previous_lesson: "← Previous Lesson",
+                next_lesson: "Next Lesson →",
+                all_rights: "All Rights Reserved",
+                disclaimer: "Risk Disclosure: Trading involves substantial risk of loss. Past performance does not guarantee future results."
+            },
+            ar: {
+                lesson_number: "الدرس 5 من 12",
+                academy_name: "أكاديمية سيكابا للتداول",
+                title: "مؤشرات التداول والأدوات",
+                subtitle: "أتقن المؤشرات التقنية لتأكيد الإشارات وتحسين التوقيت",
+                objectives_title: "أهداف التعلم",
+                objective_1: "فهم كيفية عمل مؤشرات التداول وتطبيقاتها العملية",
+                objective_2: "تعلم استخدام المتوسطات المتحركة لتحديد الاتجاهات",
+                objective_3: "إتقان مؤشرات الزخم مثل RSI و MACD لتحليل القوة",
+                objective_4: "اكتشف كيفية دمج المؤشرات للحصول على إشارات أفضل",
+                video_coming_soon: "الفيديو قيد الإعداد",
+                video_details: "المدة: 90-120 ثانية | الجودة: 1080p",
+                intro: "تعمل مؤشرات التداول كحسابات رياضية بناءً على السعر والحجم",
+                section1_title: "المتوسطات المتحركة: أدوات تتبع الاتجاه",
+                section1_text: "تعمل المتوسطات المتحركة على تسهيل تقلبات السعر",
+                section2_title: "مؤشرات الزخم: الظروف المشتراة أو المباعة بإفراط",
+                section2_text: "تتذبذب مؤشرات الزخم بين حدود ثابتة",
+                section3_title: "مؤشرات الحجم: تأكيد تحركات الأسعار",
+                section3_text: "تحلل مؤشرات الحجم نشاط التداول",
+                section4_title: "دمج المؤشرات للحصول على إشارات أفضل",
+                section4_text: "يؤدي دمج مؤشرات متعددة إلى تحسين جودة الإشارات",
+                takeaways_title: "النقاط الرئيسية",
+                takeaway1: "تساعد المتوسطات المتحركة في تحديد الاتجاهات",
+                takeaway2: "تحدد مؤشرات الزخم تغييرات الزخم",
+                takeaway3: "تؤكد مؤشرات الحجم تحركات الأسعار",
+                takeaway4: "يحسن دمج المؤشرات جودة الإشارات",
+                takeaway5: "فهم قيود المؤشرات يمنع الأخطاء",
+                quiz_title: "اختبر معلوماتك",
+                quiz_q1: "ما هو الغرض الأساسي للمتوسطات المتحركة؟",
+                quiz_q1_a: "التنبؤ بدقة 100٪",
+                quiz_q1_b: "تسهيل تقلبات السعر",
+                quiz_q1_c: "استبدال تحليل حركة السعر",
+                quiz_q1_d: "القضاء على جميع المخاطر",
+                quiz_q1_correct: "b",
+                quiz_q2: "يحدث تقاطع الذهب عندما:",
+                quiz_q2_a: "يعبر EMA 50 فوق EMA 200",
+                quiz_q2_b: "يلمس السعر المقاومة ثلاث مرات",
+                quiz_q2_c: "يرتفع الحجم فوق المستويات",
+                quiz_q2_d: "يصل مؤشر القوة النسبية إلى 100",
+                quiz_q2_correct: "a",
+                quiz_q3: "ماذا يشير قراءة RSI فوق 70؟",
+                quiz_q3_a: "إشارة صعودية قوية",
+                quiz_q3_b: "ظروف مشتراة بإفراط",
+                quiz_q3_c: "تأسيس مستوى دعم",
+                quiz_q3_d: "ظروف مباعة بإفراط",
+                quiz_q3_correct: "b",
+                quiz_q4: "يساعد MACD على تحديد:",
+                quiz_q4_a: "مستويات الدعم والمقاومة",
+                quiz_q4_b: "إشارات الحجم",
+                quiz_q4_c: "اتجاه الاتجاه",
+                quiz_q4_d: "نمط الشموع",
+                quiz_q4_correct: "c",
+                quiz_q5: "ماذا يشير الاختلاف بين السعر ومؤشر؟",
+                quiz_q5_a: "المؤشر معطل",
+                quiz_q5_b: "انعكاس محتمل قادم",
+                quiz_q5_c: "استمرار الاتجاه",
+                quiz_q5_d: "انخفاض الحجم",
+                quiz_q5_correct: "b",
+                exercise_title: "تمرين عملي",
+                exercise: "قم بإعداد مخطط بثلاثة مؤشرات",
+                mark_complete: "تم الإنجاز",
+                previous_lesson: "← الدرس السابق",
+                next_lesson: "الدرس التالي →",
+                all_rights: "جميع الحقوق محفوظة",
+                disclaimer: "تحذير المخاطر"
+            },
+            es: {
+                lesson_number: "Lección 5 de 12",
+                academy_name: "Academia de Trading Seekapa",
+                title: "Indicadores de Trading y Herramientas",
+                subtitle: "Domina indicadores técnicos para confirmar señales",
+                objectives_title: "Objetivos de Aprendizaje",
+                objective_1: "Comprender cómo funcionan los indicadores",
+                objective_2: "Aprender a usar medias móviles",
+                objective_3: "Dominar osciladores como RSI",
+                objective_4: "Descubre cómo combinar indicadores",
+                video_coming_soon: "Video Próximamente",
+                video_details: "Duración: 90-120 segundos",
+                intro: "Los indicadores de trading sirven como cálculos matemáticos",
+                section1_title: "Medias Móviles",
+                section1_text: "Las medias móviles suavizan las fluctuaciones",
+                section2_title: "Osciladores",
+                section2_text: "Los osciladores fluctúan entre límites",
+                section3_title: "Indicadores de Volumen",
+                section3_text: "Los indicadores de volumen analizan",
+                section4_title: "Combinando Indicadores",
+                section4_text: "Combinar múltiples indicadores mejora",
+                takeaways_title: "Puntos Clave",
+                takeaway1: "Las medias móviles ayudan",
+                takeaway2: "Los osciladores identifican",
+                takeaway3: "Los indicadores de volumen confirman",
+                takeaway4: "Combinar indicadores mejora",
+                takeaway5: "Entender limitaciones",
+                quiz_title: "Prueba Tus Conocimientos",
+                quiz_q1: "¿Cuál es el propósito principal?",
+                quiz_q1_a: "Predecir con 100%",
+                quiz_q1_b: "Suavizar fluctuaciones",
+                quiz_q1_c: "Reemplazar análisis",
+                quiz_q1_d: "Eliminar todos los riesgos",
+                quiz_q1_correct: "b",
+                quiz_q2: "Una cruz dorada ocurre cuando:",
+                quiz_q2_a: "EMA 50 cruza por encima",
+                quiz_q2_b: "El precio toca resistencia",
+                quiz_q2_c: "El volumen se dispara",
+                quiz_q2_d: "RSI llega a 100",
+                quiz_q2_correct: "a",
+                quiz_q3: "¿Qué indica RSI superior a 70?",
+                quiz_q3_a: "Fuerte señal alcista",
+                quiz_q3_b: "Condiciones de sobrecompra",
+                quiz_q3_c: "Nivel de soporte",
+                quiz_q3_d: "Condiciones de sobreventa",
+                quiz_q3_correct: "b",
+                quiz_q4: "MACD ayuda a identificar:",
+                quiz_q4_a: "Niveles de soporte",
+                quiz_q4_b: "Señales de volumen",
+                quiz_q4_c: "Dirección de tendencia",
+                quiz_q4_d: "Patrones de velas",
+                quiz_q4_correct: "c",
+                quiz_q5: "¿Qué señala una divergencia?",
+                quiz_q5_a: "El indicador está roto",
+                quiz_q5_b: "Una reversión potencial",
+                quiz_q5_c: "La tendencia continuará",
+                quiz_q5_d: "El volumen disminuye",
+                quiz_q5_correct: "b",
+                exercise_title: "Ejercicio Práctico",
+                exercise: "Configura un gráfico con tres indicadores",
+                mark_complete: "Marcar Como Completado",
+                previous_lesson: "← Lección Anterior",
+                next_lesson: "Siguiente Lección →",
+                all_rights: "Todos Los Derechos Reservados",
+                disclaimer: "Divulgación de Riesgos"
+            },
+            pt: {
+                lesson_number: "Lição 5 de 12",
+                academy_name: "Academia de Trading Seekapa",
+                title: "Indicadores de Trading e Ferramentas",
+                subtitle: "Domine indicadores técnicos",
+                objectives_title: "Objetivos de Aprendizagem",
+                objective_1: "Entender como indicadores funcionam",
+                objective_2: "Aprender a usar médias móveis",
+                objective_3: "Dominar osciladores como RSI",
+                objective_4: "Descubra como combinar indicadores",
+                video_coming_soon: "Vídeo em Breve",
+                video_details: "Duração: 90-120 segundos",
+                intro: "Indicadores de trading servem como cálculos",
+                section1_title: "Médias Móveis",
+                section1_text: "As médias móveis suavizam as flutuações",
+                section2_title: "Osciladores",
+                section2_text: "Osciladores fluem entre limites",
+                section3_title: "Indicadores de Volume",
+                section3_text: "Indicadores de volume analisam",
+                section4_title: "Combinando Indicadores",
+                section4_text: "Combinar múltiplos indicadores melhora",
+                takeaways_title: "Pontos-Chave",
+                takeaway1: "Médias móveis ajudam",
+                takeaway2: "Osciladores identificam",
+                takeaway3: "Indicadores de volume confirmam",
+                takeaway4: "Combinar indicadores melhora",
+                takeaway5: "Entender limitações",
+                quiz_title: "Teste Seu Conhecimento",
+                quiz_q1: "Qual é o propósito principal?",
+                quiz_q1_a: "Prever com 100%",
+                quiz_q1_b: "Suavizar flutuações",
+                quiz_q1_c: "Substituir análise",
+                quiz_q1_d: "Eliminar todos os riscos",
+                quiz_q1_correct: "b",
+                quiz_q2: "Um cruzamento de ouro ocorre quando:",
+                quiz_q2_a: "EMA 50 cruza acima",
+                quiz_q2_b: "O preço toca resistência",
+                quiz_q2_c: "Volume dispara",
+                quiz_q2_d: "RSI atinge 100",
+                quiz_q2_correct: "a",
+                quiz_q3: "O que indica RSI acima de 70?",
+                quiz_q3_a: "Sinal altista forte",
+                quiz_q3_b: "Condições de sobrecompra",
+                quiz_q3_c: "Nível de suporte",
+                quiz_q3_d: "Condições de sobrevenda",
+                quiz_q3_correct: "b",
+                quiz_q4: "MACD ajuda a identificar:",
+                quiz_q4_a: "Níveis de suporte",
+                quiz_q4_b: "Sinais de volume",
+                quiz_q4_c: "Direção de tendência",
+                quiz_q4_d: "Padrões de velas",
+                quiz_q4_correct: "c",
+                quiz_q5: "O que sinaliza uma divergência?",
+                quiz_q5_a: "O indicador está quebrado",
+                quiz_q5_b: "Uma possível reversão",
+                quiz_q5_c: "A tendência continuará",
+                quiz_q5_d: "Volume diminui",
+                quiz_q5_correct: "b",
+                exercise_title: "Exercício Prático",
+                exercise: "Configure um gráfico com três indicadores",
+                mark_complete: "Marcar Como Completo",
+                previous_lesson: "← Lição Anterior",
+                next_lesson: "Próxima Lição →",
+                all_rights: "Todos Os Direitos Reservados",
+                disclaimer: "Divulgação de Riscos"
+            }
+        };
+
+        // Current language and lesson number
+        let currentLang = 'ar';
+        const lessonNumber = 5;
+
+        // ========== INITIALIZE PAGE ==========
+        function initializePage() {
+            // Load saved language preference
+            const savedLang = localStorage.getItem('preferred_language') || 'ar';
+            switchLanguage(savedLang);
+
+            // Initialize gamification
+            loadUserStats();
+
+            // Render quiz
+            renderQuiz();
+
+            // Setup progress bar
+            updateProgressBar();
+
+            // Add scroll listener for progress
+            window.addEventListener('scroll', updateProgressBar);
+        }
+
+        // ========== LANGUAGE SWITCHING ==========
+        function switchLanguage(lang) {
+            currentLang = lang;
+            document.documentElement.lang = lang;
+            document.documentElement.dir = (lang === 'ar') ? 'rtl' : 'ltr';
+
+            // Update active button
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.lang === lang);
+            });
+
+            // Update all translatable elements
+            document.querySelectorAll('[data-translate]').forEach(el => {
+                const key = el.dataset.translate;
+                if (translations[lang] && translations[lang][key]) {
+                    el.textContent = translations[lang][key];
+                }
+            });
+
+            localStorage.setItem('preferred_language', lang);
+
+            // Re-render quiz with new language
+            renderQuiz();
+        }
+
+        // ========== QUIZ SYSTEM ==========
+        const quizData = [
+            {
+                q_key: 'quiz_q1',
+                options_keys: ['quiz_q1_a', 'quiz_q1_b', 'quiz_q1_c', 'quiz_q1_d'],
+                correct: 'b'
+            },
+            {
+                q_key: 'quiz_q2',
+                options_keys: ['quiz_q2_a', 'quiz_q2_b', 'quiz_q2_c', 'quiz_q2_d'],
+                correct: 'a'
+            },
+            {
+                q_key: 'quiz_q3',
+                options_keys: ['quiz_q3_a', 'quiz_q3_b', 'quiz_q3_c', 'quiz_q3_d'],
+                correct: 'b'
+            },
+            {
+                q_key: 'quiz_q4',
+                options_keys: ['quiz_q4_a', 'quiz_q4_b', 'quiz_q4_c', 'quiz_q4_d'],
+                correct: 'c'
+            },
+            {
+                q_key: 'quiz_q5',
+                options_keys: ['quiz_q5_a', 'quiz_q5_b', 'quiz_q5_c', 'quiz_q5_d'],
+                correct: 'b'
+            }
+        ];
+
+        function renderQuiz() {
+            const quizContainer = document.getElementById('quiz');
+            quizContainer.innerHTML = '';
+
+            quizData.forEach((q, idx) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'quiz-question';
+
+                const questionText = document.createElement('h4');
+                questionText.textContent = translations[currentLang][q.q_key];
+
+                questionDiv.appendChild(questionText);
+
+                const optionsDiv = document.createElement('div');
+                optionsDiv.className = 'quiz-options';
+
+                const optionLetters = ['a', 'b', 'c', 'd'];
+                optionLetters.forEach((letter, optIdx) => {
+                    const label = document.createElement('label');
+                    label.className = 'option-label';
+
+                    const radio = document.createElement('input');
+                    radio.type = 'radio';
+                    radio.name = `q${idx}`;
+                    radio.value = letter;
+
+                    const text = document.createElement('span');
+                    text.textContent = translations[currentLang][q.options_keys[optIdx]];
+
+                    label.appendChild(radio);
+                    label.appendChild(text);
+                    optionsDiv.appendChild(label);
+                });
+
+                questionDiv.appendChild(optionsDiv);
+                quizContainer.appendChild(questionDiv);
+            });
+
+            // Add submit button
+            const submitBtn = document.createElement('button');
+            submitBtn.className = 'complete-btn';
+            submitBtn.style.marginTop = 'var(--space-lg)';
+            submitBtn.style.width = '100%';
+            submitBtn.textContent = currentLang === 'ar' ? 'تقديم الاختبار' : 'Submit Quiz';
+            submitBtn.onclick = checkAnswers;
+
+            quizContainer.parentElement.insertBefore(submitBtn, quizContainer.nextElementSibling);
+        }
+
+        function checkAnswers() {
+            let score = 0;
+            const selected = [];
+
+            quizData.forEach((q, idx) => {
+                const selected_val = document.querySelector(`input[name="q${idx}"]:checked`)?.value;
+                selected.push(selected_val);
+                if (selected_val === q.correct) {
+                    score++;
+                }
+            });
+
+            displayResults(score, selected);
+            awardXP(score * 6, 'Quiz Completion');
+        }
+
+        function displayResults(score, selected) {
+            const resultsDiv = document.getElementById('quizResults');
+            const maxScore = quizData.length;
+            const percentage = (score / maxScore) * 100;
+
+            let message = '';
+            if (percentage === 100) {
+                resultsDiv.className = 'quiz-results success';
+                message = currentLang === 'ar' ? '🎉 ممتاز! لقد حققت 100%!' : '🎉 Perfect! You got 100%!';
+                awardXP(30, 'Perfect Quiz!');
+            } else if (percentage >= 80) {
+                resultsDiv.className = 'quiz-results success';
+                message = currentLang === 'ar' ? `🌟 رائع! ${score}/${maxScore}` : `🌟 Great job! ${score}/${maxScore}`;
+            } else {
+                resultsDiv.className = 'quiz-results partial';
+                message = currentLang === 'ar' ? `📊 نتيجتك: ${score}/${maxScore}` : `📊 Your score: ${score}/${maxScore}`;
+            }
+
+            resultsDiv.innerHTML = `<div class="results-message">${message}</div>`;
+            resultsDiv.style.display = 'block';
+        }
+
+        // ========== GAMIFICATION ==========
+        function loadUserStats() {
+            const xp = localStorage.getItem('total_xp') || 0;
+            const streak = localStorage.getItem('streak_days') || 0;
+            document.getElementById('xpAmount').textContent = xp;
+            document.getElementById('streakCount').textContent = streak;
+        }
+
+        function awardXP(amount, reason) {
+            const current = parseInt(localStorage.getItem('total_xp') || '0');
+            const newXP = current + amount;
+            localStorage.setItem('total_xp', newXP);
+            document.getElementById('xpAmount').textContent = newXP;
+            showNotification(`+${amount} XP ${reason ? '- ' + reason : ''}`);
+        }
+
+        function markExerciseComplete() {
+            const btn = event.target;
+            btn.classList.add('completed');
+            btn.textContent = currentLang === 'ar' ? '✓ تم الإنجاز' : '✓ Completed';
+            btn.disabled = true;
+            awardXP(20, 'Exercise Completed');
+            markLessonComplete();
+        }
+
+        function markLessonComplete() {
+            const completed = JSON.parse(localStorage.getItem('completed_lessons') || '[]');
+            if (!completed.includes(lessonNumber)) {
+                completed.push(lessonNumber);
+                localStorage.setItem('completed_lessons', JSON.stringify(completed));
+                awardXP(50, 'Lesson Complete');
+            }
+        }
+
+        function showNotification(message) {
+            // Simple notification - can be enhanced with toast library
+            console.log(message);
+        }
+
+        // ========== PROGRESS BAR ==========
+        function updateProgressBar() {
+            const windowHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrolled = (window.scrollY / windowHeight) * 100;
+            document.getElementById('progressBar').style.width = scrolled + '%';
+        }
+
+        // ========== INITIALIZE ON LOAD ==========
+        window.addEventListener('DOMContentLoaded', initializePage);
+    </script>
+</body>
+</html>

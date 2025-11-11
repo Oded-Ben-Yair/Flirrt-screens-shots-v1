@@ -1,0 +1,1408 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Seekapa Trading Academy - Lesson 9: Trading Strategies & Systems">
+
+    <link rel="alternate" hreflang="ar" href="/ar/lesson-09" />
+    <link rel="alternate" hreflang="en" href="/en/lesson-09" />
+    <link rel="alternate" hreflang="es" href="/es/lesson-09" />
+    <link rel="alternate" hreflang="pt" href="/pt/lesson-09" />
+
+    <title>الدرس 9: استراتيجيات وأنظمة التداول | Seekapa Trading Academy</title>
+
+    <!-- Premium Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;500;600;700&family=Cairo:wght@600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ========== BASE FROM PREMIUM VERSION ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Premium Colors */
+            --seekapa-forest: #1B5E3F;
+            --seekapa-emerald: #0F5F3F;
+            --seekapa-sage: #7A9D8E;
+            --trust-navy: #1F3A6B;
+            --burgundy: #8B3A3A;
+            --champagne-gold: #D4AF37;
+            --platinum: #E5E4E2;
+            --charcoal: #2B2D42;
+            --slate: #8D99AE;
+            --pearl: #F8F9FA;
+            --ivory: #FDFDF8;
+
+            /* Gamification Colors */
+            --xp-blue: #3B82F6;
+            --badge-gold: #FFD700;
+            --streak-orange: #FF6B35;
+            --correct-green: #10B981;
+            --incorrect-red: #EF4444;
+
+            /* Premium Spacing */
+            --space-xs: 0.75rem;
+            --space-sm: 1.5rem;
+            --space-md: 3rem;
+            --space-lg: 4.5rem;
+            --space-xl: 6rem;
+            --space-2xl: 9rem;
+
+            /* Typography Scale */
+            --font-size-base: 18px;
+            --font-size-lg: 1.25rem;
+            --font-size-xl: 1.75rem;
+            --font-size-2xl: 2.25rem;
+            --font-size-3xl: 3.5rem;
+
+            /* Premium Shadows */
+            --shadow-xs: 0 1px 2px rgba(27, 94, 63, 0.04);
+            --shadow-sm: 0 2px 4px rgba(27, 94, 63, 0.06), 0 1px 2px rgba(27, 94, 63, 0.03);
+            --shadow-md: 0 4px 8px rgba(27, 94, 63, 0.08), 0 2px 4px rgba(27, 94, 63, 0.04), 0 1px 2px rgba(27, 94, 63, 0.02);
+            --shadow-lg: 0 8px 16px rgba(27, 94, 63, 0.10), 0 4px 8px rgba(27, 94, 63, 0.06), 0 2px 4px rgba(27, 94, 63, 0.03);
+            --shadow-hover: 0 12px 24px rgba(27, 94, 63, 0.15), 0 6px 12px rgba(27, 94, 63, 0.08);
+
+            /* Animations */
+            --transition-fast: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-base: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            line-height: 1.8;
+            color: var(--charcoal);
+            background: var(--ivory);
+            font-size: var(--font-size-base);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        [lang="ar"] {
+            font-family: 'Noto Kufi Arabic', 'Cairo', sans-serif;
+            font-size: 1.35rem;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-weight: 600;
+            line-height: 1.2;
+            color: var(--charcoal);
+        }
+
+        [lang="ar"] h1, [lang="ar"] h2, [lang="ar"] h3 {
+            font-family: 'Cairo', serif;
+        }
+
+        p {
+            margin-bottom: var(--space-sm);
+            color: var(--slate);
+            line-height: 1.8;
+        }
+
+        /* ========== HEADER WITH GAMIFICATION ========== */
+        .header {
+            background: linear-gradient(135deg, #1a2332 0%, #0A1929 100%);
+            padding: var(--space-md) var(--space-lg);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: var(--space-lg);
+            flex-wrap: wrap;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .logo-image {
+            height: 50px;
+            width: auto;
+        }
+
+        .logo-text {
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        .user-stats {
+            display: flex;
+            gap: var(--space-md);
+            align-items: center;
+        }
+
+        .xp-badge, .streak-badge {
+            background: rgba(255, 255, 255, 0.1);
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: 20px;
+            color: white;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .xp-badge {
+            border: 1px solid var(--xp-blue);
+        }
+
+        .streak-badge {
+            border: 1px solid var(--streak-orange);
+        }
+
+        .language-bar {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .lang-btn.active {
+            background: var(--seekapa-forest);
+            border-color: var(--seekapa-forest);
+        }
+
+        .lang-btn:hover {
+            border-color: var(--seekapa-forest);
+            background: rgba(27, 94, 63, 0.2);
+        }
+
+        /* ========== SOCIAL PROOF ========== */
+        .social-proof {
+            background: linear-gradient(135deg, rgba(27, 94, 63, 0.05) 0%, rgba(212, 175, 55, 0.02) 100%);
+            padding: var(--space-md) var(--space-lg);
+            border-bottom: 1px solid rgba(27, 94, 63, 0.1);
+        }
+
+        .social-proof-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            gap: var(--space-xl);
+        }
+
+        .social-stat {
+            text-align: center;
+        }
+
+        .social-stat-number {
+            font-size: var(--font-size-xl);
+            font-weight: 700;
+            color: var(--seekapa-forest);
+        }
+
+        .social-stat-label {
+            font-size: 0.9rem;
+            color: var(--slate);
+            margin-top: 0.3rem;
+        }
+
+        /* ========== PROGRESS BAR ========== */
+        .progress-container {
+            background: white;
+            padding: var(--space-md) var(--space-lg);
+            border-bottom: 1px solid var(--platinum);
+        }
+
+        .progress-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .progress-title {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.75rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--charcoal);
+        }
+
+        .progress-bar-wrapper {
+            height: 8px;
+            background: var(--platinum);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--seekapa-forest) 0%, var(--champagne-gold) 100%);
+            width: 75%;
+            transition: width var(--transition-slow);
+        }
+
+        .progress-milestones {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+        }
+
+        .milestone {
+            padding: 0.4rem 0.8rem;
+            border-radius: 12px;
+            background: var(--pearl);
+            color: var(--slate);
+            font-weight: 600;
+        }
+
+        .milestone.completed {
+            background: var(--correct-green);
+            color: white;
+        }
+
+        /* ========== MAIN CONTAINER ========== */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: var(--space-xl) var(--space-lg);
+        }
+
+        /* ========== LESSON HEADER ========== */
+        .lesson-header {
+            text-align: center;
+            margin-bottom: var(--space-2xl);
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .lesson-number {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--seekapa-forest), var(--seekapa-sage));
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: var(--space-sm);
+        }
+
+        .lesson-title {
+            font-size: var(--font-size-3xl);
+            margin-bottom: var(--space-sm);
+            background: linear-gradient(135deg, var(--seekapa-forest), var(--seekapa-emerald));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .lesson-subtitle {
+            font-size: var(--font-size-lg);
+            color: var(--slate);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* ========== VIDEO SECTION ========== */
+        .video-section {
+            margin-bottom: var(--space-2xl);
+        }
+
+        .video-section > div {
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        /* ========== LEARNING OBJECTIVES ========== */
+        .learning-objectives {
+            background: linear-gradient(135deg, rgba(27, 94, 63, 0.05) 0%, rgba(212, 175, 55, 0.03) 100%);
+            border-left: 4px solid var(--seekapa-forest);
+            padding: var(--space-md);
+            border-radius: 8px;
+            margin-bottom: var(--space-2xl);
+        }
+
+        .learning-objectives h3 {
+            color: var(--seekapa-forest);
+            margin-bottom: var(--space-sm);
+            font-size: var(--font-size-xl);
+        }
+
+        .learning-objectives ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .learning-objectives li {
+            margin-bottom: var(--space-sm);
+            padding-left: 2rem;
+            position: relative;
+            color: var(--charcoal);
+        }
+
+        .learning-objectives li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--correct-green);
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        /* ========== CONTENT SECTIONS ========== */
+        .content-section {
+            margin-bottom: var(--space-2xl);
+        }
+
+        .content-section h2 {
+            font-size: var(--font-size-2xl);
+            margin-bottom: var(--space-sm);
+            color: var(--seekapa-forest);
+        }
+
+        .content-section h3 {
+            font-size: var(--font-size-xl);
+            margin-bottom: 1rem;
+            color: var(--charcoal);
+        }
+
+        .content-section p {
+            margin-bottom: var(--space-sm);
+            text-align: justify;
+        }
+
+        .content-image {
+            width: 100%;
+            border-radius: 10px;
+            margin: var(--space-lg) 0;
+            box-shadow: var(--shadow-lg);
+            transition: transform var(--transition-base);
+        }
+
+        .content-image:hover {
+            transform: translateY(-4px);
+        }
+
+        /* ========== QUIZ SECTION ========== */
+        .quiz-section {
+            background: linear-gradient(135deg, rgba(27, 94, 63, 0.03) 0%, rgba(212, 175, 55, 0.02) 100%);
+            border: 2px solid var(--platinum);
+            border-radius: 10px;
+            padding: var(--space-lg);
+            margin-bottom: var(--space-2xl);
+        }
+
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-md);
+            border-bottom: 2px solid var(--platinum);
+            padding-bottom: var(--space-md);
+        }
+
+        .quiz-title {
+            font-size: var(--font-size-xl);
+            color: var(--seekapa-forest);
+        }
+
+        .quiz-xp-reward {
+            background: var(--xp-blue);
+            color: white;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .quiz-question {
+            margin-bottom: var(--space-lg);
+        }
+
+        .question-text {
+            font-size: var(--font-size-lg);
+            color: var(--charcoal);
+            margin-bottom: var(--space-md);
+            font-weight: 600;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: var(--space-md);
+        }
+
+        .quiz-option {
+            background: white;
+            border: 2px solid var(--platinum);
+            padding: var(--space-sm);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            font-weight: 500;
+        }
+
+        .quiz-option:hover {
+            border-color: var(--seekapa-forest);
+            background: linear-gradient(135deg, rgba(27, 94, 63, 0.02) 0%, rgba(212, 175, 55, 0.01) 100%);
+        }
+
+        .quiz-option.selected {
+            border-color: var(--seekapa-forest);
+            background: linear-gradient(135deg, rgba(27, 94, 63, 0.08) 0%, rgba(212, 175, 55, 0.04) 100%);
+        }
+
+        .quiz-option.correct {
+            border-color: var(--correct-green);
+            background: rgba(16, 185, 129, 0.1);
+        }
+
+        .quiz-option.incorrect {
+            border-color: var(--incorrect-red);
+            background: rgba(239, 68, 68, 0.1);
+        }
+
+        .quiz-feedback {
+            margin-bottom: var(--space-md);
+            padding: var(--space-sm);
+            border-radius: 6px;
+            font-weight: 500;
+            min-height: 50px;
+        }
+
+        .quiz-feedback.correct {
+            background: rgba(16, 185, 129, 0.15);
+            color: #047857;
+        }
+
+        .quiz-feedback.incorrect {
+            background: rgba(239, 68, 68, 0.15);
+            color: #991b1b;
+        }
+
+        .quiz-submit {
+            background: var(--seekapa-forest);
+            color: white;
+            padding: var(--space-sm) var(--space-xl);
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-base);
+        }
+
+        .quiz-submit:hover {
+            background: var(--seekapa-emerald);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .quiz-submit:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* ========== KEY TAKEAWAYS ========== */
+        .key-takeaways {
+            background: linear-gradient(135deg, var(--seekapa-forest) 0%, var(--seekapa-emerald) 100%);
+            color: white;
+            padding: var(--space-lg);
+            border-radius: 10px;
+            margin-bottom: var(--space-2xl);
+        }
+
+        .key-takeaways h3 {
+            color: white;
+            margin-bottom: var(--space-md);
+            font-size: var(--font-size-xl);
+        }
+
+        .key-takeaways ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .key-takeaways li {
+            margin-bottom: var(--space-sm);
+            padding-left: 2rem;
+            position: relative;
+        }
+
+        .key-takeaways li:before {
+            content: "★";
+            position: absolute;
+            left: 0;
+            color: var(--champagne-gold);
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        /* ========== EXERCISE SECTION ========== */
+        .exercise-section {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(27, 94, 63, 0.05) 100%);
+            border: 2px dashed var(--champagne-gold);
+            padding: var(--space-lg);
+            border-radius: 10px;
+            margin-bottom: var(--space-2xl);
+        }
+
+        .exercise-section h2 {
+            color: var(--seekapa-forest);
+            margin-bottom: var(--space-md);
+            font-size: var(--font-size-xl);
+        }
+
+        .exercise-section p {
+            color: var(--charcoal);
+            margin-bottom: var(--space-md);
+        }
+
+        .exercise-actions {
+            display: flex;
+            gap: var(--space-md);
+            flex-wrap: wrap;
+        }
+
+        .complete-btn, .exercise-btn {
+            flex: 1;
+            min-width: 200px;
+            padding: var(--space-sm) var(--space-md);
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-base);
+        }
+
+        .complete-btn {
+            background: var(--correct-green);
+            color: white;
+        }
+
+        .complete-btn:hover {
+            background: #059669;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .exercise-btn {
+            background: var(--platinum);
+            color: var(--charcoal);
+        }
+
+        .exercise-btn:hover {
+            background: var(--charcoal);
+            color: white;
+        }
+
+        /* ========== LESSON NAVIGATION ========== */
+        .lesson-navigation {
+            display: flex;
+            justify-content: space-between;
+            gap: var(--space-md);
+            margin: var(--space-2xl) 0;
+        }
+
+        .nav-button {
+            flex: 1;
+            padding: var(--space-md) var(--space-xl);
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-base);
+            text-decoration: none;
+            text-align: center;
+            display: block;
+        }
+
+        .nav-button.prev {
+            background: var(--platinum);
+            color: var(--slate);
+        }
+
+        .nav-button.next {
+            background: var(--seekapa-forest);
+            color: white;
+        }
+
+        .nav-button:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .nav-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* ========== FOOTER ========== */
+        .footer {
+            background: linear-gradient(135deg, #0A1929, #1a2332);
+            color: white;
+            text-align: center;
+            padding: var(--space-xl);
+            margin-top: var(--space-2xl);
+        }
+
+        .footer-logo {
+            height: 35px;
+            margin-bottom: var(--space-md);
+        }
+
+        .footer-tagline {
+            color: var(--seekapa-forest);
+            font-weight: 600;
+            margin-bottom: var(--space-sm);
+        }
+
+        /* ========== ANIMATIONS ========== */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bounceIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.3);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.05);
+            }
+            70% {
+                transform: scale(0.9);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 768px) {
+            :root {
+                --font-size-3xl: 2.25rem;
+                --space-xl: 4rem;
+            }
+
+            .container {
+                padding-inline: var(--space-sm);
+            }
+
+            .header-content {
+                flex-direction: column;
+                gap: var(--space-sm);
+            }
+
+            .social-proof-content {
+                flex-direction: column;
+                gap: var(--space-sm);
+            }
+
+            .lesson-navigation {
+                flex-direction: column;
+            }
+
+            .exercise-actions {
+                flex-direction: column;
+            }
+
+            .progress-title {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ========== HEADER WITH GAMIFICATION ========== -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo-container">
+                <img src="../lesson-01/assets/logo/Seekapa Black Logo.svg" alt="Seekapa" class="logo-image">
+                <span class="logo-text">TRADING ACADEMY</span>
+            </div>
+
+            <!-- User Gamification Stats -->
+            <div class="user-stats">
+                <div class="xp-badge">
+                    <span>⚡</span>
+                    <span id="user-xp">0 XP</span>
+                </div>
+                <div class="streak-badge">
+                    <span>🔥</span>
+                    <span id="user-streak">1 Day</span>
+                </div>
+            </div>
+
+            <!-- Language Bar -->
+            <div class="language-bar">
+                <button class="lang-btn active" data-lang="ar" onclick="switchLanguage('ar')">العربية</button>
+                <button class="lang-btn" data-lang="en" onclick="switchLanguage('en')">English</button>
+                <button class="lang-btn" data-lang="es" onclick="switchLanguage('es')">Español</button>
+                <button class="lang-btn" data-lang="pt" onclick="switchLanguage('pt')">Português</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ========== SOCIAL PROOF BANNER ========== -->
+    <div class="social-proof">
+        <div class="social-proof-content">
+            <div class="social-stat">
+                <div class="social-stat-number" id="students-online">427</div>
+                <div class="social-stat-label" id="online-label">Students online now</div>
+            </div>
+            <div class="social-stat">
+                <div class="social-stat-number">12,847</div>
+                <div class="social-stat-label" id="enrolled-label">Total students enrolled</div>
+            </div>
+            <div class="social-stat">
+                <div class="social-stat-number">94%</div>
+                <div class="social-stat-label" id="helpful-label">Found this helpful</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== PROGRESS BAR ========== -->
+    <div class="progress-container">
+        <div class="progress-content">
+            <div class="progress-title">
+                <span id="progress-title">Progress: Lesson 9 of 12</span>
+                <span class="progress-stats">75%</span>
+            </div>
+            <div class="progress-bar-wrapper">
+                <div class="progress-bar-fill" id="progress-fill" style="width: 75%;"></div>
+            </div>
+            <div class="progress-milestones">
+                <span class="milestone completed">L1</span>
+                <span class="milestone completed">L3</span>
+                <span class="milestone completed">L6</span>
+                <span class="milestone completed">L9</span>
+                <span class="milestone">L12</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== MAIN CONTENT ========== -->
+    <main class="container">
+        <!-- Lesson Header (Arabic) -->
+        <section class="lesson-header" lang="ar">
+            <span class="lesson-number">الدرس 9</span>
+            <h1 class="lesson-title">استراتيجيات وأنظمة التداول</h1>
+            <p class="lesson-subtitle">تطوير واختبار استراتيجيات تداول مثبتة لظروف السوق المختلفة</p>
+        </section>
+
+        <!-- Lesson Header (English) -->
+        <section class="lesson-header hidden" lang="en">
+            <span class="lesson-number">Lesson 9</span>
+            <h1 class="lesson-title">Trading Strategies & Systems</h1>
+            <p class="lesson-subtitle">Develop and test proven trading strategies for different market conditions</p>
+        </section>
+
+        <!-- Lesson Header (Spanish) -->
+        <section class="lesson-header hidden" lang="es">
+            <span class="lesson-number">Lección 9</span>
+            <h1 class="lesson-title">Estrategias y Sistemas de Trading</h1>
+            <p class="lesson-subtitle">Desarrolla y prueba estrategias comerciales probadas para diferentes condiciones del mercado</p>
+        </section>
+
+        <!-- Lesson Header (Portuguese) -->
+        <section class="lesson-header hidden" lang="pt">
+            <span class="lesson-number">Lição 9</span>
+            <h1 class="lesson-title">Estratégias e Sistemas de Negociação</h1>
+            <p class="lesson-subtitle">Desenvolva e teste estratégias de negociação comprovadas para diferentes condições de mercado</p>
+        </section>
+
+        <!-- ========== VIDEO SECTION ========== -->
+        <section class="video-section">
+            <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 10px; background: linear-gradient(135deg, #1a2332, #0A1929);">
+                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; color: white; padding: 3rem;">
+                    <div style="width: 80px; height: 80px; margin: 0 auto 1.5rem; background: var(--seekapa-forest); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                            <path d="M16 12L36 24L16 36V12Z" fill="white"/>
+                        </svg>
+                    </div>
+                    <h3 id="video-title">Video Lesson Coming Soon</h3>
+                    <p style="margin-top: 0.5rem; opacity: 0.8;">Duration: 90-120 seconds | Quality: 1080p</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== LEARNING OBJECTIVES ========== -->
+        <section class="learning-objectives" lang="ar">
+            <h3>أهداف التعلم</h3>
+            <ul>
+                <li>تعرف على استراتيجيات التداول المختلفة وتطبيقاتها</li>
+                <li>افهم كيفية تطوير واختبار أنظمة التداول</li>
+                <li>استكشف الأطر الزمنية المختلفة والنهج التجارية</li>
+                <li>اكتشف كيفية تكييف الاستراتيجيات مع ظروف السوق المختلفة</li>
+            </ul>
+        </section>
+
+        <section class="learning-objectives hidden" lang="en">
+            <h3>Learning Objectives</h3>
+            <ul>
+                <li>Learn about different trading strategies and their applications</li>
+                <li>Understand how to develop and test trading systems</li>
+                <li>Explore various timeframes and trading approaches</li>
+                <li>Discover how to adapt strategies to different market conditions</li>
+            </ul>
+        </section>
+
+        <section class="learning-objectives hidden" lang="es">
+            <h3>Objetivos de Aprendizaje</h3>
+            <ul>
+                <li>Conocer diferentes estrategias de trading y sus aplicaciones</li>
+                <li>Entender cómo desarrollar y probar sistemas de trading</li>
+                <li>Explorar varios marcos de tiempo y enfoques comerciales</li>
+                <li>Descubrir cómo adaptar estrategias a diferentes condiciones del mercado</li>
+            </ul>
+        </section>
+
+        <section class="learning-objectives hidden" lang="pt">
+            <h3>Objetivos de Aprendizagem</h3>
+            <ul>
+                <li>Conheça diferentes estratégias de negociação e suas aplicações</li>
+                <li>Entenda como desenvolver e testar sistemas de negociação</li>
+                <li>Explore vários prazos e abordagens comerciais</li>
+                <li>Descubra como adaptar estratégias a diferentes condições de mercado</li>
+            </ul>
+        </section>
+
+        <!-- ========== SECTION 1: DAY TRADING ========== -->
+        <section class="content-section" lang="ar">
+            <h2>استراتيجيات التداول اليومي والتقنيات</h2>
+            <p>يتضمن التداول اليومي فتح وإغلاق المراكز في نفس يوم التداول، مما يتجنب مخاطر الاحتفاظ بين الجلسات ولكن يتطلب مراقبة نشطة واتخاذ قرارات سريعة. يمثل التحجيم (Scalping) النهج قصير الأجل حيث تستمر الصفقات دقائق أو ثوان فقط، مما يحقق أرباحاً من حركات صغيرة برؤوس أموال كبيرة في الأسواق السائلة جداً. يستفيد تداول الزخم من حركات الأسعار القوية التي تثيرها الأخبار أو النتائج أو الاختراقات التقنية. يعمل تداول النطاق في الأسواق الجانبية حيث تتذبذب الأسعار بين مستويات الدعم والمقاومة. يركز تداول الفجوات على الفجوات السعرية بين الجلسات، مما يحقق أرباحاً من ملء الفجوات أو امتدادها.</p>
+            <img src="images/09_01_scalping_strategy.png" alt="Scalping Strategy" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="en">
+            <h2>Day Trading Strategies and Techniques</h2>
+            <p>Day trading involves opening and closing positions within the same trading day, avoiding overnight risk but requiring active monitoring and quick decisions. Scalping represents the shortest-term approach with trades lasting minutes or seconds, profiting from small movements with large positions in highly liquid markets. Momentum trading capitalizes on strong price movements triggered by news, earnings, or technical breakouts. Range trading works in sideways markets where prices oscillate between support and resistance. Gap trading focuses on price gaps between sessions, profiting from gap fills or extensions.</p>
+            <img src="images/09_01_scalping_strategy.png" alt="Scalping Strategy" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="es">
+            <h2>Estrategias y Técnicas de Trading Diario</h2>
+            <p>El trading diario implica abrir y cerrar posiciones en el mismo día de trading, evitando el riesgo de pasar la noche pero requiriendo monitoreo activo y decisiones rápidas. El scalping representa el enfoque de más corto plazo con operaciones que duran minutos o segundos, ganando dinero con pequeños movimientos con posiciones grandes en mercados altamente líquidos. El trading de momentum aprovecha los fuertes movimientos de precios desencadenados por noticias, ganancias o rupturas técnicas. El trading de rango funciona en mercados laterales donde los precios oscilan entre soporte y resistencia. El trading de brechas se enfoca en las brechas de precios entre sesiones, ganando dinero con cierres o extensiones de brechas.</p>
+            <img src="images/09_01_scalping_strategy.png" alt="Estrategia de Scalping" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="pt">
+            <h2>Estratégias e Técnicas de Negociação Diária</h2>
+            <p>A negociação diária envolve abrir e fechar posições no mesmo dia de negociação, evitando risco durante a noite, mas exigindo monitoramento ativo e decisões rápidas. O scalping representa a abordagem de prazo mais curto com operações durando minutos ou segundos, lucrando com pequenos movimentos com posições grandes em mercados altamente líquidos. A negociação de momento capitaliza os fortes movimentos de preços desencadeados por notícias, ganhos ou rompimentos técnicos. A negociação de amplitude funciona em mercados laterais onde os preços oscilam entre suporte e resistência. A negociação de lacuna se concentra nas lacunas de preço entre sessões, lucrando com preenchimentos ou extensões de lacunas.</p>
+            <img src="images/09_01_scalping_strategy.png" alt="Estratégia de Scalping" class="content-image">
+        </section>
+
+        <!-- ========== SECTION 2: SWING TRADING ========== -->
+        <section class="content-section" lang="ar">
+            <h2>نهج التداول المتأرجح</h2>
+            <p>يحتفظ التداول المتأرجح بالمراكز لأيام أو أسابيع، مما يلتقط حركات أكبر بوقت التزام أقل من التداول اليومي. تحديد الاتجاهات الاستراتيجيات المتأرجحة تحديد الاتجاهات المؤسسة والدخول أثناء التراجعات أو التوحيدات - تعمل هذه بشكل جيد في الأسواق ذات الاتجاه ولكن تولد إشارات خاطئة في الظروف المضطربة. يحاول التداول المتأرجح المعاكس للاتجاه الربح من الانعكاسات المؤقتة أو تغييرات الاتجاه الرئيسية، مما يتطلب توقيت ممتاز وإدارة مخاطر. تركز استراتيجيات الاختراق على حركات الأسعار بعد المستويات المؤسسة، غالباً ما يصحبها زيادات في الحجم. يستخدم التداول المتأرجح القائم على الأنماط تشكيلات مثل المثلثات والأعلام والرأس والكتفين للحصول على إعدادات محددة بشكل جيد.</p>
+            <img src="images/09_03_swing_trading_setup.png" alt="Swing Trading Setup" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="en">
+            <h2>Swing Trading Approaches</h2>
+            <p>Swing trading holds positions for days to weeks, capturing larger moves with less time commitment than day trading. Trend following swing strategies identify established trends and enter during pullbacks or consolidations - these work well in trending markets but generate false signals in choppy conditions. Counter-trend swing trading attempts to profit from temporary reversals or major trend changes, requiring excellent timing and risk management. Breakout strategies focus on price movements beyond established levels, often accompanied by volume increases. Pattern-based swing trading uses formations like triangles, flags, and head-and-shoulders for well-defined setups.</p>
+            <img src="images/09_03_swing_trading_setup.png" alt="Swing Trading Setup" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="es">
+            <h2>Enfoques de Trading Oscilante</h2>
+            <p>El swing trading mantiene posiciones durante días o semanas, capturando movimientos más grandes con menos compromiso de tiempo que el day trading. Las estrategias de swing siguientes de tendencia identifican tendencias establecidas e ingresan durante retrocesos o consolidaciones - estas funcionan bien en mercados de tendencia pero generan señales falsas en condiciones agitadas. El swing trading contra tendencia intenta obtener beneficios de reversiones temporales o cambios de tendencia importantes, requiriendo un excelente timing y gestión de riesgos. Las estrategias de ruptura se enfocan en movimientos de precios más allá de niveles establecidos, a menudo acompañados de aumentos de volumen. El swing trading basado en patrones utiliza formaciones como triángulos, banderas y cabeza y hombros para configuraciones bien definidas.</p>
+            <img src="images/09_03_swing_trading_setup.png" alt="Configuración de Swing Trading" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="pt">
+            <h2>Abordagens de Negociação Oscilatória</h2>
+            <p>A negociação oscilatória mantém posições por dias ou semanas, capturando movimentos maiores com menos compromisso de tempo do que a negociação diária. As estratégias de swing seguindo tendência identificam tendências estabelecidas e entram durante pullbacks ou consolidações - estas funcionam bem em mercados de tendência, mas geram sinais falsos em condições instáveis. A negociação oscilatória contra tendência tenta lucrar com reversões temporárias ou mudanças de tendência importantes, exigindo excelente timing e gerenciamento de risco. As estratégias de rompimento se concentram em movimentos de preço além dos níveis estabelecidos, frequentemente acompanhados por aumentos de volume. A negociação oscilatória baseada em padrões usa formações como triângulos, bandeiras e cabeça e ombros para configurações bem definidas.</p>
+            <img src="images/09_03_swing_trading_setup.png" alt="Configuração de Swing Trading" class="content-image">
+        </section>
+
+        <!-- ========== SECTION 3: POSITION TRADING ========== -->
+        <section class="content-section" lang="ar">
+            <h2>التداول الموضعي والاستراتيجيات طويلة الأجل</h2>
+            <p>يتضمن التداول الموضعي الاحتفاظ بالصفقات لأسابيع أو أشهر أو سنوات، مع التركيز على الاتجاهات الرئيسية والعوامل الأساسية. تحديد استراتيجيات اتجاهات التداول الموضعي الاتجاهات الكبرى باستخدام الرسوم البيانية الأسبوعية والشهرية، والاحتفاظ بها حتى تظهر إشارات الانعكاس - تلتقط هذه حركات كبيرة ولكنها تتطلب تسامحاً مع التراجعات الكبيرة. يجمع التداول الموضعي الأساسي بين التحليل الفني طويل الأجل مع الاتجاهات الاقتصادية أو نمو الشركات أو تدوير القطاع. يستفيد تداول الأموسمية من الأنماط المتكررة بناءً على التأثيرات التقويمية مثل نمط سوق الأسهم "بيع في مايو" أو دورات السلع المتعلقة بمواسم الحصاد.</p>
+            <img src="images/09_04_trend_following.png" alt="Trend Following" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="en">
+            <h2>Position Trading and Long-Term Strategies</h2>
+            <p>Position trading involves holding trades for weeks, months, or years, focusing on major trends and fundamental factors. Trend following position strategies identify major trends using weekly and monthly charts, holding until reversal signals appear - these capture substantial moves but require tolerance for significant drawdowns. Fundamental position trading combines long-term technical analysis with economic trends, company growth, or sector rotation. Seasonal trading exploits recurring patterns based on calendar effects like the "sell in May" stock market pattern or commodity cycles related to harvest seasons.</p>
+            <img src="images/09_04_trend_following.png" alt="Trend Following" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="es">
+            <h2>Negociación de Posiciones y Estrategias a Largo Plazo</h2>
+            <p>La negociación de posiciones implica mantener operaciones durante semanas, meses o años, enfocándose en tendencias principales y factores fundamentales. Las estrategias de negociación de posición siguientes de tendencia identifican tendencias principales usando gráficos semanales y mensuales, manteniéndose hasta que aparecen señales de reversión - estas capturan movimientos sustanciales pero requieren tolerancia para caídas significativas. La negociación fundamental de posiciones combina análisis técnico a largo plazo con tendencias económicas, crecimiento de empresas o rotación sectorial. El trading estacional explota patrones recurrentes basados en efectos del calendario como el patrón del mercado de valores "vender en mayo" o ciclos de productos relacionados con temporadas de cosecha.</p>
+            <img src="images/09_04_trend_following.png" alt="Seguimiento de Tendencias" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="pt">
+            <h2>Negociação de Posição e Estratégias de Longo Prazo</h2>
+            <p>A negociação de posição envolve manter operações por semanas, meses ou anos, concentrando-se em tendências principais e fatores fundamentais. As estratégias de negociação de posição seguindo tendência identificam tendências principais usando gráficos semanais e mensais, mantendo-se até que apareçam sinais de reversão - estas capturam movimentos substanciais, mas exigem tolerância para quedas significativas. A negociação fundamental de posição combina análise técnica de longo prazo com tendências econômicas, crescimento da empresa ou rotação setorial. A negociação sazonal explora padrões recorrentes baseados em efeitos do calendário, como o padrão do mercado de ações "vender em maio" ou ciclos de commodities relacionados a estações de colheita.</p>
+            <img src="images/09_04_trend_following.png" alt="Acompanhamento de Tendências" class="content-image">
+        </section>
+
+        <!-- ========== SECTION 4: STRATEGY DEVELOPMENT ========== -->
+        <section class="content-section" lang="ar">
+            <h2>عملية تطوير الاستراتيجية والاختبار</h2>
+            <p>يتطلب تطوير استراتيجيات فعالة نهجاً منهجياً يتضمن توليد الأفكار وتحديد القواعد والاختبار والتحسين. تأتي أفكار الاستراتيجية من ملاحظات السوق أو البحث الأكاديمي أو المتداولين الآخرين أو تعديلات الأساليب الموجودة - ابدأ بفرضية منطقية حول السبب الذي يجب أن تعمل به الاستراتيجية. يتضمن تحديد القواعد تحديد المعايير الدقيقة لجميع الجوانب بما في ذلك إشارات الدخول وشروط الخروج وطريقة تحديد حجم المراكز وإدارة المخاطر. يجب أن يتضمن الاختبار كل من الاختبار الخلفي للبيانات التاريخية والاختبار الأمامي في الأسواق الحالية. يضبط تحسين الاستراتيجية المعاملات بناءً على النتائج مع تجنب الإفراط في التحسين الذي ينشئ استراتيجيات تعمل فقط على البيانات التاريخية.</p>
+            <img src="images/09_07_backtesting_results.png" alt="Backtesting Results" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="en">
+            <h2>Strategy Development and Testing Process</h2>
+            <p>Developing effective strategies requires systematic approach including idea generation, rule definition, testing, and refinement. Strategy ideas come from market observations, academic research, other traders, or modifications of existing approaches - start with logical hypothesis about why the strategy should work. Rule definition involves specifying exact criteria for all aspects including entry signals, exit conditions, position sizing, and risk management. Testing should include both backtesting on historical data and forward testing in current markets. Strategy refinement adjusts parameters based on results while avoiding over-optimization that creates strategies working only on historical data.</p>
+            <img src="images/09_07_backtesting_results.png" alt="Backtesting Results" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="es">
+            <h2>Proceso de Desarrollo y Prueba de Estrategia</h2>
+            <p>Desarrollar estrategias efectivas requiere un enfoque sistemático que incluya generación de ideas, definición de reglas, prueba y refinamiento. Las ideas de estrategia provienen de observaciones del mercado, investigación académica, otros traders o modificaciones de enfoques existentes - comienza con una hipótesis lógica sobre por qué debería funcionar la estrategia. La definición de reglas implica especificar criterios exactos para todos los aspectos, incluidas señales de entrada, condiciones de salida, dimensionamiento de posiciones y gestión de riesgos. Las pruebas deben incluir tanto pruebas retrospectivas en datos históricos como pruebas prospectivas en mercados actuales. El refinamiento de la estrategia ajusta parámetros basados en resultados mientras evita el sobreajuste que crea estrategias que funcionan solo en datos históricos.</p>
+            <img src="images/09_07_backtesting_results.png" alt="Resultados de Pruebas Retrospectivas" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="pt">
+            <h2>Processo de Desenvolvimento e Teste de Estratégia</h2>
+            <p>Desenvolver estratégias eficazes requer uma abordagem sistemática incluindo geração de ideias, definição de regras, testes e refinamento. As ideias de estratégia vêm de observações do mercado, pesquisa acadêmica, outros traders ou modificações de abordagens existentes - comece com uma hipótese lógica sobre por que a estratégia deveria funcionar. A definição de regra envolve especificar critérios exatos para todos os aspectos, incluindo sinais de entrada, condições de saída, dimensionamento de posição e gerenciamento de risco. Os testes devem incluir testes retrospectivos em dados históricos e testes prospectivos em mercados atuais. O refinamento de estratégia ajusta parâmetros com base em resultados, evitando sobreajuste que cria estratégias que funcionam apenas em dados históricos.</p>
+            <img src="images/09_07_backtesting_results.png" alt="Resultados de Backtesting" class="content-image">
+        </section>
+
+        <!-- ========== INTERACTIVE QUIZ ========== -->
+        <section class="quiz-section" id="quiz1" lang="ar">
+            <div class="quiz-header">
+                <h3 class="quiz-title">اختبار المعرفة</h3>
+                <div class="quiz-xp-reward">+50 XP</div>
+            </div>
+            <div class="quiz-question">
+                <p class="question-text">ما هو الفرق الرئيسي بين التداول اليومي والتداول المتأرجح؟</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" data-correct="true" onclick="selectQuizOption(this, 'quiz1')">
+                        مدة الاحتفاظ بالمراكز والأطر الزمنية
+                    </div>
+                    <div class="quiz-option" onclick="selectQuizOption(this, 'quiz1')">
+                        مقدار رأس المال المطلوب
+                    </div>
+                    <div class="quiz-option" onclick="selectQuizOption(this, 'quiz1')">
+                        الأدوات المالية المستخدمة
+                    </div>
+                    <div class="quiz-option" onclick="selectQuizOption(this, 'quiz1')">
+                        مستوى التكنولوجيا المطلوبة
+                    </div>
+                </div>
+                <div class="quiz-feedback" id="quiz1-feedback"></div>
+                <button class="quiz-submit" onclick="submitQuiz('quiz1')" id="quiz1-submit">إرسال الإجابة</button>
+            </div>
+        </section>
+
+        <section class="quiz-section hidden" id="quiz1-en" lang="en">
+            <div class="quiz-header">
+                <h3 class="quiz-title">Knowledge Check</h3>
+                <div class="quiz-xp-reward">+50 XP</div>
+            </div>
+            <div class="quiz-question">
+                <p class="question-text">What is the main difference between day trading and swing trading?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" data-correct="true" onclick="selectQuizOption(this, 'quiz1-en')">
+                        Duration of holding positions and timeframes
+                    </div>
+                    <div class="quiz-option" onclick="selectQuizOption(this, 'quiz1-en')">
+                        Amount of capital required
+                    </div>
+                    <div class="quiz-option" onclick="selectQuizOption(this, 'quiz1-en')">
+                        Financial instruments used
+                    </div>
+                    <div class="quiz-option" onclick="selectQuizOption(this, 'quiz1-en')">
+                        Level of technology required
+                    </div>
+                </div>
+                <div class="quiz-feedback" id="quiz1-feedback-en"></div>
+                <button class="quiz-submit" onclick="submitQuiz('quiz1-en')" id="quiz1-submit-en">Submit Answer</button>
+            </div>
+        </section>
+
+        <section class="quiz-section hidden" id="quiz1-es" lang="es">
+            <div class="quiz-header">
+                <h3 class="quiz-title">Verificación de Conocimiento</h3>
+                <div class="quiz-xp-reward">+50 XP</div>
+            </div>
+            <div class="quiz-question">
+                <p class="question-text">¿Cuál es la principal diferencia entre el trading diario y el swing trading?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" data-correct="true" onclick="selectQuizOption(this, 'quiz1-es')">
+                        Duración de mantener posiciones y marcos de tiempo
+                    </div>
+                    <div class="quiz-option" onclick="selectQuizOption(this, 'quiz1-es')">
+                        Cantidad de capital requerido
+                    </div>
+                    <div class="quiz-option" onclick="selectQuizOption(this, 'quiz1-es')">
+                        Instrumentos financieros utilizados
+                    </div>
+                    <div class="quiz-option" onclick="selectQuizOption(this, 'quiz1-es')">
+                        Nivel de tecnología requerido
+                    </div>
+                </div>
+                <div class="quiz-feedback" id="quiz1-feedback-es"></div>
+                <button class="quiz-submit" onclick="submitQuiz('quiz1-es')" id="quiz1-submit-es">Enviar Respuesta</button>
+            </div>
+        </section>
+
+        <section class="quiz-section hidden" id="quiz1-pt" lang="pt">
+            <div class="quiz-header">
+                <h3 class="quiz-title">Verificação de Conhecimento</h3>
+                <div class="quiz-xp-reward">+50 XP</div>
+            </div>
+            <div class="quiz-question">
+                <p class="question-text">Qual é a principal diferença entre negociação diária e swing trading?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" data-correct="true" onclick="selectQuizOption(this, 'quiz1-pt')">
+                        Duração de manutenção de posições e prazos
+                    </div>
+                    <div class="quiz-option" onclick="selectQuizOption(this, 'quiz1-pt')">
+                        Quantidade de capital necessário
+                    </div>
+                    <div class="quiz-option" onclick="selectQuizOption(this, 'quiz1-pt')">
+                        Instrumentos financeiros utilizados
+                    </div>
+                    <div class="quiz-option" onclick="selectQuizOption(this, 'quiz1-pt')">
+                        Nível de tecnologia necessário
+                    </div>
+                </div>
+                <div class="quiz-feedback" id="quiz1-feedback-pt"></div>
+                <button class="quiz-submit" onclick="submitQuiz('quiz1-pt')" id="quiz1-submit-pt">Enviar Resposta</button>
+            </div>
+        </section>
+
+        <!-- ========== KEY TAKEAWAYS ========== -->
+        <section class="key-takeaways" lang="ar">
+            <h3>النقاط الرئيسية</h3>
+            <ul>
+                <li>تناسب استراتيجيات مختلفة أطر زمنية وشخصيات وظروف سوق مختلفة</li>
+                <li>يتطلب التداول اليومي مراقبة نشطة واتخاذ قرارات سريعة للحركات قصيرة الأجل</li>
+                <li>يلتقط التداول المتأرجح الحركات الوسيطة بالتزام وقت أقل</li>
+                <li>يركز التداول الموضعي على الاتجاهات الرئيسية على أطر زمنية أطول</li>
+                <li>تنشئ عمليات التطوير والاختبار المنهجية استراتيجيات قوية</li>
+            </ul>
+        </section>
+
+        <section class="key-takeaways hidden" lang="en">
+            <h3>Key Takeaways</h3>
+            <ul>
+                <li>Different strategies suit different timeframes, personalities, and market conditions</li>
+                <li>Day trading requires active monitoring and quick decisions for short-term movements</li>
+                <li>Swing trading captures intermediate moves with less time commitment</li>
+                <li>Position trading focuses on major trends over longer timeframes</li>
+                <li>Systematic development and testing processes create robust strategies</li>
+            </ul>
+        </section>
+
+        <section class="key-takeaways hidden" lang="es">
+            <h3>Puntos Clave</h3>
+            <ul>
+                <li>Diferentes estrategias se adaptan a diferentes marcos de tiempo, personalidades y condiciones del mercado</li>
+                <li>El trading diario requiere monitoreo activo y decisiones rápidas para movimientos a corto plazo</li>
+                <li>El swing trading captura movimientos intermedios con menos compromiso de tiempo</li>
+                <li>El trading de posición se enfoca en tendencias principales en marcos de tiempo más largos</li>
+                <li>Los procesos sistemáticos de desarrollo y prueba crean estrategias sólidas</li>
+            </ul>
+        </section>
+
+        <section class="key-takeaways hidden" lang="pt">
+            <h3>Pontos-Chave</h3>
+            <ul>
+                <li>Diferentes estratégias são adequadas para diferentes prazos, personalidades e condições de mercado</li>
+                <li>A negociação diária exige monitoramento ativo e decisões rápidas para movimentos de curto prazo</li>
+                <li>A negociação oscilatória captura movimentos intermediários com menos compromisso de tempo</li>
+                <li>A negociação de posição se concentra em grandes tendências em prazos mais longos</li>
+                <li>Processos sistemáticos de desenvolvimento e teste criam estratégias robustas</li>
+            </ul>
+        </section>
+
+        <!-- ========== PRACTICAL EXERCISE ========== -->
+        <section class="exercise-section" lang="ar">
+            <h2>تمرين عملي</h2>
+            <p>اختر استراتيجية تداول واحدة تهمك وأنشئ خطة مفصلة مكتوبة تتضمن معايير الدخول وقواعد الخروج وطريقة تحديد حجم المراكز ومعاملات إدارة المخاطر. اختبر هذه الاستراتيجية على البيانات التاريخية أو من خلال التداول الورقي لما لا يقل عن 20 صفقة، مع توثيق جميع النتائج والملاحظات حول أداء الاستراتيجية.</p>
+            <div class="exercise-actions">
+                <button class="complete-btn" onclick="markExerciseComplete()">تم الإنجاز</button>
+                <button class="exercise-btn" onclick="downloadExerciseTemplate()">تنزيل القالب</button>
+            </div>
+        </section>
+
+        <section class="exercise-section hidden" lang="en">
+            <h2>Practical Exercise</h2>
+            <p>Choose one trading strategy that interests you and create a detailed written plan including entry criteria, exit rules, position sizing method, and risk management parameters. Test this strategy on historical data or through paper trading for at least 20 trades, documenting all results and observations about strategy performance.</p>
+            <div class="exercise-actions">
+                <button class="complete-btn" onclick="markExerciseComplete()">Mark Complete</button>
+                <button class="exercise-btn" onclick="downloadExerciseTemplate()">Download Template</button>
+            </div>
+        </section>
+
+        <section class="exercise-section hidden" lang="es">
+            <h2>Ejercicio Práctico</h2>
+            <p>Elige una estrategia de trading que te interese y crea un plan escrito detallado que incluya criterios de entrada, reglas de salida, método de tamaño de posición y parámetros de gestión de riesgos. Prueba esta estrategia en datos históricos o a través del paper trading durante al menos 20 operaciones, documentando todos los resultados y observaciones sobre el desempeño de la estrategia.</p>
+            <div class="exercise-actions">
+                <button class="complete-btn" onclick="markExerciseComplete()">Marcar como Completado</button>
+                <button class="exercise-btn" onclick="downloadExerciseTemplate()">Descargar Plantilla</button>
+            </div>
+        </section>
+
+        <section class="exercise-section hidden" lang="pt">
+            <h2>Exercício Prático</h2>
+            <p>Escolha uma estratégia de negociação que o interesse e crie um plano escrito detalhado, incluindo critérios de entrada, regras de saída, método de dimensionamento de posição e parâmetros de gerenciamento de risco. Teste esta estratégia em dados históricos ou através de negociação em papel por pelo menos 20 operações, documentando todos os resultados e observações sobre o desempenho da estratégia.</p>
+            <div class="exercise-actions">
+                <button class="complete-btn" onclick="markExerciseComplete()">Marcar Completo</button>
+                <button class="exercise-btn" onclick="downloadExerciseTemplate()">Baixar Modelo</button>
+            </div>
+        </section>
+
+        <!-- ========== LESSON NAVIGATION ========== -->
+        <section class="lesson-navigation">
+            <a href="../lesson-08/lesson-08-interactive.html" class="nav-button prev">
+                <span lang="ar" class="nav-text">← الدرس السابق</span>
+                <span lang="en" class="nav-text hidden">← Previous Lesson</span>
+                <span lang="es" class="nav-text hidden">← Lección Anterior</span>
+                <span lang="pt" class="nav-text hidden">← Lição Anterior</span>
+            </a>
+            <a href="../lesson-10/lesson-10-interactive.html" class="nav-button next">
+                <span lang="ar" class="nav-text">الدرس التالي →</span>
+                <span lang="en" class="nav-text hidden">Next Lesson →</span>
+                <span lang="es" class="nav-text hidden">Siguiente Lección →</span>
+                <span lang="pt" class="nav-text hidden">Próxima Lição →</span>
+            </a>
+        </section>
+    </main>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="footer">
+        <div class="footer-logo">
+            <img src="../lesson-01/assets/logo/Seekapa Black Logo.svg" alt="Seekapa" style="height: 35px;">
+        </div>
+        <div class="footer-tagline">Seekapa Trading Academy</div>
+        <p>&copy; 2025 <span lang="ar" class="content-text">جميع الحقوق محفوظة</span><span lang="en" class="content-text hidden">All Rights Reserved</span><span lang="es" class="content-text hidden">Todos los Derechos Reservados</span><span lang="pt" class="content-text hidden">Todos os Direitos Reservados</span>.</p>
+        <p class="disclaimer">
+            <span lang="ar" class="content-text">تحذير المخاطر: التداول ينطوي على مخاطر كبيرة. الأداء السابق لا يضمن النتائج المستقبلية.</span>
+            <span lang="en" class="content-text hidden">Risk Warning: Trading involves substantial risk. Past performance is not indicative of future results.</span>
+            <span lang="es" class="content-text hidden">Advertencia de Riesgo: El trading conlleva riesgo sustancial. El desempeño pasado no es indicativo de resultados futuros.</span>
+            <span lang="pt" class="content-text hidden">Aviso de Risco: A negociação envolve risco substancial. O desempenho passado não é indicativo de resultados futuros.</span>
+        </p>
+    </footer>
+
+    <script>
+        // ========== LANGUAGE SWITCHING ========== 
+        let currentLanguage = localStorage.getItem('preferred_language') || 'ar';
+
+        function switchLanguage(lang) {
+            currentLanguage = lang;
+            localStorage.setItem('preferred_language', lang);
+            
+            document.documentElement.lang = lang;
+            document.documentElement.dir = (lang === 'ar') ? 'rtl' : 'ltr';
+            
+            // Update visible sections
+            document.querySelectorAll('[lang]').forEach(el => {
+                if (el.lang === lang) {
+                    el.classList.remove('hidden');
+                } else {
+                    el.classList.add('hidden');
+                }
+            });
+
+            // Update language buttons
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.lang === lang) {
+                    btn.classList.add('active');
+                }
+            });
+
+            // Update progress title
+            updateProgressTitle();
+        }
+
+        // ========== GAMIFICATION: XP SYSTEM ==========
+        function initializeGamification() {
+            const currentXP = parseInt(localStorage.getItem('total_xp') || '0');
+            document.getElementById('user-xp').textContent = currentXP + ' XP';
+            
+            const streak = parseInt(localStorage.getItem('streak_days') || '1');
+            document.getElementById('user-streak').textContent = streak + ' Day' + (streak > 1 ? 's' : '');
+        }
+
+        function awardXP(amount, reason) {
+            const currentXP = parseInt(localStorage.getItem('total_xp') || '0');
+            const newXP = currentXP + amount;
+            localStorage.setItem('total_xp', newXP);
+            document.getElementById('user-xp').textContent = newXP + ' XP';
+            
+            showNotification(`+${amount} XP - ${reason}`);
+        }
+
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.textContent = message;
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                background: var(--xp-blue);
+                color: white;
+                padding: 1rem 1.5rem;
+                border-radius: 6px;
+                font-weight: 600;
+                z-index: 1000;
+                animation: slideIn 0.3s ease-out;
+            `;
+            document.body.appendChild(notification);
+            setTimeout(() => notification.remove(), 3000);
+        }
+
+        // ========== QUIZ SYSTEM ==========
+        let selectedAnswer = {};
+
+        function selectQuizOption(element, quizId) {
+            const parent = element.parentElement;
+            parent.querySelectorAll('.quiz-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            element.classList.add('selected');
+            selectedAnswer[quizId] = element.dataset.correct === 'true';
+        }
+
+        function submitQuiz(quizId) {
+            const feedbackEl = document.getElementById(quizId + '-feedback') || 
+                             document.getElementById(quizId.replace('-en', '') + '-feedback-en') ||
+                             document.getElementById(quizId.replace('-es', '') + '-feedback-es') ||
+                             document.getElementById(quizId.replace('-pt', '') + '-feedback-pt');
+            
+            if (selectedAnswer[quizId] === undefined) {
+                if (feedbackEl) feedbackEl.textContent = currentLanguage === 'ar' ? 'الرجاء اختيار إجابة' : 'Please select an answer';
+                return;
+            }
+
+            const isCorrect = selectedAnswer[quizId];
+            if (feedbackEl) {
+                feedbackEl.className = 'quiz-feedback ' + (isCorrect ? 'correct' : 'incorrect');
+                feedbackEl.textContent = isCorrect ? 
+                    (currentLanguage === 'ar' ? '✓ إجابة صحيحة!' : '✓ Correct answer!') :
+                    (currentLanguage === 'ar' ? '✗ إجابة غير صحيحة. حاول مرة أخرى.' : '✗ Incorrect answer. Try again.');
+            }
+
+            if (isCorrect) {
+                awardXP(50, currentLanguage === 'ar' ? 'اختبار صحيح' : 'Quiz Answer');
+            }
+        }
+
+        // ========== EXERCISE TRACKING ==========
+        function markExerciseComplete() {
+            const completed = JSON.parse(localStorage.getItem('completed_lessons') || '[]');
+            if (!completed.includes(9)) {
+                completed.push(9);
+                localStorage.setItem('completed_lessons', JSON.stringify(completed));
+                awardXP(50, currentLanguage === 'ar' ? 'تم إنجاز التمرين' : 'Exercise Completed');
+            }
+        }
+
+        function downloadExerciseTemplate() {
+            const template = `TRADING STRATEGY PLAN - LESSON 9
+
+Strategy Name: [Your Strategy]
+Timeframe: [e.g., Daily, 4-Hour, Hourly]
+Asset: [Stock, Forex Pair, Crypto]
+
+ENTRY CRITERIA:
+1. [Condition 1]
+2. [Condition 2]
+3. [Condition 3]
+
+EXIT RULES:
+- Take Profit at: [Price/Level]
+- Stop Loss at: [Price/Level]
+
+POSITION SIZING:
+- Risk per trade: [%]
+- Position size formula: [Your method]
+
+RISK MANAGEMENT:
+- Maximum daily loss: [%]
+- Risk/Reward ratio: [e.g., 1:2]
+
+TRADING LOG (Track 20+ trades):
+[Your test results and observations]`;
+            
+            const blob = new Blob([template], {type: 'text/plain'});
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'trading-strategy-template.txt';
+            a.click();
+        }
+
+        // ========== PROGRESS TRACKING ==========
+        function updateProgressTitle() {
+            const titles = {
+                ar: 'Progress: الدرس 9 من 12',
+                en: 'Progress: Lesson 9 of 12',
+                es: 'Progreso: Lección 9 de 12',
+                pt: 'Progresso: Lição 9 de 12'
+            };
+            document.getElementById('progress-title').textContent = titles[currentLanguage];
+        }
+
+        // ========== INITIALIZATION ==========
+        document.addEventListener('DOMContentLoaded', () => {
+            switchLanguage(currentLanguage);
+            initializeGamification();
+        });
+
+        // ========== KEYBOARD NAVIGATION ==========
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') {
+                window.location.href = '../lesson-10/lesson-10-interactive.html';
+            } else if (e.key === 'ArrowLeft') {
+                window.location.href = '../lesson-08/lesson-08-interactive.html';
+            }
+        });
+    </script>
+</body>
+</html>

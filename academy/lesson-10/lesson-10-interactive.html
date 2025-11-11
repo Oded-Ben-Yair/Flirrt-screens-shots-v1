@@ -1,0 +1,1343 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Seekapa Trading Academy - Lesson 10: Advanced Trading Techniques. Master options strategies, leverage, advanced orders, and portfolio hedging.">
+
+    <link rel="alternate" hreflang="ar" href="/ar/lesson-10" />
+    <link rel="alternate" hreflang="en" href="/en/lesson-10" />
+    <link rel="alternate" hreflang="es" href="/es/lesson-10" />
+    <link rel="alternate" hreflang="pt" href="/pt/lesson-10" />
+
+    <title>الدرس 10: تقنيات التداول المتقدمة | Seekapa Trading Academy</title>
+
+    <!-- Premium Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;500;600;700&family=Cairo:wght@600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ========== BASE STYLES ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Premium Colors */
+            --seekapa-forest: #1B5E3F;
+            --seekapa-emerald: #0F5F3F;
+            --seekapa-sage: #7A9D8E;
+            --trust-navy: #1F3A6B;
+            --burgundy: #8B3A3A;
+            --champagne-gold: #D4AF37;
+            --platinum: #E5E4E2;
+            --charcoal: #2B2D42;
+            --slate: #8D99AE;
+            --pearl: #F8F9FA;
+            --ivory: #FDFDF8;
+
+            /* Gamification Colors */
+            --xp-blue: #3B82F6;
+            --badge-gold: #FFD700;
+            --streak-orange: #FF6B35;
+            --correct-green: #10B981;
+            --incorrect-red: #EF4444;
+
+            /* Spacing */
+            --space-xs: 0.75rem;
+            --space-sm: 1.5rem;
+            --space-md: 3rem;
+            --space-lg: 4.5rem;
+            --space-xl: 6rem;
+            --space-2xl: 9rem;
+
+            /* Typography */
+            --font-size-base: 18px;
+            --font-size-lg: 1.25rem;
+            --font-size-xl: 1.75rem;
+            --font-size-2xl: 2.25rem;
+            --font-size-3xl: 3.5rem;
+
+            /* Shadows */
+            --shadow-xs: 0 1px 2px rgba(27, 94, 63, 0.04);
+            --shadow-sm: 0 2px 4px rgba(27, 94, 63, 0.06), 0 1px 2px rgba(27, 94, 63, 0.03);
+            --shadow-md: 0 4px 8px rgba(27, 94, 63, 0.08), 0 2px 4px rgba(27, 94, 63, 0.04);
+            --shadow-lg: 0 8px 16px rgba(27, 94, 63, 0.10), 0 4px 8px rgba(27, 94, 63, 0.06);
+            --shadow-hover: 0 12px 24px rgba(27, 94, 63, 0.15), 0 6px 12px rgba(27, 94, 63, 0.08);
+
+            /* Transitions */
+            --transition-fast: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-base: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            line-height: 1.8;
+            color: var(--charcoal);
+            background: var(--ivory);
+            font-size: var(--font-size-base);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        [lang="ar"] {
+            font-family: 'Noto Kufi Arabic', 'Cairo', sans-serif;
+            font-size: 1.35rem;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-weight: 600;
+            line-height: 1.2;
+            color: var(--charcoal);
+        }
+
+        [lang="ar"] h1, [lang="ar"] h2, [lang="ar"] h3, [lang="ar"] h4 {
+            font-family: 'Cairo', serif;
+        }
+
+        /* ========== HEADER ========== */
+        .header {
+            background: linear-gradient(135deg, var(--seekapa-forest) 0%, var(--seekapa-emerald) 100%);
+            color: white;
+            padding: var(--space-sm) var(--space-md);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow-md);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: var(--space-md);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            flex: 1;
+        }
+
+        .logo-image {
+            height: 50px;
+            width: auto;
+        }
+
+        .logo-text {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-weight: 700;
+            font-size: var(--font-size-lg);
+        }
+
+        .user-stats {
+            display: flex;
+            gap: var(--space-sm);
+            align-items: center;
+        }
+
+        .xp-badge, .streak-badge {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .language-bar {
+            display: flex;
+            gap: 0.5rem;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.25rem;
+        }
+
+        .lang-btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            background: transparent;
+            color: white;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: var(--transition-fast);
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .lang-btn.active {
+            background: var(--champagne-gold);
+            color: var(--charcoal);
+        }
+
+        .lang-btn:hover:not(.active) {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* ========== PROGRESS BAR ========== */
+        .progress-container {
+            background: var(--pearl);
+            padding: var(--space-md);
+            border-bottom: 1px solid rgba(27, 94, 63, 0.1);
+        }
+
+        .progress-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .progress-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            color: var(--charcoal);
+        }
+
+        .progress-stats {
+            color: var(--slate);
+            font-size: 0.9rem;
+        }
+
+        .progress-bar-wrapper {
+            height: 8px;
+            background: rgba(27, 94, 63, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--seekapa-forest) 0%, var(--champagne-gold) 100%);
+            width: 83.33%;
+            border-radius: 4px;
+            transition: width var(--transition-slow);
+        }
+
+        .progress-milestones {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .milestone {
+            flex: 1;
+            padding: 0.5rem;
+            text-align: center;
+            font-size: 0.85rem;
+            border: 2px solid rgba(27, 94, 63, 0.2);
+            border-radius: 6px;
+            color: var(--slate);
+            font-weight: 600;
+        }
+
+        .milestone.completed {
+            border-color: var(--seekapa-forest);
+            background: var(--seekapa-forest);
+            color: white;
+        }
+
+        /* ========== MAIN CONTAINER ========== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--space-lg) var(--space-md);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* ========== LESSON HEADER ========== */
+        .lesson-header {
+            text-align: center;
+            margin-bottom: var(--space-xl);
+            padding: var(--space-lg) 0;
+            border-bottom: 2px solid rgba(27, 94, 63, 0.1);
+        }
+
+        .lesson-number {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: var(--seekapa-forest);
+            color: white;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .lesson-title {
+            font-size: var(--font-size-3xl);
+            margin-bottom: 1rem;
+            color: var(--charcoal);
+        }
+
+        .lesson-subtitle {
+            font-size: var(--font-size-lg);
+            color: var(--slate);
+        }
+
+        /* ========== VIDEO SECTION ========== */
+        .video-section {
+            margin-bottom: var(--space-xl);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .video-placeholder {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            background: linear-gradient(135deg, var(--charcoal) 0%, var(--trust-navy) 100%);
+            border-radius: 12px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+        }
+
+        .video-placeholder > * {
+            position: absolute;
+        }
+
+        .play-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--seekapa-forest);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-bottom: 0;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        /* ========== LEARNING OBJECTIVES ========== */
+        .learning-objectives {
+            background: linear-gradient(135deg, var(--seekapa-forest) 0%, var(--seekapa-emerald) 100%);
+            color: white;
+            padding: var(--space-md);
+            border-radius: 12px;
+            margin-bottom: var(--space-xl);
+            box-shadow: var(--shadow-md);
+        }
+
+        .learning-objectives h3 {
+            color: white;
+            margin-bottom: var(--space-md);
+            font-size: var(--font-size-xl);
+        }
+
+        .learning-objectives ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .learning-objectives li {
+            padding: 0.75rem 0;
+            padding-right: 2rem;
+            position: relative;
+        }
+
+        .learning-objectives li:before {
+            content: "✓";
+            position: absolute;
+            right: 0;
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: var(--champagne-gold);
+        }
+
+        /* ========== CONTENT SECTIONS ========== */
+        .content-section {
+            margin-bottom: var(--space-xl);
+            padding: var(--space-md);
+            background: white;
+            border-radius: 12px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .content-section h2 {
+            font-size: var(--font-size-2xl);
+            margin-bottom: 1rem;
+            color: var(--seekapa-forest);
+            border-bottom: 3px solid var(--champagne-gold);
+            padding-bottom: 0.75rem;
+        }
+
+        .content-section h3 {
+            font-size: var(--font-size-xl);
+            margin-bottom: 1rem;
+            color: var(--charcoal);
+            margin-top: 1.5rem;
+        }
+
+        .content-section p {
+            margin-bottom: 1rem;
+            line-height: 1.9;
+            color: var(--charcoal);
+        }
+
+        .content-image {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            margin: var(--space-md) 0;
+            box-shadow: var(--shadow-md);
+            transition: transform var(--transition-base);
+        }
+
+        .content-image:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        /* ========== QUIZ SECTION ========== */
+        .quiz-section {
+            background: linear-gradient(135deg, var(--pearl) 0%, white 100%);
+            padding: var(--space-md);
+            border-radius: 12px;
+            margin-bottom: var(--space-xl);
+            border-left: 4px solid var(--seekapa-forest);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-md);
+            border-bottom: 2px solid rgba(27, 94, 63, 0.1);
+            padding-bottom: 1rem;
+        }
+
+        .quiz-title {
+            font-size: var(--font-size-xl);
+            color: var(--seekapa-forest);
+            margin: 0;
+        }
+
+        .quiz-xp-reward {
+            background: var(--xp-blue);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .quiz-question {
+            margin-bottom: var(--space-md);
+        }
+
+        .question-text {
+            font-size: var(--font-size-lg);
+            font-weight: 600;
+            color: var(--charcoal);
+            margin-bottom: 1.5rem;
+        }
+
+        .quiz-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .quiz-option {
+            padding: 1rem;
+            border: 2px solid rgba(27, 94, 63, 0.2);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            background: white;
+            color: var(--charcoal);
+            font-weight: 500;
+        }
+
+        .quiz-option:hover {
+            border-color: var(--seekapa-forest);
+            background: rgba(27, 94, 63, 0.05);
+            transform: translateY(-2px);
+        }
+
+        .quiz-option.selected {
+            border-color: var(--seekapa-forest);
+            background: rgba(27, 94, 63, 0.1);
+        }
+
+        .quiz-option.correct {
+            border-color: var(--correct-green);
+            background: rgba(16, 185, 129, 0.1);
+        }
+
+        .quiz-option.incorrect {
+            border-color: var(--incorrect-red);
+            background: rgba(239, 68, 68, 0.1);
+        }
+
+        .quiz-feedback {
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            display: none;
+            font-weight: 500;
+        }
+
+        .quiz-feedback.show {
+            display: block;
+        }
+
+        .quiz-feedback.correct {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--correct-green);
+            border-left: 4px solid var(--correct-green);
+        }
+
+        .quiz-feedback.incorrect {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--incorrect-red);
+            border-left: 4px solid var(--incorrect-red);
+        }
+
+        .quiz-submit {
+            padding: 0.75rem 2rem;
+            background: var(--seekapa-forest);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+
+        .quiz-submit:hover {
+            background: var(--seekapa-emerald);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .quiz-submit:active {
+            transform: translateY(0);
+        }
+
+        /* ========== KEY TAKEAWAYS ========== */
+        .key-takeaways {
+            background: white;
+            padding: var(--space-md);
+            border-radius: 12px;
+            margin-bottom: var(--space-xl);
+            box-shadow: var(--shadow-sm);
+            border-top: 4px solid var(--champagne-gold);
+        }
+
+        .key-takeaways h3 {
+            font-size: var(--font-size-xl);
+            color: var(--seekapa-forest);
+            margin-bottom: var(--space-md);
+        }
+
+        .key-takeaways ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .key-takeaways li {
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            background: linear-gradient(135deg, var(--pearl) 0%, white 100%);
+            border-left: 4px solid var(--champagne-gold);
+            border-radius: 6px;
+            color: var(--charcoal);
+        }
+
+        /* ========== EXERCISE SECTION ========== */
+        .exercise-section {
+            background: linear-gradient(135deg, var(--seekapa-forest) 0%, var(--seekapa-emerald) 100%);
+            color: white;
+            padding: var(--space-md);
+            border-radius: 12px;
+            margin-bottom: var(--space-xl);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .exercise-section h3 {
+            color: white;
+            font-size: var(--font-size-xl);
+            margin-bottom: var(--space-md);
+        }
+
+        .exercise-section p {
+            color: rgba(255, 255, 255, 0.95);
+            margin-bottom: var(--space-md);
+            line-height: 1.9;
+        }
+
+        .exercise-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .complete-btn {
+            padding: 0.75rem 2rem;
+            background: var(--champagne-gold);
+            color: var(--charcoal);
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+
+        .complete-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .complete-btn:active {
+            transform: translateY(0);
+        }
+
+        /* ========== NAVIGATION ========== */
+        .lesson-navigation {
+            display: flex;
+            gap: var(--space-md);
+            margin-bottom: var(--space-xl);
+            padding-top: var(--space-md);
+            border-top: 1px solid rgba(27, 94, 63, 0.1);
+        }
+
+        .nav-btn {
+            flex: 1;
+            padding: 1rem;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: var(--transition-base);
+            text-align: center;
+            border: 2px solid var(--seekapa-forest);
+            color: var(--seekapa-forest);
+        }
+
+        .nav-btn:hover {
+            background: var(--seekapa-forest);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* ========== FOOTER ========== */
+        .site-footer {
+            background: var(--charcoal);
+            color: white;
+            padding: var(--space-lg) var(--space-md);
+            text-align: center;
+            margin-top: var(--space-2xl);
+        }
+
+        .footer-content p {
+            margin-bottom: 0.75rem;
+            font-size: 0.9rem;
+        }
+
+        .disclaimer {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.7);
+            font-style: italic;
+        }
+
+        /* ========== ANIMATIONS ========== */
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .content-section, .learning-objectives, .quiz-section {
+            animation: slideInUp var(--transition-base) ease-out;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.7;
+            }
+        }
+
+        .quiz-submit:active {
+            animation: pulse 300ms;
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 768px) {
+            :root {
+                --font-size-3xl: 2.25rem;
+                --space-xl: 4rem;
+            }
+
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .logo-container {
+                flex: none;
+                width: 100%;
+                justify-content: center;
+            }
+
+            .user-stats {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .language-bar {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .quiz-options {
+                grid-template-columns: 1fr;
+            }
+
+            .lesson-navigation {
+                flex-direction: column;
+            }
+
+            .progress-title {
+                flex-direction: column;
+                gap: 0.5rem;
+                text-align: center;
+            }
+
+            .container {
+                padding: var(--space-md);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ========== HEADER ========== -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo-container">
+                <img src="images/Seekapa Black Logo.png" alt="Seekapa" class="logo-image">
+                <span class="logo-text">TRADING ACADEMY</span>
+            </div>
+
+            <div class="user-stats">
+                <div class="xp-badge">
+                    <span>⚡</span>
+                    <span id="user-xp">0 XP</span>
+                </div>
+                <div class="streak-badge">
+                    <span>🔥</span>
+                    <span id="user-streak">1 Day</span>
+                </div>
+            </div>
+
+            <div class="language-bar">
+                <button class="lang-btn active" data-lang="ar" onclick="switchLanguage('ar')">العربية</button>
+                <button class="lang-btn" data-lang="en" onclick="switchLanguage('en')">English</button>
+                <button class="lang-btn" data-lang="es" onclick="switchLanguage('es')">Español</button>
+                <button class="lang-btn" data-lang="pt" onclick="switchLanguage('pt')">Português</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ========== PROGRESS BAR ========== -->
+    <div class="progress-container">
+        <div class="progress-content">
+            <div class="progress-title">
+                <span id="progress-title">التقدم: الدرس 10 من 12</span>
+                <span class="progress-stats">83.33%</span>
+            </div>
+            <div class="progress-bar-wrapper">
+                <div class="progress-bar-fill"></div>
+            </div>
+            <div class="progress-milestones">
+                <span class="milestone completed">L1</span>
+                <span class="milestone completed">L3</span>
+                <span class="milestone completed">L6</span>
+                <span class="milestone completed">L9</span>
+                <span class="milestone">L12</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== MAIN CONTENT ========== -->
+    <main class="container">
+        <!-- Lesson Header (Arabic) -->
+        <section class="lesson-header" lang="ar">
+            <span class="lesson-number">الدرس 10</span>
+            <h1 class="lesson-title">تقنيات التداول المتقدمة</h1>
+            <p class="lesson-subtitle">إتقان الأساليب المتطورة للمتداولين ذوي الخبرة</p>
+        </section>
+
+        <!-- Lesson Header (English) -->
+        <section class="lesson-header hidden" lang="en">
+            <span class="lesson-number">Lesson 10</span>
+            <h1 class="lesson-title">Advanced Trading Techniques</h1>
+            <p class="lesson-subtitle">Master sophisticated approaches for experienced traders</p>
+        </section>
+
+        <!-- Lesson Header (Spanish) -->
+        <section class="lesson-header hidden" lang="es">
+            <span class="lesson-number">Lección 10</span>
+            <h1 class="lesson-title">Técnicas Avanzadas de Trading</h1>
+            <p class="lesson-subtitle">Domina enfoques sofisticados para traders experimentados</p>
+        </section>
+
+        <!-- Lesson Header (Portuguese) -->
+        <section class="lesson-header hidden" lang="pt">
+            <span class="lesson-number">Lição 10</span>
+            <h1 class="lesson-title">Técnicas Avançadas de Trading</h1>
+            <p class="lesson-subtitle">Domine abordagens sofisticadas para traders experientes</p>
+        </section>
+
+        <!-- ========== VIDEO SECTION ========== -->
+        <section class="video-section">
+            <div class="video-placeholder">
+                <span class="play-icon">▶</span>
+                <h3 id="video-title" style="position: relative; top: 80px; margin: 0;">فيديو الدرس قيد الإعداد</h3>
+                <p id="video-duration" style="position: relative; top: 90px; margin: 0; opacity: 0.8;">المدة: دقيقتان ونصف | الجودة: 1080p</p>
+            </div>
+        </section>
+
+        <!-- ========== LEARNING OBJECTIVES ========== -->
+        <section class="learning-objectives" lang="ar">
+            <h3>أهداف التعلم</h3>
+            <ul>
+                <li>تعلم تقنيات تداول متطورة تشمل استراتيجيات الخيارات</li>
+                <li>فهم إدارة الرافعة المالية والتداول بالهامش</li>
+                <li>إتقان أنواع الأوامر المتقدمة واستراتيجيات التنفيذ</li>
+                <li>اكتشاف أساليب التحوط عن الحافظة الاستثمارية وإدارة المخاطر</li>
+            </ul>
+        </section>
+
+        <section class="learning-objectives hidden" lang="en">
+            <h3>Learning Objectives</h3>
+            <ul>
+                <li>Learn sophisticated trading techniques including options strategies</li>
+                <li>Understand leverage management and margin trading</li>
+                <li>Master advanced order types and execution strategies</li>
+                <li>Discover portfolio hedging and risk management approaches</li>
+            </ul>
+        </section>
+
+        <section class="learning-objectives hidden" lang="es">
+            <h3>Objetivos de Aprendizaje</h3>
+            <ul>
+                <li>Aprender técnicas de trading sofisticadas incluyendo estrategias de opciones</li>
+                <li>Comprender la gestión de apalancamiento y el trading con margen</li>
+                <li>Dominar tipos de órdenes avanzadas y estrategias de ejecución</li>
+                <li>Descubrir enfoques de cobertura de cartera y gestión de riesgos</li>
+            </ul>
+        </section>
+
+        <section class="learning-objectives hidden" lang="pt">
+            <h3>Objetivos de Aprendizagem</h3>
+            <ul>
+                <li>Aprender técnicas sofisticadas de trading incluindo estratégias de opções</li>
+                <li>Entender a gestão de alavancagem e negociação com margem</li>
+                <li>Dominar tipos de ordens avançadas e estratégias de execução</li>
+                <li>Descobrir abordagens de hedge de portfólio e gestão de riscos</li>
+            </ul>
+        </section>
+
+        <!-- ========== SECTION 1: OPTIONS ========== -->
+        <section class="content-section" lang="ar">
+            <h2>استراتيجيات تداول الخيارات والتطبيقات</h2>
+            <p>توفر الخيارات أدوات قوية لتوليد الدخل وتحوط المراكز وإنشاء ملفات تعريف مخاطر-مكافآت غير متماثلة. يتضمن الكتابة المغطاة بيع خيارات الاستدعاء مقابل مراكز الأسهم، وتوليد الدخل مع حماية هبوط محدودة. تحقق هذه الاستراتيجية أداء جيد في الأسواق المحايدة إلى الصعودية قليلاً ولكنها تحد من الارتفاع. تولد عمليات البيع المضمونة نقداً الدخل مع احتمال محتمل للحصول على الأسهم بأسعار مرغوب فيها. توفر الخيارات الواقية تأميناً لمراكز الأسهم، مما يحد من المخاطر الهبوطية مع الحفاظ على الارتفاع غير المحدود.</p>
+            <img src="images/10_01_options_strategies.png" alt="استراتيجيات الخيارات" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="en">
+            <h2>Options Trading Strategies and Applications</h2>
+            <p>Options provide powerful tools for income generation, hedging positions, and creating asymmetric risk-reward profiles. Covered call writing involves selling call options against stock positions, generating income with limited downside protection - works well in neutral to slightly bullish markets but limits upside. Cash-secured puts generate income while potentially acquiring stocks at desired prices. Protective puts act as insurance for stock positions, limiting downside risk while maintaining unlimited upside. Spread strategies like bull call spreads and bear put spreads profit from moderate directional moves with defined risk parameters. Iron condors and butterflies profit from low volatility by selling options at different strikes.</p>
+            <img src="images/10_01_options_strategies.png" alt="Options Strategies" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="es">
+            <h2>Estrategias de Trading de Opciones y Aplicaciones</h2>
+            <p>Las opciones proporcionan herramientas poderosas para generar ingresos, cubrir posiciones y crear perfiles de riesgo-recompensa asimétricos. La venta de opciones cubiertas implica vender opciones de compra contra posiciones de acciones, generando ingresos con protección a la baja limitada. Las ventas aseguradas en efectivo generan ingresos mientras potencialmente adquieren acciones a precios deseados. Las opciones de venta protectoras actúan como seguros para posiciones de acciones. Los diferenciales como spreads de llamadas alcistas y spreads de venta bajistas ganan dinero con movimientos direccionales moderados. Iron condors y mariposas se benefician de la baja volatilidad vendiendo opciones en diferentes precios de ejercicio.</p>
+            <img src="images/10_01_options_strategies.png" alt="Estrategias de Opciones" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="pt">
+            <h2>Estratégias de Negociação de Opções e Aplicações</h2>
+            <p>As opções fornecem ferramentas poderosas para geração de renda, cobertura de posições e criação de perfis de risco-recompensa assimétricos. A venda de opções cobertas envolve vender opções de compra contra posições de ações, gerando renda com proteção limitada contra queda. As vendas garantidas em dinheiro geram renda enquanto potencialmente adquirem ações a preços desejados. As opções de venda protetoras atuam como seguros para posições de ações, limitando o risco de queda mantendo ganhos ilimitados. Estratégias de spread como spreads de compra de alta e spreads de venda de baixa lucram com movimentos direcionais moderados com parâmetros de risco definidos.</p>
+            <img src="images/10_01_options_strategies.png" alt="Estratégias de Opções" class="content-image">
+        </section>
+
+        <!-- ========== SECTION 2: LEVERAGE ========== -->
+        <section class="content-section" lang="ar">
+            <h2>إدارة الرافعة المالية والهامش</h2>
+            <p>تضخم الرافعة المالية الأرباح والخسائر من خلال السماح بالتحكم في مراكز أكبر من رصيد الحساب. يسمح تداول الهامش بالاقتراض من الوسطاء لشراء الأوراق المالية، عادةً برافعة 2:1 للأسهم، مما يضاعف القوة الشرائية والمخاطر ويقدم تكاليف الفائدة. يمكن أن تصل رافعة الفوركس إلى 50:1 أو أعلى، مما يسمح بمراكز عملة كبيرة برصيد حساب صغير، مما يخلق فرصاً للأرباح الكبيرة لكن يخاطر بسرعة استنزاف الحساب. عقود العقود الآجلة موروثة برافعة مالية حيث تخلق تحركات الأسعار الصغيرة تقلبات ربح أو خسارة كبيرة.</p>
+            <img src="images/10_02_leverage_illustration.png" alt="توضيح الرافعة المالية" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="en">
+            <h2>Leverage and Margin Management</h2>
+            <p>Leverage amplifies both profits and losses by allowing control of larger positions than account balance permits. Margin trading allows borrowing from brokers to purchase securities, typically at 2:1 leverage for stocks - doubles buying power but also risk and introduces interest costs. Forex leverage can reach 50:1 or higher, allowing large currency positions with small account balances - creates opportunities for substantial profits but risks of rapid account depletion. Futures contracts are inherently leveraged where small price movements create large profit or loss swings. Leverage management involves calculating position sizes based on actual risk rather than margin required.</p>
+            <img src="images/10_02_leverage_illustration.png" alt="Leverage Illustration" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="es">
+            <h2>Gestión de Apalancamiento y Margen</h2>
+            <p>El apalancamiento amplifica tanto las ganancias como las pérdidas al permitir el control de posiciones más grandes que el saldo de la cuenta. El trading con margen permite pedir prestado de los brokers para comprar valores, típicamente con apalancamiento 2:1 para acciones, lo que duplica el poder de compra pero también el riesgo e introduce costos de interés. El apalancamiento de forex puede alcanzar 50:1 o superior, permitiendo grandes posiciones de divisas con pequeños saldos de cuenta. Los contratos de futuros se apalancan inherentemente donde movimientos de precios pequeños crean grandes oscilaciones de ganancias o pérdidas.</p>
+            <img src="images/10_02_leverage_illustration.png" alt="Ilustración de Apalancamiento" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="pt">
+            <h2>Gestão de Alavancagem e Margem</h2>
+            <p>A alavancagem amplifica tanto lucros quanto perdas ao permitir o controle de posições maiores que o saldo da conta. O trading com margem permite tomar empréstimos de corretoras para comprar títulos, tipicamente com alavancagem 2:1 para ações, duplicando o poder de compra mas também o risco e introduzindo custos de juros. A alavancagem forex pode chegar a 50:1 ou superior, permitindo grandes posições de moeda com pequenos saldos de conta, criando oportunidades para lucros substanciais mas riscos de esgotamento rápido da conta. Contratos de futuros são inerentemente alavancados onde pequenos movimentos de preços criam grandes oscilações de lucro ou perda.</p>
+            <img src="images/10_02_leverage_illustration.png" alt="Ilustração de Alavancagem" class="content-image">
+        </section>
+
+        <!-- ========== SECTION 3: ADVANCED ORDERS ========== -->
+        <section class="content-section" lang="ar">
+            <h2>أنواع الأوامر المتقدمة والتنفيذ</h2>
+            <p>يستخدم المتداولون المحترفون أنواع أوامر متطورة لتحسين التنفيذ وإدارة المخاطر وتنفيذ استراتيجيات معقدة. تجمع أوامر الأقواس بين الدخول مع إيقاف الخسارة المحدد مسبقاً وأخذ الربح، مما يضمن وضع معاملات إدارة المخاطر قبل تأسيس المراكز. تسمح أوامر إلغاء الآخر (OCO) بوضع أمرين في وقت واحد مع تنفيذ أحدهما إلغاء الآخر، مفيدة لاستراتيجيات الاختراق المتداولة في أي من الاتجاهين. تقسم أوامر جبل الجليد المراكز الكبيرة إلى قطع أصغر لتجنب تأثير السوق أو الكشف عن النوايا.</p>
+            <img src="images/10_03_bracket_orders.png" alt="أوامر الأقواس والرسوم البيانية" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="en">
+            <h2>Advanced Order Types and Execution</h2>
+            <p>Professional traders use sophisticated order types to improve execution, manage risk, and implement complex strategies. Bracket orders combine entry with predetermined stop loss and take profit, ensuring risk management parameters are in place before positions establish. One-cancels-other (OCO) orders allow placing two orders simultaneously with execution of one canceling the other - useful for breakout strategies trading either direction. Iceberg orders break large positions into smaller pieces to avoid market impact or revealing intentions. Algorithmic execution like TWAP and VWAP helps execute large orders with minimal market impact by spreading trades across time or matching historical volume patterns.</p>
+            <img src="images/10_03_bracket_orders.png" alt="Bracket Orders" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="es">
+            <h2>Tipos de Órdenes Avanzadas y Ejecución</h2>
+            <p>Los traders profesionales utilizan tipos de órdenes sofisticados para mejorar la ejecución, gestionar el riesgo e implementar estrategias complejas. Las órdenes de soporte combinan entrada con stop loss predeterminado y tomar ganancias, asegurando que los parámetros de gestión de riesgos estén en su lugar antes de establecer posiciones. Las órdenes que se cancelan mutuamente (OCO) permiten colocar dos órdenes simultáneamente con la ejecución de una cancelando la otra, útil para estrategias de ruptura que cotizan en cualquier dirección. Las órdenes de iceberg dividen las posiciones grandes en piezas más pequeñas para evitar el impacto del mercado.</p>
+            <img src="images/10_03_bracket_orders.png" alt="Órdenes de Soporte" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="pt">
+            <h2>Tipos de Ordens Avançadas e Execução</h2>
+            <p>Os traders profissionais usam tipos de ordens sofisticados para melhorar a execução, gerenciar riscos e implementar estratégias complexas. As ordens de parêntese combinam entrada com stop loss e lucro predeterminados, garantindo que os parâmetros de gestão de risco estejam em vigência antes das posições se estabelecerem. As ordens que cancelam umas às outras (OCO) permitem colocar duas ordens simultaneamente com a execução de uma cancelando a outra, úteis para estratégias de breakout negociadas em qualquer direção. As ordens de iceberg dividem grandes posições em pedaços menores para evitar impacto no mercado ou revelar intenções.</p>
+            <img src="images/10_03_bracket_orders.png" alt="Ordens de Parêntese" class="content-image">
+        </section>
+
+        <!-- ========== SECTION 4: HEDGING ========== -->
+        <section class="content-section" lang="ar">
+            <h2>التحوط عن الحافظة الاستثمارية وإدارة المخاطر</h2>
+            <p>تحمي تقنيات إدارة المخاطر المتقدمة الحوافظ الاستثمارية ضد أنواع مخاطر مختلفة مع الحفاظ على إمكانية الربح. يتضمن التحوط عن الحافظة الاستثمارية اتخاذ مراكز معارضة لتقليل المخاطر الإجمالية، المتداولون الذين لديهم عدة أسهم طويلة قد يشترون خيارات بيع مؤشر أو يبيعون العقود الآجلة للتحوط ضد الانخفاضات الواسعة. تحول استراتيجيات دوران القطاع رأس المال بين القطاعات المختلفة بناءً على الدورات الاقتصادية أو الأداء النسبية. يحمي التحوط بالعملات الاستثمارات الدولية من تقلبات أسعار الصرف باستخدام العقود الآجلة أو الخيارات.</p>
+            <img src="images/10_05_portfolio_hedging.png" alt="التحوط عن الحافظة" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="en">
+            <h2>Portfolio Hedging and Risk Management</h2>
+            <p>Advanced risk management techniques protect portfolios against various risk types while maintaining profit potential. Portfolio hedging involves taking offsetting positions to reduce overall risk - traders with multiple long stocks might purchase index puts or sell futures to hedge against broad declines. Sector rotation strategies shift capital between different sectors based on economic cycles, relative performance, or technical analysis. Currency hedging protects international investments from exchange rate fluctuations using forwards or options. Volatility trading involves positions based on expected volatility changes rather than directional price movements - buying options before earnings or selling during elevated volatility periods.</p>
+            <img src="images/10_05_portfolio_hedging.png" alt="Portfolio Hedging" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="es">
+            <h2>Cobertura de Cartera y Gestión de Riesgos</h2>
+            <p>Las técnicas avanzadas de gestión de riesgos protegen carteras contra varios tipos de riesgos mientras mantienen el potencial de ganancias. La cobertura de cartera implica tomar posiciones compensatorias para reducir el riesgo general. Los traders con múltiples acciones largas podrían comprar opciones de venta de índices o vender futuros para cubrirse contra declives amplios. Las estrategias de rotación sectorial desplazan el capital entre diferentes sectores basados en ciclos económicos, rendimiento relativo o análisis técnico. La cobertura de divisas protege las inversiones internacionales de las fluctuaciones de los tipos de cambio utilizando forwards u opciones.</p>
+            <img src="images/10_05_portfolio_hedging.png" alt="Cobertura de Cartera" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="pt">
+            <h2>Hedge de Portfólio e Gestão de Riscos</h2>
+            <p>Técnicas avançadas de gestão de riscos protegem portfólios contra vários tipos de risco enquanto mantêm o potencial de lucro. O hedge de portfólio envolve tomar posições compensatórias para reduzir o risco geral. Traders com múltiplas ações longas poderiam comprar puts de índice ou vender futuros para se proteger contra declínios amplos. Estratégias de rotação setorial deslocam capital entre diferentes setores com base em ciclos econômicos, desempenho relativo ou análise técnica. O hedge de moeda protege investimentos internacionais contra flutuações da taxa de câmbio usando forwards ou opções.</p>
+            <img src="images/10_05_portfolio_hedging.png" alt="Hedge de Portfólio" class="content-image">
+        </section>
+
+        <!-- ========== QUIZ SECTION ========== -->
+        <section class="quiz-section">
+            <!-- Arabic Quiz -->
+            <div lang="ar">
+                <div class="quiz-header">
+                    <h3 class="quiz-title">اختبر معلوماتك</h3>
+                    <div class="quiz-xp-reward">+50 XP</div>
+                </div>
+                <div class="quiz-question">
+                    <p class="question-text">ما هي الفائدة الرئيسية لاستخدام أوامر الأقواس في التداول؟</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-correct="true" onclick="selectQuizOption(this, 'quiz1')">
+                            ضمان وضع نقاط إيقاف الخسارة والربح قبل الدخول
+                        </div>
+                        <div class="quiz-option" onclick="selectQuizOption(this, 'quiz1')">
+                            تقليل تكاليف العمولة
+                        </div>
+                        <div class="quiz-option" onclick="selectQuizOption(this, 'quiz1')">
+                            السماح برافعة مالية أعلى
+                        </div>
+                        <div class="quiz-option" onclick="selectQuizOption(this, 'quiz1')">
+                            تسريع أوقات التنفيذ
+                        </div>
+                    </div>
+                    <div class="quiz-feedback" id="quiz1-feedback"></div>
+                    <button class="quiz-submit" onclick="submitQuiz('quiz1')">إرسال الإجابة</button>
+                </div>
+            </div>
+
+            <div class="hidden" lang="en">
+                <div class="quiz-header">
+                    <h3 class="quiz-title">Knowledge Check</h3>
+                    <div class="quiz-xp-reward">+50 XP</div>
+                </div>
+                <div class="quiz-question">
+                    <p class="question-text">What is the primary benefit of using bracket orders in trading?</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-correct="true" onclick="selectQuizOption(this, 'quiz1')">
+                            Ensuring stop loss and profit targets are set before entry
+                        </div>
+                        <div class="quiz-option" onclick="selectQuizOption(this, 'quiz1')">
+                            Reducing commission costs
+                        </div>
+                        <div class="quiz-option" onclick="selectQuizOption(this, 'quiz1')">
+                            Allowing higher leverage
+                        </div>
+                        <div class="quiz-option" onclick="selectQuizOption(this, 'quiz1')">
+                            Speeding up execution times
+                        </div>
+                    </div>
+                    <div class="quiz-feedback" id="quiz1-feedback-en"></div>
+                    <button class="quiz-submit" onclick="submitQuiz('quiz1')">Submit Answer</button>
+                </div>
+            </div>
+
+            <div class="hidden" lang="es">
+                <div class="quiz-header">
+                    <h3 class="quiz-title">Verificación de Conocimientos</h3>
+                    <div class="quiz-xp-reward">+50 XP</div>
+                </div>
+                <div class="quiz-question">
+                    <p class="question-text">¿Cuál es el beneficio principal de usar órdenes de soporte en el trading?</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-correct="true" onclick="selectQuizOption(this, 'quiz1')">
+                            Asegurar que el stop loss y objetivos de ganancias se establezcan antes de entrar
+                        </div>
+                        <div class="quiz-option" onclick="selectQuizOption(this, 'quiz1')">
+                            Reducir costos de comisión
+                        </div>
+                        <div class="quiz-option" onclick="selectQuizOption(this, 'quiz1')">
+                            Permitir apalancamiento más alto
+                        </div>
+                        <div class="quiz-option" onclick="selectQuizOption(this, 'quiz1')">
+                            Acelerar los tiempos de ejecución
+                        </div>
+                    </div>
+                    <div class="quiz-feedback" id="quiz1-feedback-es"></div>
+                    <button class="quiz-submit" onclick="submitQuiz('quiz1')">Enviar Respuesta</button>
+                </div>
+            </div>
+
+            <div class="hidden" lang="pt">
+                <div class="quiz-header">
+                    <h3 class="quiz-title">Verificação de Conhecimento</h3>
+                    <div class="quiz-xp-reward">+50 XP</div>
+                </div>
+                <div class="quiz-question">
+                    <p class="question-text">Qual é o benefício principal de usar ordens de parêntese no trading?</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-correct="true" onclick="selectQuizOption(this, 'quiz1')">
+                            Garantir que o stop loss e alvo de lucro sejam definidos antes da entrada
+                        </div>
+                        <div class="quiz-option" onclick="selectQuizOption(this, 'quiz1')">
+                            Reduzir custos de comissão
+                        </div>
+                        <div class="quiz-option" onclick="selectQuizOption(this, 'quiz1')">
+                            Permitir alavancagem mais alta
+                        </div>
+                        <div class="quiz-option" onclick="selectQuizOption(this, 'quiz1')">
+                            Acelerar tempos de execução
+                        </div>
+                    </div>
+                    <div class="quiz-feedback" id="quiz1-feedback-pt"></div>
+                    <button class="quiz-submit" onclick="submitQuiz('quiz1')">Enviar Resposta</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== KEY TAKEAWAYS ========== -->
+        <section class="key-takeaways" lang="ar">
+            <h3>النقاط الرئيسية</h3>
+            <ul>
+                <li>استراتيجيات الخيارات توفر أدوات لتوليد الدخل وإدارة المخاطر</li>
+                <li>الرافعة المالية تضخم الأرباح والخسائر وتتطلب إدارة حذرة</li>
+                <li>أنواع الأوامر المتقدمة تحسن التنفيذ والتحكم في المخاطر</li>
+                <li>يحافظ التحوط عن الحافظة على الحماية ضد أنواع مخاطر مختلفة</li>
+                <li>تتطلب التقنيات المتقدمة معرفة أساسية قوية قبل التطبيق</li>
+            </ul>
+        </section>
+
+        <section class="key-takeaways hidden" lang="en">
+            <h3>Key Takeaways</h3>
+            <ul>
+                <li>Options strategies provide tools for income generation and risk management</li>
+                <li>Leverage amplifies both profits and losses requiring careful management</li>
+                <li>Advanced order types improve execution and risk control</li>
+                <li>Portfolio hedging protects against various risk types while maintaining upside</li>
+                <li>Advanced techniques require solid foundational knowledge before implementation</li>
+            </ul>
+        </section>
+
+        <section class="key-takeaways hidden" lang="es">
+            <h3>Puntos Clave</h3>
+            <ul>
+                <li>Las estrategias de opciones proporcionan herramientas para generar ingresos y gestionar riesgos</li>
+                <li>El apalancamiento amplifica ganancias y pérdidas requiriendo gestión cuidadosa</li>
+                <li>Los tipos de órdenes avanzadas mejoran la ejecución y el control de riesgos</li>
+                <li>La cobertura de cartera protege contra varios tipos de riesgos mientras mantiene el potencial alcista</li>
+                <li>Las técnicas avanzadas requieren conocimiento fundamental sólido antes de implementar</li>
+            </ul>
+        </section>
+
+        <section class="key-takeaways hidden" lang="pt">
+            <h3>Pontos-Chave</h3>
+            <ul>
+                <li>Estratégias de opções fornecem ferramentas para geração de renda e gestão de riscos</li>
+                <li>A alavancagem amplifica lucros e perdas exigindo gestão cuidadosa</li>
+                <li>Tipos de ordens avançadas melhoram execução e controle de risco</li>
+                <li>O hedge de portfólio protege contra vários tipos de risco mantendo potencial de alta</li>
+                <li>Técnicas avançadas exigem conhecimento fundamental sólido antes da implementação</li>
+            </ul>
+        </section>
+
+        <!-- ========== EXERCISE SECTION ========== -->
+        <section class="exercise-section" lang="ar">
+            <h3>تمرين عملي</h3>
+            <p>ابحث عن تقنية متقدمة تثير اهتمامك (استراتيجية خيارات أو استخدام رافعة مالية أو نهج تحوط). أنشئ تحليلاً مفصلاً يتضمن: كيف يعمل، متى تستخدمه، المخاطر والمكافآت المحتملة، متطلبات رأس المال، وكيف قد يناسب خطة التداول الخاصة بك. تداول هذه التقنية على ورق لمدة شهر واحد قبل استخدام رأس المال الحقيقي.</p>
+            <div class="exercise-actions">
+                <button class="complete-btn" onclick="markExerciseComplete()">تم الإنجاز</button>
+            </div>
+        </section>
+
+        <section class="exercise-section hidden" lang="en">
+            <h3>Practical Exercise</h3>
+            <p>Research one advanced technique that interests you (options strategy, leverage usage, or hedging approach). Create a detailed analysis including: how it works, when to use it, potential risks and rewards, capital requirements, and how it might fit your trading plan. Paper trade this technique for one month before using real capital.</p>
+            <div class="exercise-actions">
+                <button class="complete-btn" onclick="markExerciseComplete()">Mark Complete</button>
+            </div>
+        </section>
+
+        <section class="exercise-section hidden" lang="es">
+            <h3>Ejercicio Práctico</h3>
+            <p>Investiga una técnica avanzada que te interese (estrategia de opciones, uso de apalancamiento o enfoque de cobertura). Crea un análisis detallado que incluya: cómo funciona, cuándo usarlo, riesgos y recompensas potenciales, requisitos de capital y cómo podría encajar en tu plan de trading. Negocia esta técnica en papel durante un mes antes de usar capital real.</p>
+            <div class="exercise-actions">
+                <button class="complete-btn" onclick="markExerciseComplete()">Marcar Completado</button>
+            </div>
+        </section>
+
+        <section class="exercise-section hidden" lang="pt">
+            <h3>Exercício Prático</h3>
+            <p>Pesquise uma técnica avançada que o interesse (estratégia de opções, uso de alavancagem ou abordagem de hedge). Crie uma análise detalhada incluindo: como funciona, quando usar, riscos e recompensas potenciais, requisitos de capital e como pode se encaixar em seu plano de trading. Negocie esta técnica em papel por um mês antes de usar capital real.</p>
+            <div class="exercise-actions">
+                <button class="complete-btn" onclick="markExerciseComplete()">Marcar Completo</button>
+            </div>
+        </section>
+
+        <!-- ========== LESSON NAVIGATION ========== -->
+        <section class="lesson-navigation">
+            <a href="lesson-09-interactive.html" class="nav-btn">← الدرس السابق</a>
+            <a href="lesson-11-interactive.html" class="nav-btn">الدرس التالي →</a>
+        </section>
+    </main>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p>&copy; 2025 Seekapa Trading Academy. جميع الحقوق محفوظة.</p>
+            <p class="disclaimer">تحذير المخاطر: التداول ينطوي على مخاطر كبيرة. الأداء السابق لا يضمن النتائج المستقبلية. ابدأ بحسابات تجريبية وتعلم قبل المخاطرة برأس المال الحقيقي.</p>
+        </div>
+    </footer>
+
+    <!-- ========== JAVASCRIPT ========== -->
+    <script>
+        // ========== TRANSLATIONS ==========
+        const translations = {
+            ar: {
+                progress_title: "التقدم: الدرس 10 من 12",
+                video_title: "فيديو الدرس قيد الإعداد",
+                video_duration: "المدة: دقيقتان ونصف | الجودة: 1080p"
+            },
+            en: {
+                progress_title: "Progress: Lesson 10 of 12",
+                video_title: "Lesson Video Coming Soon",
+                video_duration: "Duration: 2.5 minutes | Quality: 1080p"
+            },
+            es: {
+                progress_title: "Progreso: Lección 10 de 12",
+                video_title: "Video de Lección Próximamente",
+                video_duration: "Duración: 2.5 minutos | Calidad: 1080p"
+            },
+            pt: {
+                progress_title: "Progresso: Lição 10 de 12",
+                video_title: "Vídeo da Lição em Breve",
+                video_duration: "Duração: 2.5 minutos | Qualidade: 1080p"
+            }
+        };
+
+        let currentLanguage = localStorage.getItem('preferred_language') || 'ar';
+
+        function switchLanguage(lang) {
+            currentLanguage = lang;
+            localStorage.setItem('preferred_language', lang);
+
+            document.documentElement.lang = lang;
+            document.documentElement.dir = (lang === 'ar') ? 'rtl' : 'ltr';
+
+            // Hide all sections
+            document.querySelectorAll('.lesson-header, .learning-objectives, .content-section, .key-takeaways, .exercise-section, [lang]').forEach(el => {
+                el.classList.add('hidden');
+            });
+
+            // Show only current language
+            document.querySelectorAll(`[lang="${lang}"]`).forEach(el => {
+                el.classList.remove('hidden');
+            });
+
+            // Update language buttons
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.lang === lang) {
+                    btn.classList.add('active');
+                }
+            });
+
+            // Update progress title and video
+            updateTranslations();
+        }
+
+        function updateTranslations() {
+            const t = translations[currentLanguage];
+            const progressTitle = document.getElementById('progress-title');
+            const videoTitle = document.getElementById('video-title');
+            const videoDuration = document.getElementById('video-duration');
+
+            if (progressTitle) progressTitle.textContent = t.progress_title;
+            if (videoTitle) videoTitle.textContent = t.video_title;
+            if (videoDuration) videoDuration.textContent = t.video_duration;
+        }
+
+        // ========== QUIZ FUNCTIONALITY ==========
+        function selectQuizOption(element, quizId) {
+            const options = element.parentElement.querySelectorAll('.quiz-option');
+            options.forEach(opt => opt.classList.remove('selected'));
+            element.classList.add('selected');
+        }
+
+        function submitQuiz(quizId) {
+            const quizSection = document.getElementById(quizId);
+            const selected = quizSection.querySelector('.quiz-option.selected');
+            const feedback = quizSection.querySelector('.quiz-feedback');
+
+            if (!selected) {
+                alert(currentLanguage === 'ar' ? 'الرجاء اختيار إجابة' : 'Please select an answer');
+                return;
+            }
+
+            const isCorrect = selected.dataset.correct === 'true';
+            const feedbackText = isCorrect
+                ? (currentLanguage === 'ar' ? '✓ إجابة صحيحة! أنت تفهم هذا المفهوم جيداً.' : '✓ Correct! You understand this concept well.')
+                : (currentLanguage === 'ar' ? '✗ إجابة خاطئة. حاول مرة أخرى.' : '✗ Incorrect. Try again.');
+
+            feedback.textContent = feedbackText;
+            feedback.classList.add('show');
+            feedback.classList.add(isCorrect ? 'correct' : 'incorrect');
+
+            if (isCorrect) {
+                awardXP(50, currentLanguage === 'ar' ? 'اجتياز اختبار' : 'Quiz Passed');
+                selected.classList.add('correct');
+            } else {
+                selected.classList.add('incorrect');
+            }
+
+            const submitBtn = quizSection.querySelector('.quiz-submit');
+            submitBtn.disabled = true;
+            submitBtn.style.opacity = '0.5';
+        }
+
+        // ========== GAMIFICATION ==========
+        function awardXP(amount, reason) {
+            const currentXP = parseInt(localStorage.getItem('total_xp') || '0');
+            const newXP = currentXP + amount;
+            localStorage.setItem('total_xp', newXP);
+
+            document.getElementById('user-xp').textContent = newXP + ' XP';
+
+            showXPNotification(amount, reason);
+        }
+
+        function showXPNotification(amount, reason) {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: ${currentLanguage === 'ar' ? 'auto' : '20px'};
+                left: ${currentLanguage === 'ar' ? '20px' : 'auto'};
+                background: linear-gradient(135deg, #1B5E3F, #0F5F3F);
+                color: white;
+                padding: 1rem 2rem;
+                border-radius: 8px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                z-index: 10000;
+                animation: slideInUp 0.3s ease-out;
+                font-weight: 600;
+            `;
+            notification.textContent = `+${amount} XP - ${reason}`;
+            document.body.appendChild(notification);
+
+            setTimeout(() => notification.remove(), 3000);
+        }
+
+        function markExerciseComplete() {
+            const lessonNum = 10;
+            const completed = JSON.parse(localStorage.getItem('completed_lessons') || '[]');
+
+            if (!completed.includes(lessonNum)) {
+                completed.push(lessonNum);
+                localStorage.setItem('completed_lessons', JSON.stringify(completed));
+                awardXP(50, currentLanguage === 'ar' ? 'إكمال التمرين' : 'Exercise Complete');
+
+                alert(currentLanguage === 'ar' ? 'تم تسجيل إكمال التمرين بنجاح!' : 'Exercise marked as complete!');
+            }
+        }
+
+        // ========== INITIALIZATION ==========
+        document.addEventListener('DOMContentLoaded', () => {
+            switchLanguage(currentLanguage);
+
+            // Load stored XP
+            const storedXP = localStorage.getItem('total_xp');
+            if (storedXP) {
+                document.getElementById('user-xp').textContent = storedXP + ' XP';
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,174 @@
+/* Seekapa Trading Academy - Core Stylesheet */
+/* This file defines shared CSS variables and base styles used across all 12 lessons */
+
+:root {
+    /* ========== SEEKAPA BRAND COLORS ========== */
+    --seekapa-forest: #1B5E3F;          /* Primary brand color */
+    --seekapa-emerald: #0F5F3F;         /* Darker variant */
+    --seekapa-sage: #7A9D8E;            /* Light variant */
+    --trust-navy: #1F3A6B;              /* Secondary accent */
+    --burgundy: #8B3A3A;                /* Tertiary accent */
+    --champagne-gold: #D4AF37;          /* Premium accent */
+    --platinum: #E5E4E2;                /* Neutral light */
+    --charcoal: #2B2D42;                /* Dark text */
+    --slate: #8D99AE;                   /* Muted text */
+    --pearl: #F8F9FA;                   /* Light background */
+    --ivory: #FDFDF8;                   /* Base background */
+
+    /* ========== GAMIFICATION COLORS ========== */
+    --xp-blue: #3B82F6;                 /* XP points */
+    --badge-gold: #FFD700;              /* Achievement badges */
+    --streak-orange: #FF6B35;           /* Daily streak */
+    --correct-green: #10B981;           /* Correct answers */
+    --incorrect-red: #EF4444;           /* Incorrect answers */
+
+    /* ========== TYPOGRAPHY SCALE ========== */
+    --font-size-base: 18px;
+    --font-size-sm: 0.9rem;
+    --font-size-lg: 1.25rem;
+    --font-size-xl: 1.75rem;
+    --font-size-2xl: 2.25rem;
+    --font-size-3xl: 3.5rem;
+
+    /* ========== SPACING SYSTEM ========== */
+    --space-xs: 0.75rem;    /* 12px */
+    --space-sm: 1.5rem;     /* 24px */
+    --space-md: 3rem;       /* 48px */
+    --space-lg: 4.5rem;     /* 72px */
+    --space-xl: 6rem;       /* 96px */
+    --space-2xl: 9rem;      /* 144px */
+
+    /* ========== SHADOWS ========== */
+    --shadow-xs: 0 1px 2px rgba(27, 94, 63, 0.04);
+    --shadow-sm: 0 2px 4px rgba(27, 94, 63, 0.06), 0 1px 2px rgba(27, 94, 63, 0.03);
+    --shadow-md: 0 4px 8px rgba(27, 94, 63, 0.08), 0 2px 4px rgba(27, 94, 63, 0.04);
+    --shadow-lg: 0 8px 16px rgba(27, 94, 63, 0.10), 0 4px 8px rgba(27, 94, 63, 0.06);
+    --shadow-hover: 0 12px 24px rgba(27, 94, 63, 0.15), 0 6px 12px rgba(27, 94, 63, 0.08);
+
+    /* ========== ANIMATIONS ========== */
+    --transition-fast: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-base: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
+
+    /* ========== BORDERS ========== */
+    --border-radius: 12px;
+    --border-radius-sm: 8px;
+    --border-radius-lg: 16px;
+    --border-radius-full: 9999px;
+}
+
+/* ========== BASE RESET ========== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ========== TYPOGRAPHY ========== */
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.8;
+    color: var(--charcoal);
+    background: var(--ivory);
+    font-size: var(--font-size-base);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Arabic typography */
+[lang="ar"] {
+    font-family: 'Noto Kufi Arabic', 'Cairo', sans-serif;
+    font-size: 1.35rem;
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-weight: 600;
+    line-height: 1.2;
+    color: var(--charcoal);
+    margin-bottom: var(--space-sm);
+}
+
+[lang="ar"] h1, [lang="ar"] h2, [lang="ar"] h3 {
+    font-family: 'Cairo', serif;
+}
+
+h1 { font-size: var(--font-size-3xl); }
+h2 { font-size: var(--font-size-2xl); }
+h3 { font-size: var(--font-size-xl); }
+
+/* ========== UTILITY CLASSES ========== */
+.container {
+    max-width: 1200px;
+    margin-inline: auto;
+    padding-inline: var(--space-lg);
+}
+
+.hidden {
+    display: none !important;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+/* ========== BUTTONS ========== */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    border-radius: var(--border-radius-sm);
+    transition: all var(--transition-fast);
+    cursor: pointer;
+    border: none;
+    font-size: 1rem;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--seekapa-forest), var(--seekapa-emerald));
+    color: white;
+    box-shadow: var(--shadow-md);
+}
+
+.btn-primary:hover {
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-2px);
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 768px) {
+    :root {
+        --font-size-base: 16px;
+        --font-size-3xl: 2.5rem;
+        --font-size-2xl: 1.75rem;
+        --space-lg: 2rem;
+        --space-xl: 3rem;
+    }
+
+    .container {
+        padding-inline: var(--space-sm);
+    }
+}
+
+/* ========== PRINT STYLES ========== */
+@media print {
+    .header, .language-bar, .user-stats, .quiz, .navigation-buttons {
+        display: none !important;
+    }
+
+    body {
+        background: white;
+        color: black;
+    }
+}

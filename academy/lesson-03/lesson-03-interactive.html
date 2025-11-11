@@ -1,0 +1,1583 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Seekapa Trading Academy - Lesson 3: Technical Analysis Foundations - Interactive premium learning experience with quizzes, gamification, and progress tracking.">
+
+    <link rel="alternate" hreflang="ar" href="/ar/lesson-03" />
+    <link rel="alternate" hreflang="en" href="/en/lesson-03" />
+    <link rel="alternate" hreflang="es" href="/es/lesson-03" />
+    <link rel="alternate" hreflang="pt" href="/pt/lesson-03" />
+
+    <title>الدرس 3: أساسيات التحليل الفني | Seekapa Trading Academy</title>
+
+    <!-- Premium Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;500;600;700&family=Cairo:wght@600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ========== BASE FROM PREMIUM VERSION ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Premium Colors */
+            --seekapa-forest: #1B5E3F;
+            --seekapa-emerald: #0F5F3F;
+            --seekapa-sage: #7A9D8E;
+            --trust-navy: #1F3A6B;
+            --burgundy: #8B3A3A;
+            --champagne-gold: #D4AF37;
+            --platinum: #E5E4E2;
+            --charcoal: #2B2D42;
+            --slate: #8D99AE;
+            --pearl: #F8F9FA;
+            --ivory: #FDFDF8;
+
+            /* Gamification Colors */
+            --xp-blue: #3B82F6;
+            --badge-gold: #FFD700;
+            --streak-orange: #FF6B35;
+            --correct-green: #10B981;
+            --incorrect-red: #EF4444;
+
+            /* Premium Spacing */
+            --space-xs: 0.75rem;
+            --space-sm: 1.5rem;
+            --space-md: 3rem;
+            --space-lg: 4.5rem;
+            --space-xl: 6rem;
+            --space-2xl: 9rem;
+
+            /* Typography Scale */
+            --font-size-base: 18px;
+            --font-size-lg: 1.25rem;
+            --font-size-xl: 1.75rem;
+            --font-size-2xl: 2.25rem;
+            --font-size-3xl: 3.5rem;
+
+            /* Premium Shadows */
+            --shadow-xs: 0 1px 2px rgba(27, 94, 63, 0.04);
+            --shadow-sm: 0 2px 4px rgba(27, 94, 63, 0.06), 0 1px 2px rgba(27, 94, 63, 0.03);
+            --shadow-md: 0 4px 8px rgba(27, 94, 63, 0.08), 0 2px 4px rgba(27, 94, 63, 0.04), 0 1px 2px rgba(27, 94, 63, 0.02);
+            --shadow-lg: 0 8px 16px rgba(27, 94, 63, 0.10), 0 4px 8px rgba(27, 94, 63, 0.06), 0 2px 4px rgba(27, 94, 63, 0.03);
+            --shadow-hover: 0 12px 24px rgba(27, 94, 63, 0.15), 0 6px 12px rgba(27, 94, 63, 0.08);
+
+            /* Animations */
+            --transition-fast: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-base: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            line-height: 1.8;
+            color: var(--charcoal);
+            background: var(--ivory);
+            font-size: var(--font-size-base);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        [lang="ar"] {
+            font-family: 'Noto Kufi Arabic', 'Cairo', sans-serif;
+            font-size: 1.35rem;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-weight: 600;
+            line-height: 1.2;
+            color: var(--charcoal);
+        }
+
+        [lang="ar"] h1, [lang="ar"] h2, [lang="ar"] h3 {
+            font-family: 'Cairo', serif;
+        }
+
+        h1 { font-size: var(--font-size-3xl); }
+        h2 { font-size: var(--font-size-2xl); }
+        h3 { font-size: var(--font-size-xl); }
+
+        .container {
+            max-width: 1200px;
+            margin-inline: auto;
+            padding-inline: var(--space-lg);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* ========== PREMIUM HEADER WITH GAMIFICATION ========== */
+        .header {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px) saturate(180%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            padding-block: var(--space-md);
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin-inline: auto;
+            padding-inline: var(--space-lg);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: var(--space-sm);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .logo-image {
+            height: 45px;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--seekapa-forest);
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Gamification Stats in Header */
+        .user-stats {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            background: var(--pearl);
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: 8px;
+            box-shadow: var(--shadow-xs);
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .xp-badge {
+            background: linear-gradient(135deg, var(--xp-blue), #60A5FA);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .streak-badge {
+            background: linear-gradient(135deg, var(--streak-orange), #FF8C61);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .language-bar {
+            display: flex;
+            gap: 0.5rem;
+            background: rgba(27, 94, 63, 0.05);
+            padding: 0.5rem;
+            border-radius: 8px;
+        }
+
+        .lang-btn {
+            padding: 0.5rem 1rem;
+            background: transparent;
+            border: 1px solid rgba(27, 94, 63, 0.15);
+            color: var(--slate);
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 0.9rem;
+            border-radius: 6px;
+            transition: all var(--transition-base);
+        }
+
+        .lang-btn:hover {
+            background: rgba(27, 94, 63, 0.08);
+            border-color: var(--seekapa-forest);
+        }
+
+        .lang-btn.active {
+            background: var(--seekapa-forest);
+            color: white;
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* ========== SOCIAL PROOF BANNER ========== */
+        .social-proof {
+            background: linear-gradient(135deg, var(--trust-navy), #2A4A7D);
+            color: white;
+            padding: var(--space-sm);
+            text-align: center;
+        }
+
+        .social-proof-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: var(--space-lg);
+            flex-wrap: wrap;
+        }
+
+        .social-stat {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .social-stat-number {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--champagne-gold);
+        }
+
+        .social-stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* ========== PROGRESS BAR ========== */
+        .progress-container {
+            background: white;
+            padding: var(--space-md);
+            box-shadow: var(--shadow-xs);
+        }
+
+        .progress-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-inline: var(--space-lg);
+        }
+
+        .progress-title {
+            font-size: 0.95rem;
+            color: var(--slate);
+            margin-bottom: var(--space-sm);
+            font-weight: 500;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .progress-bar-wrapper {
+            position: relative;
+            width: 100%;
+            height: 12px;
+            background: #E9ECEF;
+            border-radius: 12px;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--seekapa-forest), var(--seekapa-sage));
+            border-radius: 12px;
+            transition: width var(--transition-slow);
+            width: 25%;
+        }
+
+        .progress-milestones {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 0.5rem;
+        }
+
+        .milestone {
+            font-size: 0.7rem;
+            color: var(--slate);
+        }
+
+        .milestone.completed {
+            color: var(--seekapa-forest);
+            font-weight: 600;
+        }
+
+        /* ========== MAIN CONTENT ========== */
+        main {
+            padding-block: var(--space-xl);
+        }
+
+        .lesson-header {
+            background: white;
+            padding: var(--space-xl);
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+            margin-bottom: var(--space-xl);
+            border-top: 3px solid var(--seekapa-forest);
+        }
+
+        .lesson-number {
+            display: inline-block;
+            background: var(--seekapa-forest);
+            color: white;
+            padding: var(--space-xs) var(--space-md);
+            border-radius: 8px;
+            font-weight: 600;
+            margin-bottom: var(--space-md);
+            font-size: 0.9rem;
+        }
+
+        .lesson-title {
+            font-size: var(--font-size-3xl);
+            margin-bottom: var(--space-sm);
+        }
+
+        .lesson-subtitle {
+            font-size: var(--font-size-lg);
+            color: var(--slate);
+            font-weight: 400;
+        }
+
+        /* ========== VIDEO SECTION ========== */
+        .video-section {
+            background: white;
+            padding: var(--space-xl);
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+            margin-bottom: var(--space-xl);
+            border-left: 4px solid var(--champagne-gold);
+        }
+
+        .video-container {
+            aspect-ratio: 16 / 9;
+            background: linear-gradient(135deg, rgba(27, 94, 63, 0.05), rgba(212, 175, 55, 0.05));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px dashed var(--champagne-gold);
+        }
+
+        .video-placeholder {
+            text-align: center;
+        }
+
+        .play-icon {
+            font-size: 4rem;
+            color: var(--seekapa-forest);
+            margin-bottom: var(--space-sm);
+        }
+
+        .video-placeholder p {
+            color: var(--slate);
+            font-weight: 500;
+        }
+
+        .video-details {
+            font-size: 0.9rem;
+            color: var(--slate);
+            margin-top: 0.5rem;
+        }
+
+        /* ========== OBJECTIVES SECTION ========== */
+        .objectives-section {
+            background: white;
+            padding: var(--space-xl);
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+            margin-bottom: var(--space-xl);
+            border-left: 4px solid var(--seekapa-emerald);
+        }
+
+        .objectives-section h2 {
+            margin-bottom: var(--space-md);
+            color: var(--seekapa-forest);
+        }
+
+        .objectives-list {
+            list-style: none;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--space-sm);
+        }
+
+        .objectives-list li {
+            padding: var(--space-sm);
+            background: rgba(27, 94, 63, 0.04);
+            border-left: 3px solid var(--champagne-gold);
+            border-radius: 4px;
+        }
+
+        .objectives-list li:before {
+            content: "✓ ";
+            color: var(--seekapa-forest);
+            font-weight: 700;
+            margin-right: 0.5rem;
+        }
+
+        /* ========== CONTENT SECTIONS ========== */
+        .content-section {
+            background: white;
+            padding: var(--space-xl);
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+            margin-bottom: var(--space-xl);
+        }
+
+        .content-section h2 {
+            color: var(--seekapa-forest);
+            margin-bottom: var(--space-md);
+        }
+
+        .content-section p {
+            margin-bottom: var(--space-md);
+            color: var(--charcoal);
+            text-align: justify;
+            line-height: 1.9;
+        }
+
+        .content-image {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: var(--shadow-md);
+            margin-top: var(--space-md);
+        }
+
+        /* ========== QUIZ SECTION ========== */
+        .quiz-section {
+            background: white;
+            padding: var(--space-xl);
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+            margin-bottom: var(--space-xl);
+            border-left: 4px solid var(--xp-blue);
+        }
+
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-md);
+            flex-wrap: wrap;
+            gap: var(--space-sm);
+        }
+
+        .quiz-title {
+            color: var(--xp-blue);
+            font-size: var(--font-size-xl);
+        }
+
+        .quiz-xp-reward {
+            background: var(--xp-blue);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .quiz-question {
+            margin-bottom: var(--space-lg);
+            padding-bottom: var(--space-lg);
+            border-bottom: 1px solid #E9ECEF;
+        }
+
+        .quiz-question:last-child {
+            border-bottom: none;
+        }
+
+        .question-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: var(--space-sm);
+            color: var(--charcoal);
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-sm);
+        }
+
+        .quiz-option {
+            background: var(--pearl);
+            padding: var(--space-sm) var(--space-md);
+            border-radius: 8px;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all var(--transition-base);
+            font-weight: 500;
+        }
+
+        .quiz-option:hover {
+            background: var(--platinum);
+            border-color: var(--seekapa-forest);
+            transform: translateX(5px);
+        }
+
+        .quiz-option.selected {
+            background: var(--seekapa-forest);
+            color: white;
+            border-color: var(--seekapa-forest);
+        }
+
+        .quiz-option.correct {
+            background: var(--correct-green);
+            color: white;
+            border-color: var(--correct-green);
+        }
+
+        .quiz-option.incorrect {
+            background: var(--incorrect-red);
+            color: white;
+            border-color: var(--incorrect-red);
+        }
+
+        .quiz-feedback {
+            margin-top: var(--space-sm);
+            padding: var(--space-sm);
+            border-radius: 8px;
+            font-weight: 500;
+            display: none;
+        }
+
+        .quiz-feedback.show {
+            display: block;
+        }
+
+        .quiz-feedback.correct {
+            background: #D1FAE5;
+            color: #065F46;
+        }
+
+        .quiz-feedback.incorrect {
+            background: #FEE2E2;
+            color: #991B1B;
+        }
+
+        .quiz-submit {
+            background: var(--xp-blue);
+            color: white;
+            padding: var(--space-sm) var(--space-lg);
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-base);
+            margin-top: var(--space-md);
+        }
+
+        .quiz-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .quiz-submit:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* ========== TAKEAWAYS SECTION ========== */
+        .takeaways-section {
+            background: linear-gradient(135deg, rgba(27, 94, 63, 0.05), rgba(212, 175, 55, 0.05));
+            padding: var(--space-xl);
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+            margin-bottom: var(--space-xl);
+            border-left: 4px solid var(--champagne-gold);
+        }
+
+        .takeaways-section h2 {
+            color: var(--seekapa-forest);
+            margin-bottom: var(--space-md);
+        }
+
+        .takeaways-list {
+            list-style: none;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--space-sm);
+        }
+
+        .takeaways-list li {
+            padding: var(--space-sm);
+            background: white;
+            border-radius: 8px;
+            border-left: 3px solid var(--seekapa-forest);
+            box-shadow: var(--shadow-xs);
+        }
+
+        .takeaways-list li:before {
+            content: "★ ";
+            color: var(--champagne-gold);
+            font-weight: 700;
+            margin-right: 0.5rem;
+        }
+
+        /* ========== EXERCISE SECTION ========== */
+        .exercise-section {
+            background: linear-gradient(135deg, #E3F2FD, #BBDEFB);
+            padding: var(--space-xl);
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+            margin-bottom: var(--space-xl);
+            border-left: 4px solid var(--trust-navy);
+        }
+
+        .exercise-section h2 {
+            color: var(--trust-navy);
+            margin-bottom: var(--space-md);
+        }
+
+        .exercise-section p {
+            color: var(--charcoal);
+            margin-bottom: var(--space-md);
+            line-height: 1.9;
+        }
+
+        .exercise-actions {
+            display: flex;
+            gap: var(--space-sm);
+            flex-wrap: wrap;
+        }
+
+        .complete-btn {
+            background: var(--trust-navy);
+            color: white;
+            padding: var(--space-sm) var(--space-lg);
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-base);
+        }
+
+        .complete-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        /* ========== NAVIGATION SECTION ========== */
+        .navigation-section {
+            display: flex;
+            justify-content: space-between;
+            gap: var(--space-lg);
+            margin-bottom: var(--space-xl);
+        }
+
+        .nav-btn {
+            flex: 1;
+            padding: var(--space-lg);
+            background: white;
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+            text-decoration: none;
+            color: var(--seekapa-forest);
+            font-weight: 600;
+            text-align: center;
+            transition: all var(--transition-base);
+            border: 2px solid transparent;
+        }
+
+        .nav-btn:hover {
+            border-color: var(--seekapa-forest);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .prev-btn {
+            background: rgba(27, 94, 63, 0.05);
+        }
+
+        .next-btn {
+            background: var(--seekapa-forest);
+            color: white;
+        }
+
+        /* ========== FOOTER ========== */
+        .site-footer {
+            background: var(--charcoal);
+            color: white;
+            padding: var(--space-xl);
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-content p {
+            margin-bottom: var(--space-sm);
+        }
+
+        .disclaimer {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* ========== ACHIEVEMENT MODAL ========== */
+        .achievement-modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: var(--space-xl);
+            border-radius: 16px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+            z-index: 2000;
+            text-align: center;
+            max-width: 400px;
+        }
+
+        .achievement-modal.active {
+            display: block;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translate(-50%, -60%);
+                opacity: 0;
+            }
+            to {
+                transform: translate(-50%, -50%);
+                opacity: 1;
+            }
+        }
+
+        .achievement-icon {
+            font-size: 3rem;
+            margin-bottom: var(--space-sm);
+        }
+
+        .achievement-title {
+            font-size: var(--font-size-xl);
+            color: var(--seekapa-forest);
+            margin-bottom: 0.5rem;
+        }
+
+        .achievement-desc {
+            color: var(--slate);
+            margin-bottom: var(--space-sm);
+        }
+
+        .achievement-xp {
+            font-size: 1.5rem;
+            color: var(--xp-blue);
+            font-weight: 700;
+        }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: 1999;
+        }
+
+        .modal-overlay.active {
+            display: block;
+        }
+
+        /* ========== RESPONSIVE DESIGN ========== */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .lesson-title {
+                font-size: 2rem;
+            }
+
+            .quiz-options {
+                gap: 0.75rem;
+            }
+
+            .navigation-section {
+                flex-direction: column;
+            }
+
+            .nav-btn {
+                padding: var(--space-md);
+            }
+
+            .social-proof-content {
+                gap: var(--space-sm);
+            }
+        }
+
+        /* ========== ACCESSIBILITY ========== */
+        a:focus, button:focus {
+            outline: 2px solid var(--seekapa-forest);
+            outline-offset: 2px;
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Progress Bar -->
+    <div class="progress-container">
+        <div class="progress-content">
+            <div class="progress-title">
+                <span>Learning Progress</span>
+                <span id="progress-percent">25%</span>
+            </div>
+            <div class="progress-bar-wrapper">
+                <div class="progress-bar-fill" id="progress-fill"></div>
+            </div>
+            <div class="progress-milestones">
+                <span class="milestone completed">Lesson 1</span>
+                <span class="milestone completed">Lesson 2</span>
+                <span class="milestone">Lesson 3</span>
+                <span class="milestone">Lesson 4</span>
+                <span class="milestone">Lesson 12</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Social Proof Banner -->
+    <div class="social-proof">
+        <div class="social-proof-content">
+            <div class="social-stat">
+                <div class="social-stat-number" id="students-online">128</div>
+                <div class="social-stat-label" id="online-label">Students online now</div>
+            </div>
+            <div class="social-stat">
+                <div class="social-stat-number">12,450</div>
+                <div class="social-stat-label" id="enrolled-label">Total students enrolled</div>
+            </div>
+            <div class="social-stat">
+                <div class="social-stat-number">94%</div>
+                <div class="social-stat-label" id="helpful-label">Found this helpful</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo-container">
+                <img src="images/Seekapa Black Logo.png" alt="Seekapa" class="logo-image">
+                <span class="logo-text" data-translate="academy_name">أكاديمية سيكابا للتداول</span>
+            </div>
+
+            <div class="user-stats">
+                <div class="stat-item">
+                    <span class="xp-badge">⚡ <span id="user-xp">0 XP</span></span>
+                </div>
+                <div class="stat-item">
+                    <span class="streak-badge">🔥 <span id="user-streak">0 Days</span></span>
+                </div>
+            </div>
+
+            <div class="language-bar">
+                <button class="lang-btn active" data-lang="ar" onclick="switchLanguage('ar')">العربية</button>
+                <button class="lang-btn" data-lang="en" onclick="switchLanguage('en')">English</button>
+                <button class="lang-btn" data-lang="es" onclick="switchLanguage('es')">Español</button>
+                <button class="lang-btn" data-lang="pt" onclick="switchLanguage('pt')">Português</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Lesson Header -->
+        <section class="lesson-header">
+            <span class="lesson-number" data-translate="lesson_number">الدرس 3 من 12</span>
+            <h1 class="lesson-title" data-translate="title">أساسيات التحليل الفني</h1>
+            <p class="lesson-subtitle" data-translate="subtitle">تعلم قراءة الرسوم البيانية وتحديد الأنماط التي تتنبأ بحركات الأسعار</p>
+        </section>
+
+        <!-- Video Section -->
+        <section class="video-section">
+            <div class="video-container">
+                <div class="video-placeholder">
+                    <div class="play-icon">▶</div>
+                    <p data-translate="video_coming_soon">الفيديو قيد الإعداد</p>
+                    <p class="video-details" data-translate="video_details">المدة: دقيقتان | الجودة: 1080p</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Learning Objectives -->
+        <section class="objectives-section">
+            <h2 data-translate="objectives_title">أهداف التعلم</h2>
+            <ul class="objectives-list">
+                <li data-translate="objective_1">فهم مبادئ التحليل الفني وكيفية عمل الرسوم البيانية للأسعار</li>
+                <li data-translate="objective_2">التعرف على تشكيلات الشموع اليابانية وتفسير الأطر الزمنية للرسوم البيانية</li>
+                <li data-translate="objective_3">تحديد مستويات الدعم والمقاومة وأهميتها في التداول</li>
+                <li data-translate="objective_4">تحليل بيانات الحجم للتأكيد على حركات الأسعار ومعنويات السوق</li>
+            </ul>
+        </section>
+
+        <!-- Introduction -->
+        <section class="content-section">
+            <p class="intro-text" data-translate="intro">يشكل التحليل الفني العمود الفقري لمعظم استراتيجيات التداول قصيرة الأجل. يركز هذا النهج التحليلي على دراسة الرسوم البيانية للأسعار والأنماط والسلوك السوقي للتنبؤ بالحركات المستقبلية.</p>
+        </section>
+
+        <!-- Content Section 1: Candlesticks -->
+        <section class="content-section">
+            <h2 data-translate="section1_title">فهم أنواع الرسوم البيانية والشموع اليابانية</h2>
+            <p data-translate="section1_text">تعتبر الرسوم البيانية الأدوات الأساسية للتحليل الفني، وتعرض حركات الأسعار على فترات زمنية مختلفة. تشمل الأنواع الأكثر شيوعاً الرسوم البيانية الخطية والرسوم البيانية العمودية والشموع اليابانية.</p>
+            <img src="images/03_01_candlestick_charts.png" alt="Candlestick Charts" class="content-image">
+        </section>
+
+        <!-- Content Section 2: Support & Resistance -->
+        <section class="content-section">
+            <h2 data-translate="section2_title">مستويات الدعم والمقاومة</h2>
+            <p data-translate="section2_text">تمثل مستويات الدعم والمقاومة المناطق الرئيسية حيث يظهر اهتمام الشراء أو البيع في السوق. مستويات الدعم هي الأسعار حيث يمنع اهتمام الشراء الانخفاض الإضافي - بشكل أساسي حد أدنى حيث يتدخل المشترون.</p>
+            <img src="images/03_03_support_resistance.png" alt="Support and Resistance" class="content-image">
+        </section>
+
+        <!-- Content Section 3: Volume Analysis -->
+        <section class="content-section">
+            <h2 data-translate="section3_title">تحليل الحجم وتأكيد السوق</h2>
+            <p data-translate="section3_text">يمثل الحجم عدد الأسهم أو العقود المتداولة خلال فترة محددة. يساعد تحليل الحجم على تأكيد حركات الأسعار وتحديد الانعكاسات المحتملة في السوق. المبدأ بسيط: حركات الأسعار المصحوبة بحجم مرتفع تعتبر أكثر أهمية وموثوقية من تلك التي على حجم منخفض.</p>
+            <img src="images/03_04_volume_analysis.png" alt="Volume Analysis" class="content-image">
+        </section>
+
+        <!-- Content Section 4: Trend Analysis -->
+        <section class="content-section">
+            <h2 data-translate="section4_title">تحليل الاتجاه واتجاه السوق</h2>
+            <p data-translate="section4_text">تمثل الاتجاهات الاتجاه العام لحركة الأسعار بمرور الوقت وهي أساسية لفلسفة التحليل الفني. يتميز الاتجاه الصعودي بقمم أعلى وقيعان أعلى، مما يشير إلى ضغط شراء مستمر وقوة السوق.</p>
+            <img src="images/03_05_trend_identification.png" alt="Trend Analysis" class="content-image">
+        </section>
+
+        <!-- Interactive Quiz Section -->
+        <section class="quiz-section">
+            <div class="quiz-header">
+                <h2 class="quiz-title" data-translate="quiz_title">اختبر معلوماتك</h2>
+                <span class="quiz-xp-reward">⚡ +50 XP</span>
+            </div>
+            <div id="quiz-container"></div>
+            <button class="quiz-submit" onclick="submitAllQuiz()">
+                <span data-translate="mark_complete">تم الإنجاز</span>
+            </button>
+        </section>
+
+        <!-- Takeaways Section -->
+        <section class="takeaways-section">
+            <h2 data-translate="takeaways_title">النقاط الرئيسية</h2>
+            <ul class="takeaways-list">
+                <li data-translate="takeaway1">يستخدم التحليل الفني الرسوم البيانية والأنماط للتنبؤ بالحركات المستقبلية وتحديد فرص التداول</li>
+                <li data-translate="takeaway2">توفر الشموع اليابانية معلومات سعرية شاملة تظهر الافتتاح والإغلاق والأعلى والأدنى لكل فترة</li>
+                <li data-translate="takeaway3">تساعد مستويات الدعم والمقاومة على تحديد مناطق الأسعار الرئيسية حيث من المرجح حدوث انعكاسات أو اختراقات</li>
+                <li data-translate="takeaway4">يؤكد الحجم على حركات الأسعار - الحجم المرتفع يجعل حركات الأسعار أكثر أهمية وموثوقية</li>
+                <li data-translate="takeaway5">يساعد تحليل الاتجاه المتداولين على مواءمة صفقاتهم مع اتجاه السوق السائد لنجاح احتمالي أعلى</li>
+            </ul>
+        </section>
+
+        <!-- Exercise Section -->
+        <section class="exercise-section">
+            <h2 data-translate="exercise_title">تمرين عملي</h2>
+            <p data-translate="exercise">اختر سهماً أو زوج عملات وحدد ثلاثة مستويات دعم وثلاثة مستويات مقاومة على الرسم البياني اليومي. ضع علامة على هذه المستويات بوضوح لاحظ كيف تتفاعل الأسعار عندما تقترب من هذه المناطق على مدار الأسبوع التالي.</p>
+            <div class="exercise-actions">
+                <button class="complete-btn" onclick="completeExercise()">
+                    <span data-translate="mark_complete">تم الإنجاز</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Navigation Buttons -->
+        <section class="navigation-section">
+            <a href="lesson-02-interactive.html" class="nav-btn prev-btn" data-translate="previous_lesson">← الدرس السابق</a>
+            <a href="lesson-04-interactive.html" class="nav-btn next-btn" data-translate="next_lesson">الدرس التالي →</a>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p>&copy; 2025 Seekapa Trading Academy. <span data-translate="all_rights">جميع الحقوق محفوظة</span>.</p>
+            <p class="disclaimer" data-translate="disclaimer">تحذير المخاطر: التداول ينطوي على مخاطر كبيرة. الأداء السابق لا يضمن النتائج المستقبلية.</p>
+        </div>
+    </footer>
+
+    <!-- Achievement Modal -->
+    <div class="modal-overlay" id="achievement-overlay"></div>
+    <div class="achievement-modal" id="achievement-modal">
+        <div class="achievement-icon" id="achievement-icon">🏆</div>
+        <h3 class="achievement-title" id="achievement-title">Achievement Unlocked!</h3>
+        <p class="achievement-desc" id="achievement-desc">Description</p>
+        <p class="achievement-xp" id="achievement-xp">+50 XP</p>
+    </div>
+
+    <!-- Gamification JavaScript -->
+    <script>
+        // ========== TRANSLATIONS ==========
+        const translations = {
+            en: {
+                academy_name: "Seekapa Trading Academy",
+                title: "Technical Analysis Foundations",
+                subtitle: "Learn to read charts and identify patterns that predict price movements",
+                lesson_number: "Lesson 3 of 12",
+                objectives_title: "Learning Objectives",
+                objective_1: "Understand the principles of technical analysis and how price charts work",
+                objective_2: "Learn to identify candlestick formations and interpret chart timeframes",
+                objective_3: "Recognize support and resistance levels and their trading significance",
+                objective_4: "Analyze volume data to confirm price movements and market sentiment",
+                intro: "Technical analysis forms the backbone of most short-term trading strategies. This analytical approach focuses on studying price charts, patterns, and market behavior to predict future movements.",
+                section1_title: "Understanding Chart Types and Candlesticks",
+                section1_text: "Charts are the primary tools for technical analysis, displaying price movements over various timeframes. The most common types include line charts, bar charts, and candlestick charts.",
+                section2_title: "Support and Resistance Levels",
+                section2_text: "Support and resistance levels represent key areas where buying or selling interest emerges in the market.",
+                section3_title: "Volume Analysis and Market Confirmation",
+                section3_text: "Volume represents the number of shares or contracts traded during a specific period.",
+                section4_title: "Trend Analysis and Market Direction",
+                section4_text: "Trends represent the general direction of price movement over time and are fundamental to technical analysis philosophy.",
+                video_coming_soon: "Video Coming Soon",
+                video_details: "Duration: 2 minutes | Quality: 1080p",
+                quiz_title: "Test Your Knowledge",
+                mark_complete: "Mark Complete",
+                quiz_q1: "What does a green candlestick indicate in technical analysis?",
+                quiz_q1_a: "A period where selling pressure exceeded buying pressure",
+                quiz_q1_b: "A period where the closing price was higher than the opening price",
+                quiz_q1_c: "A reversal pattern that always predicts a downtrend",
+                quiz_q1_d: "High volume trading activity",
+                quiz_q2: "Which of the following best describes a support level?",
+                quiz_q2_a: "A price level where selling pressure prevents upward movement",
+                quiz_q2_b: "A price level where buying interest prevents further declines",
+                quiz_q2_c: "The highest price ever reached by an asset",
+                quiz_q2_d: "A moving average that changes daily",
+                quiz_q3: "What does rising prices on declining volume typically suggest?",
+                quiz_q3_a: "Strong continuation of the uptrend",
+                quiz_q3_b: "Weakening momentum and potential reversal",
+                quiz_q3_c: "Institutional buying interest",
+                quiz_q3_d: "A break above resistance is confirmed",
+                quiz_q4: "Which of these characteristics defines an uptrend?",
+                quiz_q4_a: "Lower highs and lower lows",
+                quiz_q4_b: "Prices moving within a range",
+                quiz_q4_c: "Higher highs and higher lows",
+                quiz_q4_d: "Declining volume over time",
+                quiz_q5: "What is the primary advantage of using candlestick charts?",
+                quiz_q5_a: "They show only the closing price",
+                quiz_q5_b: "They display open, close, high, and low prices in one visual",
+                quiz_q5_c: "They eliminate the need for volume analysis",
+                quiz_q5_d: "They guarantee profitable trades",
+                takeaways_title: "Key Takeaways",
+                takeaway1: "Technical analysis uses price charts and patterns to predict future movements",
+                takeaway2: "Candlestick charts provide comprehensive price information",
+                takeaway3: "Support and resistance levels help identify key price areas",
+                takeaway4: "Volume confirms price movements and reveals market sentiment",
+                takeaway5: "Trend analysis helps traders align with market direction",
+                exercise_title: "Practical Exercise",
+                exercise: "Choose a stock or currency pair and identify three support levels and three resistance levels on a daily chart.",
+                previous_lesson: "← Previous Lesson",
+                next_lesson: "Next Lesson →",
+                all_rights: "All Rights Reserved",
+                disclaimer: "Risk Warning: Trading involves significant risk. Past performance does not guarantee future results."
+            },
+            ar: {
+                academy_name: "أكاديمية سيكابا للتداول",
+                title: "أساسيات التحليل الفني",
+                subtitle: "تعلم قراءة الرسوم البيانية وتحديد الأنماط التي تتنبأ بحركات الأسعار",
+                lesson_number: "الدرس 3 من 12",
+                objectives_title: "أهداف التعلم",
+                objective_1: "فهم مبادئ التحليل الفني وكيفية عمل الرسوم البيانية للأسعار",
+                objective_2: "التعرف على تشكيلات الشموع اليابانية وتفسير الأطر الزمنية للرسوم البيانية",
+                objective_3: "تحديد مستويات الدعم والمقاومة وأهميتها في التداول",
+                objective_4: "تحليل بيانات الحجم للتأكيد على حركات الأسعار ومعنويات السوق",
+                intro: "يشكل التحليل الفني العمود الفقري لمعظم استراتيجيات التداول قصيرة الأجل.",
+                section1_title: "فهم أنواع الرسوم البيانية والشموع اليابانية",
+                section1_text: "تعتبر الرسوم البيانية الأدوات الأساسية للتحليل الفني، وتعرض حركات الأسعار على فترات زمنية مختلفة.",
+                section2_title: "مستويات الدعم والمقاومة",
+                section2_text: "تمثل مستويات الدعم والمقاومة المناطق الرئيسية حيث يظهر اهتمام الشراء أو البيع في السوق.",
+                section3_title: "تحليل الحجم وتأكيد السوق",
+                section3_text: "يمثل الحجم عدد الأسهم أو العقود المتداولة خلال فترة محددة.",
+                section4_title: "تحليل الاتجاه واتجاه السوق",
+                section4_text: "تمثل الاتجاهات الاتجاه العام لحركة الأسعار بمرور الوقت وهي أساسية لفلسفة التحليل الفني.",
+                video_coming_soon: "الفيديو قيد الإعداد",
+                video_details: "المدة: دقيقتان | الجودة: 1080p",
+                quiz_title: "اختبر معلوماتك",
+                mark_complete: "تم الإنجاز",
+                quiz_q1: "ماذا تشير الشمعة الخضراء في التحليل الفني؟",
+                quiz_q1_a: "فترة تجاوز فيها ضغط البيع ضغط الشراء",
+                quiz_q1_b: "فترة كان فيها سعر الإغلاق أعلى من سعر الافتتاح",
+                quiz_q1_c: "نمط انعكاس يتنبأ دائماً باتجاه هبوطي",
+                quiz_q1_d: "نشاط تداول بحجم مرتفع",
+                quiz_q2: "أي من التالي يصف بشكل أفضل مستوى الدعم؟",
+                quiz_q2_a: "مستوى سعر حيث يمنع ضغط البيع الحركة الصعودية",
+                quiz_q2_b: "مستوى سعر حيث يمنع اهتمام الشراء الانخفاض الإضافي",
+                quiz_q2_c: "أعلى سعر تم الوصول إليه من قبل الأصل",
+                quiz_q2_d: "متوسط متحرك يتغير يومياً",
+                quiz_q3: "ماذا يشير ارتفاع الأسعار على حجم متناقص عادة؟",
+                quiz_q3_a: "استمرار قوي للاتجاه الصعودي",
+                quiz_q3_b: "ضعف الزخم وانعكاس محتمل",
+                quiz_q3_c: "اهتمام شراء مؤسسي",
+                quiz_q3_d: "تأكيد كسر فوق المقاومة",
+                quiz_q4: "أي من هذه الخصائص يحدد الاتجاه الصعودي؟",
+                quiz_q4_a: "قمم أقل وقيعان أقل",
+                quiz_q4_b: "أسعار تتحرك ضمن نطاق",
+                quiz_q4_c: "قمم أعلى وقيعان أعلى",
+                quiz_q4_d: "حجم متناقص بمرور الوقت",
+                quiz_q5: "ما هي الميزة الرئيسية لاستخدام الشموع اليابانية؟",
+                quiz_q5_a: "تعرض فقط سعر الإغلاق",
+                quiz_q5_b: "تعرض الافتتاح والإغلاق والأعلى والأدنى في بصري واحد",
+                quiz_q5_c: "تلغي الحاجة لتحليل الحجم",
+                quiz_q5_d: "تضمن الصفقات الرابحة",
+                takeaways_title: "النقاط الرئيسية",
+                takeaway1: "يستخدم التحليل الفني الرسوم البيانية والأنماط للتنبؤ بالحركات المستقبلية",
+                takeaway2: "توفر الشموع اليابانية معلومات سعرية شاملة",
+                takeaway3: "تساعد مستويات الدعم والمقاومة على تحديد مناطق الأسعار الرئيسية",
+                takeaway4: "يؤكد الحجم على حركات الأسعار ويكشف معنويات السوق",
+                takeaway5: "يساعد تحليل الاتجاه المتداولين على مواءمة صفقاتهم مع اتجاه السوق السائد",
+                exercise_title: "تمرين عملي",
+                exercise: "اختر سهماً أو زوج عملات وحدد ثلاثة مستويات دعم وثلاثة مستويات مقاومة على الرسم البياني اليومي.",
+                previous_lesson: "← الدرس السابق",
+                next_lesson: "الدرس التالي →",
+                all_rights: "جميع الحقوق محفوظة",
+                disclaimer: "تحذير المخاطر: التداول ينطوي على مخاطر كبيرة. الأداء السابق لا يضمن النتائج المستقبلية."
+            },
+            es: {
+                academy_name: "Academia de Trading Seekapa",
+                title: "Fundamentos del Análisis Técnico",
+                subtitle: "Aprende a leer gráficos e identificar patrones que predicen movimientos de precios",
+                lesson_number: "Lección 3 de 12",
+                objectives_title: "Objetivos de Aprendizaje",
+                objective_1: "Comprender los principios del análisis técnico y cómo funcionan los gráficos de precios",
+                objective_2: "Aprender a identificar formaciones de velas japonesas e interpretar marcos de tiempo gráficos",
+                objective_3: "Reconocer niveles de soporte y resistencia y su importancia en el trading",
+                objective_4: "Analizar datos de volumen para confirmar movimientos de precios y sentimiento del mercado",
+                intro: "El análisis técnico forma la base de la mayoría de las estrategias de trading a corto plazo.",
+                section1_title: "Comprensión de Tipos de Gráficos y Velas Japonesas",
+                section1_text: "Los gráficos son las herramientas principales para el análisis técnico, mostrando movimientos de precios en varios marcos de tiempo.",
+                section2_title: "Niveles de Soporte y Resistencia",
+                section2_text: "Los niveles de soporte y resistencia representan áreas clave donde emerge interés de compra o venta en el mercado.",
+                section3_title: "Análisis de Volumen y Confirmación del Mercado",
+                section3_text: "El volumen representa el número de acciones o contratos negociados durante un período específico.",
+                section4_title: "Análisis de Tendencias y Dirección del Mercado",
+                section4_text: "Las tendencias representan la dirección general del movimiento de precios a lo largo del tiempo.",
+                video_coming_soon: "Video Próximamente",
+                video_details: "Duración: 2 minutos | Calidad: 1080p",
+                quiz_title: "Prueba tu Conocimiento",
+                mark_complete: "Marcar Completado",
+                quiz_q1: "¿Qué indica una vela verde en el análisis técnico?",
+                quiz_q1_a: "Un período donde la presión de venta superó la presión de compra",
+                quiz_q1_b: "Un período donde el precio de cierre fue más alto que el precio de apertura",
+                quiz_q1_c: "Un patrón de reversión que siempre predice una tendencia bajista",
+                quiz_q1_d: "Actividad comercial de alto volumen",
+                quiz_q2: "¿Cuál de las siguientes opciones describe mejor un nivel de soporte?",
+                quiz_q2_a: "Un nivel de precio donde la presión de venta evita el movimiento alcista",
+                quiz_q2_b: "Un nivel de precio donde el interés de compra evita caídas adicionales",
+                quiz_q2_c: "El precio más alto jamás alcanzado por un activo",
+                quiz_q2_d: "Un promedio móvil que cambia diariamente",
+                quiz_q3: "¿Qué sugiere típicamente el aumento de precios con volumen decreciente?",
+                quiz_q3_a: "Continuación fuerte de la tendencia alcista",
+                quiz_q3_b: "Debilitamiento del impulso y posible reversión",
+                quiz_q3_c: "Interés de compra institucional",
+                quiz_q3_d: "Se confirma una ruptura por encima de la resistencia",
+                quiz_q4: "¿Cuál de estas características define una tendencia alcista?",
+                quiz_q4_a: "Máximos más bajos y mínimos más bajos",
+                quiz_q4_b: "Precios moviéndose dentro de un rango",
+                quiz_q4_c: "Máximos más altos y mínimos más altos",
+                quiz_q4_d: "Volumen decreciente a lo largo del tiempo",
+                quiz_q5: "¿Cuál es la ventaja principal de usar gráficos de velas?",
+                quiz_q5_a: "Solo muestran el precio de cierre",
+                quiz_q5_b: "Muestran apertura, cierre, máximo y mínimo en un visual",
+                quiz_q5_c: "Eliminan la necesidad del análisis de volumen",
+                quiz_q5_d: "Garantizan operaciones rentables",
+                takeaways_title: "Puntos Clave",
+                takeaway1: "El análisis técnico utiliza gráficos de precios y patrones para predecir movimientos futuros",
+                takeaway2: "Los gráficos de velas proporcionan información completa de precios",
+                takeaway3: "Los niveles de soporte y resistencia ayudan a identificar áreas de precios clave",
+                takeaway4: "El volumen confirma movimientos de precios y revela sentimiento del mercado",
+                takeaway5: "El análisis de tendencias ayuda a los traders a alinearse con la dirección del mercado",
+                exercise_title: "Ejercicio Práctico",
+                exercise: "Elige una acción o par de divisas e identifica tres niveles de soporte y tres niveles de resistencia en un gráfico diario.",
+                previous_lesson: "← Lección Anterior",
+                next_lesson: "Siguiente Lección →",
+                all_rights: "Todos los Derechos Reservados",
+                disclaimer: "Advertencia de Riesgo: El trading implica riesgo significativo. El desempeño pasado no garantiza resultados futuros."
+            },
+            pt: {
+                academy_name: "Academia de Trading Seekapa",
+                title: "Fundamentos da Análise Técnica",
+                subtitle: "Aprenda a ler gráficos e identifique padrões que predizem movimentos de preços",
+                lesson_number: "Lição 3 de 12",
+                objectives_title: "Objetivos de Aprendizagem",
+                objective_1: "Entender os princípios da análise técnica e como funcionam os gráficos de preços",
+                objective_2: "Aprender a identificar formações de velas japonesas e interpretar marcos de tempo em gráficos",
+                objective_3: "Reconhecer níveis de suporte e resistência e sua importância na negociação",
+                objective_4: "Analisar dados de volume para confirmar movimentos de preços e sentimento do mercado",
+                intro: "A análise técnica forma a espinha dorsal da maioria das estratégias de negociação de curto prazo.",
+                section1_title: "Compreendendo Tipos de Gráficos e Velas Japonesas",
+                section1_text: "Os gráficos são as ferramentas principais para análise técnica, exibindo movimentos de preços em vários marcos de tempo.",
+                section2_title: "Níveis de Suporte e Resistência",
+                section2_text: "Os níveis de suporte e resistência representam áreas-chave onde surge interesse de compra ou venda no mercado.",
+                section3_title: "Análise de Volume e Confirmação do Mercado",
+                section3_text: "O volume representa o número de ações ou contratos negociados durante um período específico.",
+                section4_title: "Análise de Tendência e Direção do Mercado",
+                section4_text: "As tendências representam a direção geral do movimento de preços ao longo do tempo.",
+                video_coming_soon: "Vídeo em Breve",
+                video_details: "Duração: 2 minutos | Qualidade: 1080p",
+                quiz_title: "Teste seu Conhecimento",
+                mark_complete: "Marcar Completo",
+                quiz_q1: "O que uma vela verde indica na análise técnica?",
+                quiz_q1_a: "Um período em que a pressão de venda superou a pressão de compra",
+                quiz_q1_b: "Um período em que o preço de fechamento foi superior ao preço de abertura",
+                quiz_q1_c: "Um padrão de reversão que sempre prediz uma tendência de queda",
+                quiz_q1_d: "Atividade de negociação de alto volume",
+                quiz_q2: "Qual das alternativas melhor descreve um nível de suporte?",
+                quiz_q2_a: "Um nível de preço onde a pressão de venda evita o movimento ascendente",
+                quiz_q2_b: "Um nível de preço onde o interesse de compra evita quedas adicionais",
+                quiz_q2_c: "O preço mais alto já alcançado por um ativo",
+                quiz_q2_d: "Uma média móvel que muda diariamente",
+                quiz_q3: "O que normalmente sugere preços em alta com volume decrescente?",
+                quiz_q3_a: "Continuação forte da tendência de alta",
+                quiz_q3_b: "Enfraquecimento do momento e possível reversão",
+                quiz_q3_c: "Interesse de compra institucional",
+                quiz_q3_d: "Uma quebra acima da resistência é confirmada",
+                quiz_q4: "Qual dessas características define uma tendência de alta?",
+                quiz_q4_a: "Máximos mais baixos e mínimos mais baixos",
+                quiz_q4_b: "Preços se movendo dentro de um intervalo",
+                quiz_q4_c: "Máximos mais altos e mínimos mais altos",
+                quiz_q4_d: "Volume decrescente ao longo do tempo",
+                quiz_q5: "Qual é a principal vantagem de usar gráficos de velas?",
+                quiz_q5_a: "Eles mostram apenas o preço de fechamento",
+                quiz_q5_b: "Exibem abertura, fechamento, máximo e mínimo em um visual",
+                quiz_q5_c: "Eles eliminam a necessidade de análise de volume",
+                quiz_q5_d: "Eles garantem negociações lucrativas",
+                takeaways_title: "Pontos-Chave",
+                takeaway1: "A análise técnica usa gráficos de preços e padrões para prever movimentos futuros",
+                takeaway2: "Os gráficos de velas fornecem informações completas de preços",
+                takeaway3: "Os níveis de suporte e resistência ajudam a identificar áreas-chave de preços",
+                takeaway4: "O volume confirma movimentos de preços e revela sentimento do mercado",
+                takeaway5: "A análise de tendência ajuda os traders a se alinharem com a direção do mercado",
+                exercise_title: "Exercício Prático",
+                exercise: "Escolha uma ação ou par de moedas e identifique três níveis de suporte e três níveis de resistência em um gráfico diário.",
+                previous_lesson: "← Lição Anterior",
+                next_lesson: "Próxima Lição →",
+                all_rights: "Todos os Direitos Reservados",
+                disclaimer: "Aviso de Risco: A negociação envolve risco significativo. O desempenho passado não garante resultados futuros."
+            }
+        };
+
+        // Quiz data
+        const quizzes = [
+            {
+                id: 'quiz1',
+                question: 'quiz_q1',
+                options: ['quiz_q1_a', 'quiz_q1_b', 'quiz_q1_c', 'quiz_q1_d'],
+                correct: 'b'
+            },
+            {
+                id: 'quiz2',
+                question: 'quiz_q2',
+                options: ['quiz_q2_a', 'quiz_q2_b', 'quiz_q2_c', 'quiz_q2_d'],
+                correct: 'b'
+            },
+            {
+                id: 'quiz3',
+                question: 'quiz_q3',
+                options: ['quiz_q3_a', 'quiz_q3_b', 'quiz_q3_c', 'quiz_q3_d'],
+                correct: 'b'
+            },
+            {
+                id: 'quiz4',
+                question: 'quiz_q4',
+                options: ['quiz_q4_a', 'quiz_q4_b', 'quiz_q4_c', 'quiz_q4_d'],
+                correct: 'c'
+            },
+            {
+                id: 'quiz5',
+                question: 'quiz_q5',
+                options: ['quiz_q5_a', 'quiz_q5_b', 'quiz_q5_c', 'quiz_q5_d'],
+                correct: 'b'
+            }
+        ];
+
+        // ========== USER DATA MANAGEMENT ==========
+        let userData = {
+            xp: 0,
+            streak: 1,
+            lessonsCompleted: [],
+            quizzesCompleted: {},
+            journalEntries: []
+        };
+
+        // Load user data from localStorage
+        function loadUserData() {
+            const saved = localStorage.getItem('seekapa-user-data');
+            if (saved) {
+                userData = JSON.parse(saved);
+                updateUserStats();
+            }
+        }
+
+        // Save user data
+        function saveUserData() {
+            localStorage.setItem('seekapa-user-data', JSON.stringify(userData));
+            updateUserStats();
+        }
+
+        // Update UI with user stats
+        function updateUserStats() {
+            document.getElementById('user-xp').textContent = userData.xp + ' XP';
+            document.getElementById('user-streak').textContent = userData.streak + ' Day' + (userData.streak > 1 ? 's' : '');
+        }
+
+        // ========== QUIZ FUNCTIONALITY ==========
+        function renderQuiz() {
+            const container = document.getElementById('quiz-container');
+            container.innerHTML = '';
+
+            quizzes.forEach((quiz, idx) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'quiz-question';
+                questionDiv.id = 'question-' + quiz.id;
+
+                const questionText = document.createElement('div');
+                questionText.className = 'question-text';
+                questionText.setAttribute('data-translate', quiz.question);
+                questionText.textContent = translations[currentLang][quiz.question];
+
+                questionDiv.appendChild(questionText);
+
+                const optionsDiv = document.createElement('div');
+                optionsDiv.className = 'quiz-options';
+
+                quiz.options.forEach((optKey, optIdx) => {
+                    const optionLetter = String.fromCharCode(97 + optIdx); // a, b, c, d
+                    const option = document.createElement('div');
+                    option.className = 'quiz-option';
+                    option.setAttribute('data-translate', optKey);
+                    option.setAttribute('data-correct', quiz.correct === optionLetter ? 'true' : 'false');
+                    option.setAttribute('data-quiz-id', quiz.id);
+                    option.textContent = translations[currentLang][optKey];
+                    option.onclick = () => selectQuizOption(option);
+
+                    optionsDiv.appendChild(option);
+                });
+
+                questionDiv.appendChild(optionsDiv);
+
+                const feedback = document.createElement('div');
+                feedback.className = 'quiz-feedback';
+                feedback.id = quiz.id + '-feedback';
+
+                questionDiv.appendChild(feedback);
+                container.appendChild(questionDiv);
+            });
+        }
+
+        let selectedAnswers = {};
+
+        function selectQuizOption(element) {
+            const quizId = element.getAttribute('data-quiz-id');
+            const container = element.parentElement;
+
+            // Remove previous selections
+            container.querySelectorAll('.quiz-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+
+            element.classList.add('selected');
+            selectedAnswers[quizId] = element.getAttribute('data-correct') === 'true';
+        }
+
+        function submitAllQuiz() {
+            let correctCount = 0;
+
+            quizzes.forEach((quiz) => {
+                const questionDiv = document.getElementById('question-' + quiz.id);
+                const selectedOption = questionDiv.querySelector('.quiz-option.selected');
+
+                if (selectedOption) {
+                    const isCorrect = selectedOption.getAttribute('data-correct') === 'true';
+
+                    if (isCorrect) {
+                        selectedOption.classList.add('correct');
+                        correctCount++;
+                    } else {
+                        selectedOption.classList.add('incorrect');
+                        const correctOpt = Array.from(questionDiv.querySelectorAll('.quiz-option')).find(
+                            opt => opt.getAttribute('data-correct') === 'true'
+                        );
+                        if (correctOpt) correctOpt.classList.add('correct');
+                    }
+
+                    const feedback = document.getElementById(quiz.id + '-feedback');
+                    if (isCorrect) {
+                        feedback.textContent = '✓ Correct!';
+                        feedback.classList.add('show', 'correct');
+                    } else {
+                        feedback.textContent = '✗ Not quite. Review the content and try again.';
+                        feedback.classList.add('show', 'incorrect');
+                    }
+
+                    if (!userData.quizzesCompleted[quiz.id]) {
+                        userData.quizzesCompleted[quiz.id] = isCorrect;
+                    }
+                }
+            });
+
+            // Award XP for completing quiz
+            if (correctCount === quizzes.length) {
+                userData.xp += 50;
+                showAchievement('Perfect Quiz!', 'You answered all questions correctly!', '+50 XP');
+            } else {
+                userData.xp += Math.max(10, correctCount * 8);
+                showAchievement('Quiz Completed!', `You got ${correctCount}/${quizzes.length} correct!`, `+${Math.max(10, correctCount * 8)} XP`);
+            }
+
+            saveUserData();
+            document.querySelector('.quiz-submit').disabled = true;
+        }
+
+        // ========== EXERCISE COMPLETION ==========
+        function completeExercise() {
+            userData.xp += 100;
+            saveUserData();
+            showAchievement('Exercise Completed!', 'Great job completing the practical exercise!', '+100 XP');
+        }
+
+        // ========== ACHIEVEMENT SYSTEM ==========
+        function showAchievement(title, description, xp) {
+            document.getElementById('achievement-title').textContent = title;
+            document.getElementById('achievement-desc').textContent = description;
+            document.getElementById('achievement-xp').textContent = xp;
+            document.getElementById('achievement-modal').classList.add('active');
+            document.getElementById('achievement-overlay').classList.add('active');
+
+            setTimeout(() => {
+                closeAchievement();
+            }, 3000);
+        }
+
+        function closeAchievement() {
+            document.getElementById('achievement-modal').classList.remove('active');
+            document.getElementById('achievement-overlay').classList.remove('active');
+        }
+
+        // ========== LESSON COMPLETION ==========
+        function completeLesson() {
+            if (!userData.lessonsCompleted.includes('lesson-03')) {
+                userData.lessonsCompleted.push('lesson-03');
+                userData.xp += 200;
+                saveUserData();
+                showAchievement('Lesson Complete!', 'You completed Lesson 3!', '+200 XP');
+            }
+        }
+
+        // ========== LANGUAGE SWITCHING ==========
+        let currentLang = localStorage.getItem('seekapa-language') || 'ar';
+
+        function switchLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('seekapa-language', lang);
+
+            document.documentElement.lang = lang;
+            document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+
+            // Update active button
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.lang === lang);
+            });
+
+            // Update all translated elements
+            document.querySelectorAll('[data-translate]').forEach(el => {
+                const key = el.getAttribute('data-translate');
+                if (translations[lang] && translations[lang][key]) {
+                    el.textContent = translations[lang][key];
+                }
+            });
+
+            // Re-render quiz with new language
+            renderQuiz();
+            updateSocialProofLabels(lang);
+        }
+
+        function updateSocialProofLabels(lang) {
+            const labels = {
+                ar: {
+                    online: 'طالب متصل الآن',
+                    enrolled: 'إجمالي الطلاب المسجلين',
+                    helpful: 'وجدوا هذا مفيداً'
+                },
+                en: {
+                    online: 'Students online now',
+                    enrolled: 'Total students enrolled',
+                    helpful: 'Found this helpful'
+                },
+                es: {
+                    online: 'Estudiantes en línea',
+                    enrolled: 'Total estudiantes inscritos',
+                    helpful: 'Encontraron esto útil'
+                },
+                pt: {
+                    online: 'Alunos online agora',
+                    enrolled: 'Total de alunos inscritos',
+                    helpful: 'Acharam isso útil'
+                }
+            };
+
+            document.getElementById('online-label').textContent = labels[lang].online;
+            document.getElementById('enrolled-label').textContent = labels[lang].enrolled;
+            document.getElementById('helpful-label').textContent = labels[lang].helpful;
+        }
+
+        // ========== INITIALIZE ==========
+        document.addEventListener('DOMContentLoaded', function() {
+            loadUserData();
+            renderQuiz();
+            switchLanguage(currentLang);
+
+            // Animate progress bar
+            setTimeout(() => {
+                document.getElementById('progress-fill').style.width = '25%';
+                document.getElementById('progress-percent').textContent = '25%';
+            }, 500);
+
+            // Simulate real-time student count
+            setInterval(() => {
+                const count = 120 + Math.floor(Math.random() * 15);
+                document.getElementById('students-online').textContent = count;
+            }, 30000);
+
+            // Mark lesson as complete when user scrolls to bottom
+            window.addEventListener('scroll', () => {
+                if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 500) {
+                    completeLesson();
+                }
+            });
+        });
+
+        console.log('%c🎮 Seekapa Interactive Academy', 'font-size: 24px; font-weight: bold; color: #1B5E3F;');
+        console.log('%c✨ Lesson 3: Technical Analysis Foundations Active', 'font-size: 14px; color: #3B82F6;');
+    </script>
+</body>
+</html>

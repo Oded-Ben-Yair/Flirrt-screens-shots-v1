@@ -1,0 +1,78 @@
+{
+  "lesson_number": 9,
+  "lesson_slug": "trading-strategies-systems",
+  "en": {
+    "title": "Trading Strategies & Systems",
+    "subtitle": "Develop and test proven trading strategies for different market conditions",
+    "objectives": [
+      "Learn about different trading strategies and their applications",
+      "Understand how to develop and test trading systems",
+      "Explore various timeframes and trading approaches",
+      "Discover how to adapt strategies to different market conditions"
+    ],
+    "intro": "Trading strategies provide structured approaches that help remove emotion and guesswork from decisions. A trading strategy is more than entry and exit rules - it's a complete framework including market analysis, risk management, position sizing, and trade management. The best strategies align with your personality, schedule, and risk tolerance while providing consistent results over time.",
+    "section1_title": "Day Trading Strategies and Techniques",
+    "section1_text": "Day trading involves opening and closing positions within the same trading day, avoiding overnight risk but requiring active monitoring and quick decisions. Scalping represents the shortest-term approach with trades lasting minutes or seconds, profiting from small movements with large positions in highly liquid markets. Momentum trading capitalizes on strong price movements triggered by news, earnings, or technical breakouts. Range trading works in sideways markets where prices oscillate between support and resistance. Gap trading focuses on price gaps between sessions, profiting from gap fills or extensions.",
+    "section2_title": "Swing Trading Approaches",
+    "section2_text": "Swing trading holds positions for days to weeks, capturing larger moves with less time commitment than day trading. Trend following swing strategies identify established trends and enter during pullbacks or consolidations - these work well in trending markets but generate false signals in choppy conditions. Counter-trend swing trading attempts to profit from temporary reversals or major trend changes, requiring excellent timing and risk management. Breakout strategies focus on price movements beyond established levels, often accompanied by volume increases. Pattern-based swing trading uses formations like triangles, flags, and head-and-shoulders for well-defined setups.",
+    "section3_title": "Position Trading and Long-Term Strategies",
+    "section3_text": "Position trading involves holding trades for weeks, months, or years, focusing on major trends and fundamental factors. Trend following position strategies identify major trends using weekly and monthly charts, holding until reversal signals appear - these capture substantial moves but require tolerance for significant drawdowns. Fundamental position trading combines long-term technical analysis with economic trends, company growth, or sector rotation. Seasonal trading exploits recurring patterns based on calendar effects like the \"sell in May\" stock market pattern or commodity cycles related to harvest seasons.",
+    "section4_title": "Strategy Development and Testing Process",
+    "section4_text": "Developing effective strategies requires systematic approach including idea generation, rule definition, testing, and refinement. Strategy ideas come from market observations, academic research, other traders, or modifications of existing approaches - start with logical hypothesis about why the strategy should work. Rule definition involves specifying exact criteria for all aspects including entry signals, exit conditions, position sizing, and risk management. Testing should include both backtesting on historical data and forward testing in current markets. Strategy refinement adjusts parameters based on results while avoiding over-optimization that creates strategies working only on historical data.",
+    "takeaway1": "Different strategies suit different timeframes, personalities, and market conditions",
+    "takeaway2": "Day trading requires active monitoring and quick decisions for short-term movements",
+    "takeaway3": "Swing trading captures intermediate moves with less time commitment",
+    "takeaway4": "Position trading focuses on major trends over longer timeframes",
+    "takeaway5": "Systematic development and testing processes create robust strategies",
+    "exercise": "Choose one trading strategy that interests you and create a detailed written plan including entry criteria, exit rules, position sizing method, and risk management parameters. Test this strategy on historical data or through paper trading for at least 20 trades, documenting all results and observations about strategy performance."
+  },
+  "translation_notes": {
+    "ar": "Extract from arabic-content.md - Lesson 9 section",
+    "es": "Latin American Spanish translation",
+    "pt": "Brazilian Portuguese translation"
+  },
+  "images": [
+    {
+      "filename": "09_01_scalping_strategy.png",
+      "prompt": "Fast-paced scalping chart with 1-minute timeframe, multiple quick trades marked with entry/exit points, profit targets tight, professional day trading visualization, Seekapa brand colors, 1200x800px"
+    },
+    {
+      "filename": "09_02_momentum_trading.png",
+      "prompt": "Strong momentum move with volume spike, breakout from consolidation, momentum indicators confirming, professional momentum strategy visual, Seekapa forest green and gold, 1200x800px"
+    },
+    {
+      "filename": "09_03_swing_trading_setup.png",
+      "prompt": "Daily chart showing swing trade setup at pullback in uptrend, holding for multiple days, clear entry and exit levels, professional swing strategy visualization, Seekapa colors, 1200x800px"
+    },
+    {
+      "filename": "09_04_trend_following.png",
+      "prompt": "Long-term trend following position on weekly chart, major trend clearly visible, position held through corrections, professional position trading visual, Seekapa brand aesthetic, 1200x800px"
+    },
+    {
+      "filename": "09_05_breakout_strategy.png",
+      "prompt": "Breakout from consolidation pattern with volume confirmation, price accelerating after break, breakout trading setup highlighted, professional strategy visualization, Seekapa colors, 1200x800px"
+    },
+    {
+      "filename": "09_06_strategy_comparison.png",
+      "prompt": "Comparison table showing different strategies (scalping, day trading, swing, position) with timeframes, capital requirements, time commitment, professional strategy selection guide, Seekapa forest green accents, 1200x800px"
+    },
+    {
+      "filename": "09_07_backtesting_results.png",
+      "prompt": "Backtesting software interface showing strategy performance metrics: win rate, profit factor, drawdown, equity curve, professional testing dashboard, Seekapa brand colors, 1200x800px"
+    },
+    {
+      "filename": "09_08_market_conditions.png",
+      "prompt": "Four market condition scenarios (trending up, trending down, ranging, volatile) with appropriate strategies for each, professional adaptive trading visual, Seekapa colors, 1200x800px"
+    }
+  ],
+  "video_placeholder": {
+    "duration": "90-120 seconds",
+    "script_theme": "Trading strategies for different timeframes and market conditions",
+    "key_visual_moments": [
+      "Scalping rapid-fire trades",
+      "Swing trade capturing multi-day move",
+      "Position trade riding major trend",
+      "Strategy adaptation to market conditions"
+    ]
+  }
+}

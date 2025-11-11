@@ -1,0 +1,102 @@
+{
+  "en": {
+    "title": "Understanding Financial Markets & Asset Classes",
+    "subtitle": "Explore different markets and discover where trading opportunities exist",
+    "objectives": [
+      "Learn about different financial markets and their characteristics",
+      "Understand various asset classes available for trading",
+      "Recognize trading hours and market behaviors across different markets",
+      "Identify which markets align with your trading goals and risk tolerance"
+    ],
+    "intro": "The global financial system offers numerous markets and asset classes, each with unique characteristics, trading hours, and opportunities. This lesson explores these different markets, helping you understand where trading opportunities exist and which markets might suit your trading style and schedule.",
+    "section1_title": "Stock Markets: Equity Trading Fundamentals",
+    "section1_text": "Stock markets represent ownership shares in publicly traded companies. When you buy a stock, you become a partial owner of that company. Stock trading occurs on major exchanges like NYSE or NASDAQ. Stock markets typically operate 9:30 AM to 4:00 PM ET for US markets, with pre-market and after-hours sessions. Individual stocks are influenced by company news, earnings reports, and broader market movements.",
+    "section2_title": "Forex Markets: Currency Trading Dynamics",
+    "section2_text": "The foreign exchange market is the world's largest financial market, with over $6 trillion traded daily. Forex trading involves buying one currency while selling another, traded in pairs like EUR/USD. Forex markets operate 24 hours a day, five days a week across global financial centers. Currency prices are influenced by economic indicators, central bank policies, and geopolitical events.",
+    "section3_title": "Commodities: Trading Physical Assets",
+    "section3_text": "Commodity markets involve trading physical goods like gold, oil, wheat, and coffee. These markets serve important economic functions for hedging and speculation. Commodities can be traded through futures contracts, ETFs, or stocks of commodity producers. Prices are influenced by supply and demand, weather conditions, geopolitical events, and economic cycles.",
+    "section4_title": "Cryptocurrency Markets: Digital Asset Trading",
+    "section4_text": "Cryptocurrency trading offers 24/7 opportunities with high volatility. Bitcoin, Ethereum, and thousands of digital currencies provide trading opportunities with significant risks due to regulatory uncertainty. Cryptocurrency markets are relatively new and less regulated, leading to higher volatility and different risk profiles compared to traditional markets.",
+    "takeaway1": "Different markets offer varying levels of risk, volatility, and opportunity",
+    "takeaway2": "Stock markets provide ownership stakes with specific trading hours",
+    "takeaway3": "Forex markets offer 24-hour trading with high liquidity",
+    "takeaway4": "Commodity markets allow trading in physical goods through various instruments",
+    "takeaway5": "Understanding market characteristics helps you choose appropriate trading venues",
+    "exercise": "Research and compare the trading hours, typical spreads, and volatility characteristics of three different markets (stocks, forex, commodities). Create a comparison chart that helps you understand which markets might fit your schedule and risk tolerance."
+  },
+  "ar": {
+    "title": "فهم الأسواق المالية والفئات الأصولية",
+    "subtitle": "استكشف الأسواق المختلفة واكتشف أين توجد فرص التداول",
+    "objectives": [
+      "التعرف على الأسواق المالية المختلفة وخصائصها",
+      "فهم فئات الأصول المختلفة المتاحة للتداول",
+      "التعرف على ساعات التداول والسلوك عبر الأسواق المختلفة",
+      "تحديد الأسواق التي تتوافق مع أهدافك ومدى تحملك للمخاطر"
+    ],
+    "intro": "يقدم النظام المالي العالمي العديد من الأسواق والفئات الأصولية، لكل منها خصائص فريدة وساعات تداول وفرص. يستكشف هذا الدرس هذه الأسواق المختلفة، مما يساعدك على فهم مكان وجود فرص التداول والأسواق التي قد تناسب أسلوب تداولك وجدولك الزمني.",
+    "section1_title": "أسواق الأسهم: أساسيات تداول حقوق الملكية",
+    "section1_text": "تمثل أسواق الأسهم أسهماً في الملكية في الشركات المدرجة علناً. عندما تشتري سهماً، تصبح مالكاً جزئياً لتلك الشركة. يحدث تداول الأسهم في بورصات رئيسية مثل نيويورك أو ناسداك. تعمل أسواق الأسهم عادة من 9:30 صباحاً إلى 4:00 مساءً بتوقيت شرق الولايات المتحدة، مع جلسات ما قبل السوق وما بعد الساعات. تتأثر الأسهم الفردية بأخبار الشركة وتقارير الأرباح والحركات الأوسع للسوق.",
+    "section2_title": "أسواق الفوركس: ديناميات تداول العملات",
+    "section2_text": "سوق الصرف الأجنبي هو أكبر سوق مالي في العالم، حيث يتم تداول أكثر من 6 تريليونات دولار يومياً. يتضمن تداول الفوركس شراء عملة واحدة أثناء بيع عملة أخرى، متداولة في أزواج مثل EUR/USD. تعمل أسواق الفوركس 24 ساعة في اليوم، خمسة أيام في الأسبوع عبر مراكز مالية عالمية. تتأثر أسعار العملات بالمؤشرات الاقتصادية وسياسات البنك المركزي والأحداث الجيوسياسية.",
+    "section3_title": "أسواق السلع: تداول الأصول المادية",
+    "section3_text": "تتضمن أسواق السلع تداول السلع المادية مثل الذهب والنفط والقمح والقهوة. تخدم هذه الأسواق وظائف اقتصادية مهمة للتحوط والمضاربة. يمكن تداول السلع من خلال عقود آجلة أو صناديق متداولة في البورصة أو أسهم منتجي السلع. تتأثر الأسعار بالعرض والطلب والظروف الجوية والأحداث الجيوسياسية والدورات الاقتصادية.",
+    "section4_title": "أسواق العملات المشفرة: تداول الأصول الرقمية",
+    "section4_text": "يوفر تداول العملات المشفرة فرصاً على مدار الساعة طوال أيام الأسبوع مع تقلب عالي. يوفر البيتكوين والإيثيريوم وآلاف العملات الرقمية الأخرى فرص التداول مع مخاطر كبيرة بسبب عدم اليقين التنظيمي. أسواق العملات المشفرة جديدة نسبياً وأقل تنظيماً، مما يؤدي إلى تقلب أعلى وملفات مخاطر مختلفة مقارنة بالأسواق التقليدية.",
+    "takeaway1": "تقدم الأسواق المختلفة مستويات متفاوتة من المخاطر والتقلب والفرص",
+    "takeaway2": "توفر أسواق الأسهم حصصاً ملكية مع ساعات تداول محددة",
+    "takeaway3": "توفر أسواق الفوركس تداولاً على مدار الساعة برقم عالي من السيولة",
+    "takeaway4": "تسمح أسواق السلع بتداول السلع المادية من خلال أدوات مختلفة",
+    "takeaway5": "فهم خصائص السوق يساعدك على اختيار أماكن التداول المناسبة",
+    "exercise": "ابحث وقارن ساعات التداول والفروقات النموذجية وخصائص التقلب في ثلاثة أسواق مختلفة (الأسهم والفوركس والسلع). أنشئ جدول مقارنة يساعدك على فهم الأسواق التي قد تناسب جدولك الزمني ومدى تحملك للمخاطر."
+  },
+  "es": {
+    "title": "Comprensión de los Mercados Financieros y Clases de Activos",
+    "subtitle": "Explora mercados diferentes y descubre dónde existen oportunidades de trading",
+    "objectives": [
+      "Aprender sobre diferentes mercados financieros y sus características",
+      "Comprender varias clases de activos disponibles para trading",
+      "Reconocer horarios de trading y comportamientos del mercado entre diferentes mercados",
+      "Identificar qué mercados se alinean con tus objetivos de trading y tolerancia al riesgo"
+    ],
+    "intro": "El sistema financiero global ofrece numerosos mercados y clases de activos, cada uno con características únicas, horarios de trading y oportunidades. Esta lección explora estos mercados diferentes, ayudándote a entender dónde existen oportunidades de trading y qué mercados podrían adaptarse a tu estilo y horario de trading.",
+    "section1_title": "Mercados de Acciones: Fundamentos del Trading de Equidad",
+    "section1_text": "Los mercados de acciones representan participaciones de propiedad en empresas que cotizan en bolsa. Cuando compras una acción, te conviertes en propietario parcial de esa empresa. El trading de acciones ocurre en principales bolsas como NYSE o NASDAQ. Los mercados de acciones típicamente operan de 9:30 AM a 4:00 PM ET para mercados estadounidenses, con sesiones antes y después del mercado. Las acciones individuales se ven influenciadas por noticias de la empresa, reportes de ganancias y movimientos más amplios del mercado.",
+    "section2_title": "Mercados de Divisas: Dinámicas del Trading de Monedas",
+    "section2_text": "El mercado de divisas es el mercado financiero más grande del mundo, con más de 6 billones de dólares negociados diariamente. El trading de divisas implica comprar una moneda mientras se vende otra, negociada en pares como EUR/USD. Los mercados de divisas operan 24 horas al día, cinco días a la semana en centros financieros globales. Los precios de las divisas se ven influenciados por indicadores económicos, políticas del banco central y eventos geopolíticos.",
+    "section3_title": "Materias Primas: Trading de Activos Físicos",
+    "section3_text": "Los mercados de materias primas implican el trading de bienes físicos como oro, petróleo, trigo y café. Estos mercados cumplen funciones económicas importantes para la cobertura y especulación. Las materias primas pueden negociarse a través de contratos de futuros, ETFs o acciones de productores de materias primas. Los precios se ven influenciados por la oferta y demanda, condiciones climáticas, eventos geopolíticos y ciclos económicos.",
+    "section4_title": "Mercados de Criptomonedas: Trading de Activos Digitales",
+    "section4_text": "El trading de criptomonedas ofrece oportunidades 24/7 con alta volatilidad. Bitcoin, Ethereum y miles de monedas digitales brindan oportunidades de trading con riesgos significativos debido a la incertidumbre regulatoria. Los mercados de criptomonedas son relativamente nuevos y menos regulados, lo que conduce a mayor volatilidad y perfiles de riesgo diferentes en comparación con los mercados tradicionales.",
+    "takeaway1": "Diferentes mercados ofrecen niveles variados de riesgo, volatilidad y oportunidad",
+    "takeaway2": "Los mercados de acciones proporcionan participaciones de propiedad con horarios comerciales específicos",
+    "takeaway3": "Los mercados Forex ofrecen trading 24 horas con alta liquidez",
+    "takeaway4": "Los mercados de materias primas permiten el trading de bienes físicos a través de varios instrumentos",
+    "takeaway5": "Comprender las características del mercado te ayuda a elegir lugares de trading apropiados",
+    "exercise": "Investiga y compara las horas de trading, diferenciales típicos y características de volatilidad de tres mercados diferentes (acciones, forex, materias primas). Crea un gráfico de comparación que te ayude a entender qué mercados podrían adaptarse a tu horario y tolerancia al riesgo."
+  },
+  "pt": {
+    "title": "Entendendo os Mercados Financeiros e Classes de Ativos",
+    "subtitle": "Explore diferentes mercados e descubra onde existem oportunidades de trading",
+    "objectives": [
+      "Aprender sobre diferentes mercados financeiros e suas características",
+      "Compreender várias classes de ativos disponíveis para trading",
+      "Reconhecer horários de trading e comportamentos do mercado em diferentes mercados",
+      "Identificar quais mercados se alinham com seus objetivos de trading e tolerância ao risco"
+    ],
+    "intro": "O sistema financeiro global oferece numerosos mercados e classes de ativos, cada um com características únicas, horários de trading e oportunidades. Esta lição explora esses mercados diferentes, ajudando você a entender onde existem oportunidades de trading e quais mercados podem se adequar ao seu estilo e horário de trading.",
+    "section1_title": "Mercados de Ações: Fundamentos do Trading de Equidade",
+    "section1_text": "Os mercados de ações representam participações de propriedade em empresas de capital aberto. Quando você compra uma ação, torna-se proprietário parcial dessa empresa. O trading de ações ocorre nas principais bolsas como NYSE ou NASDAQ. Os mercados de ações normalmente operam das 9:30 AM às 4:00 PM ET para mercados americanos, com sessões pré-mercado e pós-mercado. Ações individuais são influenciadas por notícias da empresa, relatórios de lucros e movimentos mais amplos do mercado.",
+    "section2_title": "Mercados Forex: Dinâmica do Trading de Moedas",
+    "section2_text": "O mercado de câmbio é o maior mercado financeiro do mundo, com mais de 6 trilhões de dólares negociados diariamente. O trading de forex envolve comprar uma moeda enquanto vende outra, negociada em pares como EUR/USD. Os mercados forex operam 24 horas por dia, cinco dias por semana em centros financeiros globais. Os preços das moedas são influenciados por indicadores econômicos, políticas do banco central e eventos geopolíticos.",
+    "section3_title": "Commodities: Trading de Ativos Físicos",
+    "section3_text": "Os mercados de commodities envolvem o trading de bens físicos como ouro, petróleo, trigo e café. Esses mercados cumprem funções econômicas importantes para hedge e especulação. As commodities podem ser negociadas através de contratos de futuros, ETFs ou ações de produtores de commodities. Os preços são influenciados pela oferta e demanda, condições climáticas, eventos geopolíticos e ciclos econômicos.",
+    "section4_title": "Mercados de Criptomoedas: Trading de Ativos Digitais",
+    "section4_text": "O trading de criptomoedas oferece oportunidades 24/7 com alta volatilidade. Bitcoin, Ethereum e milhares de moedas digitais oferecem oportunidades de trading com riscos significativos devido à incerteza regulatória. Os mercados de criptomoedas são relativamente novos e menos regulados, levando a maior volatilidade e perfis de risco diferentes em comparação com os mercados tradicionais.",
+    "takeaway1": "Diferentes mercados oferecem níveis variados de risco, volatilidade e oportunidade",
+    "takeaway2": "Os mercados de ações fornecem participações acionárias com horários de negociação específicos",
+    "takeaway3": "Os mercados Forex oferecem trading 24 horas com alta liquidez",
+    "takeaway4": "Os mercados de commodities permitem o trading de bens físicos através de vários instrumentos",
+    "takeaway5": "Compreender as características do mercado ajuda você a escolher locais de trading apropriados",
+    "exercise": "Pesquise e compare os horários de trading, diferenciais típicos e características de volatilidade de três mercados diferentes (ações, forex, commodities). Crie um gráfico de comparação que o ajude a entender quais mercados podem se adequar ao seu cronograma e tolerância ao risco."
+  }
+}

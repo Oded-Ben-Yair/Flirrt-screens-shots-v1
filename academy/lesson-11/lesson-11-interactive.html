@@ -1,0 +1,1581 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Seekapa Trading Academy - Lesson 11: Developing Your Trading Plan with SMART goals, backtesting, and continuous improvement.">
+
+    <link rel="alternate" hreflang="ar" href="/ar/lesson-11" />
+    <link rel="alternate" hreflang="en" href="/en/lesson-11" />
+    <link rel="alternate" hreflang="es" href="/es/lesson-11" />
+    <link rel="alternate" hreflang="pt" href="/pt/lesson-11" />
+
+    <title>الدرس 11: بناء خطتك التجارية | Seekapa Trading Academy</title>
+
+    <!-- Premium Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;500;600;700&family=Cairo:wght@600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ========== BASE ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Premium Colors */
+            --seekapa-forest: #1B5E3F;
+            --seekapa-emerald: #0F5F3F;
+            --seekapa-sage: #7A9D8E;
+            --trust-navy: #1F3A6B;
+            --burgundy: #8B3A3A;
+            --champagne-gold: #D4AF37;
+            --platinum: #E5E4E2;
+            --charcoal: #2B2D42;
+            --slate: #8D99AE;
+            --pearl: #F8F9FA;
+            --ivory: #FDFDF8;
+
+            /* Gamification Colors */
+            --xp-blue: #3B82F6;
+            --badge-gold: #FFD700;
+            --streak-orange: #FF6B35;
+            --correct-green: #10B981;
+            --incorrect-red: #EF4444;
+
+            /* Premium Spacing */
+            --space-xs: 0.75rem;
+            --space-sm: 1.5rem;
+            --space-md: 3rem;
+            --space-lg: 4.5rem;
+            --space-xl: 6rem;
+            --space-2xl: 9rem;
+
+            /* Typography Scale */
+            --font-size-base: 18px;
+            --font-size-lg: 1.25rem;
+            --font-size-xl: 1.75rem;
+            --font-size-2xl: 2.25rem;
+            --font-size-3xl: 3.5rem;
+
+            /* Premium Shadows */
+            --shadow-xs: 0 1px 2px rgba(27, 94, 63, 0.04);
+            --shadow-sm: 0 2px 4px rgba(27, 94, 63, 0.06), 0 1px 2px rgba(27, 94, 63, 0.03);
+            --shadow-md: 0 4px 8px rgba(27, 94, 63, 0.08), 0 2px 4px rgba(27, 94, 63, 0.04), 0 1px 2px rgba(27, 94, 63, 0.02);
+            --shadow-lg: 0 8px 16px rgba(27, 94, 63, 0.10), 0 4px 8px rgba(27, 94, 63, 0.06), 0 2px 4px rgba(27, 94, 63, 0.03);
+            --shadow-hover: 0 12px 24px rgba(27, 94, 63, 0.15), 0 6px 12px rgba(27, 94, 63, 0.08);
+
+            /* Animations */
+            --transition-fast: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-base: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            line-height: 1.8;
+            color: var(--charcoal);
+            background: var(--ivory);
+            font-size: var(--font-size-base);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        [lang="ar"] {
+            font-family: 'Noto Kufi Arabic', 'Cairo', sans-serif;
+            font-size: 1.35rem;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-weight: 600;
+            line-height: 1.2;
+            color: var(--charcoal);
+        }
+
+        [lang="ar"] h1, [lang="ar"] h2, [lang="ar"] h3 {
+            font-family: 'Cairo', serif;
+        }
+
+        /* ========== HEADER WITH GAMIFICATION ========== */
+        .header {
+            background: white;
+            border-bottom: 2px solid var(--seekapa-forest);
+            padding: var(--space-md) 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--space-md);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: var(--space-md);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .logo-image {
+            height: 50px;
+            width: auto;
+        }
+
+        .logo-text {
+            font-family: 'Playfair Display';
+            font-size: var(--font-size-xl);
+            font-weight: 700;
+            color: var(--seekapa-forest);
+        }
+
+        .user-stats {
+            display: flex;
+            gap: var(--space-md);
+            align-items: center;
+        }
+
+        .xp-badge, .streak-badge {
+            background: var(--pearl);
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+            color: var(--charcoal);
+            font-size: 0.95rem;
+        }
+
+        .xp-badge {
+            color: var(--xp-blue);
+        }
+
+        .streak-badge {
+            color: var(--streak-orange);
+        }
+
+        .language-bar {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: 2px solid var(--platinum);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--slate);
+            transition: all var(--transition-fast);
+        }
+
+        .lang-btn.active {
+            background: var(--seekapa-forest);
+            color: white;
+            border-color: var(--seekapa-forest);
+        }
+
+        .lang-btn:hover {
+            border-color: var(--seekapa-forest);
+            color: var(--seekapa-forest);
+        }
+
+        /* ========== SOCIAL PROOF BANNER ========== */
+        .social-proof {
+            background: linear-gradient(135deg, var(--seekapa-forest), var(--seekapa-emerald));
+            color: white;
+            padding: var(--space-md);
+        }
+
+        .social-proof-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--space-md);
+            display: flex;
+            justify-content: space-around;
+            gap: var(--space-md);
+        }
+
+        .social-stat {
+            text-align: center;
+        }
+
+        .social-stat-number {
+            font-size: var(--font-size-2xl);
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .social-stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* ========== PROGRESS BAR ========== */
+        .progress-container {
+            background: white;
+            padding: var(--space-md);
+            border-bottom: 1px solid var(--platinum);
+        }
+
+        .progress-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--space-md);
+        }
+
+        .progress-title {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: var(--space-sm);
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--charcoal);
+        }
+
+        .progress-stats {
+            color: var(--seekapa-forest);
+            font-weight: 700;
+        }
+
+        .progress-bar-wrapper {
+            width: 100%;
+            height: 8px;
+            background: var(--platinum);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: var(--space-sm);
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--seekapa-forest), var(--champagne-gold));
+            width: 91.66%;
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+
+        .progress-milestones {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .milestone {
+            color: var(--slate);
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+
+        .milestone.completed {
+            background: var(--correct-green);
+            color: white;
+        }
+
+        /* ========== MAIN CONTAINER ========== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--space-xl) var(--space-md);
+        }
+
+        /* ========== LESSON HEADER ========== */
+        .lesson-header {
+            text-align: center;
+            margin-bottom: var(--space-xl);
+        }
+
+        .lesson-number {
+            display: inline-block;
+            background: var(--seekapa-forest);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-bottom: var(--space-sm);
+        }
+
+        .lesson-title {
+            font-size: var(--font-size-3xl);
+            margin-bottom: var(--space-sm);
+            color: var(--seekapa-forest);
+        }
+
+        .lesson-subtitle {
+            font-size: var(--font-size-lg);
+            color: var(--slate);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* ========== VIDEO SECTION ========== */
+        .video-section {
+            margin-bottom: var(--space-xl);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* ========== LEARNING OBJECTIVES ========== */
+        .learning-objectives {
+            background: var(--pearl);
+            padding: var(--space-lg);
+            border-radius: 12px;
+            margin-bottom: var(--space-xl);
+            border-left: 5px solid var(--seekapa-forest);
+        }
+
+        .learning-objectives h3 {
+            color: var(--seekapa-forest);
+            font-size: var(--font-size-xl);
+            margin-bottom: var(--space-md);
+        }
+
+        .learning-objectives ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .learning-objectives li {
+            padding: 0.75rem 0;
+            padding-right: var(--space-sm);
+            border-bottom: 1px solid var(--platinum);
+            position: relative;
+        }
+
+        .learning-objectives li:before {
+            content: "✓";
+            position: absolute;
+            right: 0;
+            color: var(--correct-green);
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .learning-objectives li:last-child {
+            border-bottom: none;
+        }
+
+        /* ========== CONTENT SECTIONS ========== */
+        .content-section {
+            margin-bottom: var(--space-xl);
+            padding: var(--space-lg);
+            background: white;
+            border-radius: 12px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .content-section h2 {
+            font-size: var(--font-size-2xl);
+            color: var(--seekapa-forest);
+            margin-bottom: var(--space-md);
+        }
+
+        .content-section h3 {
+            font-size: var(--font-size-xl);
+            color: var(--charcoal);
+            margin-top: var(--space-md);
+            margin-bottom: var(--space-sm);
+        }
+
+        .content-section p {
+            margin-bottom: var(--space-md);
+            line-height: 1.9;
+            color: var(--charcoal);
+        }
+
+        .content-image {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: var(--space-md) 0;
+            box-shadow: var(--shadow-md);
+        }
+
+        /* ========== QUIZ SECTION ========== */
+        .quiz-section {
+            background: linear-gradient(135deg, var(--seekapa-forest), var(--seekapa-emerald));
+            padding: var(--space-lg);
+            border-radius: 12px;
+            margin-bottom: var(--space-xl);
+            color: white;
+        }
+
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-md);
+        }
+
+        .quiz-title {
+            font-size: var(--font-size-xl);
+            color: white;
+        }
+
+        .quiz-xp-reward {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
+
+        .quiz-question {
+            background: rgba(255, 255, 255, 0.1);
+            padding: var(--space-md);
+            border-radius: 8px;
+        }
+
+        .question-text {
+            font-size: var(--font-size-lg);
+            margin-bottom: var(--space-md);
+            font-weight: 600;
+        }
+
+        .quiz-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-sm);
+        }
+
+        .quiz-option {
+            background: rgba(255, 255, 255, 0.15);
+            padding: var(--space-sm);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            border: 2px solid transparent;
+            font-weight: 500;
+        }
+
+        .quiz-option:hover {
+            background: rgba(255, 255, 255, 0.25);
+            border-color: white;
+        }
+
+        .quiz-option.selected {
+            background: var(--champagne-gold);
+            color: var(--charcoal);
+            border-color: white;
+        }
+
+        .quiz-option.correct {
+            background: var(--correct-green);
+            border-color: white;
+        }
+
+        .quiz-option.incorrect {
+            background: var(--incorrect-red);
+            border-color: white;
+        }
+
+        .quiz-feedback {
+            margin-top: var(--space-md);
+            padding: var(--space-sm);
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            font-size: 0.95rem;
+            min-height: 30px;
+        }
+
+        .quiz-submit {
+            margin-top: var(--space-md);
+            background: var(--champagne-gold);
+            color: var(--charcoal);
+            border: none;
+            padding: var(--space-sm) var(--space-lg);
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            font-size: 1rem;
+        }
+
+        .quiz-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* ========== KEY TAKEAWAYS ========== */
+        .key-takeaways {
+            background: var(--pearl);
+            padding: var(--space-lg);
+            border-radius: 12px;
+            margin-bottom: var(--space-xl);
+            border-left: 5px solid var(--champagne-gold);
+        }
+
+        .key-takeaways h3 {
+            color: var(--seekapa-forest);
+            font-size: var(--font-size-xl);
+            margin-bottom: var(--space-md);
+        }
+
+        .key-takeaways ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .key-takeaways li {
+            padding: var(--space-sm);
+            margin-bottom: var(--space-sm);
+            background: white;
+            border-radius: 8px;
+            border-right: 4px solid var(--champagne-gold);
+            position: relative;
+            padding-right: var(--space-md);
+        }
+
+        .key-takeaways li:before {
+            content: "★";
+            position: absolute;
+            right: var(--space-sm);
+            color: var(--champagne-gold);
+            font-size: 1.2rem;
+        }
+
+        /* ========== INTERACTIVE EXERCISE ========== */
+        .interactive-exercise {
+            background: linear-gradient(135deg, var(--burgundy), #A84A4A);
+            padding: var(--space-lg);
+            border-radius: 12px;
+            margin-bottom: var(--space-xl);
+            color: white;
+        }
+
+        .exercise-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-md);
+        }
+
+        .exercise-title {
+            font-size: var(--font-size-xl);
+            color: white;
+        }
+
+        .exercise-actions {
+            display: flex;
+            gap: var(--space-md);
+            margin-top: var(--space-md);
+        }
+
+        .exercise-btn {
+            background: white;
+            color: var(--burgundy);
+            border: none;
+            padding: var(--space-sm) var(--space-md);
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1rem;
+        }
+
+        .exercise-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .exercise-btn.secondary {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid white;
+        }
+
+        .exercise-btn.secondary:hover {
+            background: white;
+            color: var(--burgundy);
+        }
+
+        /* ========== FORM STYLES ========== */
+        .journal-form {
+            background: rgba(255, 255, 255, 0.1);
+            padding: var(--space-md);
+            border-radius: 8px;
+            margin-top: var(--space-md);
+        }
+
+        .journal-form h4 {
+            color: white;
+            margin-bottom: var(--space-md);
+        }
+
+        .form-group {
+            margin-bottom: var(--space-md);
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: white;
+        }
+
+        .form-input, .form-textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 1rem;
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        /* ========== NAVIGATION ========== */
+        .lesson-navigation {
+            display: flex;
+            justify-content: space-between;
+            gap: var(--space-md);
+            margin-top: var(--space-xl);
+        }
+
+        .nav-button {
+            flex: 1;
+            padding: var(--space-md);
+            border: 2px solid var(--seekapa-forest);
+            background: white;
+            color: var(--seekapa-forest);
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            font-size: 1rem;
+            text-align: center;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-button:hover:not(:disabled) {
+            background: var(--seekapa-forest);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .nav-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .nav-button.next {
+            background: var(--seekapa-forest);
+            color: white;
+        }
+
+        /* ========== ACHIEVEMENT MODAL ========== */
+        .achievement-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .achievement-modal.show {
+            display: flex;
+        }
+
+        .achievement-content {
+            background: white;
+            padding: var(--space-xl);
+            border-radius: 16px;
+            text-align: center;
+            max-width: 400px;
+            box-shadow: var(--shadow-hover);
+            animation: slideUp 0.5s ease;
+        }
+
+        .achievement-icon {
+            font-size: 4rem;
+            margin-bottom: var(--space-md);
+        }
+
+        .achievement-title {
+            font-size: var(--font-size-xl);
+            color: var(--seekapa-forest);
+            margin-bottom: 0.5rem;
+        }
+
+        .achievement-description {
+            color: var(--slate);
+            margin-bottom: var(--space-md);
+        }
+
+        .achievement-xp {
+            font-size: var(--font-size-lg);
+            color: var(--xp-blue);
+            font-weight: 700;
+            margin-bottom: var(--space-md);
+        }
+
+        .achievement-close {
+            background: var(--seekapa-forest);
+            color: white;
+            border: none;
+            padding: var(--space-sm) var(--space-lg);
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: all var(--transition-fast);
+        }
+
+        .achievement-close:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ========== FOOTER ========== */
+        .footer {
+            background: var(--charcoal);
+            color: white;
+            padding: var(--space-lg);
+            text-align: center;
+            margin-top: var(--space-2xl);
+        }
+
+        .footer-logo {
+            height: 40px;
+            margin-bottom: var(--space-sm);
+        }
+
+        .footer-tagline {
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+            opacity: 0.9;
+        }
+
+        .footer p {
+            font-size: 0.85rem;
+            opacity: 0.7;
+        }
+
+        /* ========== UTILITY ========== */
+        .hidden {
+            display: none !important;
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 768px) {
+            :root {
+                --font-size-3xl: 2.25rem;
+                --space-xl: 4rem;
+            }
+
+            .header-content {
+                flex-direction: column;
+                gap: var(--space-sm);
+            }
+
+            .social-proof-content {
+                flex-direction: column;
+                gap: var(--space-sm);
+            }
+
+            .quiz-options {
+                grid-template-columns: 1fr;
+            }
+
+            .lesson-navigation {
+                flex-direction: column;
+            }
+
+            .exercise-actions {
+                flex-direction: column;
+            }
+
+            .language-bar {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ========== HEADER WITH GAMIFICATION ========== -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo-container">
+                <img src="images/Seekapa Black Logo.png" alt="Seekapa" class="logo-image">
+                <span class="logo-text">TRADING ACADEMY</span>
+            </div>
+
+            <!-- User Gamification Stats -->
+            <div class="user-stats">
+                <div class="xp-badge">
+                    <span>⚡</span>
+                    <span id="user-xp">0 XP</span>
+                </div>
+                <div class="streak-badge">
+                    <span>🔥</span>
+                    <span id="user-streak">1 Day</span>
+                </div>
+            </div>
+
+            <!-- Language Bar -->
+            <div class="language-bar">
+                <button class="lang-btn active" data-lang="ar" onclick="switchLanguage('ar')">العربية</button>
+                <button class="lang-btn" data-lang="en" onclick="switchLanguage('en')">English</button>
+                <button class="lang-btn" data-lang="es" onclick="switchLanguage('es')">Español</button>
+                <button class="lang-btn" data-lang="pt" onclick="switchLanguage('pt')">Português</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ========== SOCIAL PROOF BANNER ========== -->
+    <div class="social-proof">
+        <div class="social-proof-content">
+            <div class="social-stat">
+                <div class="social-stat-number" id="students-online">847</div>
+                <div class="social-stat-label" id="online-label">متداولون في الأكاديمية</div>
+            </div>
+            <div class="social-stat">
+                <div class="social-stat-number">12,450</div>
+                <div class="social-stat-label" id="enrolled-label">إجمالي المتعلمين</div>
+            </div>
+            <div class="social-stat">
+                <div class="social-stat-number">94%</div>
+                <div class="social-stat-label" id="helpful-label">يوجدون الدروس مفيدة</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== PROGRESS BAR ========== -->
+    <div class="progress-container">
+        <div class="progress-content">
+            <div class="progress-title">
+                <span id="progress-title">التقدم: الدرس 11 من 12</span>
+                <span class="progress-stats">91.66%</span>
+            </div>
+            <div class="progress-bar-wrapper">
+                <div class="progress-bar-fill" id="progress-fill"></div>
+            </div>
+            <div class="progress-milestones">
+                <span class="milestone completed">L1</span>
+                <span class="milestone completed">L3</span>
+                <span class="milestone completed">L6</span>
+                <span class="milestone completed">L9</span>
+                <span class="milestone">L11</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== MAIN CONTENT ========== -->
+    <main class="container">
+        <!-- Lesson Header (Arabic) -->
+        <section class="lesson-header" lang="ar">
+            <span class="lesson-number">الدرس 11</span>
+            <h1 class="lesson-title">بناء خطتك التجارية</h1>
+            <p class="lesson-subtitle">إنشاء خطة تجارية مخصصة لتحقيق النجاح المستمر</p>
+        </section>
+
+        <!-- Lesson Header (English) -->
+        <section class="lesson-header hidden" lang="en">
+            <span class="lesson-number">Lesson 11</span>
+            <h1 class="lesson-title">Developing Your Trading Plan</h1>
+            <p class="lesson-subtitle">Create a personalized trading blueprint for consistent success</p>
+        </section>
+
+        <!-- Lesson Header (Spanish) -->
+        <section class="lesson-header hidden" lang="es">
+            <span class="lesson-number">Lección 11</span>
+            <h1 class="lesson-title">Desarrollar tu Plan de Trading</h1>
+            <p class="lesson-subtitle">Crea un plan comercial personalizado para el éxito consistente</p>
+        </section>
+
+        <!-- Lesson Header (Portuguese) -->
+        <section class="lesson-header hidden" lang="pt">
+            <span class="lesson-number">Lição 11</span>
+            <h1 class="lesson-title">Desenvolvendo Seu Plano de Trading</h1>
+            <p class="lesson-subtitle">Crie um plano de negociação personalizado para o sucesso consistente</p>
+        </section>
+
+        <!-- ========== VIDEO SECTION ========== -->
+        <section class="video-section">
+            <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 10px; background: linear-gradient(135deg, #1a2332, #0A1929);">
+                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; color: white; padding: 3rem;">
+                    <div style="width: 80px; height: 80px; margin: 0 auto 1.5rem; background: var(--seekapa-forest); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                            <path d="M16 12L36 24L16 36V12Z" fill="white"/>
+                        </svg>
+                    </div>
+                    <h3 id="video-title" lang="ar">فيديو الدرس قيد الإعداد</h3>
+                    <p style="margin-top: 0.5rem; opacity: 0.8;">المدة: دقيقتان | الجودة: 1080p</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== LEARNING OBJECTIVES ========== -->
+        <section class="learning-objectives" lang="ar">
+            <h3>أهداف التعلم</h3>
+            <ul>
+                <li>إنشاء خطة تجارية مخصصة تحدد نهجك</li>
+                <li>فهم كيفية تحديد أهداف تجارية واقعية</li>
+                <li>تعلم توثيق قواعد التداول ومعاملات المخاطر</li>
+                <li>اكتشاف كيفية مراجعة وتحسين خطتك بمرور الوقت</li>
+            </ul>
+        </section>
+
+        <section class="learning-objectives hidden" lang="en">
+            <h3>Learning Objectives</h3>
+            <ul>
+                <li>Create a personalized trading plan that defines your approach</li>
+                <li>Understand how to set realistic trading goals</li>
+                <li>Learn to document your trading rules and risk parameters</li>
+                <li>Discover how to review and refine your plan over time</li>
+            </ul>
+        </section>
+
+        <section class="learning-objectives hidden" lang="es">
+            <h3>Objetivos de Aprendizaje</h3>
+            <ul>
+                <li>Crear un plan de trading personalizado que defina tu enfoque</li>
+                <li>Entender cómo establecer objetivos de trading realistas</li>
+                <li>Aprender a documentar tus reglas de trading y parámetros de riesgo</li>
+                <li>Descubrir cómo revisar y refinar tu plan con el tiempo</li>
+            </ul>
+        </section>
+
+        <section class="learning-objectives hidden" lang="pt">
+            <h3>Objetivos de Aprendizagem</h3>
+            <ul>
+                <li>Criar um plano de trading personalizado que defina sua abordagem</li>
+                <li>Entender como estabelecer metas de trading realistas</li>
+                <li>Aprender a documentar suas regras de trading e parâmetros de risco</li>
+                <li>Descobrir como revisar e refinar seu plano ao longo do tempo</li>
+            </ul>
+        </section>
+
+        <!-- ========== CONTENT SECTION 1 ========== -->
+        <section class="content-section" lang="ar">
+            <h2>مكونات خطتك التجارية</h2>
+            <h3>بناء الأساس الصحيح</h3>
+            <p>خطتك التجارية هي دستورك في السوق - بدونها، أنت تقامر وليس متداول. كل متداول ناجح له خطة مكتوبة يتبعها بحذافيره. تخدم خطتك كخريطة طريق تزيل العاطفة من القرارات وتوفر إرشادات واضحة لكل جانب من جوانب التداول من اختيار السوق إلى إدارة المخاطر.</p>
+            <p>تحتاج خطتك إلى ستة مكونات أساسية: أهداف التداول، وتحمل المخاطر، والأسواق المفضلة، وقواعد الدخول والخروج، وصيغة تحديد حجم المركز، وجدول المراجعة. يجب أن تكون أهداف التداول محددة وقابلة للقياس وقابلة للتحقيق وذات صلة ومقيدة بالوقت (SMART).</p>
+            <img src="images/11_01_trading_plan_blueprint.png" alt="خطة التداول" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="en">
+            <h2>Trading Plan Components & Structure</h2>
+            <h3>Building the Right Foundation</h3>
+            <p>Your plan needs six essential components: trading goals, risk tolerance, preferred markets, entry and exit rules, position sizing formula, and review schedule. Trading goals should be specific, measurable, achievable, relevant, and time-bound (SMART). Instead of vague goals like "make money," set concrete targets like "achieve 15% annual return with maximum 20% drawdown." Risk tolerance defines how much you're willing to risk per trade and overall. Market selection specifies which instruments you'll trade based on capital, schedule, and expertise.</p>
+            <img src="images/11_01_trading_plan_blueprint.png" alt="Trading Plan" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="es">
+            <h2>Componentes de tu Plan de Trading</h2>
+            <h3>Construyendo los Cimientos Correctos</h3>
+            <p>Tu plan necesita seis componentes esenciales: objetivos de trading, tolerancia al riesgo, mercados preferidos, reglas de entrada y salida, fórmula de dimensionamiento de posición y cronograma de revisión. Los objetivos de trading deben ser específicos, medibles, alcanzables, relevantes y limitados en el tiempo (SMART). En lugar de objetivos vagos como "ganar dinero", establece objetivos concretos como "lograr un retorno anual del 15% con una reducción máxima del 20%".</p>
+            <img src="images/11_01_trading_plan_blueprint.png" alt="Plan de Trading" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="pt">
+            <h2>Componentes do Seu Plano de Trading</h2>
+            <h3>Construindo a Base Correta</h3>
+            <p>Seu plano precisa de seis componentes essenciais: metas de trading, tolerância ao risco, mercados preferidos, regras de entrada e saída, fórmula de dimensionamento de posição e cronograma de revisão. As metas de trading devem ser específicas, mensuráveis, alcançáveis, relevantes e limitadas pelo tempo (SMART). Em vez de metas vagas como "ganhar dinheiro", estabeleça objetivos concretos como "alcançar retorno anual de 15% com redução máxima de 20%".</p>
+            <img src="images/11_01_trading_plan_blueprint.png" alt="Plano de Trading" class="content-image">
+        </section>
+
+        <!-- ========== CONTENT SECTION 2 ========== -->
+        <section class="content-section" lang="ar">
+            <h2>أهداف SMART للتداول</h2>
+            <h3>تحديد أهداف واقعية وقابلة للقياس</h3>
+            <p>الهدف المبهم مثل "أريد أن أربح المزيد" لن يساعدك على النجاح. بدلاً من ذلك، استخدم إطار عمل SMART: محدد بوضوح، قابل للقياس بأرقام، قابل للتحقيق بناءً على حسابك وخبرتك، ذو صلة بأسلوبك التجاري، ومحدود بإطار زمني واضح. على سبيل المثال: "سأحقق متوسط ربح شهري 2% بحد أقصى 15% تراجع في الأشهر الستة المقبلة باستخدام استراتيجية اختراق مستويات الدعم والمقاومة."</p>
+            <p>أهداف SMART تجعل التقدم قابلاً للقياس وتساعدك على البقاء متحفزاً. كما أنها تمكنك من مراجعة نتائجك بموضوعية وتعديل نهجك عند الحاجة.</p>
+            <img src="images/11_02_smart_goals.png" alt="أهداف SMART" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="en">
+            <h2>SMART Goals for Trading</h2>
+            <h3>Setting Realistic and Measurable Targets</h3>
+            <p>A vague goal like "I want to make more money" won't drive success. Instead, use the SMART framework: Specific - clearly defined, Measurable - quantified in numbers, Achievable - based on your account and experience, Relevant - aligned with your trading style, and Time-bound - with clear timeframes. For example: "I will achieve an average monthly return of 2% with maximum 15% drawdown in the next six months using a breakout trading strategy on support/resistance levels."</p>
+            <p>SMART goals make progress measurable and keep you motivated. They also enable you to objectively review your results and adjust your approach when needed.</p>
+            <img src="images/11_02_smart_goals.png" alt="SMART Goals" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="es">
+            <h2>Objetivos SMART para Trading</h2>
+            <h3>Establecer Metas Realistas y Medibles</h3>
+            <p>Un objetivo vago como "quiero ganar más dinero" no impulsará el éxito. En su lugar, usa el marco SMART: Específico, Medible con números, Alcanzable basado en tu cuenta, Relevante alineado con tu estilo, y Limitado en Tiempo. Por ejemplo: "Lograré un retorno mensual promedio del 2% con reducción máxima del 15% en los próximos seis meses usando una estrategia de ruptura en niveles de soporte/resistencia."</p>
+            <img src="images/11_02_smart_goals.png" alt="Objetivos SMART" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="pt">
+            <h2>Metas SMART para Trading</h2>
+            <h3>Estabelecendo Metas Realistas e Mensuráveis</h3>
+            <p>Uma meta vaga como "quero ganhar mais dinheiro" não impulsionará o sucesso. Em vez disso, use o framework SMART: Específico, Mensurável em números, Alcançável com base em sua conta, Relevante alinhado com seu estilo, e com prazo definido. Por exemplo: "Vou alcançar um retorno mensal médio de 2% com redução máxima de 15% nos próximos seis meses usando uma estratégia de ruptura em níveis de suporte/resistência."</p>
+            <img src="images/11_02_smart_goals.png" alt="Metas SMART" class="content-image">
+        </section>
+
+        <!-- ========== CONTENT SECTION 3 ========== -->
+        <section class="content-section" lang="ar">
+            <h2>قواعد الدخول والخروج</h2>
+            <h3>اتخاذ القرارات بدون عاطفة</h3>
+            <p>يجب أن تكون معايير الدخول والخروج محددة وموضوعية لاستبعاد التخمين. عرّف ظروف الدخول بالضبط مثل: "شراء عندما يخترق السعر مستوى المقاومة مع مؤشر RSI أقل من 70 والحجم 50% أعلى من المتوسط." قواعد الخروج يجب أن تتضمن أهداف الربح والتوقف عن الخسارة. على سبيل المثال: "الخروج عندما يصل السعر إلى هدف 2:1 أو ينخفض تحت أدنى سعر اليوم الأول."</p>
+            <p>وجود قواعد محددة مسبقاً يمنع القرارات العاطفية أثناء تقلبات السوق. وثق سيناريوهات متعددة بما في ذلك الأسواق الصاعدة والهابطة والفترات عالية التقلب.</p>
+            <img src="images/11_03_entry_exit_rules.png" alt="قواعد الدخول والخروج" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="en">
+            <h2>Defining Entry and Exit Rules</h2>
+            <h3>Making Decisions Without Emotion</h3>
+            <p>Entry and exit criteria must be specific and objective to eliminate guesswork. Define exact conditions for entries such as "Buy when price breaks above resistance with RSI below 70 and volume 50% above average." Exit rules should include both profit targets and stop losses. For example: "Exit when price hits 2:1 reward target OR breaks below entry day low." Having predetermined rules prevents emotional decisions during market fluctuations. Document multiple scenarios including trending markets, ranging markets, and high volatility periods.</p>
+            <img src="images/11_03_entry_exit_rules.png" alt="Entry and Exit Rules" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="es">
+            <h2>Definir Reglas de Entrada y Salida</h2>
+            <h3>Tomar Decisiones sin Emoción</h3>
+            <p>Los criterios de entrada y salida deben ser específicos y objetivos para eliminar las conjeturas. Define condiciones exactas para entradas como "Comprar cuando el precio rompe la resistencia con RSI por debajo de 70 y volumen 50% por encima del promedio." Las reglas de salida deben incluir objetivos de ganancias y límites de pérdida. Por ejemplo: "Salir cuando el precio alcanza el objetivo de recompensa 2:1 O cae por debajo del mínimo del primer día."</p>
+            <img src="images/11_03_entry_exit_rules.png" alt="Reglas de Entrada/Salida" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="pt">
+            <h2>Definindo Regras de Entrada e Saída</h2>
+            <h3>Tomando Decisões sem Emoção</h3>
+            <p>Os critérios de entrada e saída devem ser específicos e objetivos para eliminar suposições. Defina condições exatas para entradas como "Compre quando o preço rompe a resistência com RSI abaixo de 70 e volume 50% acima da média." As regras de saída devem incluir metas de lucro e limites de perda. Por exemplo: "Saia quando o preço atinge o alvo de recompensa 2:1 OU cai abaixo do mínimo do primeiro dia."</p>
+            <img src="images/11_03_entry_exit_rules.png" alt="Regras de Entrada/Saída" class="content-image">
+        </section>
+
+        <!-- ========== CONTENT SECTION 4 ========== -->
+        <section class="content-section" lang="ar">
+            <h2>الاختبار والتحسين المستمر</h2>
+            <h3>اختبار الخطة قبل المخاطرة برأس المال الحقيقي</h3>
+            <p>قبل المخاطرة برأس المال الحقيقي، اختبر خطتك بدقة باستخدام البيانات التاريخية والتداول الورقي. يطبق الاختبار الخلفي قواعدك على الأسواق السابقة لتقييم كيفية أداء الاستراتيجية. يكشف هذا نقاط القوة والضعف والمشاكل المحتملة. يسمح التداول الورقي باختبار ظروف السوق الحقيقية بدون مخاطر رأس المال.</p>
+            <p>مراجعة خطتك شهرياً لتقييم الأداء وتحديد مجالات التحسين. تتطور الأسواق، وخطتك يجب أن تتكيف معها - لكن لا تغيرها بعد كل صفقة خاسرة. امنح الاستراتيجيات وقتاً كافياً للعمل من خلال ظروف سوق مختلفة.</p>
+            <img src="images/11_04_backtesting_software.png" alt="اختبار الخطة" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="en">
+            <h2>Testing and Continuous Improvement</h2>
+            <h3>Test Your Plan Before Risking Real Capital</h3>
+            <p>Before risking real money, test your plan thoroughly using historical data and paper trading. Backtesting applies your rules to past markets to evaluate how the strategy would have performed. This reveals strengths, weaknesses, and potential issues. Paper trading allows testing in real-time market conditions without capital risk. This step identifies execution challenges and psychological factors that backtesting might miss. Test across different market conditions and timeframes to ensure robustness.</p>
+            <p>Review your plan monthly to assess performance and identify areas for improvement. Markets evolve, and your plan should adapt accordingly - but don't change it after every losing trade. Give strategies adequate time to work through various market conditions.</p>
+            <img src="images/11_04_backtesting_software.png" alt="Testing Plan" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="es">
+            <h2>Pruebas y Mejora Continua</h2>
+            <h3>Prueba tu Plan Antes de Arriesgar Capital Real</h3>
+            <p>Antes de arriesgar dinero real, prueba tu plan a fondo usando datos históricos y trading en papel. El backtesting aplica tus reglas a mercados pasados para evaluar cómo habría funcionado la estrategia. Esto revela fortalezas, debilidades y posibles problemas. El trading en papel permite probar en condiciones reales del mercado sin riesgo de capital. Este paso identifica desafíos de ejecución y factores psicológicos que el backtesting podría perder.</p>
+            <img src="images/11_04_backtesting_software.png" alt="Pruebas Plan" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="pt">
+            <h2>Testes e Melhoria Contínua</h2>
+            <h3>Teste seu Plano Antes de Arriscar Capital Real</h3>
+            <p>Antes de arriscar dinheiro real, teste seu plano completamente usando dados históricos e trading em papel. O backtesting aplica suas regras a mercados passados para avaliar como a estratégia teria funcionado. Isso revela pontos fortes, fracos e possíveis problemas. O trading em papel permite testar em condições de mercado em tempo real sem risco de capital. Esta etapa identifica desafios de execução e fatores psicológicos que o backtesting pode perder.</p>
+            <img src="images/11_04_backtesting_software.png" alt="Teste Plano" class="content-image">
+        </section>
+
+        <!-- ========== QUIZ SECTION ========== -->
+        <section class="quiz-section" id="quiz1">
+            <!-- Arabic Quiz -->
+            <div lang="ar">
+                <div class="quiz-header">
+                    <h3 class="quiz-title">اختبر معلوماتك</h3>
+                    <div class="quiz-xp-reward">+50 XP</div>
+                </div>
+                <div class="quiz-question">
+                    <p class="question-text">ما هو أول خطوة في بناء خطة تجارية ناجحة؟</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="selectQuizOption(this, 'quiz1')">
+                            البدء في التداول مباشرة
+                        </div>
+                        <div class="quiz-option" data-correct="true" onclick="selectQuizOption(this, 'quiz1')">
+                            تحديد أهداف SMART واضحة
+                        </div>
+                        <div class="quiz-option" onclick="selectQuizOption(this, 'quiz1')">
+                            نسخ استراتيجيات المتداولين الآخرين
+                        </div>
+                        <div class="quiz-option" onclick="selectQuizOption(this, 'quiz1')">
+                            الاستثمار في البرامج المتقدمة
+                        </div>
+                    </div>
+                    <div class="quiz-feedback" id="quiz1-feedback"></div>
+                    <button class="quiz-submit" onclick="submitQuiz('quiz1')" id="quiz1-submit">إرسال الإجابة</button>
+                </div>
+            </div>
+
+            <!-- English Quiz -->
+            <div class="hidden" lang="en">
+                <div class="quiz-header">
+                    <h3 class="quiz-title">Knowledge Check</h3>
+                    <div class="quiz-xp-reward">+50 XP</div>
+                </div>
+                <div class="quiz-question">
+                    <p class="question-text">What is the first step in building a successful trading plan?</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="selectQuizOption(this, 'quiz1')">
+                            Start trading immediately
+                        </div>
+                        <div class="quiz-option" data-correct="true" onclick="selectQuizOption(this, 'quiz1')">
+                            Set clear SMART goals
+                        </div>
+                        <div class="quiz-option" onclick="selectQuizOption(this, 'quiz1')">
+                            Copy other traders' strategies
+                        </div>
+                        <div class="quiz-option" onclick="selectQuizOption(this, 'quiz1')">
+                            Invest in advanced software
+                        </div>
+                    </div>
+                    <div class="quiz-feedback" id="quiz1-feedback-en"></div>
+                    <button class="quiz-submit" onclick="submitQuiz('quiz1')" id="quiz1-submit-en">Submit Answer</button>
+                </div>
+            </div>
+
+            <!-- Spanish Quiz -->
+            <div class="hidden" lang="es">
+                <div class="quiz-header">
+                    <h3 class="quiz-title">Prueba de Conocimiento</h3>
+                    <div class="quiz-xp-reward">+50 XP</div>
+                </div>
+                <div class="quiz-question">
+                    <p class="question-text">¿Cuál es el primer paso para construir un plan de trading exitoso?</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="selectQuizOption(this, 'quiz1')">
+                            Comenzar a operar inmediatamente
+                        </div>
+                        <div class="quiz-option" data-correct="true" onclick="selectQuizOption(this, 'quiz1')">
+                            Establecer objetivos SMART claros
+                        </div>
+                        <div class="quiz-option" onclick="selectQuizOption(this, 'quiz1')">
+                            Copiar estrategias de otros traders
+                        </div>
+                        <div class="quiz-option" onclick="selectQuizOption(this, 'quiz1')">
+                            Invertir en software avanzado
+                        </div>
+                    </div>
+                    <div class="quiz-feedback" id="quiz1-feedback-es"></div>
+                    <button class="quiz-submit" onclick="submitQuiz('quiz1')" id="quiz1-submit-es">Enviar Respuesta</button>
+                </div>
+            </div>
+
+            <!-- Portuguese Quiz -->
+            <div class="hidden" lang="pt">
+                <div class="quiz-header">
+                    <h3 class="quiz-title">Verificação de Conhecimento</h3>
+                    <div class="quiz-xp-reward">+50 XP</div>
+                </div>
+                <div class="quiz-question">
+                    <p class="question-text">Qual é o primeiro passo para construir um plano de trading bem-sucedido?</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="selectQuizOption(this, 'quiz1')">
+                            Começar a negociar imediatamente
+                        </div>
+                        <div class="quiz-option" data-correct="true" onclick="selectQuizOption(this, 'quiz1')">
+                            Definir metas SMART claras
+                        </div>
+                        <div class="quiz-option" onclick="selectQuizOption(this, 'quiz1')">
+                            Copiar estratégias de outros traders
+                        </div>
+                        <div class="quiz-option" onclick="selectQuizOption(this, 'quiz1')">
+                            Investir em software avançado
+                        </div>
+                    </div>
+                    <div class="quiz-feedback" id="quiz1-feedback-pt"></div>
+                    <button class="quiz-submit" onclick="submitQuiz('quiz1')" id="quiz1-submit-pt">Enviar Resposta</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== KEY TAKEAWAYS ========== -->
+        <section class="key-takeaways" lang="ar">
+            <h3>النقاط الرئيسية</h3>
+            <ul>
+                <li>خطة تجارية مكتوبة توفر الهيكل وتزيل القرارات العاطفية</li>
+                <li>أهداف SMART توفر أهدافاً واضحة لقياس الأداء عليها</li>
+                <li>قواعد دخول وخروج محددة تستبعد التخمين أثناء التداول</li>
+                <li>الاختبار الخلفي والتداول الورقي يكشفان نقاط القوة والضعف</li>
+                <li>المراجعة المنتظمة والتحسين يحسنان الأداء بمرور الوقت</li>
+            </ul>
+        </section>
+
+        <section class="key-takeaways hidden" lang="en">
+            <h3>Key Takeaways</h3>
+            <ul>
+                <li>A written trading plan provides structure and removes emotional decisions</li>
+                <li>SMART goals give clear targets to measure performance against</li>
+                <li>Specific entry and exit rules eliminate guesswork during trading</li>
+                <li>Backtesting and paper trading reveal strategy strengths and weaknesses</li>
+                <li>Regular review and refinement improve performance over time</li>
+            </ul>
+        </section>
+
+        <section class="key-takeaways hidden" lang="es">
+            <h3>Puntos Clave</h3>
+            <ul>
+                <li>Un plan de trading escrito proporciona estructura y elimina decisiones emocionales</li>
+                <li>Los objetivos SMART ofrecen metas claras para medir el desempeño</li>
+                <li>Las reglas de entrada y salida específicas eliminan suposiciones</li>
+                <li>El backtesting y el trading en papel revelan fortalezas y debilidades</li>
+                <li>La revisión y refinamiento regular mejoran el desempeño con el tiempo</li>
+            </ul>
+        </section>
+
+        <section class="key-takeaways hidden" lang="pt">
+            <h3>Pontos-Chave</h3>
+            <ul>
+                <li>Um plano de trading escrito fornece estrutura e remove decisões emocionais</li>
+                <li>Metas SMART fornecem alvos claros para medir o desempenho</li>
+                <li>Regras de entrada e saída específicas eliminam suposições</li>
+                <li>Backtesting e trading em papel revelam pontos fortes e fracos</li>
+                <li>Revisão e refinamento regulares melhoram o desempenho ao longo do tempo</li>
+            </ul>
+        </section>
+
+        <!-- ========== INTERACTIVE EXERCISE ========== -->
+        <section class="interactive-exercise" lang="ar">
+            <div class="exercise-header">
+                <h3 class="exercise-title">التمرين التفاعلي</h3>
+                <div class="quiz-xp-reward">+100 XP</div>
+            </div>
+            <p>أنشئ خطتك التجارية الكاملة هذا الأسبوع تتضمن:</p>
+            <ol style="margin: var(--space-md) 0; padding-right: 2rem; color: white;">
+                <li style="margin: 0.75rem 0;">أهدافك التجارية المحددة للستة أشهر القادمة</li>
+                <li style="margin: 0.75rem 0;">معايير دخول وخروج دقيقة لاستراتيجيتك</li>
+                <li style="margin: 0.75rem 0;">صيغة تحديد حجم المركز بناءً على حسابك</li>
+                <li style="margin: 0.75rem 0;">روتين يومي/أسبوعي لتحليل السوق</li>
+                <li style="margin: 0.75rem 0;">جدول مراجعة شهري عملية</li>
+            </ol>
+
+            <div class="exercise-actions">
+                <button class="exercise-btn" onclick="showJournalForm()">
+                    <span>📋</span>
+                    <span>ابدأ بناء الخطة</span>
+                </button>
+                <button class="exercise-btn secondary" onclick="downloadTemplate()">
+                    <span>📥</span>
+                    <span>تنزيل نموذج</span>
+                </button>
+            </div>
+
+            <!-- Trading Plan Form -->
+            <div class="journal-form hidden" id="journal-form">
+                <h4>خطتك التجارية</h4>
+                <div class="form-group">
+                    <label class="form-label">الهدف الشهري (%):</label>
+                    <input type="number" class="form-input" placeholder="مثال: 2" id="monthly-goal">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">أقصى تراجع مقبول (%):</label>
+                    <input type="number" class="form-input" placeholder="مثال: 15" id="max-drawdown">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">الأسواق المفضلة:</label>
+                    <textarea class="form-textarea" id="markets-input" placeholder="EUR/USD, GBP/USD، إلخ"></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">قواعد الدخول:</label>
+                    <textarea class="form-textarea" id="entry-rules" placeholder="حدد معايير الدخول بدقة"></textarea>
+                </div>
+                <button class="exercise-btn" onclick="savePlanEntry()">
+                    <span>💾</span>
+                    <span>حفظ الخطة</span>
+                </button>
+            </div>
+        </section>
+
+        <section class="interactive-exercise hidden" lang="en">
+            <div class="exercise-header">
+                <h3 class="exercise-title">Interactive Exercise</h3>
+                <div class="quiz-xp-reward">+100 XP</div>
+            </div>
+            <p>Create your complete trading plan this week including:</p>
+            <ol style="margin: var(--space-md) 0; padding-left: 2rem; color: white;">
+                <li style="margin: 0.75rem 0;">Your specific trading goals for the next 6 months</li>
+                <li style="margin: 0.75rem 0;">Exact entry and exit criteria for your chosen strategy</li>
+                <li style="margin: 0.75rem 0;">Position sizing formula based on your account size and risk tolerance</li>
+                <li style="margin: 0.75rem 0;">Daily/weekly routines for market analysis and trade review</li>
+                <li style="margin: 0.75rem 0;">Monthly review schedule and improvement process</li>
+            </ol>
+
+            <div class="exercise-actions">
+                <button class="exercise-btn" onclick="showJournalForm()">
+                    <span>📋</span>
+                    <span>Start Building Plan</span>
+                </button>
+                <button class="exercise-btn secondary" onclick="downloadTemplate()">
+                    <span>📥</span>
+                    <span>Download Template</span>
+                </button>
+            </div>
+        </section>
+
+        <section class="interactive-exercise hidden" lang="es">
+            <div class="exercise-header">
+                <h3 class="exercise-title">Ejercicio Interactivo</h3>
+                <div class="quiz-xp-reward">+100 XP</div>
+            </div>
+            <p>Crea tu plan de trading completo esta semana que incluya:</p>
+            <ol style="margin: var(--space-md) 0; padding-left: 2rem; color: white;">
+                <li style="margin: 0.75rem 0;">Tus objetivos específicos de trading para los próximos 6 meses</li>
+                <li style="margin: 0.75rem 0;">Criterios de entrada y salida exactos para tu estrategia</li>
+                <li style="margin: 0.75rem 0;">Fórmula de dimensionamiento de posición basada en tu cuenta</li>
+                <li style="margin: 0.75rem 0;">Rutinas diarias/semanales para análisis e revisión</li>
+                <li style="margin: 0.75rem 0;">Cronograma de revisión mensual y proceso de mejora</li>
+            </ol>
+
+            <div class="exercise-actions">
+                <button class="exercise-btn" onclick="showJournalForm()">
+                    <span>📋</span>
+                    <span>Comenzar Construcción</span>
+                </button>
+                <button class="exercise-btn secondary" onclick="downloadTemplate()">
+                    <span>📥</span>
+                    <span>Descargar Plantilla</span>
+                </button>
+            </div>
+        </section>
+
+        <section class="interactive-exercise hidden" lang="pt">
+            <div class="exercise-header">
+                <h3 class="exercise-title">Exercício Interativo</h3>
+                <div class="quiz-xp-reward">+100 XP</div>
+            </div>
+            <p>Crie seu plano de trading completo esta semana, incluindo:</p>
+            <ol style="margin: var(--space-md) 0; padding-left: 2rem; color: white;">
+                <li style="margin: 0.75rem 0;">Suas metas específicas de trading para os próximos 6 meses</li>
+                <li style="margin: 0.75rem 0;">Critérios exatos de entrada e saída para sua estratégia</li>
+                <li style="margin: 0.75rem 0;">Fórmula de dimensionamento de posição baseada em sua conta</li>
+                <li style="margin: 0.75rem 0;">Rotinas diárias/semanais para análise de mercado</li>
+                <li style="margin: 0.75rem 0;">Cronograma de revisão mensal e processo de melhoria</li>
+            </ol>
+
+            <div class="exercise-actions">
+                <button class="exercise-btn" onclick="showJournalForm()">
+                    <span>📋</span>
+                    <span>Começar Construção</span>
+                </button>
+                <button class="exercise-btn secondary" onclick="downloadTemplate()">
+                    <span>📥</span>
+                    <span>Baixar Modelo</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- ========== NAVIGATION ========== -->
+        <nav class="lesson-navigation">
+            <a href="lesson-10-interactive.html" class="nav-button prev">
+                <span lang="ar">← الدرس السابق</span>
+                <span lang="en" class="hidden">← Previous Lesson</span>
+                <span lang="es" class="hidden">← Lección Anterior</span>
+                <span lang="pt" class="hidden">← Lição Anterior</span>
+            </a>
+            <a href="lesson-12-interactive.html" class="nav-button next" onclick="completeLesson()">
+                <span lang="ar">الدرس التالي →</span>
+                <span lang="en" class="hidden">Next Lesson →</span>
+                <span lang="es" class="hidden">Siguiente Lección →</span>
+                <span lang="pt" class="hidden">Próxima Lição →</span>
+            </a>
+        </nav>
+    </main>
+
+    <!-- ========== ACHIEVEMENT MODAL ========== -->
+    <div class="achievement-modal" id="achievement-modal">
+        <div class="achievement-content">
+            <div class="achievement-icon">🏆</div>
+            <h2 class="achievement-title" id="achievement-title">Achievement Unlocked!</h2>
+            <p class="achievement-description" id="achievement-desc">Lesson 11 Complete</p>
+            <div class="achievement-xp" id="achievement-xp">+100 XP</div>
+            <button class="achievement-close" onclick="closeAchievement()">Continue Learning</button>
+        </div>
+    </div>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="footer">
+        <img src="images/Seekapa Black Logo.png" alt="Seekapa" class="footer-logo">
+        <p class="footer-tagline">Seekapa Your Gateway To Advanced Trading!</p>
+        <p>&copy; 2025 Seekapa Trading Academy. All rights reserved.</p>
+    </footer>
+
+    <!-- ========== INTERACTIVE JAVASCRIPT ========== -->
+    <script>
+        // ========== GLOBAL VARIABLES ==========
+        let currentLanguage = localStorage.getItem('preferred_language') || 'ar';
+        let totalXP = parseInt(localStorage.getItem('total_xp') || '0');
+        let streak = parseInt(localStorage.getItem('user_streak') || '1');
+        let completedLessons = JSON.parse(localStorage.getItem('completed_lessons') || '[]');
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            switchLanguage(currentLanguage);
+            updateStats();
+        });
+
+        // ========== LANGUAGE SWITCHING ==========
+        function switchLanguage(lang) {
+            currentLanguage = lang;
+            document.documentElement.lang = lang;
+            document.documentElement.dir = (lang === 'ar') ? 'rtl' : 'ltr';
+            localStorage.setItem('preferred_language', lang);
+
+            // Update language buttons
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`[data-lang="${lang}"]`).classList.add('active');
+
+            // Show/hide content sections
+            document.querySelectorAll('[lang]').forEach(section => {
+                section.classList.add('hidden');
+            });
+            document.querySelectorAll(`[lang="${lang}"]`).forEach(section => {
+                section.classList.remove('hidden');
+            });
+        }
+
+        // ========== XP & GAMIFICATION SYSTEM ==========
+        function updateStats() {
+            document.getElementById('user-xp').textContent = totalXP + ' XP';
+            document.getElementById('user-streak').textContent = streak + ' Days';
+        }
+
+        function awardXP(amount, reason) {
+            totalXP += amount;
+            localStorage.setItem('total_xp', totalXP);
+            updateStats();
+            showXPNotification(amount, reason);
+        }
+
+        function showXPNotification(amount, reason) {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                background: var(--xp-blue);
+                color: white;
+                padding: 1rem 2rem;
+                border-radius: 8px;
+                font-weight: 700;
+                z-index: 999;
+                animation: slideUp 0.5s ease;
+            `;
+            notification.textContent = `+${amount} XP - ${reason}`;
+            document.body.appendChild(notification);
+            setTimeout(() => notification.remove(), 3000);
+        }
+
+        // ========== QUIZ SYSTEM ==========
+        function selectQuizOption(element, quizId) {
+            const options = element.parentElement.querySelectorAll('.quiz-option');
+            options.forEach(opt => opt.classList.remove('selected'));
+            element.classList.add('selected');
+        }
+
+        function submitQuiz(quizId) {
+            const quiz = document.getElementById(quizId);
+            const selected = quiz.querySelector('.quiz-option.selected');
+            const correct = quiz.querySelector('[data-correct="true"]');
+            const feedback = document.getElementById(quizId + '-feedback') || document.getElementById(quizId + '-feedback-en') || document.getElementById(quizId + '-feedback-es') || document.getElementById(quizId + '-feedback-pt');
+
+            if (!selected) {
+                feedback.textContent = currentLanguage === 'ar' ? 'الرجاء اختيار إجابة' : 'Please select an answer';
+                return;
+            }
+
+            if (selected === correct) {
+                selected.classList.add('correct');
+                feedback.textContent = currentLanguage === 'ar' ? '✓ إجابة صحيحة! رائع!' : '✓ Correct! Great job!';
+                awardXP(50, currentLanguage === 'ar' ? 'اختبار صحيح' : 'Quiz Correct');
+                document.getElementById(quizId + '-submit').disabled = true;
+            } else {
+                selected.classList.add('incorrect');
+                correct.classList.add('correct');
+                feedback.textContent = currentLanguage === 'ar' ? '✗ الإجابة غير صحيحة. الإجابة الصحيحة مظللة.' : '✗ Incorrect. The correct answer is highlighted.';
+            }
+        }
+
+        // ========== EXERCISE FUNCTIONS ==========
+        function showJournalForm() {
+            const form = document.getElementById('journal-form');
+            form.classList.toggle('hidden');
+            if (!form.classList.contains('hidden')) {
+                form.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        function savePlanEntry() {
+            const goal = document.getElementById('monthly-goal')?.value;
+            const drawdown = document.getElementById('max-drawdown')?.value;
+            const markets = document.getElementById('markets-input')?.value;
+            const entry = document.getElementById('entry-rules')?.value;
+
+            if (goal && drawdown && markets && entry) {
+                alert(currentLanguage === 'ar' ? 'تم حفظ خطتك بنجاح!' : 'Your plan has been saved!');
+                awardXP(100, currentLanguage === 'ar' ? 'تمرين مكتمل' : 'Exercise Completed');
+                document.getElementById('journal-form').classList.add('hidden');
+                showAchievement();
+            } else {
+                alert(currentLanguage === 'ar' ? 'الرجاء ملء جميع الحقول' : 'Please fill all fields');
+            }
+        }
+
+        function downloadTemplate() {
+            alert(currentLanguage === 'ar' ? 'جاري تنزيل النموذج...' : 'Downloading template...');
+        }
+
+        // ========== LESSON COMPLETION ==========
+        function completeLesson() {
+            if (!completedLessons.includes(11)) {
+                completedLessons.push(11);
+                localStorage.setItem('completed_lessons', JSON.stringify(completedLessons));
+                awardXP(50, currentLanguage === 'ar' ? 'درس مكتمل' : 'Lesson Completed');
+            }
+        }
+
+        // ========== ACHIEVEMENT MODAL ==========
+        function showAchievement() {
+            const modal = document.getElementById('achievement-modal');
+            modal.classList.add('show');
+            setTimeout(() => closeAchievement(), 3000);
+        }
+
+        function closeAchievement() {
+            document.getElementById('achievement-modal').classList.remove('show');
+        }
+    </script>
+</body>
+</html>

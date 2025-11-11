@@ -1,0 +1,78 @@
+{
+  "lesson_number": 4,
+  "lesson_slug": "chart-patterns-price-action",
+  "en": {
+    "title": "Chart Patterns & Price Action",
+    "subtitle": "Identify and trade major chart patterns for profitable opportunities",
+    "objectives": [
+      "Learn to identify and trade major chart patterns",
+      "Understand price action signals and market psychology",
+      "Recognize breakout and breakdown scenarios",
+      "Develop pattern-based trading strategies"
+    ],
+    "intro": "Chart patterns represent the visual manifestation of market psychology, showing how the battle between buyers and sellers creates predictable formations. Price action trading relies on these patterns and candlestick formations to identify opportunities across all markets and timeframes.",
+    "section1_title": "Continuation Patterns: Trading with the Trend",
+    "section1_text": "Continuation patterns appear during trending markets and suggest the trend will resume after consolidation. Flag patterns show rectangular consolidation against the prevailing trend. Pennants display converging trend lines forming small triangles. Triangle patterns (ascending, descending, symmetrical) indicate pressure building before continuation. These patterns offer excellent risk-reward setups when trading in the direction of the established trend.",
+    "section2_title": "Reversal Patterns: Identifying Trend Changes",
+    "section2_text": "Reversal patterns signal potential changes in trend direction. Head and shoulders patterns show three peaks with the middle highest, indicating weakening buying pressure. Double tops form when prices reach a high twice then decline, suggesting buyers cannot push higher. These patterns require strong volume confirmation and longer timeframes to develop reliably.",
+    "section3_title": "Candlestick Patterns and Signals",
+    "section3_text": "Individual candlesticks and combinations provide insights into market sentiment. Doji candles suggest indecision and potential reversals after strong trends. Hammer and shooting star patterns signal reversals at market extremes. Engulfing patterns occur when one candle completely engulfs the previous, suggesting momentum shifts. These patterns work best at key support and resistance levels.",
+    "section4_title": "Price Action Trading Strategies",
+    "section4_text": "Price action trading focuses on reading raw price movements without heavy indicator reliance. Market structure analysis identifies swing highs and lows to understand trends and reversal points. Pin bar trading focuses on candlesticks with long wicks showing price rejection. Inside bar patterns suggest consolidation before breakout moves. These strategies provide clear entry and exit points with well-defined risk.",
+    "takeaway1": "Continuation patterns help traders enter positions in established trends",
+    "takeaway2": "Reversal patterns signal potential trend changes with confirmation",
+    "takeaway3": "Candlestick patterns provide insights into market sentiment changes",
+    "takeaway4": "Price action trading focuses on raw price movements and market structure",
+    "takeaway5": "Pattern confirmation through volume and context improves success rates",
+    "exercise": "Identify three different chart patterns (one continuation, one reversal, one candlestick pattern) on your chosen market over the next week. Document each pattern with screenshots, note the volume during formation and breakout, and track subsequent price movement to validate pattern effectiveness."
+  },
+  "translation_notes": {
+    "ar": "Extract from arabic-content.md - Lesson 4 section",
+    "es": "Latin American Spanish translation",
+    "pt": "Brazilian Portuguese translation"
+  },
+  "images": [
+    {
+      "filename": "04_01_flag_patterns.png",
+      "prompt": "Bull and bear flag patterns on price charts, flagpole and flag consolidation clearly marked, breakout points highlighted, professional technical analysis style, Seekapa colors, 1200x800px"
+    },
+    {
+      "filename": "04_02_triangle_patterns.png",
+      "prompt": "Three types of triangles (ascending, descending, symmetrical) on separate charts, converging trend lines drawn, breakout directions indicated, professional trading education visual, Seekapa brand colors, 1200x800px"
+    },
+    {
+      "filename": "04_03_head_shoulders.png",
+      "prompt": "Head and shoulders reversal pattern with left shoulder, head, right shoulder labeled, neckline drawn, price target projection shown, professional technical analysis, Seekapa forest green and gold, 1200x800px"
+    },
+    {
+      "filename": "04_04_double_tops_bottoms.png",
+      "prompt": "Double top and double bottom patterns side by side, two peaks/troughs clearly visible, support/resistance levels marked, professional chart pattern visualization, Seekapa colors, 1200x800px"
+    },
+    {
+      "filename": "04_05_candlestick_patterns.png",
+      "prompt": "Collection of key candlestick patterns: doji, hammer, shooting star, engulfing (bullish/bearish), each labeled with interpretation, professional educational diagram, Seekapa brand aesthetic, 1200x800px"
+    },
+    {
+      "filename": "04_06_pin_bar_trading.png",
+      "prompt": "Pin bar candlestick patterns at support and resistance levels, long wicks showing rejection, entry and stop loss placement illustrated, professional trading strategy visual, Seekapa colors, 1200x800px"
+    },
+    {
+      "filename": "04_07_inside_bar_pattern.png",
+      "prompt": "Inside bar pattern consolidation with breakout strategy, mother bar and inside bar labeled, entry triggers above/below shown, professional price action trading visual, Seekapa forest green accents, 1200x800px"
+    },
+    {
+      "filename": "04_08_pattern_confirmation.png",
+      "prompt": "Chart showing pattern with volume confirmation, before/during/after breakout analysis, multiple timeframe validation, professional technical analysis methodology, Seekapa colors, 1200x800px"
+    }
+  ],
+  "video_placeholder": {
+    "duration": "90-120 seconds",
+    "script_theme": "Chart patterns and price action trading strategies",
+    "key_visual_moments": [
+      "Continuation patterns in trending markets",
+      "Reversal pattern formation and confirmation",
+      "Candlestick pattern psychology",
+      "Price action strategy execution"
+    ]
+  }
+}

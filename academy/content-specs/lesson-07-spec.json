@@ -1,0 +1,78 @@
+{
+  "lesson_number": 7,
+  "lesson_slug": "risk-management-position-sizing",
+  "en": {
+    "title": "Risk Management & Position Sizing",
+    "subtitle": "Protect your capital and manage risk like a professional trader",
+    "objectives": [
+      "Learn essential risk management principles for trading success",
+      "Understand position sizing calculations and methods",
+      "Discover how to set stop losses and take profits effectively",
+      "Develop a comprehensive risk management plan"
+    ],
+    "intro": "Risk management represents the most critical aspect of successful trading, yet it's often overlooked by beginners who focus primarily on finding profitable trades. Protecting your capital is more important than making profits because you cannot trade without capital. Even traders with mediocre win rates can be profitable with excellent risk management.",
+    "section1_title": "The Foundation of Risk Management",
+    "section1_text": "Risk management begins with understanding that every trade carries potential for loss, regardless of confidence level. Accepting this reality helps traders make rational decisions about position sizes and risk levels. The first rule is never risk more than you can afford to lose on any single trade. Most professional traders risk between 1-3% of account balance per trade, ensuring even a series of losses won't significantly damage capital. Capital preservation becomes especially important during losing streaks, which are inevitable in trading.",
+    "section2_title": "Position Sizing Strategies and Calculations",
+    "section2_text": "Position sizing determines how many shares or contracts to trade based on account size, risk tolerance, and trade setup. The fixed percentage method involves risking the same percentage of account balance on every trade, providing consistency and preventing emotional decisions. The calculation involves determining distance between entry and stop loss, then dividing risk amount by this distance. Volatility-based sizing adjusts trade size based on instrument volatility, with more volatile instruments receiving smaller positions to maintain consistent risk levels.",
+    "section3_title": "Stop Loss Strategies and Implementation",
+    "section3_text": "Stop losses represent predetermined exit points that limit losses when trades move against you. Technical stop losses are placed based on chart patterns, support and resistance, or indicator signals. Percentage-based stops set exits at fixed percentages from entry. Volatility-based stops use indicators like ATR to account for normal price fluctuations. Trailing stops move in your favor as trades become profitable, locking in gains while allowing continued profit potential.",
+    "section4_title": "Take Profit Strategies and Risk-Reward Ratios",
+    "section4_text": "Take profit levels determine where to exit profitable trades, set before entering to maintain discipline. Risk-reward ratios compare potential profit to potential loss - a 2:1 ratio means risking $1 to potentially make $2. Technical take profit levels align with resistance, pattern targets, or Fibonacci retracements. Multiple take profit levels allow securing partial profits while letting remaining positions run for larger gains. Maintaining favorable risk-reward ratios allows profitability even with win rates below 50%.",
+    "takeaway1": "Risk management is more important than finding profitable trades",
+    "takeaway2": "Position sizing should be based on account size and risk tolerance",
+    "takeaway3": "Stop losses protect against significant losses and should be set before entering",
+    "takeaway4": "Risk-reward ratios allow profitability even with moderate win rates",
+    "takeaway5": "Psychological discipline is essential for maintaining effective risk management",
+    "exercise": "Calculate position sizes for three different trade scenarios using a 2% risk rule on a $10,000 account. For each scenario, determine the entry price, stop loss level, position size, and potential profit at a 3:1 risk-reward ratio. Practice these calculations until they become automatic."
+  },
+  "translation_notes": {
+    "ar": "Extract from arabic-content.md - Lesson 7 section",
+    "es": "Latin American Spanish translation",
+    "pt": "Brazilian Portuguese translation"
+  },
+  "images": [
+    {
+      "filename": "07_01_risk_management_shield.png",
+      "prompt": "Shield protecting trading capital with percentage symbols (1%, 2%, 3%), portfolio protection concept, professional financial security visualization, Seekapa forest green and gold, 1200x800px"
+    },
+    {
+      "filename": "07_02_position_sizing_formula.png",
+      "prompt": "Position sizing calculation formula displayed clearly with example numbers, visual equation with account balance, risk percentage, entry, stop loss, professional educational diagram, Seekapa brand colors, 1200x800px"
+    },
+    {
+      "filename": "07_03_stop_loss_placement.png",
+      "prompt": "Price chart showing proper stop loss placement below support for long trade, above resistance for short trade, clear visual markers, professional trading strategy visual, Seekapa colors, 1200x800px"
+    },
+    {
+      "filename": "07_04_trailing_stop.png",
+      "prompt": "Chart demonstrating trailing stop moving with price, profit protection zones highlighted, stop adjustment levels marked, professional risk management visualization, Seekapa forest green accents, 1200x800px"
+    },
+    {
+      "filename": "07_05_risk_reward_ratio.png",
+      "prompt": "Risk-reward visualization showing 1:2 and 1:3 ratios on chart, profit target vs stop loss distance comparison, professional trading setup diagram, Seekapa colors, 1200x800px"
+    },
+    {
+      "filename": "07_06_capital_preservation.png",
+      "prompt": "Graph comparing aggressive vs conservative risk management over 10 losing trades, account equity curves diverging, professional risk analysis, Seekapa brand aesthetic, 1200x800px"
+    },
+    {
+      "filename": "07_07_portfolio_risk.png",
+      "prompt": "Portfolio risk dashboard showing multiple open positions, total portfolio risk percentage, diversification across markets, professional risk monitoring interface, Seekapa forest green and gold, 1200x800px"
+    },
+    {
+      "filename": "07_08_risk_calculator.png",
+      "prompt": "Professional risk calculator tool interface with inputs (account size, risk %, entry, stop loss) and outputs (position size, profit target), Seekapa brand colors, clean modern design, 1200x800px"
+    }
+  ],
+  "video_placeholder": {
+    "duration": "90-120 seconds",
+    "script_theme": "Risk management and capital protection strategies",
+    "key_visual_moments": [
+      "1% rule demonstration with account protection",
+      "Position sizing calculation walkthrough",
+      "Stop loss placement in real trades",
+      "Risk-reward ratio visualization"
+    ]
+  }
+}

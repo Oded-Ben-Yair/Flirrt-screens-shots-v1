@@ -1,0 +1,1573 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Seekapa Trading Academy - Lesson 2: Understanding Financial Markets & Asset Classes">
+
+    <link rel="alternate" hreflang="ar" href="/ar/lesson-02" />
+    <link rel="alternate" hreflang="en" href="/en/lesson-02" />
+    <link rel="alternate" hreflang="es" href="/es/lesson-02" />
+    <link rel="alternate" hreflang="pt" href="/pt/lesson-02" />
+
+    <title>الدرس 2: فهم الأسواق المالية والفئات الأصولية | Seekapa Trading Academy</title>
+
+    <!-- Premium Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;500;600;700&family=Cairo:wght@600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ========== BASE FROM PREMIUM VERSION ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Premium Colors */
+            --seekapa-forest: #1B5E3F;
+            --seekapa-emerald: #0F5F3F;
+            --seekapa-sage: #7A9D8E;
+            --trust-navy: #1F3A6B;
+            --burgundy: #8B3A3A;
+            --champagne-gold: #D4AF37;
+            --platinum: #E5E4E2;
+            --charcoal: #2B2D42;
+            --slate: #8D99AE;
+            --pearl: #F8F9FA;
+            --ivory: #FDFDF8;
+
+            /* Gamification Colors */
+            --xp-blue: #3B82F6;
+            --badge-gold: #FFD700;
+            --streak-orange: #FF6B35;
+            --correct-green: #10B981;
+            --incorrect-red: #EF4444;
+
+            /* Premium Spacing */
+            --space-xs: 0.75rem;
+            --space-sm: 1.5rem;
+            --space-md: 3rem;
+            --space-lg: 4.5rem;
+            --space-xl: 6rem;
+            --space-2xl: 9rem;
+
+            /* Typography Scale */
+            --font-size-base: 18px;
+            --font-size-lg: 1.25rem;
+            --font-size-xl: 1.75rem;
+            --font-size-2xl: 2.25rem;
+            --font-size-3xl: 3.5rem;
+
+            /* Premium Shadows */
+            --shadow-xs: 0 1px 2px rgba(27, 94, 63, 0.04);
+            --shadow-sm: 0 2px 4px rgba(27, 94, 63, 0.06), 0 1px 2px rgba(27, 94, 63, 0.03);
+            --shadow-md: 0 4px 8px rgba(27, 94, 63, 0.08), 0 2px 4px rgba(27, 94, 63, 0.04), 0 1px 2px rgba(27, 94, 63, 0.02);
+            --shadow-lg: 0 8px 16px rgba(27, 94, 63, 0.10), 0 4px 8px rgba(27, 94, 63, 0.06), 0 2px 4px rgba(27, 94, 63, 0.03);
+            --shadow-hover: 0 12px 24px rgba(27, 94, 63, 0.15), 0 6px 12px rgba(27, 94, 63, 0.08);
+
+            /* Animations */
+            --transition-fast: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-base: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            line-height: 1.8;
+            color: var(--charcoal);
+            background: var(--ivory);
+            font-size: var(--font-size-base);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        [lang="ar"] {
+            font-family: 'Noto Kufi Arabic', 'Cairo', sans-serif;
+            font-size: 1.35rem;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-weight: 600;
+            line-height: 1.2;
+            color: var(--charcoal);
+        }
+
+        [lang="ar"] h1, [lang="ar"] h2, [lang="ar"] h3 {
+            font-family: 'Cairo', serif;
+        }
+
+        h1 { font-size: var(--font-size-3xl); }
+        h2 { font-size: var(--font-size-2xl); }
+        h3 { font-size: var(--font-size-xl); }
+
+        .container {
+            max-width: 1200px;
+            margin-inline: auto;
+            padding-inline: var(--space-lg);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* ========== PREMIUM HEADER WITH GAMIFICATION ========== */
+        .header {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px) saturate(180%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            padding-block: var(--space-md);
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin-inline: auto;
+            padding-inline: var(--space-lg);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: var(--space-sm);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .logo-image {
+            height: 45px;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--seekapa-forest);
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Gamification Stats in Header */
+        .user-stats {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            background: var(--pearl);
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: 8px;
+            box-shadow: var(--shadow-xs);
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .xp-badge {
+            background: linear-gradient(135deg, var(--xp-blue), #60A5FA);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .streak-badge {
+            background: linear-gradient(135deg, var(--streak-orange), #FF8C61);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .language-bar {
+            display: flex;
+            gap: 0.5rem;
+            background: rgba(27, 94, 63, 0.05);
+            padding: 0.5rem;
+            border-radius: 8px;
+        }
+
+        .lang-btn {
+            padding: 0.5rem 1rem;
+            background: transparent;
+            border: 1px solid rgba(27, 94, 63, 0.15);
+            color: var(--slate);
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 0.9rem;
+            border-radius: 6px;
+            transition: all var(--transition-base);
+        }
+
+        .lang-btn:hover {
+            background: rgba(27, 94, 63, 0.08);
+            border-color: var(--seekapa-forest);
+        }
+
+        .lang-btn.active {
+            background: var(--seekapa-forest);
+            color: white;
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* ========== SOCIAL PROOF BANNER ========== */
+        .social-proof {
+            background: linear-gradient(135deg, var(--trust-navy), #2A4A7D);
+            color: white;
+            padding: var(--space-sm);
+            text-align: center;
+        }
+
+        .social-proof-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: var(--space-lg);
+            flex-wrap: wrap;
+        }
+
+        .social-stat {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .social-stat-number {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--champagne-gold);
+        }
+
+        .social-stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* ========== PROGRESS BAR ========== */
+        .progress-container {
+            background: white;
+            padding: var(--space-md);
+            box-shadow: var(--shadow-xs);
+        }
+
+        .progress-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-inline: var(--space-lg);
+        }
+
+        .progress-title {
+            font-size: 0.95rem;
+            color: var(--slate);
+            margin-bottom: var(--space-sm);
+            font-weight: 500;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .progress-bar-wrapper {
+            position: relative;
+            width: 100%;
+            height: 12px;
+            background: #E9ECEF;
+            border-radius: 12px;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--seekapa-forest), var(--seekapa-sage));
+            border-radius: 12px;
+            transition: width var(--transition-slow);
+            width: 0%;
+        }
+
+        .progress-milestones {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 0.5rem;
+        }
+
+        .milestone {
+            font-size: 0.7rem;
+            color: var(--slate);
+        }
+
+        .milestone.completed {
+            color: var(--seekapa-forest);
+            font-weight: 600;
+        }
+
+        /* ========== MAIN CONTENT ========== */
+        main {
+            padding-block: var(--space-xl);
+        }
+
+        .lesson-header {
+            background: white;
+            padding: var(--space-xl);
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+            margin-bottom: var(--space-xl);
+            border-top: 3px solid var(--seekapa-forest);
+        }
+
+        .lesson-number {
+            display: inline-block;
+            background: var(--seekapa-forest);
+            color: white;
+            padding: var(--space-xs) var(--space-md);
+            border-radius: 8px;
+            font-weight: 600;
+            margin-bottom: var(--space-md);
+            font-size: 0.9rem;
+        }
+
+        .lesson-title {
+            font-size: var(--font-size-3xl);
+            margin-bottom: var(--space-sm);
+        }
+
+        .lesson-subtitle {
+            font-size: var(--font-size-lg);
+            color: var(--slate);
+            font-weight: 400;
+        }
+
+        /* ========== VIDEO SECTION ========== */
+        .video-section {
+            margin-bottom: var(--space-xl);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+        }
+
+        .video-section > div {
+            background: linear-gradient(135deg, #1a2332, #0A1929);
+            padding: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 400px;
+            color: white;
+            text-align: center;
+        }
+
+        .video-placeholder {
+            text-align: center;
+        }
+
+        .play-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--seekapa-forest);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+        }
+
+        /* ========== LEARNING OBJECTIVES ========== */
+        .learning-objectives {
+            background: white;
+            padding: var(--space-xl);
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+            margin-bottom: var(--space-xl);
+            border-left: 4px solid var(--seekapa-forest);
+        }
+
+        .learning-objectives h3 {
+            margin-bottom: var(--space-md);
+            color: var(--seekapa-forest);
+        }
+
+        .learning-objectives ul {
+            list-style: none;
+            padding-left: var(--space-md);
+        }
+
+        .learning-objectives li {
+            margin-bottom: var(--space-sm);
+            padding-left: var(--space-md);
+            position: relative;
+        }
+
+        .learning-objectives li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--seekapa-forest);
+            font-weight: bold;
+        }
+
+        /* ========== CONTENT SECTIONS ========== */
+        .content-section {
+            background: white;
+            padding: var(--space-xl);
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+            margin-bottom: var(--space-xl);
+        }
+
+        .content-section h2 {
+            margin-bottom: var(--space-md);
+            color: var(--seekapa-forest);
+            border-bottom: 2px solid var(--champagne-gold);
+            padding-bottom: var(--space-sm);
+        }
+
+        .content-section h3 {
+            margin-top: var(--space-lg);
+            margin-bottom: var(--space-sm);
+            color: var(--trust-navy);
+        }
+
+        .content-section p {
+            margin-bottom: var(--space-md);
+            line-height: 1.8;
+            color: var(--slate);
+        }
+
+        .content-image {
+            width: 100%;
+            max-height: 500px;
+            border-radius: 8px;
+            margin: var(--space-lg) 0;
+            box-shadow: var(--shadow-md);
+            display: block;
+        }
+
+        /* ========== QUIZ SECTION ========== */
+        .quiz-section {
+            background: white;
+            padding: var(--space-xl);
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+            margin-bottom: var(--space-xl);
+            border-left: 4px solid var(--xp-blue);
+        }
+
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-md);
+        }
+
+        .quiz-title {
+            color: var(--xp-blue);
+            font-size: var(--font-size-xl);
+        }
+
+        .quiz-xp-reward {
+            background: var(--xp-blue);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .quiz-question {
+            margin-bottom: var(--space-md);
+        }
+
+        .question-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: var(--space-sm);
+            color: var(--charcoal);
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-sm);
+        }
+
+        .quiz-option {
+            background: var(--pearl);
+            padding: var(--space-sm) var(--space-md);
+            border-radius: 8px;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all var(--transition-base);
+            font-weight: 500;
+        }
+
+        .quiz-option:hover {
+            background: var(--platinum);
+            border-color: var(--seekapa-forest);
+            transform: translateX(5px);
+        }
+
+        .quiz-option.selected {
+            background: var(--seekapa-forest);
+            color: white;
+            border-color: var(--seekapa-forest);
+        }
+
+        .quiz-option.correct {
+            background: var(--correct-green);
+            color: white;
+            border-color: var(--correct-green);
+        }
+
+        .quiz-option.incorrect {
+            background: var(--incorrect-red);
+            color: white;
+            border-color: var(--incorrect-red);
+        }
+
+        .quiz-feedback {
+            margin-top: var(--space-sm);
+            padding: var(--space-sm);
+            border-radius: 8px;
+            font-weight: 500;
+            display: none;
+        }
+
+        .quiz-feedback.show {
+            display: block;
+        }
+
+        .quiz-feedback.correct {
+            background: #D1FAE5;
+            color: #065F46;
+        }
+
+        .quiz-feedback.incorrect {
+            background: #FEE2E2;
+            color: #991B1B;
+        }
+
+        .quiz-submit {
+            background: var(--xp-blue);
+            color: white;
+            padding: var(--space-sm) var(--space-lg);
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-base);
+            margin-top: var(--space-md);
+        }
+
+        .quiz-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .quiz-submit:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* ========== KEY TAKEAWAYS ========== */
+        .key-takeaways {
+            background: linear-gradient(135deg, #E8F5E9, #C8E6C9);
+            padding: var(--space-xl);
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+            margin-bottom: var(--space-xl);
+            border-left: 4px solid var(--correct-green);
+        }
+
+        .key-takeaways h3 {
+            margin-bottom: var(--space-md);
+            color: var(--seekapa-forest);
+        }
+
+        .key-takeaways ul {
+            list-style: none;
+            padding-left: var(--space-md);
+        }
+
+        .key-takeaways li {
+            margin-bottom: var(--space-sm);
+            padding-left: var(--space-md);
+            position: relative;
+            color: var(--charcoal);
+        }
+
+        .key-takeaways li:before {
+            content: "★";
+            position: absolute;
+            left: 0;
+            color: var(--champagne-gold);
+            font-weight: bold;
+        }
+
+        /* ========== INTERACTIVE EXERCISE ========== */
+        .interactive-exercise {
+            background: linear-gradient(135deg, #E3F2FD, #BBDEFB);
+            padding: var(--space-xl);
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+            margin-bottom: var(--space-xl);
+            border-left: 4px solid var(--trust-navy);
+        }
+
+        .exercise-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-md);
+        }
+
+        .exercise-title {
+            color: var(--trust-navy);
+            font-size: var(--font-size-xl);
+        }
+
+        .exercise-actions {
+            display: flex;
+            gap: var(--space-sm);
+            margin-top: var(--space-md);
+        }
+
+        .exercise-btn {
+            background: var(--seekapa-forest);
+            color: white;
+            padding: var(--space-sm) var(--space-lg);
+            border: none;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-base);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .exercise-btn:hover {
+            background: var(--seekapa-emerald);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .exercise-btn.secondary {
+            background: var(--trust-navy);
+        }
+
+        .exercise-btn.secondary:hover {
+            background: #162B52;
+        }
+
+        /* ========== LESSON NAVIGATION ========== */
+        .lesson-navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: var(--space-xl);
+            gap: var(--space-lg);
+        }
+
+        .nav-button {
+            background: var(--seekapa-forest);
+            color: white;
+            padding: var(--space-sm) var(--space-lg);
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-base);
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .nav-button:hover:not(:disabled) {
+            background: var(--seekapa-emerald);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .nav-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .nav-button.prev {
+            flex: 1;
+        }
+
+        .nav-button.next {
+            flex: 1;
+        }
+
+        /* ========== ACHIEVEMENT MODAL ========== */
+        .achievement-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+        }
+
+        .achievement-modal.active {
+            display: flex;
+        }
+
+        .achievement-content {
+            background: white;
+            border-radius: 16px;
+            padding: var(--space-xl);
+            text-align: center;
+            max-width: 400px;
+            box-shadow: var(--shadow-lg);
+            animation: popIn var(--transition-base);
+        }
+
+        @keyframes popIn {
+            0% {
+                transform: scale(0.9);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .achievement-icon {
+            font-size: 4rem;
+            margin-bottom: var(--space-sm);
+        }
+
+        .achievement-title {
+            font-size: var(--font-size-2xl);
+            color: var(--seekapa-forest);
+            margin-bottom: var(--space-sm);
+        }
+
+        .achievement-description {
+            color: var(--slate);
+            margin-bottom: var(--space-sm);
+        }
+
+        .achievement-xp {
+            background: var(--xp-blue);
+            color: white;
+            padding: var(--space-sm);
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1.2rem;
+            margin-bottom: var(--space-md);
+        }
+
+        .achievement-close {
+            background: var(--seekapa-forest);
+            color: white;
+            padding: var(--space-sm) var(--space-lg);
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-base);
+        }
+
+        .achievement-close:hover {
+            background: var(--seekapa-emerald);
+            transform: translateY(-2px);
+        }
+
+        /* ========== FOOTER ========== */
+        .footer {
+            background: var(--charcoal);
+            color: white;
+            padding: var(--space-xl);
+            text-align: center;
+            margin-top: var(--space-xl);
+        }
+
+        .footer-logo {
+            height: 40px;
+            margin-bottom: var(--space-sm);
+        }
+
+        .footer-tagline {
+            font-size: 0.9rem;
+            margin-bottom: var(--space-sm);
+            opacity: 0.9;
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 768px) {
+            :root {
+                --font-size-3xl: 2.25rem;
+                --space-xl: 4rem;
+            }
+
+            .container {
+                padding-inline: var(--space-sm);
+            }
+
+            .user-stats {
+                flex-wrap: wrap;
+            }
+
+            .social-proof-content {
+                flex-direction: column;
+                gap: var(--space-sm);
+            }
+
+            .lesson-navigation {
+                flex-direction: column;
+            }
+
+            .exercise-actions {
+                flex-direction: column;
+            }
+
+            .quiz-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: var(--space-sm);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ========== HEADER WITH GAMIFICATION ========== -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo-container">
+                <img src="../assets/logo/Seekapa Black Logo.svg" alt="Seekapa" class="logo-image">
+                <span class="logo-text">TRADING ACADEMY</span>
+            </div>
+
+            <!-- User Gamification Stats -->
+            <div class="user-stats">
+                <div class="xp-badge">
+                    <span>⚡</span>
+                    <span id="user-xp">0 XP</span>
+                </div>
+                <div class="streak-badge">
+                    <span>🔥</span>
+                    <span id="user-streak">1 Day</span>
+                </div>
+            </div>
+
+            <!-- Language Bar -->
+            <div class="language-bar">
+                <button class="lang-btn active" data-lang="ar" onclick="switchLanguage('ar')">العربية</button>
+                <button class="lang-btn" data-lang="en" onclick="switchLanguage('en')">English</button>
+                <button class="lang-btn" data-lang="es" onclick="switchLanguage('es')">Español</button>
+                <button class="lang-btn" data-lang="pt" onclick="switchLanguage('pt')">Português</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ========== SOCIAL PROOF BANNER ========== -->
+    <div class="social-proof">
+        <div class="social-proof-content">
+            <div class="social-stat">
+                <div class="social-stat-number" id="students-online">156</div>
+                <div class="social-stat-label" id="online-label">Students online now</div>
+            </div>
+            <div class="social-stat">
+                <div class="social-stat-number">3,241</div>
+                <div class="social-stat-label" id="enrolled-label">Total students enrolled</div>
+            </div>
+            <div class="social-stat">
+                <div class="social-stat-number">94%</div>
+                <div class="social-stat-label" id="helpful-label">Found this helpful</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== PROGRESS BAR ========== -->
+    <div class="progress-container">
+        <div class="progress-content">
+            <div class="progress-title">
+                <span id="progress-title">التقدم: الدرس 2 من 12</span>
+                <span class="progress-stats">16.67%</span>
+            </div>
+            <div class="progress-bar-wrapper">
+                <div class="progress-bar-fill" id="progress-fill"></div>
+            </div>
+            <div class="progress-milestones">
+                <span class="milestone completed">L1</span>
+                <span class="milestone completed">L2</span>
+                <span class="milestone">L6</span>
+                <span class="milestone">L9</span>
+                <span class="milestone">L12</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== MAIN CONTENT ========== -->
+    <main class="container">
+        <!-- Lesson Header (Arabic) -->
+        <section class="lesson-header" lang="ar">
+            <span class="lesson-number">الدرس 2</span>
+            <h1 class="lesson-title">فهم الأسواق المالية والفئات الأصولية</h1>
+            <p class="lesson-subtitle">استكشاف الأسواق المختلفة واكتشاف أين توجد فرص التداول</p>
+        </section>
+
+        <!-- Lesson Header (English) -->
+        <section class="lesson-header hidden" lang="en">
+            <span class="lesson-number">Lesson 2</span>
+            <h1 class="lesson-title">Understanding Financial Markets & Asset Classes</h1>
+            <p class="lesson-subtitle">Explore different markets and discover where trading opportunities exist</p>
+        </section>
+
+        <!-- Lesson Header (Spanish) -->
+        <section class="lesson-header hidden" lang="es">
+            <span class="lesson-number">Lección 2</span>
+            <h1 class="lesson-title">Comprensión de los Mercados Financieros y Clases de Activos</h1>
+            <p class="lesson-subtitle">Explora mercados diferentes y descubre dónde existen oportunidades de trading</p>
+        </section>
+
+        <!-- Lesson Header (Portuguese) -->
+        <section class="lesson-header hidden" lang="pt">
+            <span class="lesson-number">Lição 2</span>
+            <h1 class="lesson-title">Entendendo os Mercados Financeiros e Classes de Ativos</h1>
+            <p class="lesson-subtitle">Explore diferentes mercados e descubra onde existem oportunidades de trading</p>
+        </section>
+
+        <!-- ========== VIDEO SECTION ========== -->
+        <section class="video-section">
+            <div>
+                <div class="video-placeholder">
+                    <div class="play-icon">▶</div>
+                    <h3 id="video-title">فيديو الدرس قيد الإعداد</h3>
+                    <p style="margin-top: 0.5rem; opacity: 0.8;">المدة: دقيقتان | الجودة: 1080p</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== LEARNING OBJECTIVES ========== -->
+        <section class="learning-objectives" lang="ar">
+            <h3>أهداف التعلم</h3>
+            <ul>
+                <li>التعرف على الأسواق المالية المختلفة وخصائصها</li>
+                <li>فهم فئات الأصول المختلفة المتاحة للتداول</li>
+                <li>التعرف على ساعات التداول والسلوك عبر الأسواق المختلفة</li>
+                <li>تحديد الأسواق التي تتوافق مع أهدافك ومدى تحملك للمخاطر</li>
+            </ul>
+        </section>
+
+        <section class="learning-objectives hidden" lang="en">
+            <h3>Learning Objectives</h3>
+            <ul>
+                <li>Learn about different financial markets and their characteristics</li>
+                <li>Understand various asset classes available for trading</li>
+                <li>Recognize trading hours and market behaviors across different markets</li>
+                <li>Identify which markets align with your trading goals and risk tolerance</li>
+            </ul>
+        </section>
+
+        <section class="learning-objectives hidden" lang="es">
+            <h3>Objetivos de Aprendizaje</h3>
+            <ul>
+                <li>Aprender sobre diferentes mercados financieros y sus características</li>
+                <li>Comprender varias clases de activos disponibles para trading</li>
+                <li>Reconocer horarios de trading y comportamientos del mercado entre diferentes mercados</li>
+                <li>Identificar qué mercados se alinean con tus objetivos de trading y tolerancia al riesgo</li>
+            </ul>
+        </section>
+
+        <section class="learning-objectives hidden" lang="pt">
+            <h3>Objetivos de Aprendizagem</h3>
+            <ul>
+                <li>Aprender sobre diferentes mercados financeiros e suas características</li>
+                <li>Compreender várias classes de ativos disponíveis para trading</li>
+                <li>Reconhecer horários de trading e comportamentos do mercado em diferentes mercados</li>
+                <li>Identificar quais mercados se alinham com seus objetivos de trading e tolerância ao risco</li>
+            </ul>
+        </section>
+
+        <!-- ========== CONTENT SECTION 1 ========== -->
+        <section class="content-section" lang="ar">
+            <h2>أسواق الأسهم: أساسيات تداول حقوق الملكية</h2>
+            <p>تمثل أسواق الأسهم أسهماً في الملكية في الشركات المدرجة علناً. عندما تشتري سهماً، تصبح مالكاً جزئياً لتلك الشركة. يحدث تداول الأسهم في بورصات رئيسية مثل نيويورك أو ناسداك. تعمل أسواق الأسهم عادة من 9:30 صباحاً إلى 4:00 مساءً بتوقيت شرق الولايات المتحدة، مع جلسات ما قبل السوق وما بعد الساعات. تتأثر الأسهم الفردية بأخبار الشركة وتقارير الأرباح والحركات الأوسع للسوق.</p>
+            <img src="images/02_01_global_markets.png" alt="أسواق الأسهم العالمية" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="en">
+            <h2>Stock Markets: Equity Trading Fundamentals</h2>
+            <p>Stock markets represent ownership shares in publicly traded companies. When you buy a stock, you become a partial owner of that company. Stock trading occurs on major exchanges like NYSE or NASDAQ. Stock markets typically operate 9:30 AM to 4:00 PM ET for US markets, with pre-market and after-hours sessions. Individual stocks are influenced by company news, earnings reports, and broader market movements.</p>
+            <img src="images/02_01_global_markets.png" alt="Global Stock Markets" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="es">
+            <h2>Mercados de Acciones: Fundamentos del Trading de Equidad</h2>
+            <p>Los mercados de acciones representan participaciones de propiedad en empresas que cotizan en bolsa. Cuando compras una acción, te conviertes en propietario parcial de esa empresa. El trading de acciones ocurre en principales bolsas como NYSE o NASDAQ. Los mercados de acciones típicamente operan de 9:30 AM a 4:00 PM ET para mercados estadounidenses, con sesiones antes y después del mercado. Las acciones individuales se ven influenciadas por noticias de la empresa, reportes de ganancias y movimientos más amplios del mercado.</p>
+            <img src="images/02_01_global_markets.png" alt="Mercados Globales de Acciones" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="pt">
+            <h2>Mercados de Ações: Fundamentos do Trading de Equidade</h2>
+            <p>Os mercados de ações representam participações de propriedade em empresas de capital aberto. Quando você compra uma ação, torna-se proprietário parcial dessa empresa. O trading de ações ocorre nas principais bolsas como NYSE ou NASDAQ. Os mercados de ações normalmente operam das 9:30 AM às 4:00 PM ET para mercados americanos, com sessões pré-mercado e pós-mercado. Ações individuais são influenciadas por notícias da empresa, relatórios de lucros e movimentos mais amplos do mercado.</p>
+            <img src="images/02_01_global_markets.png" alt="Mercados Globais de Ações" class="content-image">
+        </section>
+
+        <!-- ========== CONTENT SECTION 2 ========== -->
+        <section class="content-section" lang="ar">
+            <h2>أسواق الفوركس: ديناميات تداول العملات</h2>
+            <p>سوق الصرف الأجنبي هو أكبر سوق مالي في العالم، حيث يتم تداول أكثر من 6 تريليونات دولار يومياً. يتضمن تداول الفوركس شراء عملة واحدة أثناء بيع عملة أخرى، متداولة في أزواج مثل EUR/USD. تعمل أسواق الفوركس 24 ساعة في اليوم، خمسة أيام في الأسبوع عبر مراكز مالية عالمية. تتأثر أسعار العملات بالمؤشرات الاقتصادية وسياسات البنك المركزي والأحداث الجيوسياسية.</p>
+            <img src="images/02_02_forex_trading.png" alt="تداول الفوركس" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="en">
+            <h2>Forex Markets: Currency Trading Dynamics</h2>
+            <p>The foreign exchange market is the world's largest financial market, with over $6 trillion traded daily. Forex trading involves buying one currency while selling another, traded in pairs like EUR/USD. Forex markets operate 24 hours a day, five days a week across global financial centers. Currency prices are influenced by economic indicators, central bank policies, and geopolitical events.</p>
+            <img src="images/02_02_forex_trading.png" alt="Forex Trading" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="es">
+            <h2>Mercados de Divisas: Dinámicas del Trading de Monedas</h2>
+            <p>El mercado de divisas es el mercado financiero más grande del mundo, con más de 6 billones de dólares negociados diariamente. El trading de divisas implica comprar una moneda mientras se vende otra, negociada en pares como EUR/USD. Los mercados de divisas operan 24 horas al día, cinco días a la semana en centros financieros globales. Los precios de las divisas se ven influenciados por indicadores económicos, políticas del banco central y eventos geopolíticos.</p>
+            <img src="images/02_02_forex_trading.png" alt="Trading de Divisas" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="pt">
+            <h2>Mercados Forex: Dinâmica do Trading de Moedas</h2>
+            <p>O mercado de câmbio é o maior mercado financeiro do mundo, com mais de 6 trilhões de dólares negociados diariamente. O trading de forex envolve comprar uma moeda enquanto vende outra, negociada em pares como EUR/USD. Os mercados forex operam 24 horas por dia, cinco dias por semana em centros financeiros globais. Os preços das moedas são influenciados por indicadores econômicos, políticas do banco central e eventos geopolíticos.</p>
+            <img src="images/02_02_forex_trading.png" alt="Trading de Forex" class="content-image">
+        </section>
+
+        <!-- ========== CONTENT SECTION 3 ========== -->
+        <section class="content-section" lang="ar">
+            <h2>أسواق السلع: تداول الأصول المادية</h2>
+            <p>تتضمن أسواق السلع تداول السلع المادية مثل الذهب والنفط والقمح والقهوة. تخدم هذه الأسواق وظائف اقتصادية مهمة للتحوط والمضاربة. يمكن تداول السلع من خلال عقود آجلة أو صناديق متداولة في البورصة أو أسهم منتجي السلع. تتأثر الأسعار بالعرض والطلب والظروف الجوية والأحداث الجيوسياسية والدورات الاقتصادية.</p>
+            <img src="images/02_03_commodity_market.png" alt="سوق السلع" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="en">
+            <h2>Commodities: Trading Physical Assets</h2>
+            <p>Commodity markets involve trading physical goods like gold, oil, wheat, and coffee. These markets serve important economic functions for hedging and speculation. Commodities can be traded through futures contracts, ETFs, or stocks of commodity producers. Prices are influenced by supply and demand, weather conditions, geopolitical events, and economic cycles.</p>
+            <img src="images/02_03_commodity_market.png" alt="Commodity Market" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="es">
+            <h2>Materias Primas: Trading de Activos Físicos</h2>
+            <p>Los mercados de materias primas implican el trading de bienes físicos como oro, petróleo, trigo y café. Estos mercados cumplen funciones económicas importantes para la cobertura y especulación. Las materias primas pueden negociarse a través de contratos de futuros, ETFs o acciones de productores de materias primas. Los precios se ven influenciados por la oferta y demanda, condiciones climáticas, eventos geopolíticos y ciclos económicos.</p>
+            <img src="images/02_03_commodity_market.png" alt="Mercado de Materias Primas" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="pt">
+            <h2>Commodities: Trading de Ativos Físicos</h2>
+            <p>Os mercados de commodities envolvem o trading de bens físicos como ouro, petróleo, trigo e café. Esses mercados cumprem funções econômicas importantes para hedge e especulação. As commodities podem ser negociadas através de contratos de futuros, ETFs ou ações de produtores de commodities. Os preços são influenciados pela oferta e demanda, condições climáticas, eventos geopolíticos e ciclos econômicos.</p>
+            <img src="images/02_03_commodity_market.png" alt="Mercado de Commodities" class="content-image">
+        </section>
+
+        <!-- ========== CONTENT SECTION 4 ========== -->
+        <section class="content-section" lang="ar">
+            <h2>أسواق العملات المشفرة: تداول الأصول الرقمية</h2>
+            <p>يوفر تداول العملات المشفرة فرصاً على مدار الساعة طوال أيام الأسبوع مع تقلب عالي. يوفر البيتكوين والإيثيريوم وآلاف العملات الرقمية الأخرى فرص التداول مع مخاطر كبيرة بسبب عدم اليقين التنظيمي. أسواق العملات المشفرة جديدة نسبياً وأقل تنظيماً، مما يؤدي إلى تقلب أعلى وملفات مخاطر مختلفة مقارنة بالأسواق التقليدية.</p>
+            <img src="images/02_04_cryptocurrency.png" alt="تداول العملات المشفرة" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="en">
+            <h2>Cryptocurrency Markets: Digital Asset Trading</h2>
+            <p>Cryptocurrency trading offers 24/7 opportunities with high volatility. Bitcoin, Ethereum, and thousands of digital currencies provide trading opportunities with significant risks due to regulatory uncertainty. Cryptocurrency markets are relatively new and less regulated, leading to higher volatility and different risk profiles compared to traditional markets.</p>
+            <img src="images/02_04_cryptocurrency.png" alt="Cryptocurrency Trading" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="es">
+            <h2>Mercados de Criptomonedas: Trading de Activos Digitales</h2>
+            <p>El trading de criptomonedas ofrece oportunidades 24/7 con alta volatilidad. Bitcoin, Ethereum y miles de monedas digitales brindan oportunidades de trading con riesgos significativos debido a la incertidumbre regulatoria. Los mercados de criptomonedas son relativamente nuevos y menos regulados, lo que conduce a mayor volatilidad y perfiles de riesgo diferentes en comparación con los mercados tradicionales.</p>
+            <img src="images/02_04_cryptocurrency.png" alt="Trading de Criptomonedas" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="pt">
+            <h2>Mercados de Criptomoedas: Trading de Ativos Digitais</h2>
+            <p>O trading de criptomoedas oferece oportunidades 24/7 com alta volatilidade. Bitcoin, Ethereum e milhares de moedas digitais oferecem oportunidades de trading com riscos significativos devido à incerteza regulatória. Os mercados de criptomoedas são relativamente novos e menos regulados, levando a maior volatilidade e perfis de risco diferentes em comparação com os mercados tradicionais.</p>
+            <img src="images/02_04_cryptocurrency.png" alt="Trading de Criptomoedas" class="content-image">
+        </section>
+
+        <!-- ========== INTERACTIVE QUIZ ========== -->
+        <section class="quiz-section" id="quiz1">
+            <!-- Arabic Quiz -->
+            <div lang="ar">
+                <div class="quiz-header">
+                    <h3 class="quiz-title">اختبار المعرفة</h3>
+                    <div class="quiz-xp-reward">+50 XP</div>
+                </div>
+                <div class="quiz-question">
+                    <p class="question-text">1. كم عدد الساعات التي يعمل فيها سوق الفوركس في الأسبوع؟</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="selectQuizOption(this, 'quiz1')">
+                            40 ساعة فقط
+                        </div>
+                        <div class="quiz-option" data-correct="true" onclick="selectQuizOption(this, 'quiz1')">
+                            24 ساعة، 5 أيام في الأسبوع
+                        </div>
+                        <div class="quiz-option" onclick="selectQuizOption(this, 'quiz1')">
+                            12 ساعة فقط
+                        </div>
+                        <div class="quiz-option" onclick="selectQuizOption(this, 'quiz1')">
+                            24 ساعة، 7 أيام في الأسبوع
+                        </div>
+                    </div>
+                    <div class="quiz-feedback" id="quiz1-feedback-ar"></div>
+                    <button class="quiz-submit" onclick="submitQuiz('quiz1', 'ar')" id="quiz1-submit-ar">إرسال الإجابة</button>
+                </div>
+            </div>
+
+            <!-- English Quiz -->
+            <div class="hidden" lang="en">
+                <div class="quiz-header">
+                    <h3 class="quiz-title">Knowledge Check</h3>
+                    <div class="quiz-xp-reward">+50 XP</div>
+                </div>
+                <div class="quiz-question">
+                    <p class="question-text">1. How many hours per week does the Forex market operate?</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="selectQuizOption(this, 'quiz1')">
+                            Only 40 hours
+                        </div>
+                        <div class="quiz-option" data-correct="true" onclick="selectQuizOption(this, 'quiz1')">
+                            24 hours, 5 days a week
+                        </div>
+                        <div class="quiz-option" onclick="selectQuizOption(this, 'quiz1')">
+                            Only 12 hours
+                        </div>
+                        <div class="quiz-option" onclick="selectQuizOption(this, 'quiz1')">
+                            24 hours, 7 days a week
+                        </div>
+                    </div>
+                    <div class="quiz-feedback" id="quiz1-feedback-en"></div>
+                    <button class="quiz-submit" onclick="submitQuiz('quiz1', 'en')" id="quiz1-submit-en">Submit Answer</button>
+                </div>
+            </div>
+
+            <!-- Spanish Quiz -->
+            <div class="hidden" lang="es">
+                <div class="quiz-header">
+                    <h3 class="quiz-title">Prueba de Conocimiento</h3>
+                    <div class="quiz-xp-reward">+50 XP</div>
+                </div>
+                <div class="quiz-question">
+                    <p class="question-text">1. ¿Cuántas horas a la semana opera el mercado Forex?</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="selectQuizOption(this, 'quiz1')">
+                            Solo 40 horas
+                        </div>
+                        <div class="quiz-option" data-correct="true" onclick="selectQuizOption(this, 'quiz1')">
+                            24 horas, 5 días a la semana
+                        </div>
+                        <div class="quiz-option" onclick="selectQuizOption(this, 'quiz1')">
+                            Solo 12 horas
+                        </div>
+                        <div class="quiz-option" onclick="selectQuizOption(this, 'quiz1')">
+                            24 horas, 7 días a la semana
+                        </div>
+                    </div>
+                    <div class="quiz-feedback" id="quiz1-feedback-es"></div>
+                    <button class="quiz-submit" onclick="submitQuiz('quiz1', 'es')" id="quiz1-submit-es">Enviar Respuesta</button>
+                </div>
+            </div>
+
+            <!-- Portuguese Quiz -->
+            <div class="hidden" lang="pt">
+                <div class="quiz-header">
+                    <h3 class="quiz-title">Verificação de Conhecimento</h3>
+                    <div class="quiz-xp-reward">+50 XP</div>
+                </div>
+                <div class="quiz-question">
+                    <p class="question-text">1. Quantas horas por semana o mercado Forex opera?</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="selectQuizOption(this, 'quiz1')">
+                            Apenas 40 horas
+                        </div>
+                        <div class="quiz-option" data-correct="true" onclick="selectQuizOption(this, 'quiz1')">
+                            24 horas, 5 dias por semana
+                        </div>
+                        <div class="quiz-option" onclick="selectQuizOption(this, 'quiz1')">
+                            Apenas 12 horas
+                        </div>
+                        <div class="quiz-option" onclick="selectQuizOption(this, 'quiz1')">
+                            24 horas, 7 dias por semana
+                        </div>
+                    </div>
+                    <div class="quiz-feedback" id="quiz1-feedback-pt"></div>
+                    <button class="quiz-submit" onclick="submitQuiz('quiz1', 'pt')" id="quiz1-submit-pt">Enviar Resposta</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== KEY TAKEAWAYS ========== -->
+        <section class="key-takeaways" lang="ar">
+            <h3>النقاط الرئيسية</h3>
+            <ul>
+                <li>تقدم الأسواق المختلفة مستويات متفاوتة من المخاطر والتقلب والفرص</li>
+                <li>توفر أسواق الأسهم حصصاً ملكية مع ساعات تداول محددة</li>
+                <li>توفر أسواق الفوركس تداولاً على مدار الساعة برقم عالي من السيولة</li>
+                <li>تسمح أسواق السلع بتداول السلع المادية من خلال أدوات مختلفة</li>
+                <li>فهم خصائص السوق يساعدك على اختيار أماكن التداول المناسبة</li>
+            </ul>
+        </section>
+
+        <section class="key-takeaways hidden" lang="en">
+            <h3>Key Takeaways</h3>
+            <ul>
+                <li>Different markets offer varying levels of risk, volatility, and opportunity</li>
+                <li>Stock markets provide ownership stakes with specific trading hours</li>
+                <li>Forex markets offer 24-hour trading with high liquidity</li>
+                <li>Commodity markets allow trading in physical goods through various instruments</li>
+                <li>Understanding market characteristics helps you choose appropriate trading venues</li>
+            </ul>
+        </section>
+
+        <section class="key-takeaways hidden" lang="es">
+            <h3>Puntos Clave</h3>
+            <ul>
+                <li>Diferentes mercados ofrecen niveles variados de riesgo, volatilidad y oportunidad</li>
+                <li>Los mercados de acciones proporcionan participaciones de propiedad con horarios comerciales específicos</li>
+                <li>Los mercados Forex ofrecen trading 24 horas con alta liquidez</li>
+                <li>Los mercados de materias primas permiten el trading de bienes físicos a través de varios instrumentos</li>
+                <li>Comprender las características del mercado te ayuda a elegir lugares de trading apropiados</li>
+            </ul>
+        </section>
+
+        <section class="key-takeaways hidden" lang="pt">
+            <h3>Pontos-Chave</h3>
+            <ul>
+                <li>Diferentes mercados oferecem níveis variados de risco, volatilidade e oportunidade</li>
+                <li>Os mercados de ações fornecem participações acionárias com horários de negociação específicos</li>
+                <li>Os mercados Forex oferecem trading 24 horas com alta liquidez</li>
+                <li>Os mercados de commodities permitem o trading de bens físicos através de vários instrumentos</li>
+                <li>Compreender as características do mercado ajuda você a escolher locais de trading apropriados</li>
+            </ul>
+        </section>
+
+        <!-- ========== INTERACTIVE EXERCISE ========== -->
+        <section class="interactive-exercise" lang="ar">
+            <div class="exercise-header">
+                <h3 class="exercise-title">التمرين العملي</h3>
+                <div class="quiz-xp-reward">+100 XP</div>
+            </div>
+            <p>ابحث وقارن ساعات التداول والفروقات النموذجية وخصائص التقلب في ثلاثة أسواق مختلفة (الأسهم والفوركس والسلع). أنشئ جدول مقارنة يساعدك على فهم الأسواق التي قد تناسب جدولك الزمني ومدى تحملك للمخاطر.</p>
+            <div class="exercise-actions">
+                <button class="exercise-btn" onclick="startExercise()">
+                    <span>📊</span>
+                    <span>ابدأ التمرين</span>
+                </button>
+                <button class="exercise-btn secondary" onclick="downloadTemplate()">
+                    <span>📥</span>
+                    <span>تنزيل القالب</span>
+                </button>
+            </div>
+        </section>
+
+        <section class="interactive-exercise hidden" lang="en">
+            <div class="exercise-header">
+                <h3 class="exercise-title">Practical Exercise</h3>
+                <div class="quiz-xp-reward">+100 XP</div>
+            </div>
+            <p>Research and compare the trading hours, typical spreads, and volatility characteristics of three different markets (stocks, forex, commodities). Create a comparison chart that helps you understand which markets might fit your schedule and risk tolerance.</p>
+            <div class="exercise-actions">
+                <button class="exercise-btn" onclick="startExercise()">
+                    <span>📊</span>
+                    <span>Start Exercise</span>
+                </button>
+                <button class="exercise-btn secondary" onclick="downloadTemplate()">
+                    <span>📥</span>
+                    <span>Download Template</span>
+                </button>
+            </div>
+        </section>
+
+        <section class="interactive-exercise hidden" lang="es">
+            <div class="exercise-header">
+                <h3 class="exercise-title">Ejercicio Práctico</h3>
+                <div class="quiz-xp-reward">+100 XP</div>
+            </div>
+            <p>Investiga y compara las horas de trading, diferenciales típicos y características de volatilidad de tres mercados diferentes (acciones, forex, materias primas). Crea un gráfico de comparación que te ayude a entender qué mercados podrían adaptarse a tu horario y tolerancia al riesgo.</p>
+            <div class="exercise-actions">
+                <button class="exercise-btn" onclick="startExercise()">
+                    <span>📊</span>
+                    <span>Comenzar Ejercicio</span>
+                </button>
+                <button class="exercise-btn secondary" onclick="downloadTemplate()">
+                    <span>📥</span>
+                    <span>Descargar Plantilla</span>
+                </button>
+            </div>
+        </section>
+
+        <section class="interactive-exercise hidden" lang="pt">
+            <div class="exercise-header">
+                <h3 class="exercise-title">Exercício Prático</h3>
+                <div class="quiz-xp-reward">+100 XP</div>
+            </div>
+            <p>Pesquise e compare os horários de trading, diferenciais típicos e características de volatilidade de três mercados diferentes (ações, forex, commodities). Crie um gráfico de comparação que o ajude a entender quais mercados podem se adequar ao seu cronograma e tolerância ao risco.</p>
+            <div class="exercise-actions">
+                <button class="exercise-btn" onclick="startExercise()">
+                    <span>📊</span>
+                    <span>Iniciar Exercício</span>
+                </button>
+                <button class="exercise-btn secondary" onclick="downloadTemplate()">
+                    <span>📥</span>
+                    <span>Baixar Modelo</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- ========== LESSON NAVIGATION ========== -->
+        <nav class="lesson-navigation">
+            <a href="../lesson-01/lesson-01-interactive.html" class="nav-button prev">
+                <span lang="ar">← الدرس السابق</span>
+                <span lang="en" class="hidden">← Previous Lesson</span>
+                <span lang="es" class="hidden">← Lección Anterior</span>
+                <span lang="pt" class="hidden">← Lição Anterior</span>
+            </a>
+            <button class="nav-button next" onclick="completeLesson()">
+                <span lang="ar">الدرس التالي →</span>
+                <span lang="en" class="hidden">Next Lesson →</span>
+                <span lang="es" class="hidden">Siguiente Lección →</span>
+                <span lang="pt" class="hidden">Próxima Lição →</span>
+            </button>
+        </nav>
+    </main>
+
+    <!-- ========== ACHIEVEMENT MODAL ========== -->
+    <div class="achievement-modal" id="achievement-modal">
+        <div class="achievement-content">
+            <div class="achievement-icon">🏆</div>
+            <h2 class="achievement-title" id="achievement-title">Achievement Unlocked!</h2>
+            <p class="achievement-description" id="achievement-desc">First Lesson Complete</p>
+            <div class="achievement-xp" id="achievement-xp">+100 XP</div>
+            <button class="achievement-close" onclick="closeAchievement()">Continue Learning</button>
+        </div>
+    </div>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="footer">
+        <img src="../assets/logo/Seekapa White Logo.svg" alt="Seekapa" class="footer-logo">
+        <p class="footer-tagline">Seekapa Your Gateway To Advanced Trading!</p>
+        <p>&copy; 2025 Seekapa Trading Academy. All rights reserved.</p>
+    </footer>
+
+    <!-- ========== INTERACTIVE JAVASCRIPT ========== -->
+    <script>
+        // ========== USER DATA MANAGEMENT ==========
+        let userData = {
+            xp: 0,
+            streak: 1,
+            lessonsCompleted: [],
+            quizzesCompleted: {},
+            journalEntries: []
+        };
+
+        // Load user data from localStorage
+        function loadUserData() {
+            const saved = localStorage.getItem('seekapa-user-data');
+            if (saved) {
+                userData = JSON.parse(saved);
+                updateUserStats();
+            }
+        }
+
+        // Save user data
+        function saveUserData() {
+            localStorage.setItem('seekapa-user-data', JSON.stringify(userData));
+            updateUserStats();
+        }
+
+        // Update UI with user stats
+        function updateUserStats() {
+            document.getElementById('user-xp').textContent = userData.xp + ' XP';
+            document.getElementById('user-streak').textContent = userData.streak + ' Day' + (userData.streak > 1 ? 's' : '');
+        }
+
+        // ========== QUIZ FUNCTIONALITY ==========
+        let selectedOption = null;
+
+        function selectQuizOption(element, quizId) {
+            // Remove previous selections
+            element.parentElement.querySelectorAll('.quiz-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            element.classList.add('selected');
+            selectedOption = element;
+        }
+
+        function submitQuiz(quizId, lang) {
+            if (!selectedOption) {
+                alert('Please select an answer!');
+                return;
+            }
+
+            const isCorrect = selectedOption.dataset.correct === 'true';
+            const feedbackId = quizId + '-feedback-' + lang;
+            const feedback = document.getElementById(feedbackId);
+            const submitBtn = document.getElementById(quizId + '-submit-' + lang);
+
+            if (isCorrect) {
+                selectedOption.classList.add('correct');
+                const messages = {
+                    ar: '✓ صحيح! عمل رائع!',
+                    en: '✓ Correct! Great job!',
+                    es: '✓ ¡Correcto! ¡Buen trabajo!',
+                    pt: '✓ Correto! Ótimo trabalho!'
+                };
+                feedback.textContent = messages[lang] || messages.en;
+                feedback.classList.add('correct', 'show');
+
+                // Award XP
+                if (!userData.quizzesCompleted[quizId]) {
+                    userData.xp += 50;
+                    userData.quizzesCompleted[quizId] = true;
+                    saveUserData();
+                    showAchievement('Quiz Master!', 'You answered correctly!', '+50 XP');
+                }
+            } else {
+                selectedOption.classList.add('incorrect');
+                const messages = {
+                    ar: '✗ ليس تماماً. الإجابة الصحيحة هي "24 ساعة، 5 أيام في الأسبوع". استعرض المحتوى وحاول مرة أخرى!',
+                    en: '✗ Not quite. The correct answer is "24 hours, 5 days a week". Review the content and try again!',
+                    es: '✗ No exactamente. La respuesta correcta es "24 horas, 5 días a la semana". ¡Revisa el contenido e intenta de nuevo!',
+                    pt: '✗ Não exatamente. A resposta correta é "24 horas, 5 dias por semana". Revise o conteúdo e tente novamente!'
+                };
+                feedback.textContent = messages[lang] || messages.en;
+                feedback.classList.add('incorrect', 'show');
+            }
+
+            submitBtn.disabled = true;
+        }
+
+        // ========== INTERACTIVE EXERCISE ==========
+        function startExercise() {
+            alert('Exercise workspace opened! Create your market comparison chart.');
+            userData.xp += 100;
+            saveUserData();
+            showAchievement('Exercise Started!', 'Keep researching markets!', '+100 XP');
+        }
+
+        function downloadTemplate() {
+            alert('Market Comparison Template downloaded! Check your Downloads folder.');
+        }
+
+        // ========== ACHIEVEMENT SYSTEM ==========
+        function showAchievement(title, description, xp) {
+            document.getElementById('achievement-title').textContent = title;
+            document.getElementById('achievement-desc').textContent = description;
+            document.getElementById('achievement-xp').textContent = xp;
+            document.getElementById('achievement-modal').classList.add('active');
+        }
+
+        function closeAchievement() {
+            document.getElementById('achievement-modal').classList.remove('active');
+        }
+
+        // ========== LESSON COMPLETION ==========
+        function completeLesson() {
+            if (!userData.lessonsCompleted.includes('lesson-02')) {
+                userData.lessonsCompleted.push('lesson-02');
+                userData.xp += 200;
+                saveUserData();
+                showAchievement('Lesson Complete!', 'Understanding Markets Mastered!', '+200 XP');
+                setTimeout(() => {
+                    // Navigate to lesson 3 when ready
+                    // window.location.href = 'lesson-03-interactive.html';
+                }, 1500);
+            }
+        }
+
+        // ========== LANGUAGE SWITCHING ==========
+        let currentLang = localStorage.getItem('seekapa-language') || 'ar';
+
+        function switchLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('seekapa-language', lang);
+
+            document.documentElement.lang = lang;
+            document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+
+            // Update active button
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.lang === lang);
+            });
+
+            // Show/hide language-specific content
+            document.querySelectorAll('[lang]').forEach(el => {
+                el.classList.toggle('hidden', el.getAttribute('lang') !== lang);
+            });
+
+            updateSocialProofLabels(lang);
+        }
+
+        function updateSocialProofLabels(lang) {
+            const labels = {
+                ar: {
+                    online: 'طالب متصل الآن',
+                    enrolled: 'إجمالي الطلاب المسجلين',
+                    helpful: 'وجدوا هذا مفيداً'
+                },
+                en: {
+                    online: 'Students online now',
+                    enrolled: 'Total students enrolled',
+                    helpful: 'Found this helpful'
+                },
+                es: {
+                    online: 'Estudiantes en línea',
+                    enrolled: 'Total estudiantes inscritos',
+                    helpful: 'Encontraron esto útil'
+                },
+                pt: {
+                    online: 'Alunos online agora',
+                    enrolled: 'Total de alunos inscritos',
+                    helpful: 'Acharam isso útil'
+                }
+            };
+
+            document.getElementById('online-label').textContent = labels[lang].online;
+            document.getElementById('enrolled-label').textContent = labels[lang].enrolled;
+            document.getElementById('helpful-label').textContent = labels[lang].helpful;
+        }
+
+        // ========== INITIALIZE ==========
+        document.addEventListener('DOMContentLoaded', function() {
+            loadUserData();
+            switchLanguage(currentLang);
+
+            // Animate progress bar
+            setTimeout(() => {
+                document.getElementById('progress-fill').style.width = '16.67%';
+            }, 500);
+
+            // Simulate real-time student count
+            setInterval(() => {
+                const count = 150 + Math.floor(Math.random() * 20);
+                document.getElementById('students-online').textContent = count;
+            }, 30000); // Update every 30 seconds
+        });
+
+        console.log('%c🎮 Seekapa Interactive Academy - Lesson 2', 'font-size: 24px; font-weight: bold; color: #1B5E3F;');
+        console.log('%c✨ Financial Markets & Asset Classes Module', 'font-size: 14px; color: #3B82F6;');
+    </script>
+</body>
+</html>

@@ -1,0 +1,1598 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Seekapa Trading Academy - Lesson 07: Risk Management & Position Sizing - Interactive premium learning experience.">
+
+    <link rel="alternate" hreflang="ar" href="/ar/lesson-07" />
+    <link rel="alternate" hreflang="en" href="/en/lesson-07" />
+    <link rel="alternate" hreflang="es" href="/es/lesson-07" />
+    <link rel="alternate" hreflang="pt" href="/pt/lesson-07" />
+
+    <title>الدرس 7: إدارة المخاطر وتحديد حجم المراكز | Seekapa Trading Academy</title>
+
+    <!-- Premium Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;500;600;700&family=Cairo:wght@600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ========== BASE FROM PREMIUM VERSION ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Premium Colors */
+            --seekapa-forest: #1B5E3F;
+            --seekapa-emerald: #0F5F3F;
+            --seekapa-sage: #7A9D8E;
+            --trust-navy: #1F3A6B;
+            --burgundy: #8B3A3A;
+            --champagne-gold: #D4AF37;
+            --platinum: #E5E4E2;
+            --charcoal: #2B2D42;
+            --slate: #8D99AE;
+            --pearl: #F8F9FA;
+            --ivory: #FDFDF8;
+
+            /* Gamification Colors */
+            --xp-blue: #3B82F6;
+            --badge-gold: #FFD700;
+            --streak-orange: #FF6B35;
+            --correct-green: #10B981;
+            --incorrect-red: #EF4444;
+
+            /* Premium Spacing */
+            --space-xs: 0.75rem;
+            --space-sm: 1.5rem;
+            --space-md: 3rem;
+            --space-lg: 4.5rem;
+            --space-xl: 6rem;
+            --space-2xl: 9rem;
+
+            /* Typography Scale */
+            --font-size-base: 18px;
+            --font-size-lg: 1.25rem;
+            --font-size-xl: 1.75rem;
+            --font-size-2xl: 2.25rem;
+            --font-size-3xl: 3.5rem;
+
+            /* Premium Shadows */
+            --shadow-xs: 0 1px 2px rgba(27, 94, 63, 0.04);
+            --shadow-sm: 0 2px 4px rgba(27, 94, 63, 0.06), 0 1px 2px rgba(27, 94, 63, 0.03);
+            --shadow-md: 0 4px 8px rgba(27, 94, 63, 0.08), 0 2px 4px rgba(27, 94, 63, 0.04), 0 1px 2px rgba(27, 94, 63, 0.02);
+            --shadow-lg: 0 8px 16px rgba(27, 94, 63, 0.10), 0 4px 8px rgba(27, 94, 63, 0.06), 0 2px 4px rgba(27, 94, 63, 0.03);
+            --shadow-hover: 0 12px 24px rgba(27, 94, 63, 0.15), 0 6px 12px rgba(27, 94, 63, 0.08);
+
+            /* Animations */
+            --transition-fast: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-base: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            line-height: 1.8;
+            color: var(--charcoal);
+            background: var(--ivory);
+            font-size: var(--font-size-base);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        [lang="ar"] {
+            font-family: 'Noto Kufi Arabic', 'Cairo', sans-serif;
+            font-size: 1.35rem;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-weight: 600;
+            line-height: 1.2;
+            color: var(--charcoal);
+        }
+
+        [lang="ar"] h1, [lang="ar"] h2, [lang="ar"] h3 {
+            font-family: 'Cairo', serif;
+        }
+
+        h1 { font-size: var(--font-size-3xl); }
+        h2 { font-size: var(--font-size-2xl); }
+        h3 { font-size: var(--font-size-xl); }
+
+        .container {
+            max-width: 1200px;
+            margin-inline: auto;
+            padding-inline: var(--space-lg);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* ========== PREMIUM HEADER WITH GAMIFICATION ========== */
+        .header {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px) saturate(180%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            padding-block: var(--space-md);
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin-inline: auto;
+            padding-inline: var(--space-lg);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: var(--space-sm);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .logo-image {
+            height: 45px;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--seekapa-forest);
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Gamification Stats in Header */
+        .user-stats {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            background: var(--pearl);
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: 8px;
+            box-shadow: var(--shadow-xs);
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .xp-badge {
+            background: linear-gradient(135deg, var(--xp-blue), #60A5FA);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .streak-badge {
+            background: linear-gradient(135deg, var(--streak-orange), #FF8C61);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .language-bar {
+            display: flex;
+            gap: 0.5rem;
+            background: var(--pearl);
+            padding: 0.5rem;
+            border-radius: 8px;
+        }
+
+        .lang-btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 6px;
+            background: transparent;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--slate);
+            transition: all var(--transition-fast);
+        }
+
+        .lang-btn.active {
+            background: var(--seekapa-forest);
+            color: white;
+        }
+
+        /* ========== SOCIAL PROOF BANNER ========== */
+        .social-proof {
+            background: linear-gradient(135deg, var(--seekapa-forest), var(--seekapa-emerald));
+            padding: var(--space-md) var(--space-lg);
+            text-align: center;
+        }
+
+        .social-proof-content {
+            max-width: 1200px;
+            margin-inline: auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-md);
+        }
+
+        .social-stat {
+            color: white;
+        }
+
+        .social-stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .social-stat-label {
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+
+        /* ========== PROGRESS BAR ========== */
+        .progress-container {
+            background: white;
+            padding: var(--space-md) var(--space-lg);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .progress-content {
+            max-width: 1200px;
+            margin-inline: auto;
+        }
+
+        .progress-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            color: var(--charcoal);
+        }
+
+        .progress-stats {
+            background: var(--seekapa-forest);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+        }
+
+        .progress-bar-wrapper {
+            width: 100%;
+            height: 8px;
+            background: var(--pearl);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--seekapa-forest), var(--champagne-gold));
+            width: 58.33%;
+            transition: width var(--transition-slow);
+        }
+
+        .progress-milestones {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1rem;
+            font-size: 0.85rem;
+        }
+
+        .milestone {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: var(--pearl);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: var(--slate);
+        }
+
+        .milestone.completed {
+            background: var(--seekapa-forest);
+            color: white;
+        }
+
+        /* ========== LESSON CONTENT ========== */
+        .lesson-header {
+            text-align: center;
+            padding: var(--space-xl) 0;
+            border-bottom: 2px solid var(--pearl);
+            margin-bottom: var(--space-xl);
+        }
+
+        .lesson-number {
+            display: inline-block;
+            background: var(--seekapa-forest);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .lesson-title {
+            color: var(--seekapa-forest);
+            margin-bottom: 1rem;
+        }
+
+        .lesson-subtitle {
+            font-size: var(--font-size-xl);
+            color: var(--slate);
+            max-width: 700px;
+            margin-inline: auto;
+        }
+
+        /* ========== VIDEO SECTION ========== */
+        .video-section {
+            margin: var(--space-xl) 0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* ========== LEARNING OBJECTIVES ========== */
+        .learning-objectives {
+            background: linear-gradient(135deg, rgba(27, 94, 63, 0.05), rgba(212, 175, 55, 0.05));
+            padding: var(--space-lg);
+            border-radius: 12px;
+            margin: var(--space-xl) 0;
+            border-left: 4px solid var(--seekapa-forest);
+        }
+
+        .learning-objectives h3 {
+            color: var(--seekapa-forest);
+            margin-bottom: 1.5rem;
+        }
+
+        .learning-objectives ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .learning-objectives li {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+
+        .learning-objectives li:before {
+            content: "✓";
+            color: var(--seekapa-forest);
+            font-weight: 700;
+            font-size: 1.25rem;
+            flex-shrink: 0;
+            margin-top: -0.25rem;
+        }
+
+        /* ========== CONTENT SECTION ========== */
+        .content-section {
+            margin: var(--space-xl) 0;
+            padding: var(--space-lg);
+            background: white;
+            border-radius: 12px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .content-section h2 {
+            color: var(--seekapa-forest);
+            margin-bottom: 1.5rem;
+        }
+
+        .content-section h3 {
+            color: var(--seekapa-emerald);
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .content-section p {
+            margin-bottom: 1rem;
+            line-height: 1.9;
+            text-align: justify;
+        }
+
+        .content-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: var(--space-lg) 0;
+            box-shadow: var(--shadow-md);
+        }
+
+        /* ========== QUIZ SECTION ========== */
+        .quiz-section {
+            margin: var(--space-xl) 0;
+            padding: var(--space-lg);
+            background: linear-gradient(135deg, rgba(27, 94, 63, 0.02), rgba(212, 175, 55, 0.02));
+            border-radius: 12px;
+            border: 1px solid rgba(27, 94, 63, 0.1);
+        }
+
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .quiz-title {
+            color: var(--seekapa-forest);
+        }
+
+        .quiz-xp-reward {
+            background: linear-gradient(135deg, var(--xp-blue), #60A5FA);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .quiz-question {
+            background: white;
+            padding: var(--space-lg);
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+        }
+
+        .question-text {
+            font-size: var(--font-size-lg);
+            font-weight: 600;
+            color: var(--charcoal);
+            margin-bottom: 1.5rem;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .quiz-option {
+            padding: 1rem;
+            border: 2px solid var(--platinum);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            background: white;
+        }
+
+        .quiz-option:hover {
+            border-color: var(--seekapa-forest);
+            background: rgba(27, 94, 63, 0.03);
+        }
+
+        .quiz-option.selected {
+            background: rgba(27, 94, 63, 0.1);
+            border-color: var(--seekapa-forest);
+        }
+
+        .quiz-option.correct {
+            background: rgba(16, 185, 129, 0.1);
+            border-color: var(--correct-green);
+        }
+
+        .quiz-option.incorrect {
+            background: rgba(239, 68, 68, 0.1);
+            border-color: var(--incorrect-red);
+        }
+
+        .quiz-feedback {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+            font-weight: 600;
+            display: none;
+        }
+
+        .quiz-feedback.show {
+            display: block;
+        }
+
+        .quiz-feedback.correct {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--correct-green);
+            border-left: 4px solid var(--correct-green);
+        }
+
+        .quiz-feedback.incorrect {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--incorrect-red);
+            border-left: 4px solid var(--incorrect-red);
+        }
+
+        .quiz-submit {
+            background: linear-gradient(135deg, var(--seekapa-forest), var(--seekapa-emerald));
+            color: white;
+            border: none;
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .quiz-submit:hover {
+            box-shadow: var(--shadow-hover);
+            transform: translateY(-2px);
+        }
+
+        .quiz-submit:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        /* ========== KEY TAKEAWAYS ========== */
+        .key-takeaways {
+            background: linear-gradient(135deg, var(--seekapa-forest), var(--seekapa-emerald));
+            color: white;
+            padding: var(--space-lg);
+            border-radius: 12px;
+            margin: var(--space-xl) 0;
+        }
+
+        .key-takeaways h3 {
+            color: var(--champagne-gold);
+            margin-bottom: 1.5rem;
+        }
+
+        .key-takeaways ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .key-takeaways li {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+            padding-left: 1rem;
+        }
+
+        .key-takeaways li:before {
+            content: "★";
+            color: var(--champagne-gold);
+            font-size: 1.25rem;
+            flex-shrink: 0;
+        }
+
+        /* ========== INTERACTIVE EXERCISE ========== */
+        .interactive-exercise {
+            background: white;
+            padding: var(--space-lg);
+            border-radius: 12px;
+            margin: var(--space-xl) 0;
+            box-shadow: var(--shadow-sm);
+            border: 2px solid var(--champagne-gold);
+        }
+
+        .exercise-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px solid var(--pearl);
+        }
+
+        .exercise-title {
+            color: var(--seekapa-forest);
+        }
+
+        .exercise-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+        }
+
+        .exercise-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            font-size: 1rem;
+        }
+
+        .exercise-btn {
+            background: linear-gradient(135deg, var(--seekapa-forest), var(--seekapa-emerald));
+            color: white;
+        }
+
+        .exercise-btn:hover {
+            box-shadow: var(--shadow-hover);
+            transform: translateY(-2px);
+        }
+
+        .exercise-btn.secondary {
+            background: var(--platinum);
+            color: var(--charcoal);
+            border: 2px solid var(--seekapa-forest);
+        }
+
+        .exercise-btn.secondary:hover {
+            background: var(--pearl);
+        }
+
+        /* ========== FORM STYLES ========== */
+        .journal-form {
+            margin-top: 1.5rem;
+            padding: var(--space-lg);
+            background: var(--pearl);
+            border-radius: 8px;
+            display: none;
+        }
+
+        .journal-form.show {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--charcoal);
+        }
+
+        .form-input, .form-textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid var(--platinum);
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 1rem;
+        }
+
+        .form-input:focus, .form-textarea:focus {
+            outline: none;
+            border-color: var(--seekapa-forest);
+            box-shadow: 0 0 0 3px rgba(27, 94, 63, 0.1);
+        }
+
+        .form-textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        /* ========== LESSON NAVIGATION ========== */
+        .lesson-navigation {
+            display: flex;
+            gap: 1rem;
+            justify-content: space-between;
+            margin: var(--space-xl) 0;
+            padding: var(--space-lg) 0;
+            border-top: 2px solid var(--pearl);
+        }
+
+        .nav-button {
+            flex: 1;
+            padding: 1rem;
+            border: 2px solid var(--seekapa-forest);
+            background: white;
+            color: var(--seekapa-forest);
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .nav-button:hover:not(:disabled) {
+            background: var(--seekapa-forest);
+            color: white;
+        }
+
+        .nav-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* ========== ACHIEVEMENT MODAL ========== */
+        .achievement-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .achievement-modal.show {
+            display: flex;
+        }
+
+        .achievement-content {
+            background: white;
+            padding: var(--space-xl);
+            border-radius: 12px;
+            text-align: center;
+            max-width: 400px;
+            box-shadow: var(--shadow-lg);
+            animation: slideUp 0.5s ease-out;
+        }
+
+        .achievement-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .achievement-title {
+            color: var(--seekapa-forest);
+            margin-bottom: 0.5rem;
+        }
+
+        .achievement-description {
+            color: var(--slate);
+            margin-bottom: 1rem;
+        }
+
+        .achievement-xp {
+            background: linear-gradient(135deg, var(--xp-blue), #60A5FA);
+            color: white;
+            padding: 0.75rem;
+            border-radius: 8px;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            font-size: 1.25rem;
+        }
+
+        .achievement-close {
+            background: var(--seekapa-forest);
+            color: white;
+            border: none;
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .achievement-close:hover {
+            box-shadow: var(--shadow-hover);
+        }
+
+        /* ========== FOOTER ========== */
+        .footer {
+            background: var(--charcoal);
+            color: white;
+            text-align: center;
+            padding: var(--space-xl) var(--space-lg);
+            margin-top: var(--space-2xl);
+        }
+
+        .footer-logo {
+            height: 40px;
+            margin-bottom: 1rem;
+            filter: brightness(0) invert(1);
+        }
+
+        .footer-tagline {
+            font-size: var(--font-size-lg);
+            margin-bottom: 1rem;
+            color: var(--champagne-gold);
+        }
+
+        /* ========== ANIMATIONS ========== */
+        @keyframes slideUp {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 768px) {
+            :root {
+                --font-size-3xl: 2.25rem;
+                --space-xl: 4rem;
+            }
+
+            .container {
+                padding-inline: var(--space-sm);
+            }
+
+            .header-content {
+                flex-direction: column;
+            }
+
+            .user-stats {
+                flex-wrap: wrap;
+            }
+
+            .social-proof-content {
+                flex-direction: column;
+                gap: var(--space-sm);
+            }
+
+            .lesson-navigation {
+                flex-direction: column;
+            }
+
+            .exercise-actions {
+                flex-direction: column;
+            }
+
+            .progress-milestones {
+                gap: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ========== HEADER WITH GAMIFICATION ========== -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo-container">
+                <img src="../lesson-01/images/Seekapa Black Logo.png" alt="Seekapa" class="logo-image">
+                <span class="logo-text">TRADING ACADEMY</span>
+            </div>
+
+            <!-- User Gamification Stats -->
+            <div class="user-stats">
+                <div class="xp-badge">
+                    <span>⚡</span>
+                    <span id="user-xp">0 XP</span>
+                </div>
+                <div class="streak-badge">
+                    <span>🔥</span>
+                    <span id="user-streak">1 Day</span>
+                </div>
+            </div>
+
+            <!-- Language Bar -->
+            <div class="language-bar">
+                <button class="lang-btn active" data-lang="ar" onclick="switchLanguage('ar')">العربية</button>
+                <button class="lang-btn" data-lang="en" onclick="switchLanguage('en')">English</button>
+                <button class="lang-btn" data-lang="es" onclick="switchLanguage('es')">Español</button>
+                <button class="lang-btn" data-lang="pt" onclick="switchLanguage('pt')">Português</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ========== SOCIAL PROOF BANNER ========== -->
+    <div class="social-proof">
+        <div class="social-proof-content">
+            <div class="social-stat">
+                <div class="social-stat-number" id="students-online">340</div>
+                <div class="social-stat-label" id="online-label">Students online now</div>
+            </div>
+            <div class="social-stat">
+                <div class="social-stat-number">5,284</div>
+                <div class="social-stat-label" id="enrolled-label">Total students enrolled</div>
+            </div>
+            <div class="social-stat">
+                <div class="social-stat-number">96%</div>
+                <div class="social-stat-label" id="helpful-label">Found this helpful</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== PROGRESS BAR ========== -->
+    <div class="progress-container">
+        <div class="progress-content">
+            <div class="progress-title">
+                <span id="progress-title">Progress: Lesson 7 of 12</span>
+                <span class="progress-stats">58.33%</span>
+            </div>
+            <div class="progress-bar-wrapper">
+                <div class="progress-bar-fill" id="progress-fill"></div>
+            </div>
+            <div class="progress-milestones">
+                <span class="milestone completed">L1</span>
+                <span class="milestone completed">L3</span>
+                <span class="milestone completed">L6</span>
+                <span class="milestone">L9</span>
+                <span class="milestone">L12</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== MAIN CONTENT ========== -->
+    <main class="container">
+        <!-- Lesson Header (Arabic) -->
+        <section class="lesson-header" lang="ar">
+            <span class="lesson-number">الدرس 7</span>
+            <h1 class="lesson-title">إدارة المخاطر وتحديد حجم المراكز</h1>
+            <p class="lesson-subtitle">احمِ رأس مالك وأدِر المخاطر مثل المتداول المحترف</p>
+        </section>
+
+        <!-- Lesson Header (English) -->
+        <section class="lesson-header hidden" lang="en">
+            <span class="lesson-number">Lesson 7</span>
+            <h1 class="lesson-title">Risk Management & Position Sizing</h1>
+            <p class="lesson-subtitle">Protect your capital and manage risk like a professional trader</p>
+        </section>
+
+        <!-- Lesson Header (Spanish) -->
+        <section class="lesson-header hidden" lang="es">
+            <span class="lesson-number">Lección 7</span>
+            <h1 class="lesson-title">Gestión de Riesgos y Dimensionamiento de Posiciones</h1>
+            <p class="lesson-subtitle">Protege tu capital y gestiona el riesgo como un trader profesional</p>
+        </section>
+
+        <!-- Lesson Header (Portuguese) -->
+        <section class="lesson-header hidden" lang="pt">
+            <span class="lesson-number">Lição 7</span>
+            <h1 class="lesson-title">Gestão de Riscos e Dimensionamento de Posições</h1>
+            <p class="lesson-subtitle">Proteja seu capital e gerencie riscos como um trader profissional</p>
+        </section>
+
+        <!-- ========== VIDEO SECTION ========== -->
+        <section class="video-section">
+            <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 10px; background: linear-gradient(135deg, #1a2332, #0A1929);">
+                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; color: white; padding: 3rem;">
+                    <div style="width: 80px; height: 80px; margin: 0 auto 1.5rem; background: var(--seekapa-forest); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                            <path d="M16 12L36 24L16 36V12Z" fill="white"/>
+                        </svg>
+                    </div>
+                    <h3 id="video-title">فيديو الدرس قيد الإعداد</h3>
+                    <p style="margin-top: 0.5rem; opacity: 0.8;">المدة: دقيقتان | الجودة: 1080p</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== LEARNING OBJECTIVES ========== -->
+        <section class="learning-objectives" lang="ar">
+            <h3>أهداف التعلم</h3>
+            <ul>
+                <li>تعلم مبادئ إدارة المخاطر الأساسية لنجاح التداول</li>
+                <li>فهم حسابات وطرق تحديد حجم المركز</li>
+                <li>اكتشف كيفية وضع وقفات الخسارة وتحقيق الأرباح بفعالية</li>
+                <li>تطوير خطة شاملة لإدارة المخاطر</li>
+            </ul>
+        </section>
+
+        <section class="learning-objectives hidden" lang="en">
+            <h3>Learning Objectives</h3>
+            <ul>
+                <li>Learn essential risk management principles for trading success</li>
+                <li>Understand position sizing calculations and methods</li>
+                <li>Discover how to set stop losses and take profits effectively</li>
+                <li>Develop a comprehensive risk management plan</li>
+            </ul>
+        </section>
+
+        <section class="learning-objectives hidden" lang="es">
+            <h3>Objetivos de Aprendizaje</h3>
+            <ul>
+                <li>Aprender los principios esenciales de gestión de riesgos para el éxito del trading</li>
+                <li>Comprender cálculos y métodos de dimensionamiento de posiciones</li>
+                <li>Descubre cómo establecer stops de pérdida y tomar ganancias efectivamente</li>
+                <li>Desarrollar un plan integral de gestión de riesgos</li>
+            </ul>
+        </section>
+
+        <section class="learning-objectives hidden" lang="pt">
+            <h3>Objetivos de Aprendizagem</h3>
+            <ul>
+                <li>Aprender princípios essenciais de gestão de riscos para sucesso no trading</li>
+                <li>Compreender cálculos e métodos de dimensionamento de posições</li>
+                <li>Descubra como definir stops de perda e obter lucros efetivamente</li>
+                <li>Desenvolver um plano abrangente de gestão de riscos</li>
+            </ul>
+        </section>
+
+        <!-- ========== CONTENT SECTION 1: Foundation ========== -->
+        <section class="content-section" lang="ar">
+            <h2>أساس إدارة المخاطر</h2>
+            <p>تبدأ إدارة المخاطر بفهم أن كل صفقة تحمل احتمالية الخسارة، بغض النظر عن مستوى الثقة. يساعد قبول هذا الواقع المتداولين على اتخاذ قرارات عقلانية حول أحجام المراكز ومستويات المخاطر. القاعدة الأولى هي عدم المخاطرة بأكثر مما يمكنك تحمل خسارته في أي صفقة واحدة. يخاطر معظم المتداولين المحترفين بين 1-3% من رصيد الحساب في كل صفقة، مما يضمن أن سلسلة من الخسائر لن تضر برأس المال بشكل كبير. تصبح حماية رأس المال مهمة بشكل خاص أثناء فترات الخسائر، وهي حتمية في التداول.</p>
+            <img src="images/07_01_risk_management_shield.png" alt="Risk Management Shield" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="en">
+            <h2>The Foundation of Risk Management</h2>
+            <p>Risk management begins with understanding that every trade carries potential for loss, regardless of confidence level. Accepting this reality helps traders make rational decisions about position sizes and risk levels. The first rule is never risk more than you can afford to lose on any single trade. Most professional traders risk between 1-3% of account balance per trade, ensuring even a series of losses won't significantly damage capital. Capital preservation becomes especially important during losing streaks, which are inevitable in trading.</p>
+            <img src="images/07_01_risk_management_shield.png" alt="Risk Management Shield" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="es">
+            <h2>La Fundación de la Gestión de Riesgos</h2>
+            <p>La gestión de riesgos comienza con entender que cada operación conlleva potencial de pérdida, independientemente del nivel de confianza. Aceptar esta realidad ayuda a los traders a tomar decisiones racionales sobre tamaños de posición y niveles de riesgo. La primera regla es nunca arriesgar más de lo que puedas permitirte perder en una sola operación. La mayoría de los traders profesionales arriesgan entre 1-3% del saldo de su cuenta por operación, asegurando que incluso una serie de pérdidas no dañe significativamente el capital. La preservación del capital se vuelve especialmente importante durante rachas de pérdidas, que son inevitables en el trading.</p>
+            <img src="images/07_01_risk_management_shield.png" alt="Risk Management Shield" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="pt">
+            <h2>A Fundação da Gestão de Riscos</h2>
+            <p>A gestão de riscos começa com o entendimento de que cada negócio carrega potencial de perda, independentemente do nível de confiança. Aceitar essa realidade ajuda os traders a tomar decisões racionais sobre tamanhos de posição e níveis de risco. A primeira regra é nunca arriscar mais do que você pode permitir-se perder em um único negócio. A maioria dos traders profissionais arrisca entre 1-3% do saldo da conta por negócio, garantindo que até uma série de perdas não prejudique significativamente o capital. A preservação do capital torna-se especialmente importante durante períodos de perdas, que são inevitáveis no trading.</p>
+            <img src="images/07_01_risk_management_shield.png" alt="Risk Management Shield" class="content-image">
+        </section>
+
+        <!-- ========== CONTENT SECTION 2: Position Sizing ========== -->
+        <section class="content-section" lang="ar">
+            <h2>استراتيجيات وحسابات تحديد حجم المركز</h2>
+            <p>يحدد حجم المركز عدد الأسهم أو العقود المراد تداولها بناءً على حجم الحساب وتحمل المخاطر وإعداد الصفقة. تتضمن طريقة النسبة المئوية الثابتة المخاطرة بنفس النسبة المئوية من رصيد الحساب في كل صفقة، مما يوفر الاستقرار ويمنع القرارات العاطفية. يتضمن الحساب تحديد المسافة بين نقطة الدخول ووقف الخسارة، ثم قسمة مبلغ المخاطرة على هذه المسافة. يتكيف تحديد الحجم على أساس التقلب مع حجم المركز على أساس تقلب الأداة، مع تلقي الأدوات الأكثر تقلباً مراكز أصغر للحفاظ على مستويات مخاطر متسقة.</p>
+            <img src="images/07_02_position_sizing_formula.png" alt="Position Sizing Formula" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="en">
+            <h2>Position Sizing Strategies and Calculations</h2>
+            <p>Position sizing determines how many shares or contracts to trade based on account size, risk tolerance, and trade setup. The fixed percentage method involves risking the same percentage of account balance on every trade, providing consistency and preventing emotional decisions. The calculation involves determining distance between entry and stop loss, then dividing risk amount by this distance. For example, on a $10,000 account risking 2%, if entry is $100 and stop loss is $95 (5 point distance), you can trade 400 shares. Volatility-based sizing adjusts trade size based on instrument volatility, with more volatile instruments receiving smaller positions to maintain consistent risk levels.</p>
+            <img src="images/07_02_position_sizing_formula.png" alt="Position Sizing Formula" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="es">
+            <h2>Estrategias de Dimensionamiento de Posiciones y Cálculos</h2>
+            <p>El dimensionamiento de posiciones determina cuántas acciones o contratos operar basado en el tamaño de cuenta, tolerancia al riesgo y configuración de la operación. El método de porcentaje fijo implica arriesgar el mismo porcentaje del saldo de la cuenta en cada operación, proporcionando consistencia y previniendo decisiones emocionales. El cálculo implica determinar la distancia entre entrada y pérdida, luego dividir la cantidad de riesgo por esta distancia. El dimensionamiento basado en volatilidad ajusta el tamaño de posición basado en la volatilidad del instrumento, con instrumentos más volátiles recibiendo posiciones más pequeñas para mantener niveles de riesgo consistentes.</p>
+            <img src="images/07_02_position_sizing_formula.png" alt="Position Sizing Formula" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="pt">
+            <h2>Estratégias de Dimensionamento de Posições e Cálculos</h2>
+            <p>O dimensionamento de posição determina quantas ações ou contratos negociar com base no tamanho da conta, tolerância ao risco e configuração do negócio. O método de porcentagem fixo envolve arriscar a mesma porcentagem do saldo da conta em cada negócio, proporcionando consistência e prevenindo decisões emocionais. O cálculo envolve determinar a distância entre entrada e stop loss, depois dividir a quantidade de risco por essa distância. O dimensionamento baseado em volatilidade ajusta o tamanho da posição com base na volatilidade do instrumento, com instrumentos mais voláteis recebendo posições menores para manter níveis de risco consistentes.</p>
+            <img src="images/07_02_position_sizing_formula.png" alt="Position Sizing Formula" class="content-image">
+        </section>
+
+        <!-- ========== CONTENT SECTION 3: Stop Loss ========== -->
+        <section class="content-section" lang="ar">
+            <h2>استراتيجيات وقف الخسارة والتطبيق</h2>
+            <p>تمثل وقفات الخسارة نقاط خروج محددة مسبقاً تحد من الخسائر عندما تتحرك الصفقات ضدك. يتم وضع وقفات الخسارة التقنية بناءً على أنماط الرسم البياني والدعم والمقاومة أو إشارات المؤشر. تحدد وقفات النسبة المئوية الخروج بنسب ثابتة من الدخول. تستخدم الوقفات القائمة على التقلب مؤشرات مثل ATR لحساب تقلبات الأسعار الطبيعية. تتحرك وقفات الخسارة المتابعة لصالحك مع أن تصبح الصفقات رابحة، مما يؤمن الأرباح مع السماح باستمرار إمكانية الربح.</p>
+            <img src="images/07_03_stop_loss_placement.png" alt="Stop Loss Placement" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="en">
+            <h2>Stop Loss Strategies and Implementation</h2>
+            <p>Stop losses represent predetermined exit points that limit losses when trades move against you. Technical stop losses are placed based on chart patterns, support and resistance, or indicator signals. This method ensures your stop is not arbitrary but based on actual market structure. Percentage-based stops set exits at fixed percentages from entry, offering simplicity but potentially ignoring market structure. Volatility-based stops use indicators like Average True Range (ATR) to account for normal price fluctuations and reduce whipsaws. Trailing stops move in your favor as trades become profitable, locking in gains while allowing continued profit potential.</p>
+            <img src="images/07_03_stop_loss_placement.png" alt="Stop Loss Placement" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="es">
+            <h2>Estrategias de Stop Loss e Implementación</h2>
+            <p>Los stops de pérdida representan puntos de salida predeterminados que limitan pérdidas cuando las operaciones se mueven en tu contra. Los stops técnicos se colocan basados en patrones de gráficos, soportes y resistencias, o señales de indicadores. Los stops basados en porcentaje establecen salidas en porcentajes fijos desde entrada. Los stops basados en volatilidad utilizan indicadores como ATR para contabilizar las fluctuaciones de precio normales. Los trailing stops se mueven a tu favor a medida que las operaciones se vuelven rentables, bloqueando ganancias permitiendo potencial de ganancia continuo.</p>
+            <img src="images/07_03_stop_loss_placement.png" alt="Stop Loss Placement" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="pt">
+            <h2>Estratégias de Stop Loss e Implementação</h2>
+            <p>Os stops de perda representam pontos de saída predeterminados que limitam perdas quando os negócios se movem contra você. Os stops técnicos são colocados com base em padrões de gráfico, suportes e resistências, ou sinais de indicadores. Os stops baseados em porcentagem definem saídas em porcentagens fixas da entrada. Os stops baseados em volatilidade usam indicadores como ATR para contabilizar flutuações de preço normais. Os trailing stops se movem a seu favor conforme os negócios se tornam lucrativos, bloqueando ganhos enquanto permitem potencial de lucro contínuo.</p>
+            <img src="images/07_03_stop_loss_placement.png" alt="Stop Loss Placement" class="content-image">
+        </section>
+
+        <!-- ========== CONTENT SECTION 4: Risk-Reward ========== -->
+        <section class="content-section" lang="ar">
+            <h2>استراتيجيات تحقيق الأرباح ونسب المخاطرة والمكافأة</h2>
+            <p>تحدد مستويات تحقيق الأرباح مكان الخروج من الصفقات الرابحة، والمحددة قبل الدخول للحفاظ على الانضباط. تقارن نسب المخاطرة والمكافأة الربح المحتمل بالخسارة المحتملة - نسبة 2:1 تعني المخاطرة بـ 1 دولار لتحقيق 2 دولار. يتم محاذاة مستويات تحقيق الأرباح التقنية مع المقاومة أو أهداف الأنماط أو ارتدادات فيبوناتشي. تسمح مستويات تحقيق الأرباح المتعددة بتأمين أرباح جزئية مع السماح بتشغيل المراكز المتبقية لتحقيق مكاسب أكبر.</p>
+            <img src="images/07_05_risk_reward_ratio.png" alt="Risk-Reward Ratio" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="en">
+            <h2>Take Profit Strategies and Risk-Reward Ratios</h2>
+            <p>Take profit levels determine where to exit profitable trades, set before entering to maintain discipline. Risk-reward ratios compare potential profit to potential loss - a 2:1 ratio means risking $1 to potentially make $2. This metric is crucial because it allows profitability even with win rates below 50%. Technical take profit levels align with resistance, pattern targets, or Fibonacci retracements. Multiple take profit levels allow securing partial profits while letting remaining positions run for larger gains. This technique balances protecting gains with capturing large moves. A trader with 40% win rate but 3:1 risk-reward ratio will profit long-term.</p>
+            <img src="images/07_05_risk_reward_ratio.png" alt="Risk-Reward Ratio" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="es">
+            <h2>Estrategias de Toma de Ganancias y Ratios Riesgo-Recompensa</h2>
+            <p>Los niveles de toma de ganancias determinan dónde salir de operaciones rentables, establecidos antes de entrar para mantener disciplina. Los ratios riesgo-recompensa comparan ganancia potencial con pérdida potencial - un ratio 2:1 significa arriesgar $1 para potencialmente hacer $2. Los niveles de toma de ganancias técnicos se alinean con resistencias, objetivos de patrones, o retracimientos de Fibonacci. Los niveles de toma de ganancias múltiples permiten asegurar ganancias parciales mientras dejas posiciones restantes correr para ganancias mayores. Esta técnica equilibra proteger ganancias con capturar movimientos grandes.</p>
+            <img src="images/07_05_risk_reward_ratio.png" alt="Risk-Reward Ratio" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="pt">
+            <h2>Estratégias de Realização de Lucros e Razões Risco-Recompensa</h2>
+            <p>Os níveis de realização de lucros determinam onde sair de negócios lucrativos, definidos antes de entrar para manter disciplina. As razões risco-recompensa comparam lucro potencial a perda potencial - uma razão 2:1 significa arriscar $1 para potencialmente ganhar $2. Os níveis de realização de lucros técnicos se alinham com resistências, objetivos de padrões, ou retrações de Fibonacci. Múltiplos níveis de realização de lucros permitem garantir lucros parciais enquanto deixa posições restantes correr para ganhos maiores. Esta técnica equilibra proteger lucros com capturar grandes movimentos.</p>
+            <img src="images/07_05_risk_reward_ratio.png" alt="Risk-Reward Ratio" class="content-image">
+        </section>
+
+        <!-- ========== INTERACTIVE QUIZ ========== -->
+        <section class="quiz-section" id="quiz1">
+            <!-- Arabic Quiz -->
+            <div lang="ar">
+                <div class="quiz-header">
+                    <h3 class="quiz-title">اختبار المعرفة</h3>
+                    <div class="quiz-xp-reward">+50 XP</div>
+                </div>
+                <div class="quiz-question">
+                    <p class="question-text">ما هي المخاطرة الموصى بها بحد أقصى لكل صفقة للمتداولين المحترفين؟</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-correct="true" onclick="selectQuizOption(this, 'quiz1')">
+                            1-3% من رصيد الحساب
+                        </div>
+                        <div class="quiz-option" onclick="selectQuizOption(this, 'quiz1')">
+                            5-10% من رصيد الحساب
+                        </div>
+                        <div class="quiz-option" onclick="selectQuizOption(this, 'quiz1')">
+                            10-20% من رصيد الحساب
+                        </div>
+                        <div class="quiz-option" onclick="selectQuizOption(this, 'quiz1')">
+                            أي مبلغ يشعر به المتداول مرتاحاً
+                        </div>
+                    </div>
+                    <div class="quiz-feedback" id="quiz1-feedback"></div>
+                    <button class="quiz-submit" onclick="submitQuiz('quiz1')" id="quiz1-submit">إرسال الإجابة</button>
+                </div>
+            </div>
+
+            <!-- English Quiz -->
+            <div class="hidden" lang="en">
+                <div class="quiz-header">
+                    <h3 class="quiz-title">Knowledge Check</h3>
+                    <div class="quiz-xp-reward">+50 XP</div>
+                </div>
+                <div class="quiz-question">
+                    <p class="question-text">What is the recommended maximum risk per trade for professional traders?</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-correct="true" onclick="selectQuizOption(this, 'quiz1')">
+                            1-3% of account balance
+                        </div>
+                        <div class="quiz-option" onclick="selectQuizOption(this, 'quiz1')">
+                            5-10% of account balance
+                        </div>
+                        <div class="quiz-option" onclick="selectQuizOption(this, 'quiz1')">
+                            10-20% of account balance
+                        </div>
+                        <div class="quiz-option" onclick="selectQuizOption(this, 'quiz1')">
+                            Any amount the trader feels comfortable with
+                        </div>
+                    </div>
+                    <div class="quiz-feedback" id="quiz1-feedback-en"></div>
+                    <button class="quiz-submit" onclick="submitQuiz('quiz1')" id="quiz1-submit-en">Submit Answer</button>
+                </div>
+            </div>
+
+            <!-- Spanish Quiz -->
+            <div class="hidden" lang="es">
+                <div class="quiz-header">
+                    <h3 class="quiz-title">Verificación de Conocimientos</h3>
+                    <div class="quiz-xp-reward">+50 XP</div>
+                </div>
+                <div class="quiz-question">
+                    <p class="question-text">¿Cuál es el riesgo máximo recomendado por operación para traders profesionales?</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-correct="true" onclick="selectQuizOption(this, 'quiz1')">
+                            1-3% del saldo de la cuenta
+                        </div>
+                        <div class="quiz-option" onclick="selectQuizOption(this, 'quiz1')">
+                            5-10% del saldo de la cuenta
+                        </div>
+                        <div class="quiz-option" onclick="selectQuizOption(this, 'quiz1')">
+                            10-20% del saldo de la cuenta
+                        </div>
+                        <div class="quiz-option" onclick="selectQuizOption(this, 'quiz1')">
+                            Cualquier cantidad con la que el trader se sienta cómodo
+                        </div>
+                    </div>
+                    <div class="quiz-feedback" id="quiz1-feedback-es"></div>
+                    <button class="quiz-submit" onclick="submitQuiz('quiz1')" id="quiz1-submit-es">Enviar Respuesta</button>
+                </div>
+            </div>
+
+            <!-- Portuguese Quiz -->
+            <div class="hidden" lang="pt">
+                <div class="quiz-header">
+                    <h3 class="quiz-title">Verificação de Conhecimentos</h3>
+                    <div class="quiz-xp-reward">+50 XP</div>
+                </div>
+                <div class="quiz-question">
+                    <p class="question-text">Qual é o risco máximo recomendado por negócio para traders profissionais?</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-correct="true" onclick="selectQuizOption(this, 'quiz1')">
+                            1-3% do saldo da conta
+                        </div>
+                        <div class="quiz-option" onclick="selectQuizOption(this, 'quiz1')">
+                            5-10% do saldo da conta
+                        </div>
+                        <div class="quiz-option" onclick="selectQuizOption(this, 'quiz1')">
+                            10-20% do saldo da conta
+                        </div>
+                        <div class="quiz-option" onclick="selectQuizOption(this, 'quiz1')">
+                            Qualquer quantia com a qual o trader se sinta confortável
+                        </div>
+                    </div>
+                    <div class="quiz-feedback" id="quiz1-feedback-pt"></div>
+                    <button class="quiz-submit" onclick="submitQuiz('quiz1')" id="quiz1-submit-pt">Enviar Resposta</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== KEY TAKEAWAYS ========== -->
+        <section class="key-takeaways" lang="ar">
+            <h3>النقاط الرئيسية</h3>
+            <ul>
+                <li>إدارة المخاطر أكثر أهمية من إيجاد صفقات رابحة - حماية رأس المال تمكن الربحية على المدى الطويل</li>
+                <li>يجب أن يكون تحديد حجم المركز بناءً على حجم الحساب وتحمل المخاطر وتقلب السوق</li>
+                <li>تحمي وقفات الخسارة من الخسائر الكبيرة وينبغي تحديدها قبل الدخول في أي صفقة</li>
+                <li>تسمح نسب المخاطرة والمكافأة بالربحية حتى مع معدلات فوز معتدلة - أولويات الإعدادات الجودة</li>
+                <li>الانضباط النفسي ضروري للحفاظ على إدارة المخاطر الفعالة بشكل ثابت</li>
+            </ul>
+        </section>
+
+        <section class="key-takeaways hidden" lang="en">
+            <h3>Key Takeaways</h3>
+            <ul>
+                <li>Risk management is more important than finding profitable trades - capital preservation enables long-term profitability</li>
+                <li>Position sizing should be based on account size, risk tolerance, and market volatility</li>
+                <li>Stop losses protect against significant losses and should be set before entering any trade</li>
+                <li>Risk-reward ratios allow profitability even with moderate win rates - prioritize quality setups</li>
+                <li>Psychological discipline is essential for maintaining effective risk management consistently</li>
+            </ul>
+        </section>
+
+        <section class="key-takeaways hidden" lang="es">
+            <h3>Puntos Clave</h3>
+            <ul>
+                <li>La gestión de riesgos es más importante que encontrar operaciones rentables - la preservación del capital habilita rentabilidad a largo plazo</li>
+                <li>El dimensionamiento de posiciones debe basarse en tamaño de cuenta, tolerancia al riesgo y volatilidad del mercado</li>
+                <li>Los stops de pérdida protegen contra pérdidas significativas y deben establecerse antes de entrar en cualquier operación</li>
+                <li>Los ratios riesgo-recompensa permiten rentabilidad incluso con tasas de ganancia moderadas - prioriza configuraciones de calidad</li>
+                <li>La disciplina psicológica es esencial para mantener una gestión de riesgos efectiva consistentemente</li>
+            </ul>
+        </section>
+
+        <section class="key-takeaways hidden" lang="pt">
+            <h3>Pontos-Chave</h3>
+            <ul>
+                <li>A gestão de riscos é mais importante do que encontrar negócios lucrativos - a preservação de capital permite lucratividade de longo prazo</li>
+                <li>O dimensionamento de posição deve ser baseado no tamanho da conta, tolerância ao risco e volatilidade do mercado</li>
+                <li>Os stops de perda protegem contra perdas significativas e devem ser definidos antes de entrar em qualquer negócio</li>
+                <li>As razões risco-recompensa permitem lucratividade mesmo com taxas de vitória moderadas - priorize configurações de qualidade</li>
+                <li>A disciplina psicológica é essencial para manter uma gestão de riscos eficaz consistentemente</li>
+            </ul>
+        </section>
+
+        <!-- ========== INTERACTIVE EXERCISE ========== -->
+        <section class="interactive-exercise" lang="ar">
+            <div class="exercise-header">
+                <h3 class="exercise-title">التمرين التفاعلي</h3>
+                <div class="quiz-xp-reward">+100 XP</div>
+            </div>
+            <p>احسب أحجام المراكز لثلاث سيناريوهات صفقة مختلفة باستخدام قاعدة 2% على حساب بقيمة 10,000 دولار. لكل سيناريو، حدد سعر الدخول ومستوى وقف الخسارة وحجم المركز والخسارة المحتملة.</p>
+
+            <div class="exercise-actions">
+                <button class="exercise-btn" onclick="showPositionCalculator()">
+                    <span>📊</span>
+                    <span>استخدم حاسبة المركز</span>
+                </button>
+                <button class="exercise-btn secondary" onclick="downloadTemplate()">
+                    <span>📥</span>
+                    <span>تنزيل قالب Excel</span>
+                </button>
+            </div>
+
+            <!-- Position Calculator Form -->
+            <div class="journal-form" id="calc-form">
+                <h4>حاسبة حجم المركز</h4>
+                <div class="form-group">
+                    <label class="form-label">رصيد الحساب ($):</label>
+                    <input type="number" class="form-input" placeholder="10000" id="account-balance" value="10000">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">نسبة المخاطرة (%):</label>
+                    <input type="number" class="form-input" placeholder="2" id="risk-percent" value="2" step="0.1">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">سعر الدخول:</label>
+                    <input type="number" class="form-input" step="0.0001" id="entry-price">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">سعر وقف الخسارة:</label>
+                    <input type="number" class="form-input" step="0.0001" id="stop-price">
+                </div>
+                <button class="exercise-btn" onclick="calculatePositionSize()">
+                    <span>🧮</span>
+                    <span>احسب حجم المركز</span>
+                </button>
+                <div id="calc-results" style="margin-top: 1.5rem; padding: 1rem; background: var(--pearl); border-radius: 8px; display: none;">
+                    <p><strong>حجم المركز:</strong> <span id="result-size">--</span></p>
+                    <p><strong>الخسارة المحتملة:</strong> <span id="result-loss">--</span></p>
+                    <p><strong>هدف الربح (3:1):</strong> <span id="result-profit">--</span></p>
+                </div>
+            </div>
+        </section>
+
+        <section class="interactive-exercise hidden" lang="en">
+            <div class="exercise-header">
+                <h3 class="exercise-title">Interactive Exercise</h3>
+                <div class="quiz-xp-reward">+100 XP</div>
+            </div>
+            <p>Calculate position sizes for three different trade scenarios using a 2% risk rule on a $10,000 account. For each scenario, determine the entry price, stop loss level, position size, and potential profit at a 3:1 risk-reward ratio.</p>
+
+            <div class="exercise-actions">
+                <button class="exercise-btn" onclick="showPositionCalculator()">
+                    <span>📊</span>
+                    <span>Use Position Calculator</span>
+                </button>
+                <button class="exercise-btn secondary" onclick="downloadTemplate()">
+                    <span>📥</span>
+                    <span>Download Excel Template</span>
+                </button>
+            </div>
+        </section>
+
+        <section class="interactive-exercise hidden" lang="es">
+            <div class="exercise-header">
+                <h3 class="exercise-title">Ejercicio Interactivo</h3>
+                <div class="quiz-xp-reward">+100 XP</div>
+            </div>
+            <p>Calcula tamaños de posición para tres escenarios de operación diferentes usando una regla de riesgo del 2% en una cuenta de $10,000. Para cada escenario, determina el precio de entrada, nivel de stop loss, tamaño de posición y ganancia potencial.</p>
+
+            <div class="exercise-actions">
+                <button class="exercise-btn" onclick="showPositionCalculator()">
+                    <span>📊</span>
+                    <span>Usar Calculadora de Posición</span>
+                </button>
+                <button class="exercise-btn secondary" onclick="downloadTemplate()">
+                    <span>📥</span>
+                    <span>Descargar Plantilla Excel</span>
+                </button>
+            </div>
+        </section>
+
+        <section class="interactive-exercise hidden" lang="pt">
+            <div class="exercise-header">
+                <h3 class="exercise-title">Exercício Interativo</h3>
+                <div class="quiz-xp-reward">+100 XP</div>
+            </div>
+            <p>Calcule tamanhos de posição para três cenários de negócio diferentes usando uma regra de risco de 2% em uma conta de $10.000. Para cada cenário, determine o preço de entrada, nível de stop loss, tamanho de posição e lucro potencial.</p>
+
+            <div class="exercise-actions">
+                <button class="exercise-btn" onclick="showPositionCalculator()">
+                    <span>📊</span>
+                    <span>Usar Calculadora de Posição</span>
+                </button>
+                <button class="exercise-btn secondary" onclick="downloadTemplate()">
+                    <span>📥</span>
+                    <span>Baixar Modelo Excel</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- ========== NAVIGATION ========== -->
+        <nav class="lesson-navigation">
+            <a href="lesson-06.html" class="nav-button prev">
+                <span lang="ar">← الدرس السابق</span>
+                <span lang="en" class="hidden">← Previous Lesson</span>
+                <span lang="es" class="hidden">← Lección Anterior</span>
+                <span lang="pt" class="hidden">← Lição Anterior</span>
+            </a>
+            <a href="lesson-08.html" class="nav-button next" onclick="completeLesson()">
+                <span lang="ar">الدرس التالي →</span>
+                <span lang="en" class="hidden">Next Lesson →</span>
+                <span lang="es" class="hidden">Siguiente Lección →</span>
+                <span lang="pt" class="hidden">Próxima Lição →</span>
+            </a>
+        </nav>
+    </main>
+
+    <!-- ========== ACHIEVEMENT MODAL ========== -->
+    <div class="achievement-modal" id="achievement-modal">
+        <div class="achievement-content">
+            <div class="achievement-icon">🏆</div>
+            <h2 class="achievement-title" id="achievement-title">Achievement Unlocked!</h2>
+            <p class="achievement-description" id="achievement-desc">Risk Manager Certified</p>
+            <div class="achievement-xp" id="achievement-xp">+250 XP</div>
+            <button class="achievement-close" onclick="closeAchievement()">Continue Learning</button>
+        </div>
+    </div>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="footer">
+        <img src="../lesson-01/images/Seekapa Black Logo.png" alt="Seekapa" class="footer-logo">
+        <p class="footer-tagline">Seekapa Your Gateway To Advanced Trading!</p>
+        <p>&copy; 2025 Seekapa Trading Academy. All rights reserved.</p>
+    </footer>
+
+    <!-- ========== INTERACTIVE JAVASCRIPT ========== -->
+    <script>
+        // Load translations
+        let translations = {};
+
+        fetch('lesson-07-content-4lang.json')
+            .then(response => response.json())
+            .then(data => {
+                translations = data;
+                updateLanguageDisplay();
+            });
+
+        let currentLanguage = localStorage.getItem('preferred_language') || 'ar';
+        let userXP = parseInt(localStorage.getItem('total_xp') || '0');
+        let userStreak = parseInt(localStorage.getItem('streak_days') || '1');
+
+        // Update XP and Streak on load
+        document.getElementById('user-xp').textContent = userXP + ' XP';
+        document.getElementById('user-streak').textContent = userStreak + ' Days';
+
+        function switchLanguage(lang) {
+            currentLanguage = lang;
+            localStorage.setItem('preferred_language', lang);
+
+            document.documentElement.lang = lang;
+            document.documentElement.dir = (lang === 'ar') ? 'rtl' : 'ltr';
+
+            // Update language buttons
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`[data-lang="${lang}"]`).classList.add('active');
+
+            // Show/hide sections based on language
+            document.querySelectorAll('[lang]').forEach(section => {
+                if (section.getAttribute('lang') === lang) {
+                    section.classList.remove('hidden');
+                } else {
+                    section.classList.add('hidden');
+                }
+            });
+
+            updateLanguageDisplay();
+        }
+
+        function updateLanguageDisplay() {
+            if (!translations || !translations[currentLanguage]) return;
+
+            const t = translations[currentLanguage];
+            document.getElementById('progress-title').textContent =
+                (currentLanguage === 'ar' ? 'التقدم: الدرس 7 من 12' :
+                 currentLanguage === 'es' ? 'Progreso: Lección 7 de 12' :
+                 currentLanguage === 'pt' ? 'Progresso: Lição 7 de 12' :
+                 'Progress: Lesson 7 of 12');
+        }
+
+        function selectQuizOption(element, quizId) {
+            const parent = element.parentElement;
+            parent.querySelectorAll('.quiz-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            element.classList.add('selected');
+        }
+
+        function submitQuiz(quizId) {
+            const selected = document.querySelector(`#${quizId} .quiz-option.selected`);
+            if (!selected) {
+                alert(currentLanguage === 'ar' ? 'اختر إجابة أولاً' : 'Please select an answer first');
+                return;
+            }
+
+            const isCorrect = selected.dataset.correct === 'true';
+            const feedbackId = `${quizId}-feedback` + (currentLanguage !== 'ar' ? '-' + currentLanguage : '');
+            const feedback = document.getElementById(feedbackId);
+
+            if (isCorrect) {
+                selected.classList.add('correct');
+                feedback.classList.add('show', 'correct');
+                feedback.textContent = currentLanguage === 'ar' ? 'صحيح! 🎉' : 'Correct! 🎉';
+                awardXP(50, 'Quiz Complete');
+            } else {
+                selected.classList.add('incorrect');
+                feedback.classList.add('show', 'incorrect');
+                feedback.textContent = currentLanguage === 'ar' ? 'حاول مرة أخرى' : 'Try again';
+            }
+
+            document.getElementById(`${quizId}-submit` + (currentLanguage !== 'ar' ? '-' + currentLanguage : '')).disabled = true;
+        }
+
+        function showPositionCalculator() {
+            const form = document.getElementById('calc-form');
+            form.classList.toggle('show');
+        }
+
+        function calculatePositionSize() {
+            const accountBalance = parseFloat(document.getElementById('account-balance').value);
+            const riskPercent = parseFloat(document.getElementById('risk-percent').value);
+            const entryPrice = parseFloat(document.getElementById('entry-price').value);
+            const stopPrice = parseFloat(document.getElementById('stop-price').value);
+
+            if (!accountBalance || !riskPercent || !entryPrice || !stopPrice) {
+                alert(currentLanguage === 'ar' ? 'املأ جميع الحقول' : 'Please fill all fields');
+                return;
+            }
+
+            const riskAmount = accountBalance * (riskPercent / 100);
+            const pipsDistance = Math.abs(entryPrice - stopPrice);
+            const positionSize = Math.floor(riskAmount / pipsDistance);
+            const potentialLoss = positionSize * pipsDistance;
+            const potentialProfit = potentialLoss * 3; // 3:1 ratio
+
+            document.getElementById('result-size').textContent = positionSize + ' units';
+            document.getElementById('result-loss').textContent = '$' + potentialLoss.toFixed(2);
+            document.getElementById('result-profit').textContent = '$' + potentialProfit.toFixed(2);
+            document.getElementById('calc-results').style.display = 'block';
+
+            awardXP(20, 'Calculation Complete');
+        }
+
+        function downloadTemplate() {
+            // Create CSV template
+            const csv = 'Scenario,Entry Price,Stop Loss,Distance,Account Balance,Risk %,Risk Amount,Position Size,Potential Loss,Profit Target (3:1)\n' +
+                        'Scenario 1,,,,,2,200,,\n' +
+                        'Scenario 2,,,,,2,200,,\n' +
+                        'Scenario 3,,,,,2,200,,\n';
+
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'position-sizing-template.csv';
+            a.click();
+        }
+
+        function completeLesson() {
+            const completed = JSON.parse(localStorage.getItem('completed_lessons') || '[]');
+            if (!completed.includes(7)) {
+                completed.push(7);
+                localStorage.setItem('completed_lessons', JSON.stringify(completed));
+                awardXP(250, 'Lesson Complete!');
+                showAchievement('Risk Manager Certified', '+250 XP');
+            }
+        }
+
+        function awardXP(amount, reason) {
+            userXP += amount;
+            localStorage.setItem('total_xp', userXP.toString());
+            document.getElementById('user-xp').textContent = userXP + ' XP';
+        }
+
+        function showAchievement(title, xp) {
+            document.getElementById('achievement-title').textContent = title;
+            document.getElementById('achievement-xp').textContent = xp;
+            document.getElementById('achievement-modal').classList.add('show');
+        }
+
+        function closeAchievement() {
+            document.getElementById('achievement-modal').classList.remove('show');
+        }
+
+        // Initialize language on load
+        switchLanguage(currentLanguage);
+    </script>
+</body>
+</html>

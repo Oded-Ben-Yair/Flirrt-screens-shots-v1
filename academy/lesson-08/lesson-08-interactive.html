@@ -1,0 +1,1630 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Seekapa Trading Academy - Lesson 8: Trading Psychology & Mindset. Master emotional control and mental discipline for consistent trading success.">
+
+    <link rel="alternate" hreflang="ar" href="/ar/lesson-08" />
+    <link rel="alternate" hreflang="en" href="/en/lesson-08" />
+    <link rel="alternate" hreflang="es" href="/es/lesson-08" />
+    <link rel="alternate" hreflang="pt" href="/pt/lesson-08" />
+
+    <title>الدرس 8: علم نفس التداول والعقلية | Seekapa Trading Academy</title>
+
+    <!-- Premium Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;500;600;700&family=Cairo:wght@600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ========== BASE STYLES ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Premium Colors */
+            --seekapa-forest: #1B5E3F;
+            --seekapa-emerald: #0F5F3F;
+            --seekapa-sage: #7A9D8E;
+            --trust-navy: #1F3A6B;
+            --burgundy: #8B3A3A;
+            --champagne-gold: #D4AF37;
+            --platinum: #E5E4E2;
+            --charcoal: #2B2D42;
+            --slate: #8D99AE;
+            --pearl: #F8F9FA;
+            --ivory: #FDFDF8;
+
+            /* Gamification Colors */
+            --xp-blue: #3B82F6;
+            --badge-gold: #FFD700;
+            --streak-orange: #FF6B35;
+            --correct-green: #10B981;
+            --incorrect-red: #EF4444;
+
+            /* Premium Spacing */
+            --space-xs: 0.75rem;
+            --space-sm: 1.5rem;
+            --space-md: 3rem;
+            --space-lg: 4.5rem;
+            --space-xl: 6rem;
+            --space-2xl: 9rem;
+
+            /* Typography Scale */
+            --font-size-base: 18px;
+            --font-size-lg: 1.25rem;
+            --font-size-xl: 1.75rem;
+            --font-size-2xl: 2.25rem;
+            --font-size-3xl: 3.5rem;
+
+            /* Premium Shadows */
+            --shadow-xs: 0 1px 2px rgba(27, 94, 63, 0.04);
+            --shadow-sm: 0 2px 4px rgba(27, 94, 63, 0.06), 0 1px 2px rgba(27, 94, 63, 0.03);
+            --shadow-md: 0 4px 8px rgba(27, 94, 63, 0.08), 0 2px 4px rgba(27, 94, 63, 0.04);
+            --shadow-lg: 0 8px 16px rgba(27, 94, 63, 0.10), 0 4px 8px rgba(27, 94, 63, 0.06);
+
+            /* Animations */
+            --transition-fast: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-base: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            line-height: 1.8;
+            color: var(--charcoal);
+            background: var(--ivory);
+            font-size: var(--font-size-base);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        [lang="ar"] {
+            font-family: 'Noto Kufi Arabic', 'Cairo', sans-serif;
+            font-size: 1.35rem;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-weight: 600;
+            line-height: 1.2;
+            color: var(--charcoal);
+        }
+
+        [lang="ar"] h1, [lang="ar"] h2, [lang="ar"] h3 {
+            font-family: 'Cairo', serif;
+        }
+
+        h1 { font-size: var(--font-size-3xl); }
+        h2 { font-size: var(--font-size-2xl); }
+        h3 { font-size: var(--font-size-xl); }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* ========== HEADER WITH GAMIFICATION ========== */
+        .header {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px) saturate(180%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            padding-block: var(--space-md);
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin-inline: auto;
+            padding-inline: var(--space-lg);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: var(--space-sm);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .logo-image {
+            height: 45px;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+        }
+
+        .logo-text {
+            font-weight: 700;
+            color: var(--seekapa-forest);
+            font-size: 1rem;
+            letter-spacing: 1px;
+        }
+
+        .user-stats {
+            display: flex;
+            gap: var(--space-md);
+            align-items: center;
+        }
+
+        .xp-badge, .streak-badge {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(135deg, var(--xp-blue), rgba(59, 130, 246, 0.1));
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--xp-blue);
+        }
+
+        .streak-badge {
+            background: linear-gradient(135deg, var(--streak-orange), rgba(255, 107, 53, 0.1));
+            color: var(--streak-orange);
+        }
+
+        .language-bar {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .lang-btn {
+            padding: 0.75rem 1rem;
+            background: transparent;
+            border: 1px solid var(--seekapa-forest);
+            color: var(--seekapa-forest);
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all var(--transition-fast);
+        }
+
+        .lang-btn.active {
+            background: var(--seekapa-forest);
+            color: white;
+        }
+
+        .lang-btn:hover {
+            background: rgba(27, 94, 63, 0.1);
+        }
+
+        /* ========== PROGRESS BAR ========== */
+        .progress-container {
+            background: white;
+            padding: var(--space-lg);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .progress-content {
+            max-width: 1200px;
+            margin-inline: auto;
+            padding-inline: var(--space-lg);
+        }
+
+        .progress-title {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            color: var(--charcoal);
+        }
+
+        .progress-stats {
+            color: var(--seekapa-forest);
+        }
+
+        .progress-bar-wrapper {
+            width: 100%;
+            height: 12px;
+            background: var(--platinum);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--seekapa-forest), var(--champagne-gold));
+            border-radius: 10px;
+            width: 0%;
+            transition: width 1s ease-out;
+        }
+
+        .progress-milestones {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .milestone {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: var(--pearl);
+            border: 2px solid var(--platinum);
+            border-radius: 50%;
+            font-weight: 700;
+            color: var(--slate);
+            font-size: 0.9rem;
+        }
+
+        .milestone.completed {
+            background: var(--seekapa-forest);
+            border-color: var(--seekapa-forest);
+            color: white;
+        }
+
+        /* ========== MAIN CONTAINER ========== */
+        .container {
+            max-width: 1200px;
+            margin-inline: auto;
+            padding-inline: var(--space-lg);
+            padding-block: var(--space-xl);
+        }
+
+        /* ========== LESSON HEADER ========== */
+        .lesson-header {
+            text-align: center;
+            margin-bottom: var(--space-xl);
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .lesson-number {
+            display: inline-block;
+            color: var(--seekapa-forest);
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            letter-spacing: 1px;
+        }
+
+        .lesson-title {
+            color: var(--charcoal);
+            margin-bottom: 1rem;
+        }
+
+        .lesson-subtitle {
+            font-size: var(--font-size-lg);
+            color: var(--slate);
+            max-width: 600px;
+            margin-inline: auto;
+        }
+
+        /* ========== VIDEO SECTION ========== */
+        .video-section {
+            margin: var(--space-xl) 0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            background: linear-gradient(135deg, #1a2332, #0A1929);
+        }
+
+        .video-placeholder {
+            padding-bottom: 56.25%;
+            position: relative;
+            height: 0;
+        }
+
+        .video-placeholder > * {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .play-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--seekapa-forest);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* ========== CONTENT SECTIONS ========== */
+        .learning-objectives {
+            background: linear-gradient(135deg, rgba(27, 94, 63, 0.05), rgba(212, 175, 55, 0.05));
+            border-left: 4px solid var(--seekapa-forest);
+            padding: var(--space-md);
+            margin: var(--space-xl) 0;
+            border-radius: 8px;
+        }
+
+        .learning-objectives h3 {
+            color: var(--seekapa-forest);
+            margin-bottom: 1.5rem;
+        }
+
+        .learning-objectives ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .learning-objectives li {
+            padding-left: 2rem;
+            margin-bottom: 1rem;
+            position: relative;
+            color: var(--charcoal);
+        }
+
+        .learning-objectives li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--seekapa-forest);
+            font-weight: 700;
+        }
+
+        .content-section {
+            margin: var(--space-xl) 0;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .content-section h2 {
+            color: var(--charcoal);
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--champagne-gold);
+        }
+
+        .content-section p {
+            font-size: var(--font-size-lg);
+            line-height: 1.9;
+            color: var(--charcoal);
+            margin-bottom: 1.5rem;
+        }
+
+        .content-image {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: var(--shadow-lg);
+            margin: 2rem 0;
+        }
+
+        /* ========== QUIZ SECTION ========== */
+        .quiz-section {
+            background: linear-gradient(135deg, rgba(31, 58, 107, 0.05), rgba(212, 175, 55, 0.05));
+            padding: var(--space-lg);
+            border-radius: 12px;
+            margin: var(--space-xl) 0;
+        }
+
+        .quiz-section h2 {
+            color: var(--trust-navy);
+            margin-bottom: 2rem;
+            border-bottom: 2px solid var(--xp-blue);
+            padding-bottom: 1rem;
+        }
+
+        .quiz-item {
+            background: white;
+            border-radius: 8px;
+            padding: var(--space-md);
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .quiz-question {
+            font-weight: 700;
+            color: var(--charcoal);
+            margin-bottom: 1.5rem;
+            font-size: var(--font-size-lg);
+        }
+
+        .quiz-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .quiz-option {
+            padding: 1rem;
+            border: 2px solid var(--platinum);
+            border-radius: 8px;
+            cursor: pointer;
+            background: white;
+            transition: all var(--transition-fast);
+            text-align: left;
+        }
+
+        .quiz-option:hover {
+            border-color: var(--seekapa-forest);
+            background: rgba(27, 94, 63, 0.05);
+        }
+
+        .quiz-option.selected {
+            border-color: var(--xp-blue);
+            background: rgba(59, 130, 246, 0.1);
+        }
+
+        .quiz-option.correct {
+            border-color: var(--correct-green);
+            background: rgba(16, 185, 129, 0.1);
+        }
+
+        .quiz-option.incorrect {
+            border-color: var(--incorrect-red);
+            background: rgba(239, 68, 68, 0.1);
+        }
+
+        .quiz-submit {
+            background: var(--seekapa-forest);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .quiz-submit:hover:not(:disabled) {
+            background: var(--seekapa-emerald);
+            transform: translateY(-2px);
+        }
+
+        .quiz-submit:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .quiz-feedback {
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            font-weight: 600;
+            display: none;
+        }
+
+        .quiz-feedback.correct {
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--correct-green);
+            display: block;
+        }
+
+        .quiz-feedback.incorrect {
+            background: rgba(239, 68, 68, 0.15);
+            color: var(--incorrect-red);
+            display: block;
+        }
+
+        /* ========== TAKEAWAYS ========== */
+        .takeaways-section {
+            background: linear-gradient(135deg, rgba(27, 94, 63, 0.08), rgba(122, 157, 142, 0.08));
+            padding: var(--space-lg);
+            border-radius: 12px;
+            margin: var(--space-xl) 0;
+        }
+
+        .takeaways-section h2 {
+            color: var(--seekapa-forest);
+            margin-bottom: 2rem;
+            border-bottom: 2px solid var(--champagne-gold);
+            padding-bottom: 1rem;
+        }
+
+        .takeaways-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .takeaways-list li {
+            padding: 1rem 0 1rem 3rem;
+            position: relative;
+            font-size: var(--font-size-lg);
+            color: var(--charcoal);
+            margin-bottom: 1rem;
+        }
+
+        .takeaways-list li:before {
+            content: "★";
+            position: absolute;
+            left: 0;
+            color: var(--champagne-gold);
+            font-size: 1.5rem;
+        }
+
+        /* ========== EXERCISE SECTION ========== */
+        .interactive-exercise {
+            background: linear-gradient(135deg, rgba(139, 58, 58, 0.08), rgba(212, 175, 55, 0.08));
+            padding: var(--space-lg);
+            border-radius: 12px;
+            margin: var(--space-xl) 0;
+            border-left: 4px solid var(--burgundy);
+        }
+
+        .exercise-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .exercise-title {
+            color: var(--burgundy);
+        }
+
+        .quiz-xp-reward {
+            background: var(--badge-gold);
+            color: var(--charcoal);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .exercise-actions {
+            display: flex;
+            gap: var(--space-md);
+            margin: var(--space-md) 0;
+            flex-wrap: wrap;
+        }
+
+        .exercise-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 1.5rem;
+            background: var(--burgundy);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all var(--transition-fast);
+            font-size: 1rem;
+        }
+
+        .exercise-btn:hover {
+            background: var(--seekapa-emerald);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .exercise-btn.secondary {
+            background: var(--seekapa-sage);
+        }
+
+        .journal-form {
+            background: white;
+            padding: var(--space-md);
+            border-radius: 8px;
+            margin-top: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 600;
+            color: var(--charcoal);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-input, .form-textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--platinum);
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: border-color var(--transition-fast);
+        }
+
+        .form-input:focus, .form-textarea:focus {
+            outline: none;
+            border-color: var(--seekapa-forest);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        /* ========== NAVIGATION ========== */
+        .lesson-navigation {
+            display: flex;
+            gap: var(--space-lg);
+            justify-content: space-between;
+            margin: var(--space-2xl) 0 var(--space-lg);
+            flex-wrap: wrap;
+        }
+
+        .nav-button {
+            flex: 1;
+            min-width: 200px;
+            padding: 1.25rem;
+            border: 2px solid var(--seekapa-forest);
+            background: white;
+            color: var(--seekapa-forest);
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .nav-button:hover:not(:disabled) {
+            background: var(--seekapa-forest);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .nav-button:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .nav-button.next {
+            background: var(--seekapa-forest);
+            color: white;
+        }
+
+        /* ========== ACHIEVEMENT MODAL ========== */
+        .achievement-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity var(--transition-base);
+        }
+
+        .achievement-modal.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .achievement-content {
+            background: white;
+            border-radius: 12px;
+            padding: var(--space-lg);
+            text-align: center;
+            max-width: 400px;
+            box-shadow: var(--shadow-lg);
+            animation: bounce 0.6s ease-out;
+        }
+
+        .achievement-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .achievement-title {
+            color: var(--seekapa-forest);
+            margin-bottom: 0.5rem;
+        }
+
+        .achievement-description {
+            color: var(--slate);
+            margin-bottom: 1rem;
+        }
+
+        .achievement-xp {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--xp-blue);
+            margin-bottom: 1.5rem;
+        }
+
+        .achievement-close {
+            background: var(--seekapa-forest);
+            color: white;
+            padding: 0.75rem 2rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: all var(--transition-fast);
+        }
+
+        .achievement-close:hover {
+            background: var(--seekapa-emerald);
+        }
+
+        /* ========== FOOTER ========== */
+        .footer {
+            background: var(--charcoal);
+            color: white;
+            padding: var(--space-xl) var(--space-lg);
+            text-align: center;
+            margin-top: var(--space-2xl);
+        }
+
+        .footer-logo {
+            height: 40px;
+            margin-bottom: 1rem;
+        }
+
+        .footer-tagline {
+            font-size: var(--font-size-lg);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--champagne-gold);
+        }
+
+        /* ========== ANIMATIONS ========== */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 768px) {
+            :root {
+                --font-size-3xl: 2.25rem;
+                --space-xl: 3rem;
+                --space-lg: 2rem;
+            }
+
+            .header-content {
+                flex-direction: column;
+            }
+
+            .user-stats {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .language-bar {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .quiz-options {
+                grid-template-columns: 1fr;
+            }
+
+            .exercise-actions {
+                flex-direction: column;
+            }
+
+            .lesson-navigation {
+                flex-direction: column;
+            }
+
+            .nav-button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ========== HEADER WITH GAMIFICATION ========== -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo-container">
+                <img src="images/Seekapa Black Logo.png" alt="Seekapa" class="logo-image">
+                <span class="logo-text">TRADING ACADEMY</span>
+            </div>
+
+            <!-- User Gamification Stats -->
+            <div class="user-stats">
+                <div class="xp-badge">
+                    <span>⚡</span>
+                    <span id="user-xp">0 XP</span>
+                </div>
+                <div class="streak-badge">
+                    <span>🔥</span>
+                    <span id="user-streak">1 Day</span>
+                </div>
+            </div>
+
+            <!-- Language Bar -->
+            <div class="language-bar">
+                <button class="lang-btn active" data-lang="ar" onclick="switchLanguage('ar')">العربية</button>
+                <button class="lang-btn" data-lang="en" onclick="switchLanguage('en')">English</button>
+                <button class="lang-btn" data-lang="es" onclick="switchLanguage('es')">Español</button>
+                <button class="lang-btn" data-lang="pt" onclick="switchLanguage('pt')">Português</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ========== PROGRESS BAR ========== -->
+    <div class="progress-container">
+        <div class="progress-content">
+            <div class="progress-title">
+                <span id="progress-title">التقدم: الدرس 8 من 12</span>
+                <span class="progress-stats">66.67%</span>
+            </div>
+            <div class="progress-bar-wrapper">
+                <div class="progress-bar-fill" id="progress-fill"></div>
+            </div>
+            <div class="progress-milestones">
+                <span class="milestone completed">L1</span>
+                <span class="milestone completed">L3</span>
+                <span class="milestone completed">L6</span>
+                <span class="milestone">L9</span>
+                <span class="milestone">L12</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== MAIN CONTENT ========== -->
+    <main class="container">
+        <!-- Lesson Header (Arabic) -->
+        <section class="lesson-header" lang="ar">
+            <span class="lesson-number">الدرس 8</span>
+            <h1 class="lesson-title">علم نفس التداول والعقلية الصحيحة</h1>
+            <p class="lesson-subtitle">أتقن عقلك لتحقيق نجاح تداول مستمر</p>
+        </section>
+
+        <!-- Lesson Header (English) -->
+        <section class="lesson-header hidden" lang="en">
+            <span class="lesson-number">Lesson 8</span>
+            <h1 class="lesson-title">Trading Psychology & Mindset</h1>
+            <p class="lesson-subtitle">Master your mind to achieve consistent trading success</p>
+        </section>
+
+        <!-- Lesson Header (Spanish) -->
+        <section class="lesson-header hidden" lang="es">
+            <span class="lesson-number">Lección 8</span>
+            <h1 class="lesson-title">Psicología del Trading y Mentalidad</h1>
+            <p class="lesson-subtitle">Domina tu mente para lograr éxito consistente en el trading</p>
+        </section>
+
+        <!-- Lesson Header (Portuguese) -->
+        <section class="lesson-header hidden" lang="pt">
+            <span class="lesson-number">Lição 8</span>
+            <h1 class="lesson-title">Psicologia do Trading e Mentalidade</h1>
+            <p class="lesson-subtitle">Domine sua mente para alcançar sucesso consistente no trading</p>
+        </section>
+
+        <!-- ========== VIDEO SECTION ========== -->
+        <section class="video-section">
+            <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 10px;">
+                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; color: white; padding: 3rem;">
+                    <div style="width: 80px; height: 80px; margin: 0 auto 1.5rem; background: var(--seekapa-forest); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                            <path d="M16 12L36 24L16 36V12Z" fill="white"/>
+                        </svg>
+                    </div>
+                    <h3 id="video-title" lang="ar">فيديو الدرس قيد الإعداد</h3>
+                    <p style="margin-top: 0.5rem; opacity: 0.8;">المدة: دقيقتان | الجودة: 1080p</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== LEARNING OBJECTIVES ========== -->
+        <section class="learning-objectives" lang="ar">
+            <h3>أهداف التعلم</h3>
+            <ul>
+                <li>فهم التحديات النفسية للتداول</li>
+                <li>تعلم إدارة المشاعر مثل الخوف والطمع</li>
+                <li>تطوير الانضباط والصبر في قرارات التداول</li>
+                <li>إنشاء أطر عقلية لاتخاذ قرارات متسقة تحت الضغط</li>
+            </ul>
+        </section>
+
+        <section class="learning-objectives hidden" lang="en">
+            <h3>Learning Objectives</h3>
+            <ul>
+                <li>Understand the psychological challenges of trading</li>
+                <li>Learn to manage emotions like fear and greed</li>
+                <li>Develop discipline and patience in trading decisions</li>
+                <li>Create mental frameworks for consistent decision-making under pressure</li>
+            </ul>
+        </section>
+
+        <section class="learning-objectives hidden" lang="es">
+            <h3>Objetivos de Aprendizaje</h3>
+            <ul>
+                <li>Comprender los desafíos psicológicos del trading</li>
+                <li>Aprender a gestionar emociones como el miedo y la codicia</li>
+                <li>Desarrollar disciplina y paciencia en las decisiones de trading</li>
+                <li>Crear marcos mentales para tomar decisiones consistentes bajo presión</li>
+            </ul>
+        </section>
+
+        <section class="learning-objectives hidden" lang="pt">
+            <h3>Objetivos de Aprendizagem</h3>
+            <ul>
+                <li>Entender os desafios psicológicos do trading</li>
+                <li>Aprender a gerenciar emoções como medo e ganância</li>
+                <li>Desenvolver disciplina e paciência nas decisões de trading</li>
+                <li>Criar marcos mentais para tomada de decisões consistentes sob pressão</li>
+            </ul>
+        </section>
+
+        <!-- ========== CONTENT SECTIONS ========== -->
+        <section class="content-section" lang="ar">
+            <h2>فهم مشاعر التداول</h2>
+            <p>الخوف والطمع يمثلان المشاعر الأساسية التي تدفع سلوك السوق والقرارات الفردية. يظهر الخوف كخوف من خسارة المال أو فقدان الفرص أو الخطأ أو حتى الخوف من النجاح. الخوف من خسارة المال يجعل المتداولين يغلقون الصفقات الرابحة مبكراً جداً أو يتجنبون التداول تماماً. الخوف من فقدان الفرصة (FOMO) يؤدي إلى مطاردة الأسعار والدخول عند مستويات سيئة. يظهر الطمع كرغبة في أرباح أكبر، مما يقود المتداولين إلى الاحتفاظ بالرابحين طويلاً جداً أو المخاطرة بكثير. الابتهاج من الصفقات الرابحة يمكن أن يكون خطيراً مثل الخوف من الخسائر، وغالباً يؤدي إلى الثقة الزائدة وزيادة المخاطر.</p>
+            <img src="images/08_01_trading_emotions.png" alt="Trading Emotions" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="en">
+            <h2>Understanding Trading Emotions</h2>
+            <p>Fear and greed represent the two primary emotions that drive market behavior and individual decisions. Fear manifests as fear of losing money, missing opportunities, being wrong, or even fear of success. Fear of losing money causes traders to exit profitable trades too early or avoid trades altogether. Fear of missing out (FOMO) leads to chasing prices and entering at poor levels. Greed manifests as desire for larger profits, leading traders to hold winners too long or risk too much. The euphoria from winning trades can be as dangerous as the fear from losses, often leading to overconfidence and increased risk-taking.</p>
+            <img src="images/08_01_trading_emotions.png" alt="Trading Emotions" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="es">
+            <h2>Comprendiendo las Emociones en el Trading</h2>
+            <p>El miedo y la codicia representan las dos emociones primarias que impulsan el comportamiento del mercado y las decisiones individuales. El miedo se manifiesta como miedo a perder dinero, perder oportunidades, estar equivocado o incluso miedo al éxito. El miedo a perder dinero causa que los traders cierren operaciones rentables demasiado pronto o eviten operar completamente. El miedo a perderse algo (FOMO) conduce a perseguir precios y entrar en niveles pobres. La codicia se manifiesta como deseo de ganancias mayores, llevando a los traders a mantener ganadores demasiado tiempo o arriesgar demasiado. La euforia de operaciones ganadoras puede ser tan peligrosa como el miedo a las pérdidas, a menudo conduciendo a la sobreconfianza y al aumento del riesgo.</p>
+            <img src="images/08_01_trading_emotions.png" alt="Trading Emotions" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="pt">
+            <h2>Compreendendo as Emoções no Trading</h2>
+            <p>O medo e a ganância representam as duas emoções primárias que impulsionam o comportamento do mercado e as decisões individuais. O medo se manifesta como medo de perder dinheiro, perder oportunidades, estar errado ou mesmo medo do sucesso. O medo de perder dinheiro faz com que os traders fechem operações lucrativas muito cedo ou evitem negociar completamente. O medo de perder algo (FOMO) leva a perseguir preços e entrar em níveis pobres. A ganância se manifesta como desejo de maiores lucros, levando os traders a manter vencedores muito tempo ou arriscar demais. A euforia das operações vencedoras pode ser tão perigosa quanto o medo das perdas, frequentemente levando ao excesso de confiança e aumento do risco.</p>
+            <img src="images/08_01_trading_emotions.png" alt="Trading Emotions" class="content-image">
+        </section>
+
+        <!-- Section 2 -->
+        <section class="content-section" lang="ar">
+            <h2>تطوير الانضباط في التداول</h2>
+            <p>الانضباط في التداول يعني اتباع خطتك المحددة مسبقاً بغض النظر عن المشاعر أو ظروف السوق. يتضمن هذا الالتزام بقواعس تحديد حجم المركز واحترام أوامر وقف الخسائر والحفاظ على عمليات تحليل متسقة. إنشاء واتباع خطة تداول توفر إرشادات واضحة محددة مقدماً، مما يقلل من الاتخاذ العاطفي للقرارات أثناء الظروف المجهدة. الروتين والتسق يساعدان في بناء الانضباط بمرور الوقت من خلال أنماط مماثلة للتحليل والإعداد والتنفيذ. حفظ السجلات وتدوين الصفقات توفر المساءلة وفرص التعلم من خلال توثيق الصفقات والمنطق والحالات العاطفية.</p>
+            <img src="images/08_02_discipline_framework.png" alt="Discipline Framework" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="en">
+            <h2>Developing Trading Discipline</h2>
+            <p>Discipline in trading means following your predetermined plan regardless of emotions or market conditions. This includes sticking to position sizing rules, honoring stop losses, and maintaining consistent analysis processes. Creating and following a trading plan provides clear guidelines made in advance, reducing emotional decision-making during stressful conditions. Routine and consistency help build discipline over time through similar patterns for analysis, preparation, and execution. Record keeping and trade journaling provide accountability and learning opportunities by documenting trades, reasoning, and emotional states.</p>
+            <img src="images/08_02_discipline_framework.png" alt="Discipline Framework" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="es">
+            <h2>Desarrollando Disciplina en el Trading</h2>
+            <p>La disciplina en el trading significa seguir tu plan predeterminado independientemente de las emociones o condiciones del mercado. Esto incluye adherirse a las reglas de dimensionamiento de posiciones, honrar los stop loss y mantener procesos de análisis consistentes. Crear y seguir un plan de trading proporciona directrices claras hechas con anticipación, reduciendo la toma emocional de decisiones durante condiciones estresantes. La rutina y la consistencia ayudan a construir disciplina con el tiempo a través de patrones similares para análisis, preparación y ejecución. El mantenimiento de registros y el registro de operaciones proporcionan responsabilidad y oportunidades de aprendizaje al documentar operaciones, razonamiento y estados emocionales.</p>
+            <img src="images/08_02_discipline_framework.png" alt="Discipline Framework" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="pt">
+            <h2>Desenvolvendo Disciplina no Trading</h2>
+            <p>Disciplina no trading significa seguir seu plano predeterminado independentemente das emoções ou condições do mercado. Isso inclui aderir às regras de dimensionamento de posição, honrar stop losses e manter processos de análise consistentes. Criar e seguir um plano de trading fornece diretrizes claras feitas com antecedência, reduzindo a tomada emocional de decisões durante condições estressantes. Rotina e consistência ajudam a construir disciplina ao longo do tempo através de padrões similares para análise, preparação e execução. Manutenção de registros e registro de operações fornece responsabilidade e oportunidades de aprendizado ao documentar operações, raciocínio e estados emocionais.</p>
+            <img src="images/08_02_discipline_framework.png" alt="Discipline Framework" class="content-image">
+        </section>
+
+        <!-- Section 3 -->
+        <section class="content-section" lang="ar">
+            <h2>الصبر والتوقيت في التداول</h2>
+            <p>الصبر يمثل واحدة من أقيم صفات المتداول، لكن من الصعب غالباً تطويرها. الأسواق لا توفر دائماً فرصاً مثالية، وفرض الصفقات عندما لا تكون الظروف ملائمة عادة ما يؤدي إلى خسائر. انتظار الإعدادات عالية الاحتمالية يتطلب صبراً لكنه يحسن النتائج بشكل كبير. التوقيت السوقي ينطوي على فهم متى تكون نشطاً ومتى تتراجع - بعض الظروف تفضل استراتيجيات معينة بينما تخلق أخرى بيئات صعبة. القدرة على الجلوس مع المراكز المفتوحة دون مراقبة أو تعديل مستمر هي شكل آخر من الصبر يقلل من الإفراط في التداول وتكاليف المعاملات.</p>
+            <img src="images/08_03_fomo_prevention.png" alt="FOMO Prevention" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="en">
+            <h2>Patience and Timing in Trading</h2>
+            <p>Patience represents one of the most valuable trader traits, yet it's often difficult to develop. Markets don't always provide ideal opportunities, and forcing trades when conditions aren't favorable typically leads to losses. Waiting for high-probability setups requires patience but significantly improves results. Market timing involves understanding when to be active and when to step aside - some conditions favor certain strategies while others create challenging environments. The ability to sit with open positions without constantly monitoring or adjusting is another form of patience that reduces overtrading and transaction costs.</p>
+            <img src="images/08_03_fomo_prevention.png" alt="FOMO Prevention" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="es">
+            <h2>Paciencia y Timing en el Trading</h2>
+            <p>La paciencia representa una de las características más valiosas del trader, pero frecentemente es difícil de desarrollar. Los mercados no siempre proporcionan oportunidades ideales, y forzar operaciones cuando las condiciones no son favorables típicamente conduce a pérdidas. Aguardar configuraciones de alta probabilidad requiere paciencia pero mejora significativamente los resultados. El timing del mercado implica entender cuándo estar activo y cuándo se afastar - algunas condiciones favorecen ciertas estrategias mientras otras crean entornos desafiadores. La capacidad de estar con posiciones abiertas sin monitorear o ajustar constantemente es otra forma de paciencia que reduce el trading excesivo y los costos de transacción.</p>
+            <img src="images/08_03_fomo_prevention.png" alt="FOMO Prevention" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="pt">
+            <h2>Paciência e Timing no Trading</h2>
+            <p>A paciência representa uma das características mais valiosas do trader, mas frequentemente é difícil de desenvolver. Os mercados nem sempre fornecem oportunidades ideais, e forçar operações quando as condições não são favoráveis típicamente leva a perdas. Aguardar configurações de alta probabilidade requer paciência mas melhora significativamente os resultados. O timing do mercado envolve entender quando estar ativo e quando se afastar - algumas condições favorecem certas estratégias enquanto outras criam ambientes desafiadores. A capacidade de ficar com posições abertas sem monitorar ou ajustar constantemente é outra forma de paciência que reduz negociação excessiva e custos de transação.</p>
+            <img src="images/08_03_fomo_prevention.png" alt="FOMO Prevention" class="content-image">
+        </section>
+
+        <!-- Section 4 -->
+        <section class="content-section" lang="ar">
+            <h2>بناء الصلابة العقلية</h2>
+            <p>تتضمن الصلابة العقلية تطوير القدرة على التعامل مع الضغط والعدم التأكد والنكسات دون فقدان التركيز أو اتخاذ قرارات عاطفية. تتطور هذه المهارة من خلال الخبرة والجهد الواعي. تقنيات إدارة الضغط تساعد في الحفاظ على التفكير الواضح أثناء الظروف الصعبة من خلال تمارين التنفس والتأمل والتمارين الرياضية أو ببساطة أخذ فترات راحة عندما تصبح مستويات الضغط عالية جداً. قبول عدم التأكد كأساسي للتداول يساعد على تقليل القلق وتحسين الاتخاذ العقلاني للقرارات - الأسواق غير متنبأ بها بطبيعتها، والمتداولون الذين يقبلون هذا يمكنهم التركيز على إدارة المخاطر بدلاً من التنبؤ بالنتائج.</p>
+            <img src="images/08_04_winning_losing_streaks.png" alt="Winning Losing Streaks" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="en">
+            <h2>Building Mental Resilience</h2>
+            <p>Mental resilience involves developing ability to handle stress, uncertainty, and setbacks without losing focus or making emotional decisions. This skill develops through experience and conscious effort. Stress management techniques help maintain clear thinking during challenging conditions through breathing exercises, meditation, physical exercise, or simply taking breaks when stress levels become too high. Accepting uncertainty as fundamental to trading helps reduce anxiety and improve decision-making - markets are inherently unpredictable, and traders who accept this can focus on managing risk rather than predicting outcomes with certainty. Learning from mistakes rather than dwelling on them builds resilience and improves future performance.</p>
+            <img src="images/08_04_winning_losing_streaks.png" alt="Winning Losing Streaks" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="es">
+            <h2>Construyendo Resiliencia Mental</h2>
+            <p>La resiliencia mental implica desarrollar la capacidad de manejar el estrés, la incertidumbre y los reveses sin perder el enfoque o tomar decisiones emocionales. Esta habilidad se desarrolla a través de la experiencia y el esfuerzo consciente. Las técnicas de manejo del estrés ayudan a mantener el pensamiento claro durante condiciones desafiantes a través de ejercicios de respiración, meditación, ejercicio físico o simplemente tomarse descansos cuando los niveles de estrés se vuelven demasiado altos. Aceptar la incertidumbre como fundamental para el trading ayuda a reducir la ansiedad y mejorar la toma de decisiones - los mercados son inherentemente impredecibles, y los traders que aceptan esto pueden enfocarse en gestionar el riesgo en lugar de predecir resultados con certeza. Aprender de los errores en lugar de lamentarse sobre ellos construye resiliencia y mejora el rendimiento futuro.</p>
+            <img src="images/08_04_winning_losing_streaks.png" alt="Winning Losing Streaks" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="pt">
+            <h2>Construindo Resiliência Mental</h2>
+            <p>A resiliência mental envolve desenvolver a capacidade de lidar com estresse, incerteza e reveses sem perder o foco ou tomar decisões emocionais. Esta habilidade se desenvolve através de experiência e esforço consciente. Técnicas de gerenciamento de estresse ajudam a manter o pensamento claro durante condições desafiadoras através de exercícios de respiração, meditação, exercício físico ou simplesmente tirar pausas quando os níveis de estresse ficam muito altos. Aceitar a incerteza como fundamental para o trading ajuda a reduzir ansiedade e melhorar a tomada de decisões - os mercados são inerentemente imprevisíveis, e os traders que aceitam isso podem focar em gerenciar risco em vez de prever resultados com certeza. Aprender com erros em vez de se lamentar sobre eles constrói resiliência e melhora o desempenho futuro.</p>
+            <img src="images/08_04_winning_losing_streaks.png" alt="Winning Losing Streaks" class="content-image">
+        </section>
+
+        <!-- ========== QUIZ SECTION ========== -->
+        <section class="quiz-section">
+            <h2 lang="ar">اختبر معلوماتك</h2>
+            <h2 lang="en" class="hidden">Test Your Knowledge</h2>
+            <h2 lang="es" class="hidden">Prueba tu Conocimiento</h2>
+            <h2 lang="pt" class="hidden">Teste seu Conhecimento</h2>
+
+            <!-- Question 1 -->
+            <div class="quiz-item">
+                <div class="quiz-question" lang="ar">1. أي من الخيارات التالية يصف بشكل أفضل FOMO في التداول؟</div>
+                <div class="quiz-question hidden" lang="en">1. Which of the following best describes FOMO in trading?</div>
+                <div class="quiz-question hidden" lang="es">1. ¿Cuál de las siguientes opciones describe mejor FOMO en el trading?</div>
+                <div class="quiz-question hidden" lang="pt">1. Qual das seguintes opções melhor descreve FOMO no trading?</div>
+                
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="selectQuizOption(this, 'q1')">
+                        <strong lang="ar">أ) الخوف من فقدان الفرصة - مطاردة الأسعار والدخول للصفقات بتسرع</strong>
+                        <strong lang="en" class="hidden">A) Fear of missing out - chasing prices and entering trades impulsively</strong>
+                        <strong lang="es" class="hidden">A) Miedo a perderse algo - perseguir precios y entrar en operaciones impulsivamente</strong>
+                        <strong lang="pt" class="hidden">A) Medo de perder algo - perseguir preços e entrar em operações impulsivamente</strong>
+                    </div>
+                    <div class="quiz-option" onclick="selectQuizOption(this, 'q1')">
+                        <strong lang="ar">ب) الخوف من تحركات السوق الشاملة</strong>
+                        <strong lang="en" class="hidden">B) Fear of overall market movements</strong>
+                        <strong lang="es" class="hidden">B) Miedo a los movimientos generales del mercado</strong>
+                        <strong lang="pt" class="hidden">B) Medo dos movimentos gerais do mercado</strong>
+                    </div>
+                    <div class="quiz-option" onclick="selectQuizOption(this, 'q1')">
+                        <strong lang="ar">ج) الملاحظة الأساسية لفرص السوق</strong>
+                        <strong lang="en" class="hidden">C) Fundamental observation of market opportunities</strong>
+                        <strong lang="es" class="hidden">C) Observación fundamental de oportunidades del mercado</strong>
+                        <strong lang="pt" class="hidden">C) Observação fundamental de oportunidades do mercado</strong>
+                    </div>
+                    <div class="quiz-option" onclick="selectQuizOption(this, 'q1')">
+                        <strong lang="ar">د) منهجية تحسين مالي</strong>
+                        <strong lang="en" class="hidden">D) Financial optimization methodology</strong>
+                        <strong lang="es" class="hidden">D) Metodología de optimización financiera</strong>
+                        <strong lang="pt" class="hidden">D) Metodologia de otimização financeira</strong>
+                    </div>
+                </div>
+                <button class="quiz-submit" onclick="submitQuiz('q1', 'a')"><span lang="ar">تحقق من الإجابة</span><span lang="en" class="hidden">Check Answer</span><span lang="es" class="hidden">Verificar Respuesta</span><span lang="pt" class="hidden">Verificar Resposta</span></button>
+                <div class="quiz-feedback" id="q1-feedback"></div>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="quiz-item">
+                <div class="quiz-question" lang="ar">2. ما هو الغرض الأساسي من دفتر التداول؟</div>
+                <div class="quiz-question hidden" lang="en">2. What is the primary purpose of a trading journal?</div>
+                <div class="quiz-question hidden" lang="es">2. ¿Cuál es el propósito principal de un diario de trading?</div>
+                <div class="quiz-question hidden" lang="pt">2. Qual é o propósito principal de um diário de trading?</div>
+                
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="selectQuizOption(this, 'q2')">
+                        <strong lang="ar">أ) لتسجيل أخبار السوق اليومية</strong>
+                        <strong lang="en" class="hidden">A) To record daily market news</strong>
+                        <strong lang="es" class="hidden">A) Registrar noticias del mercado diarias</strong>
+                        <strong lang="pt" class="hidden">A) Registrar notícias de mercado diárias</strong>
+                    </div>
+                    <div class="quiz-option" onclick="selectQuizOption(this, 'q2')">
+                        <strong lang="ar">ب) لتوثيق الصفقات والمنطق والحالات العاطفية للمساءلة والتعلم</strong>
+                        <strong lang="en" class="hidden">B) To document trades, reasoning, and emotional states for accountability and learning</strong>
+                        <strong lang="es" class="hidden">B) Documentar operaciones, razonamiento y estados emocionales para responsabilidad y aprendizaje</strong>
+                        <strong lang="pt" class="hidden">B) Documentar operações, raciocínio e estados emocionais para responsabilidade e aprendizado</strong>
+                    </div>
+                    <div class="quiz-option" onclick="selectQuizOption(this, 'q2')">
+                        <strong lang="ar">ج) للتنبؤ بتحركات السوق المستقبلية</strong>
+                        <strong lang="en" class="hidden">C) To predict future market movements</strong>
+                        <strong lang="es" class="hidden">C) Predecir movimientos futuros del mercado</strong>
+                        <strong lang="pt" class="hidden">C) Prever movimentos futuros do mercado</strong>
+                    </div>
+                    <div class="quiz-option" onclick="selectQuizOption(this, 'q2')">
+                        <strong lang="ar">د) للتواصل مع متداولين آخرين</strong>
+                        <strong lang="en" class="hidden">D) To communicate with other traders</strong>
+                        <strong lang="es" class="hidden">D) Comunicarse con otros traders</strong>
+                        <strong lang="pt" class="hidden">D) Se comunicar com outros traders</strong>
+                    </div>
+                </div>
+                <button class="quiz-submit" onclick="submitQuiz('q2', 'b')"><span lang="ar">تحقق من الإجابة</span><span lang="en" class="hidden">Check Answer</span><span lang="es" class="hidden">Verificar Respuesta</span><span lang="pt" class="hidden">Verificar Resposta</span></button>
+                <div class="quiz-feedback" id="q2-feedback"></div>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="quiz-item">
+                <div class="quiz-question" lang="ar">3. كيف يحسن الصبر نتائج التداول؟</div>
+                <div class="quiz-question hidden" lang="en">3. How does patience improve trading results?</div>
+                <div class="quiz-question hidden" lang="es">3. ¿Cómo mejora la paciencia los resultados del trading?</div>
+                <div class="quiz-question hidden" lang="pt">3. Como a paciência melhora os resultados do trading?</div>
+                
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="selectQuizOption(this, 'q3')">
+                        <strong lang="ar">أ) إنه يضمن الأرباح</strong>
+                        <strong lang="en" class="hidden">A) It guarantees profits</strong>
+                        <strong lang="es" class="hidden">A) Garantiza ganancias</strong>
+                        <strong lang="pt" class="hidden">A) Garante lucros</strong>
+                    </div>
+                    <div class="quiz-option" onclick="selectQuizOption(this, 'q3')">
+                        <strong lang="ar">ب) يسمح للمتداولين بالانتظار للإعدادات عالية الاحتمالية بدلاً من فرض الصفقات</strong>
+                        <strong lang="en" class="hidden">B) It allows traders to wait for high-probability setups instead of forcing trades</strong>
+                        <strong lang="es" class="hidden">B) Permite que los traders esperen configuraciones de alta probabilidad en lugar de forzar operaciones</strong>
+                        <strong lang="pt" class="hidden">B) Permite que os traders aguardem configurações de alta probabilidade em vez de forçar operações</strong>
+                    </div>
+                    <div class="quiz-option" onclick="selectQuizOption(this, 'q3')">
+                        <strong lang="ar">ج) إنه يزيل كل مخاطر السوق</strong>
+                        <strong lang="en" class="hidden">C) It eliminates all market risk</strong>
+                        <strong lang="es" class="hidden">C) Elimina todo riesgo del mercado</strong>
+                        <strong lang="pt" class="hidden">C) Elimina todo risco do mercado</strong>
+                    </div>
+                    <div class="quiz-option" onclick="selectQuizOption(this, 'q3')">
+                        <strong lang="ar">د) يجعل الصفقات تنفذ بشكل أسرع</strong>
+                        <strong lang="en" class="hidden">D) It makes trades execute faster</strong>
+                        <strong lang="es" class="hidden">D) Hace que las operaciones se ejecuten más rápido</strong>
+                        <strong lang="pt" class="hidden">D) Faz as operações executarem mais rápido</strong>
+                    </div>
+                </div>
+                <button class="quiz-submit" onclick="submitQuiz('q3', 'b')"><span lang="ar">تحقق من الإجابة</span><span lang="en" class="hidden">Check Answer</span><span lang="es" class="hidden">Verificar Respuesta</span><span lang="pt" class="hidden">Verificar Resposta</span></button>
+                <div class="quiz-feedback" id="q3-feedback"></div>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="quiz-item">
+                <div class="quiz-question" lang="ar">4. أي تقنية إدارة ضغط يتم ذكرها للحفاظ على التفكير الواضح؟</div>
+                <div class="quiz-question hidden" lang="en">4. Which stress management technique is mentioned for maintaining clear thinking?</div>
+                <div class="quiz-question hidden" lang="es">4. ¿Qué técnica de manejo del estrés se menciona para mantener el pensamiento claro?</div>
+                <div class="quiz-question hidden" lang="pt">4. Qual técnica de gerenciamento de estresse é mencionada para manter o pensamento claro?</div>
+                
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="selectQuizOption(this, 'q4')">
+                        <strong lang="ar">أ) تجاهل ظروف السوق تماماً</strong>
+                        <strong lang="en" class="hidden">A) Ignoring market conditions completely</strong>
+                        <strong lang="es" class="hidden">A) Ignorar completamente las condiciones del mercado</strong>
+                        <strong lang="pt" class="hidden">A) Ignorar completamente as condições do mercado</strong>
+                    </div>
+                    <div class="quiz-option" onclick="selectQuizOption(this, 'q4')">
+                        <strong lang="ar">ب) التداول أثناء حالات الذروة العاطفية</strong>
+                        <strong lang="en" class="hidden">B) Trading during peak emotional states</strong>
+                        <strong lang="es" class="hidden">B) Operar durante estados emocionales máximos</strong>
+                        <strong lang="pt" class="hidden">B) Negociar durante estados emocionais de pico</strong>
+                    </div>
+                    <div class="quiz-option" onclick="selectQuizOption(this, 'q4')">
+                        <strong lang="ar">ج) تمارين التنفس والتأمل أو أخذ فترات راحة</strong>
+                        <strong lang="en" class="hidden">C) Breathing exercises, meditation, or taking breaks</strong>
+                        <strong lang="es" class="hidden">C) Ejercicios de respiración, meditación o descansos</strong>
+                        <strong lang="pt" class="hidden">C) Exercícios de respiração, meditação ou pausas</strong>
+                    </div>
+                    <div class="quiz-option" onclick="selectQuizOption(this, 'q4')">
+                        <strong lang="ar">د) زيادة المخاطر للتعافي من الخسائر</strong>
+                        <strong lang="en" class="hidden">D) Increasing risk to recover from losses</strong>
+                        <strong lang="es" class="hidden">D) Aumentar el riesgo para recuperarse de pérdidas</strong>
+                        <strong lang="pt" class="hidden">D) Aumentar o risco para se recuperar de perdas</strong>
+                    </div>
+                </div>
+                <button class="quiz-submit" onclick="submitQuiz('q4', 'c')"><span lang="ar">تحقق من الإجابة</span><span lang="en" class="hidden">Check Answer</span><span lang="es" class="hidden">Verificar Respuesta</span><span lang="pt" class="hidden">Verificar Resposta</span></button>
+                <div class="quiz-feedback" id="q4-feedback"></div>
+            </div>
+
+            <!-- Question 5 -->
+            <div class="quiz-item">
+                <div class="quiz-question" lang="ar">5. ماذا تتضمن الصلابة العقلية في التداول؟</div>
+                <div class="quiz-question hidden" lang="en">5. What does mental resilience in trading involve?</div>
+                <div class="quiz-question hidden" lang="es">5. ¿Qué implica la resiliencia mental en el trading?</div>
+                <div class="quiz-question hidden" lang="pt">5. O que envolve resiliência mental no trading?</div>
+                
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="selectQuizOption(this, 'q5')">
+                        <strong lang="ar">أ) عدم تجربة الخسائر أبداً</strong>
+                        <strong lang="en" class="hidden">A) Never experiencing losses</strong>
+                        <strong lang="es" class="hidden">A) Nunca experimentar pérdidas</strong>
+                        <strong lang="pt" class="hidden">A) Nunca experimentar perdas</strong>
+                    </div>
+                    <div class="quiz-option" onclick="selectQuizOption(this, 'q5')">
+                        <strong lang="ar">ب) التعامل مع الضغط والنكسات دون فقدان التركيز أو اتخاذ قرارات عاطفية</strong>
+                        <strong lang="en" class="hidden">B) Handling stress and setbacks without losing focus or making emotional decisions</strong>
+                        <strong lang="es" class="hidden">B) Manejar el estrés y los reveses sin perder el enfoque o tomar decisiones emocionales</strong>
+                        <strong lang="pt" class="hidden">B) Lidar com estresse e reveses sem perder o foco ou tomar decisões emocionais</strong>
+                    </div>
+                    <div class="quiz-option" onclick="selectQuizOption(this, 'q5')">
+                        <strong lang="ar">ج) التداول في كل ظروف السوق</strong>
+                        <strong lang="en" class="hidden">C) Trading in every market condition</strong>
+                        <strong lang="es" class="hidden">C) Operar en todas las condiciones del mercado</strong>
+                        <strong lang="pt" class="hidden">C) Negociar em todas as condições do mercado</strong>
+                    </div>
+                    <div class="quiz-option" onclick="selectQuizOption(this, 'q5')">
+                        <strong lang="ar">د) اتباع المشاعر بعمى</strong>
+                        <strong lang="en" class="hidden">D) Following emotions blindly</strong>
+                        <strong lang="es" class="hidden">D) Seguir las emociones ciegamente</strong>
+                        <strong lang="pt" class="hidden">D) Seguir emoções cegamente</strong>
+                    </div>
+                </div>
+                <button class="quiz-submit" onclick="submitQuiz('q5', 'b')"><span lang="ar">تحقق من الإجابة</span><span lang="en" class="hidden">Check Answer</span><span lang="es" class="hidden">Verificar Respuesta</span><span lang="pt" class="hidden">Verificar Resposta</span></button>
+                <div class="quiz-feedback" id="q5-feedback"></div>
+            </div>
+        </section>
+
+        <!-- ========== KEY TAKEAWAYS ========== -->
+        <section class="takeaways-section">
+            <h2 lang="ar">النقاط الرئيسية</h2>
+            <h2 lang="en" class="hidden">Key Takeaways</h2>
+            <h2 lang="es" class="hidden">Puntos Clave</h2>
+            <h2 lang="pt" class="hidden">Pontos-Chave</h2>
+
+            <ul class="takeaways-list">
+                <li lang="ar">الخوف والطمع هما المشاعر الأساسية التي تتداخل مع التداول العقلاني</li>
+                <li lang="en" class="hidden">Fear and greed are the primary emotions that interfere with rational trading</li>
+                <li lang="es" class="hidden">El miedo y la codicia son las emociones primarias que interfieren con el trading racional</li>
+                <li lang="pt" class="hidden">Medo e ganância são as emoções primárias que interferem com o trading racional</li>
+
+                <li lang="ar">الانضباط يتضمن اتباع الخطط المحددة مسبقاً بغض النظر عن المشاعر</li>
+                <li lang="en" class="hidden">Discipline involves following predetermined plans regardless of emotions</li>
+                <li lang="es" class="hidden">La disciplina implica seguir planes predeterminados independientemente de las emociones</li>
+                <li lang="pt" class="hidden">Disciplina envolve seguir planos predeterminados independentemente das emoções</li>
+
+                <li lang="ar">الصبر في انتظار الإعدادات عالية الاحتمالية يحسن النتائج بشكل كبير</li>
+                <li lang="en" class="hidden">Patience in waiting for high-probability setups significantly improves results</li>
+                <li lang="es" class="hidden">La paciencia en esperar configuraciones de alta probabilidad mejora significativamente los resultados</li>
+                <li lang="pt" class="hidden">Paciência ao aguardar configurações de alta probabilidade melhora significativamente os resultados</li>
+
+                <li lang="ar">إدارة سلاسل الفوز والخسارة تتطلب الحفاظ على المنظور والاستمرارية</li>
+                <li lang="en" class="hidden">Managing winning and losing streaks requires maintaining perspective and consistency</li>
+                <li lang="es" class="hidden">Gestionar rachas ganadoras y perdedoras requiere mantener perspectiva y consistencia</li>
+                <li lang="pt" class="hidden">Gerenciar sequências vencedoras e perdedoras requer manter perspectiva e consistência</li>
+
+                <li lang="ar">خلق ظروف تداول مثلى يدعم اتخاذ قرارات أفضل والتحكم العاطفي</li>
+                <li lang="en" class="hidden">Creating optimal trading conditions supports better decision-making and emotional control</li>
+                <li lang="es" class="hidden">Crear condiciones óptimas de trading apoya una mejor toma de decisiones y control emocional</li>
+                <li lang="pt" class="hidden">Criar condições óptimas de trading suporta melhor tomada de decisões e controle emocional</li>
+            </ul>
+        </section>
+
+        <!-- ========== INTERACTIVE EXERCISE ========== -->
+        <section class="interactive-exercise" lang="ar">
+            <div class="exercise-header">
+                <h3 class="exercise-title">التمرين العملي</h3>
+                <div class="quiz-xp-reward">+100 XP</div>
+            </div>
+            <p>احفظ دفتر عواطف مفصل لمدة أسبوع من التداول أو ملاحظة السوق. سجل حالتك العاطفية قبل وأثناء وبعد كل قرار تداول أو صفقة محتملة. لاحظ الأنماط في الاستجابات العاطفية وحدد المواقف حيث قد تكون المشاعر قد أثرت على اتخاذ القرار. هذا الوعي هو الخطوة الأولى في تطوير تحكم عاطفي أفضل.</p>
+
+            <div class="exercise-actions">
+                <button class="exercise-btn" onclick="showEmotionForm()">
+                    <span>📖</span>
+                    <span>ابدأ دفتر العواطف</span>
+                </button>
+                <button class="exercise-btn secondary" onclick="downloadEmotionTemplate()">
+                    <span>📥</span>
+                    <span>تنزيل نموذج</span>
+                </button>
+            </div>
+
+            <!-- Emotion Journal Form -->
+            <div class="journal-form hidden" id="emotion-form">
+                <h4>دفتر تتبع العواطف الخاص بك</h4>
+                <div class="form-group">
+                    <label class="form-label">الحالة العاطفية قبل التداول:</label>
+                    <input type="text" class="form-input" placeholder="مثال: قلق، متحمس" id="emotion-before">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">القرار التجاري:</label>
+                    <input type="text" class="form-input" placeholder="مثال: مراقبة EUR/USD" id="trade-decision">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">الحالة العاطفية أثناء التداول:</label>
+                    <input type="text" class="form-input" placeholder="مثال: متردد، ثقة" id="emotion-during">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">الحالة العاطفية بعد التداول:</label>
+                    <input type="text" class="form-input" placeholder="مثال: راضي، مكتئب" id="emotion-after">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">ملاحظات وأنماط:</label>
+                    <textarea class="form-textarea" id="emotion-notes" placeholder="ما الأنماط التي لاحظتها؟"></textarea>
+                </div>
+                <button class="exercise-btn" onclick="saveEmotionEntry()">
+                    <span>💾</span>
+                    <span>حفظ الإدخال</span>
+                </button>
+            </div>
+        </section>
+
+        <section class="interactive-exercise hidden" lang="en">
+            <div class="exercise-header">
+                <h3 class="exercise-title">Practical Exercise</h3>
+                <div class="quiz-xp-reward">+100 XP</div>
+            </div>
+            <p>Keep a detailed emotion journal for one week of trading or market observation. Record your emotional state before, during, and after each trading decision or potential trade. Note patterns in emotional responses and identify situations where emotions might have influenced decision-making. This awareness is the first step in developing better emotional control.</p>
+
+            <div class="exercise-actions">
+                <button class="exercise-btn" onclick="showEmotionForm()">
+                    <span>📖</span>
+                    <span>Start Emotion Journal</span>
+                </button>
+                <button class="exercise-btn secondary" onclick="downloadEmotionTemplate()">
+                    <span>📥</span>
+                    <span>Download Template</span>
+                </button>
+            </div>
+        </section>
+
+        <section class="interactive-exercise hidden" lang="es">
+            <div class="exercise-header">
+                <h3 class="exercise-title">Ejercicio Práctico</h3>
+                <div class="quiz-xp-reward">+100 XP</div>
+            </div>
+            <p>Mantén un diario de emociones detallado durante una semana de trading u observación del mercado. Registra tu estado emocional antes, durante y después de cada decisión de trading u operación potencial. Nota patrones en respuestas emocionales e identifica situaciones donde las emociones podrían haber influido en la toma de decisiones. Esta conciencia es el primer paso para desarrollar un mejor control emocional.</p>
+
+            <div class="exercise-actions">
+                <button class="exercise-btn" onclick="showEmotionForm()">
+                    <span>📖</span>
+                    <span>Iniciar Diario de Emociones</span>
+                </button>
+                <button class="exercise-btn secondary" onclick="downloadEmotionTemplate()">
+                    <span>📥</span>
+                    <span>Descargar Plantilla</span>
+                </button>
+            </div>
+        </section>
+
+        <section class="interactive-exercise hidden" lang="pt">
+            <div class="exercise-header">
+                <h3 class="exercise-title">Exercício Prático</h3>
+                <div class="quiz-xp-reward">+100 XP</div>
+            </div>
+            <p>Mantenha um diário detalhado de emoções por uma semana de trading ou observação do mercado. Registre seu estado emocional antes, durante e após cada decisão de trading ou operação potencial. Observe padrões em respostas emocionais e identifique situações onde emoções podem ter influenciado a tomada de decisões. Essa consciência é o primeiro passo para desenvolver melhor controle emocional.</p>
+
+            <div class="exercise-actions">
+                <button class="exercise-btn" onclick="showEmotionForm()">
+                    <span>📖</span>
+                    <span>Iniciar Diário de Emoções</span>
+                </button>
+                <button class="exercise-btn secondary" onclick="downloadEmotionTemplate()">
+                    <span>📥</span>
+                    <span>Baixar Modelo</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- ========== NAVIGATION ========== -->
+        <nav class="lesson-navigation">
+            <a href="lesson-07.html" class="nav-button prev">
+                <span lang="ar">← الدرس السابق</span>
+                <span lang="en" class="hidden">← Previous Lesson</span>
+                <span lang="es" class="hidden">← Lección Anterior</span>
+                <span lang="pt" class="hidden">← Lição Anterior</span>
+            </a>
+            <a href="lesson-09.html" class="nav-button next" onclick="completeLesson()">
+                <span lang="ar">الدرس التالي →</span>
+                <span lang="en" class="hidden">Next Lesson →</span>
+                <span lang="es" class="hidden">Siguiente Lección →</span>
+                <span lang="pt" class="hidden">Próxima Lição →</span>
+            </a>
+        </nav>
+    </main>
+
+    <!-- ========== ACHIEVEMENT MODAL ========== -->
+    <div class="achievement-modal" id="achievement-modal">
+        <div class="achievement-content">
+            <div class="achievement-icon">🏆</div>
+            <h2 class="achievement-title" id="achievement-title">Achievement Unlocked!</h2>
+            <p class="achievement-description" id="achievement-desc">Great job!</p>
+            <div class="achievement-xp" id="achievement-xp">+100 XP</div>
+            <button class="achievement-close" onclick="closeAchievement()">Continue Learning</button>
+        </div>
+    </div>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="footer">
+        <img src="images/Seekapa Black Logo.png" alt="Seekapa" class="footer-logo">
+        <p class="footer-tagline">Your Gateway To Advanced Trading!</p>
+        <p>&copy; 2025 Seekapa Trading Academy. All rights reserved.</p>
+    </footer>
+
+    <!-- ========== INTERACTIVE JAVASCRIPT ========== -->
+    <script>
+        // ========== USER DATA MANAGEMENT ==========
+        let userData = {
+            xp: 0,
+            streak: 1,
+            lessonsCompleted: [],
+            quizzesCompleted: {},
+            journalEntries: []
+        };
+
+        // Load user data from localStorage
+        function loadUserData() {
+            const saved = localStorage.getItem('seekapa-user-data');
+            if (saved) {
+                userData = JSON.parse(saved);
+                updateUserStats();
+            }
+        }
+
+        // Save user data
+        function saveUserData() {
+            localStorage.setItem('seekapa-user-data', JSON.stringify(userData));
+            updateUserStats();
+        }
+
+        // Update UI with user stats
+        function updateUserStats() {
+            document.getElementById('user-xp').textContent = userData.xp + ' XP';
+            document.getElementById('user-streak').textContent = userData.streak + ' Day' + (userData.streak > 1 ? 's' : '');
+        }
+
+        // ========== QUIZ FUNCTIONALITY ==========
+        let selectedQuestionMap = {};
+
+        function selectQuizOption(element, quizId) {
+            const container = element.parentElement;
+            container.querySelectorAll('.quiz-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            element.classList.add('selected');
+            selectedQuestionMap[quizId] = element;
+        }
+
+        function submitQuiz(quizId, correctAnswer) {
+            const selectedElement = selectedQuestionMap[quizId];
+            if (!selectedElement) {
+                alert('Please select an answer!');
+                return;
+            }
+
+            const selectedAnswer = selectedElement.querySelector('strong').textContent;
+            const options = selectedElement.parentElement.querySelectorAll('.quiz-option');
+            const isCorrect = options.indexOf(selectedElement) === selectedAnswer.charCodeAt(0) - 65;
+            
+            const feedback = document.getElementById(quizId + '-feedback');
+            const button = event.target;
+
+            // Determine which option is correct
+            let correctIndex = correctAnswer.charCodeAt(0) - 97; // Convert 'a' to 0, 'b' to 1, etc.
+            const correctOption = options[correctIndex];
+            const isAnswerCorrect = selectedElement === correctOption;
+
+            if (isAnswerCorrect) {
+                selectedElement.classList.add('correct');
+                feedback.textContent = '✓ Correct! Excellent understanding!';
+                feedback.classList.add('correct');
+
+                if (!userData.quizzesCompleted[quizId]) {
+                    userData.xp += 50;
+                    userData.quizzesCompleted[quizId] = true;
+                    saveUserData();
+                    showAchievement('Quiz Master!', 'You answered correctly!', '+50 XP');
+                }
+            } else {
+                selectedElement.classList.add('incorrect');
+                correctOption.classList.add('correct');
+                feedback.textContent = '✗ Not quite right. Review the content and try again!';
+                feedback.classList.add('incorrect');
+            }
+
+            button.disabled = true;
+        }
+
+        // ========== EMOTION JOURNAL ==========
+        function showEmotionForm() {
+            document.getElementById('emotion-form').classList.remove('hidden');
+        }
+
+        function downloadEmotionTemplate() {
+            alert('Emotion Tracking Template downloaded! Check your Downloads folder.');
+        }
+
+        function saveEmotionEntry() {
+            const before = document.getElementById('emotion-before').value;
+            const decision = document.getElementById('trade-decision').value;
+            const during = document.getElementById('emotion-during').value;
+            const after = document.getElementById('emotion-after').value;
+            const notes = document.getElementById('emotion-notes').value;
+
+            if (!before || !decision) {
+                alert('Please fill in required fields!');
+                return;
+            }
+
+            const entry = {
+                date: new Date().toISOString(),
+                emotionBefore: before,
+                tradeDecision: decision,
+                emotionDuring: during,
+                emotionAfter: after,
+                notes: notes
+            };
+
+            userData.journalEntries.push(entry);
+            userData.xp += 100;
+            saveUserData();
+
+            showAchievement('Emotion Entry Saved!', 'Keep building emotional awareness!', '+100 XP');
+
+            // Clear form
+            document.getElementById('emotion-before').value = '';
+            document.getElementById('trade-decision').value = '';
+            document.getElementById('emotion-during').value = '';
+            document.getElementById('emotion-after').value = '';
+            document.getElementById('emotion-notes').value = '';
+        }
+
+        // ========== ACHIEVEMENT SYSTEM ==========
+        function showAchievement(title, description, xp) {
+            document.getElementById('achievement-title').textContent = title;
+            document.getElementById('achievement-desc').textContent = description;
+            document.getElementById('achievement-xp').textContent = xp;
+            document.getElementById('achievement-modal').classList.add('active');
+        }
+
+        function closeAchievement() {
+            document.getElementById('achievement-modal').classList.remove('active');
+        }
+
+        // ========== LESSON COMPLETION ==========
+        function completeLesson() {
+            if (!userData.lessonsCompleted.includes('lesson-08')) {
+                userData.lessonsCompleted.push('lesson-08');
+                userData.xp += 200;
+                saveUserData();
+                showAchievement('Lesson Complete!', 'You mastered trading psychology!', '+200 XP');
+            }
+        }
+
+        // ========== LANGUAGE SWITCHING ==========
+        let currentLang = localStorage.getItem('seekapa-language') || 'ar';
+
+        function switchLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('seekapa-language', lang);
+
+            document.documentElement.lang = lang;
+            document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+
+            // Update active button
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.lang === lang);
+            });
+
+            // Show/hide language-specific content
+            document.querySelectorAll('[lang]').forEach(el => {
+                el.classList.toggle('hidden', el.getAttribute('lang') !== lang);
+            });
+        }
+
+        // ========== INITIALIZE ==========
+        document.addEventListener('DOMContentLoaded', function() {
+            loadUserData();
+            switchLanguage(currentLang);
+
+            // Animate progress bar
+            setTimeout(() => {
+                document.getElementById('progress-fill').style.width = '66.67%';
+            }, 500);
+        });
+
+        console.log('%c🎮 Seekapa Trading Academy - Lesson 08', 'font-size: 24px; font-weight: bold; color: #1B5E3F;');
+        console.log('%c✨ Trading Psychology & Mindset Active', 'font-size: 14px; color: #3B82F6;');
+    </script>
+</body>
+</html>

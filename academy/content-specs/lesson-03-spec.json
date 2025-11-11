@@ -1,0 +1,78 @@
+{
+  "lesson_number": 3,
+  "lesson_slug": "technical-analysis-foundations",
+  "en": {
+    "title": "Technical Analysis Foundations",
+    "subtitle": "Learn to read charts and identify patterns that predict price movements",
+    "objectives": [
+      "Understand the principles of technical analysis",
+      "Learn to read basic chart types and timeframes",
+      "Identify support and resistance levels on price charts",
+      "Recognize the importance of volume in price analysis"
+    ],
+    "intro": "Technical analysis forms the backbone of most short-term trading strategies. This analytical approach focuses on studying price charts, patterns, and market behavior to predict future movements. Unlike fundamental analysis, technical analysis assumes all relevant information is already reflected in price action.",
+    "section1_title": "Chart Types and Timeframes",
+    "section1_text": "Charts are the primary tools for technical analysis, displaying price movements over various timeframes. The most common types include line charts, bar charts, and candlestick charts. Candlestick charts provide the most visual information, showing opening, closing, high, and low prices. Each candlestick displays the price range and direction for that period. Timeframes range from one-minute charts for scalping to monthly charts for long-term analysis.",
+    "section2_title": "Support and Resistance Concepts",
+    "section2_text": "Support and resistance levels represent key areas where buying or selling interest emerges. Support levels are prices where buying interest prevents further declines. Resistance levels are areas where selling pressure limits upward movement. These levels can be horizontal lines at specific prices or dynamic levels like moving averages. When prices break through these levels, it often signals significant moves in the breakout direction.",
+    "section3_title": "Volume Analysis Fundamentals",
+    "section3_text": "Volume represents the number of shares or contracts traded during a specific period. Volume analysis helps confirm price movements and identify potential reversals. Price movements accompanied by high volume are considered more significant than those on low volume. Rising prices on increasing volume suggest strong buying interest, while rising prices on declining volume might indicate weakening momentum.",
+    "section4_title": "Trend Analysis and Direction",
+    "section4_text": "Trends represent the general direction of price movement over time. Uptrends show higher highs and higher lows, indicating buying pressure. Downtrends display lower highs and lower lows, reflecting selling pressure. Sideways trends occur when prices move within a defined range. Understanding trends across multiple timeframes helps traders make better decisions about trade direction and timing.",
+    "takeaway1": "Technical analysis uses price charts and patterns to predict future movements",
+    "takeaway2": "Candlestick charts provide comprehensive price information for analysis",
+    "takeaway3": "Support and resistance levels help identify key price areas for decisions",
+    "takeaway4": "Volume confirms price movements and reveals market sentiment",
+    "takeaway5": "Trend analysis helps traders align with market direction",
+    "exercise": "Choose a stock or currency pair and identify three support levels and three resistance levels on a daily chart. Mark these levels and observe how prices react when they approach these areas over the next week. Note whether the levels hold or break and what happens to volume during these tests."
+  },
+  "translation_notes": {
+    "ar": "Extract from arabic-content.md - Lesson 3 section",
+    "es": "Latin American Spanish translation",
+    "pt": "Brazilian Portuguese translation"
+  },
+  "images": [
+    {
+      "filename": "03_01_candlestick_charts.png",
+      "prompt": "Educational diagram showing candlestick chart anatomy: bullish/bearish candles, wicks, bodies, open/close/high/low prices labeled, green and red candles, professional trading education style, Seekapa brand colors, 1200x800px"
+    },
+    {
+      "filename": "03_02_chart_timeframes.png",
+      "prompt": "Multi-timeframe analysis showing same market on 5-minute, 1-hour, daily charts side by side, demonstrating different perspectives, professional trading platform aesthetic, Seekapa colors, 1200x800px"
+    },
+    {
+      "filename": "03_03_support_resistance.png",
+      "prompt": "Price chart with clear horizontal support and resistance lines, price bouncing off levels multiple times, buy/sell zones highlighted, professional technical analysis visualization, Seekapa forest green and gold, 1200x800px"
+    },
+    {
+      "filename": "03_04_volume_analysis.png",
+      "prompt": "Price chart with volume bars below, showing correlation between price movement and volume spikes, rising/falling volume patterns highlighted, professional trading analysis style, Seekapa colors, 1200x800px"
+    },
+    {
+      "filename": "03_05_trend_identification.png",
+      "prompt": "Three charts showing uptrend (higher highs/lows), downtrend (lower highs/lows), sideways trend (range-bound), trend lines drawn, professional technical analysis, Seekapa brand aesthetic, 1200x800px"
+    },
+    {
+      "filename": "03_06_price_action.png",
+      "prompt": "Clean price chart showing price action patterns, swing highs and lows marked, market structure visualization, minimalist professional design, Seekapa colors, 1200x800px"
+    },
+    {
+      "filename": "03_07_chart_patterns_intro.png",
+      "prompt": "Introduction to basic chart patterns (triangles, rectangles) on real price charts, pattern boundaries outlined, professional technical analysis style, Seekapa forest green accents, 1200x800px"
+    },
+    {
+      "filename": "03_08_technical_tools.png",
+      "prompt": "Trading platform interface showing technical analysis tools: drawing tools, indicators, timeframe selector, professional trading workspace, Seekapa brand colors, modern clean design, 1200x800px"
+    }
+  ],
+  "video_placeholder": {
+    "duration": "90-120 seconds",
+    "script_theme": "Reading charts and understanding technical analysis basics",
+    "key_visual_moments": [
+      "Candlestick formation animation",
+      "Support and resistance bounces",
+      "Volume confirmation of price moves",
+      "Trend identification across timeframes"
+    ]
+  }
+}

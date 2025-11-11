@@ -1,0 +1,78 @@
+{
+  "lesson_number": 10,
+  "lesson_slug": "advanced-trading-techniques",
+  "en": {
+    "title": "Advanced Trading Techniques",
+    "subtitle": "Master sophisticated approaches for experienced traders",
+    "objectives": [
+      "Learn sophisticated trading techniques including options strategies",
+      "Understand leverage management and margin trading",
+      "Master advanced order types and execution strategies",
+      "Discover portfolio hedging and risk management approaches"
+    ],
+    "intro": "Advanced trading techniques build upon foundational knowledge, introducing sophisticated approaches that can enhance returns and provide additional risk management tools. These techniques require solid understanding of basic principles and should only be attempted after mastering simpler strategies. They offer additional opportunities but also introduce new risks that must be carefully managed.",
+    "section1_title": "Options Trading Strategies and Applications",
+    "section1_text": "Options provide powerful tools for income generation, hedging positions, and creating asymmetric risk-reward profiles. Covered call writing involves selling call options against stock positions, generating income with limited downside protection - works well in neutral to slightly bullish markets but limits upside. Cash-secured puts generate income while potentially acquiring stocks at desired prices. Protective puts act as insurance for stock positions, limiting downside risk while maintaining unlimited upside. Spread strategies like bull call spreads and bear put spreads profit from moderate directional moves with defined risk parameters. Iron condors and butterflies profit from low volatility by selling options at different strikes.",
+    "section2_title": "Leverage and Margin Management",
+    "section2_text": "Leverage amplifies both profits and losses by allowing control of larger positions than account balance permits. Margin trading allows borrowing from brokers to purchase securities, typically at 2:1 leverage for stocks - doubles buying power but also risk and introduces interest costs. Forex leverage can reach 50:1 or higher, allowing large currency positions with small account balances - creates opportunities for substantial profits but risks of rapid account depletion. Futures contracts are inherently leveraged where small price movements create large profit or loss swings. Leverage management involves calculating position sizes based on actual risk rather than margin required.",
+    "section3_title": "Advanced Order Types and Execution",
+    "section3_text": "Professional traders use sophisticated order types to improve execution, manage risk, and implement complex strategies. Bracket orders combine entry with predetermined stop loss and take profit, ensuring risk management parameters are in place before positions establish. One-cancels-other (OCO) orders allow placing two orders simultaneously with execution of one canceling the other - useful for breakout strategies trading either direction. Iceberg orders break large positions into smaller pieces to avoid market impact or revealing intentions. Algorithmic execution like TWAP and VWAP helps execute large orders with minimal market impact by spreading trades across time or matching historical volume patterns.",
+    "section4_title": "Portfolio Hedging and Risk Management",
+    "section4_text": "Advanced risk management techniques protect portfolios against various risk types while maintaining profit potential. Portfolio hedging involves taking offsetting positions to reduce overall risk - traders with multiple long stocks might purchase index puts or sell futures to hedge against broad declines. Sector rotation strategies shift capital between different sectors based on economic cycles, relative performance, or technical analysis. Currency hedging protects international investments from exchange rate fluctuations using forwards or options. Volatility trading involves positions based on expected volatility changes rather than directional price movements - buying options before earnings or selling during elevated volatility periods.",
+    "takeaway1": "Options strategies provide tools for income generation and risk management",
+    "takeaway2": "Leverage amplifies both profits and losses requiring careful management",
+    "takeaway3": "Advanced order types improve execution and risk control",
+    "takeaway4": "Portfolio hedging protects against various risk types while maintaining upside",
+    "takeaway5": "Advanced techniques require solid foundational knowledge before implementation",
+    "exercise": "Research one advanced technique that interests you (options strategy, leverage usage, or hedging approach). Create a detailed analysis including: how it works, when to use it, potential risks and rewards, capital requirements, and how it might fit your trading plan. Paper trade this technique for one month before using real capital."
+  },
+  "translation_notes": {
+    "ar": "Extract from arabic-content.md - Lesson 10 section",
+    "es": "Latin American Spanish translation",
+    "pt": "Brazilian Portuguese translation"
+  },
+  "images": [
+    {
+      "filename": "10_01_options_strategies.png",
+      "prompt": "Options strategy payoff diagrams showing covered call, protective put, bull call spread, professional options education visualization, Seekapa brand colors, 1200x800px"
+    },
+    {
+      "filename": "10_02_leverage_illustration.png",
+      "prompt": "Leverage concept showing 1:1 (no leverage) vs 10:1 leverage impact on gains and losses, amplification effect illustrated, professional margin trading visual, Seekapa forest green and gold, 1200x800px"
+    },
+    {
+      "filename": "10_03_bracket_orders.png",
+      "prompt": "Bracket order visualization on price chart with entry, stop loss, and take profit all connected, order management diagram, professional trading execution visual, Seekapa colors, 1200x800px"
+    },
+    {
+      "filename": "10_04_oco_orders.png",
+      "prompt": "One-cancels-other order setup for breakout trading, buy stop above and sell stop below current price, professional order type illustration, Seekapa brand aesthetic, 1200x800px"
+    },
+    {
+      "filename": "10_05_portfolio_hedging.png",
+      "prompt": "Portfolio with multiple long positions hedged by index puts or short futures, protective overlay concept, professional risk management visualization, Seekapa colors, 1200x800px"
+    },
+    {
+      "filename": "10_06_sector_rotation.png",
+      "prompt": "Sector rotation wheel showing different economic phases and outperforming sectors, capital flow arrows between sectors, professional sector analysis diagram, Seekapa forest green accents, 1200x800px"
+    },
+    {
+      "filename": "10_07_volatility_trading.png",
+      "prompt": "VIX volatility index chart with options strategies around high/low volatility periods, volatility smile curve, professional vol trading visual, Seekapa brand colors, 1200x800px"
+    },
+    {
+      "filename": "10_08_advanced_dashboard.png",
+      "prompt": "Professional advanced trading dashboard with options chains, margin monitoring, hedging positions, multi-asset portfolio view, sophisticated interface design, Seekapa colors, 1200x800px"
+    }
+  ],
+  "video_placeholder": {
+    "duration": "90-120 seconds",
+    "script_theme": "Advanced trading techniques for experienced traders",
+    "key_visual_moments": [
+      "Options strategy payoff visualization",
+      "Leverage magnifying effect demonstration",
+      "Advanced order execution",
+      "Portfolio hedging protection"
+    ]
+  }
+}

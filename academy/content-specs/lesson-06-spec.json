@@ -1,0 +1,78 @@
+{
+  "lesson_number": 6,
+  "lesson_slug": "fundamental-analysis-principles",
+  "en": {
+    "title": "Fundamental Analysis Principles",
+    "subtitle": "Understand economic forces that drive market movements",
+    "objectives": [
+      "Understand fundamental analysis concepts and their market impact",
+      "Learn how economic indicators affect different markets",
+      "Recognize the impact of news and events on prices",
+      "Discover how to combine fundamental and technical analysis"
+    ],
+    "intro": "While technical analysis focuses on price charts, fundamental analysis examines underlying factors that drive market movements. This includes economic data, company financials, geopolitical events, and market sentiment. Understanding fundamentals helps anticipate major moves and avoid being caught off-guard by unexpected events.",
+    "section1_title": "Economic Indicators and Market Impact",
+    "section1_text": "Economic indicators provide insights into economic health and direction, directly influencing markets. GDP measures total value of goods and services produced, representing the broadest economic measure. Employment data, particularly non-farm payrolls, significantly impacts currency and stock markets. Inflation indicators like CPI influence central bank policies and interest rate decisions. Central bank interest rate decisions represent some of the most market-moving events.",
+    "section2_title": "Company-Specific Fundamental Analysis",
+    "section2_text": "For stock trading, company fundamentals help identify opportunities and anticipate earnings-related moves. Earnings reports create significant volatility as actual results compare to expectations. Revenue growth indicates business expansion ability and market share gains. Profit margins reveal operational efficiency and competitive positioning. Debt levels and financial health affect ability to weather downturns and invest in growth.",
+    "section3_title": "Geopolitical Events and Market Sentiment",
+    "section3_text": "Geopolitical events including elections, trade disputes, and policy changes create significant market volatility. Trade relationships between major economies impact currency values and stock markets. Political stability affects investor confidence and capital flows. Market sentiment, while difficult to quantify, plays a crucial role in price movements and can be measured through various indicators including VIX, put/call ratios, and investor surveys.",
+    "section4_title": "Combining Fundamental and Technical Analysis",
+    "section4_text": "The most effective trading combines fundamental analysis for market direction with technical analysis for timing. Fundamental analysis helps identify markets likely to trend based on underlying factors. Technical analysis then helps time entries and exits within fundamental trends. Conflicting signals between fundamental and technical analysis require careful consideration - sometimes technical signals lead fundamental changes, other times fundamentals override technical patterns.",
+    "takeaway1": "Economic indicators provide insights into market direction and create opportunities",
+    "takeaway2": "Company fundamentals help identify stock opportunities and earnings moves",
+    "takeaway3": "Geopolitical events and sentiment can override technical signals",
+    "takeaway4": "News trading requires preparation and understanding of reaction patterns",
+    "takeaway5": "Combining both approaches provides comprehensive market understanding",
+    "exercise": "Create an economic calendar for the upcoming week and identify three high-impact events. Before each event, predict how you think the market might react based on expectations versus actual results. After each release, observe the actual market reaction and compare to your predictions to improve fundamental analysis skills."
+  },
+  "translation_notes": {
+    "ar": "Extract from arabic-content.md - Lesson 6 section",
+    "es": "Latin American Spanish translation",
+    "pt": "Brazilian Portuguese translation"
+  },
+  "images": [
+    {
+      "filename": "06_01_economic_indicators.png",
+      "prompt": "Infographic showing key economic indicators: GDP, employment, inflation, interest rates with icons and data visualization, professional economic analysis style, Seekapa brand colors, 1200x800px"
+    },
+    {
+      "filename": "06_02_central_bank_impact.png",
+      "prompt": "Central bank (Federal Reserve) building with interest rate decision impact arrows affecting dollar, stocks, bonds, professional financial news aesthetic, Seekapa colors, 1200x800px"
+    },
+    {
+      "filename": "06_03_earnings_reports.png",
+      "prompt": "Stock price chart with earnings announcement dates marked, beat/miss expectations impact shown, volatility spikes highlighted, professional earnings analysis visualization, Seekapa forest green and gold, 1200x800px"
+    },
+    {
+      "filename": "06_04_company_metrics.png",
+      "prompt": "Company fundamental metrics dashboard: revenue growth graph, profit margin chart, debt ratio gauge, professional business analysis infographic, Seekapa colors, 1200x800px"
+    },
+    {
+      "filename": "06_05_geopolitical_events.png",
+      "prompt": "World map showing geopolitical events impact on markets: trade wars, elections, policy changes marked with icons, market reaction lines, professional global analysis, Seekapa brand aesthetic, 1200x800px"
+    },
+    {
+      "filename": "06_06_market_sentiment.png",
+      "prompt": "Market sentiment gauges: VIX fear index, put/call ratio, investor surveys displayed as professional dashboard, bull/bear sentiment indicators, Seekapa colors, 1200x800px"
+    },
+    {
+      "filename": "06_07_economic_calendar.png",
+      "prompt": "Economic calendar interface showing high-impact events highlighted, time zones, expected impact levels (low/medium/high), professional trading calendar design, Seekapa forest green accents, 1200x800px"
+    },
+    {
+      "filename": "06_08_fundamental_technical_combo.png",
+      "prompt": "Split-screen showing fundamental analysis (economic data, news) on left and technical chart on right, arrows connecting analysis to chart, professional integrated analysis visual, Seekapa colors, 1200x800px"
+    }
+  ],
+  "video_placeholder": {
+    "duration": "90-120 seconds",
+    "script_theme": "Fundamental analysis and economic forces in trading",
+    "key_visual_moments": [
+      "Economic indicators moving markets",
+      "Central bank decision impact cascade",
+      "Earnings surprise reaction",
+      "Fundamental + technical synergy"
+    ]
+  }
+}

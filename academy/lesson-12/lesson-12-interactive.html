@@ -1,0 +1,1466 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Seekapa Trading Academy - Lesson 12: Advanced Trading Psychology & Continuous Learning. Graduation lesson with certificate.">
+
+    <link rel="alternate" hreflang="ar" href="/ar/lesson-12" />
+    <link rel="alternate" hreflang="en" href="/en/lesson-12" />
+    <link rel="alternate" hreflang="es" href="/es/lesson-12" />
+    <link rel="alternate" hreflang="pt" href="/pt/lesson-12" />
+
+    <title>الدرس 12: علم النفس المتقدم للتداول | Seekapa Trading Academy</title>
+
+    <!-- Premium Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;500;600;700&family=Cairo:wght@600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ========== CSS VARIABLES & BASE STYLES ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Seekapa Brand Colors */
+            --seekapa-forest: #1B5E3F;
+            --seekapa-emerald: #0F5F3F;
+            --seekapa-sage: #7A9D8E;
+            --trust-navy: #1F3A6B;
+            --burgundy: #8B3A3A;
+            --champagne-gold: #D4AF37;
+            --platinum: #E5E4E2;
+            --charcoal: #2B2D42;
+            --slate: #8D99AE;
+            --pearl: #F8F9FA;
+            --ivory: #FDFDF8;
+
+            /* Gamification Colors */
+            --xp-blue: #3B82F6;
+            --badge-gold: #FFD700;
+            --streak-orange: #FF6B35;
+            --correct-green: #10B981;
+            --incorrect-red: #EF4444;
+
+            /* Spacing */
+            --space-xs: 0.75rem;
+            --space-sm: 1.5rem;
+            --space-md: 3rem;
+            --space-lg: 4.5rem;
+            --space-xl: 6rem;
+
+            /* Typography */
+            --font-size-base: 18px;
+            --font-size-lg: 1.25rem;
+            --font-size-xl: 1.75rem;
+            --font-size-2xl: 2.25rem;
+            --font-size-3xl: 3.5rem;
+
+            /* Shadows */
+            --shadow-md: 0 4px 8px rgba(27, 94, 63, 0.08);
+            --shadow-lg: 0 8px 16px rgba(27, 94, 63, 0.10);
+            --shadow-hover: 0 12px 24px rgba(27, 94, 63, 0.15);
+
+            /* Transitions */
+            --transition-base: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        html[lang="ar"] {
+            direction: rtl;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            line-height: 1.8;
+            color: var(--charcoal);
+            background: var(--ivory);
+            font-size: var(--font-size-base);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        [lang="ar"] {
+            font-family: 'Noto Kufi Arabic', 'Cairo', sans-serif;
+            font-size: 1.35rem;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-weight: 600;
+            line-height: 1.2;
+            color: var(--charcoal);
+        }
+
+        [lang="ar"] h1, [lang="ar"] h2, [lang="ar"] h3 {
+            font-family: 'Cairo', serif;
+        }
+
+        /* ========== PROGRESS BAR ========== */
+        .progress-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--pearl);
+            z-index: 1000;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--seekapa-forest), var(--champagne-gold));
+            width: 100%;
+            transition: width var(--transition-base);
+        }
+
+        /* ========== NAVBAR ========== */
+        .navbar {
+            background: white;
+            box-shadow: var(--shadow-md);
+            position: sticky;
+            top: 4px;
+            z-index: 999;
+            padding: var(--space-sm);
+        }
+
+        .nav-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: var(--space-md);
+            flex-wrap: wrap;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .logo {
+            height: 40px;
+            width: auto;
+        }
+
+        .academy-name {
+            font-family: 'Cairo', serif;
+            font-size: var(--font-size-lg);
+            font-weight: 700;
+            color: var(--seekapa-forest);
+        }
+
+        .language-switcher {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .lang-btn {
+            padding: 0.5rem 1rem;
+            border: 2px solid var(--seekapa-forest);
+            background: transparent;
+            color: var(--seekapa-forest);
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all var(--transition-base);
+        }
+
+        .lang-btn.active {
+            background: var(--seekapa-forest);
+            color: white;
+        }
+
+        .lang-btn:hover {
+            background: var(--seekapa-sage);
+            border-color: var(--seekapa-sage);
+            color: white;
+        }
+
+        .gamification-header {
+            display: flex;
+            gap: var(--space-md);
+            font-weight: 600;
+            color: var(--seekapa-forest);
+        }
+
+        .xp-display, .streak-display {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* ========== MAIN CONTAINER ========== */
+        .lesson-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--space-lg);
+        }
+
+        .lesson-progress {
+            text-align: center;
+            color: var(--slate);
+            font-weight: 600;
+            margin-bottom: var(--space-md);
+            font-size: 0.95rem;
+        }
+
+        /* ========== HERO SECTION ========== */
+        .hero-section {
+            text-align: center;
+            padding: var(--space-xl) var(--space-lg);
+            background: linear-gradient(135deg, var(--seekapa-forest), var(--seekapa-sage));
+            border-radius: 12px;
+            color: white;
+            margin-bottom: var(--space-xl);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .hero-title {
+            font-size: var(--font-size-3xl);
+            margin-bottom: var(--space-sm);
+            color: white;
+        }
+
+        .hero-subtitle {
+            font-size: var(--font-size-xl);
+            color: var(--platinum);
+            font-weight: 400;
+        }
+
+        /* ========== VIDEO SECTION ========== */
+        .video-section {
+            margin: var(--space-xl) 0;
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            background: var(--pearl);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .video-placeholder {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--trust-navy), var(--seekapa-forest));
+            color: white;
+        }
+
+        .play-icon {
+            font-size: 4rem;
+            margin-bottom: var(--space-md);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        .video-placeholder p {
+            margin: 0.5rem 0;
+            font-size: var(--font-size-lg);
+        }
+
+        .video-details {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* ========== OBJECTIVES SECTION ========== */
+        .objectives-section {
+            background: var(--pearl);
+            padding: var(--space-lg);
+            border-radius: 12px;
+            margin-bottom: var(--space-xl);
+            border-left: 4px solid var(--seekapa-forest);
+        }
+
+        .objectives-section h2 {
+            color: var(--seekapa-forest);
+            margin-bottom: var(--space-md);
+            font-size: var(--font-size-2xl);
+        }
+
+        .objectives-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .objectives-list li {
+            padding: 0.75rem 0;
+            padding-right: 1.5rem;
+            border-bottom: 1px solid var(--platinum);
+            position: relative;
+        }
+
+        .objectives-list li:last-child {
+            border-bottom: none;
+        }
+
+        .objectives-list li:before {
+            content: "✓";
+            position: absolute;
+            right: 0;
+            color: var(--correct-green);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* ========== CONTENT SECTIONS ========== */
+        .content-section {
+            margin-bottom: var(--space-xl);
+            padding: var(--space-lg) 0;
+        }
+
+        .content-section h2 {
+            color: var(--seekapa-forest);
+            margin-bottom: var(--space-md);
+            font-size: var(--font-size-2xl);
+            padding-bottom: var(--space-sm);
+            border-bottom: 2px solid var(--champagne-gold);
+        }
+
+        .content-section p {
+            margin-bottom: var(--space-md);
+            line-height: 1.9;
+            color: var(--charcoal);
+            text-align: justify;
+        }
+
+        .content-image {
+            width: 100%;
+            max-width: 900px;
+            height: auto;
+            border-radius: 12px;
+            margin: var(--space-lg) 0;
+            box-shadow: var(--shadow-lg);
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* ========== QUIZ SECTION ========== */
+        .quiz-section {
+            background: linear-gradient(135deg, var(--trust-navy), var(--seekapa-forest));
+            padding: var(--space-lg);
+            border-radius: 12px;
+            margin-bottom: var(--space-xl);
+            color: white;
+        }
+
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-lg);
+        }
+
+        .quiz-title {
+            font-size: var(--font-size-2xl);
+            margin: 0;
+        }
+
+        .quiz-xp-reward {
+            background: var(--badge-gold);
+            color: var(--charcoal);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
+
+        .quiz-question {
+            margin-bottom: var(--space-md);
+        }
+
+        .question-text {
+            font-size: var(--font-size-lg);
+            margin-bottom: var(--space-md);
+            font-weight: 600;
+        }
+
+        .quiz-options {
+            display: grid;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-md);
+        }
+
+        .quiz-option {
+            padding: var(--space-sm);
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all var(--transition-base);
+            text-align: center;
+        }
+
+        .quiz-option:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: white;
+        }
+
+        .quiz-option.selected {
+            background: var(--xp-blue);
+            border-color: white;
+        }
+
+        .quiz-option.correct {
+            background: var(--correct-green);
+            border-color: white;
+        }
+
+        .quiz-option.incorrect {
+            background: var(--incorrect-red);
+            border-color: white;
+        }
+
+        .quiz-feedback {
+            padding: var(--space-sm);
+            margin: var(--space-sm) 0;
+            border-radius: 8px;
+            text-align: center;
+            min-height: 1.5rem;
+        }
+
+        .quiz-feedback.show {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .quiz-submit {
+            padding: var(--space-sm) var(--space-lg);
+            background: var(--badge-gold);
+            color: var(--charcoal);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: all var(--transition-base);
+            font-size: 1rem;
+        }
+
+        .quiz-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .quiz-submit:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        /* ========== KEY TAKEAWAYS ========== */
+        .takeaways-section {
+            background: var(--pearl);
+            padding: var(--space-lg);
+            border-radius: 12px;
+            margin-bottom: var(--space-xl);
+        }
+
+        .takeaways-section h2 {
+            color: var(--seekapa-forest);
+            margin-bottom: var(--space-md);
+            font-size: var(--font-size-2xl);
+        }
+
+        .takeaways-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .takeaways-list li {
+            padding: 0.75rem 0;
+            padding-right: 1.5rem;
+            border-bottom: 1px solid var(--platinum);
+            position: relative;
+        }
+
+        .takeaways-list li:last-child {
+            border-bottom: none;
+        }
+
+        .takeaways-list li:before {
+            content: "→";
+            position: absolute;
+            right: 0;
+            color: var(--champagne-gold);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* ========== EXERCISE SECTION ========== */
+        .exercise-section {
+            background: var(--ivory);
+            border: 2px solid var(--seekapa-forest);
+            padding: var(--space-lg);
+            border-radius: 12px;
+            margin-bottom: var(--space-xl);
+        }
+
+        .exercise-section h2 {
+            color: var(--seekapa-forest);
+            margin-bottom: var(--space-md);
+            font-size: var(--font-size-2xl);
+        }
+
+        .exercise-section p {
+            margin-bottom: var(--space-lg);
+            line-height: 1.9;
+        }
+
+        .complete-btn {
+            padding: var(--space-sm) var(--space-lg);
+            background: var(--seekapa-forest);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 1rem;
+            transition: all var(--transition-base);
+        }
+
+        .complete-btn:hover {
+            background: var(--seekapa-emerald);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        /* ========== GRADUATION SECTION ========== */
+        .graduation-section {
+            text-align: center;
+            background: linear-gradient(135deg, #1B5E3F, #D4AF37);
+            padding: var(--space-xl) var(--space-lg);
+            border-radius: 12px;
+            margin-bottom: var(--space-xl);
+            color: white;
+        }
+
+        .graduation-title {
+            font-size: var(--font-size-3xl);
+            margin-bottom: var(--space-md);
+            color: white;
+        }
+
+        .completion-message {
+            font-size: var(--font-size-lg);
+            line-height: 1.8;
+            margin-bottom: var(--space-lg);
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .graduation-badge {
+            display: inline-block;
+            padding: var(--space-lg) var(--space-xl);
+            background: rgba(255, 255, 255, 0.2);
+            border: 3px solid var(--badge-gold);
+            border-radius: 12px;
+            margin: var(--space-lg) 0;
+            font-weight: 700;
+            font-size: 1.5rem;
+            letter-spacing: 1px;
+        }
+
+        /* ========== NEXT STEPS SECTION ========== */
+        .next-steps-section {
+            background: var(--pearl);
+            padding: var(--space-lg);
+            border-radius: 12px;
+            margin-bottom: var(--space-xl);
+        }
+
+        .next-steps-section h2 {
+            color: var(--seekapa-forest);
+            margin-bottom: var(--space-lg);
+            font-size: var(--font-size-2xl);
+            text-align: center;
+        }
+
+        .next-steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--space-lg);
+        }
+
+        .next-step-card {
+            background: white;
+            padding: var(--space-lg);
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+            border-top: 4px solid var(--seekapa-forest);
+            transition: all var(--transition-base);
+        }
+
+        .next-step-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: var(--seekapa-forest);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            font-weight: 700;
+            margin-bottom: var(--space-sm);
+        }
+
+        .step-text {
+            font-size: var(--font-size-lg);
+            font-weight: 600;
+            color: var(--charcoal);
+        }
+
+        /* ========== NAVIGATION SECTION ========== */
+        .navigation-section {
+            display: flex;
+            justify-content: space-between;
+            gap: var(--space-lg);
+            margin-top: var(--space-xl);
+            padding-top: var(--space-lg);
+            border-top: 2px solid var(--platinum);
+        }
+
+        .nav-btn {
+            flex: 1;
+            padding: var(--space-lg);
+            border: 2px solid var(--seekapa-forest);
+            background: white;
+            color: var(--seekapa-forest);
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: var(--font-size-lg);
+            transition: all var(--transition-base);
+            text-decoration: none;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-btn:hover {
+            background: var(--seekapa-forest);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .prev-btn {
+            order: 1;
+        }
+
+        .next-btn {
+            order: 2;
+        }
+
+        html[dir="rtl"] .prev-btn {
+            order: 2;
+        }
+
+        html[dir="rtl"] .next-btn {
+            order: 1;
+        }
+
+        /* ========== FOOTER ========== */
+        .site-footer {
+            background: var(--charcoal);
+            color: var(--platinum);
+            padding: var(--space-xl) var(--space-lg);
+            text-align: center;
+            margin-top: var(--space-2xl);
+        }
+
+        .footer-content p {
+            margin-bottom: 0.5rem;
+        }
+
+        .disclaimer {
+            font-size: 0.85rem;
+            opacity: 0.8;
+            margin-top: var(--space-md);
+        }
+
+        /* ========== UTILITY CLASSES ========== */
+        .hidden {
+            display: none !important;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .intro-text {
+            font-size: var(--font-size-lg);
+            line-height: 1.9;
+            margin-bottom: var(--space-lg);
+            padding: var(--space-lg);
+            background: var(--pearl);
+            border-left: 4px solid var(--champagne-gold);
+            border-radius: 4px;
+        }
+
+        /* ========== RESPONSIVE DESIGN ========== */
+        @media (max-width: 768px) {
+            .nav-content {
+                flex-direction: column;
+                gap: var(--space-sm);
+            }
+
+            .lesson-container {
+                padding: var(--space-md);
+            }
+
+            .hero-section {
+                padding: var(--space-lg);
+            }
+
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .next-steps-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .navigation-section {
+                flex-direction: column;
+            }
+
+            .nav-btn {
+                width: 100%;
+            }
+
+            [lang="ar"] {
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            :root {
+                --space-lg: 2rem;
+                --space-xl: 3rem;
+                --font-size-3xl: 2rem;
+                --font-size-2xl: 1.5rem;
+            }
+
+            .lesson-container {
+                padding: var(--space-sm);
+            }
+
+            .hero-title {
+                font-size: 1.5rem;
+            }
+
+            .language-switcher {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .gamification-header {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Progress Bar -->
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <!-- Navigation Header -->
+    <header class="navbar">
+        <div class="nav-content">
+            <div class="logo-section">
+                <img src="images/Seekapa Black Logo.png" alt="Seekapa" class="logo" onerror="this.style.display='none'">
+                <span class="academy-name" data-translate="academy_name">أكاديمية سيكابا للتداول</span>
+            </div>
+
+            <div class="language-switcher">
+                <button class="lang-btn active" data-lang="ar" onclick="switchLanguage('ar')">العربية</button>
+                <button class="lang-btn" data-lang="en" onclick="switchLanguage('en')">English</button>
+                <button class="lang-btn" data-lang="es" onclick="switchLanguage('es')">Español</button>
+                <button class="lang-btn" data-lang="pt" onclick="switchLanguage('pt')">Português</button>
+            </div>
+
+            <div class="gamification-header">
+                <div class="xp-display">
+                    <span class="xp-icon">⚡</span>
+                    <span id="xpAmount">0</span> XP
+                </div>
+                <div class="streak-display">
+                    <span class="streak-icon">🔥</span>
+                    <span id="streakCount">0</span> days
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="lesson-container">
+        <!-- Lesson Progress -->
+        <div class="lesson-progress" data-translate="lesson_number">الدرس 12 من 12</div>
+
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <h1 class="hero-title" data-translate="title">علم النفس المتقدم للتداول والتعلم المستمر</h1>
+            <p class="hero-subtitle" data-translate="subtitle">أتقن عقلك والتزم بالتفوق التداول مدى الحياة</p>
+        </section>
+
+        <!-- Video Section -->
+        <section class="video-section">
+            <div class="video-container">
+                <div class="video-placeholder">
+                    <div class="play-icon">▶</div>
+                    <p data-translate="video_coming_soon">الفيديو قيد الإعداد</p>
+                    <p class="video-details">المدة: دقيقتان | الجودة: 1080p</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Learning Objectives -->
+        <section class="objectives-section">
+            <h2 data-translate="objectives_title">أهداف التعلم</h2>
+            <ul class="objectives-list">
+                <li data-translate="objective_1">تطوير المهارات النفسية المتقدمة للنجاح على المدى الطويل</li>
+                <li data-translate="objective_2">إنشاء أطر عمل للتحسين المستمر والتعلم</li>
+                <li data-translate="objective_3">بناء العلاقات المجتمعية والإرشادية في التداول</li>
+                <li data-translate="objective_4">وضع توقعات واقعية لرحلتك التداولية</li>
+            </ul>
+        </section>
+
+        <!-- Introduction -->
+        <section class="content-section">
+            <p class="intro-text" data-translate="intro">تهانينا على الوصول إلى الدرس الأخير! لديك الآن جميع الأدوات التقنية لنجاح التداول. لكن الحقيقة هي أن أكبر تحدٍ لك ليس السوق - بل إتقان نفسك. حتى المتداولون ذوو الخبرة يتعاملون مع الشياطين النفسية التي قد تعطل النجاح. يركز هذا الدرس على علم النفس المتقدم وإنشاء إطار عمل للنمو المستمر.</p>
+        </section>
+
+        <!-- Content Section 1 -->
+        <section class="content-section">
+            <h2 data-translate="section1_title">علم النفس المتقدم للتداول والتحكم العاطفي</h2>
+            <p data-translate="section1_text">حتى المتداولون ذوو الخبرة يتعاملون مع الخوف والطمع والأمل والندم. الخوف يجعلك تخرج من الصفقات الرابحة مبكراً بينما الطمع يحتفظ بالخاسرة طويلاً. الأمل يمنع أخذ الحدود الدنيا، والندم يشوه القرارات المستقبلية. طور روتيناً قبل التداول لتركيز عقلك وتقليل التدخل العاطفي. يمارس العديد من المتداولين الناجحين التأمل أو التمارين أو مراجعة خطتهم قبل جلسات التداول. أنشئ مراسي نفسية - طقوس محددة تثير عقلية منضبطة ومركزة. اعترف بالأنماط العاطفية من خلال الإبلاغ المفصل، مع ملاحظة الحالات العاطفية أثناء القرارات.</p>
+            <img src="images/12_01_psychological_mastery.png" alt="Psychological Mastery" class="content-image" onerror="this.style.display='none'">
+        </section>
+
+        <!-- Content Section 2 -->
+        <section class="content-section">
+            <h2 data-translate="section2_title">تتبع الأداء وتحليل المقاييس</h2>
+            <p data-translate="section2_text">تتبع مقاييس الأداء بما يتجاوز الربح والخسارة البسيطة لفهم صحة التداول الحقيقية. راقب معدل الفوز (نسبة الصفقات الرابحة)، ومتوسط نسبة الربح/الخسارة، والحد الأقصى للانخفاض، ونسبة التزام الخطة. تكشف هذه المقاييس أنماطاً غير مرئية في الربح والخسارة وحدها. قد يكون المتداول رابحاً مع معدل فوز بنسبة 40٪ ونسبة ربح/خسارة بـ 3:1، أو خاسراً مع معدل فوز 60٪ ونسبة 1:2. حلل التداول حسب الإطار الزمني وحالة السوق ونوع الاستراتيجية لتحديد نقاط القوة والضعف.</p>
+            <img src="images/12_02_performance_dashboard.png" alt="Performance Dashboard" class="content-image" onerror="this.style.display='none'">
+        </section>
+
+        <!-- Content Section 3 -->
+        <section class="content-section">
+            <h2 data-translate="section3_title">التعلم المستمر وتطوير المهارات</h2>
+            <p data-translate="section3_text">تتطور الأسواق باستمرار، مما يتطلب التزاماً بالتعلم مدى الحياة. اقرأ الكتب التداولية الكلاسيكية مثل 'Market Wizards' و'Trading in the Zone'. ابق على اطلاع على تطورات السوق من خلال الأخبار المالية والتقارير الاقتصادية. احضر الندوات والدورات عبر الإنترنت لتعلم تقنيات جديدة. انضم إلى مجتمعات التداول والمنتديات لتبادل الأفكار والتعلم من خبرات الآخرين. ابحث عن مرشدين حققوا ما تطمح إليه - تعلم من نجاحهم وأخطائهم. مارس التطوير المتعمد للمهارات بالتركيز على نقاط الضعف المحددة كل شهر.</p>
+            <img src="images/12_03_trading_books.png" alt="Trading Books" class="content-image" onerror="this.style.display='none'">
+        </section>
+
+        <!-- Content Section 4 -->
+        <section class="content-section">
+            <h2 data-translate="section4_title">وضع التوقعات الواقعية والرؤية طويلة الأجل</h2>
+            <p data-translate="section4_text">ضع توقعات واقعية حول رحلة التداول - يحتاج معظم المتداولين إلى 2-3 سنوات ليصبحوا مربحين باستمرار. ستكون هناك نكسات وفترات خسارة وحظات شك. هذا طبيعي ومتوقع. فهم أن التداول الناجح لا يتعلق بالثراء السريع - بل يتعلق بإنشاء دخل مستدام على مدى الوقت من خلال الانضباط وتطوير المهارات. احم رأس مالك خلال مرحلة التعلم بأحجام مراكز صغيرة. تعامل مع التداول المبكر كتعليم مدفوع حيث تعلمك الخسائر الصغيرة دروساً قيمة. احتفل بالانتصارات الصغيرة والمعالم بدلاً من مقارنة نفسك بالآخرين.</p>
+            <img src="images/12_06_realistic_timeline.png" alt="Realistic Timeline" class="content-image" onerror="this.style.display='none'">
+        </section>
+
+        <!-- Interactive Quiz -->
+        <section class="quiz-section" id="quiz-section">
+            <div class="quiz-header">
+                <h3 class="quiz-title" data-translate="quiz_title">اختبار المعرفة</h3>
+                <div class="quiz-xp-reward">+50 XP</div>
+            </div>
+
+            <!-- Question 1 -->
+            <div class="quiz-question">
+                <p class="question-text" data-translate="quiz_q1">أي مما يلي ليس تحدياً نفسياً مذكوراً في الدرس؟</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="selectQuizOption(this, 'q1')" data-answer="a">
+                        <span data-translate="quiz_q1_a">الخوف من الخروج المبكر من الصفقات الرابحة</span>
+                    </div>
+                    <div class="quiz-option" onclick="selectQuizOption(this, 'q1')" data-answer="b">
+                        <span data-translate="quiz_q1_b">الطمع الذي يحتفظ بالخاسرين طويلاً</span>
+                    </div>
+                    <div class="quiz-option" onclick="selectQuizOption(this, 'q1')" data-answer="c">
+                        <span data-translate="quiz_q1_c">الثقة المفرطة التي تؤدي إلى معدلات فوز أعلى</span>
+                    </div>
+                    <div class="quiz-option" onclick="selectQuizOption(this, 'q1')" data-answer="d">
+                        <span data-translate="quiz_q1_d">الأمل الذي يمنع أخذ الحدود الدنيا</span>
+                    </div>
+                </div>
+                <div class="quiz-feedback" id="q1-feedback"></div>
+                <button class="quiz-submit" onclick="submitQuestion('q1', 'c')">Submit</button>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="quiz-question" style="margin-top: var(--space-lg);">
+                <p class="question-text" data-translate="quiz_q2">ما الإطار الزمني الواقعي لمعظم المتداولين ليصبحوا مربحين باستمرار؟</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="selectQuizOption(this, 'q2')" data-answer="a">
+                        <span data-translate="quiz_q2_a">3-6 أشهر</span>
+                    </div>
+                    <div class="quiz-option" onclick="selectQuizOption(this, 'q2')" data-answer="b">
+                        <span data-translate="quiz_q2_b">2-3 سنوات</span>
+                    </div>
+                    <div class="quiz-option" onclick="selectQuizOption(this, 'q2')" data-answer="c">
+                        <span data-translate="quiz_q2_c">6-12 شهراً</span>
+                    </div>
+                    <div class="quiz-option" onclick="selectQuizOption(this, 'q2')" data-answer="d">
+                        <span data-translate="quiz_q2_d">1-2 سنة</span>
+                    </div>
+                </div>
+                <div class="quiz-feedback" id="q2-feedback"></div>
+                <button class="quiz-submit" onclick="submitQuestion('q2', 'b')">Submit</button>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="quiz-question" style="margin-top: var(--space-lg);">
+                <p class="question-text" data-translate="quiz_q3">أي مقياس يجمع معدل الفوز مع حجم الأرباح مقابل الخسائر؟</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="selectQuizOption(this, 'q3')" data-answer="a">
+                        <span data-translate="quiz_q3_a">الحد الأقصى للانخفاض</span>
+                    </div>
+                    <div class="quiz-option" onclick="selectQuizOption(this, 'q3')" data-answer="b">
+                        <span data-translate="quiz_q3_b">نسبة التزام الخطة</span>
+                    </div>
+                    <div class="quiz-option" onclick="selectQuizOption(this, 'q3')" data-answer="c">
+                        <span data-translate="quiz_q3_c">متوسط نسبة الربح/الخسارة</span>
+                    </div>
+                    <div class="quiz-option" onclick="selectQuizOption(this, 'q3')" data-answer="d">
+                        <span data-translate="quiz_q3_d">عامل الربح</span>
+                    </div>
+                </div>
+                <div class="quiz-feedback" id="q3-feedback"></div>
+                <button class="quiz-submit" onclick="submitQuestion('q3', 'c')">Submit</button>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="quiz-question" style="margin-top: var(--space-lg);">
+                <p class="question-text" data-translate="quiz_q4">ما الفائدة الأساسية للانضمام إلى مجتمع التداول؟</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="selectQuizOption(this, 'q4')" data-answer="a">
+                        <span data-translate="quiz_q4_a">أرباح مضمونة</span>
+                    </div>
+                    <div class="quiz-option" onclick="selectQuizOption(this, 'q4')" data-answer="b">
+                        <span data-translate="quiz_q4_b">تبادل الأفكار والتعلم من تجارب الآخرين</span>
+                    </div>
+                    <div class="quiz-option" onclick="selectQuizOption(this, 'q4')" data-answer="c">
+                        <span data-translate="quiz_q4_c">الوصول إلى معلومات حصرية</span>
+                    </div>
+                    <div class="quiz-option" onclick="selectQuizOption(this, 'q4')" data-answer="d">
+                        <span data-translate="quiz_q4_d">تقليل خسائر التداول</span>
+                    </div>
+                </div>
+                <div class="quiz-feedback" id="q4-feedback"></div>
+                <button class="quiz-submit" onclick="submitQuestion('q4', 'b')">Submit</button>
+            </div>
+
+            <!-- Question 5 -->
+            <div class="quiz-question" style="margin-top: var(--space-lg);">
+                <p class="question-text" data-translate="quiz_q5">كيف يجب أن تتعامل مع مرحلة التداول المبكرة؟</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="selectQuizOption(this, 'q5')" data-answer="a">
+                        <span data-translate="quiz_q5_a">كطريق سريع للثراء</span>
+                    </div>
+                    <div class="quiz-option" onclick="selectQuizOption(this, 'q5')" data-answer="b">
+                        <span data-translate="quiz_q5_b">كتعليم مدفوع حيث تعلمك الخسائر دروساً</span>
+                    </div>
+                    <div class="quiz-option" onclick="selectQuizOption(this, 'q5')" data-answer="c">
+                        <span data-translate="quiz_q5_c">كمقامرة بأموال يمكنك تحملها</span>
+                    </div>
+                    <div class="quiz-option" onclick="selectQuizOption(this, 'q5')" data-answer="d">
+                        <span data-translate="quiz_q5_d">كأمر غير مرتبط بالنجاح على المدى الطويل</span>
+                    </div>
+                </div>
+                <div class="quiz-feedback" id="q5-feedback"></div>
+                <button class="quiz-submit" onclick="submitQuestion('q5', 'b')">Submit</button>
+            </div>
+        </section>
+
+        <!-- Key Takeaways -->
+        <section class="takeaways-section">
+            <h2 data-translate="takeaways_title">النقاط الرئيسية</h2>
+            <ul class="takeaways-list">
+                <li data-translate="takeaway1">إتقان علم النفس هو الحدود الأخيرة التي تفصل المتداولين الجيدين عن العظماء</li>
+                <li data-translate="takeaway2">تتبع الأداء المفصل يكشف أنماطاً غير مرئية في الربح/الخسارة وحدها</li>
+                <li data-translate="takeaway3">التعلم المستمر والتكيف ضروريان مع تطور الأسواق</li>
+                <li data-translate="takeaway4">تسرع مجتمعات التداول والإرشاد النمو وتوفر الدعم</li>
+                <li data-translate="takeaway5">التوقعات الواقعية والصبر حاسمة للنجاح على المدى الطويل</li>
+            </ul>
+        </section>
+
+        <!-- Practical Exercise -->
+        <section class="exercise-section">
+            <h2 data-translate="exercise_title">أنشئ خارطة طريق تطوير التداول الخاصة بك</h2>
+            <p data-translate="exercise">أنشئ خارطة طريق تطوير التداول لمدة 12 شهراً تتضمن: 1) المهارات المراد تطويرها كل ربع سنة، 2) الكتب المراد قراءتها والدورات المراد إكمالها، 3) مجتمعات التداول المراد الانضمام إليها، 4) معالم الأداء المراد تحقيقها، 5) جدول التقييم الذاتي الشهري. التزم برحلتك بالصبر والمثابرة، وافهم أن التحسينات الصغيرة المتسقة تتضاعف إلى إتقان التداول على مدى الوقت. أهلاً وسهلاً في عالم التداول المحترف!</p>
+            <button class="complete-btn" onclick="markExerciseComplete()">
+                <span data-translate="mark_complete">تم الإنجاز</span>
+            </button>
+        </section>
+
+        <!-- Graduation Section -->
+        <section class="graduation-section">
+            <h2 class="graduation-title" data-translate="completion_title">تهانينا!</h2>
+            <p class="completion-message" data-translate="completion_message">تهانينا على إتمام أكاديمية سيكابا للتداول! لديك الآن المعرفة والأدوات والإطار اللازم للنجاح. الآن يأتي العمل الحقيقي - تطبيق هذه الدروس بالانضباط والصبر. تذكر: خطط لصفقاتك، تداول وفق خططك، ولا تتوقف أبداً عن التعلم. رحلتك في التداول تبدأ الآن. أهلاً وسهلاً في عالم التداول المحترف. اجعلنا فخورين!</p>
+            <div class="graduation-badge" data-translate="graduation_badge">شهادة إتمام الدورة</div>
+            <img src="images/12_08_graduation_certificate.png" alt="Graduation Certificate" class="content-image" onerror="this.style.display='none'" style="max-width: 600px; margin-top: var(--space-lg);">
+        </section>
+
+        <!-- Next Steps Section -->
+        <section class="next-steps-section">
+            <h2 data-translate="next_steps_title">خطواتك التالية</h2>
+            <div class="next-steps-grid">
+                <div class="next-step-card">
+                    <div class="step-number">1</div>
+                    <div class="step-text" data-translate="next_step_1">انضم إلى مجتمع التداول لتسريع تعلمك</div>
+                </div>
+                <div class="next-step-card">
+                    <div class="step-number">2</div>
+                    <div class="step-text" data-translate="next_step_2">ابحث عن مرشد حقق النجاح الذي تطمح إليه</div>
+                </div>
+                <div class="next-step-card">
+                    <div class="step-number">3</div>
+                    <div class="step-text" data-translate="next_step_3">ابدأ بأحجام مراكز صغيرة لحماية رأس المال خلال التعلم</div>
+                </div>
+                <div class="next-step-card">
+                    <div class="step-number">4</div>
+                    <div class="step-text" data-translate="next_step_4">أنشئ لوحة تحكم التداول الشخصية الخاصة بك للتتبع اليومي</div>
+                </div>
+                <div class="next-step-card">
+                    <div class="step-number">5</div>
+                    <div class="step-text" data-translate="next_step_5">التزم بالتعلم المستمر من خلال الكتب والدورات والبحث</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Navigation Section -->
+        <section class="navigation-section">
+            <a href="lesson-11-interactive.html" class="nav-btn prev-btn" data-translate="previous_lesson">← الدرس 11</a>
+            <a href="#graduation-section" class="nav-btn next-btn" data-translate="next_lesson">عرض شهادتك →</a>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p>&copy; 2025 Seekapa Trading Academy. <span data-translate="all_rights">جميع الحقوق محفوظة</span>.</p>
+            <p class="disclaimer" data-translate="disclaimer">تحذير المخاطر: التداول ينطوي على مخاطر كبيرة. الأداء السابق لا يضمن النتائج المستقبلية. استخدم دائماً إدارة مخاطر مناسبة ولا تتداول بأموال لا يمكنك تحملها.</p>
+        </div>
+    </footer>
+
+    <!-- Gamification & Translation Script -->
+    <script>
+        // ========== TRANSLATIONS DATABASE ==========
+        const translations = {
+            en: {
+                academy_name: "Seekapa Trading Academy",
+                lesson_number: "Lesson 12 of 12",
+                title: "Advanced Trading Psychology & Continuous Learning",
+                subtitle: "Master your mind and commit to lifelong trading excellence",
+                video_coming_soon: "Video Coming Soon",
+                objectives_title: "Learning Objectives",
+                objective_1: "Develop advanced psychological skills for long-term success",
+                objective_2: "Create frameworks for continuous improvement and learning",
+                objective_3: "Build trading community connections and mentorship relationships",
+                objective_4: "Set realistic expectations for your trading journey",
+                intro: "Congratulations on reaching the final lesson! You now have all the technical tools for trading success. But the truth is, your biggest challenge isn't the market - it's mastering yourself. Even experienced traders battle psychological demons that can derail success. This lesson focuses on advanced psychology and creating a framework for continuous growth.",
+                section1_title: "Advanced Trading Psychology and Emotional Mastery",
+                section1_text: "Even experienced traders battle fear, greed, hope, and regret. Fear makes you exit winners too early while greed holds losers too long. Hope prevents taking stops, and regret clouds future decisions. Develop pre-trading routines to center your mind and reduce emotional interference. Many successful traders meditate, exercise, or review their plan before trading sessions. Create psychological anchors - specific rituals that trigger focused, disciplined mindset. Recognize emotional patterns through detailed journaling, noting emotional states during decisions. This awareness is the first step toward mastery.",
+                section2_title: "Performance Tracking and Metrics Analysis",
+                section2_text: "Track performance metrics beyond simple profit and loss to understand true trading health. Monitor win rate (percentage of winning trades), average win/loss ratio (how much you make when right versus wrong), maximum drawdown (largest peak-to-trough decline), and plan adherence percentage. These metrics reveal patterns invisible in P&L alone. A trader might be profitable with 40% win rate and 3:1 average win/loss ratio, or unprofitable with 60% win rate and 1:2 ratio. Analyze trading by timeframe, market condition, and strategy type to identify strengths and weaknesses.",
+                section3_title: "Continuous Learning and Skill Development",
+                section3_text: "Markets constantly evolve, requiring lifelong learning commitment. Read classic trading books like 'Market Wizards,' 'Trading in the Zone,' and 'Reminiscences of a Stock Operator.' Stay current with market developments through financial news, economic reports, and trading publications. Attend webinars and online courses to learn new techniques. Join trading communities and forums to exchange ideas and learn from others' experiences. Find mentors who've achieved what you aspire to - learn from their successes and mistakes. Practice deliberate skill development by focusing on specific weaknesses each month.",
+                section4_title: "Setting Realistic Expectations and Long-Term Vision",
+                section4_text: "Set realistic expectations about the trading journey - most traders need 2-3 years to become consistently profitable. There will be setbacks, losing streaks, and moments of doubt. This is normal and expected. Understand that successful trading isn't about getting rich quickly - it's about building sustainable income over time through discipline and skill development. Protect your capital during the learning phase with small position sizes. Treat early trading as paid education where small losses teach valuable lessons. Celebrate small wins and milestones rather than comparing yourself to others. Focus on process improvement rather than outcome obsession.",
+                takeaway1: "Mastering psychology is the final frontier separating good traders from great ones",
+                takeaway2: "Detailed performance tracking reveals patterns invisible in profit/loss alone",
+                takeaway3: "Continuous learning and adaptation are essential as markets evolve",
+                takeaway4: "Trading communities and mentorship accelerate growth and provide support",
+                takeaway5: "Realistic expectations and patience are crucial for long-term success",
+                takeaways_title: "Key Takeaways",
+                exercise_title: "Create Your Trading Development Roadmap",
+                exercise: "Create your 12-month trading development roadmap including: 1) Skills to develop each quarter (technical analysis, risk management, psychology, etc.), 2) Books to read and courses to complete, 3) Trading communities to join, 4) Performance milestones to achieve, 5) Monthly self-assessment schedule. Commit to this journey with patience and persistence, understanding that consistent small improvements compound into trading mastery over time. Welcome to the exciting world of professional trading!",
+                mark_complete: "Mark Exercise Complete",
+                quiz_title: "Knowledge Check",
+                quiz_q1: "Which of these is NOT a psychological challenge mentioned in the lesson?",
+                quiz_q1_a: "Fear causing early exits from winners",
+                quiz_q1_b: "Greed holding losers too long",
+                quiz_q1_c: "Overconfidence leading to higher win rates",
+                quiz_q1_d: "Hope preventing traders from taking stops",
+                quiz_q2: "What is a realistic timeframe for most traders to become consistently profitable?",
+                quiz_q2_a: "3-6 months",
+                quiz_q2_b: "2-3 years",
+                quiz_q2_c: "6-12 months",
+                quiz_q2_d: "1-2 years",
+                quiz_q3: "Which metric combines win rate with the size of wins versus losses?",
+                quiz_q3_a: "Maximum drawdown",
+                quiz_q3_b: "Plan adherence percentage",
+                quiz_q3_c: "Average win/loss ratio",
+                quiz_q3_d: "Profit factor",
+                quiz_q4: "What is the primary benefit of joining a trading community?",
+                quiz_q4_a: "Guaranteed profits",
+                quiz_q4_b: "Exchange ideas and learn from others' experiences",
+                quiz_q4_c: "Access to insider information",
+                quiz_q4_d: "Reduced trading losses",
+                quiz_q5: "How should you treat your early trading phase?",
+                quiz_q5_a: "As a quick path to riches",
+                quiz_q5_b: "As paid education where losses teach lessons",
+                quiz_q5_c: "As a gamble with money you can afford to lose",
+                quiz_q5_d: "As irrelevant to long-term success",
+                completion_title: "Congratulations!",
+                completion_message: "Congratulations on completing Seekapa Trading Academy! You have the knowledge, tools, and framework for success. Now comes the real work - applying these lessons with discipline and patience. Remember: plan your trades, trade your plan, and never stop learning. Your trading journey starts now. Welcome to the exciting world of professional trading. Make us proud!",
+                graduation_badge: "Course Completion Certificate",
+                next_steps_title: "Your Next Steps",
+                next_step_1: "Join a trading community to accelerate your learning",
+                next_step_2: "Find a mentor who's achieved the success you aspire to",
+                next_step_3: "Start with small position sizes to protect capital during learning",
+                next_step_4: "Create your personal trading dashboard for daily tracking",
+                next_step_5: "Commit to continuous learning through books, courses, and research",
+                previous_lesson: "← Lesson 11",
+                next_lesson: "View Your Certificate →",
+                all_rights: "All Rights Reserved",
+                disclaimer: "Risk Warning: Trading involves substantial risk. Past performance does not guarantee future results. Always use proper risk management and never trade with money you cannot afford to lose."
+            },
+            ar: {
+                academy_name: "أكاديمية سيكابا للتداول",
+                lesson_number: "الدرس 12 من 12",
+                title: "علم النفس المتقدم للتداول والتعلم المستمر",
+                subtitle: "أتقن عقلك والتزم بالتفوق التداول مدى الحياة",
+                video_coming_soon: "الفيديو قيد الإعداد",
+                objectives_title: "أهداف التعلم",
+                objective_1: "تطوير المهارات النفسية المتقدمة للنجاح على المدى الطويل",
+                objective_2: "إنشاء أطر عمل للتحسين المستمر والتعلم",
+                objective_3: "بناء العلاقات المجتمعية والإرشادية في التداول",
+                objective_4: "وضع توقعات واقعية لرحلتك التداولية",
+                intro: "تهانينا على الوصول إلى الدرس الأخير! لديك الآن جميع الأدوات التقنية لنجاح التداول. لكن الحقيقة هي أن أكبر تحدٍ لك ليس السوق - بل إتقان نفسك. حتى المتداولون ذوو الخبرة يتعاملون مع الشياطين النفسية التي قد تعطل النجاح. يركز هذا الدرس على علم النفس المتقدم وإنشاء إطار عمل للنمو المستمر.",
+                section1_title: "علم النفس المتقدم للتداول والتحكم العاطفي",
+                section1_text: "حتى المتداولون ذوو الخبرة يتعاملون مع الخوف والطمع والأمل والندم. الخوف يجعلك تخرج من الصفقات الرابحة مبكراً بينما الطمع يحتفظ بالخاسرة طويلاً. الأمل يمنع أخذ الحدود الدنيا، والندم يشوه القرارات المستقبلية. طور روتيناً قبل التداول لتركيز عقلك وتقليل التدخل العاطفي. يمارس العديد من المتداولين الناجحين التأمل أو التمارين أو مراجعة خطتهم قبل جلسات التداول. أنشئ مراسي نفسية - طقوس محددة تثير عقلية منضبطة ومركزة. اعترف بالأنماط العاطفية من خلال الإبلاغ المفصل، مع ملاحظة الحالات العاطفية أثناء القرارات.",
+                section2_title: "تتبع الأداء وتحليل المقاييس",
+                section2_text: "تتبع مقاييس الأداء بما يتجاوز الربح والخسارة البسيطة لفهم صحة التداول الحقيقية. راقب معدل الفوز (نسبة الصفقات الرابحة)، ومتوسط نسبة الربح/الخسارة، والحد الأقصى للانخفاض، ونسبة التزام الخطة. تكشف هذه المقاييس أنماطاً غير مرئية في الربح والخسارة وحدها. قد يكون المتداول رابحاً مع معدل فوز بنسبة 40٪ ونسبة ربح/خسارة بـ 3:1، أو خاسراً مع معدل فوز 60٪ ونسبة 1:2. حلل التداول حسب الإطار الزمني وحالة السوق ونوع الاستراتيجية لتحديد نقاط القوة والضعف.",
+                section3_title: "التعلم المستمر وتطوير المهارات",
+                section3_text: "تتطور الأسواق باستمرار، مما يتطلب التزاماً بالتعلم مدى الحياة. اقرأ الكتب التداولية الكلاسيكية مثل 'Market Wizards' و'Trading in the Zone'. ابق على اطلاع على تطورات السوق من خلال الأخبار المالية والتقارير الاقتصادية. احضر الندوات والدورات عبر الإنترنت لتعلم تقنيات جديدة. انضم إلى مجتمعات التداول والمنتديات لتبادل الأفكار والتعلم من خبرات الآخرين. ابحث عن مرشدين حققوا ما تطمح إليه - تعلم من نجاحهم وأخطائهم. مارس التطوير المتعمد للمهارات بالتركيز على نقاط الضعف المحددة كل شهر.",
+                section4_title: "وضع التوقعات الواقعية والرؤية طويلة الأجل",
+                section4_text: "ضع توقعات واقعية حول رحلة التداول - يحتاج معظم المتداولين إلى 2-3 سنوات ليصبحوا مربحين باستمرار. ستكون هناك نكسات وفترات خسارة وحظات شك. هذا طبيعي ومتوقع. فهم أن التداول الناجح لا يتعلق بالثراء السريع - بل يتعلق بإنشاء دخل مستدام على مدى الوقت من خلال الانضباط وتطوير المهارات. احم رأس مالك خلال مرحلة التعلم بأحجام مراكز صغيرة. تعامل مع التداول المبكر كتعليم مدفوع حيث تعلمك الخسائر الصغيرة دروساً قيمة. احتفل بالانتصارات الصغيرة والمعالم بدلاً من مقارنة نفسك بالآخرين.",
+                takeaway1: "إتقان علم النفس هو الحدود الأخيرة التي تفصل المتداولين الجيدين عن العظماء",
+                takeaway2: "تتبع الأداء المفصل يكشف أنماطاً غير مرئية في الربح/الخسارة وحدها",
+                takeaway3: "التعلم المستمر والتكيف ضروريان مع تطور الأسواق",
+                takeaway4: "تسرع مجتمعات التداول والإرشاد النمو وتوفر الدعم",
+                takeaway5: "التوقعات الواقعية والصبر حاسمة للنجاح على المدى الطويل",
+                takeaways_title: "النقاط الرئيسية",
+                exercise_title: "أنشئ خارطة طريق تطوير التداول الخاصة بك",
+                exercise: "أنشئ خارطة طريق تطوير التداول لمدة 12 شهراً تتضمن: 1) المهارات المراد تطويرها كل ربع سنة، 2) الكتب المراد قراءتها والدورات المراد إكمالها، 3) مجتمعات التداول المراد الانضمام إليها، 4) معالم الأداء المراد تحقيقها، 5) جدول التقييم الذاتي الشهري. التزم برحلتك بالصبر والمثابرة، وافهم أن التحسينات الصغيرة المتسقة تتضاعف إلى إتقان التداول على مدى الوقت. أهلاً وسهلاً في عالم التداول المحترف!",
+                mark_complete: "تم الإنجاز",
+                quiz_title: "اختبار المعرفة",
+                quiz_q1: "أي مما يلي ليس تحدياً نفسياً مذكوراً في الدرس؟",
+                quiz_q1_a: "الخوف من الخروج المبكر من الصفقات الرابحة",
+                quiz_q1_b: "الطمع الذي يحتفظ بالخاسرين طويلاً",
+                quiz_q1_c: "الثقة المفرطة التي تؤدي إلى معدلات فوز أعلى",
+                quiz_q1_d: "الأمل الذي يمنع أخذ الحدود الدنيا",
+                quiz_q2: "ما الإطار الزمني الواقعي لمعظم المتداولين ليصبحوا مربحين باستمرار؟",
+                quiz_q2_a: "3-6 أشهر",
+                quiz_q2_b: "2-3 سنوات",
+                quiz_q2_c: "6-12 شهراً",
+                quiz_q2_d: "1-2 سنة",
+                quiz_q3: "أي مقياس يجمع معدل الفوز مع حجم الأرباح مقابل الخسائر؟",
+                quiz_q3_a: "الحد الأقصى للانخفاض",
+                quiz_q3_b: "نسبة التزام الخطة",
+                quiz_q3_c: "متوسط نسبة الربح/الخسارة",
+                quiz_q3_d: "عامل الربح",
+                quiz_q4: "ما الفائدة الأساسية للانضمام إلى مجتمع التداول؟",
+                quiz_q4_a: "أرباح مضمونة",
+                quiz_q4_b: "تبادل الأفكار والتعلم من تجارب الآخرين",
+                quiz_q4_c: "الوصول إلى معلومات حصرية",
+                quiz_q4_d: "تقليل خسائر التداول",
+                quiz_q5: "كيف يجب أن تتعامل مع مرحلة التداول المبكرة؟",
+                quiz_q5_a: "كطريق سريع للثراء",
+                quiz_q5_b: "كتعليم مدفوع حيث تعلمك الخسائر دروساً",
+                quiz_q5_c: "كمقامرة بأموال يمكنك تحملها",
+                quiz_q5_d: "كأمر غير مرتبط بالنجاح على المدى الطويل",
+                completion_title: "تهانينا!",
+                completion_message: "تهانينا على إتمام أكاديمية سيكابا للتداول! لديك الآن المعرفة والأدوات والإطار اللازم للنجاح. الآن يأتي العمل الحقيقي - تطبيق هذه الدروس بالانضباط والصبر. تذكر: خطط لصفقاتك، تداول وفق خططك، ولا تتوقف أبداً عن التعلم. رحلتك في التداول تبدأ الآن. أهلاً وسهلاً في عالم التداول المحترف. اجعلنا فخورين!",
+                graduation_badge: "شهادة إتمام الدورة",
+                next_steps_title: "خطواتك التالية",
+                next_step_1: "انضم إلى مجتمع التداول لتسريع تعلمك",
+                next_step_2: "ابحث عن مرشد حقق النجاح الذي تطمح إليه",
+                next_step_3: "ابدأ بأحجام مراكز صغيرة لحماية رأس المال خلال التعلم",
+                next_step_4: "أنشئ لوحة تحكم التداول الشخصية الخاصة بك للتتبع اليومي",
+                next_step_5: "التزم بالتعلم المستمر من خلال الكتب والدورات والبحث",
+                previous_lesson: "← الدرس 11",
+                next_lesson: "عرض شهادتك →",
+                all_rights: "جميع الحقوق محفوظة",
+                disclaimer: "تحذير المخاطر: التداول ينطوي على مخاطر كبيرة. الأداء السابق لا يضمن النتائج المستقبلية. استخدم دائماً إدارة مخاطر مناسبة ولا تتداول بأموال لا يمكنك تحملها."
+            },
+            es: {
+                academy_name: "Seekapa Trading Academy",
+                lesson_number: "Lección 12 de 12",
+                title: "Psicología Avanzada del Trading y Aprendizaje Continuo",
+                subtitle: "Domina tu mente y comprométete con la excelencia comercial de por vida",
+                video_coming_soon: "Video Próximamente",
+                objectives_title: "Objetivos de Aprendizaje",
+                objective_1: "Desarrollar habilidades psicológicas avanzadas para el éxito a largo plazo",
+                objective_2: "Crear marcos para la mejora continua y el aprendizaje",
+                objective_3: "Construir conexiones comunitarias y relaciones de mentoría en trading",
+                objective_4: "Establecer expectativas realistas para tu viaje comercial",
+                intro: "¡Felicitaciones por llegar a la lección final! Ahora tienes todas las herramientas técnicas para el éxito comercial. Pero la verdad es que tu mayor desafío no es el mercado, es dominarte a ti mismo. Incluso los traders experimentados luchan contra demonios psicológicos que pueden sabotear el éxito. Esta lección se enfoca en la psicología avanzada y en crear un marco para el crecimiento continuo.",
+                section1_title: "Psicología Avanzada del Trading y Dominio Emocional",
+                section1_text: "Incluso los traders experimentados luchan contra el miedo, la codicia, la esperanza y el arrepentimiento. El miedo te hace salir de los ganadores demasiado pronto mientras que la codicia mantiene a los perdedores demasiado tiempo. La esperanza previene tomar stops, y el arrepentimiento empaña decisiones futuras. Desarrolla rutinas previas al trading para centrar tu mente y reducir la interferencia emocional. Muchos traders exitosos meditan, hacen ejercicio o revisan su plan antes de las sesiones de trading. Crea anclajes psicológicos - rituales específicos que desencadenan una mentalidad enfocada y disciplinada. Reconoce patrones emocionales a través del diario detallado, anotando estados emocionales durante las decisiones.",
+                section2_title: "Seguimiento del Desempeño y Análisis de Métricas",
+                section2_text: "Rastrear métricas de desempeño más allá de las ganancias y pérdidas simples para entender la salud comercial real. Monitorea la tasa de ganancia (porcentaje de operaciones ganadoras), la relación ganancia/pérdida promedio (cuánto ganas cuando aciertas versus cuando te equivocas), la caída máxima (declive de pico a valle más grande), y el porcentaje de adherencia al plan. Estas métricas revelan patrones invisibles en P&L solamente. Un trader podría ser rentable con una tasa de ganancia del 40% y una relación ganancia/pérdida promedio de 3:1, o no rentable con una tasa de ganancia del 60% y una relación de 1:2. Analiza el trading por marco temporal, condición de mercado y tipo de estrategia para identificar fortalezas y debilidades.",
+                section3_title: "Aprendizaje Continuo y Desarrollo de Habilidades",
+                section3_text: "Los mercados evolucionan constantemente, requiriendo compromiso de aprendizaje de por vida. Lee libros clásicos de trading como 'Market Wizards', 'Trading in the Zone' y 'Reminiscencias de un Operador Bursátil'. Mantente actualizado sobre los desarrollos del mercado a través de noticias financieras, informes económicos y publicaciones comerciales. Asiste a webinarios y cursos en línea para aprender nuevas técnicas. Únete a comunidades y foros de trading para intercambiar ideas y aprender de las experiencias de otros. Encuentra mentores que hayan logrado lo que aspiras - aprende de sus éxitos y errores. Practica el desarrollo deliberado de habilidades enfocándote en debilidades específicas cada mes.",
+                section4_title: "Establecer Expectativas Realistas y Visión a Largo Plazo",
+                section4_text: "Establece expectativas realistas sobre el viaje comercial - la mayoría de los traders necesitan 2-3 años para volverse consistentemente rentables. Habrá contratiempos, rachas perdedoras y momentos de duda. Esto es normal y esperado. Entiende que el trading exitoso no se trata de enriquecerse rápidamente - se trata de construir ingresos sostenibles a lo largo del tiempo a través de la disciplina y el desarrollo de habilidades. Protege tu capital durante la fase de aprendizaje con tamaños de posición pequeños. Trata el trading temprano como educación pagada donde las pequeñas pérdidas enseñan lecciones valiosas. Celebra pequeñas victorias e hitos en lugar de compararte con otros.",
+                takeaway1: "Dominar la psicología es la frontera final que separa a los buenos traders de los grandes",
+                takeaway2: "El seguimiento detallado del desempeño revela patrones invisibles en solo ganancias/pérdidas",
+                takeaway3: "El aprendizaje continuo y la adaptación son esenciales a medida que evolucionan los mercados",
+                takeaway4: "Las comunidades de trading y la mentoría aceleran el crecimiento y brindan apoyo",
+                takeaway5: "Las expectativas realistas y la paciencia son cruciales para el éxito a largo plazo",
+                takeaways_title: "Puntos Clave",
+                exercise_title: "Crea tu Hoja de Ruta de Desarrollo de Trading",
+                exercise: "Crea tu hoja de ruta de desarrollo de trading de 12 meses incluyendo: 1) Habilidades a desarrollar cada trimestre (análisis técnico, gestión de riesgos, psicología, etc.), 2) Libros a leer y cursos a completar, 3) Comunidades de trading a unirse, 4) Hitos de desempeño a lograr, 5) Cronograma de autoevaluación mensual. Comprométete con este viaje con paciencia y persistencia, entendiendo que las mejoras pequeñas y consistentes se componen en el dominio del trading a lo largo del tiempo.",
+                mark_complete: "Marcar Completo",
+                quiz_title: "Verificación de Conocimiento",
+                quiz_q1: "¿Cuál de estos NO es un desafío psicológico mencionado en la lección?",
+                quiz_q1_a: "El miedo causa salidas tempranas de ganadores",
+                quiz_q1_b: "La codicia mantiene a los perdedores demasiado tiempo",
+                quiz_q1_c: "El exceso de confianza que lleva a tasas de ganancia más altas",
+                quiz_q1_d: "La esperanza impide que los traders tomen stops",
+                quiz_q2: "¿Cuál es el marco de tiempo realista para que la mayoría de los traders se vuelvan consistentemente rentables?",
+                quiz_q2_a: "3-6 meses",
+                quiz_q2_b: "2-3 años",
+                quiz_q2_c: "6-12 meses",
+                quiz_q2_d: "1-2 años",
+                quiz_q3: "¿Qué métrica combina la tasa de ganancia con el tamaño de las ganancias versus pérdidas?",
+                quiz_q3_a: "Caída máxima",
+                quiz_q3_b: "Porcentaje de adherencia del plan",
+                quiz_q3_c: "Relación ganancia/pérdida promedio",
+                quiz_q3_d: "Factor de ganancia",
+                quiz_q4: "¿Cuál es el beneficio principal de unirse a una comunidad de trading?",
+                quiz_q4_a: "Ganancias garantizadas",
+                quiz_q4_b: "Intercambiar ideas y aprender de las experiencias de otros",
+                quiz_q4_c: "Acceso a información privilegiada",
+                quiz_q4_d: "Pérdidas reducidas en el trading",
+                quiz_q5: "¿Cómo debes tratar tu fase temprana de trading?",
+                quiz_q5_a: "Como un camino rápido a la riqueza",
+                quiz_q5_b: "Como educación pagada donde las pérdidas enseñan lecciones",
+                quiz_q5_c: "Como un juego con dinero que puedes permitirte perder",
+                quiz_q5_d: "Como irrelevante para el éxito a largo plazo",
+                completion_title: "¡Felicitaciones!",
+                completion_message: "¡Felicitaciones por completar Seekapa Trading Academy! Tienes el conocimiento, las herramientas y el marco para el éxito. Ahora viene el trabajo real: aplicar estas lecciones con disciplina y paciencia. Recuerda: planifica tus trades, tradeea tu plan, y nunca dejes de aprender. Tu viaje de trading comienza ahora. ¡Bienvenido al emocionante mundo del trading profesional! ¡Haznos sentir orgullosos!",
+                graduation_badge: "Certificado de Finalización del Curso",
+                next_steps_title: "Tus Próximos Pasos",
+                next_step_1: "Únete a una comunidad de trading para acelerar tu aprendizaje",
+                next_step_2: "Encuentra un mentor que haya logrado el éxito que aspiras",
+                next_step_3: "Comienza con tamaños de posición pequeños para proteger capital durante el aprendizaje",
+                next_step_4: "Crea tu panel de control de trading personal para seguimiento diario",
+                next_step_5: "Comprométete con el aprendizaje continuo a través de libros, cursos e investigación",
+                previous_lesson: "← Lección 11",
+                next_lesson: "Ver Tu Certificado →",
+                all_rights: "Todos los Derechos Reservados",
+                disclaimer: "Aviso de Riesgo: El trading implica riesgo sustancial. El desempeño pasado no garantiza resultados futuros. Siempre usa gestión de riesgo adecuada y nunca tradees con dinero que no puedas permitirte perder."
+            },
+            pt: {
+                academy_name: "Seekapa Trading Academy",
+                lesson_number: "Lição 12 de 12",
+                title: "Psicologia Avançada do Trading e Aprendizado Contínuo",
+                subtitle: "Domine sua mente e comprometa-se com a excelência comercial vitalícia",
+                video_coming_soon: "Vídeo em Breve",
+                objectives_title: "Objetivos de Aprendizado",
+                objective_1: "Desenvolver habilidades psicológicas avançadas para o sucesso de longo prazo",
+                objective_2: "Criar estruturas para melhoria contínua e aprendizado",
+                objective_3: "Construir conexões comunitárias e relacionamentos de mentoria em trading",
+                objective_4: "Estabelecer expectativas realistas para sua jornada de trading",
+                intro: "Parabéns por chegar à lição final! Você agora tem todas as ferramentas técnicas para o sucesso comercial. Mas a verdade é que seu maior desafio não é o mercado - é dominar a si mesmo. Até traders experientes lidam com demônios psicológicos que podem prejudicar o sucesso. Esta lição se concentra em psicologia avançada e em criar um marco para crescimento contínuo.",
+                section1_title: "Psicologia Avançada do Trading e Domínio Emocional",
+                section1_text: "Até traders experientes lidam com medo, ganância, esperança e arrependimento. O medo o faz sair dos vencedores muito cedo, enquanto a ganância mantém os perdedores por muito tempo. A esperança impede de tomar stops, e o arrependimento nubla decisões futuras. Desenvolva rotinas pré-trading para centrar sua mente e reduzir interferência emocional. Muitos traders bem-sucedidos meditam, se exercitam ou revisam seu plano antes das sessões de trading. Crie âncoras psicológicas - rituais específicos que desencadeiam mentalidade focada e disciplinada. Reconheça padrões emocionais através de diário detalhado, anotando estados emocionais durante as decisões.",
+                section2_title: "Rastreamento de Desempenho e Análise de Métricas",
+                section2_text: "Rastreie métricas de desempenho além de simples lucro e perda para entender a verdadeira saúde comercial. Monitore taxa de ganho (porcentagem de negócios vencedores), proporção média de ganho/perda (quanto você ganha quando certo versus errado), rebaixamento máximo (maior declínio pico-vale), e porcentagem de aderência ao plano. Essas métricas revelam padrões invisíveis apenas em P&L. Um trader pode ser lucrativo com taxa de ganho de 40% e proporção ganho/perda média de 3:1, ou não lucrativo com taxa de ganho de 60% e proporção de 1:2. Analise trading por período, condição de mercado e tipo de estratégia para identificar pontos fortes e fracos.",
+                section3_title: "Aprendizado Contínuo e Desenvolvimento de Habilidades",
+                section3_text: "Os mercados evoluem constantemente, exigindo compromisso de aprendizado vitalício. Leia livros clássicos de trading como 'Market Wizards', 'Trading in the Zone' e 'Reminiscências de um Operador'. Mantenha-se atualizado sobre desenvolvimentos do mercado através de notícias financieras, relatórios econômicos e publicações de trading. Participe de webinários e cursos online para aprender novas técnicas. Participe de comunidades e fóruns de trading para trocar ideias e aprender das experiências dos outros. Encontre mentores que alcançaram o que você aspira - aprenda com seus sucessos e erros. Pratique desenvolvimento deliberado de habilidades focando em fraquezas específicas a cada mês.",
+                section4_title: "Estabelecendo Expectativas Realistas e Visão de Longo Prazo",
+                section4_text: "Estabeleça expectativas realistas sobre a jornada de trading - a maioria dos traders precisa de 2-3 anos para se tornar consistentemente lucrativa. Haverá contratempos, sequências de perdas e momentos de dúvida. Isto é normal e esperado. Entenda que o trading bem-sucedido não é sobre ficar rico rapidamente - é sobre construir renda sustentável ao longo do tempo através de disciplina e desenvolvimento de habilidades. Proteja seu capital durante a fase de aprendizado com tamanhos de posição pequenos. Trate o trading inicial como educação paga onde pequenas perdas ensinam lições valiosas. Celebre pequenas vitórias e marcos em vez de se comparar com outros.",
+                takeaway1: "Dominar a psicologia é a fronteira final que separa bons traders de excelentes",
+                takeaway2: "Rastreamento detalhado de desempenho revela padrões invisíveis apenas em lucro/perda",
+                takeaway3: "Aprendizado contínuo e adaptação são essenciais conforme os mercados evoluem",
+                takeaway4: "Comunidades de trading e mentoria aceleram crescimento e fornecem suporte",
+                takeaway5: "Expectativas realistas e paciência são cruciais para o sucesso de longo prazo",
+                takeaways_title: "Pontos-Chave",
+                exercise_title: "Crie seu Roteiro de Desenvolvimento de Trading",
+                exercise: "Crie seu roteiro de desenvolvimento de trading de 12 meses incluindo: 1) Habilidades a desenvolver cada trimestre (análise técnica, gestão de risco, psicologia, etc.), 2) Livros a ler e cursos a completar, 3) Comunidades de trading para participar, 4) Marcos de desempenho a alcançar, 5) Cronograma de autoavaliação mensal. Comprometa-se com esta jornada com paciência e persistência, compreendendo que melhorias pequenas e consistentes se compõem em domínio de trading ao longo do tempo.",
+                mark_complete: "Marcar Completo",
+                quiz_title: "Verificação de Conhecimento",
+                quiz_q1: "Qual desses NÃO é um desafio psicológico mencionado na lição?",
+                quiz_q1_a: "Medo causando saídas precoces de vencedores",
+                quiz_q1_b: "Ganância mantendo perdedores por muito tempo",
+                quiz_q1_c: "Excesso de confiança levando a taxas de ganho mais altas",
+                quiz_q1_d: "Esperança impedindo traders de tomar stops",
+                quiz_q2: "Qual é o período realista para a maioria dos traders se tornarem consistentemente lucrativos?",
+                quiz_q2_a: "3-6 meses",
+                quiz_q2_b: "2-3 anos",
+                quiz_q2_c: "6-12 meses",
+                quiz_q2_d: "1-2 anos",
+                quiz_q3: "Qual métrica combina taxa de ganho com o tamanho de ganhos versus perdas?",
+                quiz_q3_a: "Rebaixamento máximo",
+                quiz_q3_b: "Porcentagem de aderência ao plano",
+                quiz_q3_c: "Proporção média de ganho/perda",
+                quiz_q3_d: "Fator de lucro",
+                quiz_q4: "Qual é o benefício principal de participar de uma comunidade de trading?",
+                quiz_q4_a: "Lucros garantidos",
+                quiz_q4_b: "Trocar ideias e aprender das experiências dos outros",
+                quiz_q4_c: "Acesso a informações privilegiadas",
+                quiz_q4_d: "Perdas de trading reduzidas",
+                quiz_q5: "Como você deve tratar sua fase inicial de trading?",
+                quiz_q5_a: "Como um caminho rápido para a riqueza",
+                quiz_q5_b: "Como educação paga onde perdas ensinam lições",
+                quiz_q5_c: "Como um jogo com dinheiro que você pode perder",
+                quiz_q5_d: "Como irrelevante para o sucesso de longo prazo",
+                completion_title: "Parabéns!",
+                completion_message: "Parabéns por completar Seekapa Trading Academy! Você tem o conhecimento, as ferramentas e o marco para o sucesso. Agora vem o trabalho real - aplicar essas lições com disciplina e paciência. Lembre-se: planeje seus trades, tradueie seu plano, e nunca pare de aprender. Sua jornada de trading começa agora. Bem-vindo ao emocionante mundo do trading profissional. Nos deixe orgulhosos!",
+                graduation_badge: "Certificado de Conclusão do Curso",
+                next_steps_title: "Seus Próximos Passos",
+                next_step_1: "Participe de uma comunidade de trading para acelerar seu aprendizado",
+                next_step_2: "Encontre um mentor que alcançou o sucesso que você aspira",
+                next_step_3: "Comece com tamanhos de posição pequenos para proteger capital durante o aprendizado",
+                next_step_4: "Crie seu painel de controle de trading pessoal para rastreamento diário",
+                next_step_5: "Comprometa-se com aprendizado contínuo através de livros, cursos e pesquisa",
+                previous_lesson: "← Lição 11",
+                next_lesson: "Ver Seu Certificado →",
+                all_rights: "Todos os Direitos Reservados",
+                disclaimer: "Aviso de Risco: Trading envolve risco substancial. Desempenho passado não garante resultados futuros. Sempre use gerenciamento de risco apropriado e nunca tradueie com dinheiro que você não pode perder."
+            }
+        };
+
+        // ========== LANGUAGE SWITCHING ==========
+        let currentLang = localStorage.getItem('preferred_language') || 'ar';
+
+        function switchLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('preferred_language', lang);
+
+            document.documentElement.lang = lang;
+            document.documentElement.dir = (lang === 'ar') ? 'rtl' : 'ltr';
+
+            // Update all translatable elements
+            document.querySelectorAll('[data-translate]').forEach(element => {
+                const key = element.getAttribute('data-translate');
+                if (translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                }
+            });
+
+            // Update active button
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+
+        // Initialize language on page load
+        window.addEventListener('load', () => {
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                if (btn.getAttribute('data-lang') === currentLang) {
+                    btn.classList.add('active');
+                }
+            });
+            switchLanguage(currentLang);
+        });
+
+        // ========== GAMIFICATION SYSTEM ==========
+        function awardXP(amount) {
+            const currentXP = parseInt(localStorage.getItem('total_xp') || '0');
+            const newXP = currentXP + amount;
+            localStorage.setItem('total_xp', newXP);
+            document.getElementById('xpAmount').textContent = newXP;
+        }
+
+        function selectQuizOption(element, questionId) {
+            const options = element.parentElement.querySelectorAll('.quiz-option');
+            options.forEach(opt => opt.classList.remove('selected'));
+            element.classList.add('selected');
+        }
+
+        function submitQuestion(questionId, correctAnswer) {
+            const section = document.getElementById('quiz-section');
+            const options = section.querySelectorAll(`[data-answer]`);
+            let selectedAnswer = null;
+
+            options.forEach(opt => {
+                if (opt.classList.contains('selected')) {
+                    selectedAnswer = opt.getAttribute('data-answer');
+                }
+            });
+
+            if (!selectedAnswer) {
+                alert('Please select an answer');
+                return;
+            }
+
+            const feedback = document.getElementById(questionId + '-feedback');
+            const submitBtn = event.target;
+
+            if (selectedAnswer === correctAnswer) {
+                feedback.textContent = 'Correct! Well done!';
+                feedback.classList.add('show');
+                feedback.style.background = 'rgba(16, 185, 129, 0.3)';
+                submitBtn.disabled = true;
+                awardXP(10);
+            } else {
+                feedback.textContent = 'Incorrect. Try again!';
+                feedback.classList.add('show');
+                feedback.style.background = 'rgba(239, 68, 68, 0.3)';
+            }
+        }
+
+        function markExerciseComplete() {
+            awardXP(100);
+            alert('Exercise completed! +100 XP awarded!');
+            const completed = JSON.parse(localStorage.getItem('completed_lessons') || '[]');
+            if (!completed.includes(12)) {
+                completed.push(12);
+                localStorage.setItem('completed_lessons', JSON.stringify(completed));
+            }
+        }
+
+        // ========== PROGRESS BAR ==========
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollPercent = (scrollTop / docHeight) * 100;
+            document.getElementById('progressBar').style.width = scrollPercent + '%';
+        });
+
+        // ========== INITIALIZATION ==========
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedXP = localStorage.getItem('total_xp') || '0';
+            document.getElementById('xpAmount').textContent = savedXP;
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,78 @@
+{
+  "lesson_number": 5,
+  "lesson_slug": "trading-indicators-tools",
+  "en": {
+    "title": "Trading Indicators & Tools",
+    "subtitle": "Master technical indicators to confirm signals and improve timing",
+    "objectives": [
+      "Understand how trading indicators work and their applications",
+      "Learn to use moving averages for trend identification",
+      "Master oscillators like RSI and MACD for momentum analysis",
+      "Discover how to combine indicators for better signals while avoiding over-analysis"
+    ],
+    "intro": "Trading indicators serve as mathematical calculations based on price, volume, or market data that help identify trends, momentum, and potential reversals. While price action forms the foundation, indicators provide additional confirmation and help time entries and exits more precisely.",
+    "section1_title": "Moving Averages: Trend Following Tools",
+    "section1_text": "Moving averages smooth out price fluctuations to identify underlying trends and provide dynamic support and resistance. Simple moving averages (SMA) give equal weight to all prices, while exponential moving averages (EMA) emphasize recent prices. Common periods include 20, 50, 100, and 200, with longer periods providing smoother signals. Moving average crossovers generate trading signals - golden crosses suggest upward momentum, death crosses indicate potential downward pressure.",
+    "section2_title": "Oscillators: Momentum and Overbought/Oversold Conditions",
+    "section2_text": "Oscillators fluctuate between fixed boundaries helping identify momentum changes and extreme conditions. The Relative Strength Index (RSI) measures price change speed, oscillating between 0 and 100. Readings above 70 suggest overbought conditions, below 30 indicate oversold. MACD combines trend-following and momentum by showing relationships between moving averages. Divergences between price and oscillators provide powerful reversal signals.",
+    "section3_title": "Volume Indicators: Confirming Price Movements",
+    "section3_text": "Volume indicators analyze trading activity to confirm price movements and identify potential reversals. On-Balance Volume (OBV) creates a cumulative line that should trend with prices - divergences signal potential reversals. Volume-weighted average price (VWAP) shows average price weighted by volume, serving as a benchmark for institutional activity. The Accumulation/Distribution line combines price and volume to reveal smart money activity.",
+    "section4_title": "Combining Indicators for Better Signals",
+    "section4_text": "Combining multiple indicators improves signal quality while avoiding over-analysis. A common approach pairs trend-following indicators (moving averages) with momentum oscillators (RSI or MACD) for high-probability setups. Volume confirmation adds another layer by ensuring adequate trading activity supports moves. Multiple timeframe analysis helps confirm signals across different time horizons, increasing reliability.",
+    "takeaway1": "Moving averages help identify trends and provide dynamic support/resistance",
+    "takeaway2": "Oscillators identify momentum changes and overbought/oversold conditions",
+    "takeaway3": "Volume indicators confirm price movements and reveal institutional activity",
+    "takeaway4": "Combining indicators improves signal quality but avoid over-analysis",
+    "takeaway5": "Understanding indicator limitations prevents common trading mistakes",
+    "exercise": "Set up a chart with three indicators: a 20-period EMA, RSI, and volume. Practice identifying confluence signals where multiple indicators align to suggest the same direction. Document five examples over the next week and note how these confluence signals perform compared to single indicator signals."
+  },
+  "translation_notes": {
+    "ar": "Extract from arabic-content.md - Lesson 5 section",
+    "es": "Latin American Spanish translation",
+    "pt": "Brazilian Portuguese translation"
+  },
+  "images": [
+    {
+      "filename": "05_01_moving_averages.png",
+      "prompt": "Price chart with multiple moving averages (20, 50, 200 EMA) overlaid, dynamic support/resistance zones highlighted, professional trading platform view, Seekapa brand colors, 1200x800px"
+    },
+    {
+      "filename": "05_02_golden_death_cross.png",
+      "prompt": "Two charts showing golden cross (bullish) and death cross (bearish) moving average crossovers, crossover points clearly marked, subsequent price action shown, professional technical analysis, Seekapa colors, 1200x800px"
+    },
+    {
+      "filename": "05_03_rsi_indicator.png",
+      "prompt": "Price chart with RSI oscillator below, overbought (70) and oversold (30) levels marked, divergence examples highlighted, professional indicator visualization, Seekapa forest green and gold, 1200x800px"
+    },
+    {
+      "filename": "05_04_macd_indicator.png",
+      "prompt": "MACD indicator with signal line, histogram, and zero line clearly visible, crossover signals marked, bullish/bearish divergences shown, professional trading analysis style, Seekapa colors, 1200x800px"
+    },
+    {
+      "filename": "05_05_volume_indicators.png",
+      "prompt": "Price chart with volume bars and OBV line below, volume confirmation of price moves highlighted, accumulation/distribution zones marked, professional volume analysis, Seekapa brand aesthetic, 1200x800px"
+    },
+    {
+      "filename": "05_06_vwap_trading.png",
+      "prompt": "Intraday chart with VWAP line, price trading above/below VWAP zones highlighted, institutional activity areas marked, professional day trading visual, Seekapa colors, 1200x800px"
+    },
+    {
+      "filename": "05_07_indicator_confluence.png",
+      "prompt": "Multi-indicator chart showing MA, RSI, MACD all confirming same direction, confluence zones highlighted with checkmarks, professional trading setup visualization, Seekapa forest green accents, 1200x800px"
+    },
+    {
+      "filename": "05_08_indicator_dashboard.png",
+      "prompt": "Trading dashboard with multiple indicators organized professionally, trend indicators on left, momentum on right, volume at bottom, clean modern interface, Seekapa brand colors, 1200x800px"
+    }
+  ],
+  "video_placeholder": {
+    "duration": "90-120 seconds",
+    "script_theme": "Technical indicators and their practical applications",
+    "key_visual_moments": [
+      "Moving average crossovers in action",
+      "RSI overbought/oversold signals",
+      "MACD divergence identification",
+      "Multi-indicator confluence setup"
+    ]
+  }
+}
