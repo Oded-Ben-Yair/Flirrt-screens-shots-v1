@@ -1,0 +1,1592 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Seekapa Trading Academy - Lesson 4: Chart Patterns & Price Action - Interactive learning with quizzes and gamification.">
+
+    <link rel="alternate" hreflang="ar" href="/ar/lesson-04" />
+    <link rel="alternate" hreflang="en" href="/en/lesson-04" />
+    <link rel="alternate" hreflang="es" href="/es/lesson-04" />
+    <link rel="alternate" hreflang="pt" href="/pt/lesson-04" />
+
+    <title>الدرس 4: أنماط الرسوم البيانية والتحليل السعري | Seekapa Trading Academy</title>
+
+    <!-- Premium Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;500;600;700&family=Cairo:wght@600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ========== BASE FROM PREMIUM VERSION ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Premium Colors */
+            --seekapa-forest: #1B5E3F;
+            --seekapa-emerald: #0F5F3F;
+            --seekapa-sage: #7A9D8E;
+            --trust-navy: #1F3A6B;
+            --burgundy: #8B3A3A;
+            --champagne-gold: #D4AF37;
+            --platinum: #E5E4E2;
+            --charcoal: #2B2D42;
+            --slate: #8D99AE;
+            --pearl: #F8F9FA;
+            --ivory: #FDFDF8;
+
+            /* Gamification Colors */
+            --xp-blue: #3B82F6;
+            --badge-gold: #FFD700;
+            --streak-orange: #FF6B35;
+            --correct-green: #10B981;
+            --incorrect-red: #EF4444;
+
+            /* Premium Spacing */
+            --space-xs: 0.75rem;
+            --space-sm: 1.5rem;
+            --space-md: 3rem;
+            --space-lg: 4.5rem;
+            --space-xl: 6rem;
+            --space-2xl: 9rem;
+
+            /* Typography Scale */
+            --font-size-base: 18px;
+            --font-size-lg: 1.25rem;
+            --font-size-xl: 1.75rem;
+            --font-size-2xl: 2.25rem;
+            --font-size-3xl: 3.5rem;
+
+            /* Premium Shadows */
+            --shadow-xs: 0 1px 2px rgba(27, 94, 63, 0.04);
+            --shadow-sm: 0 2px 4px rgba(27, 94, 63, 0.06), 0 1px 2px rgba(27, 94, 63, 0.03);
+            --shadow-md: 0 4px 8px rgba(27, 94, 63, 0.08), 0 2px 4px rgba(27, 94, 63, 0.04), 0 1px 2px rgba(27, 94, 63, 0.02);
+            --shadow-lg: 0 8px 16px rgba(27, 94, 63, 0.10), 0 4px 8px rgba(27, 94, 63, 0.06), 0 2px 4px rgba(27, 94, 63, 0.03);
+            --shadow-hover: 0 12px 24px rgba(27, 94, 63, 0.15), 0 6px 12px rgba(27, 94, 63, 0.08);
+
+            /* Animations */
+            --transition-fast: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-base: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            line-height: 1.8;
+            color: var(--charcoal);
+            background: var(--ivory);
+            font-size: var(--font-size-base);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        [lang="ar"] {
+            font-family: 'Noto Kufi Arabic', 'Cairo', sans-serif;
+            font-size: 1.35rem;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-weight: 600;
+            line-height: 1.2;
+            color: var(--charcoal);
+        }
+
+        [lang="ar"] h1, [lang="ar"] h2, [lang="ar"] h3 {
+            font-family: 'Cairo', serif;
+        }
+
+        h1 { font-size: var(--font-size-3xl); }
+        h2 { font-size: var(--font-size-2xl); }
+        h3 { font-size: var(--font-size-xl); }
+
+        .container {
+            max-width: 1200px;
+            margin-inline: auto;
+            padding-inline: var(--space-lg);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* ========== PREMIUM HEADER WITH GAMIFICATION ========== */
+        .header {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px) saturate(180%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            padding-block: var(--space-md);
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin-inline: auto;
+            padding-inline: var(--space-lg);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: var(--space-sm);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .logo-image {
+            height: 45px;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--seekapa-forest);
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Gamification Stats in Header */
+        .user-stats {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            background: var(--pearl);
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: 8px;
+            box-shadow: var(--shadow-xs);
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .xp-badge {
+            background: linear-gradient(135deg, var(--xp-blue), #60A5FA);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .streak-badge {
+            background: linear-gradient(135deg, var(--streak-orange), #FF8C61);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .language-bar {
+            display: flex;
+            gap: 0.5rem;
+            background: rgba(27, 94, 63, 0.05);
+            padding: 0.5rem;
+            border-radius: 8px;
+        }
+
+        .lang-btn {
+            padding: 0.5rem 1rem;
+            background: transparent;
+            border: 1px solid rgba(27, 94, 63, 0.15);
+            color: var(--slate);
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 0.9rem;
+            border-radius: 6px;
+            transition: all var(--transition-base);
+        }
+
+        .lang-btn:hover {
+            background: rgba(27, 94, 63, 0.08);
+            border-color: var(--seekapa-forest);
+        }
+
+        .lang-btn.active {
+            background: var(--seekapa-forest);
+            color: white;
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* ========== PROGRESS BAR ========== */
+        .progress-container {
+            background: white;
+            padding: var(--space-md);
+            box-shadow: var(--shadow-xs);
+        }
+
+        .progress-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-inline: var(--space-lg);
+        }
+
+        .progress-title {
+            font-size: 0.95rem;
+            color: var(--slate);
+            margin-bottom: var(--space-sm);
+            font-weight: 500;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .progress-bar-wrapper {
+            position: relative;
+            width: 100%;
+            height: 12px;
+            background: #E9ECEF;
+            border-radius: 12px;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--seekapa-forest), var(--seekapa-sage));
+            border-radius: 12px;
+            transition: width var(--transition-slow);
+        }
+
+        .progress-milestones {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 0.5rem;
+        }
+
+        .milestone {
+            font-size: 0.7rem;
+            color: var(--slate);
+        }
+
+        .milestone.completed {
+            color: var(--seekapa-forest);
+            font-weight: 600;
+        }
+
+        /* ========== MAIN CONTENT ========== */
+        main {
+            padding-block: var(--space-xl);
+        }
+
+        .lesson-header {
+            background: white;
+            padding: var(--space-xl);
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+            margin-bottom: var(--space-xl);
+            border-top: 3px solid var(--seekapa-forest);
+        }
+
+        .lesson-number {
+            display: inline-block;
+            background: var(--seekapa-forest);
+            color: white;
+            padding: var(--space-xs) var(--space-md);
+            border-radius: 8px;
+            font-weight: 600;
+            margin-bottom: var(--space-md);
+            font-size: 0.9rem;
+        }
+
+        .lesson-title {
+            font-size: var(--font-size-3xl);
+            margin-bottom: var(--space-sm);
+        }
+
+        .lesson-subtitle {
+            font-size: var(--font-size-lg);
+            color: var(--slate);
+            font-weight: 400;
+        }
+
+        /* ========== VIDEO SECTION ========== */
+        .video-section {
+            margin-bottom: var(--space-xl);
+        }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #1a2332, #0A1929);
+        }
+
+        .video-placeholder {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+            padding: 3rem;
+            width: 100%;
+        }
+
+        .play-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            background: var(--seekapa-forest);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+
+        .video-details {
+            margin-top: 0.5rem;
+            opacity: 0.8;
+        }
+
+        /* ========== LEARNING OBJECTIVES ========== */
+        .learning-objectives {
+            background: white;
+            padding: var(--space-xl);
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+            margin-bottom: var(--space-xl);
+            border-left: 4px solid var(--seekapa-forest);
+        }
+
+        .learning-objectives h3 {
+            margin-bottom: var(--space-md);
+            color: var(--seekapa-forest);
+        }
+
+        .learning-objectives ul {
+            list-style: none;
+        }
+
+        .learning-objectives li {
+            padding: 0.75rem 0;
+            padding-inline-start: 2rem;
+            position: relative;
+        }
+
+        .learning-objectives li:before {
+            content: "✓";
+            position: absolute;
+            inset-inline-start: 0;
+            color: var(--seekapa-forest);
+            font-weight: bold;
+        }
+
+        /* ========== CONTENT SECTION ========== */
+        .content-section {
+            background: white;
+            padding: var(--space-xl);
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+            margin-bottom: var(--space-xl);
+        }
+
+        .content-section h2 {
+            color: var(--seekapa-forest);
+            margin-bottom: var(--space-md);
+        }
+
+        .content-section h3 {
+            color: var(--trust-navy);
+            margin: var(--space-md) 0 var(--space-sm) 0;
+            font-size: 1.25rem;
+        }
+
+        .content-section p {
+            margin-bottom: var(--space-sm);
+            line-height: 1.9;
+            color: var(--charcoal);
+        }
+
+        .content-image {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: var(--shadow-md);
+            margin: var(--space-md) 0;
+            background: var(--pearl);
+        }
+
+        /* ========== QUIZ SECTION ========== */
+        .quiz-section {
+            background: white;
+            padding: var(--space-xl);
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+            margin-bottom: var(--space-xl);
+            border-left: 4px solid var(--xp-blue);
+        }
+
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-md);
+        }
+
+        .quiz-title {
+            color: var(--xp-blue);
+            font-size: var(--font-size-xl);
+        }
+
+        .quiz-xp-reward {
+            background: var(--xp-blue);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .quiz-question {
+            margin-bottom: var(--space-md);
+        }
+
+        .question-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: var(--space-sm);
+            color: var(--charcoal);
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-sm);
+        }
+
+        .quiz-option {
+            background: var(--pearl);
+            padding: var(--space-sm) var(--space-md);
+            border-radius: 8px;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all var(--transition-base);
+            font-weight: 500;
+        }
+
+        .quiz-option:hover {
+            background: var(--platinum);
+            border-color: var(--seekapa-forest);
+            transform: translateX(5px);
+        }
+
+        .quiz-option.selected {
+            background: var(--seekapa-forest);
+            color: white;
+            border-color: var(--seekapa-forest);
+        }
+
+        .quiz-option.correct {
+            background: var(--correct-green);
+            color: white;
+            border-color: var(--correct-green);
+        }
+
+        .quiz-option.incorrect {
+            background: var(--incorrect-red);
+            color: white;
+            border-color: var(--incorrect-red);
+        }
+
+        .quiz-feedback {
+            margin-top: var(--space-sm);
+            padding: var(--space-sm);
+            border-radius: 8px;
+            font-weight: 500;
+        }
+
+        .quiz-feedback.correct {
+            background: #D1FAE5;
+            color: #065F46;
+        }
+
+        .quiz-feedback.incorrect {
+            background: #FEE2E2;
+            color: #991B1B;
+        }
+
+        .quiz-submit {
+            background: var(--xp-blue);
+            color: white;
+            padding: var(--space-sm) var(--space-lg);
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-base);
+            margin-top: var(--space-md);
+        }
+
+        .quiz-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .quiz-submit:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* ========== KEY TAKEAWAYS ========== */
+        .key-takeaways {
+            background: linear-gradient(135deg, #E8F5E9, #C8E6C9);
+            padding: var(--space-xl);
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+            margin-bottom: var(--space-xl);
+            border-left: 4px solid var(--correct-green);
+        }
+
+        .key-takeaways h3 {
+            color: var(--seekapa-forest);
+            margin-bottom: var(--space-md);
+        }
+
+        .key-takeaways ul {
+            list-style: none;
+        }
+
+        .key-takeaways li {
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            background: white;
+            border-radius: 8px;
+            border-left: 3px solid var(--champagne-gold);
+            box-shadow: var(--shadow-xs);
+        }
+
+        /* ========== INTERACTIVE EXERCISE ========== */
+        .interactive-exercise {
+            background: linear-gradient(135deg, #E3F2FD, #BBDEFB);
+            padding: var(--space-xl);
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+            margin-bottom: var(--space-xl);
+            border-left: 4px solid var(--trust-navy);
+        }
+
+        .exercise-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-md);
+        }
+
+        .exercise-title {
+            color: var(--trust-navy);
+            font-size: var(--font-size-xl);
+        }
+
+        .exercise-actions {
+            display: flex;
+            gap: var(--space-sm);
+            margin-top: var(--space-md);
+        }
+
+        .exercise-btn {
+            background: var(--seekapa-forest);
+            color: white;
+            padding: var(--space-sm) var(--space-md);
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-base);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .exercise-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .exercise-btn.secondary {
+            background: var(--platinum);
+            color: var(--charcoal);
+            border: 1px solid var(--slate);
+        }
+
+        .journal-form {
+            background: white;
+            padding: var(--space-md);
+            border-radius: 8px;
+            margin-top: var(--space-md);
+        }
+
+        .form-group {
+            margin-bottom: var(--space-md);
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--charcoal);
+        }
+
+        .form-input, .form-textarea {
+            width: 100%;
+            padding: var(--space-sm);
+            border: 1px solid var(--platinum);
+            border-radius: 6px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+        }
+
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        /* ========== LESSON NAVIGATION ========== */
+        .lesson-navigation {
+            display: flex;
+            gap: var(--space-md);
+            justify-content: space-between;
+            margin-top: var(--space-xl);
+        }
+
+        .nav-button {
+            flex: 1;
+            padding: var(--space-md);
+            background: white;
+            border: 2px solid var(--seekapa-forest);
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-base);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--seekapa-forest);
+        }
+
+        .nav-button:hover:not(:disabled) {
+            background: var(--seekapa-forest);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .nav-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* ========== ACHIEVEMENT MODAL ========== */
+        .achievement-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+        }
+
+        .achievement-modal.active {
+            display: flex;
+        }
+
+        .achievement-content {
+            background: white;
+            padding: var(--space-xl);
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: var(--shadow-hover);
+            animation: slideUp 500ms ease-out;
+        }
+
+        .achievement-icon {
+            font-size: 4rem;
+            margin-bottom: var(--space-md);
+        }
+
+        .achievement-title {
+            color: var(--seekapa-forest);
+            margin-bottom: var(--space-sm);
+        }
+
+        .achievement-description {
+            color: var(--slate);
+            margin-bottom: var(--space-md);
+        }
+
+        .achievement-xp {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--xp-blue);
+            margin-bottom: var(--space-md);
+        }
+
+        .achievement-close {
+            background: var(--seekapa-forest);
+            color: white;
+            padding: var(--space-sm) var(--space-lg);
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-base);
+        }
+
+        .achievement-close:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        /* ========== FOOTER ========== */
+        .footer {
+            background: var(--charcoal);
+            color: white;
+            padding: var(--space-xl);
+            text-align: center;
+            margin-top: var(--space-xl);
+        }
+
+        .footer-logo {
+            height: 40px;
+            margin-bottom: var(--space-md);
+        }
+
+        .footer-tagline {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: var(--champagne-gold);
+        }
+
+        /* ========== ANIMATIONS ========== */
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(0.95);
+            }
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 768px) {
+            :root {
+                --font-size-3xl: 2.25rem;
+                --space-xl: 4rem;
+            }
+
+            .container {
+                padding-inline: var(--space-sm);
+            }
+
+            .user-stats {
+                flex-wrap: wrap;
+            }
+
+            .lesson-navigation {
+                flex-direction: column;
+            }
+
+            .exercise-actions {
+                flex-direction: column;
+            }
+
+            .header-content {
+                flex-direction: column;
+                gap: var(--space-md);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ========== HEADER WITH GAMIFICATION ========== -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo-container">
+                <span class="logo-text">TRADING ACADEMY</span>
+            </div>
+
+            <!-- User Gamification Stats -->
+            <div class="user-stats">
+                <div class="xp-badge">
+                    <span>⚡</span>
+                    <span id="user-xp">0 XP</span>
+                </div>
+                <div class="streak-badge">
+                    <span>🔥</span>
+                    <span id="user-streak">1 Day</span>
+                </div>
+            </div>
+
+            <!-- Language Bar -->
+            <div class="language-bar">
+                <button class="lang-btn active" data-lang="ar" onclick="switchLanguage('ar')">العربية</button>
+                <button class="lang-btn" data-lang="en" onclick="switchLanguage('en')">English</button>
+                <button class="lang-btn" data-lang="es" onclick="switchLanguage('es')">Español</button>
+                <button class="lang-btn" data-lang="pt" onclick="switchLanguage('pt')">Português</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ========== PROGRESS BAR ========== -->
+    <div class="progress-container">
+        <div class="progress-content">
+            <div class="progress-title">
+                <span id="progress-title">التقدم: الدرس 4 من 12</span>
+                <span class="progress-stats">33.33%</span>
+            </div>
+            <div class="progress-bar-wrapper">
+                <div class="progress-bar-fill" id="progress-fill" style="width: 0%"></div>
+            </div>
+            <div class="progress-milestones">
+                <span class="milestone completed">L1</span>
+                <span class="milestone completed">L2</span>
+                <span class="milestone completed">L3</span>
+                <span class="milestone completed">L4</span>
+                <span class="milestone">L6</span>
+                <span class="milestone">L9</span>
+                <span class="milestone">L12</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== MAIN CONTENT ========== -->
+    <main class="container">
+        <!-- Lesson Header (Arabic) -->
+        <section class="lesson-header" lang="ar">
+            <span class="lesson-number">الدرس 4</span>
+            <h1 class="lesson-title">أنماط الرسوم البيانية والتحليل السعري</h1>
+            <p class="lesson-subtitle">تحديد وتداول أنماط الرسوم البيانية الرئيسية للفرص المربحة</p>
+        </section>
+
+        <!-- Lesson Header (English) -->
+        <section class="lesson-header hidden" lang="en">
+            <span class="lesson-number">Lesson 4</span>
+            <h1 class="lesson-title">Chart Patterns & Price Action</h1>
+            <p class="lesson-subtitle">Identify and trade major chart patterns for profitable opportunities</p>
+        </section>
+
+        <!-- Lesson Header (Spanish) -->
+        <section class="lesson-header hidden" lang="es">
+            <span class="lesson-number">Lección 4</span>
+            <h1 class="lesson-title">Patrones de Gráficos y Acción del Precio</h1>
+            <p class="lesson-subtitle">Identifica y opera patrones de gráficos principales para oportunidades rentables</p>
+        </section>
+
+        <!-- Lesson Header (Portuguese) -->
+        <section class="lesson-header hidden" lang="pt">
+            <span class="lesson-number">Lição 4</span>
+            <h1 class="lesson-title">Padrões de Gráficos e Ação do Preço</h1>
+            <p class="lesson-subtitle">Identifique e negocie principais padrões de gráficos para oportunidades lucrativas</p>
+        </section>
+
+        <!-- ========== VIDEO SECTION ========== -->
+        <section class="video-section">
+            <div class="video-container">
+                <div class="video-placeholder">
+                    <div class="play-icon">▶</div>
+                    <h3 id="video-title">فيديو الدرس قيد الإعداد</h3>
+                    <p class="video-details">المدة: دقيقتان | الجودة: 1080p</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== LEARNING OBJECTIVES ========== -->
+        <section class="learning-objectives" lang="ar">
+            <h3>أهداف التعلم</h3>
+            <ul>
+                <li>تعلم تحديد وتداول أنماط الرسوم البيانية الرئيسية</li>
+                <li>فهم إشارات التحليل السعري وعلم النفس السوقي</li>
+                <li>التعرف على سيناريوهات الاختراق والانهيار</li>
+                <li>تطوير استراتيجيات تداول قائمة على الأنماط</li>
+            </ul>
+        </section>
+
+        <section class="learning-objectives hidden" lang="en">
+            <h3>Learning Objectives</h3>
+            <ul>
+                <li>Learn to identify and trade major chart patterns</li>
+                <li>Understand price action signals and market psychology</li>
+                <li>Recognize breakout and breakdown scenarios</li>
+                <li>Develop pattern-based trading strategies</li>
+            </ul>
+        </section>
+
+        <section class="learning-objectives hidden" lang="es">
+            <h3>Objetivos de Aprendizaje</h3>
+            <ul>
+                <li>Aprender a identificar y operar patrones de gráficos principales</li>
+                <li>Comprender las señales de acción del precio y la psicología del mercado</li>
+                <li>Reconocer escenarios de ruptura y caída</li>
+                <li>Desarrollar estrategias de trading basadas en patrones</li>
+            </ul>
+        </section>
+
+        <section class="learning-objectives hidden" lang="pt">
+            <h3>Objetivos de Aprendizagem</h3>
+            <ul>
+                <li>Aprender a identificar e negociar principais padrões de gráficos</li>
+                <li>Compreender sinais de ação do preço e psicologia do mercado</li>
+                <li>Reconhecer cenários de ruptura e colapso</li>
+                <li>Desenvolver estratégias de negociação baseadas em padrões</li>
+            </ul>
+        </section>
+
+        <!-- ========== INTRODUCTION ========== -->
+        <section class="content-section" lang="ar">
+            <p style="font-style: italic; font-size: 1.1rem; line-height: 1.9;">تمثل أنماط الرسوم البيانية التجسيد البصري لعلم نفس السوق، حيث يخلق الصراع بين المشترين والبائعين تشكيلات يمكن التنبؤ بها. يعتمد التداول بناءً على التحليل السعري على هذه الأنماط وتشكيلات الشموع للتعرف على الفرص عبر جميع الأسواق والأطر الزمنية. إن فهم هذه الأنماط يوفر للمتداولين ميزة تنافسية قوية في تحديد نقاط الدخول والخروج.</p>
+        </section>
+
+        <section class="content-section hidden" lang="en">
+            <p style="font-style: italic; font-size: 1.1rem; line-height: 1.9;">Chart patterns represent the visual manifestation of market psychology, showing how the battle between buyers and sellers creates predictable formations. Price action trading relies on these patterns and candlestick formations to identify opportunities across all markets and timeframes. Mastering these patterns provides traders with a significant competitive advantage in pinpointing entry and exit points.</p>
+        </section>
+
+        <section class="content-section hidden" lang="es">
+            <p style="font-style: italic; font-size: 1.1rem; line-height: 1.9;">Los patrones de gráficos representan la manifestación visual de la psicología del mercado, mostrando cómo la batalla entre compradores y vendedores crea formaciones predecibles. El trading de acción del precio se basa en estos patrones y formaciones de velas para identificar oportunidades en todos los mercados y marcos de tiempo.</p>
+        </section>
+
+        <section class="content-section hidden" lang="pt">
+            <p style="font-style: italic; font-size: 1.1rem; line-height: 1.9;">Os padrões de gráficos representam a manifestação visual da psicologia do mercado, mostrando como a batalha entre compradores e vendedores cria formações previsíveis. A negociação de ação do preço depende desses padrões e formações de velas para identificar oportunidades em todos os mercados e prazos.</p>
+        </section>
+
+        <!-- ========== SECTION 1: Continuation Patterns ========== -->
+        <section class="content-section" lang="ar">
+            <h2>أنماط الاستمرار: التداول مع الاتجاه</h2>
+            <p>تظهر أنماط الاستمرار خلال الأسواق في الاتجاهات وتقترح أن الاتجاه سيستأنف بعد التوطيد. تعرض أنماط الأعلام توطيد مستطيل ضد الاتجاه السائد، مما يشير إلى استراحة مؤقتة قبل استئناف الحركة. تعرض أنماط الرايات خطوط اتجاه متقاربة تشكل مثلثات صغيرة. تشير أنماط المثلثات (الصاعد، الهابط، المتماثل) إلى ضغط يتراكم قبل الاستمرار. توفر هذه الأنماط فرص ممتازة للعائد على المخاطر عند التداول في اتجاه الاتجاه المرسخ.</p>
+            <img src="images/04_01_flag_patterns.png" alt="أنماط الأعلام والرايات" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="en">
+            <h2>Continuation Patterns: Trading with the Trend</h2>
+            <p>Continuation patterns appear during trending markets and suggest the trend will resume after consolidation. Flag patterns show rectangular consolidation against the prevailing trend, indicating a brief pause before momentum continues. Pennant patterns display converging trend lines forming small triangles. Triangle patterns (ascending, descending, symmetrical) indicate pressure building before continuation. These patterns offer excellent risk-reward setups when trading in the direction of the established trend.</p>
+            <img src="images/04_01_flag_patterns.png" alt="Flag and Pennant Patterns" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="es">
+            <h2>Patrones de Continuación: Trading con la Tendencia</h2>
+            <p>Los patrones de continuación aparecen durante mercados en tendencia e indican que la tendencia se reanudará después de la consolidación. Los patrones de bandera muestran consolidación rectangular contra la tendencia prevaleciente, indicando una pausa breve antes de continuar el impulso. Los patrones de banderín muestran líneas de tendencia convergentes formando pequeños triángulos.</p>
+            <img src="images/04_01_flag_patterns.png" alt="Patrones de Bandera y Banderín" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="pt">
+            <h2>Padrões de Continuação: Negociando com a Tendência</h2>
+            <p>Os padrões de continuação aparecem durante mercados em tendência e sugerem que a tendência será retomada após consolidação. Os padrões de bandeira mostram consolidação retangular contra a tendência prevalecente, indicando uma pausa breve antes de continuar o impulso. Os padrões de banderola exibem linhas de tendência convergentes formando pequenos triângulos.</p>
+            <img src="images/04_01_flag_patterns.png" alt="Padrões de Bandeira e Banderola" class="content-image">
+        </section>
+
+        <!-- ========== SECTION 2: Reversal Patterns ========== -->
+        <section class="content-section" lang="ar">
+            <h2>أنماط الانعكاس: تحديد تغييرات الاتجاه</h2>
+            <p>تشير أنماط الانعكاس إلى التغييرات المحتملة في اتجاه الاتجاه. تعرض أنماط رأس الكتفين ثلاثة قمم مع الوسط الأعلى، مما يشير إلى ضعف ضغط الشراء. تتشكل الأسطح المزدوجة عندما تصل الأسعار إلى ارتفاع مرتين ثم تنخفض، مما يقترح أن المشترين لا يستطيعون الدفع بأعلى. تتطلب هذه الأنماط تأكيد حجم قوي وأطر زمنية أطول للتطور بشكل موثوق.</p>
+            <img src="images/04_03_head_shoulders.png" alt="نمط رأس الكتفين" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="en">
+            <h2>Reversal Patterns: Identifying Trend Changes</h2>
+            <p>Reversal patterns signal potential changes in trend direction. Head and shoulders patterns show three peaks with the middle highest, indicating weakening buying pressure. Double tops form when prices reach a high twice then decline, suggesting buyers cannot push higher. These patterns require strong volume confirmation and longer timeframes to develop reliably.</p>
+            <img src="images/04_03_head_shoulders.png" alt="Head and Shoulders Pattern" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="es">
+            <h2>Patrones de Reversión: Identificando Cambios de Tendencia</h2>
+            <p>Los patrones de reversión señalan posibles cambios en la dirección de la tendencia. Los patrones de cabeza y hombros muestran tres picos con el del medio más alto, indicando debilitamiento de la presión de compra. Los techos dobles se forman cuando los precios alcanzan un máximo dos veces y luego caen, sugiriendo que los compradores no pueden subir más.</p>
+            <img src="images/04_03_head_shoulders.png" alt="Patrón Cabeza y Hombros" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="pt">
+            <h2>Padrões de Reversão: Identificando Mudanças de Tendência</h2>
+            <p>Os padrões de reversão sinalizam possíveis mudanças na direção da tendência. Os padrões de cabeça e ombros mostram três picos com o do meio o mais alto, indicando enfraquecimento da pressão de compra. Os topos duplos se formam quando os preços atingem uma alta duas vezes e depois caem, sugerindo que os compradores não podem subir mais.</p>
+            <img src="images/04_03_head_shoulders.png" alt="Padrão Cabeça e Ombros" class="content-image">
+        </section>
+
+        <!-- ========== SECTION 3: Candlestick Patterns ========== -->
+        <section class="content-section" lang="ar">
+            <h2>أنماط الشموع وإشارات السوق</h2>
+            <p>توفر الشموع الفردية والتوليفات رؤى حول معنويات السوق. تشير شموع الدوجي إلى عدم الاستقرار والانعكاسات المحتملة بعد الاتجاهات القوية. تشير أنماط المطرقة والنجم الساقط إلى الانعكاسات في أطراف السوق. تحدث أنماط الالتف عندما تغطي شمعة واحدة السابقة بالكامل، مما يقترح تحولات الزخم. تعمل هذه الأنماط بشكل أفضل عند مستويات الدعم والمقاومة الرئيسية.</p>
+            <img src="images/04_05_candlestick_patterns.png" alt="أنماط الشموع" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="en">
+            <h2>Candlestick Patterns and Signals</h2>
+            <p>Individual candlesticks and combinations provide insights into market sentiment. Doji candles suggest indecision and potential reversals after strong trends. Hammer and shooting star patterns signal reversals at market extremes. Engulfing patterns occur when one candle completely engulfs the previous, suggesting momentum shifts. These patterns work best at key support and resistance levels.</p>
+            <img src="images/04_05_candlestick_patterns.png" alt="Candlestick Patterns" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="es">
+            <h2>Patrones de Velas y Señales</h2>
+            <p>Las velas individuales y combinaciones proporcionan información sobre el sentimiento del mercado. Las velas doji sugieren indecisión y posibles reversiones después de tendencias fuertes. Los patrones de martillo y estrella fugaz señalan reversiones en extremos del mercado. Los patrones de engulfing ocurren cuando una vela envuelve completamente la anterior, sugiriendo cambios de impulso.</p>
+            <img src="images/04_05_candlestick_patterns.png" alt="Patrones de Velas" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="pt">
+            <h2>Padrões de Velas e Sinais</h2>
+            <p>Velas individuais e combinações forneccem insights sobre o sentimento do mercado. As velas doji sugerem indecisão e possíveis reversões após tendências fortes. Os padrões de martelo e estrela cadente sinalizam reversões em extremos do mercado. Os padrões de envolvimento ocorrem quando uma vela envolve completamente a anterior, sugerindo mudanças de impulso.</p>
+            <img src="images/04_05_candlestick_patterns.png" alt="Padrões de Velas" class="content-image">
+        </section>
+
+        <!-- ========== SECTION 4: Price Action Strategies ========== -->
+        <section class="content-section" lang="ar">
+            <h2>استراتيجيات تداول التحليل السعري</h2>
+            <p>يركز تداول التحليل السعري على قراءة تحركات الأسعار الخام بدون الاعتماد الثقيل على المؤشرات. يحدد تحليل هيكل السوق القمم والقيعان المتأرجحة لفهم الاتجاهات ونقاط الانعكاس. يركز تداول الشمعات الدبوسية على الشموع ذات الفتائل الطويلة التي تظهر رفض الأسعار. تقترح أنماط الأشرطة الداخلية التوطيد قبل تحركات الاختراق. توفر هذه الاستراتيجيات نقاط دخول وخروج واضحة مع مخاطر محددة جيداً.</p>
+            <img src="images/04_07_inside_bar_pattern.png" alt="نمط الشريط الداخلي" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="en">
+            <h2>Price Action Trading Strategies</h2>
+            <p>Price action trading focuses on reading raw price movements without heavy indicator reliance. Market structure analysis identifies swing highs and lows to understand trends and reversal points. Pin bar trading focuses on candlesticks with long wicks showing price rejection. Inside bar patterns suggest consolidation before breakout moves. These strategies provide clear entry and exit points with well-defined risk.</p>
+            <img src="images/04_07_inside_bar_pattern.png" alt="Inside Bar Pattern" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="es">
+            <h2>Estrategias de Trading de Acción del Precio</h2>
+            <p>El trading de acción del precio se enfoca en leer movimientos de precios sin depender de indicadores. El análisis de estructura de mercado identifica máximos y mínimos oscilantes para entender tendencias y puntos de reversión. El trading de pin bar se enfoca en velas con mechas largas que muestran rechazo de precio. Los patrones de barra interior sugieren consolidación antes de movimientos de ruptura.</p>
+            <img src="images/04_07_inside_bar_pattern.png" alt="Patrón Barra Interior" class="content-image">
+        </section>
+
+        <section class="content-section hidden" lang="pt">
+            <h2>Estratégias de Negociação de Ação do Preço</h2>
+            <p>A negociação de ação do preço se concentra em ler movimentos de preço cru sem depender muito de indicadores. A análise de estrutura de mercado identifica máximos e mínimos oscilantes para entender tendências e pontos de reversão. A negociação de pin bar se concentra em velas com mechas longas mostrando rejeição de preço. Os padrões de barra interna sugerem consolidação antes de movimentos de ruptura.</p>
+            <img src="images/04_07_inside_bar_pattern.png" alt="Padrão Barra Interna" class="content-image">
+        </section>
+
+        <!-- ========== INTERACTIVE QUIZ ========== -->
+        <section class="quiz-section" id="quiz1">
+            <!-- Arabic Quiz -->
+            <div lang="ar">
+                <div class="quiz-header">
+                    <h3 class="quiz-title">اختبر معلوماتك</h3>
+                    <div class="quiz-xp-reward">+50 XP</div>
+                </div>
+
+                <div class="quiz-question">
+                    <p class="question-text">ما هو النمط الذي يشير إلى استمرار الاتجاه السائد؟</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="selectQuizOption(this, 'quiz1')">نمط رأس الكتفين</div>
+                        <div class="quiz-option" data-correct="true" onclick="selectQuizOption(this, 'quiz1')">نمط الأعلام والرايات</div>
+                        <div class="quiz-option" onclick="selectQuizOption(this, 'quiz1')">الأسطح المزدوجة</div>
+                        <div class="quiz-option" onclick="selectQuizOption(this, 'quiz1')">نمط الكتفين المعكوسين</div>
+                    </div>
+                    <div class="quiz-feedback" id="quiz1-feedback"></div>
+                    <button class="quiz-submit" onclick="submitQuiz('quiz1')" id="quiz1-submit">إرسال الإجابة</button>
+                </div>
+
+                <div class="quiz-question" style="margin-top: 2rem;">
+                    <p class="question-text">أي من الشموع التالية تشير إلى عدم استقرار السوق؟</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="selectQuizOption(this, 'quiz2')">شمعة المطرقة</div>
+                        <div class="quiz-option" data-correct="true" onclick="selectQuizOption(this, 'quiz2')">شمعة الدوجي</div>
+                        <div class="quiz-option" onclick="selectQuizOption(this, 'quiz2')">شمعة الجسم الطويل</div>
+                        <div class="quiz-option" onclick="selectQuizOption(this, 'quiz2')">شمعة الالتف</div>
+                    </div>
+                    <div class="quiz-feedback" id="quiz2-feedback"></div>
+                    <button class="quiz-submit" onclick="submitQuiz('quiz2')" id="quiz2-submit">إرسال الإجابة</button>
+                </div>
+            </div>
+
+            <!-- English Quiz -->
+            <div class="hidden" lang="en">
+                <div class="quiz-header">
+                    <h3 class="quiz-title">Knowledge Check</h3>
+                    <div class="quiz-xp-reward">+50 XP</div>
+                </div>
+
+                <div class="quiz-question">
+                    <p class="question-text">Which pattern suggests the continuation of an established trend?</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="selectQuizOption(this, 'quiz1')">Head and shoulders pattern</div>
+                        <div class="quiz-option" data-correct="true" onclick="selectQuizOption(this, 'quiz1')">Flag and pennant patterns</div>
+                        <div class="quiz-option" onclick="selectQuizOption(this, 'quiz1')">Double tops pattern</div>
+                        <div class="quiz-option" onclick="selectQuizOption(this, 'quiz1')">Inverse head and shoulders</div>
+                    </div>
+                    <div class="quiz-feedback" id="quiz1-feedback-en"></div>
+                    <button class="quiz-submit" onclick="submitQuiz('quiz1')" id="quiz1-submit-en">Submit Answer</button>
+                </div>
+
+                <div class="quiz-question" style="margin-top: 2rem;">
+                    <p class="question-text">Which candlestick indicates market indecision?</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="selectQuizOption(this, 'quiz2')">Hammer candle</div>
+                        <div class="quiz-option" data-correct="true" onclick="selectQuizOption(this, 'quiz2')">Doji candle</div>
+                        <div class="quiz-option" onclick="selectQuizOption(this, 'quiz2')">Long body candle</div>
+                        <div class="quiz-option" onclick="selectQuizOption(this, 'quiz2')">Engulfing pattern</div>
+                    </div>
+                    <div class="quiz-feedback" id="quiz2-feedback-en"></div>
+                    <button class="quiz-submit" onclick="submitQuiz('quiz2')" id="quiz2-submit-en">Submit Answer</button>
+                </div>
+            </div>
+
+            <!-- Spanish Quiz -->
+            <div class="hidden" lang="es">
+                <div class="quiz-header">
+                    <h3 class="quiz-title">Verificación de Conocimiento</h3>
+                    <div class="quiz-xp-reward">+50 XP</div>
+                </div>
+
+                <div class="quiz-question">
+                    <p class="question-text">¿Qué patrón sugiere la continuación de una tendencia establecida?</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="selectQuizOption(this, 'quiz1')">Patrón cabeza y hombros</div>
+                        <div class="quiz-option" data-correct="true" onclick="selectQuizOption(this, 'quiz1')">Patrones de bandera y banderín</div>
+                        <div class="quiz-option" onclick="selectQuizOption(this, 'quiz1')">Patrón de techos dobles</div>
+                        <div class="quiz-option" onclick="selectQuizOption(this, 'quiz1')">Cabeza y hombros inversa</div>
+                    </div>
+                    <div class="quiz-feedback" id="quiz1-feedback-es"></div>
+                    <button class="quiz-submit" onclick="submitQuiz('quiz1')" id="quiz1-submit-es">Enviar Respuesta</button>
+                </div>
+
+                <div class="quiz-question" style="margin-top: 2rem;">
+                    <p class="question-text">¿Qué vela indica indecisión del mercado?</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="selectQuizOption(this, 'quiz2')">Vela martillo</div>
+                        <div class="quiz-option" data-correct="true" onclick="selectQuizOption(this, 'quiz2')">Vela doji</div>
+                        <div class="quiz-option" onclick="selectQuizOption(this, 'quiz2')">Vela de cuerpo largo</div>
+                        <div class="quiz-option" onclick="selectQuizOption(this, 'quiz2')">Patrón engulfing</div>
+                    </div>
+                    <div class="quiz-feedback" id="quiz2-feedback-es"></div>
+                    <button class="quiz-submit" onclick="submitQuiz('quiz2')" id="quiz2-submit-es">Enviar Respuesta</button>
+                </div>
+            </div>
+
+            <!-- Portuguese Quiz -->
+            <div class="hidden" lang="pt">
+                <div class="quiz-header">
+                    <h3 class="quiz-title">Verificação de Conhecimento</h3>
+                    <div class="quiz-xp-reward">+50 XP</div>
+                </div>
+
+                <div class="quiz-question">
+                    <p class="question-text">Qual padrão sugere a continuação de uma tendência estabelecida?</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="selectQuizOption(this, 'quiz1')">Padrão cabeça e ombros</div>
+                        <div class="quiz-option" data-correct="true" onclick="selectQuizOption(this, 'quiz1')">Padrões de bandeira e banderola</div>
+                        <div class="quiz-option" onclick="selectQuizOption(this, 'quiz1')">Padrão de topos duplos</div>
+                        <div class="quiz-option" onclick="selectQuizOption(this, 'quiz1')">Cabeça e ombros inversa</div>
+                    </div>
+                    <div class="quiz-feedback" id="quiz1-feedback-pt"></div>
+                    <button class="quiz-submit" onclick="submitQuiz('quiz1')" id="quiz1-submit-pt">Enviar Resposta</button>
+                </div>
+
+                <div class="quiz-question" style="margin-top: 2rem;">
+                    <p class="question-text">Qual vela indica indecisão do mercado?</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="selectQuizOption(this, 'quiz2')">Vela martelo</div>
+                        <div class="quiz-option" data-correct="true" onclick="selectQuizOption(this, 'quiz2')">Vela doji</div>
+                        <div class="quiz-option" onclick="selectQuizOption(this, 'quiz2')">Vela de corpo longo</div>
+                        <div class="quiz-option" onclick="selectQuizOption(this, 'quiz2')">Padrão de envolvimento</div>
+                    </div>
+                    <div class="quiz-feedback" id="quiz2-feedback-pt"></div>
+                    <button class="quiz-submit" onclick="submitQuiz('quiz2')" id="quiz2-submit-pt">Enviar Resposta</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== KEY TAKEAWAYS ========== -->
+        <section class="key-takeaways" lang="ar">
+            <h3>النقاط الرئيسية</h3>
+            <ul>
+                <li>تساعد أنماط الاستمرار المتداولين على الدخول إلى المراكز في الاتجاهات المرسخة</li>
+                <li>تشير أنماط الانعكاس إلى تغييرات الاتجاه المحتملة مع التأكيد</li>
+                <li>توفر أنماط الشموع رؤى حول تغييرات معنويات السوق</li>
+                <li>يركز تداول التحليل السعري على تحركات الأسعار الخام وهيكل السوق</li>
+                <li>تحسين تأكيد النمط من خلال الحجم والسياق معدلات النجاح</li>
+            </ul>
+        </section>
+
+        <section class="key-takeaways hidden" lang="en">
+            <h3>Key Takeaways</h3>
+            <ul>
+                <li>Continuation patterns help traders enter positions in established trends</li>
+                <li>Reversal patterns signal potential trend changes with confirmation</li>
+                <li>Candlestick patterns provide insights into market sentiment changes</li>
+                <li>Price action trading focuses on raw price movements and market structure</li>
+                <li>Pattern confirmation through volume and context improves success rates</li>
+            </ul>
+        </section>
+
+        <section class="key-takeaways hidden" lang="es">
+            <h3>Puntos Clave</h3>
+            <ul>
+                <li>Los patrones de continuación ayudan a los traders a entrar en posiciones en tendencias establecidas</li>
+                <li>Los patrones de reversión señalan cambios de tendencia potenciales con confirmación</li>
+                <li>Los patrones de velas proporcionan información sobre cambios de sentimiento del mercado</li>
+                <li>El trading de acción del precio se enfoca en movimientos de precios crudos y estructura del mercado</li>
+                <li>La confirmación de patrones a través del volumen y contexto mejora las tasas de éxito</li>
+            </ul>
+        </section>
+
+        <section class="key-takeaways hidden" lang="pt">
+            <h3>Pontos-Chave</h3>
+            <ul>
+                <li>Os padrões de continuação ajudam os traders a entrar em posições em tendências estabelecidas</li>
+                <li>Os padrões de reversão sinalizam mudanças de tendência potenciais com confirmação</li>
+                <li>Os padrões de velas fornecem insights sobre mudanças no sentimento do mercado</li>
+                <li>A negociação de ação do preço se concentra em movimentos de preço cru e estrutura do mercado</li>
+                <li>A confirmação de padrão através de volume e contexto melhora as taxas de sucesso</li>
+            </ul>
+        </section>
+
+        <!-- ========== INTERACTIVE EXERCISE ========== -->
+        <section class="interactive-exercise" lang="ar">
+            <div class="exercise-header">
+                <h3 class="exercise-title">التمرين التفاعلي</h3>
+                <div class="quiz-xp-reward">+100 XP</div>
+            </div>
+            <p>حدد ثلاثة أنماط رسم بياني مختلفة (نمط استمرار واحد، نمط انعكاس واحد، نمط شموع واحد) في سوقك المختار على مدار الأسبوع القادم. وثق كل نمط بلقطات شاشة، لاحظ الحجم أثناء التكوين والاختراق، وتتبع حركة السعر اللاحقة للتحقق من فعالية النمط.</p>
+
+            <div class="exercise-actions">
+                <button class="exercise-btn" onclick="showJournalForm()">
+                    <span>📊</span>
+                    <span>استخدم التطبيق التفاعلي</span>
+                </button>
+                <button class="exercise-btn secondary" onclick="downloadTemplate()">
+                    <span>📥</span>
+                    <span>تنزيل قالب</span>
+                </button>
+            </div>
+
+            <div class="journal-form hidden" id="journal-form">
+                <h4>توثيق النمط الخاص بك</h4>
+                <div class="form-group">
+                    <label class="form-label">نوع النمط:</label>
+                    <input type="text" class="form-input" placeholder="استمرار / انعكاس / شموع" id="pattern-type">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">الأصل والإطار الزمني:</label>
+                    <input type="text" class="form-input" placeholder="مثال: EUR/USD 4H" id="asset-input">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">الملاحظات:</label>
+                    <textarea class="form-textarea" id="notes-input" placeholder="وصف النمط والحجم والسياق"></textarea>
+                </div>
+                <button class="exercise-btn" onclick="savePatternEntry()">
+                    <span>💾</span>
+                    <span>حفظ الملاحظة</span>
+                </button>
+            </div>
+        </section>
+
+        <section class="interactive-exercise hidden" lang="en">
+            <div class="exercise-header">
+                <h3 class="exercise-title">Interactive Exercise</h3>
+                <div class="quiz-xp-reward">+100 XP</div>
+            </div>
+            <p>Identify three different chart patterns (one continuation, one reversal, one candlestick pattern) on your chosen market over the next week. Document each pattern with screenshots, note the volume during formation and breakout, and track subsequent price movement to validate pattern effectiveness.</p>
+
+            <div class="exercise-actions">
+                <button class="exercise-btn" onclick="showJournalForm()">
+                    <span>📊</span>
+                    <span>Use Interactive App</span>
+                </button>
+                <button class="exercise-btn secondary" onclick="downloadTemplate()">
+                    <span>📥</span>
+                    <span>Download Template</span>
+                </button>
+            </div>
+        </section>
+
+        <section class="interactive-exercise hidden" lang="es">
+            <div class="exercise-header">
+                <h3 class="exercise-title">Ejercicio Práctico</h3>
+                <div class="quiz-xp-reward">+100 XP</div>
+            </div>
+            <p>Identifica tres patrones de gráficos diferentes en tu mercado elegido durante la próxima semana. Documenta cada patrón con capturas de pantalla, nota el volumen durante la formación y ruptura, y rastrea el movimiento de precio posterior.</p>
+
+            <div class="exercise-actions">
+                <button class="exercise-btn" onclick="showJournalForm()">
+                    <span>📊</span>
+                    <span>Usar Aplicación Interactiva</span>
+                </button>
+                <button class="exercise-btn secondary" onclick="downloadTemplate()">
+                    <span>📥</span>
+                    <span>Descargar Plantilla</span>
+                </button>
+            </div>
+        </section>
+
+        <section class="interactive-exercise hidden" lang="pt">
+            <div class="exercise-header">
+                <h3 class="exercise-title">Exercício Prático</h3>
+                <div class="quiz-xp-reward">+100 XP</div>
+            </div>
+            <p>Identifique três padrões de gráficos diferentes em seu mercado escolhido durante a próxima semana. Documente cada padrão com capturas de tela, observe o volume durante a formação e ruptura, e rastreie o movimento de preço subsequente.</p>
+
+            <div class="exercise-actions">
+                <button class="exercise-btn" onclick="showJournalForm()">
+                    <span>📊</span>
+                    <span>Usar Aplicativo Interativo</span>
+                </button>
+                <button class="exercise-btn secondary" onclick="downloadTemplate()">
+                    <span>📥</span>
+                    <span>Baixar Modelo</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- ========== LESSON NAVIGATION ========== -->
+        <nav class="lesson-navigation">
+            <a href="lesson-03.html" class="nav-button prev">
+                <span lang="ar">← الدرس السابق</span>
+                <span lang="en" class="hidden">← Previous Lesson</span>
+                <span lang="es" class="hidden">← Lección Anterior</span>
+                <span lang="pt" class="hidden">← Lição Anterior</span>
+            </a>
+            <a href="lesson-05.html" class="nav-button next" onclick="completeLesson()">
+                <span lang="ar">الدرس التالي →</span>
+                <span lang="en" class="hidden">Next Lesson →</span>
+                <span lang="es" class="hidden">Siguiente Lección →</span>
+                <span lang="pt" class="hidden">Próxima Lição →</span>
+            </a>
+        </nav>
+    </main>
+
+    <!-- ========== ACHIEVEMENT MODAL ========== -->
+    <div class="achievement-modal" id="achievement-modal">
+        <div class="achievement-content">
+            <div class="achievement-icon">🏆</div>
+            <h2 class="achievement-title" id="achievement-title">Achievement Unlocked!</h2>
+            <p class="achievement-description" id="achievement-desc">Pattern Master</p>
+            <div class="achievement-xp" id="achievement-xp">+100 XP</div>
+            <button class="achievement-close" onclick="closeAchievement()">Continue Learning</button>
+        </div>
+    </div>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="footer">
+        <p class="footer-tagline">Seekapa Your Gateway To Advanced Trading!</p>
+        <p>&copy; 2025 Seekapa Trading Academy. All rights reserved.</p>
+    </footer>
+
+    <!-- ========== INTERACTIVE JAVASCRIPT ========== -->
+    <script>
+        // ========== USER DATA MANAGEMENT ==========
+        let userData = {
+            xp: 0,
+            streak: 1,
+            lessonsCompleted: [],
+            quizzesCompleted: {},
+            patternEntries: []
+        };
+
+        // Load user data from localStorage
+        function loadUserData() {
+            const saved = localStorage.getItem('seekapa-user-data');
+            if (saved) {
+                userData = JSON.parse(saved);
+                updateUserStats();
+            }
+        }
+
+        // Save user data
+        function saveUserData() {
+            localStorage.setItem('seekapa-user-data', JSON.stringify(userData));
+            updateUserStats();
+        }
+
+        // Update UI with user stats
+        function updateUserStats() {
+            document.getElementById('user-xp').textContent = userData.xp + ' XP';
+            document.getElementById('user-streak').textContent = userData.streak + ' Day' + (userData.streak > 1 ? 's' : '');
+        }
+
+        // ========== QUIZ FUNCTIONALITY ==========
+        let selectedOptions = {};
+
+        function selectQuizOption(element, quizId) {
+            const parentContainer = element.parentElement;
+            parentContainer.querySelectorAll('.quiz-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            element.classList.add('selected');
+            selectedOptions[quizId] = element;
+        }
+
+        function submitQuiz(quizId) {
+            if (!selectedOptions[quizId]) {
+                alert('Please select an answer!');
+                return;
+            }
+
+            const selectedOption = selectedOptions[quizId];
+            const isCorrect = selectedOption.dataset.correct === 'true';
+            const feedback = document.getElementById(quizId + '-feedback') || 
+                           document.getElementById(quizId + '-feedback-en') || 
+                           document.getElementById(quizId + '-feedback-es') ||
+                           document.getElementById(quizId + '-feedback-pt');
+            const submitBtn = document.getElementById(quizId + '-submit') || 
+                            document.getElementById(quizId + '-submit-en') ||
+                            document.getElementById(quizId + '-submit-es') ||
+                            document.getElementById(quizId + '-submit-pt');
+
+            if (isCorrect) {
+                selectedOption.classList.add('correct');
+                feedback.textContent = '✓ Correct! Great job!';
+                feedback.classList.add('correct');
+
+                if (!userData.quizzesCompleted[quizId]) {
+                    userData.xp += 30;
+                    userData.quizzesCompleted[quizId] = true;
+                    saveUserData();
+                    showAchievement('Quiz Master!', 'You answered correctly!', '+30 XP');
+                }
+            } else {
+                selectedOption.classList.add('incorrect');
+                feedback.textContent = '✗ Not quite. Please review the content and try again!';
+                feedback.classList.add('incorrect');
+            }
+
+            submitBtn.disabled = true;
+        }
+
+        // ========== INTERACTIVE EXERCISE ==========
+        function showJournalForm() {
+            document.getElementById('journal-form').classList.remove('hidden');
+        }
+
+        function downloadTemplate() {
+            alert('Pattern tracking template downloaded! Check your Downloads folder.');
+        }
+
+        function savePatternEntry() {
+            const patternType = document.getElementById('pattern-type').value;
+            const asset = document.getElementById('asset-input').value;
+            const notes = document.getElementById('notes-input').value;
+
+            if (!patternType || !asset) {
+                alert('Please fill in pattern type and asset!');
+                return;
+            }
+
+            const entry = {
+                date: new Date().toISOString(),
+                type: patternType,
+                asset: asset,
+                notes: notes
+            };
+
+            userData.patternEntries.push(entry);
+            userData.xp += 100;
+            saveUserData();
+
+            showAchievement('Pattern Documented!', 'Keep analyzing charts!', '+100 XP');
+
+            // Clear form
+            document.getElementById('pattern-type').value = '';
+            document.getElementById('asset-input').value = '';
+            document.getElementById('notes-input').value = '';
+        }
+
+        // ========== ACHIEVEMENT SYSTEM ==========
+        function showAchievement(title, description, xp) {
+            document.getElementById('achievement-title').textContent = title;
+            document.getElementById('achievement-desc').textContent = description;
+            document.getElementById('achievement-xp').textContent = xp;
+            document.getElementById('achievement-modal').classList.add('active');
+        }
+
+        function closeAchievement() {
+            document.getElementById('achievement-modal').classList.remove('active');
+        }
+
+        // ========== LESSON COMPLETION ==========
+        function completeLesson() {
+            if (!userData.lessonsCompleted.includes('lesson-04')) {
+                userData.lessonsCompleted.push('lesson-04');
+                userData.xp += 200;
+                saveUserData();
+                showAchievement('Lesson Complete!', 'You mastered Chart Patterns!', '+200 XP');
+            }
+        }
+
+        // ========== LANGUAGE SWITCHING ==========
+        let currentLang = localStorage.getItem('seekapa-language') || 'ar';
+
+        function switchLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('seekapa-language', lang);
+
+            document.documentElement.lang = lang;
+            document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+
+            // Update active button
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.lang === lang);
+            });
+
+            // Show/hide language-specific content
+            document.querySelectorAll('[lang]').forEach(el => {
+                el.classList.toggle('hidden', el.getAttribute('lang') !== lang);
+            });
+
+            updateVideoTitle(lang);
+            updateProgressTitle(lang);
+        }
+
+        function updateVideoTitle(lang) {
+            const titles = {
+                ar: 'فيديو الدرس قيد الإعداد',
+                en: 'Video Lesson Coming Soon',
+                es: 'Video de la Lección Próximamente',
+                pt: 'Vídeo da Lição em Breve'
+            };
+            document.getElementById('video-title').textContent = titles[lang];
+        }
+
+        function updateProgressTitle(lang) {
+            const titles = {
+                ar: 'التقدم: الدرس 4 من 12',
+                en: 'Progress: Lesson 4 of 12',
+                es: 'Progreso: Lección 4 de 12',
+                pt: 'Progresso: Lição 4 de 12'
+            };
+            document.getElementById('progress-title').textContent = titles[lang];
+        }
+
+        // ========== INITIALIZE ==========
+        document.addEventListener('DOMContentLoaded', function() {
+            loadUserData();
+            switchLanguage(currentLang);
+
+            // Animate progress bar
+            setTimeout(() => {
+                document.getElementById('progress-fill').style.width = '33.33%';
+            }, 500);
+        });
+    </script>
+</body>
+</html>
